@@ -1,0 +1,43 @@
+# NocoBase 本机服务：价值投资工作台
+# 启动: docker compose up -d   停止: docker compose stop   访问: http://localhost:13000
+# 项目名写死，目录挪动或改名后容器名、网络名不变
+name: nocobase
+
+networks:
+  nocobase:
+    driver: bridge
+
+services:
+  app:
+    image: nocobase/nocobase:2.2.29
+    restart: unless-stopped
+    networks: [nocobase]
+    depends_on: [postgres]
+    environment:
+      - APP_KEY=${APP_KEY}
+      - DB_DIALECT=postgres
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=nocobase
+      - DB_USER=nocobase
+      - DB_PASSWORD=${DB_PASSWORD}
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./storage:/app/nocobase/storage
+    ports:
+      - "127.0.0.1:13000:80"
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    command: postgres -c wal_level=logical
+    networks: [nocobase]
+    environment:
+      POSTGRES_USER: nocobase
+      POSTGRES_DB: nocobase
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      TZ: Asia/Shanghai
+    volumes:
+      - ./storage/db/postgres:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:15432:5432"

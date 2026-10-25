@@ -1,0 +1,199 @@
+{
+ "version": "1",
+ "mode": "create",
+ "navigation": {
+  "item": {
+   "title": "参数字典",
+   "icon": "TableOutlined"
+  },
+  "group": {
+   "title": "5 归档",
+   "icon": "InboxOutlined"
+  }
+ },
+ "page": {
+  "title": "参数字典",
+  "documentTitle": "长江电力 · 参数字典"
+ },
+ "defaults": {
+  "collections": {
+   "cj_v1_param": {
+    "popups": {
+     "view": {
+      "name": "参数字典·详情",
+      "description": "查看一条「参数字典」记录"
+     },
+     "addNew": {
+      "name": "参数字典·新增",
+      "description": "新增一条「参数字典」记录（只含输入字段）"
+     },
+     "edit": {
+      "name": "参数字典·编辑",
+      "description": "编辑一条「参数字典」记录（只含输入字段）"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "param_name",
+       "symbol",
+       "category",
+       "definition",
+       "unit",
+       "current_value",
+       "model_role",
+       "param_relation",
+       "update_freq",
+       "data_source"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "source_note",
+       "mapping_reason",
+       "last_updated",
+       "revision_log"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "feishu_id"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "tabs": [
+  {
+   "title": "参数字典",
+   "blocks": [
+    {
+     "key": "main",
+     "type": "table",
+     "collection": "cj_v1_param",
+     "fields": [
+      "param_name",
+      "symbol",
+      "category",
+      "unit",
+      "definition",
+      "model_role",
+      "param_relation",
+      "current_value",
+      "data_source",
+      "source_note",
+      "mapping_reason",
+      "update_freq",
+      "last_updated",
+      "revision_log"
+     ],
+     "settings": {
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "id",
+        "direction": "asc"
+       }
+      ]
+     },
+     "actions": [
+      "filter",
+      "refresh",
+      {
+       "type": "addNew",
+       "popup": {
+        "title": "新增 · 参数字典",
+        "blocks": [
+         {
+          "type": "createForm",
+          "resource": {
+           "collectionName": "cj_v1_param"
+          },
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "param_name",
+             "symbol",
+             "category",
+             "definition",
+             "unit",
+             "current_value",
+             "model_role",
+             "param_relation",
+             "update_freq",
+             "data_source"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "source_note",
+             "mapping_reason",
+             "last_updated",
+             "revision_log"
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "bulkDelete"
+     ],
+     "recordActions": [
+      "view",
+      {
+       "type": "edit",
+       "popup": {
+        "title": "编辑 · 参数字典",
+        "blocks": [
+         {
+          "type": "editForm",
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "param_name",
+             "symbol",
+             "category",
+             "definition",
+             "unit",
+             "current_value",
+             "model_role",
+             "param_relation",
+             "update_freq",
+             "data_source"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "source_note",
+             "mapping_reason",
+             "last_updated",
+             "revision_log"
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "delete"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,58 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "PMnCb5BsGaME0ysW21uc7pHJnDb",
+  "table_id": "tblfkSvg3KLT4x6v",
+  "rev": 6,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 9,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/dielangli/Desktop/Coding/nocobase/migration/feishu_export/tblfkSvg3KLT4x6v.ndjson",
+  "record_file_size_bytes": 5202,
+  "manifest_file": "/Users/dielangli/Desktop/Coding/nocobase/migration/feishu_export/tblfkSvg3KLT4x6v.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 14
+      },
+      "example": "recvvElWrBUrCc"
+    },
+    "主题": {
+      "field_id": "fldLm1OqHd",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 15
+      },
+      "example": "表格地图"
+    },
+    "规则与操作": {
+      "field_id": "fldMBUtyA3",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 352
+      },
+      "example": "金额＝人民币亿元；股本＝亿股；电量＝亿千瓦时；电价＝元/千瓦时；比率填小数，0.052 表示 5.2%。历史、预测和市场价格日期分别保存。"
+    },
+    "适用范围": {
+      "field_id": "fld42n8TZU",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "导航"
+    }
+  }
+}

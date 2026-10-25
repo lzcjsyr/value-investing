@@ -1,0 +1,72 @@
+{
+ "version": "1",
+ "mode": "create",
+ "navigation": {
+  "item": {
+   "title": "敏感性：折现率×永续增长",
+   "icon": "FundOutlined"
+  },
+  "group": {
+   "routeId": 393353221701632
+  }
+ },
+ "page": {
+  "title": "敏感性：折现率×永续增长",
+  "documentTitle": "价值投资框架 · 敏感性：折现率×永续增长"
+ },
+ "defaults": {
+  "collections": {
+   "vi_sensitivity": {
+    "popups": {
+     "view": {
+      "name": "敏感性：折现率×永续增长·详情",
+      "description": "查看一条「敏感性：折现率×永续增长」记录"
+     },
+     "addNew": {
+      "name": "敏感性：折现率×永续增长·新增",
+      "description": "新增一条「敏感性：折现率×永续增长」记录"
+     },
+     "edit": {
+      "name": "敏感性：折现率×永续增长·编辑",
+      "description": "编辑一条「敏感性：折现率×永续增长」记录"
+     }
+    }
+   }
+  }
+ },
+ "tabs": [
+  {
+   "title": "敏感性：折现率×永续增长",
+   "blocks": [
+    {
+     "key": "main",
+     "type": "table",
+     "collection": "vi_sensitivity",
+     "fields": [
+      "label",
+      "r",
+      "g",
+      "value_today",
+      "value_base_date"
+     ],
+     "settings": {
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "id",
+        "direction": "asc"
+       }
+      ]
+     },
+     "actions": [
+      "filter",
+      "refresh"
+     ],
+     "recordActions": [
+      "view"
+     ]
+    }
+   ]
+  }
+ ]
+}

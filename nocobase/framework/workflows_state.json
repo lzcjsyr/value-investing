@@ -1,0 +1,45 @@
+{
+ "collect": {
+  "id": 393369961037824,
+  "key": "65oon6gllgl",
+  "nodes": [
+   "ehe7nqs7fnf",
+   "neucqz3iuit",
+   "ui6j7rndzbm",
+   "utpj7s8qpxd",
+   "4clk94yhgdg"
+  ]
+ },
+ "ingest": {
+  "id": 393369971523584,
+  "key": "iiedfgok4at",
+  "nodes": [
+   "qv0g9rt81ze"
+  ]
+ },
+ "selfcheck": {
+  "id": 393369982009344,
+  "key": "tnqi2s9xfea",
+  "nodes": [
+   "n1bjpztyo27",
+   "bwcbbam318l",
+   "tvqn18v0hj7",
+   "w9v5ktn5c9x"
+  ]
+ },
+ "manual": {
+  "id": 393649962483712,
+  "key": "zy5g20pzs6d",
+  "nodes": [
+   "gcuza7h90s8",
+   "wzk31dflg2s",
+   "uot2fv8kvc9",
+   "fhsgu993n40",
+   "dkn11knlw4a",
+   "6b01b7j3nil",
+   "up3aovy8fwe",
+   "lpoo70yduko",
+   "fm88041wbvs"
+  ]
+ }
+}

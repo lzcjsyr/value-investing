@@ -2,12 +2,12 @@
 
 一句话：**一个可复用的价值投资研究数据库**，同时研究五家公司——长江电力（600900.SH）、太阳纸业（002078.SZ）、中国建筑（601668.SH）、腾讯音乐（01698.HK）、小米集团（01810.HK）。研究链条固定为「来源 → 事实 → 论点 → 假设 → 估值 → 跟踪」，换公司只换数据，不换结构。
 
-本目录（`二级市场/价值投资/`）放**研究材料与给人读的报告**；**程序和数据在 `~/Desktop/Coding/nocobase/`**（PostgreSQL 存数据，脚本生成表、公式和页面）。两边不是两份数据，本目录的手册都是副本或旧记录，**以数据库为准**。
+本目录（`二级市场/价值投资/`）是一个完整项目：各公司文件夹放**研究材料与给人读的报告**；**程序和数据在 `nocobase/`**（PostgreSQL 存数据，脚本生成表、公式和页面；2026-10-25 从 `~/Desktop/二级市场/价值投资/nocobase` 迁入）。两边不是两份数据，各公司文件夹里的手册都是副本或旧记录，**以数据库为准**。
 
 ## 一、怎么打开
 
 ```sh
-cd ~/Desktop/Coding/nocobase
+cd ~/Desktop/二级市场/价值投资/nocobase
 docker compose up -d          # 先启动 Docker Desktop
 ```
 
@@ -69,9 +69,9 @@ docker compose up -d          # 先启动 Docker Desktop
 | `后台数据结构说明/*_2026102x/` | 最近几次维护的前后快照与核验记录（清理失效登记、经营影响字段、集合改名） |
 | `*/投资逻辑与工作台手册.md` | 各公司的投资逻辑与读数（写于 2026-09—10，**数值可能过时**，以库里为准） |
 | `长江电力/workbench_v2/运行与维护.md` | 飞书时期的工作台细节（历史资料） |
-| `~/Desktop/Coding/nocobase/README.md` | 启动、菜单、采集、踩过的坑 |
-| `~/Desktop/Coding/nocobase/framework/README.md` | 表定义、公式、页面/工作流生成脚本、重建步骤（技术细节最全） |
-| `~/Desktop/Coding/nocobase/framework/tools/` | `rebuild_check.py` 空库重建比对、`content_audit.py` 内容核对、`kpi_check.sh` 无浏览器验证驾驶舱 |
+| `nocobase/README.md` | 启动、菜单、采集、踩过的坑 |
+| `nocobase/framework/README.md` | 表定义、公式、页面/工作流生成脚本、重建步骤（技术细节最全） |
+| `nocobase/framework/tools/` | `rebuild_check.py` 空库重建比对、`content_audit.py` 内容核对、`kpi_check.sh` 无浏览器验证驾驶舱 |
 
 ## 六、改东西之前
 

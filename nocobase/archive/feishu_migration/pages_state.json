@@ -1,0 +1,116 @@
+{
+ "groups": {
+  "2 估值": 393340077801472,
+  "0 驾驶舱": 393340142813184,
+  "1 研究": 393340155396096,
+  "3 跟踪": 393340388179968,
+  "4 后台": 393340467871744,
+  "5 归档": 393340509814784
+ },
+ "pages": {
+  "scenario": {
+   "routeId": 393340077801473,
+   "pageSchemaUid": "ml0d30v3xhe"
+  },
+  "guide": {
+   "routeId": 393340142813185,
+   "pageSchemaUid": "r2aouzh5rvj"
+  },
+  "biz_model": {
+   "routeId": 393340155396097,
+   "pageSchemaUid": "4xpzr9khf6x"
+  },
+  "evidence": {
+   "routeId": 393340174270464,
+   "pageSchemaUid": "xhc1p1hsjqh"
+  },
+  "fact_mapping": {
+   "routeId": 393340195241984,
+   "pageSchemaUid": "hpc3cesw0ma"
+  },
+  "annual": {
+   "routeId": 393340218310656,
+   "pageSchemaUid": "r587p6zgfwh"
+  },
+  "fin_calc": {
+   "routeId": 393340279128064,
+   "pageSchemaUid": "kbtiud2n7ol"
+  },
+  "valuation": {
+   "routeId": 393340312682496,
+   "pageSchemaUid": "vbtqme59kwn"
+  },
+  "sens_rg": {
+   "routeId": 393340337848320,
+   "pageSchemaUid": "7x4usuq5cx1"
+  },
+  "param_trial": {
+   "routeId": 393340360916992,
+   "pageSchemaUid": "se1gwrl0l47"
+  },
+  "tracking": {
+   "routeId": 393340390277120,
+   "pageSchemaUid": "8rbae8df5sv"
+  },
+  "market_obs": {
+   "routeId": 393340411248640,
+   "pageSchemaUid": "5nva0nkrc6a"
+  },
+  "quality": {
+   "routeId": 393340434317312,
+   "pageSchemaUid": "rygpcmo9ca2"
+  },
+  "change_log": {
+   "routeId": 393340451094528,
+   "pageSchemaUid": "cnw09ctj5df"
+  },
+  "collect_ctl": {
+   "routeId": 393340467871745,
+   "pageSchemaUid": "ynf472b5k8y"
+  },
+  "collect_raw": {
+   "routeId": 393340486746112,
+   "pageSchemaUid": "a9solhxznfv"
+  },
+  "v1_param": {
+   "routeId": 393340509814785,
+   "pageSchemaUid": "qxhfbfq0j1c"
+  },
+  "v1_annual": {
+   "routeId": 393340530786304,
+   "pageSchemaUid": "1vg5a07uzpo"
+  },
+  "v1_quarterly": {
+   "routeId": 393340553854976,
+   "pageSchemaUid": "968rz9538mv"
+  },
+  "v1_source": {
+   "routeId": 393340570632192,
+   "pageSchemaUid": "3onpo9h1584"
+  },
+  "v1_announce": {
+   "routeId": 393340587409408,
+   "pageSchemaUid": "b0f344i6do6"
+  },
+  "v1_thesis": {
+   "routeId": 393340606283776,
+   "pageSchemaUid": "7cfkgi8856f"
+  },
+  "v1_valuation": {
+   "routeId": 393340623060992,
+   "pageSchemaUid": "or72nwvaea8"
+  },
+  "v1_forecast": {
+   "routeId": 393340646129664,
+   "pageSchemaUid": "big5d0mq8gz"
+  },
+  "v1_scenario": {
+   "routeId": 393340667101184,
+   "pageSchemaUid": "ccvpyabz7ea"
+  },
+  "v1_sens": {
+   "routeId": 393340681781248,
+   "pageSchemaUid": "jmq7l6pun5a"
+  }
+ }
+}

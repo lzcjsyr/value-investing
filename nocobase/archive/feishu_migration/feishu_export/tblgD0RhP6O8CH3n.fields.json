@@ -1,0 +1,184 @@
+[
+  {
+    "bidirectional": false,
+    "id": "fldq2HeeIj",
+    "link_table": "tbl5aXeR7rjoTkM9",
+    "name": "预测行",
+    "type": "link"
+  },
+  {
+    "default_value": null,
+    "id": "fldhYZjCjM",
+    "name": "情景",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "expression": "[预测期现值亿元]-[2.3 财务计算].FILTER(CurrentValue.[情景名称]=[情景]).[计划股息现值亿元].SUM()",
+    "id": "fldWxZJP9o",
+    "name": "预测期勾稽差额亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "IF(AND([模型勾稽]=\"通过\",[现金完整年数]=[终值年份]-[估值基年],[折现率]>[永续增长率],[股本亿股]>0),([预测行].[现金支持股息现值亿元].SUM()+[终年现金股息]*(1+[永续增长率])/([折现率]-[永续增长率])/POWER(1+[折现率],[终值年份]-[估值基年]))/[股本亿股],\"\")",
+    "id": "fldYAFYtn2",
+    "name": "现金支持DDM元",
+    "type": "formula"
+  },
+  {
+    "expression": "[预测行].[模型键].COUNTA()",
+    "id": "fldn9jrvFN",
+    "name": "关联预测行数",
+    "type": "formula"
+  },
+  {
+    "expression": "IF(AND([模型勾稽]=\"通过\",[折现率]>[永续增长率],[股本亿股]>0),([预测期现值亿元]+[终值现值亿元])/[股本亿股],\"\")",
+    "id": "fldDsf8f7E",
+    "name": "条件DDM元",
+    "type": "formula"
+  },
+  {
+    "expression": "IF([条件DDM元]>0,[条件DDM元]*0.7,\"\")",
+    "id": "fldrWa1BFW",
+    "name": "关注价30元",
+    "type": "formula"
+  },
+  {
+    "expression": "[2.3 财务计算].COUNTIF(AND(CurrentValue.[情景名称]=[情景],CurrentValue.[现金数据完整]=TRUE()))",
+    "id": "fldvuHLVuA",
+    "name": "现金完整年数",
+    "type": "formula"
+  },
+  {
+    "expression": "[情景输入].[最近股价元].FIRST()",
+    "id": "fld07o4qXI",
+    "name": "市场观察价元",
+    "type": "formula"
+  },
+  {
+    "expression": "[2.3 财务计算].FILTER(AND(CurrentValue.[情景名称]=[情景],CurrentValue.[年份]=[终值年份])).[计划股息亿元].FIRST()",
+    "id": "fldPT4tcob",
+    "name": "终年股息亿元",
+    "type": "formula"
+  },
+  {
+    "default_value": null,
+    "id": "fldyxJs5dq",
+    "name": "使用说明",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "expression": "IF([条件DDM元]>0,[终值现值亿元]/([条件DDM元]*[股本亿股]),\"\")",
+    "id": "fldkjv4Odn",
+    "name": "终值占比",
+    "type": "formula"
+  },
+  {
+    "expression": "[情景输入].[永续增长率].FIRST()",
+    "id": "fldIC4NPkp",
+    "name": "永续增长率",
+    "type": "formula"
+  },
+  {
+    "expression": "IF(AND([关联预测行数]=[终值年份]-[估值基年],[同名模型行数]=[关联预测行数],[终年模型行数]=1,ABS([预测期勾稽差额亿元])<0.000001),\"通过\",\"缺行或引用不一致\")",
+    "id": "fld6djDwl4",
+    "name": "模型勾稽",
+    "type": "formula"
+  },
+  {
+    "expression": "[情景输入].[有效折现率].FIRST()",
+    "id": "fldXNNRcDY",
+    "name": "折现率",
+    "type": "formula"
+  },
+  {
+    "expression": "[情景输入].[有效旧股价].FIRST()",
+    "id": "fldd0JKqcm",
+    "name": "旧股价",
+    "type": "formula"
+  },
+  {
+    "expression": "[情景输入].[有效终值年份].FIRST()",
+    "id": "fldWTap9tH",
+    "name": "终值年份",
+    "type": "formula"
+  },
+  {
+    "expression": "\"待核验：旧价格、税及少数股东代理、资本更新与终值可持续性未通过；不得机械买卖\"",
+    "id": "fldCFeCV2z",
+    "name": "决策状态",
+    "type": "formula"
+  },
+  {
+    "expression": "[2.3 财务计算].COUNTIF(AND(CurrentValue.[情景名称]=[情景],CurrentValue.[年份]=[终值年份]))",
+    "id": "fldBZ0JOjj",
+    "name": "终年模型行数",
+    "type": "formula"
+  },
+  {
+    "expression": "[预测行].[计划股息现值亿元].SUM()",
+    "id": "fldKYzT8ab",
+    "name": "预测期现值亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "[2.3 财务计算].COUNTIF(CurrentValue.[情景名称]=[情景])",
+    "id": "fld8L3PIJ8",
+    "name": "同名模型行数",
+    "type": "formula"
+  },
+  {
+    "expression": "[2.3 财务计算].FILTER(AND(CurrentValue.[情景名称]=[情景],CurrentValue.[年份]=[终值年份])).[现金支持分红亿元].FIRST()",
+    "id": "fldf3fE9Ks",
+    "name": "终年现金股息",
+    "type": "formula"
+  },
+  {
+    "bidirectional": false,
+    "id": "fldriKOsfG",
+    "link_table": "tbl2aFkmDryVrEX1",
+    "name": "情景输入",
+    "type": "link"
+  },
+  {
+    "expression": "IF([条件DDM元]>0,1-[旧股价]/[条件DDM元],\"\")",
+    "id": "fldNZ9beqX",
+    "name": "旧价安全边际",
+    "type": "formula"
+  },
+  {
+    "expression": "[情景输入].[有效估值基年].FIRST()",
+    "id": "fldmF7INGQ",
+    "name": "估值基年",
+    "type": "formula"
+  },
+  {
+    "expression": "IF([折现率]>[永续增长率],[终年股息亿元]*(1+[永续增长率])/([折现率]-[永续增长率])/POWER(1+[折现率],[终值年份]-[估值基年]),\"\")",
+    "id": "fldhzjVxk7",
+    "name": "终值现值亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "[情景输入].[有效股本亿股].FIRST()",
+    "id": "fldo6k39aJ",
+    "name": "股本亿股",
+    "type": "formula"
+  },
+  {
+    "expression": "IF([条件DDM元]>0,[条件DDM元]*0.9,\"\")",
+    "id": "fldB7OJ6ro",
+    "name": "关注价10元",
+    "type": "formula"
+  },
+  {
+    "expression": "[情景输入].[最近股价日期].FIRST()",
+    "id": "fldzJsLanG",
+    "name": "市场观察日期",
+    "type": "formula"
+  }
+]

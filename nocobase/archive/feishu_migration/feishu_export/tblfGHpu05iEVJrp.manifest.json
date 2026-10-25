@@ -1,0 +1,312 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "PMnCb5BsGaME0ysW21uc7pHJnDb",
+  "table_id": "tblfGHpu05iEVJrp",
+  "rev": 330,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 102,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/dielangli/Desktop/Coding/nocobase/migration/feishu_export/tblfGHpu05iEVJrp.ndjson",
+  "record_file_size_bytes": 2001270,
+  "manifest_file": "/Users/dielangli/Desktop/Coding/nocobase/migration/feishu_export/tblfGHpu05iEVJrp.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 16
+      },
+      "example": "recvvFPEEOW4Qr"
+    },
+    "三峡数据对象": {
+      "field_id": "flddm1y4lB",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 104
+      },
+      "example": "{\"oq\":\"9950\",\"rvnm\":\"长江干流\",\"stcd\":\"60106980\",\"stnm\":\"三峡水库\",\"tm\":1792490400000,\"wptn\":\"4\",\"z\":\"174.320\"}"
+    },
+    "允许入库": {
+      "field_id": "fldIwQlsfT",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 1
+      },
+      "example": "0"
+    },
+    "入库指令": {
+      "field_id": "fldfzHp2yd",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 2
+      },
+      "example": "跳过"
+    },
+    "单位": {
+      "field_id": "fld42YycI6",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 1
+      },
+      "example": "%"
+    },
+    "原始ID": {
+      "field_id": "fldUgjFtI2",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 16
+      },
+      "example": "recvvFPEEOW4Qr"
+    },
+    "原始响应": {
+      "field_id": "fldHxiF6as",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 17912
+      },
+      "example": "{\"body\":\"v_sh600900=\\\"1~��������~600900~28.38~28.55~28.50~676751~308103~368647~28.38~439~28.37~607~28.36~1216~28.35~5146~28.34~4",
+      "example_truncated": true
+    },
+    "响应去转义": {
+      "field_id": "fldcIhR631",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 16450
+      },
+      "example": "{\"body\":\"v_sh600900=\"1~��������~600900~28.38~28.55~28.50~676751~308103~368647~28.38~439~28.37~607~28.36~1216~28.35~5146~28.34~45",
+      "example_truncated": true
+    },
+    "国债数据行": {
+      "field_id": "fldBrmKSAt",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 722
+      },
+      "example": "rn                      <!--  <td style=\"border-left:1px solid #000000\">0.9702 </td> -->rn                       <td style=\"bord",
+      "example_truncated": true
+    },
+    "国债行": {
+      "field_id": "fldaS3xt4M",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "处理状态": {
+      "field_id": "fldiBBlpHK",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "完成（新增或已去重）"
+    },
+    "已有观察数": {
+      "field_id": "fldyzOrsK2",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 1
+      },
+      "example": "1"
+    },
+    "指标代码": {
+      "field_id": "fldJU7w7Zv",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 16
+      },
+      "example": "CJH-SX-LEVEL"
+    },
+    "数值V2": {
+      "field_id": "fldKKSm2jO",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "28.1"
+    },
+    "数值候选": {
+      "field_id": "fldDxqvFkr",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 5
+      },
+      "example": "0"
+    },
+    "日期V2": {
+      "field_id": "fldijC8LuF",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 10
+      },
+      "example": "2026-09-19"
+    },
+    "日期候选": {
+      "field_id": "fld4Me82J4",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 8
+      },
+      "example": "20260918"
+    },
+    "日期有效": {
+      "field_id": "fldTFl5rUd",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 1
+      },
+      "example": "0"
+    },
+    "来源网址": {
+      "field_id": "fldjjDv7B4",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 66
+      },
+      "example": "https://qt.gtimg.cn/q=sh600900"
+    },
+    "校验V2": {
+      "field_id": "fldGCrKtTk",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 1
+      },
+      "example": "1"
+    },
+    "校验通过": {
+      "field_id": "fld4bgLUoj",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 1
+      },
+      "example": "0"
+    },
+    "水库对象": {
+      "field_id": "fldMcu5aZd",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "观察键": {
+      "field_id": "fldu96bkSZ",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 31
+      },
+      "example": "CJH-SX-LEVEL||"
+    },
+    "观察键V2": {
+      "field_id": "fldtFJhxUL",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 34
+      },
+      "example": "CJH-SX-LEVEL|2026-09-19|161.61"
+    },
+    "观测日期": {
+      "field_id": "fldKNANUkz",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 10
+      },
+      "example": "2026-09-18"
+    },
+    "运行标识": {
+      "field_id": "fld3b9FaQw",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 33
+      },
+      "example": "CJH-SX-LEVEL|2026/09/19 21:46"
+    },
+    "运行结果": {
+      "field_id": "flds2OL1so",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 10
+      },
+      "example": "完成（已入库或去重）"
+    },
+    "采集时间": {
+      "field_id": "fldbArgQ4F",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "min": "2026-09-19T21:46:01.310+08:00",
+        "max": "2026-10-21T18:30:07.211+08:00"
+      },
+      "example": "2026-09-19T21:46:01.310+08:00"
+    },
+    "采集时间文本": {
+      "field_id": "fldbCCpftx",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 19
+      },
+      "example": "2026-09-19 21:46:01"
+    }
+  }
+}

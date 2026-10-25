@@ -1,0 +1,438 @@
+{
+ "version": "1",
+ "mode": "create",
+ "navigation": {
+  "group": {
+   "routeId": 393340142813184
+  },
+  "item": {
+   "title": "驾驶舱",
+   "icon": "DashboardOutlined"
+  }
+ },
+ "page": {
+  "title": "驾驶舱",
+  "documentTitle": "长江电力 · 驾驶舱"
+ },
+ "assets": {
+  "scripts": {
+   "kpi": {
+    "version": "v2",
+    "code": "const { Card, Col, Row, Statistic, Tag, Typography, Alert } = ctx.libs.antd;\n\nasync function listRows(collectionName) {\n  const resource = ctx.makeResource('MultiRecordResource');\n  resource.setResourceName(collectionName);\n  resource.setPageSize?.(200);\n  await resource.refresh();\n  return resource.getData() || [];\n}\n\nconst fmt = (v, d = 2) => (v === null || v === undefined || v === '' ? '—' : Number(v).toFixed(d));\nconst pct = (v, d = 1) => (v === null || v === undefined || v === '' ? '—' : (Number(v) * 100).toFixed(d) + '%');\n\ntry {\n  const [valuations, scenarios, quality, collect] = await Promise.all([\n    listRows('cj_valuation'),\n    listRows('cj_scenario'),\n    listRows('cj_quality'),\n    listRows('cj_collect_ctl'),\n  ]);\n  const base = valuations.find((r) => r.scenario === '基准') || {};\n  const baseScenario = scenarios.find((r) => r.scenario === '基准') || {};\n  const passed = valuations.filter((r) => r.model_check === '通过').length;\n  const connected = collect.filter((r) => r.integration_status === '云端已接入');\n  const healthy = connected.filter((r) => r.health_status === '正常').length;\n  const premium = base.cond_ddm > 0 && base.market_price ? base.market_price / base.cond_ddm - 1 : null;\n\n  ctx.render(\n    <div>\n      <Row gutter={[12, 12]}>\n        <Col xs={12} md={6}><Card size=\"small\"><Statistic title=\"基准条件DDM（元/股）\" value={fmt(base.cond_ddm)} /></Card></Col>\n        <Col xs={12} md={6}><Card size=\"small\"><Statistic title={`市场观察价（${base.market_date || '—'}）`} value={fmt(base.market_price)} /></Card></Col>\n        <Col xs={12} md={6}><Card size=\"small\"><Statistic title=\"市场价相对条件DDM\" value={premium === null ? '—' : (premium * 100).toFixed(1) + '%'} /></Card></Col>\n        <Col xs={12} md={6}><Card size=\"small\"><Statistic title=\"基准有效折现率\" value={pct(baseScenario.eff_discount_rate)} /></Card></Col>\n        <Col xs={12} md={6}><Card size=\"small\"><Statistic title=\"关注价·10%边际（元）\" value={fmt(base.watch_price_10)} /></Card></Col>\n        <Col xs={12} md={6}><Card size=\"small\"><Statistic title=\"关注价·30%边际（元）\" value={fmt(base.watch_price_30)} /></Card></Col>\n        <Col xs={12} md={6}><Card size=\"small\"><Statistic title=\"三情景模型勾稽\" value={`${passed} / ${valuations.length} 通过`} /></Card></Col>\n        <Col xs={12} md={6}><Card size=\"small\"><Statistic title=\"已接入数据健康\" value={`${healthy} / ${connected.length} 正常`} /></Card></Col>\n      </Row>\n      <Typography.Paragraph type=\"secondary\" style={{ marginTop: 8, marginBottom: 0 }}>\n        {base.decision_status || ''}\n      </Typography.Paragraph>\n    </div>\n  );\n} catch (error) {\n  ctx.render(<Alert type=\"error\" showIcon message=\"驾驶舱指标读取失败\" description={String(error?.message || error)} />);\n}\n"
+   }
+  },
+  "charts": {
+   "ddm": {
+    "query": {
+     "mode": "sql",
+     "sql": "SELECT scenario, round(cond_ddm::numeric, 2) AS cond_ddm FROM cj_valuation ORDER BY id"
+    },
+    "visual": {
+     "mode": "basic",
+     "type": "bar",
+     "mappings": {
+      "x": "scenario",
+      "y": "cond_ddm"
+     }
+    }
+   },
+   "watch": {
+    "query": {
+     "mode": "sql",
+     "sql": "SELECT scenario, '关注价10元' AS level, round(watch_price_10::numeric, 2) AS price, id FROM cj_valuation UNION ALL SELECT scenario, '关注价30元', round(watch_price_30::numeric, 2), id FROM cj_valuation ORDER BY id, level"
+    },
+    "visual": {
+     "mode": "basic",
+     "type": "bar",
+     "mappings": {
+      "x": "scenario",
+      "y": "price",
+      "series": "level"
+     }
+    }
+   },
+   "tv_share": {
+    "query": {
+     "mode": "sql",
+     "sql": "SELECT scenario, round(terminal_share::numeric, 4) AS terminal_share FROM cj_valuation ORDER BY id"
+    },
+    "visual": {
+     "mode": "basic",
+     "type": "bar",
+     "mappings": {
+      "x": "scenario",
+      "y": "terminal_share"
+     }
+    }
+   },
+   "profit_div": {
+    "query": {
+     "mode": "sql",
+     "sql": "SELECT year, '归母利润代理' AS item, round(np_proxy::numeric, 2) AS amount FROM cj_fin_calc WHERE scenario_name = '基准' UNION ALL SELECT year, '计划股息', round(planned_div::numeric, 2) FROM cj_fin_calc WHERE scenario_name = '基准' ORDER BY year, item"
+    },
+    "visual": {
+     "mode": "basic",
+     "type": "line",
+     "mappings": {
+      "x": "year",
+      "y": "amount",
+      "series": "item"
+     }
+    }
+   },
+   "evidence": {
+    "query": {
+     "mode": "sql",
+     "sql": "SELECT verify_status, count(*) AS n FROM cj_evidence GROUP BY verify_status ORDER BY n DESC"
+    },
+    "visual": {
+     "mode": "basic",
+     "type": "barHorizontal",
+     "mappings": {
+      "x": "verify_status",
+      "y": "n"
+     }
+    }
+   },
+   "quality": {
+    "query": {
+     "mode": "sql",
+     "sql": "SELECT live_status, count(*) AS n FROM cj_quality GROUP BY live_status ORDER BY n DESC"
+    },
+    "visual": {
+     "mode": "basic",
+     "type": "barHorizontal",
+     "mappings": {
+      "x": "live_status",
+      "y": "n"
+     }
+    }
+   },
+   "health": {
+    "query": {
+     "mode": "sql",
+     "sql": "SELECT health_status, count(*) AS n FROM cj_collect_ctl GROUP BY health_status ORDER BY health_status"
+    },
+    "visual": {
+     "mode": "basic",
+     "type": "barHorizontal",
+     "mappings": {
+      "x": "health_status",
+      "y": "n"
+     }
+    }
+   },
+   "trial": {
+    "query": {
+     "mode": "sql",
+     "sql": "SELECT trial, round(value_change::numeric, 2) AS value_change FROM cj_param_trial ORDER BY id"
+    },
+    "visual": {
+     "mode": "basic",
+     "type": "barHorizontal",
+     "mappings": {
+      "x": "trial",
+      "y": "value_change"
+     }
+    }
+   },
+   "cgb_wind": {
+    "query": {
+     "mode": "sql",
+     "sql": "SELECT obs_date, max(unified_value) AS value FROM cj_market_obs WHERE metric_code = 'M1001654' AND is_current AND quality_ok = 1 GROUP BY obs_date ORDER BY obs_date"
+    },
+    "visual": {
+     "mode": "basic",
+     "type": "line",
+     "mappings": {
+      "x": "obs_date",
+      "y": "value"
+     }
+    }
+   },
+   "inflow": {
+    "query": {
+     "mode": "sql",
+     "sql": "SELECT obs_date, max(unified_value) AS value FROM cj_market_obs WHERE metric_code = 'Z3791116' AND is_current AND quality_ok = 1 GROUP BY obs_date ORDER BY obs_date"
+    },
+    "visual": {
+     "mode": "basic",
+     "type": "line",
+     "mappings": {
+      "x": "obs_date",
+      "y": "value"
+     }
+    }
+   },
+   "level_wind": {
+    "query": {
+     "mode": "sql",
+     "sql": "SELECT obs_date, max(unified_value) AS value FROM cj_market_obs WHERE metric_code = 'L1680403' AND is_current AND quality_ok = 1 GROUP BY obs_date ORDER BY obs_date"
+    },
+    "visual": {
+     "mode": "basic",
+     "type": "line",
+     "mappings": {
+      "x": "obs_date",
+      "y": "value"
+     }
+    }
+   },
+   "cgb_cloud": {
+    "query": {
+     "mode": "sql",
+     "sql": "SELECT obs_date, max(unified_value) AS value FROM cj_market_obs WHERE metric_code = 'CHINABOND-CGB10Y' AND is_current AND quality_ok = 1 GROUP BY obs_date ORDER BY obs_date"
+    },
+    "visual": {
+     "mode": "basic",
+     "type": "line",
+     "mappings": {
+      "x": "obs_date",
+      "y": "value"
+     }
+    }
+   },
+   "level_cloud": {
+    "query": {
+     "mode": "sql",
+     "sql": "SELECT obs_date, max(unified_value) AS value FROM cj_market_obs WHERE metric_code = 'CJH-SX-LEVEL' AND is_current AND quality_ok = 1 GROUP BY obs_date ORDER BY obs_date"
+    },
+    "visual": {
+     "mode": "basic",
+     "type": "line",
+     "mappings": {
+      "x": "obs_date",
+      "y": "value"
+     }
+    }
+   },
+   "price_cloud": {
+    "query": {
+     "mode": "sql",
+     "sql": "SELECT obs_date, max(unified_value) AS value FROM cj_market_obs WHERE metric_code = 'TENCENT-600900' AND is_current AND quality_ok = 1 GROUP BY obs_date ORDER BY obs_date"
+    },
+    "visual": {
+     "mode": "basic",
+     "type": "line",
+     "mappings": {
+      "x": "obs_date",
+      "y": "value"
+     }
+    }
+   }
+  }
+ },
+ "tabs": [
+  {
+   "title": "驾驶舱",
+   "layout": {
+    "rows": [
+     [
+      {
+       "key": "intro",
+       "span": 12
+      },
+      {
+       "key": "discipline",
+       "span": 12
+      }
+     ],
+     [
+      {
+       "key": "kpi",
+       "span": 24
+      }
+     ],
+     [
+      {
+       "key": "collect",
+       "span": 24
+      }
+     ],
+     [
+      {
+       "key": "ddm",
+       "span": 8
+      },
+      {
+       "key": "watch",
+       "span": 8
+      },
+      {
+       "key": "tv_share",
+       "span": 8
+      }
+     ],
+     [
+      {
+       "key": "profit_div",
+       "span": 8
+      },
+      {
+       "key": "evidence",
+       "span": 8
+      },
+      {
+       "key": "quality",
+       "span": 8
+      }
+     ],
+     [
+      {
+       "key": "health",
+       "span": 8
+      },
+      {
+       "key": "trial",
+       "span": 8
+      },
+      {
+       "key": "cgb_wind",
+       "span": 8
+      }
+     ],
+     [
+      {
+       "key": "inflow",
+       "span": 8
+      },
+      {
+       "key": "level_wind",
+       "span": 8
+      },
+      {
+       "key": "cgb_cloud",
+       "span": 8
+      }
+     ],
+     [
+      {
+       "key": "level_cloud",
+       "span": 8
+      },
+      {
+       "key": "price_cloud",
+       "span": 8
+      }
+     ]
+    ]
+   },
+   "blocks": [
+    {
+     "key": "intro",
+     "type": "markdown",
+     "title": "先看模型质量，再看估值",
+     "settings": {
+      "content": "# 长江电力 · 价值投资驾驶舱\n事实 → 判断 → 参数 → 财务 → 估值 → 证伪\n\n**当前为条件模型，旧财务假设尚待原件核验。** 估值基准为2025年末，不能直接视为今天的目标价。现金桥接缺失时不输出现金支持估值。市场观察独立更新，不自动覆盖长期折现率。"
+     }
+    },
+    {
+     "key": "discipline",
+     "type": "markdown",
+     "title": "研究纪律与操作入口",
+     "settings": {
+      "content": "## 从哪里开始\n1. 3.3 质量检查：先处理关键缺口。\n2. 1.2 证据账本：登记原文、报告期和口径。\n3. 1.3 事实→判断映射：写清为什么改、改哪年、什么情况不改。\n4. 2.2 年度假设与 2.1 情景参数：修改输入，SQL 视图自动重算。\n5. 3.4 变更日志：保留旧值、新值、理由和验证。\n\n## 三条底线\n- 折旧不是免费现金；资本更新不能漏。\n- 偿债、扩张和分红不能重复使用同一笔现金。\n- 好公司与好价格分开判断；先问什么会导致永久损失。"
+     }
+    },
+    {
+     "key": "kpi",
+     "type": "jsBlock",
+     "title": "关键读数",
+     "script": "kpi"
+    },
+    {
+     "key": "collect",
+     "type": "markdown",
+     "title": "采集覆盖与限制",
+     "settings": {
+      "content": "## 本机采集（NocoBase 工作流，电脑开机且 Docker 运行时才执行）\n18:30 抓取 → 18:40 校验去重入库 → 19:10 异常检查。已接入：股价（腾讯）、国债10年（中债）、三峡库水位（长江水文网）。\n原始响应及每次运行状态保存在 4.2 采集原始记录；4.1 采集状态查看健康状态。不同来源独立存储，不自动改估值假设。历史水文负流量已从有效看板隔离；原值保留待核验。"
+     }
+    },
+    {
+     "key": "ddm",
+     "type": "chart",
+     "title": "三情景条件DDM（元/股）",
+     "chart": "ddm"
+    },
+    {
+     "key": "watch",
+     "type": "chart",
+     "title": "两档安全边际关注价（元/股）",
+     "chart": "watch"
+    },
+    {
+     "key": "tv_share",
+     "type": "chart",
+     "title": "终值占比：越高越依赖远期假设",
+     "chart": "tv_share"
+    },
+    {
+     "key": "profit_div",
+     "type": "chart",
+     "title": "基准利润与计划股息（亿元）",
+     "chart": "profit_div"
+    },
+    {
+     "key": "evidence",
+     "type": "chart",
+     "title": "证据核验进度",
+     "chart": "evidence"
+    },
+    {
+     "key": "quality",
+     "type": "chart",
+     "title": "质量检查实时状态",
+     "chart": "quality"
+    },
+    {
+     "key": "health",
+     "type": "chart",
+     "title": "数据采集健康状态",
+     "chart": "health"
+    },
+    {
+     "key": "trial",
+     "type": "chart",
+     "title": "单参数变化→每股价值变化（元）",
+     "chart": "trial"
+    },
+    {
+     "key": "cgb_wind",
+     "type": "chart",
+     "title": "国债收益率观察（%，中证口径）",
+     "chart": "cgb_wind"
+    },
+    {
+     "key": "inflow",
+     "type": "chart",
+     "title": "三峡入库流量（立方米/秒）",
+     "chart": "inflow"
+    },
+    {
+     "key": "level_wind",
+     "type": "chart",
+     "title": "三峡库水位（米）",
+     "chart": "level_wind"
+    },
+    {
+     "key": "cgb_cloud",
+     "type": "chart",
+     "title": "采集 · 中债国债10年收益率（%）",
+     "chart": "cgb_cloud"
+    },
+    {
+     "key": "level_cloud",
+     "type": "chart",
+     "title": "采集 · 三峡库水位（米）",
+     "chart": "level_cloud"
+    },
+    {
+     "key": "price_cloud",
+     "type": "chart",
+     "title": "采集 · 长江电力股价（元）",
+     "chart": "price_cloud"
+    }
+   ]
+  }
+ ]
+}

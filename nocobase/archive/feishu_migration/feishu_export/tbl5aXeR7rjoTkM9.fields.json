@@ -1,0 +1,280 @@
+[
+  {
+    "expression": "[年度输入].[折旧亿元].FIRST()",
+    "id": "fldQ2Z7eoB",
+    "name": "折旧亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "[年度输入].[有效电价元].FIRST()",
+    "id": "fldPp8okNW",
+    "name": "电价元",
+    "type": "formula"
+  },
+  {
+    "expression": "IF([现金数据完整],MAX(0,[计划股息亿元]+[最低现金补充亿元]-[FCFE亿元]),\"\")",
+    "id": "fld6LlircL",
+    "name": "资金缺口亿元",
+    "type": "formula"
+  },
+  {
+    "default_value": null,
+    "id": "fldkt5WgVs",
+    "name": "情景名称",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "expression": "[年度输入].[扩张资本亿元].FIRST()",
+    "id": "fldkEADyFP",
+    "name": "扩张资本亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "[年度输入].[维持资本亿元].FIRST()",
+    "id": "fld9zThgxP",
+    "name": "维持资本亿元",
+    "type": "formula"
+  },
+  {
+    "default_value": null,
+    "id": "fldIJcsndI",
+    "name": "年份",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "expression": "[年度输入].[最低现金补充亿元].FIRST()",
+    "id": "fldMTciTB3",
+    "name": "最低现金补充亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "[情景输入].[付现成本系数].FIRST()",
+    "id": "fldG6wzy8n",
+    "name": "付现成本系数",
+    "type": "formula"
+  },
+  {
+    "expression": "[收入亿元]-[付现成本亿元]*[付现成本系数]-[折旧亿元]-[利息亿元]+[其他净贡献亿元]",
+    "id": "fldj6HmDuO",
+    "name": "税前利润亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "[年度输入].[利息亿元].FIRST()",
+    "id": "fldoUZ98GP",
+    "name": "利息亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "[情景输入].[电价系数].FIRST()",
+    "id": "fldPApgLTU",
+    "name": "电价系数",
+    "type": "formula"
+  },
+  {
+    "expression": "[年度输入].[付现成本亿元].FIRST()",
+    "id": "fldYWA4aKy",
+    "name": "付现成本亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "IF([现金数据完整],\"现金桥接已填；仍需证据核验\",\"DDM条件计算；现金桥接缺失\")",
+    "id": "fld1mHjozY",
+    "name": "计算状态",
+    "type": "formula"
+  },
+  {
+    "expression": "IF([现金数据完整],[FCFE亿元]*[折现因子],\"\")",
+    "id": "fldSaC8Btu",
+    "name": "FCFE现值亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "[年度输入].[营运资本增加亿元].FIRST()",
+    "id": "fldQwAff0Y",
+    "name": "营运资本增加亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "IF([现金数据完整],[归母利润代理亿元]+[归属折旧加回亿元]-[非现金收益扣除亿元]+[投资现金分红亿元]+[其他现金调整亿元]-[营运资本增加亿元]-[维持资本亿元],\"\")",
+    "id": "fldkXFcp6y",
+    "name": "所有者收益亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "IF([现金数据完整],[现金支持分红亿元]*[折现因子],\"\")",
+    "id": "fldbM5cW5K",
+    "name": "现金支持股息现值亿元",
+    "type": "formula"
+  },
+  {
+    "bidirectional": false,
+    "id": "fldRiYOXwp",
+    "link_table": "tblAaz02mrF6O7x6",
+    "name": "年度输入",
+    "type": "link"
+  },
+  {
+    "expression": "[年度输入].[有效派息率].FIRST()",
+    "id": "fldtv3afhd",
+    "name": "派息率",
+    "type": "formula"
+  },
+  {
+    "expression": "[情景输入].[有效估值基年].FIRST()",
+    "id": "fldQT5ymIC",
+    "name": "估值基年",
+    "type": "formula"
+  },
+  {
+    "expression": "[电量亿千瓦时]*[电量系数]*[电价元]*[电价系数]",
+    "id": "fldEThfDdP",
+    "name": "收入亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "[情景输入].[有效终值年份].FIRST()",
+    "id": "fldmrtlHRq",
+    "name": "终值年份",
+    "type": "formula"
+  },
+  {
+    "expression": "[年度输入].[其他现金调整亿元].FIRST()",
+    "id": "fldBWwtnoQ",
+    "name": "其他现金调整亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "[情景输入].[有效股本亿股].FIRST()",
+    "id": "fldDR586qx",
+    "name": "股本亿股",
+    "type": "formula"
+  },
+  {
+    "expression": "[情景输入].[电量系数].FIRST()",
+    "id": "fldEhCRCPM",
+    "name": "电量系数",
+    "type": "formula"
+  },
+  {
+    "expression": "[年度输入].[投资现金分红亿元].FIRST()",
+    "id": "fld08ZaqGD",
+    "name": "投资现金分红亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "[情景输入].[有效折现率].FIRST()",
+    "id": "fldCybur27",
+    "name": "折现率",
+    "type": "formula"
+  },
+  {
+    "default_value": null,
+    "id": "fldik45SVM",
+    "name": "模型键",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "expression": "[年度输入].[电量亿千瓦时].FIRST()",
+    "id": "fldhA52FfU",
+    "name": "电量亿千瓦时",
+    "type": "formula"
+  },
+  {
+    "expression": "[计划股息亿元]*[折现因子]",
+    "id": "fldnKpSVaY",
+    "name": "计划股息现值亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "AND(NOT(ISBLANK([归属折旧加回亿元])),NOT(ISBLANK([非现金收益扣除亿元])),NOT(ISBLANK([投资现金分红亿元])),NOT(ISBLANK([其他现金调整亿元])),NOT(ISBLANK([营运资本增加亿元])),NOT(ISBLANK([维持资本亿元])),NOT(ISBLANK([扩张资本亿元])),NOT(ISBLANK([净借款亿元])),NOT(ISBLANK([最低现金补充亿元])))",
+    "id": "fldUwbuDiT",
+    "name": "现金数据完整",
+    "type": "formula"
+  },
+  {
+    "expression": "[年度输入].[净借款亿元].FIRST()",
+    "id": "fld23TEDZO",
+    "name": "净借款亿元",
+    "type": "formula"
+  },
+  {
+    "bidirectional": false,
+    "id": "fldHI6ZTh3",
+    "link_table": "tbl2aFkmDryVrEX1",
+    "name": "情景输入",
+    "type": "link"
+  },
+  {
+    "expression": "1/POWER(1+[折现率],[年份]-[估值基年])",
+    "id": "fldSGT0jQD",
+    "name": "折现因子",
+    "type": "formula"
+  },
+  {
+    "expression": "IF([现金数据完整],[所有者收益亿元]-[扩张资本亿元]+[净借款亿元],\"\")",
+    "id": "fldMTOyyXG",
+    "name": "FCFE亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "[年度输入].[归属折旧加回亿元].FIRST()",
+    "id": "fld42JEyiB",
+    "name": "归属折旧加回亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "[年度输入].[非现金收益扣除亿元].FIRST()",
+    "id": "fldTsVhNnD",
+    "name": "非现金收益扣除亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "IF([现金数据完整],MIN([计划股息亿元],MAX(0,[FCFE亿元]-[最低现金补充亿元])),\"\")",
+    "id": "fld4KVI3rj",
+    "name": "现金支持分红亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "MAX(0,[归母利润代理亿元]*[派息率])",
+    "id": "fldLF3JadW",
+    "name": "计划股息亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "[税前利润亿元]*(1-[综合负担率])",
+    "id": "flde2xKKpi",
+    "name": "归母利润代理亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "[情景输入].[永续增长率].FIRST()",
+    "id": "fldFPDHzKN",
+    "name": "永续增长率",
+    "type": "formula"
+  },
+  {
+    "expression": "[年度输入].[有效综合负担率].FIRST()",
+    "id": "fldOpmEA18",
+    "name": "综合负担率",
+    "type": "formula"
+  },
+  {
+    "expression": "[年度输入].[有效其他净贡献亿元].FIRST()",
+    "id": "fld2KRWPfa",
+    "name": "其他净贡献亿元",
+    "type": "formula"
+  }
+]

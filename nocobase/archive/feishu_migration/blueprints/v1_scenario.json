@@ -1,0 +1,123 @@
+{
+ "version": "1",
+ "mode": "create",
+ "navigation": {
+  "item": {
+   "title": "情景分析",
+   "icon": "TableOutlined"
+  },
+  "group": {
+   "routeId": 393340509814784
+  }
+ },
+ "page": {
+  "title": "情景分析",
+  "documentTitle": "长江电力 · 情景分析"
+ },
+ "defaults": {
+  "collections": {
+   "cj_v1_scenario": {
+    "popups": {
+     "view": {
+      "name": "情景分析·详情",
+      "description": "查看一条「情景分析」记录"
+     },
+     "addNew": {
+      "name": "情景分析·新增",
+      "description": "新增一条「情景分析」记录（只含输入字段）"
+     },
+     "edit": {
+      "name": "情景分析·编辑",
+      "description": "编辑一条「情景分析」记录（只含输入字段）"
+     }
+    }
+   }
+  }
+ },
+ "tabs": [
+  {
+   "title": "情景分析",
+   "blocks": [
+    {
+     "key": "main",
+     "type": "table",
+     "collection": "cj_v1_scenario",
+     "fields": [
+      "scenario",
+      "base_dps",
+      "g1_pct",
+      "r_pct",
+      "g_pct",
+      "note",
+      "value_ps"
+     ],
+     "settings": {
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "id",
+        "direction": "asc"
+       }
+      ]
+     },
+     "actions": [
+      "filter",
+      "refresh",
+      {
+       "type": "addNew",
+       "popup": {
+        "title": "新增 · 情景分析",
+        "blocks": [
+         {
+          "type": "createForm",
+          "resource": {
+           "collectionName": "cj_v1_scenario"
+          },
+          "fields": [
+           "scenario",
+           "base_dps",
+           "g1_pct",
+           "r_pct",
+           "g_pct",
+           "note"
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "bulkDelete"
+     ],
+     "recordActions": [
+      "view",
+      {
+       "type": "edit",
+       "popup": {
+        "title": "编辑 · 情景分析",
+        "blocks": [
+         {
+          "type": "editForm",
+          "fields": [
+           "scenario",
+           "base_dps",
+           "g1_pct",
+           "r_pct",
+           "g_pct",
+           "note"
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "delete"
+     ]
+    }
+   ]
+  }
+ ]
+}

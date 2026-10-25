@@ -1,0 +1,335 @@
+{
+ "version": "1",
+ "mode": "create",
+ "navigation": {
+  "group": {
+   "routeId": 393441258897408
+  },
+  "item": {
+   "title": "单参数试验",
+   "icon": "TableOutlined"
+  }
+ },
+ "page": {
+  "title": "单参数试验",
+  "documentTitle": "长江电力 · 单参数试验"
+ },
+ "defaults": {
+  "collections": {
+   "vi_trial": {
+    "popups": {
+     "view": {
+      "name": "单参数试验·详情",
+      "description": "查看一条「单参数试验」记录"
+     },
+     "addNew": {
+      "name": "单参数试验·新增",
+      "description": "新增一条「单参数试验」记录"
+     },
+     "edit": {
+      "name": "单参数试验·编辑",
+      "description": "编辑一条「单参数试验」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息",
+      "fields": [
+       "name",
+       "start_year",
+       "end_year",
+       "volume_delta",
+       "price_delta",
+       "cost_delta",
+       "da_delta",
+       "interest_delta",
+       "rate_delta",
+       "boundary"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "model"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "base_value",
+       "trial_value",
+       "value_change",
+       "change_pct"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_model": {
+    "popups": {
+     "view": {
+      "name": "估值模型·详情",
+      "description": "查看一条「估值模型」记录"
+     },
+     "addNew": {
+      "name": "估值模型·新增",
+      "description": "新增一条「估值模型」记录"
+     },
+     "edit": {
+      "name": "估值模型·编辑",
+      "description": "编辑一条「估值模型」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "name",
+       "status",
+       "method",
+       "base_year",
+       "terminal_year",
+       "shares",
+       "rf",
+       "rf_date",
+       "erp",
+       "opening_debt"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "margin_low",
+       "margin_high",
+       "notes",
+       "required_return",
+       "opening_op_assets",
+       "opening_lt_invest",
+       "opening_equity",
+       "opening_minority"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company",
+       "rf_metric"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "base_discount_rate",
+       "valuation_date",
+       "years_elapsed",
+       "latest_rf",
+       "latest_rf_date"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_judgment": {
+    "popups": {
+     "view": {
+      "name": "判断·详情",
+      "description": "查看一条「判断」记录"
+     },
+     "addNew": {
+      "name": "判断·新增",
+      "description": "新增一条「判断」记录"
+     },
+     "edit": {
+      "name": "判断·编辑",
+      "description": "编辑一条「判断」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "title",
+       "fact_layer",
+       "judgment",
+       "transmission",
+       "parameter",
+       "affected_years",
+       "change_threshold",
+       "no_change_condition",
+       "counter_evidence"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "status"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "tabs": [
+  {
+   "title": "单参数试验",
+   "blocks": [
+    {
+     "key": "main",
+     "type": "table",
+     "collection": "vi_trial",
+     "fields": [
+      "name",
+      "start_year",
+      "end_year",
+      "base_value",
+      "trial_value",
+      "value_change",
+      "change_pct"
+     ],
+     "settings": {
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "id",
+        "direction": "asc"
+       }
+      ],
+      "dataScope": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "model.company_id",
+         "operator": "$eq",
+         "value": 1
+        }
+       ]
+      }
+     },
+     "actions": [
+      "filter",
+      "refresh",
+      {
+       "type": "addNew",
+       "popup": {
+        "title": "新增 · 单参数试验",
+        "blocks": [
+         {
+          "type": "createForm",
+          "resource": {
+           "collectionName": "vi_trial"
+          },
+          "fieldGroups": [
+           {
+            "title": "基本信息",
+            "fields": [
+             "name",
+             "start_year",
+             "end_year",
+             "volume_delta",
+             "price_delta",
+             "cost_delta",
+             "da_delta",
+             "interest_delta",
+             "rate_delta",
+             "boundary"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "model",
+              "titleField": "name"
+             },
+             {
+              "field": "judgments",
+              "titleField": "title"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "bulkDelete"
+     ],
+     "recordActions": [
+      "view",
+      {
+       "type": "edit",
+       "popup": {
+        "title": "编辑 · 单参数试验",
+        "blocks": [
+         {
+          "type": "editForm",
+          "fieldGroups": [
+           {
+            "title": "基本信息",
+            "fields": [
+             "name",
+             "start_year",
+             "end_year",
+             "volume_delta",
+             "price_delta",
+             "cost_delta",
+             "da_delta",
+             "interest_delta",
+             "rate_delta",
+             "boundary"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "model",
+              "titleField": "name"
+             },
+             {
+              "field": "judgments",
+              "titleField": "title"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "delete"
+     ]
+    }
+   ]
+  }
+ ]
+}

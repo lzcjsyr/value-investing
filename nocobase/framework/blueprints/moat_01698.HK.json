@@ -1,0 +1,435 @@
+{
+ "version": "1",
+ "mode": "create",
+ "navigation": {
+  "group": {
+   "routeId": 393657369755648
+  },
+  "item": {
+   "title": "竞争壁垒",
+   "icon": "TableOutlined"
+  }
+ },
+ "page": {
+  "title": "竞争壁垒",
+  "documentTitle": "腾讯音乐 · 竞争壁垒"
+ },
+ "defaults": {
+  "collections": {
+   "vi_moat": {
+    "popups": {
+     "view": {
+      "name": "竞争壁垒·详情",
+      "description": "查看一条「竞争壁垒」记录"
+     },
+     "addNew": {
+      "name": "竞争壁垒·新增",
+      "description": "新增一条「竞争壁垒」记录"
+     },
+     "edit": {
+      "name": "竞争壁垒·编辑",
+      "description": "编辑一条「竞争壁垒」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "title",
+       "moat_type",
+       "verdict",
+       "strength",
+       "trend",
+       "mechanism",
+       "financial_link",
+       "evidence",
+       "counter"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "replication",
+       "threats",
+       "check_metric",
+       "check_op",
+       "check_threshold",
+       "check_years"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "check_latest_year",
+       "check_latest_value",
+       "check_result",
+       "debate_count",
+       "debate_winner"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_company": {
+    "popups": {
+     "view": {
+      "name": "公司·详情",
+      "description": "查看一条「公司」记录"
+     },
+     "addNew": {
+      "name": "公司·新增",
+      "description": "新增一条「公司」记录"
+     },
+     "edit": {
+      "name": "公司·编辑",
+      "description": "编辑一条「公司」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "name",
+       "exchange",
+       "industry",
+       "currency",
+       "volume_label",
+       "volume_unit",
+       "price_label",
+       "price_unit",
+       "is_default"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "profile",
+       "notes"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "price_metric",
+       "price_fx_metric"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "latest_price",
+       "latest_price_date",
+       "latest_price_raw",
+       "latest_fx",
+       "macro_used"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_fact": {
+    "popups": {
+     "view": {
+      "name": "事实摘录·详情",
+      "description": "查看一条「事实摘录」记录"
+     },
+     "addNew": {
+      "name": "事实摘录·新增",
+      "description": "新增一条「事实摘录」记录"
+     },
+     "edit": {
+      "name": "事实摘录·编辑",
+      "description": "编辑一条「事实摘录」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息",
+      "fields": [
+       "title",
+       "category",
+       "statement",
+       "value",
+       "unit",
+       "period",
+       "as_of",
+       "verify_status",
+       "notes"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company",
+       "source"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_thesis": {
+    "popups": {
+     "view": {
+      "name": "论点与辩论·详情",
+      "description": "查看一条「论点与辩论」记录"
+     },
+     "addNew": {
+      "name": "论点与辩论·新增",
+      "description": "新增一条「论点与辩论」记录"
+     },
+     "edit": {
+      "name": "论点与辩论·编辑",
+      "description": "编辑一条「论点与辩论」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "title",
+       "category",
+       "status",
+       "confidence",
+       "bull_case",
+       "bear_case",
+       "bull_rebuttal",
+       "bear_rebuttal",
+       "verdict"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "decisive_evidence",
+       "mind_changer",
+       "model_impact",
+       "external_view",
+       "debated_on",
+       "check_metric",
+       "check_op",
+       "check_threshold",
+       "check_years"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "check_latest_year",
+       "check_latest_value",
+       "check_result",
+       "judgment_status"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "tabs": [
+  {
+   "title": "竞争壁垒",
+   "blocks": [
+    {
+     "key": "main",
+     "type": "table",
+     "collection": "vi_moat",
+     "fields": [
+      "code",
+      "title",
+      "moat_type",
+      "verdict",
+      "strength",
+      "trend",
+      "check_result",
+      "debate_count",
+      "debate_winner"
+     ],
+     "settings": {
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "id",
+        "direction": "asc"
+       }
+      ],
+      "dataScope": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "company_id",
+         "operator": "$eq",
+         "value": 11
+        }
+       ]
+      }
+     },
+     "actions": [
+      "filter",
+      "refresh",
+      {
+       "type": "addNew",
+       "popup": {
+        "title": "新增 · 竞争壁垒",
+        "blocks": [
+         {
+          "type": "createForm",
+          "resource": {
+           "collectionName": "vi_moat"
+          },
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "title",
+             "moat_type",
+             "verdict",
+             "strength",
+             "trend",
+             "mechanism",
+             "financial_link",
+             "evidence",
+             "counter"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "replication",
+             "threats",
+             "check_metric",
+             "check_op",
+             "check_threshold",
+             "check_years"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             },
+             {
+              "field": "facts",
+              "titleField": "title"
+             },
+             {
+              "field": "theses",
+              "titleField": "title"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "bulkDelete"
+     ],
+     "recordActions": [
+      "view",
+      {
+       "type": "edit",
+       "popup": {
+        "title": "编辑 · 竞争壁垒",
+        "blocks": [
+         {
+          "type": "editForm",
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "title",
+             "moat_type",
+             "verdict",
+             "strength",
+             "trend",
+             "mechanism",
+             "financial_link",
+             "evidence",
+             "counter"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "replication",
+             "threats",
+             "check_metric",
+             "check_op",
+             "check_threshold",
+             "check_years"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             },
+             {
+              "field": "facts",
+              "titleField": "title"
+             },
+             {
+              "field": "theses",
+              "titleField": "title"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "delete"
+     ]
+    }
+   ]
+  }
+ ]
+}

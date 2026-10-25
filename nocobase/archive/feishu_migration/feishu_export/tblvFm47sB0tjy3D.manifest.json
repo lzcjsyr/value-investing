@@ -1,0 +1,200 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "PMnCb5BsGaME0ysW21uc7pHJnDb",
+  "table_id": "tblvFm47sB0tjy3D",
+  "rev": 85,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 109,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/dielangli/Desktop/Coding/nocobase/migration/feishu_export/tblvFm47sB0tjy3D.ndjson",
+  "record_file_size_bytes": 75893,
+  "manifest_file": "/Users/dielangli/Desktop/Coding/nocobase/migration/feishu_export/tblvFm47sB0tjy3D.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 16
+      },
+      "example": "recvvEmYZriYFk"
+    },
+    "云端数值原文": {
+      "field_id": "fldE7sT0bS",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 38,
+        "max_length": 6
+      },
+      "example": "28.1"
+    },
+    "使用边界": {
+      "field_id": "fldoCYXuMF",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 39
+      },
+      "example": "独立市场观察；不得直接与2025年末条件估值作为现时买卖信号比较"
+    },
+    "单位": {
+      "field_id": "fldkN5ACMy",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 5
+      },
+      "example": "%"
+    },
+    "原始文件": {
+      "field_id": "fld9iUGsko",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 84
+      },
+      "example": "runs/20260919T154548195416/stock_data-get_stock_price_indicators.json"
+    },
+    "原始采集条数": {
+      "field_id": "fldoDmaAAo",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 1
+      },
+      "example": "0"
+    },
+    "当前有效数": {
+      "field_id": "fldZThznkB",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 1
+      },
+      "example": "1"
+    },
+    "当前版本": {
+      "field_id": "fldJG4ByHG",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 4
+      },
+      "example": "true"
+    },
+    "指标": {
+      "field_id": "fldEWqIT9J",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 20
+      },
+      "example": "三峡库水位"
+    },
+    "指标代码": {
+      "field_id": "fldU9mhzjv",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 16
+      },
+      "example": "M1001654"
+    },
+    "数值": {
+      "field_id": "fld38iewdt",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 71,
+        "min": -14200,
+        "max": 18000,
+        "avg": 1184.5506815789472
+      },
+      "example": 1.68
+    },
+    "日期": {
+      "field_id": "fldvp1xKdX",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 10
+      },
+      "example": "2026-08-25"
+    },
+    "来源": {
+      "field_id": "fld3pB48Mi",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 66
+      },
+      "example": "Wind / 长江水文网"
+    },
+    "来源勾稽": {
+      "field_id": "fld0IwEfTF",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 13
+      },
+      "example": "已匹配原始采集"
+    },
+    "统一数值": {
+      "field_id": "fldT1JKKVp",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "1.68"
+    },
+    "观察ID": {
+      "field_id": "fldsm8dBfe",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 34
+      },
+      "example": "11c143643c2ba555aca9"
+    },
+    "质量有效": {
+      "field_id": "fldQaXWItd",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 1
+      },
+      "example": "1"
+    },
+    "采集时间": {
+      "field_id": "fldcGf0ASz",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 32
+      },
+      "example": "2026-09-19 21:46:02"
+    }
+  }
+}

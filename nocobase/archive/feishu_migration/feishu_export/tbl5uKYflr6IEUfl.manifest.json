@@ -1,0 +1,203 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "PMnCb5BsGaME0ysW21uc7pHJnDb",
+  "table_id": "tbl5uKYflr6IEUfl",
+  "rev": 17,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 12,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/dielangli/Desktop/Coding/nocobase/migration/feishu_export/tbl5uKYflr6IEUfl.ndjson",
+  "record_file_size_bytes": 9278,
+  "manifest_file": "/Users/dielangli/Desktop/Coding/nocobase/migration/feishu_export/tbl5uKYflr6IEUfl.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 14
+      },
+      "example": "recvvEmo79pmlO"
+    },
+    "任务ID": {
+      "field_id": "fldALAezob",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 3
+      },
+      "example": "K01"
+    },
+    "映射": {
+      "field_id": "fldnVXPnoy",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 8,
+        "avg_length": 2.3333333333333335
+      },
+      "example": [
+        {
+          "id": "recvvEm23srzfZ"
+        }
+      ]
+    },
+    "最新有效观察值": {
+      "field_id": "fld4e1waS5",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "29.57"
+    },
+    "最新有效观察单位": {
+      "field_id": "fldGREaIR1",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 1
+      },
+      "example": "%"
+    },
+    "最新有效观察指标": {
+      "field_id": "fld3nq6JmN",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 10
+      },
+      "example": "三峡库水位"
+    },
+    "最新有效观察日": {
+      "field_id": "fld3hyVeBe",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 10
+      },
+      "example": "2026-10-21"
+    },
+    "最新观察": {
+      "field_id": "fldshekmI4",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "尚未在V2完成本期采集"
+    },
+    "观察指标代码": {
+      "field_id": "fldfKN7URt",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 9,
+        "max_length": 16
+      },
+      "example": "CJH-SX-LEVEL"
+    },
+    "观察日期": {
+      "field_id": "fldYvLOVBI",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 12,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "观察联动状态": {
+      "field_id": "fldqniWPdp",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 13
+      },
+      "example": "尚未接入自动观察"
+    },
+    "触发后动作": {
+      "field_id": "fld5e4HBo4",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 27
+      },
+      "example": "暂停投资结论并重审所有关键假设"
+    },
+    "触发阈值": {
+      "field_id": "fldAkQ0Vu0",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 25
+      },
+      "example": "同比下降3%以上（旧规则）"
+    },
+    "跟踪指标": {
+      "field_id": "fldztYyttd",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 10
+      },
+      "example": "实现售电价"
+    },
+    "采集状态": {
+      "field_id": "fldD2qzKaQ",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 17
+      },
+      "example": "由定时研究任务检查；数值接口须核验"
+    },
+    "阈值性质": {
+      "field_id": "fld5tm01jQ",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "研究预警；不是交易授权"
+    },
+    "频率": {
+      "field_id": "fldgrZ37bJ",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 12
+      },
+      "example": "每日18:30"
+    },
+    "首选来源": {
+      "field_id": "fldO2JjUDP",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 47
+      },
+      "example": "https://www.cjw.gov.cn"
+    }
+  }
+}

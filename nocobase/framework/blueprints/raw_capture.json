@@ -1,0 +1,298 @@
+{
+ "version": "1",
+ "mode": "create",
+ "navigation": {
+  "item": {
+   "title": "原始采集记录",
+   "icon": "TableOutlined"
+  },
+  "group": {
+   "routeId": 393353850847232
+  }
+ },
+ "page": {
+  "title": "原始采集记录",
+  "documentTitle": "价值投资框架 · 原始采集记录"
+ },
+ "defaults": {
+  "collections": {
+   "vi_raw_capture": {
+    "popups": {
+     "view": {
+      "name": "原始采集记录·详情",
+      "description": "查看一条「原始采集记录」记录"
+     },
+     "addNew": {
+      "name": "原始采集记录·新增",
+      "description": "新增一条「原始采集记录」记录"
+     },
+     "edit": {
+      "name": "原始采集记录·编辑",
+      "description": "编辑一条「原始采集记录」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息",
+      "fields": [
+       "run_label",
+       "collected_at",
+       "status",
+       "raw_response",
+       "fetch_result"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "collector",
+       "run"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "parsed_date",
+       "parsed_value",
+       "is_valid",
+       "already_exists",
+       "decision",
+       "fetch_ok",
+       "fetch_note"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_collector": {
+    "popups": {
+     "view": {
+      "name": "采集配置·详情",
+      "description": "查看一条「采集配置」记录"
+     },
+     "addNew": {
+      "name": "采集配置·新增",
+      "description": "新增一条「采集配置」记录"
+     },
+     "edit": {
+      "name": "采集配置·编辑",
+      "description": "编辑一条「采集配置」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息",
+      "fields": [
+       "name",
+       "url",
+       "parser",
+       "parser_param",
+       "enabled",
+       "max_lag_days",
+       "last_selfcheck",
+       "selfcheck_result",
+       "notes"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "metric"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "last_collected",
+       "last_obs_date",
+       "last_result",
+       "health",
+       "needs_alert"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_collect_run": {
+    "popups": {
+     "view": {
+      "name": "采集运行·详情",
+      "description": "查看一条「采集运行」记录"
+     },
+     "addNew": {
+      "name": "采集运行·新增",
+      "description": "新增一条「采集运行」记录"
+     },
+     "edit": {
+      "name": "采集运行·编辑",
+      "description": "编辑一条「采集运行」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息",
+      "fields": [
+       "label",
+       "trigger_source",
+       "status"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "requested_at",
+       "finished_at",
+       "seconds",
+       "raw_count",
+       "ingested",
+       "duplicates",
+       "fetch_failed",
+       "invalid",
+       "summary"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "tabs": [
+  {
+   "title": "原始采集记录",
+   "blocks": [
+    {
+     "key": "main",
+     "type": "table",
+     "collection": "vi_raw_capture",
+     "fields": [
+      "run_label",
+      {
+       "field": "collector",
+       "titleField": "name",
+       "popup": {
+        "title": "采集配置",
+        "blocks": [
+         {
+          "type": "details",
+          "resource": {
+           "binding": "currentRecord",
+           "collectionName": "vi_collector"
+          },
+          "fields": [
+           "name",
+           "url",
+           "parser",
+           "parser_param",
+           "enabled",
+           "max_lag_days"
+          ]
+         }
+        ]
+       }
+      },
+      "collected_at",
+      "fetch_note",
+      "status",
+      "parsed_date",
+      "parsed_value",
+      "decision"
+     ],
+     "settings": {
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "collected_at",
+        "direction": "desc"
+       }
+      ]
+     },
+     "actions": [
+      "filter",
+      "refresh",
+      {
+       "type": "addNew",
+       "popup": {
+        "title": "新增 · 原始采集记录",
+        "blocks": [
+         {
+          "type": "createForm",
+          "resource": {
+           "collectionName": "vi_raw_capture"
+          },
+          "fields": [
+           "run_label",
+           "collected_at",
+           "status",
+           "fetch_result",
+           "raw_response",
+           {
+            "field": "collector",
+            "titleField": "name"
+           },
+           {
+            "field": "run",
+            "titleField": "label"
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "bulkDelete"
+     ],
+     "recordActions": [
+      "view",
+      {
+       "type": "edit",
+       "popup": {
+        "title": "编辑 · 原始采集记录",
+        "blocks": [
+         {
+          "type": "editForm",
+          "fields": [
+           "run_label",
+           "collected_at",
+           "status",
+           "fetch_result",
+           "raw_response",
+           {
+            "field": "collector",
+            "titleField": "name"
+           },
+           {
+            "field": "run",
+            "titleField": "label"
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "delete"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,245 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "PMnCb5BsGaME0ysW21uc7pHJnDb",
+  "table_id": "tbl8I2E74xVim8qV",
+  "rev": 12,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 1,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/dielangli/Desktop/Coding/nocobase/migration/feishu_export/tbl8I2E74xVim8qV.ndjson",
+  "record_file_size_bytes": 574,
+  "manifest_file": "/Users/dielangli/Desktop/Coding/nocobase/migration/feishu_export/tbl8I2E74xVim8qV.manifest.json",
+  "columns": {
+    "FCFE每股_元": {
+      "field_id": "fldNYAw20a",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 1.72,
+        "max": 1.72,
+        "avg": 1.72
+      },
+      "example": 1.72
+    },
+    "FCFE永续价值_元": {
+      "field_id": "fldtc4cdlE",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 5
+      },
+      "example": "41.36"
+    },
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 14
+      },
+      "example": "recvtZ1lGXdtiP"
+    },
+    "买入阈值_元": {
+      "field_id": "fldJsBhDiN",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 5
+      },
+      "example": "23.57"
+    },
+    "价格日期": {
+      "field_id": "fldQYZWz1c",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "min": "2026-09-01T00:00:00.000+08:00",
+        "max": "2026-09-01T00:00:00.000+08:00"
+      },
+      "example": "2026-09-01T00:00:00.000+08:00"
+    },
+    "信号": {
+      "field_id": "fldP6VHiu7",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 5
+      },
+      "example": "高估·等待"
+    },
+    "十年期国债收益率": {
+      "field_id": "fldWvzYino",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 1.69,
+        "max": 1.69,
+        "avg": 1.69
+      },
+      "example": 1.69
+    },
+    "安全边际_pct": {
+      "field_id": "fld0Ye2ujG",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 10,
+        "max": 10,
+        "avg": 10
+      },
+      "example": 10
+    },
+    "当前股价_元": {
+      "field_id": "fld08uTPd4",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 28.4,
+        "max": 28.4,
+        "avg": 28.4
+      },
+      "example": 28.4
+    },
+    "总股本_亿股": {
+      "field_id": "fldTtJuMS5",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 244.68,
+        "max": 244.68,
+        "avg": 244.68
+      },
+      "example": 244.68
+    },
+    "情景": {
+      "field_id": "fldN64J0pb",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 4
+      },
+      "example": "中性基准"
+    },
+    "折溢价_pct": {
+      "field_id": "fldGPGwZBJ",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 4
+      },
+      "example": "8.44"
+    },
+    "折现率r": {
+      "field_id": "fldNcFi7CE",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 5.2,
+        "max": 5.2,
+        "avg": 5.2
+      },
+      "example": 5.2
+    },
+    "末期股息_亿": {
+      "field_id": "fldJQWqFzZ",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "296.47"
+    },
+    "每股内在价值_元": {
+      "field_id": "fldyUS143g",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 5
+      },
+      "example": "26.19"
+    },
+    "永续增长g": {
+      "field_id": "fldcBHVSeK",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 1,
+        "max": 1,
+        "avg": 1
+      },
+      "example": 1
+    },
+    "终值_亿": {
+      "field_id": "fldcdXfpQr",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "7129.4"
+    },
+    "终值现值_亿": {
+      "field_id": "fld0cexkxN",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 7
+      },
+      "example": "4294.33"
+    },
+    "股权内在价值_亿": {
+      "field_id": "fldya8WpUf",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 7
+      },
+      "example": "6407.98"
+    },
+    "预测期现值合计_亿": {
+      "field_id": "fldOZ3QmgX",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 7
+      },
+      "example": "2113.65"
+    },
+    "风险溢价": {
+      "field_id": "fldnIaC0BN",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 3.5,
+        "max": 3.5,
+        "avg": 3.5
+      },
+      "example": 3.5
+    }
+  }
+}
