@@ -8,14 +8,14 @@
 cd ~/Desktop/二级市场/价值投资/nocobase
 docker compose up -d      # 启动（需先运行 Docker Desktop）
 docker compose stop       # 停止
-./backup.sh               # 整库备份到 backups/
+./backup.sh               # 整库导出到 db/latest.sql（进 git）＋ backups/（本机历史）
 ./psql.sh -c "select * from vi_valuation"   # 直接查库
 ```
 
 - 地址：http://localhost:13000 。只监听本机。
 - 管理员：admin@nocobase.com。初始密码是 NocoBase 默认值，请在右上角个人设置里修改。
 - 电脑关机、休眠或 Docker 未运行时，网站和定时采集都不工作；错过的定时点不会补跑。
-- `storage/`（数据库本体）、`backups/`、`.env` 在 git 仓库目录里但被忽略，不上传 GitHub。**不要执行 `git clean -fdx` / `-X`**，会把整个数据库删掉；挪动目录前先 `docker compose down`。
+- `storage/`（数据库本体）、`backups/`、`.env` 在 git 仓库目录里但被忽略，不上传 GitHub；上传的是导出文件 `db/latest.sql`，改完数据先 `./backup.sh` 再提交。恢复：`./psql.sh -f db/latest.sql`（会覆盖当前库；新库还要 `ALTER DATABASE nocobase SET jit = off`）。**不要执行 `git clean -fdx` / `-X`**，会把整个数据库删掉；挪动目录前先 `docker compose down`。
 
 ## 目录
 
@@ -24,9 +24,10 @@ docker compose stop       # 停止
 | `framework/` | **框架层**（可复用）：数据结构定义、SQL 公式、页面与工作流生成脚本。说明见 `framework/README.md` |
 | `macro/` | 宏观数据的种子（利率、汇率、商品；从零重建时第一个灌入），说明见 `macro/README.md` |
 | `companies/600900_长江电力/` | 长江电力的种子数据（`data/` 与 `analysis.py`，`seed.py` 生成 `seed.sql`） |
-| `companies/002078_太阳纸业/` | 太阳纸业的种子数据与原始行情文件（可单独重复执行）；给人读的报告在 `~/Desktop/二级市场/价值投资/太阳纸业/投资逻辑与工作台手册.md` |
+| `companies/002078_太阳纸业/` | 太阳纸业的种子数据与原始行情文件（可单独重复执行）；给人读的报告在 `../太阳纸业/投资逻辑与工作台手册.md` |
 | `archive/feishu_migration/` | 从飞书迁移时的脚本与导出（历史记录；项目不读取，可删除） |
-| `backups/` | 数据库备份（`./backup.sh` 生成） |
+| `db/latest.sql` | 最新整库导出（纯文本，随代码进 git；`./backup.sh` 覆盖） |
+| `backups/` | 本机历史备份（`./backup.sh` 生成，不进 git） |
 | `storage/` | NocoBase 与 PostgreSQL 的数据文件（勿手动修改） |
 
 数据库里还有一个 `archive_feishu` schema（飞书迁移结构的原始数据）。自 2026-10-24 起项目完全独立：种子、页面、公式、工作流都不读取它，可以删除。
