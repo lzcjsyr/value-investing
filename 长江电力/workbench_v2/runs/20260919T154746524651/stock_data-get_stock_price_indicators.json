@@ -1,0 +1,22 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"data\":{\"columns\":[{\"name\":\"最新交易日\",\"type\":\"string\"},{\"name\":\"交易时间\",\"type\":\"string\"},{\"name\":\"最新成交价\",\"type\":\"string\"},{\"name\":\"前收盘价\",\"type\":\"string\"},{\"name\":\"今日开盘价\",\"type\":\"string\"},{\"name\":\"今日最高价\",\"type\":\"string\"},{\"name\":\"今日最低价\",\"type\":\"string\"},{\"name\":\"成交量\",\"type\":\"string\"},{\"name\":\"Wind代码\",\"type\":\"string\"}],\"rows\":[[\"20260918\",\"2026-09-18T15:31:02.000+08:00\",\"28.27\",\"28.46\",\"28.33\",\"28.46\",\"28.19\",\"71897527\",\"600900.SH\"]],\"unit\":{\"今日开盘价\":\"元\",\"今日最低价\":\"元\",\"今日最高价\":\"元\",\"前收盘价\":\"元\",\"成交量\":\"股\",\"最新成交价\":\"元\"}},\"error\":null}"
+    }
+  ],
+  "isError": false,
+  "cli_meta": {
+    "schema_version": "1.0",
+    "server_type": "stock_data",
+    "tool_name": "get_stock_price_indicators",
+    "completeness": "not_asserted",
+    "tables": [
+      {
+        "path": "$.data",
+        "actual_row_count": 1
+      }
+    ],
+    "warnings": []
+  }
+}

@@ -1,0 +1,232 @@
+[
+  {
+    "expression": "MAX(0,[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2033)).[计划股息亿元].FIRST()+IF(AND(2033>=[开始年份],2033<=[结束年份]),(([V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2033)).[收入亿元].FIRST()*((1+[电量变动率])*(1+[电价变动率])-1)-[付现成本变动亿元]-[折旧变动亿元]-[利息变动亿元])*(1-[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2033)).[综合负担率].FIRST()))*[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2033)).[派息率].FIRST(),0))",
+    "id": "fldsdLTbQs",
+    "name": "试验股息2033",
+    "type": "formula"
+  },
+  {
+    "expression": "MAX(0,[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2027)).[计划股息亿元].FIRST()+IF(AND(2027>=[开始年份],2027<=[结束年份]),(([V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2027)).[收入亿元].FIRST()*((1+[电量变动率])*(1+[电价变动率])-1)-[付现成本变动亿元]-[折旧变动亿元]-[利息变动亿元])*(1-[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2027)).[综合负担率].FIRST()))*[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2027)).[派息率].FIRST(),0))",
+    "id": "fldFQUDxPM",
+    "name": "试验股息2027",
+    "type": "formula"
+  },
+  {
+    "default_value": null,
+    "id": "fldRmBdM2Y",
+    "name": "开始年份",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "expression": "IF(AND([试验折现率]>[永续增长率],[股本亿股]>0),([试验股息2026]/POWER(1+[试验折现率],2026-2025)+[试验股息2027]/POWER(1+[试验折现率],2027-2025)+[试验股息2028]/POWER(1+[试验折现率],2028-2025)+[试验股息2029]/POWER(1+[试验折现率],2029-2025)+[试验股息2030]/POWER(1+[试验折现率],2030-2025)+[试验股息2031]/POWER(1+[试验折现率],2031-2025)+[试验股息2032]/POWER(1+[试验折现率],2032-2025)+[试验股息2033]/POWER(1+[试验折现率],2033-2025)+[试验股息2034]/POWER(1+[试验折现率],2034-2025)+[试验股息2035]/POWER(1+[试验折现率],2035-2025)+[试验股息2035]*(1+[永续增长率])/([试验折现率]-[永续增长率])/POWER(1+[试验折现率],10))/[股本亿股],\"\")",
+    "id": "fldb8Qr5Z3",
+    "name": "试验价值元",
+    "type": "formula"
+  },
+  {
+    "bidirectional": false,
+    "id": "fldJSQyDn5",
+    "link_table": "tblGjno4t3xbBI3a",
+    "name": "映射",
+    "type": "link"
+  },
+  {
+    "expression": "[基准情景].[永续增长率].FIRST()",
+    "id": "fldAMBXwEh",
+    "name": "永续增长率",
+    "type": "formula"
+  },
+  {
+    "default_value": null,
+    "id": "fldcOZ8K40",
+    "name": "折旧变动亿元",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "expression": "MAX(0,[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2026)).[计划股息亿元].FIRST()+IF(AND(2026>=[开始年份],2026<=[结束年份]),(([V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2026)).[收入亿元].FIRST()*((1+[电量变动率])*(1+[电价变动率])-1)-[付现成本变动亿元]-[折旧变动亿元]-[利息变动亿元])*(1-[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2026)).[综合负担率].FIRST()))*[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2026)).[派息率].FIRST(),0))",
+    "id": "fldsSFfgTb",
+    "name": "试验股息2026",
+    "type": "formula"
+  },
+  {
+    "expression": "[基准情景].[折现率].FIRST()+[折现率变动]",
+    "id": "fldUJOBFpC",
+    "name": "试验折现率",
+    "type": "formula"
+  },
+  {
+    "default_value": null,
+    "id": "fldOHhNcBS",
+    "name": "电量变动率",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "expression": "IF([基准价值元]>0,[每股价值变化元]/[基准价值元],\"\")",
+    "id": "fldeI33VFR",
+    "name": "变动比例",
+    "type": "formula"
+  },
+  {
+    "bidirectional": false,
+    "id": "fldftEY8Te",
+    "link_table": "tbl2aFkmDryVrEX1",
+    "name": "基准情景",
+    "type": "link"
+  },
+  {
+    "expression": "MAX(0,[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2030)).[计划股息亿元].FIRST()+IF(AND(2030>=[开始年份],2030<=[结束年份]),(([V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2030)).[收入亿元].FIRST()*((1+[电量变动率])*(1+[电价变动率])-1)-[付现成本变动亿元]-[折旧变动亿元]-[利息变动亿元])*(1-[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2030)).[综合负担率].FIRST()))*[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2030)).[派息率].FIRST(),0))",
+    "id": "fldvxDiYun",
+    "name": "试验股息2030",
+    "type": "formula"
+  },
+  {
+    "default_value": null,
+    "id": "fldrSxTFJk",
+    "name": "试验",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldggTDBzv",
+    "name": "利息变动亿元",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fld5j6gVT2",
+    "name": "结束年份",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "expression": "MAX(0,[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2035)).[计划股息亿元].FIRST()+IF(AND(2035>=[开始年份],2035<=[结束年份]),(([V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2035)).[收入亿元].FIRST()*((1+[电量变动率])*(1+[电价变动率])-1)-[付现成本变动亿元]-[折旧变动亿元]-[利息变动亿元])*(1-[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2035)).[综合负担率].FIRST()))*[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2035)).[派息率].FIRST(),0))",
+    "id": "fldOEAjftH",
+    "name": "试验股息2035",
+    "type": "formula"
+  },
+  {
+    "expression": "[基准情景].[股本亿股].FIRST()",
+    "id": "fldimAyJZ6",
+    "name": "股本亿股",
+    "type": "formula"
+  },
+  {
+    "default_value": null,
+    "id": "fld6wIedkc",
+    "name": "付现成本变动亿元",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "expression": "MAX(0,[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2029)).[计划股息亿元].FIRST()+IF(AND(2029>=[开始年份],2029<=[结束年份]),(([V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2029)).[收入亿元].FIRST()*((1+[电量变动率])*(1+[电价变动率])-1)-[付现成本变动亿元]-[折旧变动亿元]-[利息变动亿元])*(1-[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2029)).[综合负担率].FIRST()))*[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2029)).[派息率].FIRST(),0))",
+    "id": "fldX0nn7dt",
+    "name": "试验股息2029",
+    "type": "formula"
+  },
+  {
+    "expression": "IF(ISNUMBER([试验价值元]),[试验价值元]-[基准价值元],\"\")",
+    "id": "fld3Nh7yYU",
+    "name": "每股价值变化元",
+    "type": "formula"
+  },
+  {
+    "default_value": null,
+    "id": "fldqshKPrz",
+    "name": "电价变动率",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "expression": "MAX(0,[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2028)).[计划股息亿元].FIRST()+IF(AND(2028>=[开始年份],2028<=[结束年份]),(([V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2028)).[收入亿元].FIRST()*((1+[电量变动率])*(1+[电价变动率])-1)-[付现成本变动亿元]-[折旧变动亿元]-[利息变动亿元])*(1-[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2028)).[综合负担率].FIRST()))*[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2028)).[派息率].FIRST(),0))",
+    "id": "fld4SIsDsH",
+    "name": "试验股息2028",
+    "type": "formula"
+  },
+  {
+    "default_value": null,
+    "id": "fldcdlfptC",
+    "name": "事实与判断边界",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldyQMMpPe",
+    "name": "折现率变动",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "expression": "MAX(0,[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2034)).[计划股息亿元].FIRST()+IF(AND(2034>=[开始年份],2034<=[结束年份]),(([V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2034)).[收入亿元].FIRST()*((1+[电量变动率])*(1+[电价变动率])-1)-[付现成本变动亿元]-[折旧变动亿元]-[利息变动亿元])*(1-[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2034)).[综合负担率].FIRST()))*[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2034)).[派息率].FIRST(),0))",
+    "id": "fldvWcpdeq",
+    "name": "试验股息2034",
+    "type": "formula"
+  },
+  {
+    "expression": "MAX(0,[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2031)).[计划股息亿元].FIRST()+IF(AND(2031>=[开始年份],2031<=[结束年份]),(([V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2031)).[收入亿元].FIRST()*((1+[电量变动率])*(1+[电价变动率])-1)-[付现成本变动亿元]-[折旧变动亿元]-[利息变动亿元])*(1-[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2031)).[综合负担率].FIRST()))*[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2031)).[派息率].FIRST(),0))",
+    "id": "fldLOXdYoD",
+    "name": "试验股息2031",
+    "type": "formula"
+  },
+  {
+    "expression": "[V2_07估值决策].FILTER(CurrentValue.[情景]=\"基准\").[条件DDM元].FIRST()",
+    "id": "fldWZ1LDYV",
+    "name": "基准价值元",
+    "type": "formula"
+  },
+  {
+    "expression": "MAX(0,[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2032)).[计划股息亿元].FIRST()+IF(AND(2032>=[开始年份],2032<=[结束年份]),(([V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2032)).[收入亿元].FIRST()*((1+[电量变动率])*(1+[电价变动率])-1)-[付现成本变动亿元]-[折旧变动亿元]-[利息变动亿元])*(1-[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2032)).[综合负担率].FIRST()))*[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2032)).[派息率].FIRST(),0))",
+    "id": "fld326uSnj",
+    "name": "试验股息2032",
+    "type": "formula"
+  }
+]

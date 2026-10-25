@@ -1,0 +1,415 @@
+{
+ "version": "1",
+ "mode": "create",
+ "navigation": {
+  "group": {
+   "routeId": 393441485389824
+  },
+  "item": {
+   "title": "历史财务（年度）",
+   "icon": "TableOutlined"
+  }
+ },
+ "page": {
+  "title": "历史财务（年度）",
+  "documentTitle": "太阳纸业 · 历史财务（年度）"
+ },
+ "defaults": {
+  "collections": {
+   "vi_fin_history": {
+    "popups": {
+     "view": {
+      "name": "历史财务（年度）·详情",
+      "description": "查看一条「历史财务（年度）」记录"
+     },
+     "addNew": {
+      "name": "历史财务（年度）·新增",
+      "description": "新增一条「历史财务（年度）」记录"
+     },
+     "edit": {
+      "name": "历史财务（年度）·编辑",
+      "description": "编辑一条「历史财务（年度）」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/3）",
+      "fields": [
+       "year",
+       "scope_note",
+       "volume",
+       "revenue",
+       "pretax_profit",
+       "income_tax",
+       "np_parent",
+       "minority_profit",
+       "da",
+       "finance_cost"
+      ]
+     },
+     {
+      "title": "基本信息（2/3）",
+      "fields": [
+       "invest_income",
+       "equity_income",
+       "cfo",
+       "capex",
+       "investee_cash_div",
+       "net_borrowing",
+       "interest_debt",
+       "cash",
+       "dividend_total",
+       "dps"
+      ]
+     },
+     {
+      "title": "基本信息（3/3）",
+      "fields": [
+       "note",
+       "cost_of_sales",
+       "equity_parent"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company",
+       "source"
+      ]
+     },
+     {
+      "title": "自动计算（只读）（1/2）",
+      "fields": [
+       "price",
+       "payout",
+       "tax_rate",
+       "minority_share",
+       "burden",
+       "fcf",
+       "volume_yoy",
+       "price_yoy",
+       "revenue_yoy",
+       "np_yoy"
+      ]
+     },
+     {
+      "title": "自动计算（只读）（2/2）",
+      "fields": [
+       "finance_cost_yoy",
+       "gross_margin",
+       "roe",
+       "cfo_to_np",
+       "capex_to_cfo",
+       "net_debt",
+       "net_debt_to_ebitda"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_company": {
+    "popups": {
+     "view": {
+      "name": "公司·详情",
+      "description": "查看一条「公司」记录"
+     },
+     "addNew": {
+      "name": "公司·新增",
+      "description": "新增一条「公司」记录"
+     },
+     "edit": {
+      "name": "公司·编辑",
+      "description": "编辑一条「公司」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "name",
+       "exchange",
+       "industry",
+       "currency",
+       "volume_label",
+       "volume_unit",
+       "price_label",
+       "price_unit",
+       "is_default"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "profile",
+       "notes"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "price_metric"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "latest_price",
+       "latest_price_date"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_source": {
+    "popups": {
+     "view": {
+      "name": "来源文档·详情",
+      "description": "查看一条「来源文档」记录"
+     },
+     "addNew": {
+      "name": "来源文档·新增",
+      "description": "新增一条「来源文档」记录"
+     },
+     "edit": {
+      "name": "来源文档·编辑",
+      "description": "编辑一条「来源文档」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息",
+      "fields": [
+       "title",
+       "source_type",
+       "publisher",
+       "publish_date",
+       "url",
+       "reliability",
+       "verify_status",
+       "retrieved_on",
+       "summary",
+       "limitations"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "tabs": [
+  {
+   "title": "历史财务（年度）",
+   "blocks": [
+    {
+     "key": "main",
+     "type": "table",
+     "collection": "vi_fin_history",
+     "fields": [
+      "year",
+      "scope_note",
+      "volume",
+      "price",
+      "revenue",
+      "gross_margin",
+      "np_parent",
+      "roe",
+      "payout",
+      "dps",
+      "finance_cost",
+      "cfo",
+      "capex",
+      "fcf",
+      "net_debt"
+     ],
+     "settings": {
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "year",
+        "direction": "asc"
+       }
+      ],
+      "dataScope": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "company_id",
+         "operator": "$eq",
+         "value": 2
+        }
+       ]
+      }
+     },
+     "actions": [
+      "filter",
+      "refresh",
+      {
+       "type": "addNew",
+       "popup": {
+        "title": "新增 · 历史财务（年度）",
+        "blocks": [
+         {
+          "type": "createForm",
+          "resource": {
+           "collectionName": "vi_fin_history"
+          },
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/3）",
+            "fields": [
+             "year",
+             "scope_note",
+             "volume",
+             "revenue",
+             "cost_of_sales",
+             "pretax_profit",
+             "income_tax",
+             "np_parent",
+             "minority_profit",
+             "da"
+            ]
+           },
+           {
+            "title": "基本信息（2/3）",
+            "fields": [
+             "finance_cost",
+             "invest_income",
+             "equity_income",
+             "cfo",
+             "capex",
+             "investee_cash_div",
+             "net_borrowing",
+             "interest_debt",
+             "cash",
+             "equity_parent"
+            ]
+           },
+           {
+            "title": "基本信息（3/3）",
+            "fields": [
+             "dividend_total",
+             "dps",
+             "note"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             },
+             {
+              "field": "source",
+              "titleField": "title"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "bulkDelete"
+     ],
+     "recordActions": [
+      "view",
+      {
+       "type": "edit",
+       "popup": {
+        "title": "编辑 · 历史财务（年度）",
+        "blocks": [
+         {
+          "type": "editForm",
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/3）",
+            "fields": [
+             "year",
+             "scope_note",
+             "volume",
+             "revenue",
+             "cost_of_sales",
+             "pretax_profit",
+             "income_tax",
+             "np_parent",
+             "minority_profit",
+             "da"
+            ]
+           },
+           {
+            "title": "基本信息（2/3）",
+            "fields": [
+             "finance_cost",
+             "invest_income",
+             "equity_income",
+             "cfo",
+             "capex",
+             "investee_cash_div",
+             "net_borrowing",
+             "interest_debt",
+             "cash",
+             "equity_parent"
+            ]
+           },
+           {
+            "title": "基本信息（3/3）",
+            "fields": [
+             "dividend_total",
+             "dps",
+             "note"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             },
+             {
+              "field": "source",
+              "titleField": "title"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "delete"
+     ]
+    }
+   ]
+  }
+ ]
+}

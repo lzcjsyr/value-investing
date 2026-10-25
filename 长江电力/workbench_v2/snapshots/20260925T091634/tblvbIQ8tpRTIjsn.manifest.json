@@ -1,0 +1,364 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "PMnCb5BsGaME0ysW21uc7pHJnDb",
+  "table_id": "tblvbIQ8tpRTIjsn",
+  "rev": 22,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 5,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/snapshots/20260925T091634/tblvbIQ8tpRTIjsn.ndjson",
+  "record_file_size_bytes": 5142,
+  "manifest_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/snapshots/20260925T091634/tblvbIQ8tpRTIjsn.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 14
+      },
+      "example": "recvvEne88wgWW"
+    },
+    "事实与判断边界": {
+      "field_id": "fldcdlfptC",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 46
+      },
+      "example": "机会成本压力测试；不改变经营利润，仅改变折现。"
+    },
+    "付现成本变动亿元": {
+      "field_id": "fld6wIedkc",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 0,
+        "max": 0,
+        "avg": 0
+      },
+      "example": 0
+    },
+    "估值基年": {
+      "field_id": "fldWNUpHTp",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 4
+      },
+      "example": "2025"
+    },
+    "利息变动亿元": {
+      "field_id": "fldggTDBzv",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": -10,
+        "max": 0,
+        "avg": -2
+      },
+      "example": 0
+    },
+    "变动比例": {
+      "field_id": "fldeI33VFR",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 12
+      },
+      "example": "0.00088287"
+    },
+    "基准价值元": {
+      "field_id": "fldWZ1LDYV",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "26.18888804"
+    },
+    "基准情景": {
+      "field_id": "fldftEY8Te",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        {
+          "id": "recvvEm3NsjbwG"
+        }
+      ]
+    },
+    "开始年份": {
+      "field_id": "fldRmBdM2Y",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 2026,
+        "max": 2026,
+        "avg": 2026
+      },
+      "example": 2026
+    },
+    "折旧变动亿元": {
+      "field_id": "fldcOZ8K40",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": -10,
+        "max": 0,
+        "avg": -2
+      },
+      "example": 0
+    },
+    "折现率变动": {
+      "field_id": "fldyQMMpPe",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 0,
+        "max": 0.005,
+        "avg": 0.001
+      },
+      "example": 0
+    },
+    "映射": {
+      "field_id": "fldJSQyDn5",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        {
+          "id": "recvvEm23srzfZ"
+        }
+      ]
+    },
+    "每股价值变化元": {
+      "field_id": "fld3Nh7yYU",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 12
+      },
+      "example": "0.023121377"
+    },
+    "永续增长率": {
+      "field_id": "fldAMBXwEh",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 4
+      },
+      "example": "0.01"
+    },
+    "电价变动率": {
+      "field_id": "fldqshKPrz",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": -0.03,
+        "max": 0,
+        "avg": -0.006
+      },
+      "example": 0
+    },
+    "电量变动率": {
+      "field_id": "fldOHhNcBS",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": -0.1,
+        "max": 0,
+        "avg": -0.02
+      },
+      "example": 0
+    },
+    "终值年份": {
+      "field_id": "fldrVmmGzb",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 4
+      },
+      "example": "2035"
+    },
+    "结束年份": {
+      "field_id": "fld5j6gVT2",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 2026,
+        "max": 2035,
+        "avg": 2031.4
+      },
+      "example": 2026
+    },
+    "股本亿股": {
+      "field_id": "fldimAyJZ6",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "244.68"
+    },
+    "试验": {
+      "field_id": "fldrSxTFJk",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 19
+      },
+      "example": "要求回报率提高50bp"
+    },
+    "试验价值元": {
+      "field_id": "fldb8Qr5Z3",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "25.98769276"
+    },
+    "试验折现率": {
+      "field_id": "fldUJOBFpC",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 5
+      },
+      "example": "0.052"
+    },
+    "试验股息2026": {
+      "field_id": "fldsSFfgTb",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "207.7991063"
+    },
+    "试验股息2027": {
+      "field_id": "fldFQUDxPM",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "257.1860095"
+    },
+    "试验股息2028": {
+      "field_id": "fld4SIsDsH",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "263.1375295"
+    },
+    "试验股息2029": {
+      "field_id": "fldX0nn7dt",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "269.0890495"
+    },
+    "试验股息2030": {
+      "field_id": "fldvxDiYun",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "275.0405695"
+    },
+    "试验股息2031": {
+      "field_id": "fldLOXdYoD",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "283.3726975"
+    },
+    "试验股息2032": {
+      "field_id": "fld326uSnj",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "291.1096735"
+    },
+    "试验股息2033": {
+      "field_id": "fldsdLTbQs",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "294.0854335"
+    },
+    "试验股息2034": {
+      "field_id": "fldvWcpdeq",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "295.8708895"
+    },
+    "试验股息2035": {
+      "field_id": "fldOEAjftH",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "296.4660415"
+    }
+  }
+}

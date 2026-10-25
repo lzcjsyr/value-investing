@@ -1,0 +1,52 @@
+{
+  "data": {
+    "key": "sd23ev3z936",
+    "name": "vi_lnk_debate_moats",
+    "title": "vi_lnk_debate_moats",
+    "inherit": false,
+    "hidden": true,
+    "description": null,
+    "fields": [
+      {
+        "key": "11hgkatdhkh",
+        "name": "debate_id",
+        "type": "bigInt",
+        "interface": "integer",
+        "description": null,
+        "collectionName": "vi_lnk_debate_moats",
+        "parentKey": null,
+        "reverseKey": null,
+        "isForeignKey": true,
+        "uiSchema": {
+          "type": "number",
+          "title": "debate_id",
+          "x-component": "InputNumber",
+          "x-read-pretty": true
+        }
+      },
+      {
+        "key": "clduqtjn61g",
+        "name": "moat_id",
+        "type": "bigInt",
+        "interface": "integer",
+        "description": null,
+        "collectionName": "vi_lnk_debate_moats",
+        "parentKey": null,
+        "reverseKey": null,
+        "isForeignKey": true,
+        "uiSchema": {
+          "type": "number",
+          "title": "moat_id",
+          "x-component": "InputNumber",
+          "x-read-pretty": true
+        }
+      }
+    ],
+    "timestamps": true,
+    "autoGenId": false,
+    "autoCreate": true,
+    "isThrough": true,
+    "sortable": false,
+    "unavailableActions": []
+  }
+}

@@ -1,0 +1,191 @@
+[
+  {
+    "base_count": 5,
+    "view_count": 5,
+    "distinct_view_ids": 5,
+    "id_mismatch": 0,
+    "code": "company"
+  },
+  {
+    "base_count": 115,
+    "view_count": 115,
+    "distinct_view_ids": 115,
+    "id_mismatch": 0,
+    "code": "source"
+  },
+  {
+    "base_count": 193,
+    "view_count": 193,
+    "distinct_view_ids": 193,
+    "id_mismatch": 0,
+    "code": "fact"
+  },
+  {
+    "base_count": 45,
+    "view_count": 45,
+    "distinct_view_ids": 45,
+    "id_mismatch": 0,
+    "code": "biz_model"
+  },
+  {
+    "base_count": 55,
+    "view_count": 55,
+    "distinct_view_ids": 55,
+    "id_mismatch": 0,
+    "code": "value_chain"
+  },
+  {
+    "base_count": 47,
+    "view_count": 47,
+    "distinct_view_ids": 47,
+    "id_mismatch": 0,
+    "code": "competitor"
+  },
+  {
+    "base_count": 41,
+    "view_count": 41,
+    "distinct_view_ids": 41,
+    "id_mismatch": 0,
+    "code": "moat"
+  },
+  {
+    "base_count": 37,
+    "view_count": 37,
+    "distinct_view_ids": 37,
+    "id_mismatch": 0,
+    "code": "thesis"
+  },
+  {
+    "base_count": 7,
+    "view_count": 7,
+    "distinct_view_ids": 7,
+    "id_mismatch": 0,
+    "code": "risk"
+  },
+  {
+    "base_count": 40,
+    "view_count": 40,
+    "distinct_view_ids": 40,
+    "id_mismatch": 0,
+    "code": "fit_score"
+  },
+  {
+    "base_count": 78,
+    "view_count": 78,
+    "distinct_view_ids": 78,
+    "id_mismatch": 0,
+    "code": "judgment"
+  },
+  {
+    "base_count": 53,
+    "view_count": 53,
+    "distinct_view_ids": 53,
+    "id_mismatch": 0,
+    "code": "fin_history"
+  },
+  {
+    "base_count": 549,
+    "view_count": 549,
+    "distinct_view_ids": 549,
+    "id_mismatch": 0,
+    "code": "period_data"
+  },
+  {
+    "base_count": 14,
+    "view_count": 14,
+    "distinct_view_ids": 14,
+    "id_mismatch": 0,
+    "code": "metric"
+  },
+  {
+    "base_count": 2597,
+    "view_count": 2597,
+    "distinct_view_ids": 2597,
+    "id_mismatch": 0,
+    "code": "observation"
+  },
+  {
+    "base_count": 5,
+    "view_count": 5,
+    "distinct_view_ids": 5,
+    "id_mismatch": 0,
+    "code": "model"
+  },
+  {
+    "base_count": 15,
+    "view_count": 15,
+    "distinct_view_ids": 15,
+    "id_mismatch": 0,
+    "code": "scenario"
+  },
+  {
+    "base_count": 35,
+    "view_count": 35,
+    "distinct_view_ids": 35,
+    "id_mismatch": 0,
+    "code": "sotp_item"
+  },
+  {
+    "base_count": 15,
+    "view_count": 15,
+    "distinct_view_ids": 15,
+    "id_mismatch": 0,
+    "code": "sotp_segment"
+  },
+  {
+    "base_count": 50,
+    "view_count": 50,
+    "distinct_view_ids": 50,
+    "id_mismatch": 0,
+    "code": "forecast"
+  },
+  {
+    "base_count": 27,
+    "view_count": 27,
+    "distinct_view_ids": 27,
+    "id_mismatch": 0,
+    "code": "trial"
+  },
+  {
+    "base_count": 57,
+    "view_count": 57,
+    "distinct_view_ids": 57,
+    "id_mismatch": 0,
+    "code": "watch"
+  },
+  {
+    "base_count": 51,
+    "view_count": 51,
+    "distinct_view_ids": 51,
+    "id_mismatch": 0,
+    "code": "issue"
+  },
+  {
+    "base_count": 28,
+    "view_count": 28,
+    "distinct_view_ids": 28,
+    "id_mismatch": 0,
+    "code": "change_log"
+  },
+  {
+    "base_count": 9,
+    "view_count": 9,
+    "distinct_view_ids": 9,
+    "id_mismatch": 0,
+    "code": "collector"
+  },
+  {
+    "base_count": 8,
+    "view_count": 8,
+    "distinct_view_ids": 8,
+    "id_mismatch": 0,
+    "code": "collect_run"
+  },
+  {
+    "base_count": 160,
+    "view_count": 160,
+    "distinct_view_ids": 160,
+    "id_mismatch": 0,
+    "code": "raw_capture"
+  }
+]

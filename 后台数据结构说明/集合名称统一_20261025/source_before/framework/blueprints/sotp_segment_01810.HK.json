@@ -1,0 +1,490 @@
+{
+ "version": "1",
+ "mode": "create",
+ "navigation": {
+  "group": {
+   "routeId": 393570966044672
+  },
+  "item": {
+   "title": "经营分部估值",
+   "icon": "TableOutlined"
+  }
+ },
+ "page": {
+  "title": "经营分部估值",
+  "documentTitle": "小米集团 · 经营分部估值"
+ },
+ "defaults": {
+  "collections": {
+   "vi_sotp_segment": {
+    "popups": {
+     "view": {
+      "name": "经营分部估值·详情",
+      "description": "查看一条「经营分部估值」记录"
+     },
+     "addNew": {
+      "name": "经营分部估值·新增",
+      "description": "新增一条「经营分部估值」记录"
+     },
+     "edit": {
+      "name": "经营分部估值·编辑",
+      "description": "编辑一条「经营分部估值」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "name",
+       "method",
+       "stage",
+       "earn_year",
+       "revenue",
+       "op_margin",
+       "tax_rate",
+       "attrib",
+       "multiple"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "ronic",
+       "growth",
+       "discount_rate",
+       "interim_cash",
+       "commit_amount",
+       "commit_years",
+       "ongoing_cost",
+       "basis",
+       "direct_value"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "model",
+       "scenario"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "calc_scenario",
+       "earnings",
+       "formula_multiple",
+       "multiple_used",
+       "eff_rate",
+       "years_to_value",
+       "terminal_pv",
+       "interim_pv",
+       "value",
+       "scope"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_model": {
+    "popups": {
+     "view": {
+      "name": "估值模型·详情",
+      "description": "查看一条「估值模型」记录"
+     },
+     "addNew": {
+      "name": "估值模型·新增",
+      "description": "新增一条「估值模型」记录"
+     },
+     "edit": {
+      "name": "估值模型·编辑",
+      "description": "编辑一条「估值模型」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/3）",
+      "fields": [
+       "name",
+       "status",
+       "method",
+       "base_year",
+       "terminal_year",
+       "shares",
+       "rf",
+       "rf_date",
+       "erp",
+       "opening_debt"
+      ]
+     },
+     {
+      "title": "基本信息（2/3）",
+      "fields": [
+       "margin_low",
+       "margin_high",
+       "notes",
+       "required_return",
+       "opening_op_assets",
+       "opening_lt_invest",
+       "opening_equity",
+       "opening_minority",
+       "primary_method",
+       "sotp_year"
+      ]
+     },
+     {
+      "title": "基本信息（3/3）",
+      "fields": [
+       "sotp_core_adj",
+       "sotp_as_of"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company",
+       "rf_metric"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "base_discount_rate",
+       "valuation_date",
+       "years_elapsed",
+       "latest_rf",
+       "latest_rf_date"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_scenario": {
+    "popups": {
+     "view": {
+      "name": "情景·详情",
+      "description": "查看一条「情景」记录"
+     },
+     "addNew": {
+      "name": "情景·新增",
+      "description": "新增一条「情景」记录"
+     },
+     "edit": {
+      "name": "情景·编辑",
+      "description": "编辑一条「情景」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "name",
+       "is_base",
+       "sort",
+       "volume_factor",
+       "price_factor",
+       "cost_factor",
+       "discount_rate",
+       "terminal_growth",
+       "nature",
+       "description"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "ronic",
+       "sotp_multiple",
+       "probability"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "model"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "eff_discount_rate"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_fact": {
+    "popups": {
+     "view": {
+      "name": "事实卡·详情",
+      "description": "查看一条「事实卡」记录"
+     },
+     "addNew": {
+      "name": "事实卡·新增",
+      "description": "新增一条「事实卡」记录"
+     },
+     "edit": {
+      "name": "事实卡·编辑",
+      "description": "编辑一条「事实卡」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息",
+      "fields": [
+       "title",
+       "category",
+       "statement",
+       "value",
+       "unit",
+       "period",
+       "as_of",
+       "verify_status",
+       "notes"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company",
+       "source"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "tabs": [
+  {
+   "title": "经营分部估值",
+   "blocks": [
+    {
+     "key": "main",
+     "type": "table",
+     "collection": "vi_sotp_segment",
+     "fields": [
+      "code",
+      {
+       "field": "scenario",
+       "titleField": "name",
+       "popup": {
+        "title": "情景",
+        "blocks": [
+         {
+          "type": "details",
+          "resource": {
+           "binding": "currentRecord",
+           "collectionName": "vi_scenario"
+          },
+          "fields": [
+           "name",
+           "is_base",
+           "sort",
+           "volume_factor",
+           "price_factor",
+           "cost_factor"
+          ]
+         }
+        ]
+       }
+      },
+      "name",
+      "method",
+      "stage",
+      "earn_year",
+      "revenue",
+      "op_margin",
+      "multiple_used",
+      "eff_rate",
+      "interim_cash",
+      "commit_amount",
+      "ongoing_cost",
+      "direct_value",
+      "value",
+      "calc_scenario"
+     ],
+     "settings": {
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "code",
+        "direction": "asc"
+       },
+       {
+        "field": "id",
+        "direction": "asc"
+       }
+      ],
+      "dataScope": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "model.company_id",
+         "operator": "$eq",
+         "value": 21
+        }
+       ]
+      }
+     },
+     "actions": [
+      "filter",
+      "refresh",
+      {
+       "type": "addNew",
+       "popup": {
+        "title": "新增 · 经营分部估值",
+        "blocks": [
+         {
+          "type": "createForm",
+          "resource": {
+           "collectionName": "vi_sotp_segment"
+          },
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "name",
+             "method",
+             "stage",
+             "earn_year",
+             "revenue",
+             "op_margin",
+             "tax_rate",
+             "attrib",
+             "multiple"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "ronic",
+             "growth",
+             "discount_rate",
+             "interim_cash",
+             "commit_amount",
+             "commit_years",
+             "ongoing_cost",
+             "direct_value",
+             "basis"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "model",
+              "titleField": "name"
+             },
+             {
+              "field": "scenario",
+              "titleField": "name"
+             },
+             {
+              "field": "facts",
+              "titleField": "title"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "bulkDelete"
+     ],
+     "recordActions": [
+      "view",
+      {
+       "type": "edit",
+       "popup": {
+        "title": "编辑 · 经营分部估值",
+        "blocks": [
+         {
+          "type": "editForm",
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "name",
+             "method",
+             "stage",
+             "earn_year",
+             "revenue",
+             "op_margin",
+             "tax_rate",
+             "attrib",
+             "multiple"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "ronic",
+             "growth",
+             "discount_rate",
+             "interim_cash",
+             "commit_amount",
+             "commit_years",
+             "ongoing_cost",
+             "direct_value",
+             "basis"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "model",
+              "titleField": "name"
+             },
+             {
+              "field": "scenario",
+              "titleField": "name"
+             },
+             {
+              "field": "facts",
+              "titleField": "title"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "delete"
+     ]
+    }
+   ]
+  }
+ ]
+}

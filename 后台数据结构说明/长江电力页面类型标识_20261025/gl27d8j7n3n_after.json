@@ -1,0 +1,1735 @@
+{
+  "data": {
+    "target": {
+      "locator": {
+        "pageSchemaUid": "gl27d8j7n3n"
+      },
+      "uid": "b6tnir5s39v",
+      "kind": "page"
+    },
+    "tree": {
+      "parentId": "gl27d8j7n3n",
+      "subKey": "page",
+      "subType": "object",
+      "use": "RootPageModel",
+      "props": {
+        "routeId": 393441265188864,
+        "title": "估值结论",
+        "enableTabs": false,
+        "displayTitle": true,
+        "icon": "CalculatorOutlined",
+        "enableHeader": false
+      },
+      "stepParams": {
+        "pageSettings": {
+          "general": {
+            "title": "估值结论",
+            "displayTitle": true,
+            "enableTabs": false,
+            "documentTitle": "长江电力 · 估值结论",
+            "icon": "CalculatorOutlined",
+            "enableHeader": false
+          }
+        }
+      },
+      "parent": "gl27d8j7n3n",
+      "uid": "b6tnir5s39v",
+      "subModels": {
+        "tabs": [
+          {
+            "uid": "u5xzvwx3wvt",
+            "use": "RootPageTabModel",
+            "props": {
+              "route": {
+                "createdAt": "2026-10-22T01:10:14.130Z",
+                "updatedAt": "2026-10-22T01:10:14.162Z",
+                "id": 393441265188865,
+                "parentId": 393441265188864,
+                "title": "估值结论",
+                "tooltip": null,
+                "icon": null,
+                "schemaUid": "u5xzvwx3wvt",
+                "menuSchemaUid": null,
+                "tabSchemaName": "kami0ypewht",
+                "type": "tabs",
+                "options": {
+                  "flowRegistry": {}
+                },
+                "sort": 1792631414117187,
+                "hideInMenu": null,
+                "enableTabs": null,
+                "enableHeader": null,
+                "displayTitle": null,
+                "hidden": true,
+                "createdById": null,
+                "updatedById": null,
+                "children": []
+              },
+              "title": "估值结论",
+              "icon": null
+            },
+            "decoratorProps": {},
+            "flowRegistry": {},
+            "stepParams": {
+              "pageTabSettings": {
+                "tab": {
+                  "title": "估值结论",
+                  "icon": null
+                }
+              }
+            },
+            "subModels": {
+              "grid": {
+                "parentId": "u5xzvwx3wvt",
+                "subKey": "grid",
+                "subType": "object",
+                "use": "BlockGridModel",
+                "props": {
+                  "rows": {
+                    "row1": [
+                      [
+                        "nkxmrtgt823"
+                      ]
+                    ]
+                  },
+                  "sizes": {
+                    "row1": [
+                      24
+                    ]
+                  },
+                  "rowOrder": [
+                    "row1"
+                  ]
+                },
+                "stepParams": {
+                  "gridSettings": {
+                    "grid": {
+                      "rows": {
+                        "row1": [
+                          [
+                            "nkxmrtgt823"
+                          ]
+                        ]
+                      },
+                      "sizes": {
+                        "row1": [
+                          24
+                        ]
+                      },
+                      "rowOrder": [
+                        "row1"
+                      ]
+                    }
+                  }
+                },
+                "uid": "upk3o6i25l5",
+                "subModels": {
+                  "items": [
+                    {
+                      "parentId": "upk3o6i25l5",
+                      "subKey": "items",
+                      "subType": "array",
+                      "use": "TableBlockModel",
+                      "props": {},
+                      "decoratorProps": {},
+                      "stepParams": {
+                        "resourceSettings": {
+                          "init": {
+                            "dataSourceKey": "main",
+                            "collectionName": "vi_valuation"
+                          }
+                        },
+                        "tableSettings": {
+                          "pageSize": {
+                            "pageSize": 50
+                          },
+                          "defaultSorting": {
+                            "sort": [
+                              {
+                                "field": "id",
+                                "direction": "asc"
+                              }
+                            ]
+                          },
+                          "dataScope": {
+                            "filter": {
+                              "logic": "$and",
+                              "items": [
+                                {
+                                  "path": "company_id",
+                                  "operator": "$eq",
+                                  "value": 1
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "cardSettings": {
+                          "titleDescription": {
+                            "title": "计算结果 · 估值结论",
+                            "description": "由后台自动计算：估值结论"
+                          }
+                        }
+                      },
+                      "uid": "nkxmrtgt823",
+                      "subModels": {
+                        "columns": [
+                          {
+                            "use": "TableActionsColumnModel",
+                            "props": {},
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "tableColumnSettings": {
+                                "title": {
+                                  "title": "{{t(\"Actions\")}}"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "subKey": "columns",
+                            "subType": "array",
+                            "uid": "1yurmx5lsdr",
+                            "subModels": {
+                              "actions": [
+                                {
+                                  "parentId": "1yurmx5lsdr",
+                                  "subKey": "actions",
+                                  "subType": "array",
+                                  "use": "ViewActionModel",
+                                  "props": {
+                                    "type": "link",
+                                    "title": "{{t(\"View\")}}",
+                                    "icon": null
+                                  },
+                                  "decoratorProps": {},
+                                  "stepParams": {
+                                    "buttonSettings": {
+                                      "general": {
+                                        "title": "{{t(\"View\")}}",
+                                        "icon": null,
+                                        "type": "link",
+                                        "iconOnly": false
+                                      }
+                                    },
+                                    "popupSettings": {
+                                      "openView": {
+                                        "mode": "drawer",
+                                        "size": "medium",
+                                        "pageModelClass": "ChildPageModel",
+                                        "dataSourceKey": "main",
+                                        "collectionName": "vi_valuation",
+                                        "title": "{{t(\"Details\")}}"
+                                      }
+                                    }
+                                  },
+                                  "flowRegistry": {},
+                                  "uid": "24isq3nozum",
+                                  "parent": "1yurmx5lsdr",
+                                  "sortIndex": 1,
+                                  "popup": {
+                                    "template": {
+                                      "uid": "kx4we5lvjd7",
+                                      "mode": "reference"
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            "parent": "nkxmrtgt823",
+                            "parentId": "nkxmrtgt823",
+                            "sortIndex": 1,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nkxmrtgt823",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_valuation",
+                                  "fieldPath": "scenario_name"
+                                }
+                              }
+                            },
+                            "uid": "atrmhbgj7jq",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_valuation",
+                                      "fieldPath": "scenario_name"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "x1pkzzppj0m",
+                                "parent": "atrmhbgj7jq",
+                                "parentId": "atrmhbgj7jq",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nkxmrtgt823",
+                            "sortIndex": 2,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nkxmrtgt823",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_valuation",
+                                  "fieldPath": "market_price"
+                                }
+                              }
+                            },
+                            "uid": "fyl90hsa472",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayNumberFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_valuation",
+                                      "fieldPath": "market_price"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "z3psrl1x5gr",
+                                "parent": "fyl90hsa472",
+                                "parentId": "fyl90hsa472",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nkxmrtgt823",
+                            "sortIndex": 3,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nkxmrtgt823",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_valuation",
+                                  "fieldPath": "implied_irr"
+                                }
+                              }
+                            },
+                            "uid": "3p00wccbaxr",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayPercentFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_valuation",
+                                      "fieldPath": "implied_irr"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "hg1k0i8ntoe",
+                                "parent": "3p00wccbaxr",
+                                "parentId": "3p00wccbaxr",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nkxmrtgt823",
+                            "sortIndex": 4,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nkxmrtgt823",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_valuation",
+                                  "fieldPath": "cash_implied_irr"
+                                }
+                              }
+                            },
+                            "uid": "kodo86d2zbm",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayPercentFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_valuation",
+                                      "fieldPath": "cash_implied_irr"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "kjqt5v6h920",
+                                "parent": "kodo86d2zbm",
+                                "parentId": "kodo86d2zbm",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nkxmrtgt823",
+                            "sortIndex": 5,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nkxmrtgt823",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_valuation",
+                                  "fieldPath": "required_return"
+                                }
+                              }
+                            },
+                            "uid": "nxdmmk6jgun",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayPercentFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_valuation",
+                                      "fieldPath": "required_return"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "wfecc3678au",
+                                "parent": "nxdmmk6jgun",
+                                "parentId": "nxdmmk6jgun",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nkxmrtgt823",
+                            "sortIndex": 6,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nkxmrtgt823",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_valuation",
+                                  "fieldPath": "value_at_required"
+                                }
+                              }
+                            },
+                            "uid": "7h6geitdz6h",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayNumberFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_valuation",
+                                      "fieldPath": "value_at_required"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "ycpby46lbpu",
+                                "parent": "7h6geitdz6h",
+                                "parentId": "7h6geitdz6h",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nkxmrtgt823",
+                            "sortIndex": 7,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nkxmrtgt823",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_valuation",
+                                  "fieldPath": "value_today"
+                                }
+                              }
+                            },
+                            "uid": "4qvi325krph",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayNumberFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_valuation",
+                                      "fieldPath": "value_today"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "iqgmqu9m393",
+                                "parent": "4qvi325krph",
+                                "parentId": "4qvi325krph",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nkxmrtgt823",
+                            "sortIndex": 8,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nkxmrtgt823",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_valuation",
+                                  "fieldPath": "price_vs_value"
+                                }
+                              }
+                            },
+                            "uid": "usc4349zuic",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayPercentFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_valuation",
+                                      "fieldPath": "price_vs_value"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "9syelv4f8bp",
+                                "parent": "usc4349zuic",
+                                "parentId": "usc4349zuic",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nkxmrtgt823",
+                            "sortIndex": 9,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nkxmrtgt823",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_valuation",
+                                  "fieldPath": "watch_low"
+                                }
+                              }
+                            },
+                            "uid": "34qmdyo9jly",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayNumberFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_valuation",
+                                      "fieldPath": "watch_low"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "gx22dh9r7vt",
+                                "parent": "34qmdyo9jly",
+                                "parentId": "34qmdyo9jly",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nkxmrtgt823",
+                            "sortIndex": 10,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nkxmrtgt823",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_valuation",
+                                  "fieldPath": "watch_high"
+                                }
+                              }
+                            },
+                            "uid": "dqsyl2a1bkn",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayNumberFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_valuation",
+                                      "fieldPath": "watch_high"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "smeffkl8tu8",
+                                "parent": "dqsyl2a1bkn",
+                                "parentId": "dqsyl2a1bkn",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nkxmrtgt823",
+                            "sortIndex": 11,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nkxmrtgt823",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_valuation",
+                                  "fieldPath": "terminal_share"
+                                }
+                              }
+                            },
+                            "uid": "svajpf7spp0",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayPercentFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_valuation",
+                                      "fieldPath": "terminal_share"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "h5nys3rzgjj",
+                                "parent": "svajpf7spp0",
+                                "parentId": "svajpf7spp0",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nkxmrtgt823",
+                            "sortIndex": 12,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nkxmrtgt823",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_valuation",
+                                  "fieldPath": "conclusion"
+                                }
+                              }
+                            },
+                            "uid": "eifv7yzs0yy",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_valuation",
+                                      "fieldPath": "conclusion"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "gxdw9pn1gk6",
+                                "parent": "eifv7yzs0yy",
+                                "parentId": "eifv7yzs0yy",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nkxmrtgt823",
+                            "sortIndex": 13,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          }
+                        ],
+                        "actions": [
+                          {
+                            "parentId": "nkxmrtgt823",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "FilterActionModel",
+                            "props": {
+                              "title": "{{t(\"Filter\")}}",
+                              "icon": "FilterOutlined",
+                              "defaultFilterValue": {
+                                "logic": "$and",
+                                "items": [
+                                  {
+                                    "path": "scenario_name",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "company_name",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "model_name",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "conclusion",
+                                    "operator": "$includes"
+                                  }
+                                ]
+                              },
+                              "filterValue": {
+                                "logic": "$and",
+                                "items": [
+                                  {
+                                    "path": "scenario_name",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "company_name",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "model_name",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "conclusion",
+                                    "operator": "$includes"
+                                  }
+                                ]
+                              }
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "{{t(\"Filter\")}}",
+                                  "icon": "FilterOutlined"
+                                }
+                              },
+                              "filterSettings": {
+                                "defaultFilter": {
+                                  "defaultFilter": {
+                                    "logic": "$and",
+                                    "items": [
+                                      {
+                                        "path": "scenario_name",
+                                        "operator": "$includes"
+                                      },
+                                      {
+                                        "path": "company_name",
+                                        "operator": "$includes"
+                                      },
+                                      {
+                                        "path": "model_name",
+                                        "operator": "$includes"
+                                      },
+                                      {
+                                        "path": "conclusion",
+                                        "operator": "$includes"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "0j92gghiuey",
+                            "parent": "nkxmrtgt823",
+                            "sortIndex": 1,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nkxmrtgt823",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "RefreshActionModel",
+                            "props": {
+                              "title": "{{t(\"Refresh\")}}",
+                              "icon": "ReloadOutlined"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "{{t(\"Refresh\")}}",
+                                  "icon": "ReloadOutlined"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "bqxxjlua55f",
+                            "parent": "nkxmrtgt823",
+                            "sortIndex": 2,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          }
+                        ]
+                      },
+                      "parent": "upk3o6i25l5",
+                      "sortIndex": 1,
+                      "popup": {
+                        "mode": "local"
+                      }
+                    }
+                  ]
+                },
+                "parent": "u5xzvwx3wvt",
+                "sortIndex": 1,
+                "popup": {
+                  "mode": "local"
+                }
+              }
+            },
+            "popup": {
+              "mode": "local"
+            }
+          }
+        ]
+      },
+      "popup": {
+        "mode": "local"
+      }
+    },
+    "nodeMap": {
+      "b6tnir5s39v": {
+        "uid": "b6tnir5s39v",
+        "use": "RootPageModel",
+        "props": {
+          "routeId": 393441265188864,
+          "title": "估值结论",
+          "enableTabs": false,
+          "displayTitle": true,
+          "icon": "CalculatorOutlined",
+          "enableHeader": false
+        },
+        "stepParams": {
+          "pageSettings": {
+            "general": {
+              "title": "估值结论",
+              "displayTitle": true,
+              "enableTabs": false,
+              "documentTitle": "长江电力 · 估值结论",
+              "icon": "CalculatorOutlined",
+              "enableHeader": false
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "u5xzvwx3wvt": {
+        "uid": "u5xzvwx3wvt",
+        "use": "RootPageTabModel",
+        "props": {
+          "route": {
+            "createdAt": "2026-10-22T01:10:14.130Z",
+            "updatedAt": "2026-10-22T01:10:14.162Z",
+            "id": 393441265188865,
+            "parentId": 393441265188864,
+            "title": "估值结论",
+            "tooltip": null,
+            "icon": null,
+            "schemaUid": "u5xzvwx3wvt",
+            "menuSchemaUid": null,
+            "tabSchemaName": "kami0ypewht",
+            "type": "tabs",
+            "options": {
+              "flowRegistry": {}
+            },
+            "sort": 1792631414117187,
+            "hideInMenu": null,
+            "enableTabs": null,
+            "enableHeader": null,
+            "displayTitle": null,
+            "hidden": true,
+            "createdById": null,
+            "updatedById": null,
+            "children": []
+          },
+          "title": "估值结论",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "pageTabSettings": {
+            "tab": {
+              "title": "估值结论",
+              "icon": null
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "upk3o6i25l5": {
+        "uid": "upk3o6i25l5",
+        "use": "BlockGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "nkxmrtgt823"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "nkxmrtgt823"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "nkxmrtgt823": {
+        "uid": "nkxmrtgt823",
+        "use": "TableBlockModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "resourceSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation"
+            }
+          },
+          "tableSettings": {
+            "pageSize": {
+              "pageSize": 50
+            },
+            "defaultSorting": {
+              "sort": [
+                {
+                  "field": "id",
+                  "direction": "asc"
+                }
+              ]
+            },
+            "dataScope": {
+              "filter": {
+                "logic": "$and",
+                "items": [
+                  {
+                    "path": "company_id",
+                    "operator": "$eq",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          },
+          "cardSettings": {
+            "titleDescription": {
+              "title": "计算结果 · 估值结论",
+              "description": "由后台自动计算：估值结论"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "1yurmx5lsdr": {
+        "uid": "1yurmx5lsdr",
+        "use": "TableActionsColumnModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "tableColumnSettings": {
+            "title": {
+              "title": "{{t(\"Actions\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "24isq3nozum": {
+        "uid": "24isq3nozum",
+        "use": "ViewActionModel",
+        "props": {
+          "type": "link",
+          "title": "{{t(\"View\")}}",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"View\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "title": "{{t(\"Details\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "kx4we5lvjd7",
+            "mode": "reference"
+          }
+        }
+      },
+      "atrmhbgj7jq": {
+        "uid": "atrmhbgj7jq",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "scenario_name"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "x1pkzzppj0m": {
+        "uid": "x1pkzzppj0m",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "scenario_name"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "fyl90hsa472": {
+        "uid": "fyl90hsa472",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "market_price"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "z3psrl1x5gr": {
+        "uid": "z3psrl1x5gr",
+        "use": "DisplayNumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "market_price"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "3p00wccbaxr": {
+        "uid": "3p00wccbaxr",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "implied_irr"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "hg1k0i8ntoe": {
+        "uid": "hg1k0i8ntoe",
+        "use": "DisplayPercentFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "implied_irr"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "kodo86d2zbm": {
+        "uid": "kodo86d2zbm",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "cash_implied_irr"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "kjqt5v6h920": {
+        "uid": "kjqt5v6h920",
+        "use": "DisplayPercentFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "cash_implied_irr"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "nxdmmk6jgun": {
+        "uid": "nxdmmk6jgun",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "required_return"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "wfecc3678au": {
+        "uid": "wfecc3678au",
+        "use": "DisplayPercentFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "required_return"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "7h6geitdz6h": {
+        "uid": "7h6geitdz6h",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "value_at_required"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ycpby46lbpu": {
+        "uid": "ycpby46lbpu",
+        "use": "DisplayNumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "value_at_required"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "4qvi325krph": {
+        "uid": "4qvi325krph",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "value_today"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "iqgmqu9m393": {
+        "uid": "iqgmqu9m393",
+        "use": "DisplayNumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "value_today"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "usc4349zuic": {
+        "uid": "usc4349zuic",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "price_vs_value"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "9syelv4f8bp": {
+        "uid": "9syelv4f8bp",
+        "use": "DisplayPercentFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "price_vs_value"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "34qmdyo9jly": {
+        "uid": "34qmdyo9jly",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "watch_low"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "gx22dh9r7vt": {
+        "uid": "gx22dh9r7vt",
+        "use": "DisplayNumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "watch_low"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "dqsyl2a1bkn": {
+        "uid": "dqsyl2a1bkn",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "watch_high"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "smeffkl8tu8": {
+        "uid": "smeffkl8tu8",
+        "use": "DisplayNumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "watch_high"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "svajpf7spp0": {
+        "uid": "svajpf7spp0",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "terminal_share"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "h5nys3rzgjj": {
+        "uid": "h5nys3rzgjj",
+        "use": "DisplayPercentFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "terminal_share"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "eifv7yzs0yy": {
+        "uid": "eifv7yzs0yy",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "conclusion"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "gxdw9pn1gk6": {
+        "uid": "gxdw9pn1gk6",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_valuation",
+              "fieldPath": "conclusion"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "0j92gghiuey": {
+        "uid": "0j92gghiuey",
+        "use": "FilterActionModel",
+        "props": {
+          "title": "{{t(\"Filter\")}}",
+          "icon": "FilterOutlined",
+          "defaultFilterValue": {
+            "logic": "$and",
+            "items": [
+              {
+                "path": "scenario_name",
+                "operator": "$includes"
+              },
+              {
+                "path": "company_name",
+                "operator": "$includes"
+              },
+              {
+                "path": "model_name",
+                "operator": "$includes"
+              },
+              {
+                "path": "conclusion",
+                "operator": "$includes"
+              }
+            ]
+          },
+          "filterValue": {
+            "logic": "$and",
+            "items": [
+              {
+                "path": "scenario_name",
+                "operator": "$includes"
+              },
+              {
+                "path": "company_name",
+                "operator": "$includes"
+              },
+              {
+                "path": "model_name",
+                "operator": "$includes"
+              },
+              {
+                "path": "conclusion",
+                "operator": "$includes"
+              }
+            ]
+          }
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Filter\")}}",
+              "icon": "FilterOutlined"
+            }
+          },
+          "filterSettings": {
+            "defaultFilter": {
+              "defaultFilter": {
+                "logic": "$and",
+                "items": [
+                  {
+                    "path": "scenario_name",
+                    "operator": "$includes"
+                  },
+                  {
+                    "path": "company_name",
+                    "operator": "$includes"
+                  },
+                  {
+                    "path": "model_name",
+                    "operator": "$includes"
+                  },
+                  {
+                    "path": "conclusion",
+                    "operator": "$includes"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "bqxxjlua55f": {
+        "uid": "bqxxjlua55f",
+        "use": "RefreshActionModel",
+        "props": {
+          "title": "{{t(\"Refresh\")}}",
+          "icon": "ReloadOutlined"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Refresh\")}}",
+              "icon": "ReloadOutlined"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      }
+    },
+    "pageRoute": {
+      "createdAt": "2026-10-22T01:10:14.117Z",
+      "updatedAt": "2026-10-25T02:11:07.002Z",
+      "id": 393441265188864,
+      "parentId": 393441258897408,
+      "title": "估值结论",
+      "tooltip": "计算报表｜由后台数据和模型自动计算",
+      "icon": "CalculatorOutlined",
+      "schemaUid": "gl27d8j7n3n",
+      "menuSchemaUid": "j1k7cbq8yms",
+      "tabSchemaName": null,
+      "type": "flowPage",
+      "options": {
+        "flowSurfaceMenuBindable": true
+      },
+      "sort": 2,
+      "hideInMenu": false,
+      "enableTabs": false,
+      "enableHeader": false,
+      "displayTitle": true,
+      "hidden": null,
+      "createdById": null,
+      "updatedById": 1,
+      "children": [
+        {
+          "createdAt": "2026-10-22T01:10:14.130Z",
+          "updatedAt": "2026-10-22T01:10:14.162Z",
+          "id": 393441265188865,
+          "parentId": 393441265188864,
+          "title": "估值结论",
+          "tooltip": null,
+          "icon": null,
+          "schemaUid": "u5xzvwx3wvt",
+          "menuSchemaUid": null,
+          "tabSchemaName": "kami0ypewht",
+          "type": "tabs",
+          "options": {
+            "flowRegistry": {}
+          },
+          "sort": 1792631414117187,
+          "hideInMenu": null,
+          "enableTabs": null,
+          "enableHeader": null,
+          "displayTitle": null,
+          "hidden": true,
+          "createdById": null,
+          "updatedById": null
+        }
+      ]
+    }
+  }
+}

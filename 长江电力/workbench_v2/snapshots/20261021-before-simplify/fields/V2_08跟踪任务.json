@@ -1,0 +1,145 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "fields": [
+      {
+        "default_value": null,
+        "id": "fldztYyttd",
+        "name": "跟踪指标",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldfKN7URt",
+        "name": "观察指标代码",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldshekmI4",
+        "name": "最新观察",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "bidirectional": false,
+        "id": "fldnVXPnoy",
+        "link_table": "tblGjno4t3xbBI3a",
+        "name": "映射",
+        "type": "link"
+      },
+      {
+        "default_value": null,
+        "id": "fldD2qzKaQ",
+        "name": "采集状态",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "expression": "IF(ISBLANK([观察指标代码]),\"\",[V2_11市场观察].FILTER(AND(CurrentValue.[指标代码]=[观察指标代码],CurrentValue.[当前版本]=TRUE(),CurrentValue.[质量有效]=1)).SORTBY([V2_11市场观察].[日期],FALSE()).[单位].FIRST())",
+        "id": "fldGREaIR1",
+        "name": "最新有效观察单位",
+        "type": "formula"
+      },
+      {
+        "expression": "IF(ISBLANK([观察指标代码]),\"\",[V2_11市场观察].FILTER(AND(CurrentValue.[指标代码]=[观察指标代码],CurrentValue.[当前版本]=TRUE(),CurrentValue.[质量有效]=1)).SORTBY([V2_11市场观察].[日期],FALSE()).[日期].FIRST())",
+        "id": "fld3hyVeBe",
+        "name": "最新有效观察日",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fldgrZ37bJ",
+        "name": "频率",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldYvLOVBI",
+        "name": "观察日期",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fld5tm01jQ",
+        "name": "阈值性质",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "expression": "IF(ISBLANK([观察指标代码]),\"尚未接入自动观察\",IF(ISBLANK([最新有效观察值]),\"无有效观察\",\"已联动；不自动修改估值假设\"))",
+        "id": "fldqniWPdp",
+        "name": "观察联动状态",
+        "type": "formula"
+      },
+      {
+        "expression": "IF(ISBLANK([观察指标代码]),\"\",[V2_11市场观察].FILTER(AND(CurrentValue.[指标代码]=[观察指标代码],CurrentValue.[当前版本]=TRUE(),CurrentValue.[质量有效]=1)).SORTBY([V2_11市场观察].[日期],FALSE()).[指标].FIRST())",
+        "id": "fld3nq6JmN",
+        "name": "最新有效观察指标",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fld5e4HBo4",
+        "name": "触发后动作",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldAkQ0Vu0",
+        "name": "触发阈值",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "expression": "IF(ISBLANK([观察指标代码]),\"\",[V2_11市场观察].FILTER(AND(CurrentValue.[指标代码]=[观察指标代码],CurrentValue.[当前版本]=TRUE(),CurrentValue.[质量有效]=1)).SORTBY([V2_11市场观察].[日期],FALSE()).[统一数值].FIRST())",
+        "id": "fld4e1waS5",
+        "name": "最新有效观察值",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fldO2JjUDP",
+        "name": "首选来源",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fldALAezob",
+        "name": "任务ID",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      }
+    ],
+    "total": 17
+  }
+}

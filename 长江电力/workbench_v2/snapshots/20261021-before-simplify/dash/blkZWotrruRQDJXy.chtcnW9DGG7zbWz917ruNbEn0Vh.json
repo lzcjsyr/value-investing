@@ -1,0 +1,42 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "block": {
+      "block_id": "chtcnW9DGG7zbWz917ruNbEn0Vh",
+      "data_config": {
+        "group_by": [
+          {
+            "field_name": "情景",
+            "mode": "integrated",
+            "sort": {
+              "order": "asc",
+              "type": "view"
+            }
+          }
+        ],
+        "series": [
+          {
+            "field_name": "终值占比",
+            "rollup": "MAX"
+          }
+        ],
+        "table_name": "V2_07估值决策"
+      },
+      "name": "终值占比：越高越依赖远期假设",
+      "position": {
+        "h": 8,
+        "w": 4,
+        "x": 8,
+        "y": 12
+      },
+      "standard_position": {
+        "h": 832,
+        "w": 498,
+        "x": 996,
+        "y": 1248
+      },
+      "type": "column"
+    }
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "has_more": false,
+    "items": [
+      {
+        "block_id": "chtcnBeZ76tJM97F19X8GONB4Bd",
+        "name": "每股内在价值（中性）",
+        "position": {
+          "h": 2,
+          "w": 3,
+          "x": 0,
+          "y": 0
+        },
+        "standard_position": {
+          "h": 208,
+          "w": 373.5,
+          "x": 0,
+          "y": 0
+        },
+        "type": "statistics"
+      },
+      {
+        "block_id": "chtcnIE7bGorK2akvgRvVltniee",
+        "name": "当前股价（对比层）",
+        "position": {
+          "h": 2,
+          "w": 3,
+          "x": 3,
+          "y": 0
+        },
+        "standard_position": {
+          "h": 208,
+          "w": 373.5,
+          "x": 373.5,
+          "y": 0
+        },
+        "type": "statistics"
+      },
+      {
+        "block_id": "chtcnTcz41mELDBz6pqjqQgPmxc",
+        "name": "折溢价%",
+        "position": {
+          "h": 2,
+          "w": 3,
+          "x": 6,
+          "y": 0
+        },
+        "standard_position": {
+          "h": 208,
+          "w": 373.5,
+          "x": 747,
+          "y": 0
+        },
+        "type": "statistics"
+      },
+      {
+        "block_id": "chtcnz0hZiLIVD4hT2mr3bqWFog",
+        "name": "买入阈值（30%安全边际）",
+        "position": {
+          "h": 2,
+          "w": 3,
+          "x": 9,
+          "y": 0
+        },
+        "standard_position": {
+          "h": 208,
+          "w": 373.5,
+          "x": 1120.5,
+          "y": 0
+        },
+        "type": "statistics"
+      },
+      {
+        "block_id": "chtcnBqvjD0pUbax2LxCc4Oy9jf",
+        "name": "股息与派息率（2014-2025）",
+        "position": {
+          "h": 4,
+          "w": 4,
+          "x": 0,
+          "y": 2
+        },
+        "standard_position": {
+          "h": 416,
+          "w": 498,
+          "x": 0,
+          "y": 208
+        },
+        "type": "combo"
+      },
+      {
+        "block_id": "chtcnykNLqTL8YZmnr9sq2ecGGb",
+        "name": "发电量（六站口径）",
+        "position": {
+          "h": 4,
+          "w": 4,
+          "x": 0,
+          "y": 10
+        },
+        "standard_position": {
+          "h": 416,
+          "w": 498,
+          "x": 0,
+          "y": 1040
+        },
+        "type": "column"
+      },
+      {
+        "block_id": "chtcnqrD3L16C35xKi7MMfn9sTf",
+        "name": "利润质量：净利/现金流/折旧+财务费用",
+        "position": {
+          "h": 4,
+          "w": 4,
+          "x": 4,
+          "y": 2
+        },
+        "standard_position": {
+          "h": 416,
+          "w": 498,
+          "x": 498,
+          "y": 208
+        },
+        "type": "line"
+      },
+      {
+        "block_id": "chtcnsSLcsmye8QzwEm4YuryASh",
+        "name": "预测股息路径（2026E-2035E）",
+        "position": {
+          "h": 8,
+          "w": 4,
+          "x": 8,
+          "y": 2
+        },
+        "standard_position": {
+          "h": 832,
+          "w": 498,
+          "x": 996,
+          "y": 208
+        },
+        "type": "line"
+      },
+      {
+        "block_id": "chtcnyH31kvt1ipTcgfKFk3aBDh",
+        "name": "情景估值（每股，元）",
+        "position": {
+          "h": 4,
+          "w": 4,
+          "x": 4,
+          "y": 18
+        },
+        "standard_position": {
+          "h": 416,
+          "w": 498,
+          "x": 498,
+          "y": 1872
+        },
+        "type": "column"
+      },
+      {
+        "block_id": "chtcnYGaQCb04AEHYjrJeij9lOh",
+        "name": "看板总览",
+        "position": {
+          "h": 4,
+          "w": 4,
+          "x": 0,
+          "y": 6
+        },
+        "standard_position": {
+          "h": 416,
+          "w": 498,
+          "x": 0,
+          "y": 624
+        },
+        "type": "text"
+      },
+      {
+        "block_id": "chtcnlrRRYs19x1tgfJNBW5DKeb",
+        "name": "投资逻辑",
+        "position": {
+          "h": 4,
+          "w": 4,
+          "x": 4,
+          "y": 6
+        },
+        "standard_position": {
+          "h": 416,
+          "w": 498,
+          "x": 498,
+          "y": 624
+        },
+        "type": "text"
+      },
+      {
+        "block_id": "chtcnOXzYKkUuZnD1nCLovdM3gf",
+        "name": "模型与定价",
+        "position": {
+          "h": 4,
+          "w": 4,
+          "x": 8,
+          "y": 10
+        },
+        "standard_position": {
+          "h": 416,
+          "w": 498,
+          "x": 996,
+          "y": 1040
+        },
+        "type": "text"
+      },
+      {
+        "block_id": "chtcnLmUSJN77UeTHjYjnrqlCAz",
+        "name": "操作纪律与股价隔离墙",
+        "position": {
+          "h": 4,
+          "w": 12,
+          "x": 0,
+          "y": 14
+        },
+        "standard_position": {
+          "h": 416,
+          "w": 1494,
+          "x": 0,
+          "y": 1456
+        },
+        "type": "text"
+      }
+    ],
+    "total": 13
+  }
+}

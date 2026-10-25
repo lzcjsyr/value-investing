@@ -1,0 +1,29 @@
+[
+  {
+    "default_value": null,
+    "id": "fldMBUtyA3",
+    "name": "规则与操作",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fld42n8TZU",
+    "name": "适用范围",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldLm1OqHd",
+    "name": "主题",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  }
+]

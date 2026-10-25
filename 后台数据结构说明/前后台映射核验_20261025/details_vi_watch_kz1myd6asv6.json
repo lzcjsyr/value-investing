@@ -1,0 +1,2113 @@
+{
+  "data": {
+    "target": {
+      "locator": {
+        "uid": "5ibahkttf2n"
+      },
+      "uid": "5ibahkttf2n",
+      "kind": "node"
+    },
+    "tree": {
+      "use": "ViewActionModel",
+      "props": {
+        "type": "link",
+        "title": "{{t(\"View\")}}",
+        "icon": null
+      },
+      "decoratorProps": {},
+      "stepParams": {
+        "buttonSettings": {
+          "general": {
+            "title": "{{t(\"View\")}}",
+            "icon": null,
+            "type": "link",
+            "iconOnly": false
+          }
+        },
+        "popupSettings": {
+          "openView": {
+            "mode": "drawer",
+            "size": "medium",
+            "pageModelClass": "ChildPageModel",
+            "dataSourceKey": "main",
+            "collectionName": "vi_watch",
+            "title": "跟踪事项·详情",
+            "filterByTk": "{{ctx.record.id}}"
+          }
+        }
+      },
+      "flowRegistry": {},
+      "uid": "5ibahkttf2n",
+      "subModels": {
+        "page": {
+          "parentId": "5ibahkttf2n",
+          "subKey": "page",
+          "subType": "object",
+          "use": "ChildPageModel",
+          "props": {
+            "displayTitle": false,
+            "enableTabs": true
+          },
+          "stepParams": {
+            "pageSettings": {
+              "general": {
+                "displayTitle": false,
+                "enableTabs": true
+              }
+            }
+          },
+          "parent": "5ibahkttf2n",
+          "sortIndex": 1,
+          "uid": "d7oiubtmm2u",
+          "subModels": {
+            "tabs": [
+              {
+                "use": "ChildPageTabModel",
+                "props": {
+                  "title": "跟踪事项·详情"
+                },
+                "stepParams": {
+                  "pageTabSettings": {
+                    "tab": {
+                      "title": "跟踪事项·详情"
+                    }
+                  }
+                },
+                "subKey": "tabs",
+                "subType": "array",
+                "parent": "d7oiubtmm2u",
+                "parentId": "d7oiubtmm2u",
+                "sortIndex": 1,
+                "uid": "rn3rj0u9c8d",
+                "subModels": {
+                  "grid": {
+                    "use": "BlockGridModel",
+                    "subKey": "grid",
+                    "subType": "object",
+                    "props": {
+                      "rows": {
+                        "row1": [
+                          [
+                            "3mg0wfwjwwd"
+                          ]
+                        ]
+                      },
+                      "sizes": {
+                        "row1": [
+                          24
+                        ]
+                      },
+                      "rowOrder": [
+                        "row1"
+                      ]
+                    },
+                    "stepParams": {
+                      "gridSettings": {
+                        "grid": {
+                          "rows": {
+                            "row1": [
+                              [
+                                "gnfuoq2ruz7"
+                              ]
+                            ]
+                          },
+                          "sizes": {
+                            "row1": [
+                              24
+                            ]
+                          },
+                          "rowOrder": [
+                            "row1"
+                          ]
+                        }
+                      }
+                    },
+                    "parent": "rn3rj0u9c8d",
+                    "parentId": "rn3rj0u9c8d",
+                    "sortIndex": 1,
+                    "uid": "08m8d5io0g4",
+                    "subModels": {
+                      "items": [
+                        {
+                          "parentId": "08m8d5io0g4",
+                          "subKey": "items",
+                          "subType": "array",
+                          "use": "DetailsBlockModel",
+                          "props": {},
+                          "decoratorProps": {},
+                          "stepParams": {
+                            "resourceSettings": {
+                              "init": {
+                                "dataSourceKey": "main",
+                                "collectionName": "vi_watch",
+                                "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+                              }
+                            },
+                            "detailsSettings": {
+                              "layout": {
+                                "layout": "vertical",
+                                "colon": true
+                              },
+                              "dataScope": {
+                                "filter": {
+                                  "logic": "$and",
+                                  "items": []
+                                }
+                              },
+                              "linkageRules": {
+                                "value": []
+                              }
+                            }
+                          },
+                          "parent": "08m8d5io0g4",
+                          "sortIndex": 1,
+                          "uid": "gnfuoq2ruz7",
+                          "subModels": {
+                            "grid": {
+                              "use": "DetailsGridModel",
+                              "subKey": "grid",
+                              "subType": "object",
+                              "stepParams": {
+                                "gridSettings": {
+                                  "grid": {
+                                    "rows": {
+                                      "row1": [
+                                        [
+                                          "hqjgaixy5zm"
+                                        ]
+                                      ],
+                                      "row2": [
+                                        [
+                                          "y36jk7smrpe"
+                                        ],
+                                        [
+                                          "dpebxkxnl56"
+                                        ]
+                                      ],
+                                      "row3": [
+                                        [
+                                          "ms83tkmtav6"
+                                        ],
+                                        [
+                                          "cceixx6crzk"
+                                        ]
+                                      ],
+                                      "row4": [
+                                        [
+                                          "tdxgscs6vy2"
+                                        ],
+                                        [
+                                          "pytexlmpg2p"
+                                        ]
+                                      ],
+                                      "row5": [
+                                        [
+                                          "smca94k4f3x"
+                                        ]
+                                      ],
+                                      "row6": [
+                                        [
+                                          "25h09apu7d8"
+                                        ]
+                                      ],
+                                      "row7": [
+                                        [
+                                          "5sahnmd9gjn"
+                                        ],
+                                        [
+                                          "3631dmrej4d"
+                                        ]
+                                      ],
+                                      "row8": [
+                                        [
+                                          "yw2w5qp0e4g"
+                                        ]
+                                      ],
+                                      "row9": [
+                                        [
+                                          "3f1lk9wssek"
+                                        ]
+                                      ],
+                                      "row10": [
+                                        [
+                                          "sm8ozqs9byb"
+                                        ]
+                                      ],
+                                      "row11": [
+                                        [
+                                          "k3wpl9tdibh"
+                                        ]
+                                      ]
+                                    },
+                                    "sizes": {
+                                      "row1": [
+                                        24
+                                      ],
+                                      "row2": [
+                                        12,
+                                        12
+                                      ],
+                                      "row3": [
+                                        12,
+                                        12
+                                      ],
+                                      "row4": [
+                                        12,
+                                        12
+                                      ],
+                                      "row5": [
+                                        24
+                                      ],
+                                      "row6": [
+                                        24
+                                      ],
+                                      "row7": [
+                                        12,
+                                        12
+                                      ],
+                                      "row8": [
+                                        24
+                                      ],
+                                      "row9": [
+                                        24
+                                      ],
+                                      "row10": [
+                                        24
+                                      ],
+                                      "row11": [
+                                        24
+                                      ]
+                                    },
+                                    "rowOrder": [
+                                      "row1",
+                                      "row2",
+                                      "row3",
+                                      "row4",
+                                      "row5",
+                                      "row6",
+                                      "row7",
+                                      "row8",
+                                      "row9",
+                                      "row10",
+                                      "row11"
+                                    ]
+                                  }
+                                }
+                              },
+                              "props": {
+                                "rows": {
+                                  "row1": [
+                                    [
+                                      "b1ej77behrc"
+                                    ]
+                                  ],
+                                  "row2": [
+                                    [
+                                      "1lbvze6m004"
+                                    ],
+                                    [
+                                      "horxkz18b4c"
+                                    ]
+                                  ],
+                                  "row3": [
+                                    [
+                                      "t8k195rwesx"
+                                    ],
+                                    [
+                                      "fxrqxfcm5ka"
+                                    ]
+                                  ],
+                                  "row4": [
+                                    [
+                                      "x62s1ejedu9"
+                                    ],
+                                    [
+                                      "z5o729ojktj"
+                                    ]
+                                  ],
+                                  "row5": [
+                                    [
+                                      "ehozo47swwm"
+                                    ]
+                                  ],
+                                  "row6": [
+                                    [
+                                      "cstwxrrlsu0"
+                                    ]
+                                  ],
+                                  "row7": [
+                                    [
+                                      "qwh0a8dfgi0"
+                                    ],
+                                    [
+                                      "h7xp4pdaswi"
+                                    ]
+                                  ],
+                                  "row8": [
+                                    [
+                                      "oyas11x8753"
+                                    ]
+                                  ],
+                                  "row9": [
+                                    [
+                                      "qt1p6w3vj1x"
+                                    ]
+                                  ],
+                                  "row10": [
+                                    [
+                                      "9m1dn39mth7"
+                                    ]
+                                  ],
+                                  "row11": [
+                                    [
+                                      "qyfdeecva90"
+                                    ]
+                                  ]
+                                },
+                                "sizes": {
+                                  "row1": [
+                                    24
+                                  ],
+                                  "row2": [
+                                    12,
+                                    12
+                                  ],
+                                  "row3": [
+                                    12,
+                                    12
+                                  ],
+                                  "row4": [
+                                    12,
+                                    12
+                                  ],
+                                  "row5": [
+                                    24
+                                  ],
+                                  "row6": [
+                                    24
+                                  ],
+                                  "row7": [
+                                    12,
+                                    12
+                                  ],
+                                  "row8": [
+                                    24
+                                  ],
+                                  "row9": [
+                                    24
+                                  ],
+                                  "row10": [
+                                    24
+                                  ],
+                                  "row11": [
+                                    24
+                                  ]
+                                },
+                                "rowOrder": [
+                                  "row1",
+                                  "row2",
+                                  "row3",
+                                  "row4",
+                                  "row5",
+                                  "row6",
+                                  "row7",
+                                  "row8",
+                                  "row9",
+                                  "row10",
+                                  "row11"
+                                ]
+                              },
+                              "parent": "gnfuoq2ruz7",
+                              "parentId": "gnfuoq2ruz7",
+                              "sortIndex": 1,
+                              "uid": "pa12a5am38m",
+                              "subModels": {
+                                "items": [
+                                  {
+                                    "parentId": "pa12a5am38m",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "基本信息",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "基本信息",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "pa12a5am38m",
+                                    "sortIndex": 1,
+                                    "uid": "hqjgaixy5zm",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "pa12a5am38m",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_watch",
+                                          "fieldPath": "code"
+                                        }
+                                      }
+                                    },
+                                    "parent": "pa12a5am38m",
+                                    "sortIndex": 2,
+                                    "uid": "y36jk7smrpe",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_watch",
+                                              "fieldPath": "code"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "y36jk7smrpe",
+                                        "parentId": "y36jk7smrpe",
+                                        "sortIndex": 1,
+                                        "uid": "dvqncnblfsg",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "pa12a5am38m",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_watch",
+                                          "fieldPath": "title"
+                                        }
+                                      }
+                                    },
+                                    "parent": "pa12a5am38m",
+                                    "sortIndex": 3,
+                                    "uid": "dpebxkxnl56",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_watch",
+                                              "fieldPath": "title"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "dpebxkxnl56",
+                                        "parentId": "dpebxkxnl56",
+                                        "sortIndex": 1,
+                                        "uid": "nlve2p5iaac",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "pa12a5am38m",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_watch",
+                                          "fieldPath": "frequency"
+                                        }
+                                      }
+                                    },
+                                    "parent": "pa12a5am38m",
+                                    "sortIndex": 4,
+                                    "uid": "ms83tkmtav6",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_watch",
+                                              "fieldPath": "frequency"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "ms83tkmtav6",
+                                        "parentId": "ms83tkmtav6",
+                                        "sortIndex": 1,
+                                        "uid": "1n8fvl5k6i2",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "pa12a5am38m",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_watch",
+                                          "fieldPath": "preferred_source"
+                                        }
+                                      }
+                                    },
+                                    "parent": "pa12a5am38m",
+                                    "sortIndex": 5,
+                                    "uid": "cceixx6crzk",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_watch",
+                                              "fieldPath": "preferred_source"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "cceixx6crzk",
+                                        "parentId": "cceixx6crzk",
+                                        "sortIndex": 1,
+                                        "uid": "5ldwdy1tmlh",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "pa12a5am38m",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_watch",
+                                          "fieldPath": "trigger"
+                                        }
+                                      }
+                                    },
+                                    "parent": "pa12a5am38m",
+                                    "sortIndex": 6,
+                                    "uid": "tdxgscs6vy2",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_watch",
+                                              "fieldPath": "trigger"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "tdxgscs6vy2",
+                                        "parentId": "tdxgscs6vy2",
+                                        "sortIndex": 1,
+                                        "uid": "6e774b4zq14",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "pa12a5am38m",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_watch",
+                                          "fieldPath": "action"
+                                        }
+                                      }
+                                    },
+                                    "parent": "pa12a5am38m",
+                                    "sortIndex": 7,
+                                    "uid": "pytexlmpg2p",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_watch",
+                                              "fieldPath": "action"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "pytexlmpg2p",
+                                        "parentId": "pytexlmpg2p",
+                                        "sortIndex": 1,
+                                        "uid": "ve230jv5mk9",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "pa12a5am38m",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_watch",
+                                          "fieldPath": "nature"
+                                        }
+                                      }
+                                    },
+                                    "parent": "pa12a5am38m",
+                                    "sortIndex": 8,
+                                    "uid": "smca94k4f3x",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_watch",
+                                              "fieldPath": "nature"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "smca94k4f3x",
+                                        "parentId": "smca94k4f3x",
+                                        "sortIndex": 1,
+                                        "uid": "t1y96jaj940",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "pa12a5am38m",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "关联",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "关联",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "pa12a5am38m",
+                                    "sortIndex": 9,
+                                    "uid": "25h09apu7d8",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "pa12a5am38m",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {
+                                      "titleField": "name"
+                                    },
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_watch",
+                                          "fieldPath": "company"
+                                        }
+                                      },
+                                      "detailItemSettings": {
+                                        "fieldNames": {
+                                          "label": "name"
+                                        }
+                                      }
+                                    },
+                                    "parent": "pa12a5am38m",
+                                    "sortIndex": 10,
+                                    "uid": "5sahnmd9gjn",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {
+                                          "titleField": "name",
+                                          "clickToOpen": true
+                                        },
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_watch",
+                                              "fieldPath": "company"
+                                            }
+                                          },
+                                          "displayFieldSettings": {
+                                            "clickToOpen": {
+                                              "clickToOpen": true
+                                            }
+                                          },
+                                          "popupSettings": {
+                                            "openView": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_company",
+                                              "associationName": "vi_watch.company"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "5sahnmd9gjn",
+                                        "parentId": "5sahnmd9gjn",
+                                        "sortIndex": 1,
+                                        "uid": "nrss00881fc",
+                                        "popup": {
+                                          "template": {
+                                            "uid": "4hr3gehynkf",
+                                            "mode": "reference"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "pa12a5am38m",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {
+                                      "titleField": "name"
+                                    },
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_watch",
+                                          "fieldPath": "metric"
+                                        }
+                                      },
+                                      "detailItemSettings": {
+                                        "fieldNames": {
+                                          "label": "name"
+                                        }
+                                      }
+                                    },
+                                    "parent": "pa12a5am38m",
+                                    "sortIndex": 11,
+                                    "uid": "3631dmrej4d",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {
+                                          "titleField": "name",
+                                          "clickToOpen": true
+                                        },
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_watch",
+                                              "fieldPath": "metric"
+                                            }
+                                          },
+                                          "displayFieldSettings": {
+                                            "clickToOpen": {
+                                              "clickToOpen": true
+                                            }
+                                          },
+                                          "popupSettings": {
+                                            "openView": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_metric",
+                                              "associationName": "vi_watch.metric"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "3631dmrej4d",
+                                        "parentId": "3631dmrej4d",
+                                        "sortIndex": 1,
+                                        "uid": "q6hfyhsmwt1",
+                                        "popup": {
+                                          "template": {
+                                            "uid": "sjaps967yqj",
+                                            "mode": "reference"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "pa12a5am38m",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "自动计算（只读）",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "自动计算（只读）",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "pa12a5am38m",
+                                    "sortIndex": 12,
+                                    "uid": "yw2w5qp0e4g",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "pa12a5am38m",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_watch",
+                                          "fieldPath": "latest_value"
+                                        }
+                                      }
+                                    },
+                                    "parent": "pa12a5am38m",
+                                    "sortIndex": 13,
+                                    "uid": "3f1lk9wssek",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayNumberFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_watch",
+                                              "fieldPath": "latest_value"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "3f1lk9wssek",
+                                        "parentId": "3f1lk9wssek",
+                                        "sortIndex": 1,
+                                        "uid": "xzn8zbg356k",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "pa12a5am38m",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "系统",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "系统",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "pa12a5am38m",
+                                    "sortIndex": 14,
+                                    "uid": "sm8ozqs9byb",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "pa12a5am38m",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_watch",
+                                          "fieldPath": "updated_at"
+                                        }
+                                      }
+                                    },
+                                    "parent": "pa12a5am38m",
+                                    "sortIndex": 15,
+                                    "uid": "k3wpl9tdibh",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayDateTimeFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_watch",
+                                              "fieldPath": "updated_at"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "k3wpl9tdibh",
+                                        "parentId": "k3wpl9tdibh",
+                                        "sortIndex": 1,
+                                        "uid": "9vdbgii3juj",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  }
+                                ]
+                              },
+                              "popup": {
+                                "mode": "local"
+                              }
+                            },
+                            "actions": [
+                              {
+                                "parentId": "gnfuoq2ruz7",
+                                "subKey": "actions",
+                                "subType": "array",
+                                "use": "EditActionModel",
+                                "props": {
+                                  "title": "{{t(\"Edit\")}}",
+                                  "icon": "EditOutlined",
+                                  "type": "default"
+                                },
+                                "decoratorProps": {},
+                                "stepParams": {
+                                  "buttonSettings": {
+                                    "general": {
+                                      "title": "{{t(\"Edit\")}}",
+                                      "icon": "EditOutlined",
+                                      "type": "default"
+                                    }
+                                  },
+                                  "popupSettings": {
+                                    "openView": {
+                                      "mode": "drawer",
+                                      "size": "medium",
+                                      "pageModelClass": "ChildPageModel",
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_watch",
+                                      "title": "跟踪事项·编辑"
+                                    }
+                                  }
+                                },
+                                "flowRegistry": {},
+                                "parent": "gnfuoq2ruz7",
+                                "sortIndex": 1,
+                                "uid": "c1wbmr5xwxx",
+                                "popup": {
+                                  "template": {
+                                    "uid": "mrxa58rrxcb",
+                                    "mode": "reference"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "popup": {
+                            "mode": "local"
+                          }
+                        }
+                      ]
+                    },
+                    "popup": {
+                      "mode": "local"
+                    }
+                  }
+                },
+                "popup": {
+                  "mode": "local"
+                }
+              }
+            ]
+          },
+          "popup": {
+            "mode": "local"
+          }
+        }
+      },
+      "popup": {
+        "mode": "local",
+        "pageUid": "d7oiubtmm2u",
+        "tabUid": "rn3rj0u9c8d",
+        "gridUid": "08m8d5io0g4"
+      }
+    },
+    "nodeMap": {
+      "5ibahkttf2n": {
+        "uid": "5ibahkttf2n",
+        "use": "ViewActionModel",
+        "props": {
+          "type": "link",
+          "title": "{{t(\"View\")}}",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"View\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "title": "跟踪事项·详情",
+              "filterByTk": "{{ctx.record.id}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local",
+          "pageUid": "d7oiubtmm2u",
+          "tabUid": "rn3rj0u9c8d",
+          "gridUid": "08m8d5io0g4"
+        }
+      },
+      "d7oiubtmm2u": {
+        "uid": "d7oiubtmm2u",
+        "use": "ChildPageModel",
+        "props": {
+          "displayTitle": false,
+          "enableTabs": true
+        },
+        "stepParams": {
+          "pageSettings": {
+            "general": {
+              "displayTitle": false,
+              "enableTabs": true
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "rn3rj0u9c8d": {
+        "uid": "rn3rj0u9c8d",
+        "use": "ChildPageTabModel",
+        "props": {
+          "title": "跟踪事项·详情"
+        },
+        "stepParams": {
+          "pageTabSettings": {
+            "tab": {
+              "title": "跟踪事项·详情"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "08m8d5io0g4": {
+        "uid": "08m8d5io0g4",
+        "use": "BlockGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "3mg0wfwjwwd"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "gnfuoq2ruz7"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "gnfuoq2ruz7": {
+        "uid": "gnfuoq2ruz7",
+        "use": "DetailsBlockModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "resourceSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+            }
+          },
+          "detailsSettings": {
+            "layout": {
+              "layout": "vertical",
+              "colon": true
+            },
+            "dataScope": {
+              "filter": {
+                "logic": "$and",
+                "items": []
+              }
+            },
+            "linkageRules": {
+              "value": []
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "pa12a5am38m": {
+        "uid": "pa12a5am38m",
+        "use": "DetailsGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "b1ej77behrc"
+              ]
+            ],
+            "row2": [
+              [
+                "1lbvze6m004"
+              ],
+              [
+                "horxkz18b4c"
+              ]
+            ],
+            "row3": [
+              [
+                "t8k195rwesx"
+              ],
+              [
+                "fxrqxfcm5ka"
+              ]
+            ],
+            "row4": [
+              [
+                "x62s1ejedu9"
+              ],
+              [
+                "z5o729ojktj"
+              ]
+            ],
+            "row5": [
+              [
+                "ehozo47swwm"
+              ]
+            ],
+            "row6": [
+              [
+                "cstwxrrlsu0"
+              ]
+            ],
+            "row7": [
+              [
+                "qwh0a8dfgi0"
+              ],
+              [
+                "h7xp4pdaswi"
+              ]
+            ],
+            "row8": [
+              [
+                "oyas11x8753"
+              ]
+            ],
+            "row9": [
+              [
+                "qt1p6w3vj1x"
+              ]
+            ],
+            "row10": [
+              [
+                "9m1dn39mth7"
+              ]
+            ],
+            "row11": [
+              [
+                "qyfdeecva90"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ],
+            "row2": [
+              12,
+              12
+            ],
+            "row3": [
+              12,
+              12
+            ],
+            "row4": [
+              12,
+              12
+            ],
+            "row5": [
+              24
+            ],
+            "row6": [
+              24
+            ],
+            "row7": [
+              12,
+              12
+            ],
+            "row8": [
+              24
+            ],
+            "row9": [
+              24
+            ],
+            "row10": [
+              24
+            ],
+            "row11": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1",
+            "row2",
+            "row3",
+            "row4",
+            "row5",
+            "row6",
+            "row7",
+            "row8",
+            "row9",
+            "row10",
+            "row11"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "hqjgaixy5zm"
+                  ]
+                ],
+                "row2": [
+                  [
+                    "y36jk7smrpe"
+                  ],
+                  [
+                    "dpebxkxnl56"
+                  ]
+                ],
+                "row3": [
+                  [
+                    "ms83tkmtav6"
+                  ],
+                  [
+                    "cceixx6crzk"
+                  ]
+                ],
+                "row4": [
+                  [
+                    "tdxgscs6vy2"
+                  ],
+                  [
+                    "pytexlmpg2p"
+                  ]
+                ],
+                "row5": [
+                  [
+                    "smca94k4f3x"
+                  ]
+                ],
+                "row6": [
+                  [
+                    "25h09apu7d8"
+                  ]
+                ],
+                "row7": [
+                  [
+                    "5sahnmd9gjn"
+                  ],
+                  [
+                    "3631dmrej4d"
+                  ]
+                ],
+                "row8": [
+                  [
+                    "yw2w5qp0e4g"
+                  ]
+                ],
+                "row9": [
+                  [
+                    "3f1lk9wssek"
+                  ]
+                ],
+                "row10": [
+                  [
+                    "sm8ozqs9byb"
+                  ]
+                ],
+                "row11": [
+                  [
+                    "k3wpl9tdibh"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ],
+                "row2": [
+                  12,
+                  12
+                ],
+                "row3": [
+                  12,
+                  12
+                ],
+                "row4": [
+                  12,
+                  12
+                ],
+                "row5": [
+                  24
+                ],
+                "row6": [
+                  24
+                ],
+                "row7": [
+                  12,
+                  12
+                ],
+                "row8": [
+                  24
+                ],
+                "row9": [
+                  24
+                ],
+                "row10": [
+                  24
+                ],
+                "row11": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1",
+                "row2",
+                "row3",
+                "row4",
+                "row5",
+                "row6",
+                "row7",
+                "row8",
+                "row9",
+                "row10",
+                "row11"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "hqjgaixy5zm": {
+        "uid": "hqjgaixy5zm",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "基本信息",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "基本信息",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "y36jk7smrpe": {
+        "uid": "y36jk7smrpe",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "dvqncnblfsg": {
+        "uid": "dvqncnblfsg",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "dpebxkxnl56": {
+        "uid": "dpebxkxnl56",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "nlve2p5iaac": {
+        "uid": "nlve2p5iaac",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ms83tkmtav6": {
+        "uid": "ms83tkmtav6",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "frequency"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "1n8fvl5k6i2": {
+        "uid": "1n8fvl5k6i2",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "frequency"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "cceixx6crzk": {
+        "uid": "cceixx6crzk",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "preferred_source"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "5ldwdy1tmlh": {
+        "uid": "5ldwdy1tmlh",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "preferred_source"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "tdxgscs6vy2": {
+        "uid": "tdxgscs6vy2",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "trigger"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "6e774b4zq14": {
+        "uid": "6e774b4zq14",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "trigger"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "pytexlmpg2p": {
+        "uid": "pytexlmpg2p",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "action"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ve230jv5mk9": {
+        "uid": "ve230jv5mk9",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "action"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "smca94k4f3x": {
+        "uid": "smca94k4f3x",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "nature"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "t1y96jaj940": {
+        "uid": "t1y96jaj940",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "nature"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "25h09apu7d8": {
+        "uid": "25h09apu7d8",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "关联",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "关联",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "5sahnmd9gjn": {
+        "uid": "5sahnmd9gjn",
+        "use": "DetailsItemModel",
+        "props": {
+          "titleField": "name"
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "company"
+            }
+          },
+          "detailItemSettings": {
+            "fieldNames": {
+              "label": "name"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "nrss00881fc": {
+        "uid": "nrss00881fc",
+        "use": "DisplayTextFieldModel",
+        "props": {
+          "titleField": "name",
+          "clickToOpen": true
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "company"
+            }
+          },
+          "displayFieldSettings": {
+            "clickToOpen": {
+              "clickToOpen": true
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_company",
+              "associationName": "vi_watch.company"
+            }
+          }
+        },
+        "popup": {
+          "template": {
+            "uid": "4hr3gehynkf",
+            "mode": "reference"
+          }
+        }
+      },
+      "3631dmrej4d": {
+        "uid": "3631dmrej4d",
+        "use": "DetailsItemModel",
+        "props": {
+          "titleField": "name"
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "metric"
+            }
+          },
+          "detailItemSettings": {
+            "fieldNames": {
+              "label": "name"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "q6hfyhsmwt1": {
+        "uid": "q6hfyhsmwt1",
+        "use": "DisplayTextFieldModel",
+        "props": {
+          "titleField": "name",
+          "clickToOpen": true
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "metric"
+            }
+          },
+          "displayFieldSettings": {
+            "clickToOpen": {
+              "clickToOpen": true
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "associationName": "vi_watch.metric"
+            }
+          }
+        },
+        "popup": {
+          "template": {
+            "uid": "sjaps967yqj",
+            "mode": "reference"
+          }
+        }
+      },
+      "yw2w5qp0e4g": {
+        "uid": "yw2w5qp0e4g",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "自动计算（只读）",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "自动计算（只读）",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "3f1lk9wssek": {
+        "uid": "3f1lk9wssek",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "latest_value"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "xzn8zbg356k": {
+        "uid": "xzn8zbg356k",
+        "use": "DisplayNumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "latest_value"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "sm8ozqs9byb": {
+        "uid": "sm8ozqs9byb",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "系统",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "系统",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "k3wpl9tdibh": {
+        "uid": "k3wpl9tdibh",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "updated_at"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "9vdbgii3juj": {
+        "uid": "9vdbgii3juj",
+        "use": "DisplayDateTimeFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "fieldPath": "updated_at"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "c1wbmr5xwxx": {
+        "uid": "c1wbmr5xwxx",
+        "use": "EditActionModel",
+        "props": {
+          "title": "{{t(\"Edit\")}}",
+          "icon": "EditOutlined",
+          "type": "default"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Edit\")}}",
+              "icon": "EditOutlined",
+              "type": "default"
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_watch",
+              "title": "跟踪事项·编辑"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "mrxa58rrxcb",
+            "mode": "reference"
+          }
+        }
+      }
+    }
+  }
+}

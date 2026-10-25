@@ -1,0 +1,3701 @@
+{
+  "data": {
+    "target": {
+      "locator": {
+        "pageSchemaUid": "zy5j1sggleb"
+      },
+      "uid": "8omq965bnde",
+      "kind": "page"
+    },
+    "tree": {
+      "parentId": "zy5j1sggleb",
+      "subKey": "page",
+      "subType": "object",
+      "use": "RootPageModel",
+      "props": {
+        "routeId": 393657151651840,
+        "title": "假设依据",
+        "enableTabs": false,
+        "displayTitle": true,
+        "icon": "DatabaseOutlined",
+        "enableHeader": false
+      },
+      "stepParams": {
+        "pageSettings": {
+          "general": {
+            "title": "假设依据",
+            "displayTitle": true,
+            "enableTabs": false,
+            "documentTitle": "长江电力 · 假设依据",
+            "icon": "DatabaseOutlined",
+            "enableHeader": false
+          }
+        }
+      },
+      "parent": "zy5j1sggleb",
+      "uid": "8omq965bnde",
+      "subModels": {
+        "tabs": [
+          {
+            "uid": "41tk3y0imp8",
+            "use": "RootPageTabModel",
+            "props": {
+              "route": {
+                "createdAt": "2026-10-23T05:45:57.884Z",
+                "updatedAt": "2026-10-24T02:24:31.597Z",
+                "id": 393657151651841,
+                "parentId": 393657151651840,
+                "title": "假设依据",
+                "tooltip": null,
+                "icon": null,
+                "schemaUid": "41tk3y0imp8",
+                "menuSchemaUid": null,
+                "tabSchemaName": "ci1yz8auvnw",
+                "type": "tabs",
+                "options": {
+                  "flowRegistry": {}
+                },
+                "sort": 1792734357873970,
+                "hideInMenu": null,
+                "enableTabs": null,
+                "enableHeader": null,
+                "displayTitle": null,
+                "hidden": true,
+                "createdById": null,
+                "updatedById": 1,
+                "children": []
+              },
+              "title": "假设依据",
+              "icon": null
+            },
+            "decoratorProps": {},
+            "flowRegistry": {},
+            "stepParams": {
+              "pageTabSettings": {
+                "tab": {
+                  "title": "假设依据",
+                  "icon": null
+                }
+              }
+            },
+            "subModels": {
+              "grid": {
+                "parentId": "41tk3y0imp8",
+                "subKey": "grid",
+                "subType": "object",
+                "use": "BlockGridModel",
+                "props": {
+                  "rows": {
+                    "row1": [
+                      [
+                        "x3b5zlfsi62"
+                      ]
+                    ]
+                  },
+                  "sizes": {
+                    "row1": [
+                      24
+                    ]
+                  },
+                  "rowOrder": [
+                    "row1"
+                  ]
+                },
+                "stepParams": {
+                  "gridSettings": {
+                    "grid": {
+                      "rows": {
+                        "row1": [
+                          [
+                            "x3b5zlfsi62"
+                          ]
+                        ]
+                      },
+                      "sizes": {
+                        "row1": [
+                          24
+                        ]
+                      },
+                      "rowOrder": [
+                        "row1"
+                      ]
+                    }
+                  }
+                },
+                "uid": "veirjsod468",
+                "subModels": {
+                  "items": [
+                    {
+                      "parentId": "veirjsod468",
+                      "subKey": "items",
+                      "subType": "array",
+                      "use": "TableBlockModel",
+                      "props": {},
+                      "decoratorProps": {},
+                      "stepParams": {
+                        "resourceSettings": {
+                          "init": {
+                            "dataSourceKey": "main",
+                            "collectionName": "vi_judgment"
+                          }
+                        },
+                        "tableSettings": {
+                          "pageSize": {
+                            "pageSize": 50
+                          },
+                          "defaultSorting": {
+                            "sort": [
+                              {
+                                "field": "id",
+                                "direction": "asc"
+                              }
+                            ]
+                          },
+                          "dataScope": {
+                            "filter": {
+                              "logic": "$and",
+                              "items": [
+                                {
+                                  "path": "company_id",
+                                  "operator": "$eq",
+                                  "value": 1
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "cardSettings": {
+                          "titleDescription": {
+                            "title": "基础表 · 假设依据",
+                            "description": "对应后台基础表：假设依据"
+                          }
+                        }
+                      },
+                      "uid": "x3b5zlfsi62",
+                      "subModels": {
+                        "columns": [
+                          {
+                            "use": "TableActionsColumnModel",
+                            "props": {},
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "tableColumnSettings": {
+                                "title": {
+                                  "title": "{{t(\"Actions\")}}"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "subKey": "columns",
+                            "subType": "array",
+                            "uid": "u59hohp5wpa",
+                            "subModels": {
+                              "actions": [
+                                {
+                                  "parentId": "u59hohp5wpa",
+                                  "subKey": "actions",
+                                  "subType": "array",
+                                  "use": "ViewActionModel",
+                                  "props": {
+                                    "type": "link",
+                                    "title": "{{t(\"View\")}}",
+                                    "icon": null
+                                  },
+                                  "decoratorProps": {},
+                                  "stepParams": {
+                                    "buttonSettings": {
+                                      "general": {
+                                        "title": "{{t(\"View\")}}",
+                                        "icon": null,
+                                        "type": "link",
+                                        "iconOnly": false
+                                      }
+                                    },
+                                    "popupSettings": {
+                                      "openView": {
+                                        "mode": "drawer",
+                                        "size": "medium",
+                                        "pageModelClass": "ChildPageModel",
+                                        "dataSourceKey": "main",
+                                        "collectionName": "vi_judgment",
+                                        "title": "参数判断·详情"
+                                      }
+                                    }
+                                  },
+                                  "flowRegistry": {},
+                                  "uid": "ohrima4tbnj",
+                                  "parent": "u59hohp5wpa",
+                                  "sortIndex": 1,
+                                  "popup": {
+                                    "template": {
+                                      "uid": "qymrr7vfxka",
+                                      "mode": "reference"
+                                    }
+                                  }
+                                },
+                                {
+                                  "parentId": "u59hohp5wpa",
+                                  "subKey": "actions",
+                                  "subType": "array",
+                                  "use": "EditActionModel",
+                                  "props": {
+                                    "title": "{{t(\"Edit\")}}",
+                                    "icon": null,
+                                    "type": "link"
+                                  },
+                                  "decoratorProps": {},
+                                  "stepParams": {
+                                    "buttonSettings": {
+                                      "general": {
+                                        "title": "{{t(\"Edit\")}}",
+                                        "icon": null,
+                                        "type": "link",
+                                        "iconOnly": false
+                                      }
+                                    },
+                                    "popupSettings": {
+                                      "openView": {
+                                        "mode": "drawer",
+                                        "size": "medium",
+                                        "pageModelClass": "ChildPageModel",
+                                        "dataSourceKey": "main",
+                                        "collectionName": "vi_judgment",
+                                        "title": "编辑 · 参数判断"
+                                      }
+                                    }
+                                  },
+                                  "flowRegistry": {},
+                                  "uid": "985o6glb8vj",
+                                  "parent": "u59hohp5wpa",
+                                  "sortIndex": 2,
+                                  "popup": {
+                                    "template": {
+                                      "uid": "kf5np2ol8yu",
+                                      "mode": "reference"
+                                    }
+                                  }
+                                },
+                                {
+                                  "parentId": "u59hohp5wpa",
+                                  "subKey": "actions",
+                                  "subType": "array",
+                                  "use": "DeleteActionModel",
+                                  "props": {
+                                    "type": "link",
+                                    "title": "{{t(\"Delete\")}}",
+                                    "icon": null
+                                  },
+                                  "decoratorProps": {},
+                                  "stepParams": {
+                                    "buttonSettings": {
+                                      "general": {
+                                        "title": "{{t(\"Delete\")}}",
+                                        "icon": null,
+                                        "type": "link",
+                                        "iconOnly": false
+                                      }
+                                    },
+                                    "deleteSettings": {
+                                      "confirm": {
+                                        "enable": true,
+                                        "title": "{{t(\"Delete record\")}}",
+                                        "content": "{{t(\"Are you sure you want to delete it?\")}}"
+                                      }
+                                    }
+                                  },
+                                  "flowRegistry": {},
+                                  "uid": "6oix2doio8a",
+                                  "parent": "u59hohp5wpa",
+                                  "sortIndex": 3,
+                                  "popup": {
+                                    "mode": "local"
+                                  }
+                                }
+                              ]
+                            },
+                            "parent": "x3b5zlfsi62",
+                            "parentId": "x3b5zlfsi62",
+                            "sortIndex": 1,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "x3b5zlfsi62",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_judgment",
+                                  "fieldPath": "code"
+                                }
+                              }
+                            },
+                            "uid": "f3tnl1aulkw",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_judgment",
+                                      "fieldPath": "code"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "ztnsmcg9fdd",
+                                "parent": "f3tnl1aulkw",
+                                "parentId": "f3tnl1aulkw",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "x3b5zlfsi62",
+                            "sortIndex": 2,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "x3b5zlfsi62",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_judgment",
+                                  "fieldPath": "title"
+                                }
+                              }
+                            },
+                            "uid": "8k7izy9ztmc",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_judgment",
+                                      "fieldPath": "title"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "lnex7mj48yl",
+                                "parent": "8k7izy9ztmc",
+                                "parentId": "8k7izy9ztmc",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "x3b5zlfsi62",
+                            "sortIndex": 3,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "x3b5zlfsi62",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_judgment",
+                                  "fieldPath": "parameter"
+                                }
+                              }
+                            },
+                            "uid": "f5hiv9wxgnk",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_judgment",
+                                      "fieldPath": "parameter"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "49fv1y175tl",
+                                "parent": "f5hiv9wxgnk",
+                                "parentId": "f5hiv9wxgnk",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "x3b5zlfsi62",
+                            "sortIndex": 4,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "x3b5zlfsi62",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_judgment",
+                                  "fieldPath": "status"
+                                }
+                              }
+                            },
+                            "uid": "r1tcc0badsi",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_judgment",
+                                      "fieldPath": "status"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "6m5w8378wjo",
+                                "parent": "r1tcc0badsi",
+                                "parentId": "r1tcc0badsi",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "x3b5zlfsi62",
+                            "sortIndex": 5,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "x3b5zlfsi62",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {
+                              "titleField": "title"
+                            },
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_judgment",
+                                  "fieldPath": "theses"
+                                }
+                              },
+                              "tableColumnSettings": {
+                                "fieldNames": {
+                                  "label": "title"
+                                }
+                              }
+                            },
+                            "uid": "zfsvyywp434",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {
+                                  "titleField": "title",
+                                  "clickToOpen": true
+                                },
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_judgment",
+                                      "fieldPath": "theses"
+                                    }
+                                  },
+                                  "displayFieldSettings": {
+                                    "clickToOpen": {
+                                      "clickToOpen": true
+                                    }
+                                  },
+                                  "popupSettings": {
+                                    "openView": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_thesis",
+                                      "mode": "drawer",
+                                      "size": "medium",
+                                      "pageModelClass": "ChildPageModel",
+                                      "associationName": "vi_judgment.theses",
+                                      "title": "核心论点"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "11fwuwo53nd",
+                                "subModels": {
+                                  "page": {
+                                    "parentId": "11fwuwo53nd",
+                                    "subKey": "page",
+                                    "subType": "object",
+                                    "use": "ChildPageModel",
+                                    "props": {
+                                      "displayTitle": false,
+                                      "enableTabs": true
+                                    },
+                                    "stepParams": {
+                                      "pageSettings": {
+                                        "general": {
+                                          "displayTitle": false,
+                                          "enableTabs": true
+                                        }
+                                      }
+                                    },
+                                    "uid": "bzmlihuphh8",
+                                    "subModels": {
+                                      "tabs": [
+                                        {
+                                          "use": "ChildPageTabModel",
+                                          "props": {
+                                            "title": "{{t(\"Details\")}}"
+                                          },
+                                          "stepParams": {
+                                            "pageTabSettings": {
+                                              "tab": {
+                                                "title": "{{t(\"Details\")}}"
+                                              }
+                                            }
+                                          },
+                                          "subKey": "tabs",
+                                          "subType": "array",
+                                          "uid": "k6ybhj4cjcc",
+                                          "subModels": {
+                                            "grid": {
+                                              "use": "BlockGridModel",
+                                              "subKey": "grid",
+                                              "subType": "object",
+                                              "props": {
+                                                "rows": {
+                                                  "row1": [
+                                                    [
+                                                      "ezkfu7r9o8j"
+                                                    ]
+                                                  ]
+                                                },
+                                                "sizes": {
+                                                  "row1": [
+                                                    24
+                                                  ]
+                                                },
+                                                "rowOrder": [
+                                                  "row1"
+                                                ]
+                                              },
+                                              "stepParams": {
+                                                "gridSettings": {
+                                                  "grid": {
+                                                    "rows": {
+                                                      "row1": [
+                                                        [
+                                                          "ezkfu7r9o8j"
+                                                        ]
+                                                      ]
+                                                    },
+                                                    "sizes": {
+                                                      "row1": [
+                                                        24
+                                                      ]
+                                                    },
+                                                    "rowOrder": [
+                                                      "row1"
+                                                    ]
+                                                  }
+                                                }
+                                              },
+                                              "uid": "ng9f4m85kei",
+                                              "subModels": {
+                                                "items": [
+                                                  {
+                                                    "parentId": "ng9f4m85kei",
+                                                    "subKey": "items",
+                                                    "subType": "array",
+                                                    "use": "DetailsBlockModel",
+                                                    "props": {},
+                                                    "decoratorProps": {},
+                                                    "stepParams": {
+                                                      "resourceSettings": {
+                                                        "init": {
+                                                          "dataSourceKey": "main",
+                                                          "collectionName": "vi_thesis",
+                                                          "filterByTk": "{{ctx.record.id}}",
+                                                          "associationName": "vi_judgment.theses",
+                                                          "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+                                                        }
+                                                      }
+                                                    },
+                                                    "uid": "ezkfu7r9o8j",
+                                                    "subModels": {
+                                                      "grid": {
+                                                        "use": "DetailsGridModel",
+                                                        "subKey": "grid",
+                                                        "subType": "object",
+                                                        "stepParams": {
+                                                          "gridSettings": {
+                                                            "grid": {
+                                                              "rows": {
+                                                                "row1": [
+                                                                  [
+                                                                    "gal4ysetbwb"
+                                                                  ],
+                                                                  [
+                                                                    "1m72lfic8hf"
+                                                                  ]
+                                                                ],
+                                                                "row2": [
+                                                                  [
+                                                                    "tls27jjhkuj"
+                                                                  ],
+                                                                  [
+                                                                    "2nvptjxzrx8"
+                                                                  ]
+                                                                ],
+                                                                "row3": [
+                                                                  [
+                                                                    "1izs0rbapwz"
+                                                                  ],
+                                                                  [
+                                                                    "ji612jqqjfb"
+                                                                  ]
+                                                                ]
+                                                              },
+                                                              "sizes": {
+                                                                "row1": [
+                                                                  12,
+                                                                  12
+                                                                ],
+                                                                "row2": [
+                                                                  12,
+                                                                  12
+                                                                ],
+                                                                "row3": [
+                                                                  12,
+                                                                  12
+                                                                ]
+                                                              },
+                                                              "rowOrder": [
+                                                                "row1",
+                                                                "row2",
+                                                                "row3"
+                                                              ]
+                                                            }
+                                                          }
+                                                        },
+                                                        "props": {
+                                                          "rows": {
+                                                            "row1": [
+                                                              [
+                                                                "gal4ysetbwb"
+                                                              ],
+                                                              [
+                                                                "1m72lfic8hf"
+                                                              ]
+                                                            ],
+                                                            "row2": [
+                                                              [
+                                                                "tls27jjhkuj"
+                                                              ],
+                                                              [
+                                                                "2nvptjxzrx8"
+                                                              ]
+                                                            ],
+                                                            "row3": [
+                                                              [
+                                                                "1izs0rbapwz"
+                                                              ],
+                                                              [
+                                                                "ji612jqqjfb"
+                                                              ]
+                                                            ]
+                                                          },
+                                                          "sizes": {
+                                                            "row1": [
+                                                              12,
+                                                              12
+                                                            ],
+                                                            "row2": [
+                                                              12,
+                                                              12
+                                                            ],
+                                                            "row3": [
+                                                              12,
+                                                              12
+                                                            ]
+                                                          },
+                                                          "rowOrder": [
+                                                            "row1",
+                                                            "row2",
+                                                            "row3"
+                                                          ]
+                                                        },
+                                                        "uid": "vkky5s1y1wg",
+                                                        "subModels": {
+                                                          "items": [
+                                                            {
+                                                              "parentId": "vkky5s1y1wg",
+                                                              "subKey": "items",
+                                                              "subType": "array",
+                                                              "use": "DetailsItemModel",
+                                                              "props": {},
+                                                              "stepParams": {
+                                                                "fieldSettings": {
+                                                                  "init": {
+                                                                    "dataSourceKey": "main",
+                                                                    "collectionName": "vi_thesis",
+                                                                    "fieldPath": "title"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "uid": "gal4ysetbwb",
+                                                              "subModels": {
+                                                                "field": {
+                                                                  "use": "DisplayTextFieldModel",
+                                                                  "props": {},
+                                                                  "stepParams": {
+                                                                    "fieldSettings": {
+                                                                      "init": {
+                                                                        "dataSourceKey": "main",
+                                                                        "collectionName": "vi_thesis",
+                                                                        "fieldPath": "title"
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "subKey": "field",
+                                                                  "subType": "object",
+                                                                  "uid": "ggmk2wm0eoi",
+                                                                  "parent": "gal4ysetbwb",
+                                                                  "parentId": "gal4ysetbwb",
+                                                                  "sortIndex": 1,
+                                                                  "popup": {
+                                                                    "mode": "local"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "parent": "vkky5s1y1wg",
+                                                              "sortIndex": 1,
+                                                              "popup": {
+                                                                "mode": "local"
+                                                              }
+                                                            },
+                                                            {
+                                                              "parentId": "vkky5s1y1wg",
+                                                              "subKey": "items",
+                                                              "subType": "array",
+                                                              "use": "DetailsItemModel",
+                                                              "props": {},
+                                                              "stepParams": {
+                                                                "fieldSettings": {
+                                                                  "init": {
+                                                                    "dataSourceKey": "main",
+                                                                    "collectionName": "vi_thesis",
+                                                                    "fieldPath": "code"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "uid": "1m72lfic8hf",
+                                                              "subModels": {
+                                                                "field": {
+                                                                  "use": "DisplayTextFieldModel",
+                                                                  "props": {},
+                                                                  "stepParams": {
+                                                                    "fieldSettings": {
+                                                                      "init": {
+                                                                        "dataSourceKey": "main",
+                                                                        "collectionName": "vi_thesis",
+                                                                        "fieldPath": "code"
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "subKey": "field",
+                                                                  "subType": "object",
+                                                                  "uid": "g89rtnqe02q",
+                                                                  "parent": "1m72lfic8hf",
+                                                                  "parentId": "1m72lfic8hf",
+                                                                  "sortIndex": 1,
+                                                                  "popup": {
+                                                                    "mode": "local"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "parent": "vkky5s1y1wg",
+                                                              "sortIndex": 2,
+                                                              "popup": {
+                                                                "mode": "local"
+                                                              }
+                                                            },
+                                                            {
+                                                              "parentId": "vkky5s1y1wg",
+                                                              "subKey": "items",
+                                                              "subType": "array",
+                                                              "use": "DetailsItemModel",
+                                                              "props": {},
+                                                              "stepParams": {
+                                                                "fieldSettings": {
+                                                                  "init": {
+                                                                    "dataSourceKey": "main",
+                                                                    "collectionName": "vi_thesis",
+                                                                    "fieldPath": "category"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "uid": "tls27jjhkuj",
+                                                              "subModels": {
+                                                                "field": {
+                                                                  "use": "DisplayEnumFieldModel",
+                                                                  "props": {},
+                                                                  "stepParams": {
+                                                                    "fieldSettings": {
+                                                                      "init": {
+                                                                        "dataSourceKey": "main",
+                                                                        "collectionName": "vi_thesis",
+                                                                        "fieldPath": "category"
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "subKey": "field",
+                                                                  "subType": "object",
+                                                                  "uid": "uvdc820zil9",
+                                                                  "parent": "tls27jjhkuj",
+                                                                  "parentId": "tls27jjhkuj",
+                                                                  "sortIndex": 1,
+                                                                  "popup": {
+                                                                    "mode": "local"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "parent": "vkky5s1y1wg",
+                                                              "sortIndex": 3,
+                                                              "popup": {
+                                                                "mode": "local"
+                                                              }
+                                                            },
+                                                            {
+                                                              "parentId": "vkky5s1y1wg",
+                                                              "subKey": "items",
+                                                              "subType": "array",
+                                                              "use": "DetailsItemModel",
+                                                              "props": {},
+                                                              "stepParams": {
+                                                                "fieldSettings": {
+                                                                  "init": {
+                                                                    "dataSourceKey": "main",
+                                                                    "collectionName": "vi_thesis",
+                                                                    "fieldPath": "status"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "uid": "2nvptjxzrx8",
+                                                              "subModels": {
+                                                                "field": {
+                                                                  "use": "DisplayEnumFieldModel",
+                                                                  "props": {},
+                                                                  "stepParams": {
+                                                                    "fieldSettings": {
+                                                                      "init": {
+                                                                        "dataSourceKey": "main",
+                                                                        "collectionName": "vi_thesis",
+                                                                        "fieldPath": "status"
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "subKey": "field",
+                                                                  "subType": "object",
+                                                                  "uid": "eyfu28aqzcr",
+                                                                  "parent": "2nvptjxzrx8",
+                                                                  "parentId": "2nvptjxzrx8",
+                                                                  "sortIndex": 1,
+                                                                  "popup": {
+                                                                    "mode": "local"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "parent": "vkky5s1y1wg",
+                                                              "sortIndex": 4,
+                                                              "popup": {
+                                                                "mode": "local"
+                                                              }
+                                                            },
+                                                            {
+                                                              "parentId": "vkky5s1y1wg",
+                                                              "subKey": "items",
+                                                              "subType": "array",
+                                                              "use": "DetailsItemModel",
+                                                              "props": {},
+                                                              "stepParams": {
+                                                                "fieldSettings": {
+                                                                  "init": {
+                                                                    "dataSourceKey": "main",
+                                                                    "collectionName": "vi_thesis",
+                                                                    "fieldPath": "confidence"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "uid": "1izs0rbapwz",
+                                                              "subModels": {
+                                                                "field": {
+                                                                  "use": "DisplayEnumFieldModel",
+                                                                  "props": {},
+                                                                  "stepParams": {
+                                                                    "fieldSettings": {
+                                                                      "init": {
+                                                                        "dataSourceKey": "main",
+                                                                        "collectionName": "vi_thesis",
+                                                                        "fieldPath": "confidence"
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "subKey": "field",
+                                                                  "subType": "object",
+                                                                  "uid": "xpw18l9sjdp",
+                                                                  "parent": "1izs0rbapwz",
+                                                                  "parentId": "1izs0rbapwz",
+                                                                  "sortIndex": 1,
+                                                                  "popup": {
+                                                                    "mode": "local"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "parent": "vkky5s1y1wg",
+                                                              "sortIndex": 5,
+                                                              "popup": {
+                                                                "mode": "local"
+                                                              }
+                                                            },
+                                                            {
+                                                              "parentId": "vkky5s1y1wg",
+                                                              "subKey": "items",
+                                                              "subType": "array",
+                                                              "use": "DetailsItemModel",
+                                                              "props": {},
+                                                              "stepParams": {
+                                                                "fieldSettings": {
+                                                                  "init": {
+                                                                    "dataSourceKey": "main",
+                                                                    "collectionName": "vi_thesis",
+                                                                    "fieldPath": "bull_case"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "uid": "ji612jqqjfb",
+                                                              "subModels": {
+                                                                "field": {
+                                                                  "use": "DisplayTextFieldModel",
+                                                                  "props": {},
+                                                                  "stepParams": {
+                                                                    "fieldSettings": {
+                                                                      "init": {
+                                                                        "dataSourceKey": "main",
+                                                                        "collectionName": "vi_thesis",
+                                                                        "fieldPath": "bull_case"
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "subKey": "field",
+                                                                  "subType": "object",
+                                                                  "uid": "aeni2gwuf9j",
+                                                                  "parent": "ji612jqqjfb",
+                                                                  "parentId": "ji612jqqjfb",
+                                                                  "sortIndex": 1,
+                                                                  "popup": {
+                                                                    "mode": "local"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "parent": "vkky5s1y1wg",
+                                                              "sortIndex": 6,
+                                                              "popup": {
+                                                                "mode": "local"
+                                                              }
+                                                            }
+                                                          ]
+                                                        },
+                                                        "parent": "ezkfu7r9o8j",
+                                                        "parentId": "ezkfu7r9o8j",
+                                                        "sortIndex": 1,
+                                                        "popup": {
+                                                          "mode": "local"
+                                                        }
+                                                      },
+                                                      "actions": [
+                                                        {
+                                                          "parentId": "ezkfu7r9o8j",
+                                                          "subKey": "actions",
+                                                          "subType": "array",
+                                                          "use": "EditActionModel",
+                                                          "props": {
+                                                            "title": "{{t(\"Edit\")}}",
+                                                            "icon": "EditOutlined",
+                                                            "type": "default"
+                                                          },
+                                                          "decoratorProps": {},
+                                                          "stepParams": {
+                                                            "buttonSettings": {
+                                                              "general": {
+                                                                "title": "{{t(\"Edit\")}}",
+                                                                "icon": "EditOutlined",
+                                                                "type": "default"
+                                                              }
+                                                            },
+                                                            "popupSettings": {
+                                                              "openView": {
+                                                                "mode": "drawer",
+                                                                "size": "medium",
+                                                                "pageModelClass": "ChildPageModel",
+                                                                "dataSourceKey": "main",
+                                                                "collectionName": "vi_thesis",
+                                                                "associationName": "vi_judgment.theses",
+                                                                "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+                                                                "title": "核心论点·编辑"
+                                                              }
+                                                            }
+                                                          },
+                                                          "flowRegistry": {},
+                                                          "uid": "ud836ju0f3l",
+                                                          "parent": "ezkfu7r9o8j",
+                                                          "sortIndex": 1,
+                                                          "popup": {
+                                                            "template": {
+                                                              "uid": "kvo6otysunu",
+                                                              "mode": "reference"
+                                                            }
+                                                          }
+                                                        }
+                                                      ]
+                                                    },
+                                                    "parent": "ng9f4m85kei",
+                                                    "sortIndex": 1,
+                                                    "popup": {
+                                                      "mode": "local"
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              "parent": "k6ybhj4cjcc",
+                                              "parentId": "k6ybhj4cjcc",
+                                              "sortIndex": 1,
+                                              "popup": {
+                                                "mode": "local"
+                                              }
+                                            }
+                                          },
+                                          "parent": "bzmlihuphh8",
+                                          "parentId": "bzmlihuphh8",
+                                          "sortIndex": 1,
+                                          "popup": {
+                                            "mode": "local"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "parent": "11fwuwo53nd",
+                                    "sortIndex": 1,
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  }
+                                },
+                                "parent": "zfsvyywp434",
+                                "parentId": "zfsvyywp434",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local",
+                                  "pageUid": "bzmlihuphh8",
+                                  "tabUid": "k6ybhj4cjcc",
+                                  "gridUid": "ng9f4m85kei"
+                                }
+                              }
+                            },
+                            "parent": "x3b5zlfsi62",
+                            "sortIndex": 6,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "x3b5zlfsi62",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {
+                              "titleField": "title"
+                            },
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_judgment",
+                                  "fieldPath": "facts"
+                                }
+                              },
+                              "tableColumnSettings": {
+                                "fieldNames": {
+                                  "label": "title"
+                                }
+                              }
+                            },
+                            "uid": "pza8wuh8y64",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {
+                                  "titleField": "title",
+                                  "clickToOpen": true
+                                },
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_judgment",
+                                      "fieldPath": "facts"
+                                    }
+                                  },
+                                  "displayFieldSettings": {
+                                    "clickToOpen": {
+                                      "clickToOpen": true
+                                    }
+                                  },
+                                  "popupSettings": {
+                                    "openView": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_fact",
+                                      "mode": "drawer",
+                                      "size": "medium",
+                                      "pageModelClass": "ChildPageModel",
+                                      "associationName": "vi_judgment.facts",
+                                      "title": "事实卡"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "g29lszsh4l4",
+                                "subModels": {
+                                  "page": {
+                                    "parentId": "g29lszsh4l4",
+                                    "subKey": "page",
+                                    "subType": "object",
+                                    "use": "ChildPageModel",
+                                    "props": {
+                                      "displayTitle": false,
+                                      "enableTabs": true
+                                    },
+                                    "stepParams": {
+                                      "pageSettings": {
+                                        "general": {
+                                          "displayTitle": false,
+                                          "enableTabs": true
+                                        }
+                                      }
+                                    },
+                                    "uid": "ss9dg1ljllu",
+                                    "subModels": {
+                                      "tabs": [
+                                        {
+                                          "use": "ChildPageTabModel",
+                                          "props": {
+                                            "title": "{{t(\"Details\")}}"
+                                          },
+                                          "stepParams": {
+                                            "pageTabSettings": {
+                                              "tab": {
+                                                "title": "{{t(\"Details\")}}"
+                                              }
+                                            }
+                                          },
+                                          "subKey": "tabs",
+                                          "subType": "array",
+                                          "uid": "mps2wfaj86x",
+                                          "subModels": {
+                                            "grid": {
+                                              "use": "BlockGridModel",
+                                              "subKey": "grid",
+                                              "subType": "object",
+                                              "props": {
+                                                "rows": {
+                                                  "row1": [
+                                                    [
+                                                      "58b7d4vr98j"
+                                                    ]
+                                                  ]
+                                                },
+                                                "sizes": {
+                                                  "row1": [
+                                                    24
+                                                  ]
+                                                },
+                                                "rowOrder": [
+                                                  "row1"
+                                                ]
+                                              },
+                                              "stepParams": {
+                                                "gridSettings": {
+                                                  "grid": {
+                                                    "rows": {
+                                                      "row1": [
+                                                        [
+                                                          "58b7d4vr98j"
+                                                        ]
+                                                      ]
+                                                    },
+                                                    "sizes": {
+                                                      "row1": [
+                                                        24
+                                                      ]
+                                                    },
+                                                    "rowOrder": [
+                                                      "row1"
+                                                    ]
+                                                  }
+                                                }
+                                              },
+                                              "uid": "bylu0aheys6",
+                                              "subModels": {
+                                                "items": [
+                                                  {
+                                                    "parentId": "bylu0aheys6",
+                                                    "subKey": "items",
+                                                    "subType": "array",
+                                                    "use": "DetailsBlockModel",
+                                                    "props": {},
+                                                    "decoratorProps": {},
+                                                    "stepParams": {
+                                                      "resourceSettings": {
+                                                        "init": {
+                                                          "dataSourceKey": "main",
+                                                          "collectionName": "vi_fact",
+                                                          "filterByTk": "{{ctx.record.id}}",
+                                                          "associationName": "vi_judgment.facts",
+                                                          "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+                                                        }
+                                                      }
+                                                    },
+                                                    "uid": "58b7d4vr98j",
+                                                    "subModels": {
+                                                      "grid": {
+                                                        "use": "DetailsGridModel",
+                                                        "subKey": "grid",
+                                                        "subType": "object",
+                                                        "stepParams": {
+                                                          "gridSettings": {
+                                                            "grid": {
+                                                              "rows": {
+                                                                "row1": [
+                                                                  [
+                                                                    "pxq3ye7m7hq"
+                                                                  ],
+                                                                  [
+                                                                    "cls7iieol23"
+                                                                  ]
+                                                                ],
+                                                                "row2": [
+                                                                  [
+                                                                    "v9yqbb7dcmr"
+                                                                  ],
+                                                                  [
+                                                                    "do0vpw07mx3"
+                                                                  ]
+                                                                ],
+                                                                "row3": [
+                                                                  [
+                                                                    "8z6mzqrjjpg"
+                                                                  ],
+                                                                  [
+                                                                    "fslxd38a2kk"
+                                                                  ]
+                                                                ]
+                                                              },
+                                                              "sizes": {
+                                                                "row1": [
+                                                                  12,
+                                                                  12
+                                                                ],
+                                                                "row2": [
+                                                                  12,
+                                                                  12
+                                                                ],
+                                                                "row3": [
+                                                                  12,
+                                                                  12
+                                                                ]
+                                                              },
+                                                              "rowOrder": [
+                                                                "row1",
+                                                                "row2",
+                                                                "row3"
+                                                              ]
+                                                            }
+                                                          }
+                                                        },
+                                                        "props": {
+                                                          "rows": {
+                                                            "row1": [
+                                                              [
+                                                                "pxq3ye7m7hq"
+                                                              ],
+                                                              [
+                                                                "cls7iieol23"
+                                                              ]
+                                                            ],
+                                                            "row2": [
+                                                              [
+                                                                "v9yqbb7dcmr"
+                                                              ],
+                                                              [
+                                                                "do0vpw07mx3"
+                                                              ]
+                                                            ],
+                                                            "row3": [
+                                                              [
+                                                                "8z6mzqrjjpg"
+                                                              ],
+                                                              [
+                                                                "fslxd38a2kk"
+                                                              ]
+                                                            ]
+                                                          },
+                                                          "sizes": {
+                                                            "row1": [
+                                                              12,
+                                                              12
+                                                            ],
+                                                            "row2": [
+                                                              12,
+                                                              12
+                                                            ],
+                                                            "row3": [
+                                                              12,
+                                                              12
+                                                            ]
+                                                          },
+                                                          "rowOrder": [
+                                                            "row1",
+                                                            "row2",
+                                                            "row3"
+                                                          ]
+                                                        },
+                                                        "uid": "uy947nh9b0x",
+                                                        "subModels": {
+                                                          "items": [
+                                                            {
+                                                              "parentId": "uy947nh9b0x",
+                                                              "subKey": "items",
+                                                              "subType": "array",
+                                                              "use": "DetailsItemModel",
+                                                              "props": {},
+                                                              "stepParams": {
+                                                                "fieldSettings": {
+                                                                  "init": {
+                                                                    "dataSourceKey": "main",
+                                                                    "collectionName": "vi_fact",
+                                                                    "fieldPath": "title"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "uid": "pxq3ye7m7hq",
+                                                              "subModels": {
+                                                                "field": {
+                                                                  "use": "DisplayTextFieldModel",
+                                                                  "props": {},
+                                                                  "stepParams": {
+                                                                    "fieldSettings": {
+                                                                      "init": {
+                                                                        "dataSourceKey": "main",
+                                                                        "collectionName": "vi_fact",
+                                                                        "fieldPath": "title"
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "subKey": "field",
+                                                                  "subType": "object",
+                                                                  "uid": "79mnhzmrv13",
+                                                                  "parent": "pxq3ye7m7hq",
+                                                                  "parentId": "pxq3ye7m7hq",
+                                                                  "sortIndex": 1,
+                                                                  "popup": {
+                                                                    "mode": "local"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "parent": "uy947nh9b0x",
+                                                              "sortIndex": 1,
+                                                              "popup": {
+                                                                "mode": "local"
+                                                              }
+                                                            },
+                                                            {
+                                                              "parentId": "uy947nh9b0x",
+                                                              "subKey": "items",
+                                                              "subType": "array",
+                                                              "use": "DetailsItemModel",
+                                                              "props": {},
+                                                              "stepParams": {
+                                                                "fieldSettings": {
+                                                                  "init": {
+                                                                    "dataSourceKey": "main",
+                                                                    "collectionName": "vi_fact",
+                                                                    "fieldPath": "category"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "uid": "cls7iieol23",
+                                                              "subModels": {
+                                                                "field": {
+                                                                  "use": "DisplayEnumFieldModel",
+                                                                  "props": {},
+                                                                  "stepParams": {
+                                                                    "fieldSettings": {
+                                                                      "init": {
+                                                                        "dataSourceKey": "main",
+                                                                        "collectionName": "vi_fact",
+                                                                        "fieldPath": "category"
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "subKey": "field",
+                                                                  "subType": "object",
+                                                                  "uid": "9ohrrizq3ug",
+                                                                  "parent": "cls7iieol23",
+                                                                  "parentId": "cls7iieol23",
+                                                                  "sortIndex": 1,
+                                                                  "popup": {
+                                                                    "mode": "local"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "parent": "uy947nh9b0x",
+                                                              "sortIndex": 2,
+                                                              "popup": {
+                                                                "mode": "local"
+                                                              }
+                                                            },
+                                                            {
+                                                              "parentId": "uy947nh9b0x",
+                                                              "subKey": "items",
+                                                              "subType": "array",
+                                                              "use": "DetailsItemModel",
+                                                              "props": {},
+                                                              "stepParams": {
+                                                                "fieldSettings": {
+                                                                  "init": {
+                                                                    "dataSourceKey": "main",
+                                                                    "collectionName": "vi_fact",
+                                                                    "fieldPath": "statement"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "uid": "v9yqbb7dcmr",
+                                                              "subModels": {
+                                                                "field": {
+                                                                  "use": "DisplayTextFieldModel",
+                                                                  "props": {},
+                                                                  "stepParams": {
+                                                                    "fieldSettings": {
+                                                                      "init": {
+                                                                        "dataSourceKey": "main",
+                                                                        "collectionName": "vi_fact",
+                                                                        "fieldPath": "statement"
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "subKey": "field",
+                                                                  "subType": "object",
+                                                                  "uid": "nhtnyz77d55",
+                                                                  "parent": "v9yqbb7dcmr",
+                                                                  "parentId": "v9yqbb7dcmr",
+                                                                  "sortIndex": 1,
+                                                                  "popup": {
+                                                                    "mode": "local"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "parent": "uy947nh9b0x",
+                                                              "sortIndex": 3,
+                                                              "popup": {
+                                                                "mode": "local"
+                                                              }
+                                                            },
+                                                            {
+                                                              "parentId": "uy947nh9b0x",
+                                                              "subKey": "items",
+                                                              "subType": "array",
+                                                              "use": "DetailsItemModel",
+                                                              "props": {},
+                                                              "stepParams": {
+                                                                "fieldSettings": {
+                                                                  "init": {
+                                                                    "dataSourceKey": "main",
+                                                                    "collectionName": "vi_fact",
+                                                                    "fieldPath": "value"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "uid": "do0vpw07mx3",
+                                                              "subModels": {
+                                                                "field": {
+                                                                  "use": "DisplayNumberFieldModel",
+                                                                  "props": {},
+                                                                  "stepParams": {
+                                                                    "fieldSettings": {
+                                                                      "init": {
+                                                                        "dataSourceKey": "main",
+                                                                        "collectionName": "vi_fact",
+                                                                        "fieldPath": "value"
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "subKey": "field",
+                                                                  "subType": "object",
+                                                                  "uid": "rkkcrflqea7",
+                                                                  "parent": "do0vpw07mx3",
+                                                                  "parentId": "do0vpw07mx3",
+                                                                  "sortIndex": 1,
+                                                                  "popup": {
+                                                                    "mode": "local"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "parent": "uy947nh9b0x",
+                                                              "sortIndex": 4,
+                                                              "popup": {
+                                                                "mode": "local"
+                                                              }
+                                                            },
+                                                            {
+                                                              "parentId": "uy947nh9b0x",
+                                                              "subKey": "items",
+                                                              "subType": "array",
+                                                              "use": "DetailsItemModel",
+                                                              "props": {},
+                                                              "stepParams": {
+                                                                "fieldSettings": {
+                                                                  "init": {
+                                                                    "dataSourceKey": "main",
+                                                                    "collectionName": "vi_fact",
+                                                                    "fieldPath": "unit"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "uid": "8z6mzqrjjpg",
+                                                              "subModels": {
+                                                                "field": {
+                                                                  "use": "DisplayTextFieldModel",
+                                                                  "props": {},
+                                                                  "stepParams": {
+                                                                    "fieldSettings": {
+                                                                      "init": {
+                                                                        "dataSourceKey": "main",
+                                                                        "collectionName": "vi_fact",
+                                                                        "fieldPath": "unit"
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "subKey": "field",
+                                                                  "subType": "object",
+                                                                  "uid": "wj7sejtpy3k",
+                                                                  "parent": "8z6mzqrjjpg",
+                                                                  "parentId": "8z6mzqrjjpg",
+                                                                  "sortIndex": 1,
+                                                                  "popup": {
+                                                                    "mode": "local"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "parent": "uy947nh9b0x",
+                                                              "sortIndex": 5,
+                                                              "popup": {
+                                                                "mode": "local"
+                                                              }
+                                                            },
+                                                            {
+                                                              "parentId": "uy947nh9b0x",
+                                                              "subKey": "items",
+                                                              "subType": "array",
+                                                              "use": "DetailsItemModel",
+                                                              "props": {},
+                                                              "stepParams": {
+                                                                "fieldSettings": {
+                                                                  "init": {
+                                                                    "dataSourceKey": "main",
+                                                                    "collectionName": "vi_fact",
+                                                                    "fieldPath": "period"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "uid": "fslxd38a2kk",
+                                                              "subModels": {
+                                                                "field": {
+                                                                  "use": "DisplayTextFieldModel",
+                                                                  "props": {},
+                                                                  "stepParams": {
+                                                                    "fieldSettings": {
+                                                                      "init": {
+                                                                        "dataSourceKey": "main",
+                                                                        "collectionName": "vi_fact",
+                                                                        "fieldPath": "period"
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "subKey": "field",
+                                                                  "subType": "object",
+                                                                  "uid": "kiptdpabu7j",
+                                                                  "parent": "fslxd38a2kk",
+                                                                  "parentId": "fslxd38a2kk",
+                                                                  "sortIndex": 1,
+                                                                  "popup": {
+                                                                    "mode": "local"
+                                                                  }
+                                                                }
+                                                              },
+                                                              "parent": "uy947nh9b0x",
+                                                              "sortIndex": 6,
+                                                              "popup": {
+                                                                "mode": "local"
+                                                              }
+                                                            }
+                                                          ]
+                                                        },
+                                                        "parent": "58b7d4vr98j",
+                                                        "parentId": "58b7d4vr98j",
+                                                        "sortIndex": 1,
+                                                        "popup": {
+                                                          "mode": "local"
+                                                        }
+                                                      },
+                                                      "actions": [
+                                                        {
+                                                          "parentId": "58b7d4vr98j",
+                                                          "subKey": "actions",
+                                                          "subType": "array",
+                                                          "use": "EditActionModel",
+                                                          "props": {
+                                                            "title": "{{t(\"Edit\")}}",
+                                                            "icon": "EditOutlined",
+                                                            "type": "default"
+                                                          },
+                                                          "decoratorProps": {},
+                                                          "stepParams": {
+                                                            "buttonSettings": {
+                                                              "general": {
+                                                                "title": "{{t(\"Edit\")}}",
+                                                                "icon": "EditOutlined",
+                                                                "type": "default"
+                                                              }
+                                                            },
+                                                            "popupSettings": {
+                                                              "openView": {
+                                                                "mode": "drawer",
+                                                                "size": "medium",
+                                                                "pageModelClass": "ChildPageModel",
+                                                                "dataSourceKey": "main",
+                                                                "collectionName": "vi_fact",
+                                                                "associationName": "vi_judgment.facts",
+                                                                "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+                                                                "title": "事实卡·编辑"
+                                                              }
+                                                            }
+                                                          },
+                                                          "flowRegistry": {},
+                                                          "uid": "2iavqb3evoi",
+                                                          "parent": "58b7d4vr98j",
+                                                          "sortIndex": 1,
+                                                          "popup": {
+                                                            "template": {
+                                                              "uid": "ep4gt6nnuu6",
+                                                              "mode": "reference"
+                                                            }
+                                                          }
+                                                        }
+                                                      ]
+                                                    },
+                                                    "parent": "bylu0aheys6",
+                                                    "sortIndex": 1,
+                                                    "popup": {
+                                                      "mode": "local"
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              "parent": "mps2wfaj86x",
+                                              "parentId": "mps2wfaj86x",
+                                              "sortIndex": 1,
+                                              "popup": {
+                                                "mode": "local"
+                                              }
+                                            }
+                                          },
+                                          "parent": "ss9dg1ljllu",
+                                          "parentId": "ss9dg1ljllu",
+                                          "sortIndex": 1,
+                                          "popup": {
+                                            "mode": "local"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "parent": "g29lszsh4l4",
+                                    "sortIndex": 1,
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  }
+                                },
+                                "parent": "pza8wuh8y64",
+                                "parentId": "pza8wuh8y64",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local",
+                                  "pageUid": "ss9dg1ljllu",
+                                  "tabUid": "mps2wfaj86x",
+                                  "gridUid": "bylu0aheys6"
+                                }
+                              }
+                            },
+                            "parent": "x3b5zlfsi62",
+                            "sortIndex": 7,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          }
+                        ],
+                        "actions": [
+                          {
+                            "parentId": "x3b5zlfsi62",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "FilterActionModel",
+                            "props": {
+                              "title": "{{t(\"Filter\")}}",
+                              "icon": "FilterOutlined",
+                              "defaultFilterValue": {
+                                "logic": "$and",
+                                "items": [
+                                  {
+                                    "path": "title",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "status",
+                                    "operator": "$eq"
+                                  },
+                                  {
+                                    "path": "code",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "judgment",
+                                    "operator": "$includes"
+                                  }
+                                ]
+                              },
+                              "filterValue": {
+                                "logic": "$and",
+                                "items": [
+                                  {
+                                    "path": "title",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "status",
+                                    "operator": "$eq"
+                                  },
+                                  {
+                                    "path": "code",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "judgment",
+                                    "operator": "$includes"
+                                  }
+                                ]
+                              }
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "{{t(\"Filter\")}}",
+                                  "icon": "FilterOutlined"
+                                }
+                              },
+                              "filterSettings": {
+                                "defaultFilter": {
+                                  "defaultFilter": {
+                                    "logic": "$and",
+                                    "items": [
+                                      {
+                                        "path": "title",
+                                        "operator": "$includes"
+                                      },
+                                      {
+                                        "path": "status",
+                                        "operator": "$eq"
+                                      },
+                                      {
+                                        "path": "code",
+                                        "operator": "$includes"
+                                      },
+                                      {
+                                        "path": "judgment",
+                                        "operator": "$includes"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "afl8a0xyyt3",
+                            "parent": "x3b5zlfsi62",
+                            "sortIndex": 1,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "x3b5zlfsi62",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "RefreshActionModel",
+                            "props": {
+                              "title": "{{t(\"Refresh\")}}",
+                              "icon": "ReloadOutlined"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "{{t(\"Refresh\")}}",
+                                  "icon": "ReloadOutlined"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "dauqr4jlod9",
+                            "parent": "x3b5zlfsi62",
+                            "sortIndex": 2,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "x3b5zlfsi62",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "BulkDeleteActionModel",
+                            "props": {
+                              "title": "",
+                              "tooltip": "{{t(\"Delete\")}}",
+                              "icon": "DeleteOutlined",
+                              "iconOnly": true,
+                              "position": "right"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "",
+                                  "tooltip": "{{t(\"Delete\")}}",
+                                  "icon": "DeleteOutlined",
+                                  "iconOnly": true
+                                }
+                              },
+                              "deleteSettings": {
+                                "confirm": {
+                                  "enable": true,
+                                  "title": "{{t(\"Delete record\")}}",
+                                  "content": "{{t(\"Are you sure you want to delete it?\")}}"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "bgrcpus9dew",
+                            "parent": "x3b5zlfsi62",
+                            "sortIndex": 3,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "x3b5zlfsi62",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "AddNewActionModel",
+                            "props": {
+                              "type": "primary",
+                              "title": "{{t(\"Add new\")}}",
+                              "icon": "PlusOutlined"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "{{t(\"Add new\")}}",
+                                  "icon": "PlusOutlined",
+                                  "type": "primary"
+                                }
+                              },
+                              "popupSettings": {
+                                "openView": {
+                                  "mode": "drawer",
+                                  "size": "medium",
+                                  "pageModelClass": "ChildPageModel",
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_judgment",
+                                  "title": "新增 · 参数判断"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "ywcyrbw7gqh",
+                            "parent": "x3b5zlfsi62",
+                            "sortIndex": 4,
+                            "popup": {
+                              "template": {
+                                "uid": "b6sm66n5s4v",
+                                "mode": "reference"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "parent": "veirjsod468",
+                      "sortIndex": 1,
+                      "popup": {
+                        "mode": "local"
+                      }
+                    }
+                  ]
+                },
+                "parent": "41tk3y0imp8",
+                "sortIndex": 1,
+                "popup": {
+                  "mode": "local"
+                }
+              }
+            },
+            "popup": {
+              "mode": "local"
+            }
+          }
+        ]
+      },
+      "popup": {
+        "mode": "local"
+      }
+    },
+    "nodeMap": {
+      "8omq965bnde": {
+        "uid": "8omq965bnde",
+        "use": "RootPageModel",
+        "props": {
+          "routeId": 393657151651840,
+          "title": "假设依据",
+          "enableTabs": false,
+          "displayTitle": true,
+          "icon": "DatabaseOutlined",
+          "enableHeader": false
+        },
+        "stepParams": {
+          "pageSettings": {
+            "general": {
+              "title": "假设依据",
+              "displayTitle": true,
+              "enableTabs": false,
+              "documentTitle": "长江电力 · 假设依据",
+              "icon": "DatabaseOutlined",
+              "enableHeader": false
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "41tk3y0imp8": {
+        "uid": "41tk3y0imp8",
+        "use": "RootPageTabModel",
+        "props": {
+          "route": {
+            "createdAt": "2026-10-23T05:45:57.884Z",
+            "updatedAt": "2026-10-24T02:24:31.597Z",
+            "id": 393657151651841,
+            "parentId": 393657151651840,
+            "title": "假设依据",
+            "tooltip": null,
+            "icon": null,
+            "schemaUid": "41tk3y0imp8",
+            "menuSchemaUid": null,
+            "tabSchemaName": "ci1yz8auvnw",
+            "type": "tabs",
+            "options": {
+              "flowRegistry": {}
+            },
+            "sort": 1792734357873970,
+            "hideInMenu": null,
+            "enableTabs": null,
+            "enableHeader": null,
+            "displayTitle": null,
+            "hidden": true,
+            "createdById": null,
+            "updatedById": 1,
+            "children": []
+          },
+          "title": "假设依据",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "pageTabSettings": {
+            "tab": {
+              "title": "假设依据",
+              "icon": null
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "veirjsod468": {
+        "uid": "veirjsod468",
+        "use": "BlockGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "x3b5zlfsi62"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "x3b5zlfsi62"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "x3b5zlfsi62": {
+        "uid": "x3b5zlfsi62",
+        "use": "TableBlockModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "resourceSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_judgment"
+            }
+          },
+          "tableSettings": {
+            "pageSize": {
+              "pageSize": 50
+            },
+            "defaultSorting": {
+              "sort": [
+                {
+                  "field": "id",
+                  "direction": "asc"
+                }
+              ]
+            },
+            "dataScope": {
+              "filter": {
+                "logic": "$and",
+                "items": [
+                  {
+                    "path": "company_id",
+                    "operator": "$eq",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          },
+          "cardSettings": {
+            "titleDescription": {
+              "title": "基础表 · 假设依据",
+              "description": "对应后台基础表：假设依据"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "u59hohp5wpa": {
+        "uid": "u59hohp5wpa",
+        "use": "TableActionsColumnModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "tableColumnSettings": {
+            "title": {
+              "title": "{{t(\"Actions\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ohrima4tbnj": {
+        "uid": "ohrima4tbnj",
+        "use": "ViewActionModel",
+        "props": {
+          "type": "link",
+          "title": "{{t(\"View\")}}",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"View\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_judgment",
+              "title": "参数判断·详情"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "qymrr7vfxka",
+            "mode": "reference"
+          }
+        }
+      },
+      "985o6glb8vj": {
+        "uid": "985o6glb8vj",
+        "use": "EditActionModel",
+        "props": {
+          "title": "{{t(\"Edit\")}}",
+          "icon": null,
+          "type": "link"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Edit\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_judgment",
+              "title": "编辑 · 参数判断"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "kf5np2ol8yu",
+            "mode": "reference"
+          }
+        }
+      },
+      "6oix2doio8a": {
+        "uid": "6oix2doio8a",
+        "use": "DeleteActionModel",
+        "props": {
+          "type": "link",
+          "title": "{{t(\"Delete\")}}",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Delete\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "deleteSettings": {
+            "confirm": {
+              "enable": true,
+              "title": "{{t(\"Delete record\")}}",
+              "content": "{{t(\"Are you sure you want to delete it?\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "f3tnl1aulkw": {
+        "uid": "f3tnl1aulkw",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_judgment",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ztnsmcg9fdd": {
+        "uid": "ztnsmcg9fdd",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_judgment",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "8k7izy9ztmc": {
+        "uid": "8k7izy9ztmc",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_judgment",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "lnex7mj48yl": {
+        "uid": "lnex7mj48yl",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_judgment",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "f5hiv9wxgnk": {
+        "uid": "f5hiv9wxgnk",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_judgment",
+              "fieldPath": "parameter"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "49fv1y175tl": {
+        "uid": "49fv1y175tl",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_judgment",
+              "fieldPath": "parameter"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "r1tcc0badsi": {
+        "uid": "r1tcc0badsi",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_judgment",
+              "fieldPath": "status"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "6m5w8378wjo": {
+        "uid": "6m5w8378wjo",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_judgment",
+              "fieldPath": "status"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "zfsvyywp434": {
+        "uid": "zfsvyywp434",
+        "use": "TableColumnModel",
+        "props": {
+          "titleField": "title"
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_judgment",
+              "fieldPath": "theses"
+            }
+          },
+          "tableColumnSettings": {
+            "fieldNames": {
+              "label": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "11fwuwo53nd": {
+        "uid": "11fwuwo53nd",
+        "use": "DisplayTextFieldModel",
+        "props": {
+          "titleField": "title",
+          "clickToOpen": true
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_judgment",
+              "fieldPath": "theses"
+            }
+          },
+          "displayFieldSettings": {
+            "clickToOpen": {
+              "clickToOpen": true
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "associationName": "vi_judgment.theses",
+              "title": "核心论点"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local",
+          "pageUid": "bzmlihuphh8",
+          "tabUid": "k6ybhj4cjcc",
+          "gridUid": "ng9f4m85kei"
+        }
+      },
+      "bzmlihuphh8": {
+        "uid": "bzmlihuphh8",
+        "use": "ChildPageModel",
+        "props": {
+          "displayTitle": false,
+          "enableTabs": true
+        },
+        "stepParams": {
+          "pageSettings": {
+            "general": {
+              "displayTitle": false,
+              "enableTabs": true
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "k6ybhj4cjcc": {
+        "uid": "k6ybhj4cjcc",
+        "use": "ChildPageTabModel",
+        "props": {
+          "title": "{{t(\"Details\")}}"
+        },
+        "stepParams": {
+          "pageTabSettings": {
+            "tab": {
+              "title": "{{t(\"Details\")}}"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ng9f4m85kei": {
+        "uid": "ng9f4m85kei",
+        "use": "BlockGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "ezkfu7r9o8j"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "ezkfu7r9o8j"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ezkfu7r9o8j": {
+        "uid": "ezkfu7r9o8j",
+        "use": "DetailsBlockModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "resourceSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "filterByTk": "{{ctx.record.id}}",
+              "associationName": "vi_judgment.theses",
+              "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "vkky5s1y1wg": {
+        "uid": "vkky5s1y1wg",
+        "use": "DetailsGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "gal4ysetbwb"
+              ],
+              [
+                "1m72lfic8hf"
+              ]
+            ],
+            "row2": [
+              [
+                "tls27jjhkuj"
+              ],
+              [
+                "2nvptjxzrx8"
+              ]
+            ],
+            "row3": [
+              [
+                "1izs0rbapwz"
+              ],
+              [
+                "ji612jqqjfb"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              12,
+              12
+            ],
+            "row2": [
+              12,
+              12
+            ],
+            "row3": [
+              12,
+              12
+            ]
+          },
+          "rowOrder": [
+            "row1",
+            "row2",
+            "row3"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "gal4ysetbwb"
+                  ],
+                  [
+                    "1m72lfic8hf"
+                  ]
+                ],
+                "row2": [
+                  [
+                    "tls27jjhkuj"
+                  ],
+                  [
+                    "2nvptjxzrx8"
+                  ]
+                ],
+                "row3": [
+                  [
+                    "1izs0rbapwz"
+                  ],
+                  [
+                    "ji612jqqjfb"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  12,
+                  12
+                ],
+                "row2": [
+                  12,
+                  12
+                ],
+                "row3": [
+                  12,
+                  12
+                ]
+              },
+              "rowOrder": [
+                "row1",
+                "row2",
+                "row3"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "gal4ysetbwb": {
+        "uid": "gal4ysetbwb",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ggmk2wm0eoi": {
+        "uid": "ggmk2wm0eoi",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "1m72lfic8hf": {
+        "uid": "1m72lfic8hf",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "g89rtnqe02q": {
+        "uid": "g89rtnqe02q",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "tls27jjhkuj": {
+        "uid": "tls27jjhkuj",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "category"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "uvdc820zil9": {
+        "uid": "uvdc820zil9",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "category"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "2nvptjxzrx8": {
+        "uid": "2nvptjxzrx8",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "status"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "eyfu28aqzcr": {
+        "uid": "eyfu28aqzcr",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "status"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "1izs0rbapwz": {
+        "uid": "1izs0rbapwz",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "confidence"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "xpw18l9sjdp": {
+        "uid": "xpw18l9sjdp",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "confidence"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ji612jqqjfb": {
+        "uid": "ji612jqqjfb",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "bull_case"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "aeni2gwuf9j": {
+        "uid": "aeni2gwuf9j",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "bull_case"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ud836ju0f3l": {
+        "uid": "ud836ju0f3l",
+        "use": "EditActionModel",
+        "props": {
+          "title": "{{t(\"Edit\")}}",
+          "icon": "EditOutlined",
+          "type": "default"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Edit\")}}",
+              "icon": "EditOutlined",
+              "type": "default"
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "associationName": "vi_judgment.theses",
+              "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+              "title": "核心论点·编辑"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "kvo6otysunu",
+            "mode": "reference"
+          }
+        }
+      },
+      "pza8wuh8y64": {
+        "uid": "pza8wuh8y64",
+        "use": "TableColumnModel",
+        "props": {
+          "titleField": "title"
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_judgment",
+              "fieldPath": "facts"
+            }
+          },
+          "tableColumnSettings": {
+            "fieldNames": {
+              "label": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "g29lszsh4l4": {
+        "uid": "g29lszsh4l4",
+        "use": "DisplayTextFieldModel",
+        "props": {
+          "titleField": "title",
+          "clickToOpen": true
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_judgment",
+              "fieldPath": "facts"
+            }
+          },
+          "displayFieldSettings": {
+            "clickToOpen": {
+              "clickToOpen": true
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_fact",
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "associationName": "vi_judgment.facts",
+              "title": "事实卡"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local",
+          "pageUid": "ss9dg1ljllu",
+          "tabUid": "mps2wfaj86x",
+          "gridUid": "bylu0aheys6"
+        }
+      },
+      "ss9dg1ljllu": {
+        "uid": "ss9dg1ljllu",
+        "use": "ChildPageModel",
+        "props": {
+          "displayTitle": false,
+          "enableTabs": true
+        },
+        "stepParams": {
+          "pageSettings": {
+            "general": {
+              "displayTitle": false,
+              "enableTabs": true
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "mps2wfaj86x": {
+        "uid": "mps2wfaj86x",
+        "use": "ChildPageTabModel",
+        "props": {
+          "title": "{{t(\"Details\")}}"
+        },
+        "stepParams": {
+          "pageTabSettings": {
+            "tab": {
+              "title": "{{t(\"Details\")}}"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "bylu0aheys6": {
+        "uid": "bylu0aheys6",
+        "use": "BlockGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "58b7d4vr98j"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "58b7d4vr98j"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "58b7d4vr98j": {
+        "uid": "58b7d4vr98j",
+        "use": "DetailsBlockModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "resourceSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_fact",
+              "filterByTk": "{{ctx.record.id}}",
+              "associationName": "vi_judgment.facts",
+              "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "uy947nh9b0x": {
+        "uid": "uy947nh9b0x",
+        "use": "DetailsGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "pxq3ye7m7hq"
+              ],
+              [
+                "cls7iieol23"
+              ]
+            ],
+            "row2": [
+              [
+                "v9yqbb7dcmr"
+              ],
+              [
+                "do0vpw07mx3"
+              ]
+            ],
+            "row3": [
+              [
+                "8z6mzqrjjpg"
+              ],
+              [
+                "fslxd38a2kk"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              12,
+              12
+            ],
+            "row2": [
+              12,
+              12
+            ],
+            "row3": [
+              12,
+              12
+            ]
+          },
+          "rowOrder": [
+            "row1",
+            "row2",
+            "row3"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "pxq3ye7m7hq"
+                  ],
+                  [
+                    "cls7iieol23"
+                  ]
+                ],
+                "row2": [
+                  [
+                    "v9yqbb7dcmr"
+                  ],
+                  [
+                    "do0vpw07mx3"
+                  ]
+                ],
+                "row3": [
+                  [
+                    "8z6mzqrjjpg"
+                  ],
+                  [
+                    "fslxd38a2kk"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  12,
+                  12
+                ],
+                "row2": [
+                  12,
+                  12
+                ],
+                "row3": [
+                  12,
+                  12
+                ]
+              },
+              "rowOrder": [
+                "row1",
+                "row2",
+                "row3"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "pxq3ye7m7hq": {
+        "uid": "pxq3ye7m7hq",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_fact",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "79mnhzmrv13": {
+        "uid": "79mnhzmrv13",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_fact",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "cls7iieol23": {
+        "uid": "cls7iieol23",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_fact",
+              "fieldPath": "category"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "9ohrrizq3ug": {
+        "uid": "9ohrrizq3ug",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_fact",
+              "fieldPath": "category"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "v9yqbb7dcmr": {
+        "uid": "v9yqbb7dcmr",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_fact",
+              "fieldPath": "statement"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "nhtnyz77d55": {
+        "uid": "nhtnyz77d55",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_fact",
+              "fieldPath": "statement"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "do0vpw07mx3": {
+        "uid": "do0vpw07mx3",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_fact",
+              "fieldPath": "value"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "rkkcrflqea7": {
+        "uid": "rkkcrflqea7",
+        "use": "DisplayNumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_fact",
+              "fieldPath": "value"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "8z6mzqrjjpg": {
+        "uid": "8z6mzqrjjpg",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_fact",
+              "fieldPath": "unit"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "wj7sejtpy3k": {
+        "uid": "wj7sejtpy3k",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_fact",
+              "fieldPath": "unit"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "fslxd38a2kk": {
+        "uid": "fslxd38a2kk",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_fact",
+              "fieldPath": "period"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "kiptdpabu7j": {
+        "uid": "kiptdpabu7j",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_fact",
+              "fieldPath": "period"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "2iavqb3evoi": {
+        "uid": "2iavqb3evoi",
+        "use": "EditActionModel",
+        "props": {
+          "title": "{{t(\"Edit\")}}",
+          "icon": "EditOutlined",
+          "type": "default"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Edit\")}}",
+              "icon": "EditOutlined",
+              "type": "default"
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_fact",
+              "associationName": "vi_judgment.facts",
+              "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+              "title": "事实卡·编辑"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "ep4gt6nnuu6",
+            "mode": "reference"
+          }
+        }
+      },
+      "afl8a0xyyt3": {
+        "uid": "afl8a0xyyt3",
+        "use": "FilterActionModel",
+        "props": {
+          "title": "{{t(\"Filter\")}}",
+          "icon": "FilterOutlined",
+          "defaultFilterValue": {
+            "logic": "$and",
+            "items": [
+              {
+                "path": "title",
+                "operator": "$includes"
+              },
+              {
+                "path": "status",
+                "operator": "$eq"
+              },
+              {
+                "path": "code",
+                "operator": "$includes"
+              },
+              {
+                "path": "judgment",
+                "operator": "$includes"
+              }
+            ]
+          },
+          "filterValue": {
+            "logic": "$and",
+            "items": [
+              {
+                "path": "title",
+                "operator": "$includes"
+              },
+              {
+                "path": "status",
+                "operator": "$eq"
+              },
+              {
+                "path": "code",
+                "operator": "$includes"
+              },
+              {
+                "path": "judgment",
+                "operator": "$includes"
+              }
+            ]
+          }
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Filter\")}}",
+              "icon": "FilterOutlined"
+            }
+          },
+          "filterSettings": {
+            "defaultFilter": {
+              "defaultFilter": {
+                "logic": "$and",
+                "items": [
+                  {
+                    "path": "title",
+                    "operator": "$includes"
+                  },
+                  {
+                    "path": "status",
+                    "operator": "$eq"
+                  },
+                  {
+                    "path": "code",
+                    "operator": "$includes"
+                  },
+                  {
+                    "path": "judgment",
+                    "operator": "$includes"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "dauqr4jlod9": {
+        "uid": "dauqr4jlod9",
+        "use": "RefreshActionModel",
+        "props": {
+          "title": "{{t(\"Refresh\")}}",
+          "icon": "ReloadOutlined"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Refresh\")}}",
+              "icon": "ReloadOutlined"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "bgrcpus9dew": {
+        "uid": "bgrcpus9dew",
+        "use": "BulkDeleteActionModel",
+        "props": {
+          "title": "",
+          "tooltip": "{{t(\"Delete\")}}",
+          "icon": "DeleteOutlined",
+          "iconOnly": true,
+          "position": "right"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "",
+              "tooltip": "{{t(\"Delete\")}}",
+              "icon": "DeleteOutlined",
+              "iconOnly": true
+            }
+          },
+          "deleteSettings": {
+            "confirm": {
+              "enable": true,
+              "title": "{{t(\"Delete record\")}}",
+              "content": "{{t(\"Are you sure you want to delete it?\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ywcyrbw7gqh": {
+        "uid": "ywcyrbw7gqh",
+        "use": "AddNewActionModel",
+        "props": {
+          "type": "primary",
+          "title": "{{t(\"Add new\")}}",
+          "icon": "PlusOutlined"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Add new\")}}",
+              "icon": "PlusOutlined",
+              "type": "primary"
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_judgment",
+              "title": "新增 · 参数判断"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "b6sm66n5s4v",
+            "mode": "reference"
+          }
+        }
+      }
+    },
+    "pageRoute": {
+      "createdAt": "2026-10-23T05:45:57.873Z",
+      "updatedAt": "2026-10-25T02:12:14.748Z",
+      "id": 393657151651840,
+      "parentId": 393441258897408,
+      "title": "假设依据",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据",
+      "icon": "DatabaseOutlined",
+      "schemaUid": "zy5j1sggleb",
+      "menuSchemaUid": "d0vphwmld7p",
+      "tabSchemaName": null,
+      "type": "flowPage",
+      "options": {
+        "flowSurfaceMenuBindable": true
+      },
+      "sort": 1,
+      "hideInMenu": false,
+      "enableTabs": false,
+      "enableHeader": false,
+      "displayTitle": true,
+      "hidden": null,
+      "createdById": null,
+      "updatedById": 1,
+      "children": [
+        {
+          "createdAt": "2026-10-23T05:45:57.884Z",
+          "updatedAt": "2026-10-24T02:24:31.597Z",
+          "id": 393657151651841,
+          "parentId": 393657151651840,
+          "title": "假设依据",
+          "tooltip": null,
+          "icon": null,
+          "schemaUid": "41tk3y0imp8",
+          "menuSchemaUid": null,
+          "tabSchemaName": "ci1yz8auvnw",
+          "type": "tabs",
+          "options": {
+            "flowRegistry": {}
+          },
+          "sort": 1792734357873970,
+          "hideInMenu": null,
+          "enableTabs": null,
+          "enableHeader": null,
+          "displayTitle": null,
+          "hidden": true,
+          "createdById": null,
+          "updatedById": 1
+        }
+      ]
+    }
+  }
+}

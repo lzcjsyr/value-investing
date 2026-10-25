@@ -1,0 +1,42 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "block": {
+      "block_id": "chtcnsSLcsmye8QzwEm4YuryASh",
+      "data_config": {
+        "group_by": [
+          {
+            "field_name": "年份",
+            "mode": "integrated",
+            "sort": {
+              "order": "asc",
+              "type": "group"
+            }
+          }
+        ],
+        "series": [
+          {
+            "field_name": "每股股息_元",
+            "rollup": "SUM"
+          }
+        ],
+        "table_name": "模型预测"
+      },
+      "name": "预测股息路径（2026E-2035E）",
+      "position": {
+        "h": 8,
+        "w": 4,
+        "x": 8,
+        "y": 2
+      },
+      "standard_position": {
+        "h": 832,
+        "w": 498,
+        "x": 996,
+        "y": 208
+      },
+      "type": "line"
+    }
+  }
+}

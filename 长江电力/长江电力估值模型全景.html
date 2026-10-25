@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>长江电力估值模型全景 · DDM</title>
+<style>
+  :root{
+    --bg:#f4f6f9; --card:#ffffff; --ink:#14243a; --muted:#5b6b80; --line:#e3e8ef;
+    --navy:#0f2b46; --blue:#1f6feb; --blue-soft:#eaf1fd;
+    --green:#1a7f4b; --green-soft:#e8f4ee; --red:#c0392b; --red-soft:#faeae8;
+    --gold:#8a6d1a; --gold-soft:#f7f0dc;
+    --mono:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+    --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font:15px/1.75 var(--sans);-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 28px 64px}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.2px}
+
+  /* header */
+  header{background:var(--navy);color:#fff;border-radius:14px;padding:30px 34px;position:relative;overflow:hidden}
+  header::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.05)}
+  header .kicker{font-size:12px;letter-spacing:.35em;color:#9db8d6;margin-bottom:8px}
+  header h1{font-size:26px;font-weight:700;letter-spacing:.02em}
+  header .sub{margin-top:10px;font-size:13.5px;color:#c3d4e8;max-width:760px}
+  header .tags{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+  header .tag{font-size:12px;padding:3px 12px;border-radius:999px;background:rgba(255,255,255,.12);color:#e8f0fa}
+
+  h2{font-size:19px;font-weight:700;margin:44px 0 6px;display:flex;align-items:center;gap:10px}
+  h2 .no{width:26px;height:26px;border-radius:8px;background:var(--navy);color:#fff;font-size:13px;display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono)}
+  .lede{color:var(--muted);font-size:13.5px;margin-bottom:16px}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;box-shadow:0 1px 3px rgba(16,32,56,.04)}
+
+  /* ===== 计算链 ===== */
+  .chain{display:flex;flex-direction:column}
+  .step{display:grid;grid-template-columns:150px 1fr 218px;gap:0;align-items:stretch}
+  .step + .step{border-top:1px dashed var(--line)}
+  .step .who{padding:18px 0 18px 0;display:flex;flex-direction:column;justify-content:center}
+  .step .who .t{font-weight:700;font-size:14.5px}
+  .step .who .s{font-size:12px;color:var(--muted)}
+  .step .mid{padding:18px 18px;border-left:2px solid var(--blue);display:flex;flex-direction:column;justify-content:center;gap:2px}
+  .step .formula{font-size:14px;color:var(--ink)}
+  .step .formula .op{color:var(--muted)}
+  .step .val{display:flex;flex-direction:column;justify-content:center;align-items:flex-end;padding-right:2px}
+  .step .val .v{font-size:20px;font-weight:700;color:var(--navy)}
+  .step .val .u{font-size:11.5px;color:var(--muted)}
+  .step.input .mid{border-left-color:var(--gold);background:var(--gold-soft);border-radius:0 8px 8px 0}
+  .step.output .mid{border-left-color:var(--green);background:var(--green-soft);border-radius:0 8px 8px 0}
+  .pill{display:inline-block;font-size:11px;padding:1px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-right:6px}
+
+  /* ===== 表 ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{font-weight:600;color:var(--muted);font-size:11.5px;letter-spacing:.04em;padding:8px 10px;border-bottom:1.5px solid var(--line);text-align:right;white-space:nowrap}
+  th:first-child,td:first-child{text-align:left}
+  td{padding:7px 10px;border-bottom:1px solid #eef1f6;text-align:right;white-space:nowrap}
+  tr.total td{border-top:2px solid var(--navy);border-bottom:none;font-weight:700;color:var(--navy);background:#f8fafd}
+  tr.hl td{background:var(--blue-soft)}
+  .tbl-note{font-size:12px;color:var(--muted);margin-top:10px}
+
+  /* ===== 汇总 ===== */
+  .sumflow{display:grid;grid-template-columns:1fr 46px 1fr 46px 1fr 60px 1.25fr;gap:0;align-items:stretch}
+  .sf{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 14px;text-align:center;display:flex;flex-direction:column;justify-content:center}
+  .sf .l{font-size:11.5px;color:var(--muted)}
+  .sf .v{font-size:21px;font-weight:700;color:var(--navy);margin-top:2px}
+  .sf.final{background:var(--navy);border-color:var(--navy)}
+  .sf.final .l{color:#9db8d6}.sf.final .v{color:#fff;font-size:26px}
+  .op-sign{display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--muted);font-family:var(--mono)}
+
+  /* ===== 数轴 ===== */
+  .axis-card{padding:30px 26px 22px}
+  .legend{display:flex;gap:22px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-bottom:18px}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+  /* ===== 信号条 ===== */
+  .signal{display:flex;align-items:center;gap:18px;margin-top:22px;background:var(--red-soft);border:1px solid #ecc8c2;border-radius:12px;padding:16px 22px}
+  .signal .lamp{width:14px;height:14px;border-radius:50%;background:var(--red);box-shadow:0 0 0 5px rgba(192,57,43,.15)}
+  .signal .txt{font-size:16px;font-weight:700;color:var(--red)}
+  .signal .why{font-size:13px;color:var(--muted);margin-left:auto}
+
+  /* ===== 情景卡 ===== */
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .sc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;border-top:4px solid var(--muted)}
+  .sc.bear{border-top-color:var(--red)} .sc.base{border-top-color:var(--blue)} .sc.bull{border-top-color:var(--green)}
+  .sc .name{font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--muted)}
+  .sc .v{font-size:30px;font-weight:700;color:var(--navy);margin:6px 0 2px}
+  .sc .cmp{font-size:13px;font-family:var(--mono)}
+  .sc .asm{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.6}
+  .up{color:var(--green)} .down{color:var(--red)}
+
+  /* ===== 敏感性 ===== */
+  .heat td,.heat th{font-family:var(--mono);font-size:12.5px;padding:9px 8px;text-align:center}
+  .heat td.cell{border-radius:6px;color:#fff;font-weight:600;cursor:default}
+  .heat td.cell.base{outline:2.5px solid var(--navy);outline-offset:-2.5px}
+  .heat th.rlbl{color:var(--ink);font-weight:600}
+  .heat-note{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);margin-top:12px;flex-wrap:wrap;gap:8px}
+  .bar-legend{display:flex;align-items:center;gap:6px}
+  .bar-legend .grad{width:130px;height:9px;border-radius:5px;background:linear-gradient(90deg,#c0392b,#e6a23c,#1a7f4b)}
+
+  /* ===== 机制 ===== */
+  .mech{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .mech .m{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 24px}
+  .mech h3{font-size:14.5px;margin-bottom:10px;color:var(--navy)}
+  .mech ol{padding-left:20px;font-size:13.5px;color:var(--ink)}
+  .mech li{margin:5px 0}
+  .law{background:var(--navy);color:#dbe7f5;border-radius:12px;padding:20px 24px;margin-top:16px}
+  .law h3{color:#fff;font-size:14.5px;margin-bottom:10px}
+  .law li{font-size:13.5px;margin:5px 0}
+  .law b{color:#ffd591}
+
+  footer{margin-top:52px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+  @media (max-width:860px){
+    .step{grid-template-columns:1fr}
+    .step .val{align-items:flex-start;padding:0 0 18px}
+    .sumflow{grid-template-columns:1fr 1fr;gap:10px}
+    .op-sign{display:none}
+    .scen{grid-template-columns:1fr}
+    .mech{grid-template-columns:1fr}
+  }
+  @media print{
+    body{background:#fff}
+    header{border-radius:0}
+    .card,.sc,.sf{box-shadow:none;break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker">VALUE INVESTMENT WORKBENCH</div>
+    <h1>长江电力（600900.SH）· 估值模型全景</h1>
+    <div class="sub">绝对估值，股息贴现模型（DDM）称重，FCFE 交叉验证。模型的每一分钱来自事实与假设——<b>不含任何股价信息（含 β）</b>；股价只在最后一步进入对比层。</div>
+    <div class="tags">
+      <span class="tag">折现率 r = 10Y国债 1.69% + 风险溢价 3.5% = 5.2%</span>
+      <span class="tag">永续增长 g = 1.0%</span>
+      <span class="tag">预测期 2026–2035 + 永续</span>
+      <span class="tag">总股本 244.68 亿股</span>
+      <span class="tag">数据快照 2026-09-01</span>
+    </div>
+  </header>
+
+  <!-- ============ 1 计算链 ============ -->
+  <h2><span class="no">1</span>计算流程 · 以 2026E 为例代入</h2>
+  <p class="lede">模型只有两类输入：事实（公告/财报/中债曲线）与假设（参数字典中留痕可改）。十行公式，从电量到每股价值。</p>
+  <div class="card chain">
+    <div class="step input">
+      <div class="who"><span class="t">输入层</span><span class="s">事实 + 假设</span></div>
+      <div class="mid">
+        <div class="formula"><span class="pill">参数字典</span>发电量 Q、电价 P、付现成本、折旧、财务费用、其他净贡献、负担率、派息率 —— 37 项，来源与理由逐项登记</div>
+      </div>
+      <div class="val"><span class="v num">8</span><span class="u">个自由假设驱动全部结果</span></div>
+    </div>
+    <div class="step">
+      <div class="who"><span class="t">营业收入</span><span class="s">量 × 价</span></div>
+      <div class="mid"><div class="formula">R = Q × P = <span class="num">3100亿千瓦时 × 0.2807元</span></div></div>
+      <div class="val"><span class="v num">870.17</span><span class="u">亿元</span></div>
+    </div>
+    <div class="step">
+      <div class="who"><span class="t">税前利润</span><span class="s">减三项成本</span></div>
+      <div class="mid"><div class="formula">EBT = R − 付现成本 − 折旧 − 财务费用 + 其他净贡献 = <span class="num">870.17 − 203 − 190 − 86 + 45</span></div></div>
+      <div class="val"><span class="v num">436.17</span><span class="u">亿元</span></div>
+    </div>
+    <div class="step">
+      <div class="who"><span class="t">归母净利</span><span class="s">税与少数股东</span></div>
+      <div class="mid"><div class="formula">NP = EBT × (1 − 综合负担率) = <span class="num">436.17 × (1 − 17.34%)</span></div></div>
+      <div class="val"><span class="v num">360.54</span><span class="u">亿元</span></div>
+    </div>
+    <div class="step">
+      <div class="who"><span class="t">股息</span><span class="s">承诺 ≥70%</span></div>
+      <div class="mid"><div class="formula">D = NP × 派息率 = <span class="num">360.54 × 72%</span>，再 ÷ 244.68 亿股</div></div>
+      <div class="val"><span class="v num">1.0609</span><span class="u">元 / 股</span></div>
+    </div>
+    <div class="step">
+      <div class="who"><span class="t">十年折现</span><span class="s">2026–2035</span></div>
+      <div class="mid"><div class="formula">Σ D<sub>t</sub> ÷ (1+r)<sup>t</sup>，r=5.2%；折旧与财务费用逐年退坡 → 股息缓升</div></div>
+      <div class="val"><span class="v num">2113.65</span><span class="u">亿元（现值合计）</span></div>
+    </div>
+    <div class="step">
+      <div class="who"><span class="t">终值</span><span class="s">2035年后永续</span></div>
+      <div class="mid"><div class="formula">TV = D<sub>2035</sub> × (1+g) ÷ (r−g) = <span class="num">296.47 × 1.01 ÷ 4.2%</span>，再折现十年</div></div>
+      <div class="val"><span class="v num">4294.33</span><span class="u">亿元（终值现值）</span></div>
+    </div>
+    <div class="step output">
+      <div class="who"><span class="t">每股内在价值</span><span class="s">模型输出</span></div>
+      <div class="mid"><div class="formula">V = (2113.65 + 4294.33) ÷ 244.68 亿股 —— 到此为止，全程无价格参与</div></div>
+      <div class="val"><span class="v num">26.19</span><span class="u">元 / 股</span></div>
+    </div>
+  </div>
+
+  <!-- ============ 2 十年预测 ============ -->
+  <h2><span class="no">2</span>十年逐年预测 · 利润为何内生抬升</h2>
+  <p class="lede">收入基本平盘，但折旧（三峡机组2026年起批量到期）与财务费用（还债+低息置换）逐年退坡，税前利润十年抬升 14%——这就是"收入不增长，价值仍增长"的来源。</p>
+  <div class="card">
+    <table>
+      <thead><tr>
+        <th>年份</th><th>电量<br>(亿kWh)</th><th>收入<br>(亿)</th><th>付现<br>(亿)</th><th>折旧<br>(亿)</th><th>财务<br>(亿)</th><th>其他<br>(亿)</th><th>税前<br>(亿)</th><th>归母<br>(亿)</th><th>股息<br>(亿)</th><th>每股股息<br>(元)</th><th>折现<br>因子</th><th>股息现值<br>(亿)</th>
+      </tr></thead>
+      <tbody id="fbody"></tbody>
+      <tbody>
+        <tr class="total">
+          <td>合计</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+          <td class="num">3169.94</td><td>—</td><td>—</td><td class="num">2113.65</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="tbl-note">注：灰底行为终值年（2035）；全表由飞书多维表格公式字段自动计算，改任一假设即整体重算。</div>
+  </div>
+
+  <!-- ============ 3 汇总 ============ -->
+  <h2><span class="no">3</span>价值汇总 · 三步到每股</h2>
+  <div class="sumflow">
+    <div class="sf"><span class="l">十年股息现值</span><span class="v num">2113.65</span></div>
+    <div class="op-sign">+</div>
+    <div class="sf"><span class="l">终值现值</span><span class="v num">4294.33</span></div>
+    <div class="op-sign">=</div>
+    <div class="sf"><span class="l">股权内在价值（亿）</span><span class="v num">6407.98</span></div>
+    <div class="op-sign">÷ 244.68 亿股</div>
+    <div class="sf final"><span class="l">每股内在价值</span><span class="v num">¥ 26.19</span></div>
+  </div>
+
+  <!-- ============ 4 对比层 ============ -->
+  <h2><span class="no">4</span>对比层 · 价格第一次出场</h2>
+  <p class="lede">到这里股价才被允许出现——仅用于称重对比，绝不反向进入模型。</p>
+  <div class="card axis-card">
+    <div class="legend">
+      <span><i class="dot" style="background:var(--green)"></i>买入阈值 18.33（价值×70%安全边际）</span>
+      <span><i class="dot" style="background:var(--blue)"></i>内在价值 26.19（DDM）</span>
+      <span><i class="dot" style="background:var(--red)"></i>当前股价 28.40</span>
+      <span><i class="dot" style="background:#b8c2cf"></i>FCFE 交叉上限 41.36</span>
+    </div>
+    <svg id="axis" viewBox="0 0 1000 150" width="100%" style="display:block"></svg>
+    <div class="signal">
+      <span class="lamp"></span>
+      <span class="txt">高估 · 等待</span>
+      <span class="why num">现价 28.40 高于内在价值 26.19（+8.44%）· 股息率 3.5% · 10Y国债 1.69% · 息差 182bp</span>
+    </div>
+  </div>
+
+  <!-- ============ 5 情景与敏感性 ============ -->
+  <h2><span class="no">5</span>情景与敏感性 · 价值对什么敏感</h2>
+  <div class="scen">
+    <div class="sc bear">
+      <div class="name">悲观</div>
+      <div class="v num">17.16</div>
+      <div class="cmp down">较现价 −39.6%</div>
+      <div class="asm">连续枯水 · 电价市场化折价 · 利率上行（r=6.2%）</div>
+    </div>
+    <div class="sc base">
+      <div class="name">中性</div>
+      <div class="v num">25.91</div>
+      <div class="cmp down">较现价 −8.7%</div>
+      <div class="asm">平水 · 电价持平 · r=5.2%（两阶段戈登简化，与逐年模型 26.19 差 1% 属方法差）</div>
+    </div>
+    <div class="sc bull">
+      <div class="name">乐观</div>
+      <div class="v num">37.66</div>
+      <div class="cmp up">较现价 +32.6%</div>
+      <div class="asm">来电温和向好 · 利率维持低位（r=4.7%）</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <table class="heat">
+      <thead><tr><th>每股价值（元）</th><th>g=0.0%</th><th>g=0.5%</th><th>g=1.0%</th><th>g=1.5%</th></tr></thead>
+      <tbody id="heat"></tbody>
+    </table>
+    <div class="heat-note">
+      <span>行=折现率 r（=10Y国债+风险溢价），列=永续增长 g；十年增速固定 1.9%，基期股息 1.00 元</span>
+      <span class="bar-legend"><span>低</span><span class="grad"></span><span>高</span><span style="margin-left:14px">■ 深蓝框 = 当前基准（r=5.2%, g=1.0% → 25.91）</span></span>
+    </div>
+    <div class="tbl-note" id="heat-read"></div>
+  </div>
+
+  <!-- ============ 6 机制 ============ -->
+  <h2><span class="no">6</span>这套模型住在哪里 · 怎么运转</h2>
+  <div class="mech">
+    <div class="m">
+      <h3>唯一信息源：飞书多维表格「长江电力投资工作台」</h3>
+      <ol>
+        <li><b>参数字典</b>（枢纽）：37 项，每项含定义 / 模型角色 / 参数关系 / 来源链接 / 映射理由 / 修订记录</li>
+        <li><b>模型预测</b>：上表全部公式字段，改假设即重算</li>
+        <li><b>估值结果</b>：输出 + 唯一股价入口</li>
+        <li><b>年度数据 / 季度跟踪 / 信息源 / 公告事件 / 论点与证伪</b>：证据链</li>
+        <li><b>估值看板</b>：动态读数仪表盘</li>
+      </ol>
+    </div>
+    <div class="m">
+      <h3>每日更新（AI 执行）</h3>
+      <ol>
+        <li>扫描公告（东财检索）→ 新数据入库</li>
+        <li>刷新参数字典（假设修订必须写理由留痕）</li>
+        <li>公式自动重算 → 刷新对比层股价</li>
+        <li>输出当日简报：新公告 / 参数变化 / 价值与信号</li>
+      </ol>
+    </div>
+  </div>
+  <div class="law">
+    <h3>两条铁律</h3>
+    <ol>
+      <li><b>模型表永不出现股价</b>：估值不得被现价锚定——这是绝对估值的纪律，β 同理禁用（源自股价回归）。</li>
+      <li><b>先有证据，后有修订</b>：假设改动必须在参数字典"修订记录"留痕；论点证伪即重估：发电量连续两年 &lt;2700亿 / 电价年降 &gt;3% / 派息率 &lt;70% / 财务费用止降回升。</li>
+    </ol>
+  </div>
+
+  <footer>
+    <span>长江电力投资工作台 · 模型全景（静态快照，动态数值以飞书多维表格为准）</span>
+    <span class="num">Snapshot 2026-09-01 · r=5.2% · g=1.0% · V=¥26.19</span>
+  </footer>
+</div>
+
+<script>
+/* ===== 数据：来自飞书「模型预测」表（2026-09-01快照） ===== */
+const F = [
+  {y:2026,q:3100, rev:870.17,cx:203,dep:190,fin:86,oth:45,ebt:436.17,np:360.54,div:259.59,dps:1.0609,df:0.9506,pv:246.76,note:'H1电量1327.44亿千瓦时，全年上调'},
+  {y:2027,q:3050, rev:856.14,cx:205,dep:185,fin:79,oth:45,ebt:432.14,np:357.21,div:257.19,dps:1.0511,df:0.9036,pv:232.39,note:'回归平水基准'},
+  {y:2028,q:3050, rev:856.14,cx:207,dep:180,fin:72,oth:45,ebt:442.14,np:365.47,div:263.14,dps:1.0754,df:0.8589,pv:226.02,note:'抽蓄投产（贡献未计入，保守）'},
+  {y:2029,q:3050, rev:856.14,cx:209,dep:175,fin:65,oth:45,ebt:452.14,np:373.74,div:269.09,dps:1.0998,df:0.8165,pv:219.70},
+  {y:2030,q:3050, rev:856.14,cx:211,dep:170,fin:58,oth:45,ebt:462.14,np:382.00,div:275.04,dps:1.1241,df:0.7761,pv:213.46,note:'三峡机组折旧退坡过半'},
+  {y:2031,q:3050, rev:856.14,cx:213,dep:160,fin:52,oth:45,ebt:476.14,np:393.58,div:283.38,dps:1.1582,df:0.7377,pv:209.06,note:'溪洛渡/向家坝折旧开始到期'},
+  {y:2032,q:3050, rev:856.14,cx:215,dep:150,fin:47,oth:45,ebt:489.14,np:404.32,div:291.11,dps:1.1898,df:0.7013,pv:204.15},
+  {y:2033,q:3050, rev:856.14,cx:217,dep:147,fin:43,oth:45,ebt:494.14,np:408.46,div:294.09,dps:1.2019,df:0.6666,pv:196.04},
+  {y:2034,q:3050, rev:856.14,cx:219,dep:145,fin:40,oth:45,ebt:497.14,np:410.94,div:295.88,dps:1.2093,df:0.6337,pv:187.49},
+  {y:2035,q:3050, rev:856.14,cx:221,dep:144,fin:38,oth:45,ebt:498.14,np:411.76,div:296.47,dps:1.2117,df:0.6023,pv:178.58,note:'终值年'}
+];
+const fmt=(n,d=2)=>n.toLocaleString('zh-CN',{minimumFractionDigits:d,maximumFractionDigits:d});
+const fb=document.getElementById('fbody');
+F.forEach(r=>{
+  const tr=document.createElement('tr');
+  if(r.y===2035) tr.className='hl';
+  tr.innerHTML=`<td>${r.y}${r.note?' <span style="color:var(--muted);font-size:11px">· '+r.note+'</span>':''}</td>
+    <td>${r.q}</td><td>${fmt(r.rev)}</td><td>${r.cx}</td><td>${r.dep}</td><td>${r.fin}</td><td>${r.oth}</td>
+    <td>${fmt(r.ebt)}</td><td>${fmt(r.np)}</td><td>${fmt(r.div)}</td><td>${fmt(r.dps,4)}</td><td>${fmt(r.df,4)}</td><td>${fmt(r.pv)}</td>`;
+  fb.appendChild(tr);
+});
+
+/* ===== 价值数轴 ===== */
+(()=>{
+  const svg=document.getElementById('axis');
+  const min=15,max=44,W=1000,H=150,pad=36;
+  const x=v=>pad+(v-min)/(max-min)*(W-2*pad);
+  let s='';
+  // 主轴
+  s+=`<line x1="${pad}" y1="78" x2="${W-pad}" y2="78" stroke="#c6cfda" stroke-width="2"/>`;
+  // 刻度 16..44 step 4
+  for(let v=16;v<=44;v+=4){
+    s+=`<line x1="${x(v)}" y1="72" x2="${x(v)}" y2="84" stroke="#c6cfda" stroke-width="1.5"/>
+        <text x="${x(v)}" y="104" text-anchor="middle" font-size="11.5" fill="#5b6b80" font-family="Menlo,monospace">${v}</text>`;
+  }
+  // 价值区间带（低于价值=可买区）
+  s+=`<rect x="${x(min)}" y="66" width="${x(26.19)-x(min)}" height="24" rx="6" fill="#e8f4ee" opacity=".9"/>`;
+  s+=`<rect x="${x(26.19)}" y="66" width="${x(max)-x(26.19)}" height="24" rx="6" fill="#faeae8" opacity=".9"/>`;
+  s+=`<line x1="${x(26.19)}" y1="60" x2="${x(26.19)}" y2="96" stroke="#1f6feb" stroke-width="2.5"/>`;
+  // 点
+  const pts=[
+    {v:18.33,c:'#1a7f4b',lab:'买入阈值',sub:'18.33',dy:-26},
+    {v:26.19,c:'#1f6feb',lab:'内在价值',sub:'26.19',dy:34},
+    {v:28.40,c:'#c0392b',lab:'当前股价',sub:'28.40',dy:-26},
+    {v:41.36,c:'#8a97a8',lab:'FCFE上限',sub:'41.36',dy:34,dash:1}
+  ];
+  pts.forEach(p=>{
+    const px=x(p.v);
+    s+=`<line x1="${px}" y1="70" x2="${px}" y2="86" stroke="${p.c}" stroke-width="4" stroke-linecap="round" ${p.dash?'stroke-dasharray="4 3"':''}/>`;
+    s+=`<circle cx="${px}" cy="78" r="6.5" fill="${p.c}" stroke="#fff" stroke-width="2.5"/>`;
+    const anchor = px>W-90?'end':(px<90?'start':'middle');
+    s+=`<text x="${px}" y="${78+p.dy}" text-anchor="${anchor}" font-size="12" font-weight="700" fill="${p.c}">${p.lab}</text>`;
+    s+=`<text x="${px}" y="${78+p.dy+15}" text-anchor="${anchor}" font-size="11.5" fill="#5b6b80" font-family="Menlo,monospace">${p.sub}</text>`;
+  });
+  // 现价与价值的差距标注
+  const a=x(26.19),b=x(28.40);
+  s+=`<path d="M ${a} 56 L ${a} 48 L ${b} 48 L ${b} 56" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>`;
+  s+=`<text x="${(a+b)/2}" y="42" text-anchor="middle" font-size="11.5" fill="#c0392b" font-weight="700">+8.44%</text>`;
+  svg.innerHTML=s;
+})();
+
+/* ===== 敏感性（公式与飞书敏感性表一致） ===== */
+(()=>{
+  const D0=1.00,g1=0.019,N=10;
+  const val=(r,g)=>{
+    r/=100;g/=100;
+    const stage1=D0*(1+g1)*(1-Math.pow((1+g1)/(1+r),N))/(r-g1);
+    const tv=D0*Math.pow(1+g1,N)*(1+g)/((r-g)*Math.pow(1+r,N));
+    return stage1+tv;
+  };
+  const rs=[4.2,4.7,5.2,5.7,6.2,6.7], gs=[0.0,0.5,1.0,1.5];
+  const vals=rs.flatMap(r=>gs.map(g=>val(r,g)));
+  const lo=Math.min(...vals),hi=Math.max(...vals);
+  // 绿高红低：价值高=绿
+  const color=v=>{
+    const t=(v-lo)/(hi-lo);
+    const rC=Math.round(192+(26-192)*t), gC=Math.round(57+(127-57)*t), bC=Math.round(43+(75-43)*t);
+    return `rgb(${rC},${gC},${bC})`;
+  };
+  const tb=document.getElementById('heat');
+  let below=0;
+  rs.forEach(r=>{
+    const tr=document.createElement('tr');
+    let html=`<th class="rlbl num">r = ${r.toFixed(1)}%</th>`;
+    gs.forEach(g=>{
+      const v=val(r,g);
+      if(v<28.40) below++;
+      const isBase=(r===5.2&&g===1.0);
+      html+=`<td class="cell num ${isBase?'base':''}" style="background:${color(v)}" title="r=${r}%, g=${g}%">${v.toFixed(2)}</td>`;
+    });
+    tr.innerHTML=html+'</tr>';
+    tb.appendChild(tr);
+  });
+  document.getElementById('heat-read').innerHTML=
+    `解读：24 组中现价 28.40 元高于内在价值的组合有 <b>${below} 组（${Math.round(below/24*100)}%）</b>——现价隐含的假设偏向乐观区间（低折现率或高永续增长）。利率（r）每降 0.5pct，价值升约 3–4 元。`;
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "has_more": false,
+    "items": [
+      {
+        "block_id": "chtcnpkEkVPBBkJwbjdsWgVbbyb",
+        "name": "先看模型质量，再看估值",
+        "position": {
+          "h": 4,
+          "w": 6,
+          "x": 0,
+          "y": 0
+        },
+        "standard_position": {
+          "h": 416,
+          "w": 747,
+          "x": 0,
+          "y": 0
+        },
+        "type": "text"
+      },
+      {
+        "block_id": "chtcnKA9Cg9JG4q1Vi4cbzSkfnc",
+        "name": "三情景条件DDM（元/股）",
+        "position": {
+          "h": 4,
+          "w": 4,
+          "x": 8,
+          "y": 8
+        },
+        "standard_position": {
+          "h": 416,
+          "w": 498,
+          "x": 996,
+          "y": 832
+        },
+        "type": "column"
+      },
+      {
+        "block_id": "chtcnkwTKvHcwbNd9PdAcdaUcEd",
+        "name": "两档安全边际关注价（元/股）",
+        "position": {
+          "h": 4,
+          "w": 4,
+          "x": 0,
+          "y": 12
+        },
+        "standard_position": {
+          "h": 416,
+          "w": 498,
+          "x": 0,
+          "y": 1248
+        },
+        "type": "column"
+      },
+      {
+        "block_id": "chtcnCrbrerUUxY7EGY1sTvxrue",
+        "name": "基准利润与计划股息（亿元）",
+        "position": {
+          "h": 4,
+          "w": 4,
+          "x": 0,
+          "y": 8
+        },
+        "standard_position": {
+          "h": 416,
+          "w": 498,
+          "x": 0,
+          "y": 832
+        },
+        "type": "line"
+      },
+      {
+        "block_id": "chtcnW9DGG7zbWz917ruNbEn0Vh",
+        "name": "终值占比：越高越依赖远期假设",
+        "position": {
+          "h": 8,
+          "w": 4,
+          "x": 8,
+          "y": 12
+        },
+        "standard_position": {
+          "h": 832,
+          "w": 498,
+          "x": 996,
+          "y": 1248
+        },
+        "type": "column"
+      },
+      {
+        "block_id": "chtcnQf95rxCgLW0GMNcDkh59Sf",
+        "name": "质量检查实时状态",
+        "position": {
+          "h": 8,
+          "w": 4,
+          "x": 0,
+          "y": 16
+        },
+        "standard_position": {
+          "h": 832,
+          "w": 498,
+          "x": 0,
+          "y": 1664
+        },
+        "type": "bar"
+      },
+      {
+        "block_id": "chtcnnvwJpf3I3Vq6MCMzYY26Sq",
+        "name": "证据核验进度",
+        "position": {
+          "h": 4,
+          "w": 4,
+          "x": 4,
+          "y": 12
+        },
+        "standard_position": {
+          "h": 416,
+          "w": 498,
+          "x": 498,
+          "y": 1248
+        },
+        "type": "bar"
+      },
+      {
+        "block_id": "chtcn787bpBKvKoLYZrMqNWiJOh",
+        "name": "国债收益率观察（%，中证口径）",
+        "position": {
+          "h": 4,
+          "w": 4,
+          "x": 4,
+          "y": 8
+        },
+        "standard_position": {
+          "h": 416,
+          "w": 498,
+          "x": 498,
+          "y": 832
+        },
+        "type": "line"
+      },
+      {
+        "block_id": "chtcntHxc1o8AFGmC4aLcVgTkbg",
+        "name": "研究纪律与操作入口",
+        "position": {
+          "h": 4,
+          "w": 6,
+          "x": 6,
+          "y": 0
+        },
+        "standard_position": {
+          "h": 416,
+          "w": 747,
+          "x": 747,
+          "y": 0
+        },
+        "type": "text"
+      },
+      {
+        "block_id": "chtcn0M6syAAr9dYtyr8i6eKDBe",
+        "name": "三峡入库流量（立方米/秒）",
+        "position": {
+          "h": 12,
+          "w": 4,
+          "x": 4,
+          "y": 16
+        },
+        "standard_position": {
+          "h": 1248,
+          "w": 498,
+          "x": 498,
+          "y": 1664
+        },
+        "type": "line"
+      },
+      {
+        "block_id": "chtcnKuE6JxqUT61cmm4rKThwRe",
+        "name": "三峡库水位（米）",
+        "position": {
+          "h": 16,
+          "w": 4,
+          "x": 8,
+          "y": 20
+        },
+        "standard_position": {
+          "h": 1664,
+          "w": 498,
+          "x": 996,
+          "y": 2080
+        },
+        "type": "line"
+      },
+      {
+        "block_id": "chtcnXiXkdkIauMd9nwZ1D0XkBb",
+        "name": "单参数变化→每股价值变化（元）",
+        "position": {
+          "h": 8,
+          "w": 4,
+          "x": 4,
+          "y": 28
+        },
+        "standard_position": {
+          "h": 832,
+          "w": 498,
+          "x": 498,
+          "y": 2912
+        },
+        "type": "bar"
+      },
+      {
+        "block_id": "chtcnNj6AsfGsfcSGSOoHtkUGCf",
+        "name": "云端数据健康状态",
+        "position": {
+          "h": 4,
+          "w": 4,
+          "x": 0,
+          "y": 24
+        },
+        "standard_position": {
+          "h": 416,
+          "w": 498,
+          "x": 0,
+          "y": 2496
+        },
+        "type": "bar"
+      },
+      {
+        "block_id": "chtcnzmc63Cgyr994kk2FFbRvm8",
+        "name": "云端覆盖与限制",
+        "position": {
+          "h": 4,
+          "w": 12,
+          "x": 0,
+          "y": 4
+        },
+        "standard_position": {
+          "h": 416,
+          "w": 1494,
+          "x": 0,
+          "y": 416
+        },
+        "type": "text"
+      },
+      {
+        "block_id": "chtcnVSgAF2EkSHfHfH9JPQBnXc",
+        "name": "云端 · 长江电力股价（元）",
+        "position": {
+          "h": 20,
+          "w": 4,
+          "x": 8,
+          "y": 36
+        },
+        "standard_position": {
+          "h": 2080,
+          "w": 498,
+          "x": 996,
+          "y": 3744
+        },
+        "type": "line"
+      },
+      {
+        "block_id": "chtcnsVldpeU1FeSTffmB7ykYsh",
+        "name": "云端 · 中债国债10年收益率（%）",
+        "position": {
+          "h": 28,
+          "w": 4,
+          "x": 0,
+          "y": 28
+        },
+        "standard_position": {
+          "h": 2912,
+          "w": 498,
+          "x": 0,
+          "y": 2912
+        },
+        "type": "line"
+      },
+      {
+        "block_id": "chtcnaOLKiJrlzLHbaY7eiCKFSe",
+        "name": "云端 · 三峡库水位（米）",
+        "position": {
+          "h": 20,
+          "w": 4,
+          "x": 4,
+          "y": 36
+        },
+        "standard_position": {
+          "h": 2080,
+          "w": 498,
+          "x": 498,
+          "y": 3744
+        },
+        "type": "line"
+      }
+    ],
+    "total": 17
+  }
+}

@@ -1,0 +1,130 @@
+[
+  {
+    "default_value": null,
+    "id": "fldRmBdM2Y",
+    "name": "开始年份",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldyQMMpPe",
+    "name": "折现率变动",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldcOZ8K40",
+    "name": "折旧变动亿元",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldOHhNcBS",
+    "name": "电量变动率",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldqshKPrz",
+    "name": "电价变动率",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fld6wIedkc",
+    "name": "付现成本变动亿元",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldcdlfptC",
+    "name": "事实与判断边界",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "bidirectional": false,
+    "id": "fldJSQyDn5",
+    "link_table": "tblGjno4t3xbBI3a",
+    "name": "映射",
+    "type": "link"
+  },
+  {
+    "bidirectional": false,
+    "id": "fldftEY8Te",
+    "link_table": "tbl2aFkmDryVrEX1",
+    "name": "基准情景",
+    "type": "link"
+  },
+  {
+    "default_value": null,
+    "id": "fldggTDBzv",
+    "name": "利息变动亿元",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldrSxTFJk",
+    "name": "试验",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fld5j6gVT2",
+    "name": "结束年份",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  }
+]

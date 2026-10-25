@@ -1,0 +1,171 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "PMnCb5BsGaME0ysW21uc7pHJnDb",
+  "table_id": "tblwkg1ATbxsvFIr",
+  "rev": 108,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "all_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 6,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/private/tmp/claude-501/-Users-dielangli-Desktop---------------/2099e1df-9f62-4127-b1a2-c4f1419d3636/scratchpad/base/records/V2_15云端采集控制.ndjson",
+  "record_file_size_bytes": 3168,
+  "manifest_file": "/private/tmp/claude-501/-Users-dielangli-Desktop---------------/2099e1df-9f62-4127-b1a2-c4f1419d3636/scratchpad/base/records/V2_15云端采集控制.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 14
+      },
+      "example": "recvvFQX3a2BgE"
+    },
+    "健康状态": {
+      "field_id": "fldx2Xl61T",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 3
+      },
+      "example": "正常"
+    },
+    "允许观察滞后天": {
+      "field_id": "fldPttD5tY",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 3,
+        "min": 2,
+        "max": 7,
+        "avg": 5.333333333333333
+      },
+      "example": 7
+    },
+    "工作流入口": {
+      "field_id": "fldYgxDpBh",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 3,
+        "max_length": 84
+      },
+      "example": "https://b7okxcyuao.feishu.cn/base/PMnCb5BsGaME0ysW21uc7pHJnDb?table=wkfr9W1FZzmXeQbF"
+    },
+    "异常需通知": {
+      "field_id": "fldym7hwRy",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 1
+      },
+      "example": "0"
+    },
+    "指标": {
+      "field_id": "fldCPW7d0m",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 10
+      },
+      "example": "三峡库水位"
+    },
+    "指标代码": {
+      "field_id": "fldZVyBfzP",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 21
+      },
+      "example": "CJH-SX-LEVEL"
+    },
+    "接入状态": {
+      "field_id": "fld8Ze0AZx",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 5
+      },
+      "example": "待接通"
+    },
+    "最近自检": {
+      "field_id": "fldCq93wRo",
+      "field_type": "datetime",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 3,
+        "min": "2026-10-20T19:10:08.036+08:00",
+        "max": "2026-10-20T19:10:09.088+08:00"
+      },
+      "example": "2026-10-20T19:10:08.036+08:00"
+    },
+    "最近观察日": {
+      "field_id": "fldj12krLK",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 10
+      },
+      "example": "2026-10-20"
+    },
+    "最近运行结果": {
+      "field_id": "fldjBoSdqy",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 10
+      },
+      "example": "完成（已入库或去重）"
+    },
+    "最近采集": {
+      "field_id": "fld377CyYU",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "46315.77092"
+    },
+    "来源说明": {
+      "field_id": "fldsjR9q34",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 66
+      },
+      "example": "https://qt.gtimg.cn/q=sh600900"
+    },
+    "自检结果": {
+      "field_id": "fldUGy5I0r",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 3,
+        "max_length": 6
+      },
+      "example": "正常；未通知"
+    },
+    "通知条件": {
+      "field_id": "fldSO5P1Ze",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 2
+      },
+      "example": "正常"
+    }
+  }
+}

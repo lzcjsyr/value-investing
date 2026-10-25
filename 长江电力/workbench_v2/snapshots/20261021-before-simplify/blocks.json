@@ -1,0 +1,327 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "blocks": [
+      {
+        "id": "blkZWotrruRQDJXy",
+        "name": "V2价值投资驾驶舱",
+        "parent_id": null,
+        "type": "dashboard"
+      },
+      {
+        "id": "tblfkSvg3KLT4x6v",
+        "name": "V2_00使用指南",
+        "parent_id": null,
+        "records_count": 12,
+        "rev": 4,
+        "type": "table"
+      },
+      {
+        "id": "tblwC6gbfMfQjipH",
+        "name": "参数字典",
+        "parent_id": null,
+        "records_count": 37,
+        "rev": 1,
+        "type": "table"
+      },
+      {
+        "id": "tblpNOHUjyAlTtoi",
+        "name": "年度数据",
+        "parent_id": null,
+        "records_count": 12,
+        "rev": 4,
+        "type": "table"
+      },
+      {
+        "id": "tbl8Sr9SYKiRXq6D",
+        "name": "季度跟踪",
+        "parent_id": null,
+        "records_count": 7,
+        "rev": 1,
+        "type": "table"
+      },
+      {
+        "id": "tblsOXyELneyBvlj",
+        "name": "信息源",
+        "parent_id": null,
+        "records_count": 10,
+        "rev": 1,
+        "type": "table"
+      },
+      {
+        "id": "tblXrHMdKmzyJI8c",
+        "name": "公告事件",
+        "parent_id": null,
+        "records_count": 6,
+        "rev": 1,
+        "type": "table"
+      },
+      {
+        "id": "tblrKriaOZpsWqae",
+        "name": "论点与证伪",
+        "parent_id": null,
+        "records_count": 7,
+        "rev": 1,
+        "type": "table"
+      },
+      {
+        "id": "tbl8I2E74xVim8qV",
+        "name": "估值结果",
+        "parent_id": null,
+        "records_count": 1,
+        "rev": 12,
+        "type": "table"
+      },
+      {
+        "id": "tbl3AWSnfetyBe6F",
+        "name": "模型预测",
+        "parent_id": null,
+        "records_count": 10,
+        "rev": 8,
+        "type": "table"
+      },
+      {
+        "id": "tblFheyeq50XA2Gt",
+        "name": "情景分析",
+        "parent_id": null,
+        "records_count": 3,
+        "rev": 2,
+        "type": "table"
+      },
+      {
+        "id": "tblGiyW4Ubkaix9w",
+        "name": "敏感性",
+        "parent_id": null,
+        "records_count": 24,
+        "rev": 2,
+        "type": "table"
+      },
+      {
+        "id": "blkuz8KY1o7IaNsM",
+        "name": "估值看板",
+        "parent_id": null,
+        "type": "dashboard"
+      },
+      {
+        "docx_token": "Nm3wdpSfOoHEgcxvOCtcP7TYnpg",
+        "id": "ldxLHEhWaXe3fMXG",
+        "name": "投资逻辑与操作手册",
+        "parent_id": null,
+        "type": "docx"
+      },
+      {
+        "docx_token": "PALodhP57oO6OLx5RpYc1EbingI",
+        "id": "ldxbpI51x7UFl3RA",
+        "name": "估值模型全景（交互页）",
+        "parent_id": null,
+        "type": "docx"
+      },
+      {
+        "id": "bfl8fprekDNj3T4W",
+        "name": "V2 · 研究与证据",
+        "parent_id": null,
+        "type": "folder"
+      },
+      {
+        "id": "tblkh2v6DvcZCKDN",
+        "name": "V2_01商业模式",
+        "parent_id": "bfl8fprekDNj3T4W",
+        "records_count": 6,
+        "rev": 1,
+        "type": "table"
+      },
+      {
+        "id": "tbljWLIX3WodWrKS",
+        "name": "V2_02证据账本",
+        "parent_id": "bfl8fprekDNj3T4W",
+        "records_count": 16,
+        "rev": 7,
+        "type": "table"
+      },
+      {
+        "id": "tblGjno4t3xbBI3a",
+        "name": "V2_03事实判断映射",
+        "parent_id": "bfl8fprekDNj3T4W",
+        "records_count": 8,
+        "rev": 3,
+        "type": "table"
+      },
+      {
+        "id": "bflfLwR3uJTdVBYn",
+        "name": "V2 · 模型与估值",
+        "parent_id": null,
+        "type": "folder"
+      },
+      {
+        "id": "tbl2aFkmDryVrEX1",
+        "name": "V2_04情景控制",
+        "parent_id": "bflfLwR3uJTdVBYn",
+        "records_count": 3,
+        "rev": 27,
+        "type": "table"
+      },
+      {
+        "id": "tblAaz02mrF6O7x6",
+        "name": "V2_05年度假设",
+        "parent_id": "bflfLwR3uJTdVBYn",
+        "records_count": 10,
+        "rev": 10,
+        "type": "table"
+      },
+      {
+        "id": "tbl5aXeR7rjoTkM9",
+        "name": "V2_06财务引擎",
+        "parent_id": "bflfLwR3uJTdVBYn",
+        "records_count": 30,
+        "rev": 50,
+        "type": "table"
+      },
+      {
+        "id": "tblgD0RhP6O8CH3n",
+        "name": "V2_07估值决策",
+        "parent_id": "bflfLwR3uJTdVBYn",
+        "records_count": 3,
+        "rev": 36,
+        "type": "table"
+      },
+      {
+        "id": "tblx3jG7zLHuivuW",
+        "name": "V2_12估值敏感性",
+        "parent_id": "bflfLwR3uJTdVBYn",
+        "records_count": 25,
+        "rev": 15,
+        "type": "table"
+      },
+      {
+        "id": "tblvbIQ8tpRTIjsn",
+        "name": "V2_13参数影响沙盘",
+        "parent_id": "bflfLwR3uJTdVBYn",
+        "records_count": 5,
+        "rev": 23,
+        "type": "table"
+      },
+      {
+        "id": "bflcfadsjsj9C2Cb",
+        "name": "V2 · 跟踪与审计",
+        "parent_id": null,
+        "type": "folder"
+      },
+      {
+        "id": "tbl5uKYflr6IEUfl",
+        "name": "V2_08跟踪任务",
+        "parent_id": "bflcfadsjsj9C2Cb",
+        "records_count": 12,
+        "rev": 13,
+        "type": "table"
+      },
+      {
+        "id": "tblwggKAaEP1xPy6",
+        "name": "V2_09质量检查",
+        "parent_id": "bflcfadsjsj9C2Cb",
+        "records_count": 12,
+        "rev": 11,
+        "type": "table"
+      },
+      {
+        "id": "tblXIyszuOPrWGmz",
+        "name": "V2_10变更日志",
+        "parent_id": "bflcfadsjsj9C2Cb",
+        "records_count": 4,
+        "rev": 9,
+        "type": "table"
+      },
+      {
+        "id": "tblvFm47sB0tjy3D",
+        "name": "V2_11市场观察",
+        "parent_id": "bflcfadsjsj9C2Cb",
+        "records_count": 106,
+        "rev": 78,
+        "type": "table"
+      },
+      {
+        "id": "bflitroNM8HRyipY",
+        "name": "V2 · 云端自动化",
+        "parent_id": null,
+        "type": "folder"
+      },
+      {
+        "id": "tblwkg1ATbxsvFIr",
+        "name": "V2_15云端采集控制",
+        "parent_id": "bflitroNM8HRyipY",
+        "records_count": 6,
+        "rev": 108,
+        "type": "table"
+      },
+      {
+        "id": "tblfGHpu05iEVJrp",
+        "name": "V2_14云端采集原始记录",
+        "parent_id": "bflitroNM8HRyipY",
+        "records_count": 99,
+        "rev": 317,
+        "type": "table"
+      },
+      {
+        "id": "wkfr9W1FZzmXeQbF",
+        "name": "V2云端采集 · 长江电力股价",
+        "parent_id": "bflitroNM8HRyipY",
+        "type": "workflow"
+      },
+      {
+        "id": "wkfBi94XBR5705aQ",
+        "name": "V2云端采集 · 中债国债10年收益率",
+        "parent_id": "bflitroNM8HRyipY",
+        "type": "workflow"
+      },
+      {
+        "id": "wkfDQ6Jhdz3odz8t",
+        "name": "V2云端采集 · 三峡库水位",
+        "parent_id": "bflitroNM8HRyipY",
+        "type": "workflow"
+      },
+      {
+        "id": "wkfTyTzrdE87SItD",
+        "name": "诊断存档 · 旧入库流程（停用）",
+        "parent_id": "bflitroNM8HRyipY",
+        "type": "workflow"
+      },
+      {
+        "id": "wkf37XHFY3tc69RX",
+        "name": "V2云端异常自检 · 长江电力股价",
+        "parent_id": "bflitroNM8HRyipY",
+        "type": "workflow"
+      },
+      {
+        "id": "wkfP4mpXOprNp8Jr",
+        "name": "V2云端入库 · 长江电力股价",
+        "parent_id": "bflitroNM8HRyipY",
+        "type": "workflow"
+      },
+      {
+        "id": "wkf9Te3vl9OSjJ8g",
+        "name": "V2云端入库 · 中债国债10年收益率",
+        "parent_id": "bflitroNM8HRyipY",
+        "type": "workflow"
+      },
+      {
+        "id": "wkfp197gRxseMY13",
+        "name": "V2云端入库 · 三峡库水位",
+        "parent_id": "bflitroNM8HRyipY",
+        "type": "workflow"
+      },
+      {
+        "id": "wkfzPzQ43dW1C9ST",
+        "name": "V2云端异常自检 · 三峡库水位",
+        "parent_id": "bflitroNM8HRyipY",
+        "type": "workflow"
+      },
+      {
+        "id": "wkfUsqigHVoNBx2T",
+        "name": "V2云端异常自检 · 中债国债10年收益率",
+        "parent_id": "bflitroNM8HRyipY",
+        "type": "workflow"
+      }
+    ],
+    "total": 44
+  }
+}

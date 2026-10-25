@@ -1,0 +1,163 @@
+[
+  {
+    "default_value": null,
+    "id": "fldJKur4F4",
+    "name": "年份",
+    "style": {
+      "percentage": false,
+      "precision": 0,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldcggBgfX",
+    "name": "综合电价_元",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "description": "投资收益+公允价值变动-减值+营业外净额",
+    "id": "fldmwwdg1D",
+    "name": "其他净贡献_亿",
+    "style": {
+      "percentage": false,
+      "precision": 1,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldDQ9lC6M",
+    "name": "折旧_亿",
+    "style": {
+      "percentage": false,
+      "precision": 1,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "expression": "ROUND([发电量_亿千瓦时]*[综合电价_元],2)",
+    "id": "fldJFSP5GA",
+    "name": "营业收入_亿",
+    "type": "formula"
+  },
+  {
+    "expression": "ROUND(1/POWER(1+FIRST([估值结果].[折现率r])/100,[年份]-2025),6)",
+    "id": "fldt2RRcAd",
+    "name": "折现因子",
+    "type": "formula"
+  },
+  {
+    "default_value": null,
+    "id": "fldVpYGmq7",
+    "name": "财务费用_亿",
+    "style": {
+      "percentage": false,
+      "precision": 1,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "expression": "ROUND([归母净利_亿]*[派息率_pct]/100,2)",
+    "id": "fldbbB0kCD",
+    "name": "股息总额_亿",
+    "type": "formula"
+  },
+  {
+    "default_value": null,
+    "id": "fldD5WzwFi",
+    "name": "付现成本_亿",
+    "style": {
+      "percentage": false,
+      "precision": 1,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "expression": "ROUND([营业收入_亿]-[付现成本_亿]-[折旧_亿]-[财务费用_亿]+[其他净贡献_亿],2)",
+    "id": "fldqcKvQGr",
+    "name": "税前利润_亿",
+    "type": "formula"
+  },
+  {
+    "expression": "ROUND([股息总额_亿]/FIRST([估值结果].[总股本_亿股]),4)",
+    "id": "fldiWhI60Q",
+    "name": "每股股息_元",
+    "type": "formula"
+  },
+  {
+    "default_value": null,
+    "id": "fldWydxpFD",
+    "name": "发电量_亿千瓦时",
+    "style": {
+      "percentage": false,
+      "precision": 0,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "expression": "ROUND([股息总额_亿]*[折现因子],2)",
+    "id": "fldf6IugYZ",
+    "name": "股息现值_亿",
+    "type": "formula"
+  },
+  {
+    "default_value": null,
+    "id": "fldW9e3LJS",
+    "name": "备注",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "description": "=1-归母净利÷税前利润，含所得税与少数股东",
+    "id": "fldE4NnkqS",
+    "name": "综合负担率_pct",
+    "style": {
+      "percentage": false,
+      "precision": 2,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldZe651gl",
+    "name": "派息率_pct",
+    "style": {
+      "percentage": false,
+      "precision": 1,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "expression": "ROUND([税前利润_亿]*(1-[综合负担率_pct]/100),2)",
+    "id": "fldNDeYsDi",
+    "name": "归母净利_亿",
+    "type": "formula"
+  }
+]

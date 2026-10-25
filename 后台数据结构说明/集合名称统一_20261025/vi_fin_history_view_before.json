@@ -1,0 +1,299 @@
+{
+  "data": {
+    "fields": [
+      {
+        "name": "id",
+        "rawType": "BIGINT",
+        "field": "id",
+        "type": "bigInt",
+        "possibleTypes": [
+          "bigInt",
+          "snowflakeId",
+          "unixTimestamp",
+          "sort"
+        ]
+      },
+      {
+        "name": "year",
+        "rawType": "INTEGER",
+        "field": "year",
+        "type": "integer",
+        "possibleTypes": [
+          "integer",
+          "unixTimestamp",
+          "sort"
+        ]
+      },
+      {
+        "name": "scope_note",
+        "rawType": "TEXT",
+        "field": "scope_note",
+        "type": "text"
+      },
+      {
+        "name": "volume",
+        "rawType": "DOUBLE PRECISION",
+        "field": "volume",
+        "type": "float"
+      },
+      {
+        "name": "revenue",
+        "rawType": "DOUBLE PRECISION",
+        "field": "revenue",
+        "type": "float"
+      },
+      {
+        "name": "cost_of_sales",
+        "rawType": "DOUBLE PRECISION",
+        "field": "cost_of_sales",
+        "type": "float"
+      },
+      {
+        "name": "pretax_profit",
+        "rawType": "DOUBLE PRECISION",
+        "field": "pretax_profit",
+        "type": "float"
+      },
+      {
+        "name": "income_tax",
+        "rawType": "DOUBLE PRECISION",
+        "field": "income_tax",
+        "type": "float"
+      },
+      {
+        "name": "np_parent",
+        "rawType": "DOUBLE PRECISION",
+        "field": "np_parent",
+        "type": "float"
+      },
+      {
+        "name": "minority_profit",
+        "rawType": "DOUBLE PRECISION",
+        "field": "minority_profit",
+        "type": "float"
+      },
+      {
+        "name": "da",
+        "rawType": "DOUBLE PRECISION",
+        "field": "da",
+        "type": "float"
+      },
+      {
+        "name": "finance_cost",
+        "rawType": "DOUBLE PRECISION",
+        "field": "finance_cost",
+        "type": "float"
+      },
+      {
+        "name": "invest_income",
+        "rawType": "DOUBLE PRECISION",
+        "field": "invest_income",
+        "type": "float"
+      },
+      {
+        "name": "equity_income",
+        "rawType": "DOUBLE PRECISION",
+        "field": "equity_income",
+        "type": "float"
+      },
+      {
+        "name": "cfo",
+        "rawType": "DOUBLE PRECISION",
+        "field": "cfo",
+        "type": "float"
+      },
+      {
+        "name": "capex",
+        "rawType": "DOUBLE PRECISION",
+        "field": "capex",
+        "type": "float"
+      },
+      {
+        "name": "investee_cash_div",
+        "rawType": "DOUBLE PRECISION",
+        "field": "investee_cash_div",
+        "type": "float"
+      },
+      {
+        "name": "net_borrowing",
+        "rawType": "DOUBLE PRECISION",
+        "field": "net_borrowing",
+        "type": "float"
+      },
+      {
+        "name": "interest_debt",
+        "rawType": "DOUBLE PRECISION",
+        "field": "interest_debt",
+        "type": "float"
+      },
+      {
+        "name": "cash",
+        "rawType": "DOUBLE PRECISION",
+        "field": "cash",
+        "type": "float"
+      },
+      {
+        "name": "equity_parent",
+        "rawType": "DOUBLE PRECISION",
+        "field": "equity_parent",
+        "type": "float"
+      },
+      {
+        "name": "dividend_total",
+        "rawType": "DOUBLE PRECISION",
+        "field": "dividend_total",
+        "type": "float"
+      },
+      {
+        "name": "dps",
+        "rawType": "DOUBLE PRECISION",
+        "field": "dps",
+        "type": "float"
+      },
+      {
+        "name": "note",
+        "rawType": "TEXT",
+        "field": "note",
+        "type": "text"
+      },
+      {
+        "name": "company_id",
+        "rawType": "BIGINT",
+        "field": "company_id",
+        "type": "bigInt",
+        "possibleTypes": [
+          "bigInt",
+          "snowflakeId",
+          "unixTimestamp",
+          "sort"
+        ]
+      },
+      {
+        "name": "source_id",
+        "rawType": "BIGINT",
+        "field": "source_id",
+        "type": "bigInt",
+        "possibleTypes": [
+          "bigInt",
+          "snowflakeId",
+          "unixTimestamp",
+          "sort"
+        ]
+      },
+      {
+        "name": "price",
+        "rawType": "DOUBLE PRECISION",
+        "field": "price",
+        "type": "float"
+      },
+      {
+        "name": "payout",
+        "rawType": "DOUBLE PRECISION",
+        "field": "payout",
+        "type": "float"
+      },
+      {
+        "name": "tax_rate",
+        "rawType": "DOUBLE PRECISION",
+        "field": "tax_rate",
+        "type": "float"
+      },
+      {
+        "name": "minority_share",
+        "rawType": "DOUBLE PRECISION",
+        "field": "minority_share",
+        "type": "float"
+      },
+      {
+        "name": "burden",
+        "rawType": "DOUBLE PRECISION",
+        "field": "burden",
+        "type": "float"
+      },
+      {
+        "name": "fcf",
+        "rawType": "DOUBLE PRECISION",
+        "field": "fcf",
+        "type": "float"
+      },
+      {
+        "name": "volume_yoy",
+        "rawType": "DOUBLE PRECISION",
+        "field": "volume_yoy",
+        "type": "float"
+      },
+      {
+        "name": "price_yoy",
+        "rawType": "DOUBLE PRECISION",
+        "field": "price_yoy",
+        "type": "float"
+      },
+      {
+        "name": "revenue_yoy",
+        "rawType": "DOUBLE PRECISION",
+        "field": "revenue_yoy",
+        "type": "float"
+      },
+      {
+        "name": "np_yoy",
+        "rawType": "DOUBLE PRECISION",
+        "field": "np_yoy",
+        "type": "float"
+      },
+      {
+        "name": "finance_cost_yoy",
+        "rawType": "DOUBLE PRECISION",
+        "field": "finance_cost_yoy",
+        "type": "float"
+      },
+      {
+        "name": "gross_margin",
+        "rawType": "DOUBLE PRECISION",
+        "field": "gross_margin",
+        "type": "float"
+      },
+      {
+        "name": "roe",
+        "rawType": "DOUBLE PRECISION",
+        "field": "roe",
+        "type": "float"
+      },
+      {
+        "name": "cfo_to_np",
+        "rawType": "DOUBLE PRECISION",
+        "field": "cfo_to_np",
+        "type": "float"
+      },
+      {
+        "name": "capex_to_cfo",
+        "rawType": "DOUBLE PRECISION",
+        "field": "capex_to_cfo",
+        "type": "float"
+      },
+      {
+        "name": "net_debt",
+        "rawType": "DOUBLE PRECISION",
+        "field": "net_debt",
+        "type": "float"
+      },
+      {
+        "name": "net_debt_to_ebitda",
+        "rawType": "DOUBLE PRECISION",
+        "field": "net_debt_to_ebitda",
+        "type": "float"
+      },
+      {
+        "name": "updated_at",
+        "rawType": "TIMESTAMP WITH TIME ZONE",
+        "field": "updated_at",
+        "type": "datetimeTz",
+        "possibleTypes": [
+          "datetimeTz",
+          "date"
+        ]
+      }
+    ],
+    "unsupportedFields": [],
+    "sources": []
+  }
+}

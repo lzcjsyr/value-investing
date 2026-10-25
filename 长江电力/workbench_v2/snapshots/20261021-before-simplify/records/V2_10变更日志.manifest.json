@@ -1,0 +1,108 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "PMnCb5BsGaME0ysW21uc7pHJnDb",
+  "table_id": "tblXIyszuOPrWGmz",
+  "rev": 9,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "all_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 4,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/private/tmp/claude-501/-Users-dielangli-Desktop---------------/2099e1df-9f62-4127-b1a2-c4f1419d3636/scratchpad/base/records/V2_10变更日志.ndjson",
+  "record_file_size_bytes": 2776,
+  "manifest_file": "/private/tmp/claude-501/-Users-dielangli-Desktop---------------/2099e1df-9f62-4127-b1a2-c4f1419d3636/scratchpad/base/records/V2_10变更日志.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 14
+      },
+      "example": "recvvEmrVCoYmT"
+    },
+    "原因": {
+      "field_id": "fldTtoNEz6",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 41
+      },
+      "example": "减少重复录入并保留原始输入、证据与估值结果之间的可追溯关系"
+    },
+    "变更ID": {
+      "field_id": "fldVr3qweC",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 21
+      },
+      "example": "V2-LINK-20260925"
+    },
+    "对象": {
+      "field_id": "fldBBjDH8l",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 23
+      },
+      "example": "工作台结构与估值链"
+    },
+    "新值": {
+      "field_id": "fld12CekFo",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 126
+      },
+      "example": "增加V2研究、证据、映射、输入、公式、决策、监控与质量层"
+    },
+    "旧值": {
+      "field_id": "fldDp55kvM",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 36
+      },
+      "example": "10张原表+旧估值看板"
+    },
+    "时间": {
+      "field_id": "fldFaiqkEk",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 10
+      },
+      "example": "2026-09-19"
+    },
+    "证据定位": {
+      "field_id": "fldN1PTEUT",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 55
+      },
+      "example": "本地快照20260919T153616；原表未覆盖"
+    },
+    "验证状态": {
+      "field_id": "fldn1QO5TY",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 81
+      },
+      "example": "隔离完成；原始水文事实待核验"
+    }
+  }
+}

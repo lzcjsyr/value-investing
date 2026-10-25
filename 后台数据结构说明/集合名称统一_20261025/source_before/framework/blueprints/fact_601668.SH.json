@@ -1,0 +1,334 @@
+{
+ "version": "1",
+ "mode": "create",
+ "navigation": {
+  "group": {
+   "routeId": 393657292161024
+  },
+  "item": {
+   "title": "事实卡",
+   "icon": "TableOutlined"
+  }
+ },
+ "page": {
+  "title": "事实卡",
+  "documentTitle": "中国建筑 · 事实卡"
+ },
+ "defaults": {
+  "collections": {
+   "vi_fact": {
+    "popups": {
+     "view": {
+      "name": "事实卡·详情",
+      "description": "查看一条「事实卡」记录"
+     },
+     "addNew": {
+      "name": "事实卡·新增",
+      "description": "新增一条「事实卡」记录"
+     },
+     "edit": {
+      "name": "事实卡·编辑",
+      "description": "编辑一条「事实卡」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息",
+      "fields": [
+       "title",
+       "category",
+       "statement",
+       "value",
+       "unit",
+       "period",
+       "as_of",
+       "verify_status",
+       "notes"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company",
+       "source"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_company": {
+    "popups": {
+     "view": {
+      "name": "公司·详情",
+      "description": "查看一条「公司」记录"
+     },
+     "addNew": {
+      "name": "公司·新增",
+      "description": "新增一条「公司」记录"
+     },
+     "edit": {
+      "name": "公司·编辑",
+      "description": "编辑一条「公司」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "name",
+       "exchange",
+       "industry",
+       "currency",
+       "volume_label",
+       "volume_unit",
+       "price_label",
+       "price_unit",
+       "is_default"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "profile",
+       "notes"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "price_metric",
+       "price_fx_metric"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "latest_price",
+       "latest_price_date",
+       "latest_price_raw",
+       "latest_fx"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_source": {
+    "popups": {
+     "view": {
+      "name": "来源文档·详情",
+      "description": "查看一条「来源文档」记录"
+     },
+     "addNew": {
+      "name": "来源文档·新增",
+      "description": "新增一条「来源文档」记录"
+     },
+     "edit": {
+      "name": "来源文档·编辑",
+      "description": "编辑一条「来源文档」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息",
+      "fields": [
+       "title",
+       "source_type",
+       "publisher",
+       "publish_date",
+       "url",
+       "reliability",
+       "verify_status",
+       "retrieved_on",
+       "summary",
+       "limitations"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "tabs": [
+  {
+   "title": "事实卡",
+   "blocks": [
+    {
+     "key": "main",
+     "type": "table",
+     "collection": "vi_fact",
+     "fields": [
+      "title",
+      "category",
+      "period",
+      "value",
+      "unit",
+      "verify_status",
+      {
+       "field": "source",
+       "titleField": "title",
+       "popup": {
+        "title": "来源文档",
+        "blocks": [
+         {
+          "type": "details",
+          "resource": {
+           "binding": "currentRecord",
+           "collectionName": "vi_source"
+          },
+          "fields": [
+           "title",
+           "source_type",
+           "publisher",
+           "publish_date",
+           "url",
+           "reliability"
+          ]
+         }
+        ]
+       }
+      }
+     ],
+     "settings": {
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "id",
+        "direction": "asc"
+       }
+      ],
+      "dataScope": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "company_id",
+         "operator": "$eq",
+         "value": 7
+        }
+       ]
+      }
+     },
+     "actions": [
+      "filter",
+      "refresh",
+      {
+       "type": "addNew",
+       "popup": {
+        "title": "新增 · 事实卡",
+        "blocks": [
+         {
+          "type": "createForm",
+          "resource": {
+           "collectionName": "vi_fact"
+          },
+          "fieldGroups": [
+           {
+            "title": "基本信息",
+            "fields": [
+             "title",
+             "category",
+             "statement",
+             "value",
+             "unit",
+             "period",
+             "as_of",
+             "verify_status",
+             "notes"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             },
+             {
+              "field": "source",
+              "titleField": "title"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "bulkDelete"
+     ],
+     "recordActions": [
+      "view",
+      {
+       "type": "edit",
+       "popup": {
+        "title": "编辑 · 事实卡",
+        "blocks": [
+         {
+          "type": "editForm",
+          "fieldGroups": [
+           {
+            "title": "基本信息",
+            "fields": [
+             "title",
+             "category",
+             "statement",
+             "value",
+             "unit",
+             "period",
+             "as_of",
+             "verify_status",
+             "notes"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             },
+             {
+              "field": "source",
+              "titleField": "title"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "delete"
+     ]
+    }
+   ]
+  }
+ ]
+}

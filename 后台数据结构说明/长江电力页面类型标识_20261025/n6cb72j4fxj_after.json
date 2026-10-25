@@ -1,0 +1,1469 @@
+{
+  "data": {
+    "target": {
+      "locator": {
+        "pageSchemaUid": "n6cb72j4fxj"
+      },
+      "uid": "nlqvq86o4ya",
+      "kind": "page"
+    },
+    "tree": {
+      "parentId": "n6cb72j4fxj",
+      "subKey": "page",
+      "subType": "object",
+      "use": "RootPageModel",
+      "props": {
+        "routeId": 393656996462592,
+        "title": "商业模式拆解",
+        "enableTabs": false,
+        "displayTitle": true,
+        "icon": "DatabaseOutlined",
+        "enableHeader": false
+      },
+      "stepParams": {
+        "pageSettings": {
+          "general": {
+            "title": "商业模式拆解",
+            "displayTitle": true,
+            "enableTabs": false,
+            "documentTitle": "长江电力 · 商业模式拆解",
+            "icon": "DatabaseOutlined",
+            "enableHeader": false
+          }
+        }
+      },
+      "parent": "n6cb72j4fxj",
+      "uid": "nlqvq86o4ya",
+      "subModels": {
+        "tabs": [
+          {
+            "uid": "ixqn8krodnh",
+            "use": "RootPageTabModel",
+            "props": {
+              "route": {
+                "createdAt": "2026-10-23T05:44:43.911Z",
+                "updatedAt": "2026-10-24T00:44:54.108Z",
+                "id": 393656996462593,
+                "parentId": 393656996462592,
+                "title": "商业模式拆解",
+                "tooltip": null,
+                "icon": null,
+                "schemaUid": "ixqn8krodnh",
+                "menuSchemaUid": null,
+                "tabSchemaName": "jg8tpo8wwv7",
+                "type": "tabs",
+                "options": {
+                  "flowRegistry": {}
+                },
+                "sort": 1792734283894033,
+                "hideInMenu": null,
+                "enableTabs": null,
+                "enableHeader": null,
+                "displayTitle": null,
+                "hidden": true,
+                "createdById": null,
+                "updatedById": 1,
+                "children": []
+              },
+              "title": "商业模式拆解",
+              "icon": null
+            },
+            "decoratorProps": {},
+            "flowRegistry": {},
+            "stepParams": {
+              "pageTabSettings": {
+                "tab": {
+                  "title": "商业模式拆解",
+                  "icon": null
+                }
+              }
+            },
+            "subModels": {
+              "grid": {
+                "parentId": "ixqn8krodnh",
+                "subKey": "grid",
+                "subType": "object",
+                "use": "BlockGridModel",
+                "props": {
+                  "rows": {
+                    "row1": [
+                      [
+                        "cepc4ct4o3b"
+                      ]
+                    ]
+                  },
+                  "sizes": {
+                    "row1": [
+                      24
+                    ]
+                  },
+                  "rowOrder": [
+                    "row1"
+                  ]
+                },
+                "stepParams": {
+                  "gridSettings": {
+                    "grid": {
+                      "rows": {
+                        "row1": [
+                          [
+                            "cepc4ct4o3b"
+                          ]
+                        ]
+                      },
+                      "sizes": {
+                        "row1": [
+                          24
+                        ]
+                      },
+                      "rowOrder": [
+                        "row1"
+                      ]
+                    }
+                  }
+                },
+                "uid": "svd30i3xkfd",
+                "subModels": {
+                  "items": [
+                    {
+                      "parentId": "svd30i3xkfd",
+                      "subKey": "items",
+                      "subType": "array",
+                      "use": "TableBlockModel",
+                      "props": {},
+                      "decoratorProps": {},
+                      "stepParams": {
+                        "resourceSettings": {
+                          "init": {
+                            "dataSourceKey": "main",
+                            "collectionName": "vi_biz_model"
+                          }
+                        },
+                        "tableSettings": {
+                          "pageSize": {
+                            "pageSize": 50
+                          },
+                          "defaultSorting": {
+                            "sort": [
+                              {
+                                "field": "id",
+                                "direction": "asc"
+                              }
+                            ]
+                          },
+                          "dataScope": {
+                            "filter": {
+                              "logic": "$and",
+                              "items": [
+                                {
+                                  "path": "company_id",
+                                  "operator": "$eq",
+                                  "value": 1
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "cardSettings": {
+                          "titleDescription": {
+                            "title": "基础表 · 商业模式拆解",
+                            "description": "对应后台基础表：商业模式拆解"
+                          }
+                        }
+                      },
+                      "uid": "cepc4ct4o3b",
+                      "subModels": {
+                        "columns": [
+                          {
+                            "use": "TableActionsColumnModel",
+                            "props": {},
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "tableColumnSettings": {
+                                "title": {
+                                  "title": "{{t(\"Actions\")}}"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "subKey": "columns",
+                            "subType": "array",
+                            "uid": "mhfri0e3ulj",
+                            "subModels": {
+                              "actions": [
+                                {
+                                  "parentId": "mhfri0e3ulj",
+                                  "subKey": "actions",
+                                  "subType": "array",
+                                  "use": "ViewActionModel",
+                                  "props": {
+                                    "type": "link",
+                                    "title": "{{t(\"View\")}}",
+                                    "icon": null
+                                  },
+                                  "decoratorProps": {},
+                                  "stepParams": {
+                                    "buttonSettings": {
+                                      "general": {
+                                        "title": "{{t(\"View\")}}",
+                                        "icon": null,
+                                        "type": "link",
+                                        "iconOnly": false
+                                      }
+                                    },
+                                    "popupSettings": {
+                                      "openView": {
+                                        "mode": "drawer",
+                                        "size": "medium",
+                                        "pageModelClass": "ChildPageModel",
+                                        "dataSourceKey": "main",
+                                        "collectionName": "vi_biz_model",
+                                        "title": "商业模式·详情"
+                                      }
+                                    }
+                                  },
+                                  "flowRegistry": {},
+                                  "uid": "ubsu54lpre2",
+                                  "parent": "mhfri0e3ulj",
+                                  "sortIndex": 1,
+                                  "popup": {
+                                    "template": {
+                                      "uid": "vmoo0jvm9fq",
+                                      "mode": "reference"
+                                    }
+                                  }
+                                },
+                                {
+                                  "parentId": "mhfri0e3ulj",
+                                  "subKey": "actions",
+                                  "subType": "array",
+                                  "use": "EditActionModel",
+                                  "props": {
+                                    "title": "{{t(\"Edit\")}}",
+                                    "icon": null,
+                                    "type": "link"
+                                  },
+                                  "decoratorProps": {},
+                                  "stepParams": {
+                                    "buttonSettings": {
+                                      "general": {
+                                        "title": "{{t(\"Edit\")}}",
+                                        "icon": null,
+                                        "type": "link",
+                                        "iconOnly": false
+                                      }
+                                    },
+                                    "popupSettings": {
+                                      "openView": {
+                                        "mode": "drawer",
+                                        "size": "medium",
+                                        "pageModelClass": "ChildPageModel",
+                                        "dataSourceKey": "main",
+                                        "collectionName": "vi_biz_model",
+                                        "title": "编辑 · 商业模式"
+                                      }
+                                    }
+                                  },
+                                  "flowRegistry": {},
+                                  "uid": "saitbm8yr1n",
+                                  "parent": "mhfri0e3ulj",
+                                  "sortIndex": 2,
+                                  "popup": {
+                                    "template": {
+                                      "uid": "07hg6gxqr81",
+                                      "mode": "reference"
+                                    }
+                                  }
+                                },
+                                {
+                                  "parentId": "mhfri0e3ulj",
+                                  "subKey": "actions",
+                                  "subType": "array",
+                                  "use": "DeleteActionModel",
+                                  "props": {
+                                    "type": "link",
+                                    "title": "{{t(\"Delete\")}}",
+                                    "icon": null
+                                  },
+                                  "decoratorProps": {},
+                                  "stepParams": {
+                                    "buttonSettings": {
+                                      "general": {
+                                        "title": "{{t(\"Delete\")}}",
+                                        "icon": null,
+                                        "type": "link",
+                                        "iconOnly": false
+                                      }
+                                    },
+                                    "deleteSettings": {
+                                      "confirm": {
+                                        "enable": true,
+                                        "title": "{{t(\"Delete record\")}}",
+                                        "content": "{{t(\"Are you sure you want to delete it?\")}}"
+                                      }
+                                    }
+                                  },
+                                  "flowRegistry": {},
+                                  "uid": "ahqhabue252",
+                                  "parent": "mhfri0e3ulj",
+                                  "sortIndex": 3,
+                                  "popup": {
+                                    "mode": "local"
+                                  }
+                                }
+                              ]
+                            },
+                            "parent": "cepc4ct4o3b",
+                            "parentId": "cepc4ct4o3b",
+                            "sortIndex": 1,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "cepc4ct4o3b",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_biz_model",
+                                  "fieldPath": "code"
+                                }
+                              }
+                            },
+                            "uid": "a6hbx1oh4vo",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_biz_model",
+                                      "fieldPath": "code"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "yjqe1vbwven",
+                                "parent": "a6hbx1oh4vo",
+                                "parentId": "a6hbx1oh4vo",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "cepc4ct4o3b",
+                            "sortIndex": 2,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "cepc4ct4o3b",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_biz_model",
+                                  "fieldPath": "element"
+                                }
+                              }
+                            },
+                            "uid": "0kedzmz5rre",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_biz_model",
+                                      "fieldPath": "element"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "uwkd8ffrglk",
+                                "parent": "0kedzmz5rre",
+                                "parentId": "0kedzmz5rre",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "cepc4ct4o3b",
+                            "sortIndex": 3,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "cepc4ct4o3b",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_biz_model",
+                                  "fieldPath": "title"
+                                }
+                              }
+                            },
+                            "uid": "m1h3yi02y9a",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_biz_model",
+                                      "fieldPath": "title"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "l7jtc76rz51",
+                                "parent": "m1h3yi02y9a",
+                                "parentId": "m1h3yi02y9a",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "cepc4ct4o3b",
+                            "sortIndex": 4,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "cepc4ct4o3b",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_biz_model",
+                                  "fieldPath": "metric"
+                                }
+                              }
+                            },
+                            "uid": "ba71th6ks9t",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_biz_model",
+                                      "fieldPath": "metric"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "vma0ta3sywd",
+                                "parent": "ba71th6ks9t",
+                                "parentId": "ba71th6ks9t",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "cepc4ct4o3b",
+                            "sortIndex": 5,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "cepc4ct4o3b",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_biz_model",
+                                  "fieldPath": "trend"
+                                }
+                              }
+                            },
+                            "uid": "r6gpxgzs6r5",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_biz_model",
+                                      "fieldPath": "trend"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "vdcr2yk1orv",
+                                "parent": "r6gpxgzs6r5",
+                                "parentId": "r6gpxgzs6r5",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "cepc4ct4o3b",
+                            "sortIndex": 6,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          }
+                        ],
+                        "actions": [
+                          {
+                            "parentId": "cepc4ct4o3b",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "FilterActionModel",
+                            "props": {
+                              "title": "{{t(\"Filter\")}}",
+                              "icon": "FilterOutlined",
+                              "defaultFilterValue": {
+                                "logic": "$and",
+                                "items": [
+                                  {
+                                    "path": "title",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "code",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "metric",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "trend",
+                                    "operator": "$includes"
+                                  }
+                                ]
+                              },
+                              "filterValue": {
+                                "logic": "$and",
+                                "items": [
+                                  {
+                                    "path": "title",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "code",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "metric",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "trend",
+                                    "operator": "$includes"
+                                  }
+                                ]
+                              }
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "{{t(\"Filter\")}}",
+                                  "icon": "FilterOutlined"
+                                }
+                              },
+                              "filterSettings": {
+                                "defaultFilter": {
+                                  "defaultFilter": {
+                                    "logic": "$and",
+                                    "items": [
+                                      {
+                                        "path": "title",
+                                        "operator": "$includes"
+                                      },
+                                      {
+                                        "path": "code",
+                                        "operator": "$includes"
+                                      },
+                                      {
+                                        "path": "metric",
+                                        "operator": "$includes"
+                                      },
+                                      {
+                                        "path": "trend",
+                                        "operator": "$includes"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "cuppwcec1dq",
+                            "parent": "cepc4ct4o3b",
+                            "sortIndex": 1,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "cepc4ct4o3b",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "RefreshActionModel",
+                            "props": {
+                              "title": "{{t(\"Refresh\")}}",
+                              "icon": "ReloadOutlined"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "{{t(\"Refresh\")}}",
+                                  "icon": "ReloadOutlined"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "waumr4hihqz",
+                            "parent": "cepc4ct4o3b",
+                            "sortIndex": 2,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "cepc4ct4o3b",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "BulkDeleteActionModel",
+                            "props": {
+                              "title": "",
+                              "tooltip": "{{t(\"Delete\")}}",
+                              "icon": "DeleteOutlined",
+                              "iconOnly": true,
+                              "position": "right"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "",
+                                  "tooltip": "{{t(\"Delete\")}}",
+                                  "icon": "DeleteOutlined",
+                                  "iconOnly": true
+                                }
+                              },
+                              "deleteSettings": {
+                                "confirm": {
+                                  "enable": true,
+                                  "title": "{{t(\"Delete record\")}}",
+                                  "content": "{{t(\"Are you sure you want to delete it?\")}}"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "zy3ysb6cw2d",
+                            "parent": "cepc4ct4o3b",
+                            "sortIndex": 3,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "cepc4ct4o3b",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "AddNewActionModel",
+                            "props": {
+                              "type": "primary",
+                              "title": "{{t(\"Add new\")}}",
+                              "icon": "PlusOutlined"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "{{t(\"Add new\")}}",
+                                  "icon": "PlusOutlined",
+                                  "type": "primary"
+                                }
+                              },
+                              "popupSettings": {
+                                "openView": {
+                                  "mode": "drawer",
+                                  "size": "medium",
+                                  "pageModelClass": "ChildPageModel",
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_biz_model",
+                                  "title": "新增 · 商业模式"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "xcb8ow87wz1",
+                            "parent": "cepc4ct4o3b",
+                            "sortIndex": 4,
+                            "popup": {
+                              "template": {
+                                "uid": "u4trlonjof3",
+                                "mode": "reference"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "parent": "svd30i3xkfd",
+                      "sortIndex": 1,
+                      "popup": {
+                        "mode": "local"
+                      }
+                    }
+                  ]
+                },
+                "parent": "ixqn8krodnh",
+                "sortIndex": 1,
+                "popup": {
+                  "mode": "local"
+                }
+              }
+            },
+            "popup": {
+              "mode": "local"
+            }
+          }
+        ]
+      },
+      "popup": {
+        "mode": "local"
+      }
+    },
+    "nodeMap": {
+      "nlqvq86o4ya": {
+        "uid": "nlqvq86o4ya",
+        "use": "RootPageModel",
+        "props": {
+          "routeId": 393656996462592,
+          "title": "商业模式拆解",
+          "enableTabs": false,
+          "displayTitle": true,
+          "icon": "DatabaseOutlined",
+          "enableHeader": false
+        },
+        "stepParams": {
+          "pageSettings": {
+            "general": {
+              "title": "商业模式拆解",
+              "displayTitle": true,
+              "enableTabs": false,
+              "documentTitle": "长江电力 · 商业模式拆解",
+              "icon": "DatabaseOutlined",
+              "enableHeader": false
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ixqn8krodnh": {
+        "uid": "ixqn8krodnh",
+        "use": "RootPageTabModel",
+        "props": {
+          "route": {
+            "createdAt": "2026-10-23T05:44:43.911Z",
+            "updatedAt": "2026-10-24T00:44:54.108Z",
+            "id": 393656996462593,
+            "parentId": 393656996462592,
+            "title": "商业模式拆解",
+            "tooltip": null,
+            "icon": null,
+            "schemaUid": "ixqn8krodnh",
+            "menuSchemaUid": null,
+            "tabSchemaName": "jg8tpo8wwv7",
+            "type": "tabs",
+            "options": {
+              "flowRegistry": {}
+            },
+            "sort": 1792734283894033,
+            "hideInMenu": null,
+            "enableTabs": null,
+            "enableHeader": null,
+            "displayTitle": null,
+            "hidden": true,
+            "createdById": null,
+            "updatedById": 1,
+            "children": []
+          },
+          "title": "商业模式拆解",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "pageTabSettings": {
+            "tab": {
+              "title": "商业模式拆解",
+              "icon": null
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "svd30i3xkfd": {
+        "uid": "svd30i3xkfd",
+        "use": "BlockGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "cepc4ct4o3b"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "cepc4ct4o3b"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "cepc4ct4o3b": {
+        "uid": "cepc4ct4o3b",
+        "use": "TableBlockModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "resourceSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model"
+            }
+          },
+          "tableSettings": {
+            "pageSize": {
+              "pageSize": 50
+            },
+            "defaultSorting": {
+              "sort": [
+                {
+                  "field": "id",
+                  "direction": "asc"
+                }
+              ]
+            },
+            "dataScope": {
+              "filter": {
+                "logic": "$and",
+                "items": [
+                  {
+                    "path": "company_id",
+                    "operator": "$eq",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          },
+          "cardSettings": {
+            "titleDescription": {
+              "title": "基础表 · 商业模式拆解",
+              "description": "对应后台基础表：商业模式拆解"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "mhfri0e3ulj": {
+        "uid": "mhfri0e3ulj",
+        "use": "TableActionsColumnModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "tableColumnSettings": {
+            "title": {
+              "title": "{{t(\"Actions\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ubsu54lpre2": {
+        "uid": "ubsu54lpre2",
+        "use": "ViewActionModel",
+        "props": {
+          "type": "link",
+          "title": "{{t(\"View\")}}",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"View\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "title": "商业模式·详情"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "vmoo0jvm9fq",
+            "mode": "reference"
+          }
+        }
+      },
+      "saitbm8yr1n": {
+        "uid": "saitbm8yr1n",
+        "use": "EditActionModel",
+        "props": {
+          "title": "{{t(\"Edit\")}}",
+          "icon": null,
+          "type": "link"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Edit\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "title": "编辑 · 商业模式"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "07hg6gxqr81",
+            "mode": "reference"
+          }
+        }
+      },
+      "ahqhabue252": {
+        "uid": "ahqhabue252",
+        "use": "DeleteActionModel",
+        "props": {
+          "type": "link",
+          "title": "{{t(\"Delete\")}}",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Delete\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "deleteSettings": {
+            "confirm": {
+              "enable": true,
+              "title": "{{t(\"Delete record\")}}",
+              "content": "{{t(\"Are you sure you want to delete it?\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "a6hbx1oh4vo": {
+        "uid": "a6hbx1oh4vo",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "yjqe1vbwven": {
+        "uid": "yjqe1vbwven",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "0kedzmz5rre": {
+        "uid": "0kedzmz5rre",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "element"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "uwkd8ffrglk": {
+        "uid": "uwkd8ffrglk",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "element"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "m1h3yi02y9a": {
+        "uid": "m1h3yi02y9a",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "l7jtc76rz51": {
+        "uid": "l7jtc76rz51",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ba71th6ks9t": {
+        "uid": "ba71th6ks9t",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "metric"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "vma0ta3sywd": {
+        "uid": "vma0ta3sywd",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "metric"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "r6gpxgzs6r5": {
+        "uid": "r6gpxgzs6r5",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "trend"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "vdcr2yk1orv": {
+        "uid": "vdcr2yk1orv",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "trend"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "cuppwcec1dq": {
+        "uid": "cuppwcec1dq",
+        "use": "FilterActionModel",
+        "props": {
+          "title": "{{t(\"Filter\")}}",
+          "icon": "FilterOutlined",
+          "defaultFilterValue": {
+            "logic": "$and",
+            "items": [
+              {
+                "path": "title",
+                "operator": "$includes"
+              },
+              {
+                "path": "code",
+                "operator": "$includes"
+              },
+              {
+                "path": "metric",
+                "operator": "$includes"
+              },
+              {
+                "path": "trend",
+                "operator": "$includes"
+              }
+            ]
+          },
+          "filterValue": {
+            "logic": "$and",
+            "items": [
+              {
+                "path": "title",
+                "operator": "$includes"
+              },
+              {
+                "path": "code",
+                "operator": "$includes"
+              },
+              {
+                "path": "metric",
+                "operator": "$includes"
+              },
+              {
+                "path": "trend",
+                "operator": "$includes"
+              }
+            ]
+          }
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Filter\")}}",
+              "icon": "FilterOutlined"
+            }
+          },
+          "filterSettings": {
+            "defaultFilter": {
+              "defaultFilter": {
+                "logic": "$and",
+                "items": [
+                  {
+                    "path": "title",
+                    "operator": "$includes"
+                  },
+                  {
+                    "path": "code",
+                    "operator": "$includes"
+                  },
+                  {
+                    "path": "metric",
+                    "operator": "$includes"
+                  },
+                  {
+                    "path": "trend",
+                    "operator": "$includes"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "waumr4hihqz": {
+        "uid": "waumr4hihqz",
+        "use": "RefreshActionModel",
+        "props": {
+          "title": "{{t(\"Refresh\")}}",
+          "icon": "ReloadOutlined"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Refresh\")}}",
+              "icon": "ReloadOutlined"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "zy3ysb6cw2d": {
+        "uid": "zy3ysb6cw2d",
+        "use": "BulkDeleteActionModel",
+        "props": {
+          "title": "",
+          "tooltip": "{{t(\"Delete\")}}",
+          "icon": "DeleteOutlined",
+          "iconOnly": true,
+          "position": "right"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "",
+              "tooltip": "{{t(\"Delete\")}}",
+              "icon": "DeleteOutlined",
+              "iconOnly": true
+            }
+          },
+          "deleteSettings": {
+            "confirm": {
+              "enable": true,
+              "title": "{{t(\"Delete record\")}}",
+              "content": "{{t(\"Are you sure you want to delete it?\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "xcb8ow87wz1": {
+        "uid": "xcb8ow87wz1",
+        "use": "AddNewActionModel",
+        "props": {
+          "type": "primary",
+          "title": "{{t(\"Add new\")}}",
+          "icon": "PlusOutlined"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Add new\")}}",
+              "icon": "PlusOutlined",
+              "type": "primary"
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "title": "新增 · 商业模式"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "u4trlonjof3",
+            "mode": "reference"
+          }
+        }
+      }
+    },
+    "pageRoute": {
+      "createdAt": "2026-10-23T05:44:43.894Z",
+      "updatedAt": "2026-10-25T02:12:06.600Z",
+      "id": 393656996462592,
+      "parentId": 393656988073984,
+      "title": "商业模式拆解",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据",
+      "icon": "DatabaseOutlined",
+      "schemaUid": "n6cb72j4fxj",
+      "menuSchemaUid": "253x7455h6u",
+      "tabSchemaName": null,
+      "type": "flowPage",
+      "options": {
+        "flowSurfaceMenuBindable": true
+      },
+      "sort": 1,
+      "hideInMenu": false,
+      "enableTabs": false,
+      "enableHeader": false,
+      "displayTitle": true,
+      "hidden": null,
+      "createdById": null,
+      "updatedById": 1,
+      "children": [
+        {
+          "createdAt": "2026-10-23T05:44:43.911Z",
+          "updatedAt": "2026-10-24T00:44:54.108Z",
+          "id": 393656996462593,
+          "parentId": 393656996462592,
+          "title": "商业模式拆解",
+          "tooltip": null,
+          "icon": null,
+          "schemaUid": "ixqn8krodnh",
+          "menuSchemaUid": null,
+          "tabSchemaName": "jg8tpo8wwv7",
+          "type": "tabs",
+          "options": {
+            "flowRegistry": {}
+          },
+          "sort": 1792734283894033,
+          "hideInMenu": null,
+          "enableTabs": null,
+          "enableHeader": null,
+          "displayTitle": null,
+          "hidden": true,
+          "createdById": null,
+          "updatedById": 1
+        }
+      ]
+    }
+  }
+}

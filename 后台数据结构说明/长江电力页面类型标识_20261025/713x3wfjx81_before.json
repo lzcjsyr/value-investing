@@ -1,0 +1,1827 @@
+{
+  "data": {
+    "target": {
+      "locator": {
+        "pageSchemaUid": "713x3wfjx81"
+      },
+      "uid": "qoj4vtoyq3x",
+      "kind": "page"
+    },
+    "tree": {
+      "parentId": "713x3wfjx81",
+      "subKey": "page",
+      "subType": "object",
+      "use": "RootPageModel",
+      "props": {
+        "routeId": 393441237925888,
+        "title": "经营数据",
+        "enableTabs": false,
+        "displayTitle": true,
+        "icon": "TableOutlined",
+        "enableHeader": false
+      },
+      "stepParams": {
+        "pageSettings": {
+          "general": {
+            "title": "经营数据",
+            "displayTitle": true,
+            "enableTabs": false,
+            "documentTitle": "长江电力 · 经营数据",
+            "icon": "TableOutlined",
+            "enableHeader": false
+          }
+        }
+      },
+      "parent": "713x3wfjx81",
+      "uid": "qoj4vtoyq3x",
+      "subModels": {
+        "tabs": [
+          {
+            "uid": "1wvegxsp3mf",
+            "use": "RootPageTabModel",
+            "props": {
+              "route": {
+                "createdAt": "2026-10-22T01:10:01.121Z",
+                "updatedAt": "2026-10-23T13:10:28.811Z",
+                "id": 393441237925889,
+                "parentId": 393441237925888,
+                "title": "经营数据",
+                "tooltip": null,
+                "icon": null,
+                "schemaUid": "1wvegxsp3mf",
+                "menuSchemaUid": null,
+                "tabSchemaName": "qwlendmiaj1",
+                "type": "tabs",
+                "options": {
+                  "flowRegistry": {}
+                },
+                "sort": 1792631401107854,
+                "hideInMenu": null,
+                "enableTabs": null,
+                "enableHeader": null,
+                "displayTitle": null,
+                "hidden": true,
+                "createdById": null,
+                "updatedById": 1,
+                "children": []
+              },
+              "title": "经营数据",
+              "icon": null
+            },
+            "decoratorProps": {},
+            "flowRegistry": {},
+            "stepParams": {
+              "pageTabSettings": {
+                "tab": {
+                  "title": "经营数据",
+                  "icon": null
+                }
+              }
+            },
+            "subModels": {
+              "grid": {
+                "parentId": "1wvegxsp3mf",
+                "subKey": "grid",
+                "subType": "object",
+                "use": "BlockGridModel",
+                "props": {
+                  "rows": {
+                    "row1": [
+                      [
+                        "n3wsdqdcm2k"
+                      ]
+                    ]
+                  },
+                  "sizes": {
+                    "row1": [
+                      24
+                    ]
+                  },
+                  "rowOrder": [
+                    "row1"
+                  ]
+                },
+                "stepParams": {
+                  "gridSettings": {
+                    "grid": {
+                      "rows": {
+                        "row1": [
+                          [
+                            "n3wsdqdcm2k"
+                          ]
+                        ]
+                      },
+                      "sizes": {
+                        "row1": [
+                          24
+                        ]
+                      },
+                      "rowOrder": [
+                        "row1"
+                      ]
+                    }
+                  }
+                },
+                "uid": "fy5k335vdlw",
+                "subModels": {
+                  "items": [
+                    {
+                      "parentId": "fy5k335vdlw",
+                      "subKey": "items",
+                      "subType": "array",
+                      "use": "TableBlockModel",
+                      "props": {},
+                      "decoratorProps": {},
+                      "stepParams": {
+                        "resourceSettings": {
+                          "init": {
+                            "dataSourceKey": "main",
+                            "collectionName": "vi_period_data"
+                          }
+                        },
+                        "tableSettings": {
+                          "pageSize": {
+                            "pageSize": 50
+                          },
+                          "defaultSorting": {
+                            "sort": [
+                              {
+                                "field": "period_end",
+                                "direction": "asc"
+                              }
+                            ]
+                          },
+                          "dataScope": {
+                            "filter": {
+                              "logic": "$and",
+                              "items": [
+                                {
+                                  "path": "company_id",
+                                  "operator": "$eq",
+                                  "value": 1
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "uid": "n3wsdqdcm2k",
+                      "subModels": {
+                        "columns": [
+                          {
+                            "use": "TableActionsColumnModel",
+                            "props": {},
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "tableColumnSettings": {
+                                "title": {
+                                  "title": "{{t(\"Actions\")}}"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "subKey": "columns",
+                            "subType": "array",
+                            "uid": "sc6el2yytv9",
+                            "subModels": {
+                              "actions": [
+                                {
+                                  "parentId": "sc6el2yytv9",
+                                  "subKey": "actions",
+                                  "subType": "array",
+                                  "use": "ViewActionModel",
+                                  "props": {
+                                    "type": "link",
+                                    "title": "{{t(\"View\")}}",
+                                    "icon": null
+                                  },
+                                  "decoratorProps": {},
+                                  "stepParams": {
+                                    "buttonSettings": {
+                                      "general": {
+                                        "title": "{{t(\"View\")}}",
+                                        "icon": null,
+                                        "type": "link",
+                                        "iconOnly": false
+                                      }
+                                    },
+                                    "popupSettings": {
+                                      "openView": {
+                                        "mode": "drawer",
+                                        "size": "medium",
+                                        "pageModelClass": "ChildPageModel",
+                                        "dataSourceKey": "main",
+                                        "collectionName": "vi_period_data",
+                                        "title": "{{t(\"Details\")}}"
+                                      }
+                                    }
+                                  },
+                                  "flowRegistry": {},
+                                  "uid": "vinxg861wje",
+                                  "parent": "sc6el2yytv9",
+                                  "sortIndex": 1,
+                                  "popup": {
+                                    "template": {
+                                      "uid": "6oawnw8po46",
+                                      "mode": "reference"
+                                    }
+                                  }
+                                },
+                                {
+                                  "parentId": "sc6el2yytv9",
+                                  "subKey": "actions",
+                                  "subType": "array",
+                                  "use": "EditActionModel",
+                                  "props": {
+                                    "title": "{{t(\"Edit\")}}",
+                                    "icon": null,
+                                    "type": "link"
+                                  },
+                                  "decoratorProps": {},
+                                  "stepParams": {
+                                    "buttonSettings": {
+                                      "general": {
+                                        "title": "{{t(\"Edit\")}}",
+                                        "icon": null,
+                                        "type": "link",
+                                        "iconOnly": false
+                                      }
+                                    },
+                                    "popupSettings": {
+                                      "openView": {
+                                        "mode": "drawer",
+                                        "size": "medium",
+                                        "pageModelClass": "ChildPageModel",
+                                        "dataSourceKey": "main",
+                                        "collectionName": "vi_period_data",
+                                        "title": "{{t(\"Edit\")}}"
+                                      }
+                                    }
+                                  },
+                                  "flowRegistry": {},
+                                  "uid": "ifjnipm232s",
+                                  "parent": "sc6el2yytv9",
+                                  "sortIndex": 2,
+                                  "popup": {
+                                    "template": {
+                                      "uid": "czi3rrzrnqe",
+                                      "mode": "reference"
+                                    }
+                                  }
+                                },
+                                {
+                                  "parentId": "sc6el2yytv9",
+                                  "subKey": "actions",
+                                  "subType": "array",
+                                  "use": "DeleteActionModel",
+                                  "props": {
+                                    "type": "link",
+                                    "title": "{{t(\"Delete\")}}",
+                                    "icon": null
+                                  },
+                                  "decoratorProps": {},
+                                  "stepParams": {
+                                    "buttonSettings": {
+                                      "general": {
+                                        "title": "{{t(\"Delete\")}}",
+                                        "icon": null,
+                                        "type": "link",
+                                        "iconOnly": false
+                                      }
+                                    },
+                                    "deleteSettings": {
+                                      "confirm": {
+                                        "enable": true,
+                                        "title": "{{t(\"Delete record\")}}",
+                                        "content": "{{t(\"Are you sure you want to delete it?\")}}"
+                                      }
+                                    }
+                                  },
+                                  "flowRegistry": {},
+                                  "uid": "6r03t9lm4f9",
+                                  "parent": "sc6el2yytv9",
+                                  "sortIndex": 3,
+                                  "popup": {
+                                    "mode": "local"
+                                  }
+                                }
+                              ]
+                            },
+                            "parent": "n3wsdqdcm2k",
+                            "parentId": "n3wsdqdcm2k",
+                            "sortIndex": 1,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "n3wsdqdcm2k",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_period_data",
+                                  "fieldPath": "period"
+                                }
+                              }
+                            },
+                            "uid": "ya62lpse73j",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_period_data",
+                                      "fieldPath": "period"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "juiqvt3bx7k",
+                                "parent": "ya62lpse73j",
+                                "parentId": "ya62lpse73j",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "n3wsdqdcm2k",
+                            "sortIndex": 2,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "n3wsdqdcm2k",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_period_data",
+                                  "fieldPath": "period_kind"
+                                }
+                              }
+                            },
+                            "uid": "x2b0kqjcb0d",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_period_data",
+                                      "fieldPath": "period_kind"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "a0mu225eiux",
+                                "parent": "x2b0kqjcb0d",
+                                "parentId": "x2b0kqjcb0d",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "n3wsdqdcm2k",
+                            "sortIndex": 3,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "n3wsdqdcm2k",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_period_data",
+                                  "fieldPath": "line_item"
+                                }
+                              }
+                            },
+                            "uid": "aeljxp4cb0v",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_period_data",
+                                      "fieldPath": "line_item"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "4nsy4w8wciu",
+                                "parent": "aeljxp4cb0v",
+                                "parentId": "aeljxp4cb0v",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "n3wsdqdcm2k",
+                            "sortIndex": 4,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "n3wsdqdcm2k",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {
+                              "width": 110
+                            },
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_period_data",
+                                  "fieldPath": "impact"
+                                }
+                              },
+                              "tableColumnSettings": {
+                                "width": {
+                                  "width": 110
+                                }
+                              }
+                            },
+                            "parent": "n3wsdqdcm2k",
+                            "uid": "y6zt8f7x2qo",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {
+                                  "displayStyle": "tag"
+                                },
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_period_data",
+                                      "fieldPath": "impact"
+                                    }
+                                  },
+                                  "displayFieldSettings": {
+                                    "displayStyle": {
+                                      "displayStyle": "tag"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "c0nud4g7s1n",
+                                "parent": "y6zt8f7x2qo",
+                                "parentId": "y6zt8f7x2qo",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "sortIndex": 5,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "n3wsdqdcm2k",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_period_data",
+                                  "fieldPath": "value"
+                                }
+                              }
+                            },
+                            "uid": "n79qdz4d7e2",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayNumberFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_period_data",
+                                      "fieldPath": "value"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "y4vzbcjpcw2",
+                                "parent": "n79qdz4d7e2",
+                                "parentId": "n79qdz4d7e2",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "n3wsdqdcm2k",
+                            "sortIndex": 6,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "n3wsdqdcm2k",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_period_data",
+                                  "fieldPath": "unit"
+                                }
+                              }
+                            },
+                            "uid": "6mp8rzgg7a4",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_period_data",
+                                      "fieldPath": "unit"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "kwtiwkxa1v3",
+                                "parent": "6mp8rzgg7a4",
+                                "parentId": "6mp8rzgg7a4",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "n3wsdqdcm2k",
+                            "sortIndex": 7,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "n3wsdqdcm2k",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_period_data",
+                                  "fieldPath": "yoy"
+                                }
+                              }
+                            },
+                            "uid": "3df5byj8csm",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayPercentFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_period_data",
+                                      "fieldPath": "yoy"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "tow53ph4ciu",
+                                "parent": "3df5byj8csm",
+                                "parentId": "3df5byj8csm",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "n3wsdqdcm2k",
+                            "sortIndex": 8,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "n3wsdqdcm2k",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {
+                              "title": "经营解读",
+                              "width": 360
+                            },
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_period_data",
+                                  "fieldPath": "assessment"
+                                }
+                              },
+                              "tableColumnSettings": {
+                                "title": {
+                                  "title": "经营解读"
+                                },
+                                "width": {
+                                  "width": 360
+                                }
+                              }
+                            },
+                            "parent": "n3wsdqdcm2k",
+                            "uid": "6f3tfu7a36o",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_period_data",
+                                      "fieldPath": "assessment"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "ygm4k8clvwv",
+                                "parent": "6f3tfu7a36o",
+                                "parentId": "6f3tfu7a36o",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "sortIndex": 9,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "n3wsdqdcm2k",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_period_data",
+                                  "fieldPath": "summary"
+                                }
+                              }
+                            },
+                            "uid": "kbpogw1q0as",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_period_data",
+                                      "fieldPath": "summary"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "dcl8nth56eg",
+                                "parent": "kbpogw1q0as",
+                                "parentId": "kbpogw1q0as",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "n3wsdqdcm2k",
+                            "sortIndex": 10,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          }
+                        ],
+                        "actions": [
+                          {
+                            "parentId": "n3wsdqdcm2k",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "FilterActionModel",
+                            "props": {
+                              "title": "{{t(\"Filter\")}}",
+                              "icon": "FilterOutlined",
+                              "defaultFilterValue": {
+                                "logic": "$and",
+                                "items": [
+                                  {
+                                    "path": "period",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "status",
+                                    "operator": "$eq"
+                                  },
+                                  {
+                                    "path": "period_kind",
+                                    "operator": "$eq"
+                                  },
+                                  {
+                                    "path": "unit",
+                                    "operator": "$includes"
+                                  }
+                                ]
+                              },
+                              "filterValue": {
+                                "logic": "$and",
+                                "items": [
+                                  {
+                                    "path": "period",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "status",
+                                    "operator": "$eq"
+                                  },
+                                  {
+                                    "path": "period_kind",
+                                    "operator": "$eq"
+                                  },
+                                  {
+                                    "path": "unit",
+                                    "operator": "$includes"
+                                  }
+                                ]
+                              }
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "{{t(\"Filter\")}}",
+                                  "icon": "FilterOutlined"
+                                }
+                              },
+                              "filterSettings": {
+                                "defaultFilter": {
+                                  "defaultFilter": {
+                                    "logic": "$and",
+                                    "items": [
+                                      {
+                                        "path": "period",
+                                        "operator": "$includes"
+                                      },
+                                      {
+                                        "path": "status",
+                                        "operator": "$eq"
+                                      },
+                                      {
+                                        "path": "period_kind",
+                                        "operator": "$eq"
+                                      },
+                                      {
+                                        "path": "unit",
+                                        "operator": "$includes"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "xlpvslokdkf",
+                            "parent": "n3wsdqdcm2k",
+                            "sortIndex": 1,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "n3wsdqdcm2k",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "RefreshActionModel",
+                            "props": {
+                              "title": "{{t(\"Refresh\")}}",
+                              "icon": "ReloadOutlined"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "{{t(\"Refresh\")}}",
+                                  "icon": "ReloadOutlined"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "88hj3cptm1u",
+                            "parent": "n3wsdqdcm2k",
+                            "sortIndex": 2,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "n3wsdqdcm2k",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "BulkDeleteActionModel",
+                            "props": {
+                              "title": "",
+                              "tooltip": "{{t(\"Delete\")}}",
+                              "icon": "DeleteOutlined",
+                              "iconOnly": true,
+                              "position": "right"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "",
+                                  "tooltip": "{{t(\"Delete\")}}",
+                                  "icon": "DeleteOutlined",
+                                  "iconOnly": true
+                                }
+                              },
+                              "deleteSettings": {
+                                "confirm": {
+                                  "enable": true,
+                                  "title": "{{t(\"Delete record\")}}",
+                                  "content": "{{t(\"Are you sure you want to delete it?\")}}"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "nwpivs4yvx7",
+                            "parent": "n3wsdqdcm2k",
+                            "sortIndex": 3,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "n3wsdqdcm2k",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "AddNewActionModel",
+                            "props": {
+                              "type": "primary",
+                              "title": "{{t(\"Add new\")}}",
+                              "icon": "PlusOutlined"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "{{t(\"Add new\")}}",
+                                  "icon": "PlusOutlined",
+                                  "type": "primary"
+                                }
+                              },
+                              "popupSettings": {
+                                "openView": {
+                                  "mode": "drawer",
+                                  "size": "medium",
+                                  "pageModelClass": "ChildPageModel",
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_period_data",
+                                  "title": "{{t(\"Add new\")}}"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "k3bdvq0cgbu",
+                            "parent": "n3wsdqdcm2k",
+                            "sortIndex": 4,
+                            "popup": {
+                              "template": {
+                                "uid": "aw62l13qhfd",
+                                "mode": "reference"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "parent": "fy5k335vdlw",
+                      "sortIndex": 1,
+                      "popup": {
+                        "mode": "local"
+                      }
+                    }
+                  ]
+                },
+                "parent": "1wvegxsp3mf",
+                "sortIndex": 1,
+                "popup": {
+                  "mode": "local"
+                }
+              }
+            },
+            "popup": {
+              "mode": "local"
+            }
+          }
+        ]
+      },
+      "popup": {
+        "mode": "local"
+      }
+    },
+    "nodeMap": {
+      "qoj4vtoyq3x": {
+        "uid": "qoj4vtoyq3x",
+        "use": "RootPageModel",
+        "props": {
+          "routeId": 393441237925888,
+          "title": "经营数据",
+          "enableTabs": false,
+          "displayTitle": true,
+          "icon": "TableOutlined",
+          "enableHeader": false
+        },
+        "stepParams": {
+          "pageSettings": {
+            "general": {
+              "title": "经营数据",
+              "displayTitle": true,
+              "enableTabs": false,
+              "documentTitle": "长江电力 · 经营数据",
+              "icon": "TableOutlined",
+              "enableHeader": false
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "1wvegxsp3mf": {
+        "uid": "1wvegxsp3mf",
+        "use": "RootPageTabModel",
+        "props": {
+          "route": {
+            "createdAt": "2026-10-22T01:10:01.121Z",
+            "updatedAt": "2026-10-23T13:10:28.811Z",
+            "id": 393441237925889,
+            "parentId": 393441237925888,
+            "title": "经营数据",
+            "tooltip": null,
+            "icon": null,
+            "schemaUid": "1wvegxsp3mf",
+            "menuSchemaUid": null,
+            "tabSchemaName": "qwlendmiaj1",
+            "type": "tabs",
+            "options": {
+              "flowRegistry": {}
+            },
+            "sort": 1792631401107854,
+            "hideInMenu": null,
+            "enableTabs": null,
+            "enableHeader": null,
+            "displayTitle": null,
+            "hidden": true,
+            "createdById": null,
+            "updatedById": 1,
+            "children": []
+          },
+          "title": "经营数据",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "pageTabSettings": {
+            "tab": {
+              "title": "经营数据",
+              "icon": null
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "fy5k335vdlw": {
+        "uid": "fy5k335vdlw",
+        "use": "BlockGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "n3wsdqdcm2k"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "n3wsdqdcm2k"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "n3wsdqdcm2k": {
+        "uid": "n3wsdqdcm2k",
+        "use": "TableBlockModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "resourceSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data"
+            }
+          },
+          "tableSettings": {
+            "pageSize": {
+              "pageSize": 50
+            },
+            "defaultSorting": {
+              "sort": [
+                {
+                  "field": "period_end",
+                  "direction": "asc"
+                }
+              ]
+            },
+            "dataScope": {
+              "filter": {
+                "logic": "$and",
+                "items": [
+                  {
+                    "path": "company_id",
+                    "operator": "$eq",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "sc6el2yytv9": {
+        "uid": "sc6el2yytv9",
+        "use": "TableActionsColumnModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "tableColumnSettings": {
+            "title": {
+              "title": "{{t(\"Actions\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "vinxg861wje": {
+        "uid": "vinxg861wje",
+        "use": "ViewActionModel",
+        "props": {
+          "type": "link",
+          "title": "{{t(\"View\")}}",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"View\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "title": "{{t(\"Details\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "6oawnw8po46",
+            "mode": "reference"
+          }
+        }
+      },
+      "ifjnipm232s": {
+        "uid": "ifjnipm232s",
+        "use": "EditActionModel",
+        "props": {
+          "title": "{{t(\"Edit\")}}",
+          "icon": null,
+          "type": "link"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Edit\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "title": "{{t(\"Edit\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "czi3rrzrnqe",
+            "mode": "reference"
+          }
+        }
+      },
+      "6r03t9lm4f9": {
+        "uid": "6r03t9lm4f9",
+        "use": "DeleteActionModel",
+        "props": {
+          "type": "link",
+          "title": "{{t(\"Delete\")}}",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Delete\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "deleteSettings": {
+            "confirm": {
+              "enable": true,
+              "title": "{{t(\"Delete record\")}}",
+              "content": "{{t(\"Are you sure you want to delete it?\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ya62lpse73j": {
+        "uid": "ya62lpse73j",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "period"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "juiqvt3bx7k": {
+        "uid": "juiqvt3bx7k",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "period"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "x2b0kqjcb0d": {
+        "uid": "x2b0kqjcb0d",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "period_kind"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "a0mu225eiux": {
+        "uid": "a0mu225eiux",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "period_kind"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "aeljxp4cb0v": {
+        "uid": "aeljxp4cb0v",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "line_item"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "4nsy4w8wciu": {
+        "uid": "4nsy4w8wciu",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "line_item"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "y6zt8f7x2qo": {
+        "uid": "y6zt8f7x2qo",
+        "use": "TableColumnModel",
+        "props": {
+          "width": 110
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "impact"
+            }
+          },
+          "tableColumnSettings": {
+            "width": {
+              "width": 110
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "c0nud4g7s1n": {
+        "uid": "c0nud4g7s1n",
+        "use": "DisplayEnumFieldModel",
+        "props": {
+          "displayStyle": "tag"
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "impact"
+            }
+          },
+          "displayFieldSettings": {
+            "displayStyle": {
+              "displayStyle": "tag"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "n79qdz4d7e2": {
+        "uid": "n79qdz4d7e2",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "value"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "y4vzbcjpcw2": {
+        "uid": "y4vzbcjpcw2",
+        "use": "DisplayNumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "value"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "6mp8rzgg7a4": {
+        "uid": "6mp8rzgg7a4",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "unit"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "kwtiwkxa1v3": {
+        "uid": "kwtiwkxa1v3",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "unit"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "3df5byj8csm": {
+        "uid": "3df5byj8csm",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "yoy"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "tow53ph4ciu": {
+        "uid": "tow53ph4ciu",
+        "use": "DisplayPercentFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "yoy"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "6f3tfu7a36o": {
+        "uid": "6f3tfu7a36o",
+        "use": "TableColumnModel",
+        "props": {
+          "title": "经营解读",
+          "width": 360
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "assessment"
+            }
+          },
+          "tableColumnSettings": {
+            "title": {
+              "title": "经营解读"
+            },
+            "width": {
+              "width": 360
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ygm4k8clvwv": {
+        "uid": "ygm4k8clvwv",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "assessment"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "kbpogw1q0as": {
+        "uid": "kbpogw1q0as",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "summary"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "dcl8nth56eg": {
+        "uid": "dcl8nth56eg",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "summary"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "xlpvslokdkf": {
+        "uid": "xlpvslokdkf",
+        "use": "FilterActionModel",
+        "props": {
+          "title": "{{t(\"Filter\")}}",
+          "icon": "FilterOutlined",
+          "defaultFilterValue": {
+            "logic": "$and",
+            "items": [
+              {
+                "path": "period",
+                "operator": "$includes"
+              },
+              {
+                "path": "status",
+                "operator": "$eq"
+              },
+              {
+                "path": "period_kind",
+                "operator": "$eq"
+              },
+              {
+                "path": "unit",
+                "operator": "$includes"
+              }
+            ]
+          },
+          "filterValue": {
+            "logic": "$and",
+            "items": [
+              {
+                "path": "period",
+                "operator": "$includes"
+              },
+              {
+                "path": "status",
+                "operator": "$eq"
+              },
+              {
+                "path": "period_kind",
+                "operator": "$eq"
+              },
+              {
+                "path": "unit",
+                "operator": "$includes"
+              }
+            ]
+          }
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Filter\")}}",
+              "icon": "FilterOutlined"
+            }
+          },
+          "filterSettings": {
+            "defaultFilter": {
+              "defaultFilter": {
+                "logic": "$and",
+                "items": [
+                  {
+                    "path": "period",
+                    "operator": "$includes"
+                  },
+                  {
+                    "path": "status",
+                    "operator": "$eq"
+                  },
+                  {
+                    "path": "period_kind",
+                    "operator": "$eq"
+                  },
+                  {
+                    "path": "unit",
+                    "operator": "$includes"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "88hj3cptm1u": {
+        "uid": "88hj3cptm1u",
+        "use": "RefreshActionModel",
+        "props": {
+          "title": "{{t(\"Refresh\")}}",
+          "icon": "ReloadOutlined"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Refresh\")}}",
+              "icon": "ReloadOutlined"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "nwpivs4yvx7": {
+        "uid": "nwpivs4yvx7",
+        "use": "BulkDeleteActionModel",
+        "props": {
+          "title": "",
+          "tooltip": "{{t(\"Delete\")}}",
+          "icon": "DeleteOutlined",
+          "iconOnly": true,
+          "position": "right"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "",
+              "tooltip": "{{t(\"Delete\")}}",
+              "icon": "DeleteOutlined",
+              "iconOnly": true
+            }
+          },
+          "deleteSettings": {
+            "confirm": {
+              "enable": true,
+              "title": "{{t(\"Delete record\")}}",
+              "content": "{{t(\"Are you sure you want to delete it?\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "k3bdvq0cgbu": {
+        "uid": "k3bdvq0cgbu",
+        "use": "AddNewActionModel",
+        "props": {
+          "type": "primary",
+          "title": "{{t(\"Add new\")}}",
+          "icon": "PlusOutlined"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Add new\")}}",
+              "icon": "PlusOutlined",
+              "type": "primary"
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "title": "{{t(\"Add new\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "aw62l13qhfd",
+            "mode": "reference"
+          }
+        }
+      }
+    },
+    "pageRoute": {
+      "createdAt": "2026-10-22T01:10:01.107Z",
+      "updatedAt": "2026-10-24T00:46:48.871Z",
+      "id": 393441237925888,
+      "parentId": 393441179205632,
+      "title": "经营数据",
+      "tooltip": null,
+      "icon": "TableOutlined",
+      "schemaUid": "713x3wfjx81",
+      "menuSchemaUid": "rl9qg3ea3nf",
+      "tabSchemaName": null,
+      "type": "flowPage",
+      "options": {
+        "flowSurfaceMenuBindable": true
+      },
+      "sort": 1,
+      "hideInMenu": false,
+      "enableTabs": false,
+      "enableHeader": false,
+      "displayTitle": true,
+      "hidden": null,
+      "createdById": null,
+      "updatedById": 1,
+      "children": [
+        {
+          "createdAt": "2026-10-22T01:10:01.121Z",
+          "updatedAt": "2026-10-23T13:10:28.811Z",
+          "id": 393441237925889,
+          "parentId": 393441237925888,
+          "title": "经营数据",
+          "tooltip": null,
+          "icon": null,
+          "schemaUid": "1wvegxsp3mf",
+          "menuSchemaUid": null,
+          "tabSchemaName": "qwlendmiaj1",
+          "type": "tabs",
+          "options": {
+            "flowRegistry": {}
+          },
+          "sort": 1792631401107854,
+          "hideInMenu": null,
+          "enableTabs": null,
+          "enableHeader": null,
+          "displayTitle": null,
+          "hidden": true,
+          "createdById": null,
+          "updatedById": 1
+        }
+      ]
+    }
+  }
+}

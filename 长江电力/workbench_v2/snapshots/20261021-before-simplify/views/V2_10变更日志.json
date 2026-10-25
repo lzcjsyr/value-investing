@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "total": 1,
+    "views": [
+      {
+        "_meta": {
+          "filter": null,
+          "group": [],
+          "sort": [],
+          "visible_fields": "8 fields"
+        },
+        "id": "vew9PMbZrc",
+        "name": "表格",
+        "type": "grid"
+      }
+    ]
+  }
+}

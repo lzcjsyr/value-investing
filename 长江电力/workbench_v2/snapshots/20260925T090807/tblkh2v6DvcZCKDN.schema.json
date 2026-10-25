@@ -1,0 +1,65 @@
+[
+  {
+    "default_value": null,
+    "id": "fldQYnmXOZ",
+    "name": "公司代码",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldNdWTM56",
+    "name": "赚钱机制",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldX1Fhuen",
+    "name": "护城河证据要求",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldeYZV92z",
+    "name": "反方与边界",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fld0hh0GIx",
+    "name": "财务映射",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldnz7R51A",
+    "name": "当前判断",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldbuipTFz",
+    "name": "业务命题",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  }
+]

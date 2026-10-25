@@ -1,0 +1,56 @@
+[
+  {
+    "default_value": null,
+    "id": "fldhxuaiUY",
+    "name": "级别",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldWsLCPwr",
+    "name": "状态",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldTgKfxcN",
+    "name": "完成条件",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldKlii9d6",
+    "name": "影响范围",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldrzwdSL4",
+    "name": "检查ID",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fld5QyuceC",
+    "name": "问题",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  }
+]

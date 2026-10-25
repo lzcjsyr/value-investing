@@ -1,0 +1,321 @@
+{
+ "version": "1",
+ "mode": "create",
+ "navigation": {
+  "item": {
+   "title": "定期经营数据",
+   "icon": "TableOutlined"
+  },
+  "group": {
+   "routeId": 393353425125376
+  }
+ },
+ "page": {
+  "title": "定期经营数据",
+  "documentTitle": "价值投资框架 · 定期经营数据"
+ },
+ "defaults": {
+  "collections": {
+   "vi_period_data": {
+    "popups": {
+     "view": {
+      "name": "定期经营数据·详情",
+      "description": "查看一条「定期经营数据」记录"
+     },
+     "addNew": {
+      "name": "定期经营数据·新增",
+      "description": "新增一条「定期经营数据」记录"
+     },
+     "edit": {
+      "name": "定期经营数据·编辑",
+      "description": "编辑一条「定期经营数据」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "period",
+       "period_end",
+       "period_kind",
+       "value",
+       "unit",
+       "yoy",
+       "impact",
+       "assessment",
+       "summary",
+       "status"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "line_item"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company",
+       "source"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_company": {
+    "popups": {
+     "view": {
+      "name": "公司·详情",
+      "description": "查看一条「公司」记录"
+     },
+     "addNew": {
+      "name": "公司·新增",
+      "description": "新增一条「公司」记录"
+     },
+     "edit": {
+      "name": "公司·编辑",
+      "description": "编辑一条「公司」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "name",
+       "exchange",
+       "industry",
+       "currency",
+       "volume_label",
+       "volume_unit",
+       "price_label",
+       "price_unit",
+       "is_default"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "profile",
+       "notes"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "price_metric"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "latest_price",
+       "latest_price_date"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_source": {
+    "popups": {
+     "view": {
+      "name": "来源文档·详情",
+      "description": "查看一条「来源文档」记录"
+     },
+     "addNew": {
+      "name": "来源文档·新增",
+      "description": "新增一条「来源文档」记录"
+     },
+     "edit": {
+      "name": "来源文档·编辑",
+      "description": "编辑一条「来源文档」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息",
+      "fields": [
+       "title",
+       "source_type",
+       "publisher",
+       "publish_date",
+       "url",
+       "reliability",
+       "verify_status",
+       "retrieved_on",
+       "summary",
+       "limitations"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "tabs": [
+  {
+   "title": "定期经营数据",
+   "blocks": [
+    {
+     "key": "main",
+     "type": "table",
+     "collection": "vi_period_data",
+     "fields": [
+      "period",
+      "period_kind",
+      "line_item",
+      "impact",
+      "value",
+      "unit",
+      "yoy",
+      "assessment",
+      "summary"
+     ],
+     "settings": {
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "period_end",
+        "direction": "asc"
+       }
+      ]
+     },
+     "actions": [
+      "filter",
+      "refresh",
+      {
+       "type": "addNew",
+       "popup": {
+        "title": "新增 · 定期经营数据",
+        "blocks": [
+         {
+          "type": "createForm",
+          "resource": {
+           "collectionName": "vi_period_data"
+          },
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "period",
+             "period_end",
+             "period_kind",
+             "line_item",
+             "value",
+             "unit",
+             "yoy",
+             "impact",
+             "assessment",
+             "summary"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "status"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             },
+             {
+              "field": "source",
+              "titleField": "title"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "bulkDelete"
+     ],
+     "recordActions": [
+      "view",
+      {
+       "type": "edit",
+       "popup": {
+        "title": "编辑 · 定期经营数据",
+        "blocks": [
+         {
+          "type": "editForm",
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "period",
+             "period_end",
+             "period_kind",
+             "line_item",
+             "value",
+             "unit",
+             "yoy",
+             "impact",
+             "assessment",
+             "summary"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "status"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             },
+             {
+              "field": "source",
+              "titleField": "title"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "delete"
+     ]
+    }
+   ]
+  }
+ ]
+}

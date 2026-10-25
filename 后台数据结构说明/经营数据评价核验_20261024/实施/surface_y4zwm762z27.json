@@ -1,0 +1,98 @@
+{
+  "data": {
+    "target": {
+      "locator": {
+        "uid": "y4zwm762z27"
+      },
+      "uid": "y4zwm762z27",
+      "kind": "node"
+    },
+    "tree": {
+      "parentId": "n3wsdqdcm2k",
+      "subKey": "columns",
+      "subType": "array",
+      "use": "TableColumnModel",
+      "props": {
+        "title": "经营解读",
+        "width": 360
+      },
+      "stepParams": {
+        "fieldSettings": {
+          "init": {
+            "dataSourceKey": "main",
+            "collectionName": "vi_period_data",
+            "fieldPath": "assessment"
+          }
+        }
+      },
+      "uid": "y4zwm762z27",
+      "subModels": {
+        "field": {
+          "use": "DisplayEnumFieldModel",
+          "props": {},
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_period_data",
+                "fieldPath": "assessment"
+              }
+            }
+          },
+          "subKey": "field",
+          "subType": "object",
+          "uid": "uxivqt12ci9",
+          "parent": "y4zwm762z27",
+          "parentId": "y4zwm762z27",
+          "sortIndex": 1,
+          "popup": {
+            "mode": "local"
+          }
+        }
+      },
+      "parent": "n3wsdqdcm2k",
+      "popup": {
+        "mode": "local"
+      }
+    },
+    "nodeMap": {
+      "y4zwm762z27": {
+        "uid": "y4zwm762z27",
+        "use": "TableColumnModel",
+        "props": {
+          "title": "经营解读",
+          "width": 360
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "assessment"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "uxivqt12ci9": {
+        "uid": "uxivqt12ci9",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "assessment"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      }
+    }
+  }
+}

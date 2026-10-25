@@ -1,0 +1,1391 @@
+{
+  "data": {
+    "target": {
+      "locator": {
+        "uid": "gle8pjm41x2"
+      },
+      "uid": "gle8pjm41x2",
+      "kind": "node"
+    },
+    "tree": {
+      "use": "ViewActionModel",
+      "props": {
+        "type": "link",
+        "title": "{{t(\"View\")}}",
+        "icon": null
+      },
+      "decoratorProps": {},
+      "stepParams": {
+        "buttonSettings": {
+          "general": {
+            "title": "{{t(\"View\")}}",
+            "icon": null,
+            "type": "link",
+            "iconOnly": false
+          }
+        },
+        "popupSettings": {
+          "openView": {
+            "mode": "drawer",
+            "size": "medium",
+            "pageModelClass": "ChildPageModel",
+            "dataSourceKey": "main",
+            "collectionName": "vi_biz_model",
+            "title": "商业模式·详情",
+            "filterByTk": "{{ctx.record.id}}"
+          }
+        }
+      },
+      "flowRegistry": {},
+      "uid": "gle8pjm41x2",
+      "subModels": {
+        "page": {
+          "parentId": "gle8pjm41x2",
+          "subKey": "page",
+          "subType": "object",
+          "use": "ChildPageModel",
+          "props": {
+            "displayTitle": false,
+            "enableTabs": true
+          },
+          "stepParams": {
+            "pageSettings": {
+              "general": {
+                "displayTitle": false,
+                "enableTabs": true
+              }
+            }
+          },
+          "parent": "gle8pjm41x2",
+          "sortIndex": 1,
+          "uid": "y5quo3oxujs",
+          "subModels": {
+            "tabs": [
+              {
+                "use": "ChildPageTabModel",
+                "props": {
+                  "title": "商业模式·详情"
+                },
+                "stepParams": {
+                  "pageTabSettings": {
+                    "tab": {
+                      "title": "商业模式·详情"
+                    }
+                  }
+                },
+                "subKey": "tabs",
+                "subType": "array",
+                "parent": "y5quo3oxujs",
+                "parentId": "y5quo3oxujs",
+                "sortIndex": 1,
+                "uid": "co1j13txrp8",
+                "subModels": {
+                  "grid": {
+                    "use": "BlockGridModel",
+                    "subKey": "grid",
+                    "subType": "object",
+                    "props": {
+                      "rows": {
+                        "row1": [
+                          [
+                            "cj408tibeo0"
+                          ]
+                        ]
+                      },
+                      "sizes": {
+                        "row1": [
+                          24
+                        ]
+                      },
+                      "rowOrder": [
+                        "row1"
+                      ]
+                    },
+                    "stepParams": {
+                      "gridSettings": {
+                        "grid": {
+                          "rows": {
+                            "row1": [
+                              [
+                                "nbv88hq2o3o"
+                              ]
+                            ]
+                          },
+                          "sizes": {
+                            "row1": [
+                              24
+                            ]
+                          },
+                          "rowOrder": [
+                            "row1"
+                          ]
+                        }
+                      }
+                    },
+                    "parent": "co1j13txrp8",
+                    "parentId": "co1j13txrp8",
+                    "sortIndex": 1,
+                    "uid": "qflyqvrjhnv",
+                    "subModels": {
+                      "items": [
+                        {
+                          "parentId": "qflyqvrjhnv",
+                          "subKey": "items",
+                          "subType": "array",
+                          "use": "DetailsBlockModel",
+                          "props": {},
+                          "decoratorProps": {},
+                          "stepParams": {
+                            "resourceSettings": {
+                              "init": {
+                                "dataSourceKey": "main",
+                                "collectionName": "vi_biz_model",
+                                "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+                              }
+                            },
+                            "detailsSettings": {
+                              "layout": {
+                                "layout": "vertical",
+                                "colon": true
+                              },
+                              "dataScope": {
+                                "filter": {
+                                  "logic": "$and",
+                                  "items": []
+                                }
+                              },
+                              "linkageRules": {
+                                "value": []
+                              }
+                            }
+                          },
+                          "parent": "qflyqvrjhnv",
+                          "sortIndex": 1,
+                          "uid": "nbv88hq2o3o",
+                          "subModels": {
+                            "grid": {
+                              "use": "DetailsGridModel",
+                              "subKey": "grid",
+                              "subType": "object",
+                              "stepParams": {
+                                "gridSettings": {
+                                  "grid": {
+                                    "rows": {
+                                      "row1": [
+                                        [
+                                          "cmr5khowxzb"
+                                        ],
+                                        [
+                                          "1pk12g0g3rs"
+                                        ]
+                                      ],
+                                      "row2": [
+                                        [
+                                          "s9bbobpz19b"
+                                        ],
+                                        [
+                                          "kfdqx8kvr4c"
+                                        ]
+                                      ],
+                                      "row3": [
+                                        [
+                                          "lh5vukntwpm"
+                                        ],
+                                        [
+                                          "44llc3m1uza"
+                                        ]
+                                      ],
+                                      "row4": [
+                                        [
+                                          "kccapw6o49b"
+                                        ],
+                                        [
+                                          "k3q5uxza3v2"
+                                        ]
+                                      ]
+                                    },
+                                    "sizes": {
+                                      "row1": [
+                                        12,
+                                        12
+                                      ],
+                                      "row2": [
+                                        12,
+                                        12
+                                      ],
+                                      "row3": [
+                                        12,
+                                        12
+                                      ],
+                                      "row4": [
+                                        12,
+                                        12
+                                      ]
+                                    },
+                                    "rowOrder": [
+                                      "row1",
+                                      "row2",
+                                      "row3",
+                                      "row4"
+                                    ]
+                                  }
+                                }
+                              },
+                              "props": {
+                                "rows": {
+                                  "row1": [
+                                    [
+                                      "lst52nf1cx5"
+                                    ],
+                                    [
+                                      "5tmw49gzhdt"
+                                    ]
+                                  ],
+                                  "row2": [
+                                    [
+                                      "3pt71tnl59k"
+                                    ],
+                                    [
+                                      "l1yz0yrveuz"
+                                    ]
+                                  ],
+                                  "row3": [
+                                    [
+                                      "uzkobk4y36m"
+                                    ],
+                                    [
+                                      "adra7hb9ji6"
+                                    ]
+                                  ],
+                                  "row4": [
+                                    [
+                                      "ai0hdmadxsl"
+                                    ],
+                                    [
+                                      "u8yuj6p5m3r"
+                                    ]
+                                  ]
+                                },
+                                "sizes": {
+                                  "row1": [
+                                    12,
+                                    12
+                                  ],
+                                  "row2": [
+                                    12,
+                                    12
+                                  ],
+                                  "row3": [
+                                    12,
+                                    12
+                                  ],
+                                  "row4": [
+                                    12,
+                                    12
+                                  ]
+                                },
+                                "rowOrder": [
+                                  "row1",
+                                  "row2",
+                                  "row3",
+                                  "row4"
+                                ]
+                              },
+                              "parent": "nbv88hq2o3o",
+                              "parentId": "nbv88hq2o3o",
+                              "sortIndex": 1,
+                              "uid": "a5ckww2s00q",
+                              "subModels": {
+                                "items": [
+                                  {
+                                    "parentId": "a5ckww2s00q",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_biz_model",
+                                          "fieldPath": "metric"
+                                        }
+                                      }
+                                    },
+                                    "parent": "a5ckww2s00q",
+                                    "sortIndex": 1,
+                                    "uid": "cmr5khowxzb",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_biz_model",
+                                              "fieldPath": "metric"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "cmr5khowxzb",
+                                        "parentId": "cmr5khowxzb",
+                                        "sortIndex": 1,
+                                        "uid": "p248vu27wev",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "a5ckww2s00q",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_biz_model",
+                                          "fieldPath": "trend"
+                                        }
+                                      }
+                                    },
+                                    "parent": "a5ckww2s00q",
+                                    "sortIndex": 2,
+                                    "uid": "1pk12g0g3rs",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_biz_model",
+                                              "fieldPath": "trend"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "1pk12g0g3rs",
+                                        "parentId": "1pk12g0g3rs",
+                                        "sortIndex": 1,
+                                        "uid": "s49ukwle766",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "a5ckww2s00q",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_biz_model",
+                                          "fieldPath": "title"
+                                        }
+                                      }
+                                    },
+                                    "parent": "a5ckww2s00q",
+                                    "sortIndex": 3,
+                                    "uid": "s9bbobpz19b",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_biz_model",
+                                              "fieldPath": "title"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "s9bbobpz19b",
+                                        "parentId": "s9bbobpz19b",
+                                        "sortIndex": 1,
+                                        "uid": "b9fxomh0wjs",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "a5ckww2s00q",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_biz_model",
+                                          "fieldPath": "content"
+                                        }
+                                      }
+                                    },
+                                    "parent": "a5ckww2s00q",
+                                    "sortIndex": 4,
+                                    "uid": "kfdqx8kvr4c",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_biz_model",
+                                              "fieldPath": "content"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "kfdqx8kvr4c",
+                                        "parentId": "kfdqx8kvr4c",
+                                        "sortIndex": 1,
+                                        "uid": "vwiuhv85r5q",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "a5ckww2s00q",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_biz_model",
+                                          "fieldPath": "updated_at"
+                                        }
+                                      }
+                                    },
+                                    "parent": "a5ckww2s00q",
+                                    "sortIndex": 5,
+                                    "uid": "lh5vukntwpm",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayDateTimeFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_biz_model",
+                                              "fieldPath": "updated_at"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "lh5vukntwpm",
+                                        "parentId": "lh5vukntwpm",
+                                        "sortIndex": 1,
+                                        "uid": "moq38x96zgd",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "a5ckww2s00q",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_biz_model",
+                                          "fieldPath": "code"
+                                        }
+                                      }
+                                    },
+                                    "parent": "a5ckww2s00q",
+                                    "sortIndex": 6,
+                                    "uid": "44llc3m1uza",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_biz_model",
+                                              "fieldPath": "code"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "44llc3m1uza",
+                                        "parentId": "44llc3m1uza",
+                                        "sortIndex": 1,
+                                        "uid": "fm2je4452cb",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "a5ckww2s00q",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_biz_model",
+                                          "fieldPath": "element"
+                                        }
+                                      }
+                                    },
+                                    "parent": "a5ckww2s00q",
+                                    "sortIndex": 7,
+                                    "uid": "kccapw6o49b",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayEnumFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_biz_model",
+                                              "fieldPath": "element"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "kccapw6o49b",
+                                        "parentId": "kccapw6o49b",
+                                        "sortIndex": 1,
+                                        "uid": "1lp7b0y9k1d",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "a5ckww2s00q",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {
+                                      "titleField": "name"
+                                    },
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_biz_model",
+                                          "fieldPath": "company"
+                                        }
+                                      },
+                                      "detailItemSettings": {
+                                        "fieldNames": {
+                                          "label": "name"
+                                        }
+                                      }
+                                    },
+                                    "parent": "a5ckww2s00q",
+                                    "sortIndex": 8,
+                                    "uid": "k3q5uxza3v2",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {
+                                          "titleField": "name",
+                                          "clickToOpen": true
+                                        },
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_biz_model",
+                                              "fieldPath": "company"
+                                            }
+                                          },
+                                          "displayFieldSettings": {
+                                            "clickToOpen": {
+                                              "clickToOpen": true
+                                            }
+                                          },
+                                          "popupSettings": {
+                                            "openView": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_company",
+                                              "associationName": "vi_biz_model.company"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "k3q5uxza3v2",
+                                        "parentId": "k3q5uxza3v2",
+                                        "sortIndex": 1,
+                                        "uid": "k86kro8imwz",
+                                        "popup": {
+                                          "template": {
+                                            "uid": "4hr3gehynkf",
+                                            "mode": "reference"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  }
+                                ]
+                              },
+                              "popup": {
+                                "mode": "local"
+                              }
+                            },
+                            "actions": [
+                              {
+                                "parentId": "nbv88hq2o3o",
+                                "subKey": "actions",
+                                "subType": "array",
+                                "use": "EditActionModel",
+                                "props": {
+                                  "title": "{{t(\"Edit\")}}",
+                                  "icon": "EditOutlined",
+                                  "type": "default"
+                                },
+                                "decoratorProps": {},
+                                "stepParams": {
+                                  "buttonSettings": {
+                                    "general": {
+                                      "title": "{{t(\"Edit\")}}",
+                                      "icon": "EditOutlined",
+                                      "type": "default"
+                                    }
+                                  },
+                                  "popupSettings": {
+                                    "openView": {
+                                      "mode": "drawer",
+                                      "size": "medium",
+                                      "pageModelClass": "ChildPageModel",
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_biz_model",
+                                      "title": "商业模式·编辑"
+                                    }
+                                  }
+                                },
+                                "flowRegistry": {},
+                                "parent": "nbv88hq2o3o",
+                                "sortIndex": 1,
+                                "uid": "on1nd4mttdt",
+                                "popup": {
+                                  "template": {
+                                    "uid": "2xpzf17zxrt",
+                                    "mode": "reference"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "popup": {
+                            "mode": "local"
+                          }
+                        }
+                      ]
+                    },
+                    "popup": {
+                      "mode": "local"
+                    }
+                  }
+                },
+                "popup": {
+                  "mode": "local"
+                }
+              }
+            ]
+          },
+          "popup": {
+            "mode": "local"
+          }
+        }
+      },
+      "popup": {
+        "mode": "local",
+        "pageUid": "y5quo3oxujs",
+        "tabUid": "co1j13txrp8",
+        "gridUid": "qflyqvrjhnv"
+      }
+    },
+    "nodeMap": {
+      "gle8pjm41x2": {
+        "uid": "gle8pjm41x2",
+        "use": "ViewActionModel",
+        "props": {
+          "type": "link",
+          "title": "{{t(\"View\")}}",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"View\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "title": "商业模式·详情",
+              "filterByTk": "{{ctx.record.id}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local",
+          "pageUid": "y5quo3oxujs",
+          "tabUid": "co1j13txrp8",
+          "gridUid": "qflyqvrjhnv"
+        }
+      },
+      "y5quo3oxujs": {
+        "uid": "y5quo3oxujs",
+        "use": "ChildPageModel",
+        "props": {
+          "displayTitle": false,
+          "enableTabs": true
+        },
+        "stepParams": {
+          "pageSettings": {
+            "general": {
+              "displayTitle": false,
+              "enableTabs": true
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "co1j13txrp8": {
+        "uid": "co1j13txrp8",
+        "use": "ChildPageTabModel",
+        "props": {
+          "title": "商业模式·详情"
+        },
+        "stepParams": {
+          "pageTabSettings": {
+            "tab": {
+              "title": "商业模式·详情"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "qflyqvrjhnv": {
+        "uid": "qflyqvrjhnv",
+        "use": "BlockGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "cj408tibeo0"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "nbv88hq2o3o"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "nbv88hq2o3o": {
+        "uid": "nbv88hq2o3o",
+        "use": "DetailsBlockModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "resourceSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+            }
+          },
+          "detailsSettings": {
+            "layout": {
+              "layout": "vertical",
+              "colon": true
+            },
+            "dataScope": {
+              "filter": {
+                "logic": "$and",
+                "items": []
+              }
+            },
+            "linkageRules": {
+              "value": []
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "a5ckww2s00q": {
+        "uid": "a5ckww2s00q",
+        "use": "DetailsGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "lst52nf1cx5"
+              ],
+              [
+                "5tmw49gzhdt"
+              ]
+            ],
+            "row2": [
+              [
+                "3pt71tnl59k"
+              ],
+              [
+                "l1yz0yrveuz"
+              ]
+            ],
+            "row3": [
+              [
+                "uzkobk4y36m"
+              ],
+              [
+                "adra7hb9ji6"
+              ]
+            ],
+            "row4": [
+              [
+                "ai0hdmadxsl"
+              ],
+              [
+                "u8yuj6p5m3r"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              12,
+              12
+            ],
+            "row2": [
+              12,
+              12
+            ],
+            "row3": [
+              12,
+              12
+            ],
+            "row4": [
+              12,
+              12
+            ]
+          },
+          "rowOrder": [
+            "row1",
+            "row2",
+            "row3",
+            "row4"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "cmr5khowxzb"
+                  ],
+                  [
+                    "1pk12g0g3rs"
+                  ]
+                ],
+                "row2": [
+                  [
+                    "s9bbobpz19b"
+                  ],
+                  [
+                    "kfdqx8kvr4c"
+                  ]
+                ],
+                "row3": [
+                  [
+                    "lh5vukntwpm"
+                  ],
+                  [
+                    "44llc3m1uza"
+                  ]
+                ],
+                "row4": [
+                  [
+                    "kccapw6o49b"
+                  ],
+                  [
+                    "k3q5uxza3v2"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  12,
+                  12
+                ],
+                "row2": [
+                  12,
+                  12
+                ],
+                "row3": [
+                  12,
+                  12
+                ],
+                "row4": [
+                  12,
+                  12
+                ]
+              },
+              "rowOrder": [
+                "row1",
+                "row2",
+                "row3",
+                "row4"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "cmr5khowxzb": {
+        "uid": "cmr5khowxzb",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "metric"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "p248vu27wev": {
+        "uid": "p248vu27wev",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "metric"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "1pk12g0g3rs": {
+        "uid": "1pk12g0g3rs",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "trend"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "s49ukwle766": {
+        "uid": "s49ukwle766",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "trend"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "s9bbobpz19b": {
+        "uid": "s9bbobpz19b",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "b9fxomh0wjs": {
+        "uid": "b9fxomh0wjs",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "kfdqx8kvr4c": {
+        "uid": "kfdqx8kvr4c",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "content"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "vwiuhv85r5q": {
+        "uid": "vwiuhv85r5q",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "content"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "lh5vukntwpm": {
+        "uid": "lh5vukntwpm",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "updated_at"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "moq38x96zgd": {
+        "uid": "moq38x96zgd",
+        "use": "DisplayDateTimeFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "updated_at"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "44llc3m1uza": {
+        "uid": "44llc3m1uza",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "fm2je4452cb": {
+        "uid": "fm2je4452cb",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "kccapw6o49b": {
+        "uid": "kccapw6o49b",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "element"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "1lp7b0y9k1d": {
+        "uid": "1lp7b0y9k1d",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "element"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "k3q5uxza3v2": {
+        "uid": "k3q5uxza3v2",
+        "use": "DetailsItemModel",
+        "props": {
+          "titleField": "name"
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "company"
+            }
+          },
+          "detailItemSettings": {
+            "fieldNames": {
+              "label": "name"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "k86kro8imwz": {
+        "uid": "k86kro8imwz",
+        "use": "DisplayTextFieldModel",
+        "props": {
+          "titleField": "name",
+          "clickToOpen": true
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "fieldPath": "company"
+            }
+          },
+          "displayFieldSettings": {
+            "clickToOpen": {
+              "clickToOpen": true
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_company",
+              "associationName": "vi_biz_model.company"
+            }
+          }
+        },
+        "popup": {
+          "template": {
+            "uid": "4hr3gehynkf",
+            "mode": "reference"
+          }
+        }
+      },
+      "on1nd4mttdt": {
+        "uid": "on1nd4mttdt",
+        "use": "EditActionModel",
+        "props": {
+          "title": "{{t(\"Edit\")}}",
+          "icon": "EditOutlined",
+          "type": "default"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Edit\")}}",
+              "icon": "EditOutlined",
+              "type": "default"
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_biz_model",
+              "title": "商业模式·编辑"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "2xpzf17zxrt",
+            "mode": "reference"
+          }
+        }
+      }
+    }
+  }
+}

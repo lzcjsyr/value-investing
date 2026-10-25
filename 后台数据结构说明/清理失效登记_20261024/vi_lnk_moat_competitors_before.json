@@ -1,0 +1,52 @@
+{
+  "data": {
+    "key": "5489b1sil9h",
+    "name": "vi_lnk_moat_competitors",
+    "title": "vi_lnk_moat_competitors",
+    "inherit": false,
+    "hidden": true,
+    "description": null,
+    "fields": [
+      {
+        "key": "a0j1eta7k2m",
+        "name": "moat_id",
+        "type": "bigInt",
+        "interface": "integer",
+        "description": null,
+        "collectionName": "vi_lnk_moat_competitors",
+        "parentKey": null,
+        "reverseKey": null,
+        "isForeignKey": true,
+        "uiSchema": {
+          "type": "number",
+          "title": "moat_id",
+          "x-component": "InputNumber",
+          "x-read-pretty": true
+        }
+      },
+      {
+        "key": "tgqwxff5m78",
+        "name": "competitor_id",
+        "type": "bigInt",
+        "interface": "integer",
+        "description": null,
+        "collectionName": "vi_lnk_moat_competitors",
+        "parentKey": null,
+        "reverseKey": null,
+        "isForeignKey": true,
+        "uiSchema": {
+          "type": "number",
+          "title": "competitor_id",
+          "x-component": "InputNumber",
+          "x-read-pretty": true
+        }
+      }
+    ],
+    "timestamps": true,
+    "autoGenId": false,
+    "autoCreate": true,
+    "isThrough": true,
+    "sortable": false,
+    "unavailableActions": []
+  }
+}

@@ -1,0 +1,96 @@
+[
+  {
+    "expression": "[基准情景].[永续增长率].FIRST()+[增长偏移]",
+    "id": "fld18FVqRL",
+    "name": "永续增长率",
+    "type": "formula"
+  },
+  {
+    "expression": "[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2026)).[计划股息亿元].FIRST()/POWER(1+[折现率],2026-[估值基年])+[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2027)).[计划股息亿元].FIRST()/POWER(1+[折现率],2027-[估值基年])+[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2028)).[计划股息亿元].FIRST()/POWER(1+[折现率],2028-[估值基年])+[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2029)).[计划股息亿元].FIRST()/POWER(1+[折现率],2029-[估值基年])+[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2030)).[计划股息亿元].FIRST()/POWER(1+[折现率],2030-[估值基年])+[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2031)).[计划股息亿元].FIRST()/POWER(1+[折现率],2031-[估值基年])+[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2032)).[计划股息亿元].FIRST()/POWER(1+[折现率],2032-[估值基年])+[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2033)).[计划股息亿元].FIRST()/POWER(1+[折现率],2033-[估值基年])+[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2034)).[计划股息亿元].FIRST()/POWER(1+[折现率],2034-[估值基年])+[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=2035)).[计划股息亿元].FIRST()/POWER(1+[折现率],2035-[估值基年])",
+    "id": "fldDcdgWeW",
+    "name": "预测期现值亿元",
+    "type": "formula"
+  },
+  {
+    "expression": "[基准情景].[估值基年].FIRST()",
+    "id": "flduKBGtz3",
+    "name": "估值基年",
+    "type": "formula"
+  },
+  {
+    "expression": "[基准情景].[折现率].FIRST()+[利率偏移]",
+    "id": "fldzxN2Fqb",
+    "name": "折现率",
+    "type": "formula"
+  },
+  {
+    "expression": "[V2_06财务引擎].FILTER(AND(CurrentValue.[情景名称]=\"基准\",CurrentValue.[年份]=[终值年份])).[计划股息亿元].FIRST()",
+    "id": "fldoA4E9zg",
+    "name": "终年股息亿元",
+    "type": "formula"
+  },
+  {
+    "bidirectional": false,
+    "id": "fldX1YfSeU",
+    "link_table": "tbl2aFkmDryVrEX1",
+    "name": "基准情景",
+    "type": "link"
+  },
+  {
+    "default_value": null,
+    "id": "fldsZEkfHa",
+    "name": "组合",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "expression": "[基准情景].[终值年份].FIRST()",
+    "id": "fld4RddwwJ",
+    "name": "终值年份",
+    "type": "formula"
+  },
+  {
+    "expression": "[基准情景].[股本亿股].FIRST()",
+    "id": "fldn6gKjqo",
+    "name": "股本亿股",
+    "type": "formula"
+  },
+  {
+    "expression": "IF(AND([折现率]>[永续增长率],[股本亿股]>0),([预测期现值亿元]+[终年股息亿元]*(1+[永续增长率])/([折现率]-[永续增长率])/POWER(1+[折现率],[终值年份]-[估值基年]))/[股本亿股],\"\")",
+    "id": "fldi1obsTw",
+    "name": "条件DDM元",
+    "type": "formula"
+  },
+  {
+    "expression": "\"基准现金股息路径不变；r与g独立敏感性，非新增事实\"",
+    "id": "fldXKZq4NY",
+    "name": "性质",
+    "type": "formula"
+  },
+  {
+    "default_value": null,
+    "id": "fldtfiXnT4",
+    "name": "利率偏移",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldCo0o6Ju",
+    "name": "增长偏移",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  }
+]

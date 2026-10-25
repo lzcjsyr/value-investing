@@ -1,0 +1,30 @@
+{
+  "collectionName": "vi_period_data",
+  "name": "impact",
+  "title": "经营影响",
+  "interface": "select",
+  "enum": [
+    {
+      "value": "利好",
+      "label": "利好",
+      "color": "red"
+    },
+    {
+      "value": "中性",
+      "label": "中性",
+      "color": "default"
+    },
+    {
+      "value": "利空",
+      "label": "利空",
+      "color": "green"
+    },
+    {
+      "value": "待判断",
+      "label": "待判断",
+      "color": "gold"
+    }
+  ],
+  "defaultValue": "待判断",
+  "description": "结合比较基准与经营解读，判断这项数据对公司经营的影响。中性表示已有依据支持影响有限；待判断表示依据不足。"
+}

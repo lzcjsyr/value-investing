@@ -1,0 +1,1777 @@
+{
+  "data": {
+    "target": {
+      "locator": {
+        "pageSchemaUid": "eiabbix1ieb"
+      },
+      "uid": "q6tj2una9ft",
+      "kind": "page"
+    },
+    "tree": {
+      "parentId": "eiabbix1ieb",
+      "subKey": "page",
+      "subType": "object",
+      "use": "RootPageModel",
+      "props": {
+        "routeId": 393850160873472,
+        "title": "竞争壁垒",
+        "enableTabs": false,
+        "displayTitle": true,
+        "icon": "TableOutlined",
+        "enableHeader": null
+      },
+      "stepParams": {
+        "pageSettings": {
+          "general": {
+            "title": "竞争壁垒",
+            "displayTitle": true,
+            "enableTabs": false,
+            "documentTitle": "长江电力 · 竞争壁垒",
+            "icon": "TableOutlined",
+            "enableHeader": null
+          }
+        }
+      },
+      "parent": "eiabbix1ieb",
+      "uid": "q6tj2una9ft",
+      "subModels": {
+        "tabs": [
+          {
+            "uid": "pl9jyegwpgn",
+            "use": "RootPageTabModel",
+            "props": {
+              "route": {
+                "createdAt": "2026-10-24T07:19:51.400Z",
+                "updatedAt": "2026-10-24T07:19:51.472Z",
+                "id": 393850160873473,
+                "parentId": 393850160873472,
+                "title": "竞争壁垒",
+                "tooltip": null,
+                "icon": null,
+                "schemaUid": "pl9jyegwpgn",
+                "menuSchemaUid": null,
+                "tabSchemaName": "auw17qiq4nf",
+                "type": "tabs",
+                "options": {
+                  "flowRegistry": {}
+                },
+                "sort": 1792826391366619,
+                "hideInMenu": null,
+                "enableTabs": null,
+                "enableHeader": null,
+                "displayTitle": null,
+                "hidden": true,
+                "createdById": null,
+                "updatedById": null,
+                "children": []
+              },
+              "title": "竞争壁垒",
+              "icon": null
+            },
+            "decoratorProps": {},
+            "flowRegistry": {},
+            "stepParams": {
+              "pageTabSettings": {
+                "tab": {
+                  "title": "竞争壁垒",
+                  "icon": null
+                }
+              }
+            },
+            "subModels": {
+              "grid": {
+                "parentId": "pl9jyegwpgn",
+                "subKey": "grid",
+                "subType": "object",
+                "use": "BlockGridModel",
+                "props": {
+                  "rows": {
+                    "row1": [
+                      [
+                        "nmvcddu5ygn"
+                      ]
+                    ]
+                  },
+                  "sizes": {
+                    "row1": [
+                      24
+                    ]
+                  },
+                  "rowOrder": [
+                    "row1"
+                  ]
+                },
+                "stepParams": {
+                  "gridSettings": {
+                    "grid": {
+                      "rows": {
+                        "row1": [
+                          [
+                            "nmvcddu5ygn"
+                          ]
+                        ]
+                      },
+                      "sizes": {
+                        "row1": [
+                          24
+                        ]
+                      },
+                      "rowOrder": [
+                        "row1"
+                      ]
+                    }
+                  }
+                },
+                "uid": "y8ly3unipcb",
+                "subModels": {
+                  "items": [
+                    {
+                      "parentId": "y8ly3unipcb",
+                      "subKey": "items",
+                      "subType": "array",
+                      "use": "TableBlockModel",
+                      "props": {},
+                      "decoratorProps": {},
+                      "stepParams": {
+                        "resourceSettings": {
+                          "init": {
+                            "dataSourceKey": "main",
+                            "collectionName": "vi_moat"
+                          }
+                        },
+                        "tableSettings": {
+                          "pageSize": {
+                            "pageSize": 50
+                          },
+                          "defaultSorting": {
+                            "sort": [
+                              {
+                                "field": "id",
+                                "direction": "asc"
+                              }
+                            ]
+                          },
+                          "dataScope": {
+                            "filter": {
+                              "logic": "$and",
+                              "items": [
+                                {
+                                  "path": "company_id",
+                                  "operator": "$eq",
+                                  "value": 1
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "uid": "nmvcddu5ygn",
+                      "subModels": {
+                        "columns": [
+                          {
+                            "use": "TableActionsColumnModel",
+                            "props": {},
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "tableColumnSettings": {
+                                "title": {
+                                  "title": "{{t(\"Actions\")}}"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "subKey": "columns",
+                            "subType": "array",
+                            "uid": "j5h1sdk2q2i",
+                            "subModels": {
+                              "actions": [
+                                {
+                                  "parentId": "j5h1sdk2q2i",
+                                  "subKey": "actions",
+                                  "subType": "array",
+                                  "use": "ViewActionModel",
+                                  "props": {
+                                    "type": "link",
+                                    "title": "{{t(\"View\")}}",
+                                    "icon": null
+                                  },
+                                  "decoratorProps": {},
+                                  "stepParams": {
+                                    "buttonSettings": {
+                                      "general": {
+                                        "title": "{{t(\"View\")}}",
+                                        "icon": null,
+                                        "type": "link",
+                                        "iconOnly": false
+                                      }
+                                    },
+                                    "popupSettings": {
+                                      "openView": {
+                                        "mode": "drawer",
+                                        "size": "medium",
+                                        "pageModelClass": "ChildPageModel",
+                                        "dataSourceKey": "main",
+                                        "collectionName": "vi_moat",
+                                        "title": "竞争壁垒·详情"
+                                      }
+                                    }
+                                  },
+                                  "flowRegistry": {},
+                                  "uid": "ioqwlpdavni",
+                                  "parent": "j5h1sdk2q2i",
+                                  "sortIndex": 1,
+                                  "popup": {
+                                    "template": {
+                                      "uid": "49iyf6re05l",
+                                      "mode": "reference"
+                                    }
+                                  }
+                                },
+                                {
+                                  "parentId": "j5h1sdk2q2i",
+                                  "subKey": "actions",
+                                  "subType": "array",
+                                  "use": "EditActionModel",
+                                  "props": {
+                                    "title": "{{t(\"Edit\")}}",
+                                    "icon": null,
+                                    "type": "link"
+                                  },
+                                  "decoratorProps": {},
+                                  "stepParams": {
+                                    "buttonSettings": {
+                                      "general": {
+                                        "title": "{{t(\"Edit\")}}",
+                                        "icon": null,
+                                        "type": "link",
+                                        "iconOnly": false
+                                      }
+                                    },
+                                    "popupSettings": {
+                                      "openView": {
+                                        "mode": "drawer",
+                                        "size": "medium",
+                                        "pageModelClass": "ChildPageModel",
+                                        "dataSourceKey": "main",
+                                        "collectionName": "vi_moat",
+                                        "title": "编辑 · 竞争壁垒"
+                                      }
+                                    }
+                                  },
+                                  "flowRegistry": {},
+                                  "uid": "7q75t76dm3s",
+                                  "parent": "j5h1sdk2q2i",
+                                  "sortIndex": 2,
+                                  "popup": {
+                                    "template": {
+                                      "uid": "2bxzq856uum",
+                                      "mode": "reference"
+                                    }
+                                  }
+                                },
+                                {
+                                  "parentId": "j5h1sdk2q2i",
+                                  "subKey": "actions",
+                                  "subType": "array",
+                                  "use": "DeleteActionModel",
+                                  "props": {
+                                    "type": "link",
+                                    "title": "{{t(\"Delete\")}}",
+                                    "icon": null
+                                  },
+                                  "decoratorProps": {},
+                                  "stepParams": {
+                                    "buttonSettings": {
+                                      "general": {
+                                        "title": "{{t(\"Delete\")}}",
+                                        "icon": null,
+                                        "type": "link",
+                                        "iconOnly": false
+                                      }
+                                    },
+                                    "deleteSettings": {
+                                      "confirm": {
+                                        "enable": true,
+                                        "title": "{{t(\"Delete record\")}}",
+                                        "content": "{{t(\"Are you sure you want to delete it?\")}}"
+                                      }
+                                    }
+                                  },
+                                  "flowRegistry": {},
+                                  "uid": "rqzjxy0wsbj",
+                                  "parent": "j5h1sdk2q2i",
+                                  "sortIndex": 3,
+                                  "popup": {
+                                    "mode": "local"
+                                  }
+                                }
+                              ]
+                            },
+                            "parent": "nmvcddu5ygn",
+                            "parentId": "nmvcddu5ygn",
+                            "sortIndex": 1,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nmvcddu5ygn",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_moat",
+                                  "fieldPath": "code"
+                                }
+                              }
+                            },
+                            "uid": "9x6xjuolz0s",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_moat",
+                                      "fieldPath": "code"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "6affp9vjmzt",
+                                "parent": "9x6xjuolz0s",
+                                "parentId": "9x6xjuolz0s",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nmvcddu5ygn",
+                            "sortIndex": 2,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nmvcddu5ygn",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_moat",
+                                  "fieldPath": "title"
+                                }
+                              }
+                            },
+                            "uid": "mghynbbfbqy",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_moat",
+                                      "fieldPath": "title"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "1c5ec54r198",
+                                "parent": "mghynbbfbqy",
+                                "parentId": "mghynbbfbqy",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nmvcddu5ygn",
+                            "sortIndex": 3,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nmvcddu5ygn",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_moat",
+                                  "fieldPath": "moat_type"
+                                }
+                              }
+                            },
+                            "uid": "mblbdk3skgi",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_moat",
+                                      "fieldPath": "moat_type"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "2hjphkjux87",
+                                "parent": "mblbdk3skgi",
+                                "parentId": "mblbdk3skgi",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nmvcddu5ygn",
+                            "sortIndex": 4,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nmvcddu5ygn",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_moat",
+                                  "fieldPath": "verdict"
+                                }
+                              }
+                            },
+                            "uid": "zxxbh0r7fc1",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_moat",
+                                      "fieldPath": "verdict"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "9p8w32c6wdf",
+                                "parent": "zxxbh0r7fc1",
+                                "parentId": "zxxbh0r7fc1",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nmvcddu5ygn",
+                            "sortIndex": 5,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nmvcddu5ygn",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_moat",
+                                  "fieldPath": "strength"
+                                }
+                              }
+                            },
+                            "uid": "ewyft3d53m3",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_moat",
+                                      "fieldPath": "strength"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "ke5btmk3hur",
+                                "parent": "ewyft3d53m3",
+                                "parentId": "ewyft3d53m3",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nmvcddu5ygn",
+                            "sortIndex": 6,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nmvcddu5ygn",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_moat",
+                                  "fieldPath": "trend"
+                                }
+                              }
+                            },
+                            "uid": "oso92hxrw37",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_moat",
+                                      "fieldPath": "trend"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "afax483wrzm",
+                                "parent": "oso92hxrw37",
+                                "parentId": "oso92hxrw37",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nmvcddu5ygn",
+                            "sortIndex": 7,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nmvcddu5ygn",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_moat",
+                                  "fieldPath": "check_result"
+                                }
+                              }
+                            },
+                            "uid": "3wlrfj26qks",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_moat",
+                                      "fieldPath": "check_result"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "dq2lyrgl5wm",
+                                "parent": "3wlrfj26qks",
+                                "parentId": "3wlrfj26qks",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nmvcddu5ygn",
+                            "sortIndex": 8,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nmvcddu5ygn",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_moat",
+                                  "fieldPath": "debate_count"
+                                }
+                              }
+                            },
+                            "uid": "or433g07pk7",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayNumberFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_moat",
+                                      "fieldPath": "debate_count"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "ctoonketd4v",
+                                "parent": "or433g07pk7",
+                                "parentId": "or433g07pk7",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nmvcddu5ygn",
+                            "sortIndex": 9,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nmvcddu5ygn",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_moat",
+                                  "fieldPath": "debate_winner"
+                                }
+                              }
+                            },
+                            "uid": "6oq5necpc0f",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_moat",
+                                      "fieldPath": "debate_winner"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "wpwc8zm9dai",
+                                "parent": "6oq5necpc0f",
+                                "parentId": "6oq5necpc0f",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "nmvcddu5ygn",
+                            "sortIndex": 10,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          }
+                        ],
+                        "actions": [
+                          {
+                            "parentId": "nmvcddu5ygn",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "FilterActionModel",
+                            "props": {
+                              "title": "{{t(\"Filter\")}}",
+                              "icon": "FilterOutlined",
+                              "defaultFilterValue": {
+                                "logic": "$and",
+                                "items": [
+                                  {
+                                    "path": "title",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "code",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "moat_type",
+                                    "operator": "$eq"
+                                  },
+                                  {
+                                    "path": "verdict",
+                                    "operator": "$eq"
+                                  }
+                                ]
+                              },
+                              "filterValue": {
+                                "logic": "$and",
+                                "items": [
+                                  {
+                                    "path": "title",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "code",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "moat_type",
+                                    "operator": "$eq"
+                                  },
+                                  {
+                                    "path": "verdict",
+                                    "operator": "$eq"
+                                  }
+                                ]
+                              }
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "{{t(\"Filter\")}}",
+                                  "icon": "FilterOutlined"
+                                }
+                              },
+                              "filterSettings": {
+                                "defaultFilter": {
+                                  "defaultFilter": {
+                                    "logic": "$and",
+                                    "items": [
+                                      {
+                                        "path": "title",
+                                        "operator": "$includes"
+                                      },
+                                      {
+                                        "path": "code",
+                                        "operator": "$includes"
+                                      },
+                                      {
+                                        "path": "moat_type",
+                                        "operator": "$eq"
+                                      },
+                                      {
+                                        "path": "verdict",
+                                        "operator": "$eq"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "o35opi42eqn",
+                            "parent": "nmvcddu5ygn",
+                            "sortIndex": 1,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nmvcddu5ygn",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "RefreshActionModel",
+                            "props": {
+                              "title": "{{t(\"Refresh\")}}",
+                              "icon": "ReloadOutlined"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "{{t(\"Refresh\")}}",
+                                  "icon": "ReloadOutlined"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "qten2imcdfy",
+                            "parent": "nmvcddu5ygn",
+                            "sortIndex": 2,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nmvcddu5ygn",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "BulkDeleteActionModel",
+                            "props": {
+                              "title": "",
+                              "tooltip": "{{t(\"Delete\")}}",
+                              "icon": "DeleteOutlined",
+                              "iconOnly": true,
+                              "position": "right"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "",
+                                  "tooltip": "{{t(\"Delete\")}}",
+                                  "icon": "DeleteOutlined",
+                                  "iconOnly": true
+                                }
+                              },
+                              "deleteSettings": {
+                                "confirm": {
+                                  "enable": true,
+                                  "title": "{{t(\"Delete record\")}}",
+                                  "content": "{{t(\"Are you sure you want to delete it?\")}}"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "jtyg2bs02hu",
+                            "parent": "nmvcddu5ygn",
+                            "sortIndex": 3,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "nmvcddu5ygn",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "AddNewActionModel",
+                            "props": {
+                              "type": "primary",
+                              "title": "{{t(\"Add new\")}}",
+                              "icon": "PlusOutlined"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "{{t(\"Add new\")}}",
+                                  "icon": "PlusOutlined",
+                                  "type": "primary"
+                                }
+                              },
+                              "popupSettings": {
+                                "openView": {
+                                  "mode": "drawer",
+                                  "size": "medium",
+                                  "pageModelClass": "ChildPageModel",
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_moat",
+                                  "title": "新增 · 竞争壁垒"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "kvismznnbtk",
+                            "parent": "nmvcddu5ygn",
+                            "sortIndex": 4,
+                            "popup": {
+                              "template": {
+                                "uid": "j0sy1gvyfe4",
+                                "mode": "reference"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "parent": "y8ly3unipcb",
+                      "sortIndex": 1,
+                      "popup": {
+                        "mode": "local"
+                      }
+                    }
+                  ]
+                },
+                "parent": "pl9jyegwpgn",
+                "sortIndex": 1,
+                "popup": {
+                  "mode": "local"
+                }
+              }
+            },
+            "popup": {
+              "mode": "local"
+            }
+          }
+        ]
+      },
+      "popup": {
+        "mode": "local"
+      }
+    },
+    "nodeMap": {
+      "q6tj2una9ft": {
+        "uid": "q6tj2una9ft",
+        "use": "RootPageModel",
+        "props": {
+          "routeId": 393850160873472,
+          "title": "竞争壁垒",
+          "enableTabs": false,
+          "displayTitle": true,
+          "icon": "TableOutlined",
+          "enableHeader": null
+        },
+        "stepParams": {
+          "pageSettings": {
+            "general": {
+              "title": "竞争壁垒",
+              "displayTitle": true,
+              "enableTabs": false,
+              "documentTitle": "长江电力 · 竞争壁垒",
+              "icon": "TableOutlined",
+              "enableHeader": null
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "pl9jyegwpgn": {
+        "uid": "pl9jyegwpgn",
+        "use": "RootPageTabModel",
+        "props": {
+          "route": {
+            "createdAt": "2026-10-24T07:19:51.400Z",
+            "updatedAt": "2026-10-24T07:19:51.472Z",
+            "id": 393850160873473,
+            "parentId": 393850160873472,
+            "title": "竞争壁垒",
+            "tooltip": null,
+            "icon": null,
+            "schemaUid": "pl9jyegwpgn",
+            "menuSchemaUid": null,
+            "tabSchemaName": "auw17qiq4nf",
+            "type": "tabs",
+            "options": {
+              "flowRegistry": {}
+            },
+            "sort": 1792826391366619,
+            "hideInMenu": null,
+            "enableTabs": null,
+            "enableHeader": null,
+            "displayTitle": null,
+            "hidden": true,
+            "createdById": null,
+            "updatedById": null,
+            "children": []
+          },
+          "title": "竞争壁垒",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "pageTabSettings": {
+            "tab": {
+              "title": "竞争壁垒",
+              "icon": null
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "y8ly3unipcb": {
+        "uid": "y8ly3unipcb",
+        "use": "BlockGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "nmvcddu5ygn"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "nmvcddu5ygn"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "nmvcddu5ygn": {
+        "uid": "nmvcddu5ygn",
+        "use": "TableBlockModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "resourceSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat"
+            }
+          },
+          "tableSettings": {
+            "pageSize": {
+              "pageSize": 50
+            },
+            "defaultSorting": {
+              "sort": [
+                {
+                  "field": "id",
+                  "direction": "asc"
+                }
+              ]
+            },
+            "dataScope": {
+              "filter": {
+                "logic": "$and",
+                "items": [
+                  {
+                    "path": "company_id",
+                    "operator": "$eq",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "j5h1sdk2q2i": {
+        "uid": "j5h1sdk2q2i",
+        "use": "TableActionsColumnModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "tableColumnSettings": {
+            "title": {
+              "title": "{{t(\"Actions\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ioqwlpdavni": {
+        "uid": "ioqwlpdavni",
+        "use": "ViewActionModel",
+        "props": {
+          "type": "link",
+          "title": "{{t(\"View\")}}",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"View\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "title": "竞争壁垒·详情"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "49iyf6re05l",
+            "mode": "reference"
+          }
+        }
+      },
+      "7q75t76dm3s": {
+        "uid": "7q75t76dm3s",
+        "use": "EditActionModel",
+        "props": {
+          "title": "{{t(\"Edit\")}}",
+          "icon": null,
+          "type": "link"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Edit\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "title": "编辑 · 竞争壁垒"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "2bxzq856uum",
+            "mode": "reference"
+          }
+        }
+      },
+      "rqzjxy0wsbj": {
+        "uid": "rqzjxy0wsbj",
+        "use": "DeleteActionModel",
+        "props": {
+          "type": "link",
+          "title": "{{t(\"Delete\")}}",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Delete\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "deleteSettings": {
+            "confirm": {
+              "enable": true,
+              "title": "{{t(\"Delete record\")}}",
+              "content": "{{t(\"Are you sure you want to delete it?\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "9x6xjuolz0s": {
+        "uid": "9x6xjuolz0s",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "6affp9vjmzt": {
+        "uid": "6affp9vjmzt",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "mghynbbfbqy": {
+        "uid": "mghynbbfbqy",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "1c5ec54r198": {
+        "uid": "1c5ec54r198",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "mblbdk3skgi": {
+        "uid": "mblbdk3skgi",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "moat_type"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "2hjphkjux87": {
+        "uid": "2hjphkjux87",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "moat_type"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "zxxbh0r7fc1": {
+        "uid": "zxxbh0r7fc1",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "verdict"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "9p8w32c6wdf": {
+        "uid": "9p8w32c6wdf",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "verdict"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ewyft3d53m3": {
+        "uid": "ewyft3d53m3",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "strength"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ke5btmk3hur": {
+        "uid": "ke5btmk3hur",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "strength"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "oso92hxrw37": {
+        "uid": "oso92hxrw37",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "trend"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "afax483wrzm": {
+        "uid": "afax483wrzm",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "trend"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "3wlrfj26qks": {
+        "uid": "3wlrfj26qks",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "check_result"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "dq2lyrgl5wm": {
+        "uid": "dq2lyrgl5wm",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "check_result"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "or433g07pk7": {
+        "uid": "or433g07pk7",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "debate_count"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ctoonketd4v": {
+        "uid": "ctoonketd4v",
+        "use": "DisplayNumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "debate_count"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "6oq5necpc0f": {
+        "uid": "6oq5necpc0f",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "debate_winner"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "wpwc8zm9dai": {
+        "uid": "wpwc8zm9dai",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "debate_winner"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "o35opi42eqn": {
+        "uid": "o35opi42eqn",
+        "use": "FilterActionModel",
+        "props": {
+          "title": "{{t(\"Filter\")}}",
+          "icon": "FilterOutlined",
+          "defaultFilterValue": {
+            "logic": "$and",
+            "items": [
+              {
+                "path": "title",
+                "operator": "$includes"
+              },
+              {
+                "path": "code",
+                "operator": "$includes"
+              },
+              {
+                "path": "moat_type",
+                "operator": "$eq"
+              },
+              {
+                "path": "verdict",
+                "operator": "$eq"
+              }
+            ]
+          },
+          "filterValue": {
+            "logic": "$and",
+            "items": [
+              {
+                "path": "title",
+                "operator": "$includes"
+              },
+              {
+                "path": "code",
+                "operator": "$includes"
+              },
+              {
+                "path": "moat_type",
+                "operator": "$eq"
+              },
+              {
+                "path": "verdict",
+                "operator": "$eq"
+              }
+            ]
+          }
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Filter\")}}",
+              "icon": "FilterOutlined"
+            }
+          },
+          "filterSettings": {
+            "defaultFilter": {
+              "defaultFilter": {
+                "logic": "$and",
+                "items": [
+                  {
+                    "path": "title",
+                    "operator": "$includes"
+                  },
+                  {
+                    "path": "code",
+                    "operator": "$includes"
+                  },
+                  {
+                    "path": "moat_type",
+                    "operator": "$eq"
+                  },
+                  {
+                    "path": "verdict",
+                    "operator": "$eq"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "qten2imcdfy": {
+        "uid": "qten2imcdfy",
+        "use": "RefreshActionModel",
+        "props": {
+          "title": "{{t(\"Refresh\")}}",
+          "icon": "ReloadOutlined"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Refresh\")}}",
+              "icon": "ReloadOutlined"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "jtyg2bs02hu": {
+        "uid": "jtyg2bs02hu",
+        "use": "BulkDeleteActionModel",
+        "props": {
+          "title": "",
+          "tooltip": "{{t(\"Delete\")}}",
+          "icon": "DeleteOutlined",
+          "iconOnly": true,
+          "position": "right"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "",
+              "tooltip": "{{t(\"Delete\")}}",
+              "icon": "DeleteOutlined",
+              "iconOnly": true
+            }
+          },
+          "deleteSettings": {
+            "confirm": {
+              "enable": true,
+              "title": "{{t(\"Delete record\")}}",
+              "content": "{{t(\"Are you sure you want to delete it?\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "kvismznnbtk": {
+        "uid": "kvismznnbtk",
+        "use": "AddNewActionModel",
+        "props": {
+          "type": "primary",
+          "title": "{{t(\"Add new\")}}",
+          "icon": "PlusOutlined"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Add new\")}}",
+              "icon": "PlusOutlined",
+              "type": "primary"
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "title": "新增 · 竞争壁垒"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "j0sy1gvyfe4",
+            "mode": "reference"
+          }
+        }
+      }
+    },
+    "pageRoute": {
+      "createdAt": "2026-10-24T07:19:51.367Z",
+      "updatedAt": "2026-10-24T07:28:09.457Z",
+      "id": 393850160873472,
+      "parentId": 393656988073984,
+      "title": "竞争壁垒",
+      "tooltip": null,
+      "icon": "TableOutlined",
+      "schemaUid": "eiabbix1ieb",
+      "menuSchemaUid": "a4pigq4d938",
+      "tabSchemaName": null,
+      "type": "flowPage",
+      "options": {
+        "flowSurfaceMenuBindable": true
+      },
+      "sort": 4,
+      "hideInMenu": false,
+      "enableTabs": false,
+      "enableHeader": null,
+      "displayTitle": true,
+      "hidden": null,
+      "createdById": null,
+      "updatedById": 1,
+      "children": [
+        {
+          "createdAt": "2026-10-24T07:19:51.400Z",
+          "updatedAt": "2026-10-24T07:19:51.472Z",
+          "id": 393850160873473,
+          "parentId": 393850160873472,
+          "title": "竞争壁垒",
+          "tooltip": null,
+          "icon": null,
+          "schemaUid": "pl9jyegwpgn",
+          "menuSchemaUid": null,
+          "tabSchemaName": "auw17qiq4nf",
+          "type": "tabs",
+          "options": {
+            "flowRegistry": {}
+          },
+          "sort": 1792826391366619,
+          "hideInMenu": null,
+          "enableTabs": null,
+          "enableHeader": null,
+          "displayTitle": null,
+          "hidden": true,
+          "createdById": null,
+          "updatedById": null
+        }
+      ]
+    }
+  }
+}

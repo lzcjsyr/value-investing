@@ -1,0 +1,16 @@
+{
+  "data": {
+    "createdAt": "2026-10-21T14:04:08.726Z",
+    "updatedAt": "2026-10-21T14:04:08.726Z",
+    "uid": "czi3rrzrnqe",
+    "name": "编辑 · 定期经营数据弹窗模板",
+    "description": "复用弹窗模板。场景：edit；数据表：vi_period_data；宿主：vi_period_data；触发器：记录操作“edit”；上下文：直接/当前记录；内容：editForm。",
+    "targetUid": "de3wg7nppbh",
+    "useModel": "EditFormModel",
+    "type": "popup",
+    "dataSourceKey": "main",
+    "collectionName": "vi_period_data",
+    "filterByTk": "{{ctx.record.id}}",
+    "usageCount": 5
+  }
+}

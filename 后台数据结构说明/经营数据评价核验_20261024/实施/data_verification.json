@@ -1,0 +1,16 @@
+{
+  "total_rows": 549,
+  "cleared_placeholders": 538,
+  "preserved_hydrology_labels": 11,
+  "all_other_business_columns_unchanged": true,
+  "models_unchanged": true,
+  "forecasts_unchanged": true,
+  "valuation_rows_unchanged": 15,
+  "sotp_rows_unchanged": 6,
+  "textarea_configured": true,
+  "old_enum_removed": true,
+  "browser_multiline_input_verified": true,
+  "browser_save_succeeded_with_original_content": true,
+  "no_test_content_persisted": true,
+  "summary_rows_preserved": 131
+}

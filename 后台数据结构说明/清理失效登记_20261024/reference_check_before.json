@@ -1,0 +1,368 @@
+[
+  {
+    "table": "collections",
+    "identity": {
+      "key": "5489b1sil9h",
+      "name": "vi_lnk_moat_competitors",
+      "title": "vi_lnk_moat_competitors"
+    },
+    "hits": [
+      {
+        "path": ".name",
+        "names": [
+          "vi_lnk_moat_competitors"
+        ]
+      },
+      {
+        "path": ".title",
+        "names": [
+          "vi_lnk_moat_competitors"
+        ]
+      }
+    ]
+  },
+  {
+    "table": "collections",
+    "identity": {
+      "key": "8zxoc2egy0z",
+      "name": "vi_lnk_debate_facts",
+      "title": "vi_lnk_debate_facts"
+    },
+    "hits": [
+      {
+        "path": ".name",
+        "names": [
+          "vi_lnk_debate_facts"
+        ]
+      },
+      {
+        "path": ".title",
+        "names": [
+          "vi_lnk_debate_facts"
+        ]
+      }
+    ]
+  },
+  {
+    "table": "collections",
+    "identity": {
+      "key": "sd23ev3z936",
+      "name": "vi_lnk_debate_moats",
+      "title": "vi_lnk_debate_moats"
+    },
+    "hits": [
+      {
+        "path": ".name",
+        "names": [
+          "vi_lnk_debate_moats"
+        ]
+      },
+      {
+        "path": ".title",
+        "names": [
+          "vi_lnk_debate_moats"
+        ]
+      }
+    ]
+  },
+  {
+    "table": "collections",
+    "identity": {
+      "key": "do1mmvm5qec",
+      "name": "vi_lnk_debate_theses",
+      "title": "vi_lnk_debate_theses"
+    },
+    "hits": [
+      {
+        "path": ".name",
+        "names": [
+          "vi_lnk_debate_theses"
+        ]
+      },
+      {
+        "path": ".title",
+        "names": [
+          "vi_lnk_debate_theses"
+        ]
+      }
+    ]
+  },
+  {
+    "table": "collections",
+    "identity": {
+      "key": "qs5bwskz9wf",
+      "name": "vi_lnk_debate_judgments",
+      "title": "vi_lnk_debate_judgments"
+    },
+    "hits": [
+      {
+        "path": ".name",
+        "names": [
+          "vi_lnk_debate_judgments"
+        ]
+      },
+      {
+        "path": ".title",
+        "names": [
+          "vi_lnk_debate_judgments"
+        ]
+      }
+    ]
+  },
+  {
+    "table": "collections",
+    "identity": {
+      "key": "ielckuhwkbn",
+      "name": "vi_lnk_fit_score_debates",
+      "title": "vi_lnk_fit_score_debates"
+    },
+    "hits": [
+      {
+        "path": ".name",
+        "names": [
+          "vi_lnk_fit_score_debates"
+        ]
+      },
+      {
+        "path": ".title",
+        "names": [
+          "vi_lnk_fit_score_debates"
+        ]
+      }
+    ]
+  },
+  {
+    "table": "fields",
+    "identity": {
+      "key": "a0j1eta7k2m",
+      "name": "moat_id",
+      "collectionName": "vi_lnk_moat_competitors"
+    },
+    "hits": [
+      {
+        "path": ".collectionName",
+        "names": [
+          "vi_lnk_moat_competitors"
+        ]
+      }
+    ]
+  },
+  {
+    "table": "fields",
+    "identity": {
+      "key": "tgqwxff5m78",
+      "name": "competitor_id",
+      "collectionName": "vi_lnk_moat_competitors"
+    },
+    "hits": [
+      {
+        "path": ".collectionName",
+        "names": [
+          "vi_lnk_moat_competitors"
+        ]
+      }
+    ]
+  },
+  {
+    "table": "fields",
+    "identity": {
+      "key": "p76s8jicvgj",
+      "name": "debate_id",
+      "collectionName": "vi_lnk_debate_facts"
+    },
+    "hits": [
+      {
+        "path": ".collectionName",
+        "names": [
+          "vi_lnk_debate_facts"
+        ]
+      }
+    ]
+  },
+  {
+    "table": "fields",
+    "identity": {
+      "key": "1juuswg0o5l",
+      "name": "fact_id",
+      "collectionName": "vi_lnk_debate_facts"
+    },
+    "hits": [
+      {
+        "path": ".collectionName",
+        "names": [
+          "vi_lnk_debate_facts"
+        ]
+      }
+    ]
+  },
+  {
+    "table": "fields",
+    "identity": {
+      "key": "clduqtjn61g",
+      "name": "moat_id",
+      "collectionName": "vi_lnk_debate_moats"
+    },
+    "hits": [
+      {
+        "path": ".collectionName",
+        "names": [
+          "vi_lnk_debate_moats"
+        ]
+      }
+    ]
+  },
+  {
+    "table": "fields",
+    "identity": {
+      "key": "11hgkatdhkh",
+      "name": "debate_id",
+      "collectionName": "vi_lnk_debate_moats"
+    },
+    "hits": [
+      {
+        "path": ".collectionName",
+        "names": [
+          "vi_lnk_debate_moats"
+        ]
+      }
+    ]
+  },
+  {
+    "table": "fields",
+    "identity": {
+      "key": "acwhehbkdt8",
+      "name": "debate_id",
+      "collectionName": "vi_lnk_debate_theses"
+    },
+    "hits": [
+      {
+        "path": ".collectionName",
+        "names": [
+          "vi_lnk_debate_theses"
+        ]
+      }
+    ]
+  },
+  {
+    "table": "fields",
+    "identity": {
+      "key": "eq7rpeyp9mn",
+      "name": "thesis_id",
+      "collectionName": "vi_lnk_debate_theses"
+    },
+    "hits": [
+      {
+        "path": ".collectionName",
+        "names": [
+          "vi_lnk_debate_theses"
+        ]
+      }
+    ]
+  },
+  {
+    "table": "fields",
+    "identity": {
+      "key": "b897seuy10m",
+      "name": "debate_id",
+      "collectionName": "vi_lnk_debate_judgments"
+    },
+    "hits": [
+      {
+        "path": ".collectionName",
+        "names": [
+          "vi_lnk_debate_judgments"
+        ]
+      }
+    ]
+  },
+  {
+    "table": "fields",
+    "identity": {
+      "key": "7ecs573y6sq",
+      "name": "judgment_id",
+      "collectionName": "vi_lnk_debate_judgments"
+    },
+    "hits": [
+      {
+        "path": ".collectionName",
+        "names": [
+          "vi_lnk_debate_judgments"
+        ]
+      }
+    ]
+  },
+  {
+    "table": "fields",
+    "identity": {
+      "key": "6a0wov6fviv",
+      "name": "fit_score_id",
+      "collectionName": "vi_lnk_fit_score_debates"
+    },
+    "hits": [
+      {
+        "path": ".collectionName",
+        "names": [
+          "vi_lnk_fit_score_debates"
+        ]
+      }
+    ]
+  },
+  {
+    "table": "fields",
+    "identity": {
+      "key": "1ed9b7s750m",
+      "name": "debate_id",
+      "collectionName": "vi_lnk_fit_score_debates"
+    },
+    "hits": [
+      {
+        "path": ".collectionName",
+        "names": [
+          "vi_lnk_fit_score_debates"
+        ]
+      }
+    ]
+  },
+  {
+    "table": "flowModels",
+    "identity": {
+      "uid": "oc1urk9y5vj",
+      "name": "oc1urk9y5vj"
+    },
+    "hits": [
+      {
+        "path": ".options.props.content",
+        "names": [
+          "vi_lnk_debate_facts",
+          "vi_lnk_debate_judgments",
+          "vi_lnk_debate_moats",
+          "vi_lnk_debate_theses",
+          "vi_lnk_fit_score_debates",
+          "vi_lnk_moat_competitors"
+        ]
+      },
+      {
+        "path": ".options.props.value",
+        "names": [
+          "vi_lnk_debate_facts",
+          "vi_lnk_debate_judgments",
+          "vi_lnk_debate_moats",
+          "vi_lnk_debate_theses",
+          "vi_lnk_fit_score_debates",
+          "vi_lnk_moat_competitors"
+        ]
+      },
+      {
+        "path": ".options.stepParams.markdownBlockSettings.editMarkdown.content",
+        "names": [
+          "vi_lnk_debate_facts",
+          "vi_lnk_debate_judgments",
+          "vi_lnk_debate_moats",
+          "vi_lnk_debate_theses",
+          "vi_lnk_fit_score_debates",
+          "vi_lnk_moat_competitors"
+        ]
+      }
+    ]
+  }
+]

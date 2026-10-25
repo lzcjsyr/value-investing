@@ -1,0 +1,2143 @@
+[
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393441183399936,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393441183399936,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441179205632
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "8xzj5jll3rk"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "8xzj5jll3rk",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "74jjbyi3rgq"
+      },
+      "changes": {
+        "title": "基础表 · 财务数据",
+        "description": "对应后台基础表：财务数据（vi_fin_history）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "74jjbyi3rgq",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393441237925888,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393441237925888,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441179205632
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "qoj4vtoyq3x"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "qoj4vtoyq3x",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "n3wsdqdcm2k"
+      },
+      "changes": {
+        "title": "基础表 · 经营数据",
+        "description": "对应后台基础表：经营数据（vi_period_data）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "n3wsdqdcm2k",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393441265188864,
+      "icon": "CalculatorOutlined",
+      "tooltip": "计算报表｜由后台数据和模型自动计算"
+    },
+    "result": {
+      "data": {
+        "routeId": 393441265188864,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441258897408
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "b6tnir5s39v"
+      },
+      "changes": {
+        "icon": "CalculatorOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "b6tnir5s39v",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "nkxmrtgt823"
+      },
+      "changes": {
+        "title": "计算结果 · 估值结论",
+        "description": "由后台自动计算：估值结论（vi_valuation）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "nkxmrtgt823",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393441309229056,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393441309229056,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441258897408
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "atjvb5e4wsg"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "atjvb5e4wsg",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "hcd74uah68e"
+      },
+      "changes": {
+        "title": "基础表 · 逐年假设",
+        "description": "对应后台基础表：逐年假设（vi_forecast）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "hcd74uah68e",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393441319714816,
+      "icon": "CalculatorOutlined",
+      "tooltip": "计算报表｜由后台数据和模型自动计算"
+    },
+    "result": {
+      "data": {
+        "routeId": 393441319714816,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441258897408
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "194heule7ni"
+      },
+      "changes": {
+        "icon": "CalculatorOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "194heule7ni",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "qz4zr7n9mck"
+      },
+      "changes": {
+        "title": "计算结果 · 预测计算",
+        "description": "由后台自动计算：预测计算（vi_projection）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "qz4zr7n9mck",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393441344880640,
+      "icon": "CalculatorOutlined",
+      "tooltip": "计算报表｜由后台数据和模型自动计算"
+    },
+    "result": {
+      "data": {
+        "routeId": 393441344880640,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441258897408
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "fka8jrguxwp"
+      },
+      "changes": {
+        "icon": "CalculatorOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "fka8jrguxwp",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "0op3apgg0tm"
+      },
+      "changes": {
+        "title": "计算结果 · 资产与资本",
+        "description": "由后台自动计算：资产与资本（vi_balance）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "0op3apgg0tm",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393441365852160,
+      "icon": "CalculatorOutlined",
+      "tooltip": "计算报表｜由后台数据和模型自动计算"
+    },
+    "result": {
+      "data": {
+        "routeId": 393441365852160,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441258897408
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "pgkonfq67c1"
+      },
+      "changes": {
+        "icon": "CalculatorOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "pgkonfq67c1",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "udrlliq5tca"
+      },
+      "changes": {
+        "title": "计算结果 · 敏感性：折现率×永续增长",
+        "description": "由后台自动计算：敏感性：折现率×永续增长（vi_sensitivity）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "udrlliq5tca",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393441388920832,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393441388920832,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441258897408
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "66j4scph0qn"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "66j4scph0qn",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "ycvqwskbr47"
+      },
+      "changes": {
+        "title": "基础表 · 单参数试验",
+        "description": "对应后台基础表：单参数试验（vi_trial）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "ycvqwskbr47",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393441399406592,
+      "icon": "CalculatorOutlined",
+      "tooltip": "计算报表｜由后台数据和模型自动计算"
+    },
+    "result": {
+      "data": {
+        "routeId": 393441399406592,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441395212288
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "ovqpumxiqnu"
+      },
+      "changes": {
+        "icon": "CalculatorOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "ovqpumxiqnu",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "1cb39tnj3n0"
+      },
+      "changes": {
+        "title": "计算结果 · 自动检查",
+        "description": "由后台自动计算：自动检查（vi_check）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "1cb39tnj3n0",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393441420378112,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393441420378112,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441395212288
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "7fef6jovi7f"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "7fef6jovi7f",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "8sv02y482b3"
+      },
+      "changes": {
+        "title": "基础表 · 问题清单",
+        "description": "对应后台基础表：问题清单（vi_issue）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "8sv02y482b3",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393441430863872,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393441430863872,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441395212288
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "yrlv2xtiv0j"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "yrlv2xtiv0j",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "mmgjufzmf3j"
+      },
+      "changes": {
+        "title": "基础表 · 跟踪事项",
+        "description": "对应后台基础表：跟踪事项（vi_watch）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "mmgjufzmf3j",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393441441349632,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393441441349632,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441395212288
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "pn6uyynzuwz"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "pn6uyynzuwz",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "eass8kd4dms"
+      },
+      "changes": {
+        "title": "基础表 · 变更日志",
+        "description": "对应后台基础表：变更日志（vi_change_log）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "eass8kd4dms",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393441818836992,
+      "icon": "BarChartOutlined",
+      "tooltip": "定制可视化｜使用 JS 和图表组织定制展示，数据仍来自后台"
+    },
+    "result": {
+      "data": {
+        "routeId": 393441818836992,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441126776832
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "fic2126gyh8"
+      },
+      "changes": {
+        "icon": "BarChartOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "fic2126gyh8",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "fta4x6gv5tb"
+      },
+      "changes": {
+        "title": "JS · 财务模型",
+        "description": "定制 JS 展示；读取后台数据。",
+        "showBlockCard": true
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "fta4x6gv5tb",
+        "updated": [
+          "decoratorProps",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393534284693504,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393534284693504,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441258897408
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "dterpyqv3qd"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "dterpyqv3qd",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "ffa5ljw1i8i"
+      },
+      "changes": {
+        "title": "基础表 · 分部估值项",
+        "description": "对应后台基础表：分部估值项（vi_sotp_item）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "ffa5ljw1i8i",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393534500700160,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393534500700160,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441258897408
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "xvn1n2c2uxe"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "xvn1n2c2uxe",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "kostvnacdou"
+      },
+      "changes": {
+        "title": "基础表 · 估值模型",
+        "description": "对应后台基础表：估值模型（vi_model）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "kostvnacdou",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393571534372864,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393571534372864,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441258897408
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "1hm3poiwpfw"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "1hm3poiwpfw",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "du3w8fvn07f"
+      },
+      "changes": {
+        "title": "基础表 · 情景",
+        "description": "对应后台基础表：情景（vi_scenario）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "du3w8fvn07f",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393632887472128,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393632887472128,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441258897408
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "tqnstymfwbz"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "tqnstymfwbz",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "vi1tm5pz2ct"
+      },
+      "changes": {
+        "title": "基础表 · 经营分部估值",
+        "description": "对应后台基础表：经营分部估值（vi_sotp_segment）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "vi1tm5pz2ct",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393633147518976,
+      "icon": "CalculatorOutlined",
+      "tooltip": "计算报表｜由后台数据和模型自动计算"
+    },
+    "result": {
+      "data": {
+        "routeId": 393633147518976,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441258897408
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "v4jqiw4ezub"
+      },
+      "changes": {
+        "icon": "CalculatorOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "v4jqiw4ezub",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "ayqikhos6xk"
+      },
+      "changes": {
+        "title": "计算结果 · 分部加总估值",
+        "description": "由后台自动计算：分部加总估值（vi_sotp）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "ayqikhos6xk",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393656996462592,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393656996462592,
+        "type": "flowPage",
+        "parentMenuRouteId": 393656988073984
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "nlqvq86o4ya"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "nlqvq86o4ya",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "cepc4ct4o3b"
+      },
+      "changes": {
+        "title": "基础表 · 商业模式拆解",
+        "description": "对应后台基础表：商业模式拆解（vi_biz_model）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "cepc4ct4o3b",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393657134874624,
+      "icon": "AppstoreOutlined",
+      "tooltip": "组合页面｜组合多个数据表或展示区块"
+    },
+    "result": {
+      "data": {
+        "routeId": 393657134874624,
+        "type": "flowPage",
+        "parentMenuRouteId": 393656988073984
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "txwk4x4lufg"
+      },
+      "changes": {
+        "icon": "AppstoreOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "txwk4x4lufg",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "c3kk08aqvfw"
+      },
+      "changes": {
+        "title": "基础表 · 价投适配度",
+        "description": "对应后台基础表：价投适配度（vi_fit_score）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "c3kk08aqvfw",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "2ts69ypxvqe"
+      },
+      "changes": {
+        "title": "JS · 适配度结论看板",
+        "description": "定制 JS 展示；读取后台数据。",
+        "showBlockCard": true
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "2ts69ypxvqe",
+        "updated": [
+          "decoratorProps",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393657151651840,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393657151651840,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441258897408
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "8omq965bnde"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "8omq965bnde",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "x3b5zlfsi62"
+      },
+      "changes": {
+        "title": "基础表 · 假设依据",
+        "description": "对应后台基础表：假设依据（vi_judgment）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "x3b5zlfsi62",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393657181011968,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393657181011968,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441179205632
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "vwcuvq0o37r"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "vwcuvq0o37r",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "wy06s50245t"
+      },
+      "changes": {
+        "title": "基础表 · 事实摘录",
+        "description": "对应后台基础表：事实摘录（vi_fact）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "wy06s50245t",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393657201983488,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393657201983488,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441179205632
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "uh46s9d1tr5"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "uh46s9d1tr5",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "pw0rvphmb6d"
+      },
+      "changes": {
+        "title": "基础表 · 来源文档",
+        "description": "对应后台基础表：来源文档（vi_source）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "pw0rvphmb6d",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393693675651072,
+      "icon": "BarChartOutlined",
+      "tooltip": "定制可视化｜使用 JS 和图表组织定制展示，数据仍来自后台"
+    },
+    "result": {
+      "data": {
+        "routeId": 393693675651072,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441126776832
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "t7fktanwgfg"
+      },
+      "changes": {
+        "icon": "BarChartOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "t7fktanwgfg",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "obxyipx27pv"
+      },
+      "changes": {
+        "title": "JS · 估值与经营总览",
+        "description": "定制 JS 展示；读取后台数据。",
+        "showBlockCard": true
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "obxyipx27pv",
+        "updated": [
+          "decoratorProps",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "pmtjv8a7cba"
+      },
+      "changes": {
+        "title": "JS · 数据采集控制台",
+        "description": "定制 JS 展示；读取后台数据。",
+        "showBlockCard": true
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "pmtjv8a7cba",
+        "updated": [
+          "decoratorProps",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "rrwrnuy7ezl"
+      },
+      "changes": {
+        "title": "图表 · 三情景：买入后隐含年化收益率 vs 要求收益率（%）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "rrwrnuy7ezl",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "cdcx0d5yhoa"
+      },
+      "changes": {
+        "title": "图表 · 买入价 → 隐含年化收益率（基准情景，%）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "cdcx0d5yhoa",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "r6mx40mjp5x"
+      },
+      "changes": {
+        "title": "图表 · 要求收益率 → 最高买入价（元）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "r6mx40mjp5x",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "tw6cw8hfh8r"
+      },
+      "changes": {
+        "title": "图表 · 三情景·今天每股价值（元）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "tw6cw8hfh8r",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "na1k58ggqm7"
+      },
+      "changes": {
+        "title": "图表 · 今天价值、关注价与市场价（元）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "na1k58ggqm7",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "762qlhu39ch"
+      },
+      "changes": {
+        "title": "图表 · 终值占比（越高越依赖远期）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "762qlhu39ch",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "tp45nboyfi0"
+      },
+      "changes": {
+        "title": "图表 · 基准情景：利润、股息与 FCFE（亿元）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "tp45nboyfi0",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "epr7ktif4zx"
+      },
+      "changes": {
+        "title": "图表 · 敏感性：今天每股价值（元）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "epr7ktif4zx",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "wd9kgxxqm42"
+      },
+      "changes": {
+        "title": "图表 · 带息负债：历史与预测（亿元）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "wd9kgxxqm42",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "nzmhj4s1ptb"
+      },
+      "changes": {
+        "title": "图表 · 历史：归母净利润与分红总额（亿元）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "nzmhj4s1ptb",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "bcx3p2b67gm"
+      },
+      "changes": {
+        "title": "图表 · 历史：经营现金流与资本开支（亿元）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "bcx3p2b67gm",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "8ei8ndfgi5v"
+      },
+      "changes": {
+        "title": "图表 · 历史：毛利率与 ROE（%）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "8ei8ndfgi5v",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "fb99phxd57j"
+      },
+      "changes": {
+        "title": "图表 · 历史：发电量（境内六座梯级电站）（亿千瓦时）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "fb99phxd57j",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "eepw36cl6kf"
+      },
+      "changes": {
+        "title": "图表 · 价投适配度（各维度 0—5 分）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "eepw36cl6kf",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "ekdebu0rfnd"
+      },
+      "changes": {
+        "title": "图表 · 竞争壁垒：强度（强 3、中 2、弱 1、无 0）与判定"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "ekdebu0rfnd",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "s5udvim58wk"
+      },
+      "changes": {
+        "title": "图表 · 产业链与五力：对公司的影响（有利为正、不利为负，强 3、中 2、弱 1）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "s5udvim58wk",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "34e3sq9cta4"
+      },
+      "changes": {
+        "title": "图表 · 竞争对手对比（%）：付费率、毛利率、增速"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "34e3sq9cta4",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "kz0e5qb2db4"
+      },
+      "changes": {
+        "title": "图表 · 核心论点：裁决（成立 / 观察 / 存疑 / 证伪）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "kz0e5qb2db4",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "ilhmuqpmcec"
+      },
+      "changes": {
+        "title": "图表 · 经营数据：单季同比（%）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "ilhmuqpmcec",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "6patgzlmq7b"
+      },
+      "changes": {
+        "title": "图表 · 自动检查结果"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "6patgzlmq7b",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "uw9mywhuqq6"
+      },
+      "changes": {
+        "title": "图表 · 事实摘录核验状态"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "uw9mywhuqq6",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "rql6plozc4c"
+      },
+      "changes": {
+        "title": "图表 · 市场：股价（元；境外报价按当日汇率折算）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "rql6plozc4c",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "fkpkuj5kt3n"
+      },
+      "changes": {
+        "title": "图表 · 市场：中债国债10年收益率（%）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "fkpkuj5kt3n",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "t5cp0lj9ljh"
+      },
+      "changes": {
+        "title": "图表 · 市场：三峡水库水位（米）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "t5cp0lj9ljh",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393798560514048,
+      "icon": "AppstoreOutlined",
+      "tooltip": "组合页面｜组合多个数据表或展示区块"
+    },
+    "result": {
+      "data": {
+        "routeId": 393798560514048,
+        "type": "flowPage",
+        "parentMenuRouteId": 393656988073984
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "pwyrjqucsct"
+      },
+      "changes": {
+        "icon": "AppstoreOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "pwyrjqucsct",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "uni3dobxadf"
+      },
+      "changes": {
+        "title": "JS · 产业链关系图",
+        "description": "定制 JS 展示；读取后台数据。",
+        "showBlockCard": true
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "uni3dobxadf",
+        "updated": [
+          "decoratorProps",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "zb1i4hh6e9u"
+      },
+      "changes": {
+        "title": "基础表 · 竞争对手",
+        "description": "对应后台基础表：竞争对手（vi_competitor）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "zb1i4hh6e9u",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "6bhmos9atff"
+      },
+      "changes": {
+        "title": "基础表 · 产业链与五力",
+        "description": "对应后台基础表：产业链与五力（vi_value_chain）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "6bhmos9atff",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393818549125120,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393818549125120,
+        "type": "flowPage",
+        "parentMenuRouteId": 393441179205632
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "gmiuk4fdfxv"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "gmiuk4fdfxv",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "2qojydwwqup"
+      },
+      "changes": {
+        "title": "基础表 · 高频数据",
+        "description": "对应后台基础表：高频数据（vi_observation）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "2qojydwwqup",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393849911312384,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393849911312384,
+        "type": "flowPage",
+        "parentMenuRouteId": 393656988073984
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "8z1gmesvjcd"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "8z1gmesvjcd",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "b0em1770wi1"
+      },
+      "changes": {
+        "title": "基础表 · 风险分析",
+        "description": "对应后台基础表：风险分析（vi_risk）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "b0em1770wi1",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393850160873472,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393850160873472,
+        "type": "flowPage",
+        "parentMenuRouteId": 393656988073984
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "q6tj2una9ft"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "q6tj2una9ft",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "nmvcddu5ygn"
+      },
+      "changes": {
+        "title": "基础表 · 竞争壁垒",
+        "description": "对应后台基础表：竞争壁垒（vi_moat）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "nmvcddu5ygn",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "update-menu",
+    "body": {
+      "menuRouteId": 393850506903552,
+      "icon": "DatabaseOutlined",
+      "tooltip": "基础数据表｜直接对应后台基础表，可维护原始数据"
+    },
+    "result": {
+      "data": {
+        "routeId": 393850506903552,
+        "type": "flowPage",
+        "parentMenuRouteId": 393656988073984
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "qh3q738xo9h"
+      },
+      "changes": {
+        "icon": "DatabaseOutlined"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "qh3q738xo9h",
+        "updated": [
+          "props",
+          "stepParams"
+        ]
+      }
+    }
+  },
+  {
+    "action": "configure",
+    "body": {
+      "target": {
+        "uid": "q5nwm3uxgr4"
+      },
+      "changes": {
+        "title": "基础表 · 核心论点",
+        "description": "对应后台基础表：核心论点（vi_thesis）"
+      }
+    },
+    "result": {
+      "data": {
+        "uid": "q5nwm3uxgr4",
+        "updated": [
+          "stepParams"
+        ]
+      }
+    }
+  }
+]

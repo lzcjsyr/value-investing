@@ -1,0 +1,12 @@
+{
+  "business_rows": 549,
+  "pending_impact_rows": 549,
+  "cleaned_prefixes": 11,
+  "business_facts_unchanged": true,
+  "valuation_rows_unchanged": 15,
+  "sotp_rows_unchanged": 6,
+  "browser_choices_and_save_verified": true,
+  "test_choice_not_persisted": true,
+  "non_period_view_generators_unchanged": true,
+  "impact_column_adjacent_to_item_on_all_five_pages": true
+}

@@ -1,0 +1,108 @@
+[
+  {
+    "default_value": null,
+    "id": "fld4XIG9cI",
+    "multiple": false,
+    "name": "权威性",
+    "options": [
+      {
+        "hue": "Green",
+        "lightness": "Lighter",
+        "name": "一级"
+      },
+      {
+        "hue": "Wathet",
+        "lightness": "Lighter",
+        "name": "二级"
+      },
+      {
+        "hue": "Yellow",
+        "lightness": "Lighter",
+        "name": "三级"
+      }
+    ],
+    "type": "select"
+  },
+  {
+    "default_value": null,
+    "id": "fldJtMal5l",
+    "name": "链接",
+    "style": {
+      "type": "url"
+    },
+    "type": "text"
+  },
+  {
+    "bidirectional": false,
+    "id": "flddACDmxZ",
+    "link_table": "tblwC6gbfMfQjipH",
+    "name": "覆盖参数",
+    "type": "link"
+  },
+  {
+    "default_value": null,
+    "id": "fldRHAvOMA",
+    "name": "更新频率",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldvzNrsqw",
+    "name": "使用说明",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldyeXkOYG",
+    "name": "来源名称",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldSeTK0KS",
+    "multiple": false,
+    "name": "类型",
+    "options": [
+      {
+        "hue": "Blue",
+        "lightness": "Lighter",
+        "name": "交易所披露"
+      },
+      {
+        "hue": "Green",
+        "lightness": "Lighter",
+        "name": "公司官网"
+      },
+      {
+        "hue": "Purple",
+        "lightness": "Lighter",
+        "name": "政府文件"
+      },
+      {
+        "hue": "Wathet",
+        "lightness": "Lighter",
+        "name": "官方统计"
+      },
+      {
+        "hue": "Gray",
+        "lightness": "Lighter",
+        "name": "数据库"
+      },
+      {
+        "hue": "Yellow",
+        "lightness": "Lighter",
+        "name": "聚合渠道"
+      }
+    ],
+    "type": "select"
+  }
+]

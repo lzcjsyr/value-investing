@@ -1,0 +1,161 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "PMnCb5BsGaME0ysW21uc7pHJnDb",
+  "table_id": "tblGjno4t3xbBI3a",
+  "rev": 3,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 8,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/snapshots/20260925T091634/tblGjno4t3xbBI3a.ndjson",
+  "record_file_size_bytes": 5729,
+  "manifest_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/snapshots/20260925T091634/tblGjno4t3xbBI3a.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 14
+      },
+      "example": "recvvEm23srzfZ"
+    },
+    "不改模型条件": {
+      "field_id": "fld5G8naXT",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 20
+      },
+      "example": "只算CFO减资本开支"
+    },
+    "业务论点": {
+      "field_id": "fldQpG583W",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        {
+          "id": "recvvElYu5QDrH"
+        }
+      ]
+    },
+    "事实层": {
+      "field_id": "fldvXoDqEZ",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 16
+      },
+      "example": "合同结算或报告披露电价"
+    },
+    "修改门槛": {
+      "field_id": "fld8mU6cEu",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 26
+      },
+      "example": "财报债务附注与现金融资勾稽"
+    },
+    "判断层": {
+      "field_id": "fldDDeRWWl",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 25
+      },
+      "example": "永续增长必须有留存与回报支撑"
+    },
+    "判断状态": {
+      "field_id": "fldN1EvfQD",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 10
+      },
+      "example": "研究规则；未新增事实"
+    },
+    "参数键": {
+      "field_id": "fldwD0kYbC",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 43
+      },
+      "example": "tariff"
+    },
+    "反证或替代解释": {
+      "field_id": "fldlrEPgpK",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 21
+      },
+      "example": "新项目加杠杆、浮息重定价延迟"
+    },
+    "影响年份情景": {
+      "field_id": "fldDFVWFZC",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 15
+      },
+      "example": "2026—2035"
+    },
+    "数学传导": {
+      "field_id": "fldZLeGiK2",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 38
+      },
+      "example": "Δ收入=售电量×Δ实现电价"
+    },
+    "映射ID": {
+      "field_id": "fld43WF0f3",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 9
+      },
+      "example": "MAP-Q"
+    },
+    "证据": {
+      "field_id": "fldGXYwM3l",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 2,
+        "avg_length": 2
+      },
+      "example": [
+        {
+          "id": "recvvEm0i4tNWz"
+        },
+        {
+          "id": "recvvEm0i4Q2ec"
+        }
+      ]
+    }
+  }
+}

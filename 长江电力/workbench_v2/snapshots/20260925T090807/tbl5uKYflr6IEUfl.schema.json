@@ -1,0 +1,99 @@
+[
+  {
+    "default_value": null,
+    "id": "fldgrZ37bJ",
+    "name": "频率",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldD2qzKaQ",
+    "name": "采集状态",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldztYyttd",
+    "name": "跟踪指标",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fld5e4HBo4",
+    "name": "触发后动作",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldshekmI4",
+    "name": "最新观察",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldYvLOVBI",
+    "name": "观察日期",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldAkQ0Vu0",
+    "name": "触发阈值",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fld5tm01jQ",
+    "name": "阈值性质",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldALAezob",
+    "name": "任务ID",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldO2JjUDP",
+    "name": "首选来源",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "bidirectional": false,
+    "id": "fldnVXPnoy",
+    "link_table": "tblGjno4t3xbBI3a",
+    "name": "映射",
+    "type": "link"
+  }
+]

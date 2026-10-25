@@ -1,0 +1,198 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "fields": [
+      {
+        "expression": "IFERROR(REGEXEXTRACT([响应去转义],\"([{][^{}]*60106980[^{}]*[}])\").FIRST(),\"\")",
+        "id": "flddm1y4lB",
+        "name": "三峡数据对象",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fld42YycI6",
+        "name": "单位",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "expression": "SUBSTITUTE([原始响应],CHAR(92),\"\")",
+        "id": "fldcIhR631",
+        "name": "响应去转义",
+        "type": "formula"
+      },
+      {
+        "expression": "IFERROR(REGEXEXTRACT([原始响应],\"中债国债收益率曲线\u003c/td\u003e([\\\\s\\\\S]*?)\u003c/tr\u003e\").FIRST(),\"\")",
+        "id": "fldaS3xt4M",
+        "name": "国债行",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fldHxiF6as",
+        "name": "原始响应",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "expression": "IF(AND([校验V2]=1,[已有观察数]=0,[V2_14云端采集原始记录].FILTER(CurrentValue.[观察键V2]=[观察键V2]).SORTBY([V2_14云端采集原始记录].[采集时间],TRUE()).[原始ID].FIRST()=RECORD_ID()),1,0)",
+        "id": "fldIwQlsfT",
+        "name": "允许入库",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fldiBBlpHK",
+        "name": "处理状态",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "id": "fld3b9FaQw",
+        "name": "运行标识",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "expression": "IFERROR(SWITCH([指标代码],\"TENCENT-600900\",VALUE(SPLIT([原始响应],\"~\").NTH(4)),\"CHINABOND-CGB10Y\",VALUE(REGEXEXTRACTALL(REGEXREPLACE([国债行],\"\u003c!--[\\s\\S]*?--\u003e\",\"\"),\"\u003ctd[^\u003e]*\u003e([0-9.]+)\u003c/td\u003e\").LISTCOMBINE().NTH(7)),\"CJH-SX-LEVEL\",VALUE(REGEXEXTRACT([水库对象],\"\\\\\\\"z\\\\\\\":\\\\\\\"([0-9.]+)\\\\\\\"\").FIRST()),\"\"),\"\")",
+        "id": "fldDxqvFkr",
+        "name": "数值候选",
+        "type": "formula"
+      },
+      {
+        "expression": "IFERROR(SWITCH([指标代码],\"TENCENT-600900\",[观测日期],\"CHINABOND-CGB10Y\",REGEXEXTRACT([响应去转义],\"\u003cth\u003e([0-9-]+)\").FIRST(),\"CJH-SX-LEVEL\",TEXT(DATE(1970,1,1)+VALUE(REGEXEXTRACT([三峡数据对象],CHAR(34)\u0026\"tm\"\u0026CHAR(34)\u0026\":([0-9]+)\").FIRST())/86400000+8/24,\"YYYY-MM-DD\"),\"\"),\"\")",
+        "id": "fldijC8LuF",
+        "name": "日期V2",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fldjjDv7B4",
+        "name": "来源网址",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "expression": "IFERROR(REGEXEXTRACT([响应去转义],\"中债国债收益率曲线\u003c/td\u003e(.*?)\u003c/tr\u003e\").FIRST(),\"\")",
+        "id": "fldBrmKSAt",
+        "name": "国债数据行",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fldbArgQ4F",
+        "name": "采集时间",
+        "style": {
+          "format": "yyyy/MM/dd"
+        },
+        "type": "datetime"
+      },
+      {
+        "expression": "IF([已有观察数]\u003e0,\"完成（已入库或去重）\",IF([处理状态]=\"采集中\",\"未完成：检查工作流HTTP运行日志\",IF([校验V2]=1,\"校验通过待入库\",\"部分完成：解析或日期数值校验失败\")))",
+        "id": "flds2OL1so",
+        "name": "运行结果",
+        "type": "formula"
+      },
+      {
+        "expression": "IF([允许入库]=1,\"待入库\",\"跳过\")",
+        "id": "fldfzHp2yd",
+        "name": "入库指令",
+        "type": "formula"
+      },
+      {
+        "expression": "IFERROR(SWITCH([指标代码],\"TENCENT-600900\",[数值候选],\"CHINABOND-CGB10Y\",VALUE(REGEXEXTRACTALL(REGEXREPLACE([国债数据行],\"\u003c!--.*?--\u003e\",\"\"),\"\u003ctd[^\u003e]*\u003e([0-9.]+)\u003c/td\u003e\").LISTCOMBINE().NTH(7)),\"CJH-SX-LEVEL\",VALUE(REGEXEXTRACT([三峡数据对象],CHAR(34)\u0026\"z\"\u0026CHAR(34)\u0026\":\"\u0026CHAR(34)\u0026\"([0-9.]+)\").FIRST()),\"\"),\"\")",
+        "id": "fldKKSm2jO",
+        "name": "数值V2",
+        "type": "formula"
+      },
+      {
+        "expression": "[指标代码]\u0026\"|\"\u0026[观测日期]\u0026\"|\"\u0026[数值候选]",
+        "id": "fldu96bkSZ",
+        "name": "观察键",
+        "type": "formula"
+      },
+      {
+        "expression": "IFERROR(SWITCH([指标代码],\"TENCENT-600900\",LEFT(SPLIT([原始响应],\"~\").NTH(31),8),\"CHINABOND-CGB10Y\",REGEXEXTRACT([原始响应],\"\u003cth\u003e([0-9]{4}-[0-9]{2}-[0-9]{2})\\\\(%\\\\)\u003c/th\u003e\").FIRST(),\"CJH-SX-LEVEL\",TEXT(DATE(1970,1,1)+VALUE(REGEXEXTRACT([水库对象],\"\\\\\\\"tm\\\\\\\":([0-9]+)\").FIRST())/86400000+8/24,\"YYYY-MM-DD\"),\"\"),\"\")",
+        "id": "fld4Me82J4",
+        "name": "日期候选",
+        "type": "formula"
+      },
+      {
+        "expression": "[V2_11市场观察].COUNTIF(CurrentValue.[观察ID]=[观察键V2])",
+        "id": "fldyzOrsK2",
+        "name": "已有观察数",
+        "type": "formula"
+      },
+      {
+        "expression": "IF([指标代码]=\"TENCENT-600900\",LEFT([日期候选],4)\u0026\"-\"\u0026MID([日期候选],5,2)\u0026\"-\"\u0026RIGHT([日期候选],2),[日期候选])",
+        "id": "fldKNANUkz",
+        "name": "观测日期",
+        "type": "formula"
+      },
+      {
+        "expression": "TEXT([采集时间],\"YYYY-MM-DD hh:mm:ss\")",
+        "id": "fldbCCpftx",
+        "name": "采集时间文本",
+        "type": "formula"
+      },
+      {
+        "expression": "IFERROR(REGEXEXTRACT([原始响应],\"(\\\\{[^{{}}]*\\\\\\\"stcd\\\\\\\":\\\\\\\"60106980\\\\\\\"[^{{}}]*\\\\})\").FIRST(),\"\")",
+        "id": "fldMcu5aZd",
+        "name": "水库对象",
+        "type": "formula"
+      },
+      {
+        "expression": "IFERROR(IF(AND([日期有效]=1,ISNUMBER([数值候选]),SWITCH([指标代码],\"TENCENT-600900\",AND(SPLIT([原始响应],\"~\").NTH(3)=\"600900\",[数值候选]\u003e0,[数值候选]\u003c1000),\"CHINABOND-CGB10Y\",AND([数值候选]\u003e=0,[数值候选]\u003c20,CONTAINTEXT([原始响应],\"10\u003c!-- 年 --\u003e年\")),\"CJH-SX-LEVEL\",AND([数值候选]\u003e100,[数值候选]\u003c200),FALSE())),1,0),0)",
+        "id": "fld4bgLUoj",
+        "name": "校验通过",
+        "type": "formula"
+      },
+      {
+        "expression": "IFERROR(IF(AND(REGEXMATCH([日期V2],\"^[0-9]{4}-[0-9]{2}-[0-9]{2}$\"),DAYS([采集时间],TODATE([日期V2]))\u003e=0,DAYS([采集时间],TODATE([日期V2]))\u003c=7,NOT(ISBLANK([数值V2])),SWITCH([指标代码],\"TENCENT-600900\",AND(SPLIT([原始响应],\"~\").NTH(3)=\"600900\",VALUE([数值V2])\u003e0,VALUE([数值V2])\u003c1000),\"CHINABOND-CGB10Y\",AND(VALUE([数值V2])\u003e=0,VALUE([数值V2])\u003c20,CONTAINTEXT([响应去转义],\"10\u003c!-- 年 --\u003e年\")),\"CJH-SX-LEVEL\",AND(VALUE([数值V2])\u003e100,VALUE([数值V2])\u003c200),FALSE())),1,0),0)",
+        "id": "fldGCrKtTk",
+        "name": "校验V2",
+        "type": "formula"
+      },
+      {
+        "expression": "IFERROR(IF(AND(REGEXMATCH([观测日期],\"^[0-9]{4}-[0-9]{2}-[0-9]{2}$\"),DAYS([采集时间],TODATE([观测日期]))\u003e=0,DAYS([采集时间],TODATE([观测日期]))\u003c=7),1,0),0)",
+        "id": "fldTFl5rUd",
+        "name": "日期有效",
+        "type": "formula"
+      },
+      {
+        "expression": "[指标代码]\u0026\"|\"\u0026[日期V2]\u0026\"|\"\u0026[数值V2]",
+        "id": "fldtFJhxUL",
+        "name": "观察键V2",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fldJU7w7Zv",
+        "name": "指标代码",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "expression": "RECORD_ID()",
+        "id": "fldUgjFtI2",
+        "name": "原始ID",
+        "type": "formula"
+      }
+    ],
+    "total": 28
+  }
+}

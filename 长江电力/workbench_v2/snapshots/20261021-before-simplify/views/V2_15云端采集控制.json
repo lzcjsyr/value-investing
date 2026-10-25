@@ -1,0 +1,31 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "total": 2,
+    "views": [
+      {
+        "_meta": {
+          "filter": null,
+          "group": [],
+          "sort": [],
+          "visible_fields": "14 fields"
+        },
+        "id": "vew3XDcYl5",
+        "name": "表格",
+        "type": "grid"
+      },
+      {
+        "_meta": {
+          "filter": null,
+          "group": [],
+          "sort": [],
+          "visible_fields": "11 fields"
+        },
+        "id": "vewVw2UtVn",
+        "name": "云端工作视图",
+        "type": "grid"
+      }
+    ]
+  }
+}

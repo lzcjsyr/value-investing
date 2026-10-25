@@ -1,0 +1,2040 @@
+{
+  "data": {
+    "target": {
+      "locator": {
+        "uid": "oqlubc0n5wn"
+      },
+      "uid": "oqlubc0n5wn",
+      "kind": "node"
+    },
+    "tree": {
+      "use": "DisplayTextFieldModel",
+      "props": {
+        "titleField": "name",
+        "clickToOpen": true
+      },
+      "stepParams": {
+        "fieldSettings": {
+          "init": {
+            "dataSourceKey": "main",
+            "collectionName": "vi_company",
+            "fieldPath": "price_metric"
+          }
+        },
+        "displayFieldSettings": {
+          "clickToOpen": {
+            "clickToOpen": true
+          }
+        },
+        "popupSettings": {
+          "openView": {
+            "dataSourceKey": "main",
+            "collectionName": "vi_metric",
+            "mode": "drawer",
+            "size": "medium",
+            "pageModelClass": "ChildPageModel",
+            "associationName": "vi_company.price_metric",
+            "title": "指标·详情",
+            "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+          }
+        }
+      },
+      "uid": "oqlubc0n5wn",
+      "subModels": {
+        "page": {
+          "parentId": "oqlubc0n5wn",
+          "subKey": "page",
+          "subType": "object",
+          "use": "ChildPageModel",
+          "props": {
+            "displayTitle": false,
+            "enableTabs": true
+          },
+          "stepParams": {
+            "pageSettings": {
+              "general": {
+                "displayTitle": false,
+                "enableTabs": true
+              }
+            }
+          },
+          "parent": "oqlubc0n5wn",
+          "sortIndex": 1,
+          "uid": "gcujiw4f1ce",
+          "subModels": {
+            "tabs": [
+              {
+                "use": "ChildPageTabModel",
+                "props": {
+                  "title": "{{t(\"Details\")}}"
+                },
+                "stepParams": {
+                  "pageTabSettings": {
+                    "tab": {
+                      "title": "{{t(\"Details\")}}"
+                    }
+                  }
+                },
+                "subKey": "tabs",
+                "subType": "array",
+                "parent": "gcujiw4f1ce",
+                "parentId": "gcujiw4f1ce",
+                "sortIndex": 1,
+                "uid": "knpvg6rge70",
+                "subModels": {
+                  "grid": {
+                    "use": "BlockGridModel",
+                    "subKey": "grid",
+                    "subType": "object",
+                    "props": {
+                      "rows": {
+                        "row1": [
+                          [
+                            "2cpn6xr2noc"
+                          ]
+                        ]
+                      },
+                      "sizes": {
+                        "row1": [
+                          24
+                        ]
+                      },
+                      "rowOrder": [
+                        "row1"
+                      ]
+                    },
+                    "stepParams": {
+                      "gridSettings": {
+                        "grid": {
+                          "rows": {
+                            "row1": [
+                              [
+                                "q32bx71d52q"
+                              ]
+                            ]
+                          },
+                          "sizes": {
+                            "row1": [
+                              24
+                            ]
+                          },
+                          "rowOrder": [
+                            "row1"
+                          ]
+                        }
+                      }
+                    },
+                    "parent": "knpvg6rge70",
+                    "parentId": "knpvg6rge70",
+                    "sortIndex": 1,
+                    "uid": "nn3aavuehzi",
+                    "subModels": {
+                      "items": [
+                        {
+                          "parentId": "nn3aavuehzi",
+                          "subKey": "items",
+                          "subType": "array",
+                          "use": "DetailsBlockModel",
+                          "props": {},
+                          "decoratorProps": {},
+                          "stepParams": {
+                            "resourceSettings": {
+                              "init": {
+                                "dataSourceKey": "main",
+                                "collectionName": "vi_metric",
+                                "filterByTk": "{{ctx.view.inputArgs.filterByTk}}",
+                                "associationName": "vi_company.price_metric",
+                                "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+                              }
+                            },
+                            "detailsSettings": {
+                              "layout": {
+                                "layout": "vertical",
+                                "colon": true
+                              },
+                              "dataScope": {
+                                "filter": {
+                                  "logic": "$and",
+                                  "items": []
+                                }
+                              },
+                              "linkageRules": {
+                                "value": []
+                              }
+                            }
+                          },
+                          "parent": "nn3aavuehzi",
+                          "sortIndex": 1,
+                          "uid": "q32bx71d52q",
+                          "subModels": {
+                            "grid": {
+                              "use": "DetailsGridModel",
+                              "subKey": "grid",
+                              "subType": "object",
+                              "stepParams": {
+                                "gridSettings": {
+                                  "grid": {
+                                    "rows": {
+                                      "row1": [
+                                        [
+                                          "s3hnq1yakdo"
+                                        ]
+                                      ],
+                                      "row2": [
+                                        [
+                                          "qltbifwms6d"
+                                        ],
+                                        [
+                                          "ubazd0xja89"
+                                        ]
+                                      ],
+                                      "row3": [
+                                        [
+                                          "x85uvxaem7g"
+                                        ],
+                                        [
+                                          "fi0e43q8szc"
+                                        ]
+                                      ],
+                                      "row4": [
+                                        [
+                                          "1epsb3d6cuv"
+                                        ],
+                                        [
+                                          "bs2nty8bm7p"
+                                        ]
+                                      ],
+                                      "row5": [
+                                        [
+                                          "b0idblj8o1o"
+                                        ],
+                                        [
+                                          "tdd88otf6kc"
+                                        ]
+                                      ],
+                                      "row6": [
+                                        [
+                                          "uh21tqnonky"
+                                        ]
+                                      ],
+                                      "row7": [
+                                        [
+                                          "jznbc7njo5v"
+                                        ]
+                                      ],
+                                      "row8": [
+                                        [
+                                          "4kk17actlw6"
+                                        ],
+                                        [
+                                          "3r6tjoqcv7s"
+                                        ]
+                                      ],
+                                      "row9": [
+                                        [
+                                          "r8451dmsx7v"
+                                        ]
+                                      ],
+                                      "row10": [
+                                        [
+                                          "6nvdrz8r2hx"
+                                        ]
+                                      ]
+                                    },
+                                    "sizes": {
+                                      "row1": [
+                                        24
+                                      ],
+                                      "row2": [
+                                        12,
+                                        12
+                                      ],
+                                      "row3": [
+                                        12,
+                                        12
+                                      ],
+                                      "row4": [
+                                        12,
+                                        12
+                                      ],
+                                      "row5": [
+                                        12,
+                                        12
+                                      ],
+                                      "row6": [
+                                        24
+                                      ],
+                                      "row7": [
+                                        24
+                                      ],
+                                      "row8": [
+                                        12,
+                                        12
+                                      ],
+                                      "row9": [
+                                        24
+                                      ],
+                                      "row10": [
+                                        24
+                                      ]
+                                    },
+                                    "rowOrder": [
+                                      "row1",
+                                      "row2",
+                                      "row3",
+                                      "row4",
+                                      "row5",
+                                      "row6",
+                                      "row7",
+                                      "row8",
+                                      "row9",
+                                      "row10"
+                                    ]
+                                  }
+                                }
+                              },
+                              "props": {
+                                "rows": {
+                                  "row1": [
+                                    [
+                                      "cihqeeiwrwq"
+                                    ]
+                                  ],
+                                  "row2": [
+                                    [
+                                      "tufwhojvzoh"
+                                    ],
+                                    [
+                                      "883t6c6169f"
+                                    ]
+                                  ],
+                                  "row3": [
+                                    [
+                                      "i6scrdpfbah"
+                                    ],
+                                    [
+                                      "lhge2c9k6av"
+                                    ]
+                                  ],
+                                  "row4": [
+                                    [
+                                      "dpbyzekfrdi"
+                                    ],
+                                    [
+                                      "h56qtqwuxsz"
+                                    ]
+                                  ],
+                                  "row5": [
+                                    [
+                                      "ogezfsuxxuz"
+                                    ],
+                                    [
+                                      "kb4gzscohbd"
+                                    ]
+                                  ],
+                                  "row6": [
+                                    [
+                                      "kj2y6hmyg3y"
+                                    ]
+                                  ],
+                                  "row7": [
+                                    [
+                                      "l33nwy1iu9s"
+                                    ]
+                                  ],
+                                  "row8": [
+                                    [
+                                      "f13h4rqy2bb"
+                                    ],
+                                    [
+                                      "j1o3n4b41g6"
+                                    ]
+                                  ],
+                                  "row9": [
+                                    [
+                                      "341tumj0thp"
+                                    ]
+                                  ],
+                                  "row10": [
+                                    [
+                                      "fazscwkf7sl"
+                                    ]
+                                  ]
+                                },
+                                "sizes": {
+                                  "row1": [
+                                    24
+                                  ],
+                                  "row2": [
+                                    12,
+                                    12
+                                  ],
+                                  "row3": [
+                                    12,
+                                    12
+                                  ],
+                                  "row4": [
+                                    12,
+                                    12
+                                  ],
+                                  "row5": [
+                                    12,
+                                    12
+                                  ],
+                                  "row6": [
+                                    24
+                                  ],
+                                  "row7": [
+                                    24
+                                  ],
+                                  "row8": [
+                                    12,
+                                    12
+                                  ],
+                                  "row9": [
+                                    24
+                                  ],
+                                  "row10": [
+                                    24
+                                  ]
+                                },
+                                "rowOrder": [
+                                  "row1",
+                                  "row2",
+                                  "row3",
+                                  "row4",
+                                  "row5",
+                                  "row6",
+                                  "row7",
+                                  "row8",
+                                  "row9",
+                                  "row10"
+                                ]
+                              },
+                              "parent": "q32bx71d52q",
+                              "parentId": "q32bx71d52q",
+                              "sortIndex": 1,
+                              "uid": "erjnsz88k1s",
+                              "subModels": {
+                                "items": [
+                                  {
+                                    "parentId": "erjnsz88k1s",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "基本信息",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "基本信息",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "erjnsz88k1s",
+                                    "sortIndex": 1,
+                                    "uid": "s3hnq1yakdo",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "erjnsz88k1s",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_metric",
+                                          "fieldPath": "code"
+                                        }
+                                      }
+                                    },
+                                    "parent": "erjnsz88k1s",
+                                    "sortIndex": 2,
+                                    "uid": "qltbifwms6d",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_metric",
+                                              "fieldPath": "code"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "qltbifwms6d",
+                                        "parentId": "qltbifwms6d",
+                                        "sortIndex": 1,
+                                        "uid": "yqm8by6py3d",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "erjnsz88k1s",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_metric",
+                                          "fieldPath": "name"
+                                        }
+                                      }
+                                    },
+                                    "parent": "erjnsz88k1s",
+                                    "sortIndex": 3,
+                                    "uid": "ubazd0xja89",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_metric",
+                                              "fieldPath": "name"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "ubazd0xja89",
+                                        "parentId": "ubazd0xja89",
+                                        "sortIndex": 1,
+                                        "uid": "uea9f4lq6zg",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "erjnsz88k1s",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_metric",
+                                          "fieldPath": "unit"
+                                        }
+                                      }
+                                    },
+                                    "parent": "erjnsz88k1s",
+                                    "sortIndex": 4,
+                                    "uid": "x85uvxaem7g",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_metric",
+                                              "fieldPath": "unit"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "x85uvxaem7g",
+                                        "parentId": "x85uvxaem7g",
+                                        "sortIndex": 1,
+                                        "uid": "u2vmv48nopu",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "erjnsz88k1s",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_metric",
+                                          "fieldPath": "category"
+                                        }
+                                      }
+                                    },
+                                    "parent": "erjnsz88k1s",
+                                    "sortIndex": 5,
+                                    "uid": "fi0e43q8szc",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayEnumFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_metric",
+                                              "fieldPath": "category"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "fi0e43q8szc",
+                                        "parentId": "fi0e43q8szc",
+                                        "sortIndex": 1,
+                                        "uid": "y5bz1t2sggq",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "erjnsz88k1s",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_metric",
+                                          "fieldPath": "source_name"
+                                        }
+                                      }
+                                    },
+                                    "parent": "erjnsz88k1s",
+                                    "sortIndex": 6,
+                                    "uid": "1epsb3d6cuv",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_metric",
+                                              "fieldPath": "source_name"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "1epsb3d6cuv",
+                                        "parentId": "1epsb3d6cuv",
+                                        "sortIndex": 1,
+                                        "uid": "geq3ur1kzs7",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "erjnsz88k1s",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_metric",
+                                          "fieldPath": "frequency"
+                                        }
+                                      }
+                                    },
+                                    "parent": "erjnsz88k1s",
+                                    "sortIndex": 7,
+                                    "uid": "bs2nty8bm7p",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_metric",
+                                              "fieldPath": "frequency"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "bs2nty8bm7p",
+                                        "parentId": "bs2nty8bm7p",
+                                        "sortIndex": 1,
+                                        "uid": "0k7i09l2pmn",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "erjnsz88k1s",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_metric",
+                                          "fieldPath": "valid_min"
+                                        }
+                                      }
+                                    },
+                                    "parent": "erjnsz88k1s",
+                                    "sortIndex": 8,
+                                    "uid": "b0idblj8o1o",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayNumberFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_metric",
+                                              "fieldPath": "valid_min"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "b0idblj8o1o",
+                                        "parentId": "b0idblj8o1o",
+                                        "sortIndex": 1,
+                                        "uid": "qb24db9nq4b",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "erjnsz88k1s",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_metric",
+                                          "fieldPath": "valid_max"
+                                        }
+                                      }
+                                    },
+                                    "parent": "erjnsz88k1s",
+                                    "sortIndex": 9,
+                                    "uid": "tdd88otf6kc",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayNumberFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_metric",
+                                              "fieldPath": "valid_max"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "tdd88otf6kc",
+                                        "parentId": "tdd88otf6kc",
+                                        "sortIndex": 1,
+                                        "uid": "atvuxkswrb6",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "erjnsz88k1s",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_metric",
+                                          "fieldPath": "notes"
+                                        }
+                                      }
+                                    },
+                                    "parent": "erjnsz88k1s",
+                                    "sortIndex": 10,
+                                    "uid": "uh21tqnonky",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_metric",
+                                              "fieldPath": "notes"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "uh21tqnonky",
+                                        "parentId": "uh21tqnonky",
+                                        "sortIndex": 1,
+                                        "uid": "vy3wg2wiefc",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "erjnsz88k1s",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "自动计算（只读）",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "自动计算（只读）",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "erjnsz88k1s",
+                                    "sortIndex": 11,
+                                    "uid": "jznbc7njo5v",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "erjnsz88k1s",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_metric",
+                                          "fieldPath": "obs_count"
+                                        }
+                                      }
+                                    },
+                                    "parent": "erjnsz88k1s",
+                                    "sortIndex": 12,
+                                    "uid": "4kk17actlw6",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayNumberFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_metric",
+                                              "fieldPath": "obs_count"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "4kk17actlw6",
+                                        "parentId": "4kk17actlw6",
+                                        "sortIndex": 1,
+                                        "uid": "jk1ffrd5lvc",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "erjnsz88k1s",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_metric",
+                                          "fieldPath": "latest_value"
+                                        }
+                                      }
+                                    },
+                                    "parent": "erjnsz88k1s",
+                                    "sortIndex": 13,
+                                    "uid": "3r6tjoqcv7s",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayNumberFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_metric",
+                                              "fieldPath": "latest_value"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "3r6tjoqcv7s",
+                                        "parentId": "3r6tjoqcv7s",
+                                        "sortIndex": 1,
+                                        "uid": "n0q40lvau96",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "erjnsz88k1s",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "系统",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "系统",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "erjnsz88k1s",
+                                    "sortIndex": 14,
+                                    "uid": "r8451dmsx7v",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "erjnsz88k1s",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_metric",
+                                          "fieldPath": "updated_at"
+                                        }
+                                      }
+                                    },
+                                    "parent": "erjnsz88k1s",
+                                    "sortIndex": 15,
+                                    "uid": "6nvdrz8r2hx",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayDateTimeFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_metric",
+                                              "fieldPath": "updated_at"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "6nvdrz8r2hx",
+                                        "parentId": "6nvdrz8r2hx",
+                                        "sortIndex": 1,
+                                        "uid": "cnj01squg15",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  }
+                                ]
+                              },
+                              "popup": {
+                                "mode": "local"
+                              }
+                            },
+                            "actions": [
+                              {
+                                "parentId": "q32bx71d52q",
+                                "subKey": "actions",
+                                "subType": "array",
+                                "use": "EditActionModel",
+                                "props": {
+                                  "title": "{{t(\"Edit\")}}",
+                                  "icon": "EditOutlined",
+                                  "type": "default"
+                                },
+                                "decoratorProps": {},
+                                "stepParams": {
+                                  "buttonSettings": {
+                                    "general": {
+                                      "title": "{{t(\"Edit\")}}",
+                                      "icon": "EditOutlined",
+                                      "type": "default"
+                                    }
+                                  },
+                                  "popupSettings": {
+                                    "openView": {
+                                      "mode": "drawer",
+                                      "size": "medium",
+                                      "pageModelClass": "ChildPageModel",
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_metric",
+                                      "associationName": "vi_company.price_metric",
+                                      "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+                                      "title": "指标·编辑"
+                                    }
+                                  }
+                                },
+                                "flowRegistry": {},
+                                "parent": "q32bx71d52q",
+                                "sortIndex": 1,
+                                "uid": "9enc83pegdq",
+                                "popup": {
+                                  "template": {
+                                    "uid": "ctxsex9l7rc",
+                                    "mode": "reference"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "popup": {
+                            "mode": "local"
+                          }
+                        }
+                      ]
+                    },
+                    "popup": {
+                      "mode": "local"
+                    }
+                  }
+                },
+                "popup": {
+                  "mode": "local"
+                }
+              }
+            ]
+          },
+          "popup": {
+            "mode": "local"
+          }
+        }
+      },
+      "popup": {
+        "mode": "local",
+        "pageUid": "gcujiw4f1ce",
+        "tabUid": "knpvg6rge70",
+        "gridUid": "nn3aavuehzi"
+      }
+    },
+    "nodeMap": {
+      "oqlubc0n5wn": {
+        "uid": "oqlubc0n5wn",
+        "use": "DisplayTextFieldModel",
+        "props": {
+          "titleField": "name",
+          "clickToOpen": true
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_company",
+              "fieldPath": "price_metric"
+            }
+          },
+          "displayFieldSettings": {
+            "clickToOpen": {
+              "clickToOpen": true
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "associationName": "vi_company.price_metric",
+              "title": "指标·详情",
+              "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local",
+          "pageUid": "gcujiw4f1ce",
+          "tabUid": "knpvg6rge70",
+          "gridUid": "nn3aavuehzi"
+        }
+      },
+      "gcujiw4f1ce": {
+        "uid": "gcujiw4f1ce",
+        "use": "ChildPageModel",
+        "props": {
+          "displayTitle": false,
+          "enableTabs": true
+        },
+        "stepParams": {
+          "pageSettings": {
+            "general": {
+              "displayTitle": false,
+              "enableTabs": true
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "knpvg6rge70": {
+        "uid": "knpvg6rge70",
+        "use": "ChildPageTabModel",
+        "props": {
+          "title": "{{t(\"Details\")}}"
+        },
+        "stepParams": {
+          "pageTabSettings": {
+            "tab": {
+              "title": "{{t(\"Details\")}}"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "nn3aavuehzi": {
+        "uid": "nn3aavuehzi",
+        "use": "BlockGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "2cpn6xr2noc"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "q32bx71d52q"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "q32bx71d52q": {
+        "uid": "q32bx71d52q",
+        "use": "DetailsBlockModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "resourceSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "filterByTk": "{{ctx.view.inputArgs.filterByTk}}",
+              "associationName": "vi_company.price_metric",
+              "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+            }
+          },
+          "detailsSettings": {
+            "layout": {
+              "layout": "vertical",
+              "colon": true
+            },
+            "dataScope": {
+              "filter": {
+                "logic": "$and",
+                "items": []
+              }
+            },
+            "linkageRules": {
+              "value": []
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "erjnsz88k1s": {
+        "uid": "erjnsz88k1s",
+        "use": "DetailsGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "cihqeeiwrwq"
+              ]
+            ],
+            "row2": [
+              [
+                "tufwhojvzoh"
+              ],
+              [
+                "883t6c6169f"
+              ]
+            ],
+            "row3": [
+              [
+                "i6scrdpfbah"
+              ],
+              [
+                "lhge2c9k6av"
+              ]
+            ],
+            "row4": [
+              [
+                "dpbyzekfrdi"
+              ],
+              [
+                "h56qtqwuxsz"
+              ]
+            ],
+            "row5": [
+              [
+                "ogezfsuxxuz"
+              ],
+              [
+                "kb4gzscohbd"
+              ]
+            ],
+            "row6": [
+              [
+                "kj2y6hmyg3y"
+              ]
+            ],
+            "row7": [
+              [
+                "l33nwy1iu9s"
+              ]
+            ],
+            "row8": [
+              [
+                "f13h4rqy2bb"
+              ],
+              [
+                "j1o3n4b41g6"
+              ]
+            ],
+            "row9": [
+              [
+                "341tumj0thp"
+              ]
+            ],
+            "row10": [
+              [
+                "fazscwkf7sl"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ],
+            "row2": [
+              12,
+              12
+            ],
+            "row3": [
+              12,
+              12
+            ],
+            "row4": [
+              12,
+              12
+            ],
+            "row5": [
+              12,
+              12
+            ],
+            "row6": [
+              24
+            ],
+            "row7": [
+              24
+            ],
+            "row8": [
+              12,
+              12
+            ],
+            "row9": [
+              24
+            ],
+            "row10": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1",
+            "row2",
+            "row3",
+            "row4",
+            "row5",
+            "row6",
+            "row7",
+            "row8",
+            "row9",
+            "row10"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "s3hnq1yakdo"
+                  ]
+                ],
+                "row2": [
+                  [
+                    "qltbifwms6d"
+                  ],
+                  [
+                    "ubazd0xja89"
+                  ]
+                ],
+                "row3": [
+                  [
+                    "x85uvxaem7g"
+                  ],
+                  [
+                    "fi0e43q8szc"
+                  ]
+                ],
+                "row4": [
+                  [
+                    "1epsb3d6cuv"
+                  ],
+                  [
+                    "bs2nty8bm7p"
+                  ]
+                ],
+                "row5": [
+                  [
+                    "b0idblj8o1o"
+                  ],
+                  [
+                    "tdd88otf6kc"
+                  ]
+                ],
+                "row6": [
+                  [
+                    "uh21tqnonky"
+                  ]
+                ],
+                "row7": [
+                  [
+                    "jznbc7njo5v"
+                  ]
+                ],
+                "row8": [
+                  [
+                    "4kk17actlw6"
+                  ],
+                  [
+                    "3r6tjoqcv7s"
+                  ]
+                ],
+                "row9": [
+                  [
+                    "r8451dmsx7v"
+                  ]
+                ],
+                "row10": [
+                  [
+                    "6nvdrz8r2hx"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ],
+                "row2": [
+                  12,
+                  12
+                ],
+                "row3": [
+                  12,
+                  12
+                ],
+                "row4": [
+                  12,
+                  12
+                ],
+                "row5": [
+                  12,
+                  12
+                ],
+                "row6": [
+                  24
+                ],
+                "row7": [
+                  24
+                ],
+                "row8": [
+                  12,
+                  12
+                ],
+                "row9": [
+                  24
+                ],
+                "row10": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1",
+                "row2",
+                "row3",
+                "row4",
+                "row5",
+                "row6",
+                "row7",
+                "row8",
+                "row9",
+                "row10"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "s3hnq1yakdo": {
+        "uid": "s3hnq1yakdo",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "基本信息",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "基本信息",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "qltbifwms6d": {
+        "uid": "qltbifwms6d",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "yqm8by6py3d": {
+        "uid": "yqm8by6py3d",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ubazd0xja89": {
+        "uid": "ubazd0xja89",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "name"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "uea9f4lq6zg": {
+        "uid": "uea9f4lq6zg",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "name"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "x85uvxaem7g": {
+        "uid": "x85uvxaem7g",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "unit"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "u2vmv48nopu": {
+        "uid": "u2vmv48nopu",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "unit"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "fi0e43q8szc": {
+        "uid": "fi0e43q8szc",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "category"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "y5bz1t2sggq": {
+        "uid": "y5bz1t2sggq",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "category"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "1epsb3d6cuv": {
+        "uid": "1epsb3d6cuv",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "source_name"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "geq3ur1kzs7": {
+        "uid": "geq3ur1kzs7",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "source_name"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "bs2nty8bm7p": {
+        "uid": "bs2nty8bm7p",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "frequency"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "0k7i09l2pmn": {
+        "uid": "0k7i09l2pmn",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "frequency"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "b0idblj8o1o": {
+        "uid": "b0idblj8o1o",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "valid_min"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "qb24db9nq4b": {
+        "uid": "qb24db9nq4b",
+        "use": "DisplayNumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "valid_min"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "tdd88otf6kc": {
+        "uid": "tdd88otf6kc",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "valid_max"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "atvuxkswrb6": {
+        "uid": "atvuxkswrb6",
+        "use": "DisplayNumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "valid_max"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "uh21tqnonky": {
+        "uid": "uh21tqnonky",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "notes"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "vy3wg2wiefc": {
+        "uid": "vy3wg2wiefc",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "notes"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "jznbc7njo5v": {
+        "uid": "jznbc7njo5v",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "自动计算（只读）",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "自动计算（只读）",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "4kk17actlw6": {
+        "uid": "4kk17actlw6",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "obs_count"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "jk1ffrd5lvc": {
+        "uid": "jk1ffrd5lvc",
+        "use": "DisplayNumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "obs_count"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "3r6tjoqcv7s": {
+        "uid": "3r6tjoqcv7s",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "latest_value"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "n0q40lvau96": {
+        "uid": "n0q40lvau96",
+        "use": "DisplayNumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "latest_value"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "r8451dmsx7v": {
+        "uid": "r8451dmsx7v",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "系统",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "系统",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "6nvdrz8r2hx": {
+        "uid": "6nvdrz8r2hx",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "updated_at"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "cnj01squg15": {
+        "uid": "cnj01squg15",
+        "use": "DisplayDateTimeFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "fieldPath": "updated_at"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "9enc83pegdq": {
+        "uid": "9enc83pegdq",
+        "use": "EditActionModel",
+        "props": {
+          "title": "{{t(\"Edit\")}}",
+          "icon": "EditOutlined",
+          "type": "default"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Edit\")}}",
+              "icon": "EditOutlined",
+              "type": "default"
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_metric",
+              "associationName": "vi_company.price_metric",
+              "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+              "title": "指标·编辑"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "ctxsex9l7rc",
+            "mode": "reference"
+          }
+        }
+      }
+    }
+  }
+}

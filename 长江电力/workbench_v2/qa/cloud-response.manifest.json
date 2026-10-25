@@ -1,0 +1,69 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "PMnCb5BsGaME0ysW21uc7pHJnDb",
+  "table_id": "V2_14云端采集原始记录",
+  "rev": 12,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 3,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/qa/cloud-response.ndjson",
+  "record_file_size_bytes": 30485,
+  "manifest_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/qa/cloud-response.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 14
+      },
+      "example": "recvvFPEEOW4Qr"
+    },
+    "原始响应": {
+      "field_id": "fldHxiF6as",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 17912
+      },
+      "example": "{\"$startTime\":1789825561101,\"$endTime\":1789825561572,\"body\":\"v_sh600900=\\\"1~��������~600900~28.27~28.46~28.33~718975~327407~3915",
+      "example_truncated": true
+    },
+    "国债行": {
+      "field_id": "fldaS3xt4M",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "指标代码": {
+      "field_id": "fldJU7w7Zv",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 16
+      },
+      "example": "CJH-SX-LEVEL"
+    },
+    "水库对象": {
+      "field_id": "fldMcu5aZd",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    }
+  }
+}

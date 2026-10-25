@@ -1,0 +1,2876 @@
+{
+  "data": {
+    "target": {
+      "locator": {
+        "uid": "ul4dst8x7g8"
+      },
+      "uid": "ul4dst8x7g8",
+      "kind": "node"
+    },
+    "tree": {
+      "use": "ViewActionModel",
+      "props": {
+        "type": "link",
+        "title": "{{t(\"View\")}}",
+        "icon": null
+      },
+      "decoratorProps": {},
+      "stepParams": {
+        "buttonSettings": {
+          "general": {
+            "title": "{{t(\"View\")}}",
+            "icon": null,
+            "type": "link",
+            "iconOnly": false
+          }
+        },
+        "popupSettings": {
+          "openView": {
+            "mode": "drawer",
+            "size": "medium",
+            "pageModelClass": "ChildPageModel",
+            "dataSourceKey": "main",
+            "collectionName": "vi_risk",
+            "title": "风险分析·详情",
+            "filterByTk": "{{ctx.record.id}}"
+          }
+        }
+      },
+      "flowRegistry": {},
+      "uid": "ul4dst8x7g8",
+      "subModels": {
+        "page": {
+          "parentId": "ul4dst8x7g8",
+          "subKey": "page",
+          "subType": "object",
+          "use": "ChildPageModel",
+          "props": {
+            "displayTitle": false,
+            "enableTabs": true
+          },
+          "stepParams": {
+            "pageSettings": {
+              "general": {
+                "displayTitle": false,
+                "enableTabs": true
+              }
+            }
+          },
+          "parent": "ul4dst8x7g8",
+          "sortIndex": 1,
+          "uid": "72i95moki0c",
+          "subModels": {
+            "tabs": [
+              {
+                "use": "ChildPageTabModel",
+                "props": {
+                  "title": "风险分析·详情"
+                },
+                "stepParams": {
+                  "pageTabSettings": {
+                    "tab": {
+                      "title": "风险分析·详情"
+                    }
+                  }
+                },
+                "subKey": "tabs",
+                "subType": "array",
+                "parent": "72i95moki0c",
+                "parentId": "72i95moki0c",
+                "sortIndex": 1,
+                "uid": "y85b04njgmo",
+                "subModels": {
+                  "grid": {
+                    "use": "BlockGridModel",
+                    "subKey": "grid",
+                    "subType": "object",
+                    "props": {
+                      "rows": {
+                        "row1": [
+                          [
+                            "8uo75u9w7d9"
+                          ]
+                        ]
+                      },
+                      "sizes": {
+                        "row1": [
+                          24
+                        ]
+                      },
+                      "rowOrder": [
+                        "row1"
+                      ]
+                    },
+                    "stepParams": {
+                      "gridSettings": {
+                        "grid": {
+                          "rows": {
+                            "row1": [
+                              [
+                                "icdd3lxxxfc"
+                              ]
+                            ]
+                          },
+                          "sizes": {
+                            "row1": [
+                              24
+                            ]
+                          },
+                          "rowOrder": [
+                            "row1"
+                          ]
+                        }
+                      }
+                    },
+                    "parent": "y85b04njgmo",
+                    "parentId": "y85b04njgmo",
+                    "sortIndex": 1,
+                    "uid": "rjxbxwa07mi",
+                    "subModels": {
+                      "items": [
+                        {
+                          "parentId": "rjxbxwa07mi",
+                          "subKey": "items",
+                          "subType": "array",
+                          "use": "DetailsBlockModel",
+                          "props": {},
+                          "decoratorProps": {},
+                          "stepParams": {
+                            "resourceSettings": {
+                              "init": {
+                                "dataSourceKey": "main",
+                                "collectionName": "vi_risk",
+                                "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+                              }
+                            },
+                            "detailsSettings": {
+                              "layout": {
+                                "layout": "vertical",
+                                "colon": true
+                              },
+                              "dataScope": {
+                                "filter": {
+                                  "logic": "$and",
+                                  "items": []
+                                }
+                              },
+                              "linkageRules": {
+                                "value": []
+                              }
+                            }
+                          },
+                          "parent": "rjxbxwa07mi",
+                          "sortIndex": 1,
+                          "uid": "icdd3lxxxfc",
+                          "subModels": {
+                            "grid": {
+                              "use": "DetailsGridModel",
+                              "subKey": "grid",
+                              "subType": "object",
+                              "stepParams": {
+                                "gridSettings": {
+                                  "grid": {
+                                    "rows": {
+                                      "row1": [
+                                        [
+                                          "ur8pt8zo8ty"
+                                        ]
+                                      ],
+                                      "row2": [
+                                        [
+                                          "wpuhnk653jc"
+                                        ],
+                                        [
+                                          "70cou2uhj5s"
+                                        ]
+                                      ],
+                                      "row3": [
+                                        [
+                                          "d0b0234g5jg"
+                                        ],
+                                        [
+                                          "cmdz2onnm2v"
+                                        ]
+                                      ],
+                                      "row4": [
+                                        [
+                                          "c59sfow2qp9"
+                                        ],
+                                        [
+                                          "swsubjo4ye1"
+                                        ]
+                                      ],
+                                      "row5": [
+                                        [
+                                          "w3d470ef3bx"
+                                        ],
+                                        [
+                                          "rf4dil1s57m"
+                                        ]
+                                      ],
+                                      "row6": [
+                                        [
+                                          "b3rkjgfhoo7"
+                                        ],
+                                        [
+                                          "ocau3h6px0j"
+                                        ]
+                                      ],
+                                      "row7": [
+                                        [
+                                          "44s1m6gfujt"
+                                        ]
+                                      ],
+                                      "row8": [
+                                        [
+                                          "ym6wt0pbtcj"
+                                        ],
+                                        [
+                                          "rkqb2w0z8sv"
+                                        ]
+                                      ],
+                                      "row9": [
+                                        [
+                                          "skmqpz3z1ap"
+                                        ],
+                                        [
+                                          "pry6nr1pmle"
+                                        ]
+                                      ],
+                                      "row10": [
+                                        [
+                                          "c4h0mo7cpbg"
+                                        ]
+                                      ],
+                                      "row11": [
+                                        [
+                                          "cfy8no2hfg0"
+                                        ]
+                                      ],
+                                      "row12": [
+                                        [
+                                          "6iilgtk44zz"
+                                        ]
+                                      ],
+                                      "row13": [
+                                        [
+                                          "3bq7gb4d6bs"
+                                        ],
+                                        [
+                                          "kmh2y9x7694"
+                                        ]
+                                      ],
+                                      "row14": [
+                                        [
+                                          "el9wvydtc8z"
+                                        ]
+                                      ],
+                                      "row15": [
+                                        [
+                                          "uhxjkxiqmqq"
+                                        ]
+                                      ]
+                                    },
+                                    "sizes": {
+                                      "row1": [
+                                        24
+                                      ],
+                                      "row2": [
+                                        12,
+                                        12
+                                      ],
+                                      "row3": [
+                                        12,
+                                        12
+                                      ],
+                                      "row4": [
+                                        12,
+                                        12
+                                      ],
+                                      "row5": [
+                                        12,
+                                        12
+                                      ],
+                                      "row6": [
+                                        12,
+                                        12
+                                      ],
+                                      "row7": [
+                                        24
+                                      ],
+                                      "row8": [
+                                        12,
+                                        12
+                                      ],
+                                      "row9": [
+                                        12,
+                                        12
+                                      ],
+                                      "row10": [
+                                        24
+                                      ],
+                                      "row11": [
+                                        24
+                                      ],
+                                      "row12": [
+                                        24
+                                      ],
+                                      "row13": [
+                                        12,
+                                        12
+                                      ],
+                                      "row14": [
+                                        24
+                                      ],
+                                      "row15": [
+                                        24
+                                      ]
+                                    },
+                                    "rowOrder": [
+                                      "row1",
+                                      "row2",
+                                      "row3",
+                                      "row4",
+                                      "row5",
+                                      "row6",
+                                      "row7",
+                                      "row8",
+                                      "row9",
+                                      "row10",
+                                      "row11",
+                                      "row12",
+                                      "row13",
+                                      "row14",
+                                      "row15"
+                                    ]
+                                  }
+                                }
+                              },
+                              "props": {
+                                "rows": {
+                                  "row1": [
+                                    [
+                                      "ljg1nh1crct"
+                                    ]
+                                  ],
+                                  "row2": [
+                                    [
+                                      "bpm6f2xr5dz"
+                                    ],
+                                    [
+                                      "whhdl33udsw"
+                                    ]
+                                  ],
+                                  "row3": [
+                                    [
+                                      "997ws6y100b"
+                                    ],
+                                    [
+                                      "54a7tmdtvla"
+                                    ]
+                                  ],
+                                  "row4": [
+                                    [
+                                      "c1zhavzq127"
+                                    ],
+                                    [
+                                      "uhja52t58bc"
+                                    ]
+                                  ],
+                                  "row5": [
+                                    [
+                                      "9flhkgk7p1l"
+                                    ],
+                                    [
+                                      "0c11yw2hp7h"
+                                    ]
+                                  ],
+                                  "row6": [
+                                    [
+                                      "tql25m6hmlh"
+                                    ],
+                                    [
+                                      "udi8u7uuc73"
+                                    ]
+                                  ],
+                                  "row7": [
+                                    [
+                                      "gql56bmeq5k"
+                                    ]
+                                  ],
+                                  "row8": [
+                                    [
+                                      "jnfjiocupma"
+                                    ],
+                                    [
+                                      "pq3psyi05t2"
+                                    ]
+                                  ],
+                                  "row9": [
+                                    [
+                                      "4a3v2rh8g95"
+                                    ],
+                                    [
+                                      "n9i34dbynar"
+                                    ]
+                                  ],
+                                  "row10": [
+                                    [
+                                      "jkv071gbe31"
+                                    ]
+                                  ],
+                                  "row11": [
+                                    [
+                                      "oq11o4y52zy"
+                                    ]
+                                  ],
+                                  "row12": [
+                                    [
+                                      "y7hiwvofmnn"
+                                    ]
+                                  ],
+                                  "row13": [
+                                    [
+                                      "vida152189o"
+                                    ],
+                                    [
+                                      "lo3v0e9gckx"
+                                    ]
+                                  ],
+                                  "row14": [
+                                    [
+                                      "jlj449967ok"
+                                    ]
+                                  ],
+                                  "row15": [
+                                    [
+                                      "b0idnwkdxnv"
+                                    ]
+                                  ]
+                                },
+                                "sizes": {
+                                  "row1": [
+                                    24
+                                  ],
+                                  "row2": [
+                                    12,
+                                    12
+                                  ],
+                                  "row3": [
+                                    12,
+                                    12
+                                  ],
+                                  "row4": [
+                                    12,
+                                    12
+                                  ],
+                                  "row5": [
+                                    12,
+                                    12
+                                  ],
+                                  "row6": [
+                                    12,
+                                    12
+                                  ],
+                                  "row7": [
+                                    24
+                                  ],
+                                  "row8": [
+                                    12,
+                                    12
+                                  ],
+                                  "row9": [
+                                    12,
+                                    12
+                                  ],
+                                  "row10": [
+                                    24
+                                  ],
+                                  "row11": [
+                                    24
+                                  ],
+                                  "row12": [
+                                    24
+                                  ],
+                                  "row13": [
+                                    12,
+                                    12
+                                  ],
+                                  "row14": [
+                                    24
+                                  ],
+                                  "row15": [
+                                    24
+                                  ]
+                                },
+                                "rowOrder": [
+                                  "row1",
+                                  "row2",
+                                  "row3",
+                                  "row4",
+                                  "row5",
+                                  "row6",
+                                  "row7",
+                                  "row8",
+                                  "row9",
+                                  "row10",
+                                  "row11",
+                                  "row12",
+                                  "row13",
+                                  "row14",
+                                  "row15"
+                                ]
+                              },
+                              "parent": "icdd3lxxxfc",
+                              "parentId": "icdd3lxxxfc",
+                              "sortIndex": 1,
+                              "uid": "k45lbtrxaq2",
+                              "subModels": {
+                                "items": [
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "基本信息（1/2）",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "基本信息（1/2）",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 1,
+                                    "uid": "ur8pt8zo8ty",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_risk",
+                                          "fieldPath": "code"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 2,
+                                    "uid": "wpuhnk653jc",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_risk",
+                                              "fieldPath": "code"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "wpuhnk653jc",
+                                        "parentId": "wpuhnk653jc",
+                                        "sortIndex": 1,
+                                        "uid": "4tl22yodf4s",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_risk",
+                                          "fieldPath": "title"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 3,
+                                    "uid": "70cou2uhj5s",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_risk",
+                                              "fieldPath": "title"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "70cou2uhj5s",
+                                        "parentId": "70cou2uhj5s",
+                                        "sortIndex": 1,
+                                        "uid": "tlrxl8705l9",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_risk",
+                                          "fieldPath": "category"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 4,
+                                    "uid": "d0b0234g5jg",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayEnumFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_risk",
+                                              "fieldPath": "category"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "d0b0234g5jg",
+                                        "parentId": "d0b0234g5jg",
+                                        "sortIndex": 1,
+                                        "uid": "h1e452mfbnt",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_risk",
+                                          "fieldPath": "mechanism"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 5,
+                                    "uid": "cmdz2onnm2v",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_risk",
+                                              "fieldPath": "mechanism"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "cmdz2onnm2v",
+                                        "parentId": "cmdz2onnm2v",
+                                        "sortIndex": 1,
+                                        "uid": "xdb31uqcq1h",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_risk",
+                                          "fieldPath": "probability"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 6,
+                                    "uid": "c59sfow2qp9",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayEnumFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_risk",
+                                              "fieldPath": "probability"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "c59sfow2qp9",
+                                        "parentId": "c59sfow2qp9",
+                                        "sortIndex": 1,
+                                        "uid": "e07b11cdfxb",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_risk",
+                                          "fieldPath": "impact"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 7,
+                                    "uid": "swsubjo4ye1",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayEnumFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_risk",
+                                              "fieldPath": "impact"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "swsubjo4ye1",
+                                        "parentId": "swsubjo4ye1",
+                                        "sortIndex": 1,
+                                        "uid": "pcqr0xw62u9",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_risk",
+                                          "fieldPath": "horizon"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 8,
+                                    "uid": "w3d470ef3bx",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayEnumFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_risk",
+                                              "fieldPath": "horizon"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "w3d470ef3bx",
+                                        "parentId": "w3d470ef3bx",
+                                        "sortIndex": 1,
+                                        "uid": "zd8n6h7igtv",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_risk",
+                                          "fieldPath": "trend"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 9,
+                                    "uid": "rf4dil1s57m",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayEnumFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_risk",
+                                              "fieldPath": "trend"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "rf4dil1s57m",
+                                        "parentId": "rf4dil1s57m",
+                                        "sortIndex": 1,
+                                        "uid": "a88q4qkghzj",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_risk",
+                                          "fieldPath": "impact_estimate"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 10,
+                                    "uid": "b3rkjgfhoo7",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_risk",
+                                              "fieldPath": "impact_estimate"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "b3rkjgfhoo7",
+                                        "parentId": "b3rkjgfhoo7",
+                                        "sortIndex": 1,
+                                        "uid": "ka61xc613w7",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_risk",
+                                          "fieldPath": "mitigants"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 11,
+                                    "uid": "ocau3h6px0j",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_risk",
+                                              "fieldPath": "mitigants"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "ocau3h6px0j",
+                                        "parentId": "ocau3h6px0j",
+                                        "sortIndex": 1,
+                                        "uid": "85mr7mdspod",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "基本信息（2/2）",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "基本信息（2/2）",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 12,
+                                    "uid": "44s1m6gfujt",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_risk",
+                                          "fieldPath": "treatment"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 13,
+                                    "uid": "ym6wt0pbtcj",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayEnumFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_risk",
+                                              "fieldPath": "treatment"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "ym6wt0pbtcj",
+                                        "parentId": "ym6wt0pbtcj",
+                                        "sortIndex": 1,
+                                        "uid": "p3bh3o795si",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_risk",
+                                          "fieldPath": "early_warning"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 14,
+                                    "uid": "rkqb2w0z8sv",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_risk",
+                                              "fieldPath": "early_warning"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "rkqb2w0z8sv",
+                                        "parentId": "rkqb2w0z8sv",
+                                        "sortIndex": 1,
+                                        "uid": "pzcyrr81b93",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_risk",
+                                          "fieldPath": "response"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 15,
+                                    "uid": "skmqpz3z1ap",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_risk",
+                                              "fieldPath": "response"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "skmqpz3z1ap",
+                                        "parentId": "skmqpz3z1ap",
+                                        "sortIndex": 1,
+                                        "uid": "7cggty0qs6n",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_risk",
+                                          "fieldPath": "status"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 16,
+                                    "uid": "pry6nr1pmle",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayEnumFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_risk",
+                                              "fieldPath": "status"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "pry6nr1pmle",
+                                        "parentId": "pry6nr1pmle",
+                                        "sortIndex": 1,
+                                        "uid": "xdokek2nvr8",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "关联",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "关联",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 17,
+                                    "uid": "c4h0mo7cpbg",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {
+                                      "titleField": "name"
+                                    },
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_risk",
+                                          "fieldPath": "company"
+                                        }
+                                      },
+                                      "detailItemSettings": {
+                                        "fieldNames": {
+                                          "label": "name"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 18,
+                                    "uid": "cfy8no2hfg0",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {
+                                          "titleField": "name",
+                                          "clickToOpen": true
+                                        },
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_risk",
+                                              "fieldPath": "company"
+                                            }
+                                          },
+                                          "displayFieldSettings": {
+                                            "clickToOpen": {
+                                              "clickToOpen": true
+                                            }
+                                          },
+                                          "popupSettings": {
+                                            "openView": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_company",
+                                              "associationName": "vi_risk.company"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "cfy8no2hfg0",
+                                        "parentId": "cfy8no2hfg0",
+                                        "sortIndex": 1,
+                                        "uid": "c1qnpn6q9fe",
+                                        "popup": {
+                                          "template": {
+                                            "uid": "4hr3gehynkf",
+                                            "mode": "reference"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "自动计算（只读）",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "自动计算（只读）",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 19,
+                                    "uid": "6iilgtk44zz",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_risk",
+                                          "fieldPath": "level"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 20,
+                                    "uid": "3bq7gb4d6bs",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayEnumFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_risk",
+                                              "fieldPath": "level"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "3bq7gb4d6bs",
+                                        "parentId": "3bq7gb4d6bs",
+                                        "sortIndex": 1,
+                                        "uid": "297707nf184",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_risk",
+                                          "fieldPath": "thesis_verdicts"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 21,
+                                    "uid": "kmh2y9x7694",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_risk",
+                                              "fieldPath": "thesis_verdicts"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "kmh2y9x7694",
+                                        "parentId": "kmh2y9x7694",
+                                        "sortIndex": 1,
+                                        "uid": "6yngmltcd3f",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "系统",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "系统",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 22,
+                                    "uid": "el9wvydtc8z",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "k45lbtrxaq2",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_risk",
+                                          "fieldPath": "updated_at"
+                                        }
+                                      }
+                                    },
+                                    "parent": "k45lbtrxaq2",
+                                    "sortIndex": 23,
+                                    "uid": "uhxjkxiqmqq",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayDateTimeFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_risk",
+                                              "fieldPath": "updated_at"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "uhxjkxiqmqq",
+                                        "parentId": "uhxjkxiqmqq",
+                                        "sortIndex": 1,
+                                        "uid": "mhzujmqai64",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  }
+                                ]
+                              },
+                              "popup": {
+                                "mode": "local"
+                              }
+                            },
+                            "actions": [
+                              {
+                                "parentId": "icdd3lxxxfc",
+                                "subKey": "actions",
+                                "subType": "array",
+                                "use": "EditActionModel",
+                                "props": {
+                                  "title": "{{t(\"Edit\")}}",
+                                  "icon": "EditOutlined",
+                                  "type": "default"
+                                },
+                                "decoratorProps": {},
+                                "stepParams": {
+                                  "buttonSettings": {
+                                    "general": {
+                                      "title": "{{t(\"Edit\")}}",
+                                      "icon": "EditOutlined",
+                                      "type": "default"
+                                    }
+                                  },
+                                  "popupSettings": {
+                                    "openView": {
+                                      "mode": "drawer",
+                                      "size": "medium",
+                                      "pageModelClass": "ChildPageModel",
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_risk",
+                                      "title": "风险分析·编辑"
+                                    }
+                                  }
+                                },
+                                "flowRegistry": {},
+                                "parent": "icdd3lxxxfc",
+                                "sortIndex": 1,
+                                "uid": "oi8ctu6xstq",
+                                "popup": {
+                                  "template": {
+                                    "uid": "g1fltnotb4z",
+                                    "mode": "reference"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "popup": {
+                            "mode": "local"
+                          }
+                        }
+                      ]
+                    },
+                    "popup": {
+                      "mode": "local"
+                    }
+                  }
+                },
+                "popup": {
+                  "mode": "local"
+                }
+              }
+            ]
+          },
+          "popup": {
+            "mode": "local"
+          }
+        }
+      },
+      "popup": {
+        "mode": "local",
+        "pageUid": "72i95moki0c",
+        "tabUid": "y85b04njgmo",
+        "gridUid": "rjxbxwa07mi"
+      }
+    },
+    "nodeMap": {
+      "ul4dst8x7g8": {
+        "uid": "ul4dst8x7g8",
+        "use": "ViewActionModel",
+        "props": {
+          "type": "link",
+          "title": "{{t(\"View\")}}",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"View\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "title": "风险分析·详情",
+              "filterByTk": "{{ctx.record.id}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local",
+          "pageUid": "72i95moki0c",
+          "tabUid": "y85b04njgmo",
+          "gridUid": "rjxbxwa07mi"
+        }
+      },
+      "72i95moki0c": {
+        "uid": "72i95moki0c",
+        "use": "ChildPageModel",
+        "props": {
+          "displayTitle": false,
+          "enableTabs": true
+        },
+        "stepParams": {
+          "pageSettings": {
+            "general": {
+              "displayTitle": false,
+              "enableTabs": true
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "y85b04njgmo": {
+        "uid": "y85b04njgmo",
+        "use": "ChildPageTabModel",
+        "props": {
+          "title": "风险分析·详情"
+        },
+        "stepParams": {
+          "pageTabSettings": {
+            "tab": {
+              "title": "风险分析·详情"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "rjxbxwa07mi": {
+        "uid": "rjxbxwa07mi",
+        "use": "BlockGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "8uo75u9w7d9"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "icdd3lxxxfc"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "icdd3lxxxfc": {
+        "uid": "icdd3lxxxfc",
+        "use": "DetailsBlockModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "resourceSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+            }
+          },
+          "detailsSettings": {
+            "layout": {
+              "layout": "vertical",
+              "colon": true
+            },
+            "dataScope": {
+              "filter": {
+                "logic": "$and",
+                "items": []
+              }
+            },
+            "linkageRules": {
+              "value": []
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "k45lbtrxaq2": {
+        "uid": "k45lbtrxaq2",
+        "use": "DetailsGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "ljg1nh1crct"
+              ]
+            ],
+            "row2": [
+              [
+                "bpm6f2xr5dz"
+              ],
+              [
+                "whhdl33udsw"
+              ]
+            ],
+            "row3": [
+              [
+                "997ws6y100b"
+              ],
+              [
+                "54a7tmdtvla"
+              ]
+            ],
+            "row4": [
+              [
+                "c1zhavzq127"
+              ],
+              [
+                "uhja52t58bc"
+              ]
+            ],
+            "row5": [
+              [
+                "9flhkgk7p1l"
+              ],
+              [
+                "0c11yw2hp7h"
+              ]
+            ],
+            "row6": [
+              [
+                "tql25m6hmlh"
+              ],
+              [
+                "udi8u7uuc73"
+              ]
+            ],
+            "row7": [
+              [
+                "gql56bmeq5k"
+              ]
+            ],
+            "row8": [
+              [
+                "jnfjiocupma"
+              ],
+              [
+                "pq3psyi05t2"
+              ]
+            ],
+            "row9": [
+              [
+                "4a3v2rh8g95"
+              ],
+              [
+                "n9i34dbynar"
+              ]
+            ],
+            "row10": [
+              [
+                "jkv071gbe31"
+              ]
+            ],
+            "row11": [
+              [
+                "oq11o4y52zy"
+              ]
+            ],
+            "row12": [
+              [
+                "y7hiwvofmnn"
+              ]
+            ],
+            "row13": [
+              [
+                "vida152189o"
+              ],
+              [
+                "lo3v0e9gckx"
+              ]
+            ],
+            "row14": [
+              [
+                "jlj449967ok"
+              ]
+            ],
+            "row15": [
+              [
+                "b0idnwkdxnv"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ],
+            "row2": [
+              12,
+              12
+            ],
+            "row3": [
+              12,
+              12
+            ],
+            "row4": [
+              12,
+              12
+            ],
+            "row5": [
+              12,
+              12
+            ],
+            "row6": [
+              12,
+              12
+            ],
+            "row7": [
+              24
+            ],
+            "row8": [
+              12,
+              12
+            ],
+            "row9": [
+              12,
+              12
+            ],
+            "row10": [
+              24
+            ],
+            "row11": [
+              24
+            ],
+            "row12": [
+              24
+            ],
+            "row13": [
+              12,
+              12
+            ],
+            "row14": [
+              24
+            ],
+            "row15": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1",
+            "row2",
+            "row3",
+            "row4",
+            "row5",
+            "row6",
+            "row7",
+            "row8",
+            "row9",
+            "row10",
+            "row11",
+            "row12",
+            "row13",
+            "row14",
+            "row15"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "ur8pt8zo8ty"
+                  ]
+                ],
+                "row2": [
+                  [
+                    "wpuhnk653jc"
+                  ],
+                  [
+                    "70cou2uhj5s"
+                  ]
+                ],
+                "row3": [
+                  [
+                    "d0b0234g5jg"
+                  ],
+                  [
+                    "cmdz2onnm2v"
+                  ]
+                ],
+                "row4": [
+                  [
+                    "c59sfow2qp9"
+                  ],
+                  [
+                    "swsubjo4ye1"
+                  ]
+                ],
+                "row5": [
+                  [
+                    "w3d470ef3bx"
+                  ],
+                  [
+                    "rf4dil1s57m"
+                  ]
+                ],
+                "row6": [
+                  [
+                    "b3rkjgfhoo7"
+                  ],
+                  [
+                    "ocau3h6px0j"
+                  ]
+                ],
+                "row7": [
+                  [
+                    "44s1m6gfujt"
+                  ]
+                ],
+                "row8": [
+                  [
+                    "ym6wt0pbtcj"
+                  ],
+                  [
+                    "rkqb2w0z8sv"
+                  ]
+                ],
+                "row9": [
+                  [
+                    "skmqpz3z1ap"
+                  ],
+                  [
+                    "pry6nr1pmle"
+                  ]
+                ],
+                "row10": [
+                  [
+                    "c4h0mo7cpbg"
+                  ]
+                ],
+                "row11": [
+                  [
+                    "cfy8no2hfg0"
+                  ]
+                ],
+                "row12": [
+                  [
+                    "6iilgtk44zz"
+                  ]
+                ],
+                "row13": [
+                  [
+                    "3bq7gb4d6bs"
+                  ],
+                  [
+                    "kmh2y9x7694"
+                  ]
+                ],
+                "row14": [
+                  [
+                    "el9wvydtc8z"
+                  ]
+                ],
+                "row15": [
+                  [
+                    "uhxjkxiqmqq"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ],
+                "row2": [
+                  12,
+                  12
+                ],
+                "row3": [
+                  12,
+                  12
+                ],
+                "row4": [
+                  12,
+                  12
+                ],
+                "row5": [
+                  12,
+                  12
+                ],
+                "row6": [
+                  12,
+                  12
+                ],
+                "row7": [
+                  24
+                ],
+                "row8": [
+                  12,
+                  12
+                ],
+                "row9": [
+                  12,
+                  12
+                ],
+                "row10": [
+                  24
+                ],
+                "row11": [
+                  24
+                ],
+                "row12": [
+                  24
+                ],
+                "row13": [
+                  12,
+                  12
+                ],
+                "row14": [
+                  24
+                ],
+                "row15": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1",
+                "row2",
+                "row3",
+                "row4",
+                "row5",
+                "row6",
+                "row7",
+                "row8",
+                "row9",
+                "row10",
+                "row11",
+                "row12",
+                "row13",
+                "row14",
+                "row15"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ur8pt8zo8ty": {
+        "uid": "ur8pt8zo8ty",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "基本信息（1/2）",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "基本信息（1/2）",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "wpuhnk653jc": {
+        "uid": "wpuhnk653jc",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "4tl22yodf4s": {
+        "uid": "4tl22yodf4s",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "70cou2uhj5s": {
+        "uid": "70cou2uhj5s",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "tlrxl8705l9": {
+        "uid": "tlrxl8705l9",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "d0b0234g5jg": {
+        "uid": "d0b0234g5jg",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "category"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "h1e452mfbnt": {
+        "uid": "h1e452mfbnt",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "category"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "cmdz2onnm2v": {
+        "uid": "cmdz2onnm2v",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "mechanism"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "xdb31uqcq1h": {
+        "uid": "xdb31uqcq1h",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "mechanism"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "c59sfow2qp9": {
+        "uid": "c59sfow2qp9",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "probability"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "e07b11cdfxb": {
+        "uid": "e07b11cdfxb",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "probability"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "swsubjo4ye1": {
+        "uid": "swsubjo4ye1",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "impact"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "pcqr0xw62u9": {
+        "uid": "pcqr0xw62u9",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "impact"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "w3d470ef3bx": {
+        "uid": "w3d470ef3bx",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "horizon"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "zd8n6h7igtv": {
+        "uid": "zd8n6h7igtv",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "horizon"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "rf4dil1s57m": {
+        "uid": "rf4dil1s57m",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "trend"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "a88q4qkghzj": {
+        "uid": "a88q4qkghzj",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "trend"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "b3rkjgfhoo7": {
+        "uid": "b3rkjgfhoo7",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "impact_estimate"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ka61xc613w7": {
+        "uid": "ka61xc613w7",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "impact_estimate"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ocau3h6px0j": {
+        "uid": "ocau3h6px0j",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "mitigants"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "85mr7mdspod": {
+        "uid": "85mr7mdspod",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "mitigants"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "44s1m6gfujt": {
+        "uid": "44s1m6gfujt",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "基本信息（2/2）",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "基本信息（2/2）",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ym6wt0pbtcj": {
+        "uid": "ym6wt0pbtcj",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "treatment"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "p3bh3o795si": {
+        "uid": "p3bh3o795si",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "treatment"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "rkqb2w0z8sv": {
+        "uid": "rkqb2w0z8sv",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "early_warning"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "pzcyrr81b93": {
+        "uid": "pzcyrr81b93",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "early_warning"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "skmqpz3z1ap": {
+        "uid": "skmqpz3z1ap",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "response"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "7cggty0qs6n": {
+        "uid": "7cggty0qs6n",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "response"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "pry6nr1pmle": {
+        "uid": "pry6nr1pmle",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "status"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "xdokek2nvr8": {
+        "uid": "xdokek2nvr8",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "status"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "c4h0mo7cpbg": {
+        "uid": "c4h0mo7cpbg",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "关联",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "关联",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "cfy8no2hfg0": {
+        "uid": "cfy8no2hfg0",
+        "use": "DetailsItemModel",
+        "props": {
+          "titleField": "name"
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "company"
+            }
+          },
+          "detailItemSettings": {
+            "fieldNames": {
+              "label": "name"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "c1qnpn6q9fe": {
+        "uid": "c1qnpn6q9fe",
+        "use": "DisplayTextFieldModel",
+        "props": {
+          "titleField": "name",
+          "clickToOpen": true
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "company"
+            }
+          },
+          "displayFieldSettings": {
+            "clickToOpen": {
+              "clickToOpen": true
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_company",
+              "associationName": "vi_risk.company"
+            }
+          }
+        },
+        "popup": {
+          "template": {
+            "uid": "4hr3gehynkf",
+            "mode": "reference"
+          }
+        }
+      },
+      "6iilgtk44zz": {
+        "uid": "6iilgtk44zz",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "自动计算（只读）",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "自动计算（只读）",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "3bq7gb4d6bs": {
+        "uid": "3bq7gb4d6bs",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "level"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "297707nf184": {
+        "uid": "297707nf184",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "level"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "kmh2y9x7694": {
+        "uid": "kmh2y9x7694",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "thesis_verdicts"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "6yngmltcd3f": {
+        "uid": "6yngmltcd3f",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "thesis_verdicts"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "el9wvydtc8z": {
+        "uid": "el9wvydtc8z",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "系统",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "系统",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "uhxjkxiqmqq": {
+        "uid": "uhxjkxiqmqq",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "updated_at"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "mhzujmqai64": {
+        "uid": "mhzujmqai64",
+        "use": "DisplayDateTimeFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "fieldPath": "updated_at"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "oi8ctu6xstq": {
+        "uid": "oi8ctu6xstq",
+        "use": "EditActionModel",
+        "props": {
+          "title": "{{t(\"Edit\")}}",
+          "icon": "EditOutlined",
+          "type": "default"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Edit\")}}",
+              "icon": "EditOutlined",
+              "type": "default"
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_risk",
+              "title": "风险分析·编辑"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "g1fltnotb4z",
+            "mode": "reference"
+          }
+        }
+      }
+    }
+  }
+}

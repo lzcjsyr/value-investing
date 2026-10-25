@@ -1,0 +1,31 @@
+[
+  {
+    "path": "长江电力 / 数据底稿 / 经营数据",
+    "public_table_count": 1,
+    "collections": [
+      "vi_period_data"
+    ]
+  },
+  {
+    "path": "长江电力 / 商业模式 / 产业链与五力",
+    "public_table_count": 2,
+    "collections": [
+      "vi_competitor",
+      "vi_value_chain"
+    ]
+  },
+  {
+    "path": "长江电力 / 估值 / 逐年假设",
+    "public_table_count": 1,
+    "collections": [
+      "vi_forecast"
+    ]
+  },
+  {
+    "path": "长江电力 / 商业模式 / 风险分析",
+    "public_table_count": 1,
+    "collections": [
+      "vi_risk"
+    ]
+  }
+]

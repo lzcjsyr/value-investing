@@ -1,0 +1,4883 @@
+{
+  "tables": [
+    {
+      "code": "company",
+      "title": "公司",
+      "group": "0 总览",
+      "title_field": "name",
+      "desc": "研究对象。业务量/单价的名称和单位在这里定义，估值模型统一用“业务量×单价＝收入”。",
+      "fields": [
+        {
+          "name": "code",
+          "title": "证券代码",
+          "kind": "text",
+          "desc": "如 600900.SH"
+        },
+        {
+          "name": "name",
+          "title": "公司名称",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "exchange",
+          "title": "交易所",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "industry",
+          "title": "行业",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "currency",
+          "title": "记账币种",
+          "kind": "text",
+          "desc": "金额统一为该币种亿元"
+        },
+        {
+          "name": "volume_label",
+          "title": "业务量名称",
+          "kind": "text",
+          "desc": "收入驱动的“量”，如发电量、销量"
+        },
+        {
+          "name": "volume_unit",
+          "title": "业务量单位",
+          "kind": "text",
+          "desc": "如 亿千瓦时"
+        },
+        {
+          "name": "price_label",
+          "title": "单价名称",
+          "kind": "text",
+          "desc": "收入驱动的“价”，如综合电价"
+        },
+        {
+          "name": "price_unit",
+          "title": "单价单位",
+          "kind": "text",
+          "desc": "如 元/千瓦时；业务量×单价应等于收入（亿元）"
+        },
+        {
+          "name": "price_metric",
+          "title": "股价指标",
+          "kind": "m2o",
+          "desc": "驾驶舱和估值结论读取的股价来自这个指标",
+          "target": "metric"
+        },
+        {
+          "name": "price_fx_metric",
+          "title": "股价汇率指标",
+          "kind": "m2o",
+          "desc": "股价币种与记账币种不同时填写（如港股、美股）：该指标的值＝1 单位股价币种折合多少记账币种；不填＝股价不换算",
+          "target": "metric"
+        },
+        {
+          "name": "macro_metrics",
+          "title": "订阅的宏观数据",
+          "kind": "m2m",
+          "desc": "除估值参数（无风险利率、股价汇率）和跟踪事项引用的指标外，这家公司还要看的宏观数据；只能选宏观指标（所属公司为空）",
+          "target": "metric"
+        },
+        {
+          "name": "is_default",
+          "title": "驾驶舱默认展示",
+          "kind": "bool",
+          "desc": "已不再使用：每家公司在自己的菜单下都有驾驶舱"
+        },
+        {
+          "name": "profile",
+          "title": "公司简介",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "notes",
+          "title": "备注",
+          "kind": "long",
+          "desc": ""
+        }
+      ],
+      "calc": [
+        {
+          "name": "latest_price",
+          "title": "最新股价（元）",
+          "kind": "num",
+          "desc": "股价指标最近一个有效观察值；填了汇率指标时已折成记账币种",
+          "p": 2
+        },
+        {
+          "name": "latest_price_date",
+          "title": "最新股价日期",
+          "kind": "date",
+          "desc": ""
+        },
+        {
+          "name": "latest_price_raw",
+          "title": "最新股价（原币）",
+          "kind": "num",
+          "desc": "股价指标的原始值（未换算）",
+          "p": 2
+        },
+        {
+          "name": "latest_fx",
+          "title": "折算汇率",
+          "kind": "num",
+          "desc": "股价日或之前最近一个有效汇率；不需换算时为空",
+          "p": 4
+        },
+        {
+          "name": "macro_used",
+          "title": "用到的宏观数据",
+          "kind": "long",
+          "desc": "自动汇总：估值参数、股价汇率、跟踪事项和订阅用到的宏观指标，括号里是用途"
+        }
+      ]
+    },
+    {
+      "code": "source",
+      "title": "来源文档",
+      "group": "2 数据底稿",
+      "title_field": "title",
+      "desc": "原始出处：年报、公告、数据库取数、官网。一份文档可以支撑多条事实摘录。",
+      "fields": [
+        {
+          "name": "company",
+          "title": "公司",
+          "kind": "m2o",
+          "desc": "留空表示通用来源（如方法论、宏观数据）",
+          "target": "company"
+        },
+        {
+          "name": "title",
+          "title": "标题",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "source_type",
+          "title": "类型",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "定期报告",
+            "临时公告",
+            "官方网站",
+            "数据库取数",
+            "研究方法",
+            "研究推导",
+            "旧系统迁移"
+          ]
+        },
+        {
+          "name": "publisher",
+          "title": "发布方",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "publish_date",
+          "title": "发布日期",
+          "kind": "date",
+          "desc": ""
+        },
+        {
+          "name": "url",
+          "title": "链接",
+          "kind": "url",
+          "desc": ""
+        },
+        {
+          "name": "reliability",
+          "title": "可靠性",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "一级·法定披露",
+            "二级·官方统计",
+            "三级·第三方数据",
+            "研究推导"
+          ]
+        },
+        {
+          "name": "verify_status",
+          "title": "核验状态",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "已读原文",
+            "数值已核对",
+            "待核验",
+            "仅定位入口"
+          ]
+        },
+        {
+          "name": "retrieved_on",
+          "title": "获取日期",
+          "kind": "date",
+          "desc": ""
+        },
+        {
+          "name": "summary",
+          "title": "内容摘要",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "limitations",
+          "title": "口径与局限",
+          "kind": "long",
+          "desc": ""
+        }
+      ]
+    },
+    {
+      "code": "fact",
+      "title": "事实摘录",
+      "group": "2 数据底稿",
+      "title_field": "title",
+      "desc": "从来源文档里摘出的一条可核验事实（尽量带数值、期间和单位）。事实只记录“是什么”，解释放到论点或假设依据里。",
+      "fields": [
+        {
+          "name": "company",
+          "title": "公司",
+          "kind": "m2o",
+          "desc": "这条记录属于哪家公司",
+          "target": "company"
+        },
+        {
+          "name": "title",
+          "title": "事实",
+          "kind": "text",
+          "desc": "一句话标题"
+        },
+        {
+          "name": "category",
+          "title": "类别",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "经营",
+            "财务",
+            "资本开支",
+            "分红",
+            "债务",
+            "政策",
+            "治理",
+            "水文",
+            "估值方法",
+            "其他"
+          ]
+        },
+        {
+          "name": "statement",
+          "title": "事实陈述",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "value",
+          "title": "数值",
+          "kind": "num",
+          "desc": "",
+          "p": 4
+        },
+        {
+          "name": "unit",
+          "title": "单位",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "period",
+          "title": "所属期间",
+          "kind": "text",
+          "desc": "如 2025、2026Q3"
+        },
+        {
+          "name": "as_of",
+          "title": "截至日期",
+          "kind": "date",
+          "desc": ""
+        },
+        {
+          "name": "verify_status",
+          "title": "核验状态",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "已核验",
+            "待核验",
+            "建议值待核验"
+          ]
+        },
+        {
+          "name": "source",
+          "title": "来源文档",
+          "kind": "m2o",
+          "desc": "",
+          "target": "source"
+        },
+        {
+          "name": "notes",
+          "title": "备注",
+          "kind": "long",
+          "desc": ""
+        }
+      ]
+    },
+    {
+      "code": "biz_model",
+      "title": "商业模式",
+      "group": "1 商业模式",
+      "title_field": "title",
+      "desc": "商业模式画布 9 项，每家公司一项一行（B1—B9 按画布顺序）。投资者关心的内容放进画布：盈利公式的收入一侧、收入结构、单价、增长与周期写在“收入来源”；盈利公式的成本一侧、成本构成、单位利润、资本需求与现金循环写在“成本结构”。只写事实与机制；有争议、决定价值的判断写在核心论点里。",
+      "fields": [
+        {
+          "name": "company",
+          "title": "公司",
+          "kind": "m2o",
+          "desc": "这条记录属于哪家公司",
+          "target": "company"
+        },
+        {
+          "name": "code",
+          "title": "编号",
+          "kind": "text",
+          "desc": "B1—B9，按画布顺序"
+        },
+        {
+          "name": "element",
+          "title": "要素",
+          "kind": "select",
+          "desc": "客户细分：卖给谁｜价值主张：为什么买｜渠道通路：怎么触达和交付｜客户关系：怎么留住、合同与结算方式｜收入来源：收入公式（量×价）、结构、单价、增长与周期｜核心资源：不可或缺的资产与能力｜关键业务：公司自己做的事｜重要合作：控股股东、供应商、伙伴｜成本结构：成本构成、经营杠杆、单位利润、资本需求与现金循环",
+          "options": [
+            "客户细分",
+            "价值主张",
+            "渠道通路",
+            "客户关系",
+            "收入来源",
+            "核心资源",
+            "关键业务",
+            "重要合作",
+            "成本结构"
+          ]
+        },
+        {
+          "name": "title",
+          "title": "要点",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "content",
+          "title": "说明",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "metric",
+          "title": "关键数字",
+          "kind": "text",
+          "desc": "如 毛利率 44%；ARPPU 11.9 元"
+        },
+        {
+          "name": "trend",
+          "title": "变化与风险",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "facts",
+          "title": "依据事实",
+          "kind": "m2m",
+          "desc": "",
+          "target": "fact"
+        }
+      ]
+    },
+    {
+      "code": "value_chain",
+      "title": "产业链与五力",
+      "group": "1 商业模式",
+      "title_field": "participant",
+      "desc": "上下游各环节是谁、拿走多少利润、对公司的议价力强弱；每行同时标注属于波特五力中的哪一种力量。同业、替代品、潜在进入者这几行只评估力量强弱，具体对手的规模与打法写在竞争对手表，并在“相关对手”里关联。",
+      "fields": [
+        {
+          "name": "company",
+          "title": "公司",
+          "kind": "m2o",
+          "desc": "这条记录属于哪家公司",
+          "target": "company"
+        },
+        {
+          "name": "code",
+          "title": "编号",
+          "kind": "text",
+          "desc": "如 V1"
+        },
+        {
+          "name": "position",
+          "title": "环节",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "上游供给",
+            "本公司环节",
+            "下游客户",
+            "渠道与流量",
+            "互补方",
+            "替代品",
+            "潜在进入者",
+            "同业竞争",
+            "监管"
+          ]
+        },
+        {
+          "name": "participant",
+          "title": "参与者",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "role",
+          "title": "提供或购买什么",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "force",
+          "title": "五力归类",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "供应商议价能力",
+            "买方议价能力",
+            "新进入者威胁",
+            "替代品威胁",
+            "行业内竞争",
+            "不适用"
+          ]
+        },
+        {
+          "name": "power",
+          "title": "力量强弱",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "强",
+            "中",
+            "弱"
+          ]
+        },
+        {
+          "name": "effect",
+          "title": "对公司",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "有利",
+            "中性",
+            "不利"
+          ]
+        },
+        {
+          "name": "trend",
+          "title": "趋势",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "增强",
+            "稳定",
+            "减弱"
+          ]
+        },
+        {
+          "name": "profit_share",
+          "title": "利润池或成本占比",
+          "kind": "text",
+          "desc": "如 版权成本约占收入 45%—55%"
+        },
+        {
+          "name": "analysis",
+          "title": "分析",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "counter",
+          "title": "反面证据",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "facts",
+          "title": "依据事实",
+          "kind": "m2m",
+          "desc": "",
+          "target": "fact"
+        },
+        {
+          "name": "competitors",
+          "title": "相关对手",
+          "kind": "m2m",
+          "desc": "",
+          "target": "competitor"
+        }
+      ]
+    },
+    {
+      "code": "competitor",
+      "title": "竞争对手",
+      "group": "1 商业模式",
+      "title_field": "name",
+      "desc": "直接对手、替代品、潜在进入者与海外对标。关键数字写明截至日期；第三方估算在来源里注明。",
+      "fields": [
+        {
+          "name": "company",
+          "title": "公司",
+          "kind": "m2o",
+          "desc": "这条记录属于哪家公司",
+          "target": "company"
+        },
+        {
+          "name": "name",
+          "title": "对手",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "ticker",
+          "title": "证券代码",
+          "kind": "text",
+          "desc": "未上市留空"
+        },
+        {
+          "name": "relation",
+          "title": "关系",
+          "kind": "select",
+          "desc": "同业对标＝同行业、不直接抢客户的对照公司（如不同流域的水电）",
+          "options": [
+            "直接竞争",
+            "同业对标",
+            "替代品",
+            "潜在进入者",
+            "海外对标",
+            "上游",
+            "下游与渠道"
+          ]
+        },
+        {
+          "name": "segment",
+          "title": "竞争领域",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "scale_label",
+          "title": "规模指标",
+          "kind": "text",
+          "desc": "如 月活"
+        },
+        {
+          "name": "scale_value",
+          "title": "规模数值",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "scale_unit",
+          "title": "规模单位",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "paying_rate",
+          "title": "付费率或渗透率",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "price_point",
+          "title": "价格",
+          "kind": "text",
+          "desc": "如 会员 8 元/月"
+        },
+        {
+          "name": "gross_margin",
+          "title": "毛利率",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "growth",
+          "title": "收入或用户增速",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "as_of",
+          "title": "截至",
+          "kind": "date",
+          "desc": ""
+        },
+        {
+          "name": "strategy",
+          "title": "打法",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "vs_us",
+          "title": "相对本公司的强项与弱项",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "threat",
+          "title": "威胁程度",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "高",
+            "中",
+            "低"
+          ]
+        },
+        {
+          "name": "trend",
+          "title": "势头",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "上升",
+            "稳定",
+            "下降"
+          ]
+        },
+        {
+          "name": "source",
+          "title": "来源文档",
+          "kind": "m2o",
+          "desc": "",
+          "target": "source"
+        },
+        {
+          "name": "facts",
+          "title": "依据事实",
+          "kind": "m2m",
+          "desc": "",
+          "target": "fact"
+        }
+      ]
+    },
+    {
+      "code": "moat",
+      "title": "竞争壁垒",
+      "group": "1 商业模式",
+      "title_field": "title",
+      "desc": "每一项候选壁垒：机制、财务体现、证据、反证、复制难度；看起来像壁垒其实不是的（伪壁垒）也要列出。壁垒能不能持续，在核心论点里正反论证并关联到这里。可设自动检查，读取历史财务。",
+      "fields": [
+        {
+          "name": "company",
+          "title": "公司",
+          "kind": "m2o",
+          "desc": "这条记录属于哪家公司",
+          "target": "company"
+        },
+        {
+          "name": "code",
+          "title": "编号",
+          "kind": "text",
+          "desc": "如 M1"
+        },
+        {
+          "name": "title",
+          "title": "壁垒",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "moat_type",
+          "title": "类型",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "成本优势",
+            "品牌与定价权",
+            "转换成本",
+            "网络效应",
+            "规模经济",
+            "牌照与资源",
+            "工艺与组织",
+            "数据与算法",
+            "生态与渠道"
+          ]
+        },
+        {
+          "name": "verdict",
+          "title": "判定",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "真实壁垒",
+            "局部优势",
+            "伪壁垒",
+            "待验证"
+          ]
+        },
+        {
+          "name": "strength",
+          "title": "强度",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "强",
+            "中",
+            "弱",
+            "无"
+          ]
+        },
+        {
+          "name": "trend",
+          "title": "趋势",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "增强",
+            "稳定",
+            "削弱"
+          ]
+        },
+        {
+          "name": "mechanism",
+          "title": "机制",
+          "kind": "long",
+          "desc": "为什么能带来超额回报"
+        },
+        {
+          "name": "financial_link",
+          "title": "财务体现",
+          "kind": "long",
+          "desc": "体现在哪个指标：更高 ROIC 或毛利率、更高留存、更低获客成本、更稳定的现金流"
+        },
+        {
+          "name": "evidence",
+          "title": "证据",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "counter",
+          "title": "反证",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "replication",
+          "title": "复制难度",
+          "kind": "long",
+          "desc": "竞争者复制需要多少时间、资本、组织能力和客户验证"
+        },
+        {
+          "name": "threats",
+          "title": "削弱因素",
+          "kind": "long",
+          "desc": "新技术、监管、竞争者行为"
+        },
+        {
+          "name": "check_metric",
+          "title": "自动检查·指标",
+          "kind": "select",
+          "desc": "从历史财务（年度）取值；留空表示不做自动检查",
+          "options": [
+            "业务量",
+            "单价",
+            "营业收入",
+            "归母净利润",
+            "派息率",
+            "财务费用",
+            "业务量同比",
+            "单价同比",
+            "营业收入同比",
+            "财务费用同比",
+            "毛利率",
+            "ROE",
+            "经营现金流÷归母净利润",
+            "资本开支÷经营现金流",
+            "净负债",
+            "净负债÷EBITDA"
+          ]
+        },
+        {
+          "name": "check_op",
+          "title": "自动检查·条件",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "<",
+            "<=",
+            ">",
+            ">="
+          ]
+        },
+        {
+          "name": "check_threshold",
+          "title": "自动检查·阈值",
+          "kind": "num",
+          "desc": "比率类填小数：-0.03 表示 -3%",
+          "p": 4
+        },
+        {
+          "name": "check_years",
+          "title": "自动检查·连续年数",
+          "kind": "int",
+          "desc": "最近连续几年都满足条件才算触发"
+        },
+        {
+          "name": "facts",
+          "title": "依据事实",
+          "kind": "m2m",
+          "desc": "",
+          "target": "fact"
+        },
+        {
+          "name": "theses",
+          "title": "相关论点",
+          "kind": "m2m",
+          "desc": "",
+          "target": "thesis"
+        }
+      ],
+      "calc": [
+        {
+          "name": "check_latest_year",
+          "title": "最近年度",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "check_latest_value",
+          "title": "最近值",
+          "kind": "num",
+          "desc": "",
+          "p": 4
+        },
+        {
+          "name": "check_result",
+          "title": "自动检查结果",
+          "kind": "text",
+          "desc": "未设置 / 数据不足 / 未触发 / 已触发"
+        },
+        {
+          "name": "debate_count",
+          "title": "已辩论的论点数",
+          "kind": "int",
+          "desc": "关联到这项壁垒、且填了辩论日期的论点条数"
+        },
+        {
+          "name": "debate_winner",
+          "title": "论点裁决",
+          "kind": "text",
+          "desc": "关联到这项壁垒、填了辩论日期的论点及其裁决（按编号，如“T1 成立；T4 观察”）"
+        }
+      ]
+    },
+    {
+      "code": "thesis",
+      "title": "核心论点",
+      "group": "1 商业模式",
+      "title_field": "title",
+      "desc": "决定价值的几个关键判断，每条都正反论证：正方立论、反方立论、互相反驳，再给裁决、把握、改判条件和对模型的影响。壁垒能否持续的论点关联到竞争壁垒（伪壁垒以外每项壁垒至少一条辩论过的论点）；能量化的改判条件设自动检查，读取历史财务。",
+      "fields": [
+        {
+          "name": "company",
+          "title": "公司",
+          "kind": "m2o",
+          "desc": "这条记录属于哪家公司",
+          "target": "company"
+        },
+        {
+          "name": "code",
+          "title": "编号",
+          "kind": "text",
+          "desc": "如 T1"
+        },
+        {
+          "name": "title",
+          "title": "论点",
+          "kind": "text",
+          "desc": "写成一个可以被证伪的判断"
+        },
+        {
+          "name": "category",
+          "title": "类别",
+          "kind": "select",
+          "desc": "不利事件本身写在风险分析；这里只放有争议、决定价值的判断",
+          "options": [
+            "壁垒",
+            "经营",
+            "财务",
+            "治理",
+            "估值"
+          ]
+        },
+        {
+          "name": "status",
+          "title": "裁决",
+          "kind": "select",
+          "desc": "成立＝正方占优；观察＝势均力敌或证据不足；存疑＝反方占优；证伪＝改判条件已经出现",
+          "options": [
+            "成立",
+            "观察",
+            "存疑",
+            "证伪"
+          ]
+        },
+        {
+          "name": "confidence",
+          "title": "把握",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "高",
+            "中",
+            "低"
+          ]
+        },
+        {
+          "name": "bull_case",
+          "title": "正方立论",
+          "kind": "long",
+          "desc": "为什么成立、怎么影响现金流，附证据"
+        },
+        {
+          "name": "bear_case",
+          "title": "反方立论",
+          "kind": "long",
+          "desc": "反证与边界：什么情况下不成立或被高估"
+        },
+        {
+          "name": "bull_rebuttal",
+          "title": "正方反驳",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "bear_rebuttal",
+          "title": "反方反驳",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "verdict",
+          "title": "裁决理由",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "decisive_evidence",
+          "title": "决定胜负的证据",
+          "kind": "long",
+          "desc": "下一步要看哪些数据"
+        },
+        {
+          "name": "mind_changer",
+          "title": "改判条件",
+          "kind": "long",
+          "desc": "什么情况下改判；能量化的同时填下面的自动检查"
+        },
+        {
+          "name": "model_impact",
+          "title": "对模型的影响",
+          "kind": "long",
+          "desc": "只写关联之外的说明（如“不改参数，只跟踪”）；对应哪条假设依据在假设依据的“相关论点”里关联，状态自动汇总在“假设依据（状态）”"
+        },
+        {
+          "name": "external_view",
+          "title": "外部观点",
+          "kind": "long",
+          "desc": "卖方、外资、岗底斯观点 PK 的正反观点摘要；裁决仍由自己负责"
+        },
+        {
+          "name": "debated_on",
+          "title": "辩论日期",
+          "kind": "date",
+          "desc": "做完正反立论与互相反驳后填写；竞争壁垒的“已辩论的论点数”按它统计"
+        },
+        {
+          "name": "check_metric",
+          "title": "自动检查·指标",
+          "kind": "select",
+          "desc": "从历史财务（年度）取值；留空表示不做自动检查",
+          "options": [
+            "业务量",
+            "单价",
+            "营业收入",
+            "归母净利润",
+            "派息率",
+            "财务费用",
+            "业务量同比",
+            "单价同比",
+            "营业收入同比",
+            "财务费用同比",
+            "毛利率",
+            "ROE",
+            "经营现金流÷归母净利润",
+            "资本开支÷经营现金流",
+            "净负债",
+            "净负债÷EBITDA"
+          ]
+        },
+        {
+          "name": "check_op",
+          "title": "自动检查·条件",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "<",
+            "<=",
+            ">",
+            ">="
+          ]
+        },
+        {
+          "name": "check_threshold",
+          "title": "自动检查·阈值",
+          "kind": "num",
+          "desc": "比率类填小数：-0.03 表示 -3%",
+          "p": 4
+        },
+        {
+          "name": "check_years",
+          "title": "自动检查·连续年数",
+          "kind": "int",
+          "desc": "最近连续几年都满足条件才算触发"
+        },
+        {
+          "name": "facts",
+          "title": "依据事实",
+          "kind": "m2m",
+          "desc": "",
+          "target": "fact"
+        }
+      ],
+      "calc": [
+        {
+          "name": "check_latest_year",
+          "title": "最近年度",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "check_latest_value",
+          "title": "最近值",
+          "kind": "num",
+          "desc": "",
+          "p": 4
+        },
+        {
+          "name": "check_result",
+          "title": "自动检查结果",
+          "kind": "text",
+          "desc": "未设置 / 数据不足 / 未触发 / 已触发"
+        },
+        {
+          "name": "judgment_status",
+          "title": "假设依据（状态）",
+          "kind": "text",
+          "desc": "关联到这条论点的假设依据及其状态（按编号，如“J-P 已采纳；J-TV 研究规则”）"
+        }
+      ]
+    },
+    {
+      "code": "risk",
+      "title": "风险分析",
+      "group": "1 商业模式",
+      "title_field": "title",
+      "desc": "会让这笔投资亏钱的不利事件：传导路径、可能性×冲击（自动定级）、量化影响、缓冲因素、在估值里怎么处理、预警信号与触发后应对。风险是论点失败或外部冲击的“事件”，论证本身仍在核心论点里，这里只关联会被削弱的论点；落到参数的关联假设依据，盯什么关联跟踪事项。",
+      "fields": [
+        {
+          "name": "company",
+          "title": "公司",
+          "kind": "m2o",
+          "desc": "这条记录属于哪家公司",
+          "target": "company"
+        },
+        {
+          "name": "code",
+          "title": "编号",
+          "kind": "text",
+          "desc": "如 R1"
+        },
+        {
+          "name": "title",
+          "title": "风险",
+          "kind": "text",
+          "desc": "写成会发生的不利事件，如“连续枯水：年发电量两年以上低于 2,700 亿千瓦时”"
+        },
+        {
+          "name": "category",
+          "title": "类别",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "行业与竞争",
+            "技术与替代",
+            "经营与执行",
+            "财务与资产质量",
+            "政策与监管",
+            "治理与资本配置",
+            "宏观与环境",
+            "估值与市场"
+          ]
+        },
+        {
+          "name": "mechanism",
+          "title": "传导路径",
+          "kind": "long",
+          "desc": "从事件到收入、利润、现金、估值的路径"
+        },
+        {
+          "name": "probability",
+          "title": "可能性",
+          "kind": "select",
+          "desc": "未来三年内发生的可能性",
+          "options": [
+            "高",
+            "中",
+            "低"
+          ]
+        },
+        {
+          "name": "impact",
+          "title": "冲击",
+          "kind": "select",
+          "desc": "发生后对每股价值的冲击：高＝超过 20%，中＝5%—20%，低＝5% 以内",
+          "options": [
+            "高",
+            "中",
+            "低"
+          ]
+        },
+        {
+          "name": "horizon",
+          "title": "时间窗口",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "1 年内",
+            "1—3 年",
+            "3 年以上"
+          ]
+        },
+        {
+          "name": "trend",
+          "title": "趋势",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "上升",
+            "稳定",
+            "下降"
+          ]
+        },
+        {
+          "name": "impact_estimate",
+          "title": "影响测算",
+          "kind": "long",
+          "desc": "能量化的写数：对利润、现金或每股价值的影响（可引用单参数试验、情景）"
+        },
+        {
+          "name": "mitigants",
+          "title": "缓冲因素",
+          "kind": "long",
+          "desc": "什么能限制损失"
+        },
+        {
+          "name": "treatment",
+          "title": "估值处理",
+          "kind": "select",
+          "desc": "这项风险在估值里怎么体现；未计入的要在影响测算里说明为什么",
+          "options": [
+            "已计入基准情景",
+            "已计入悲观情景",
+            "体现在折现率",
+            "未计入估值"
+          ]
+        },
+        {
+          "name": "early_warning",
+          "title": "预警信号",
+          "kind": "long",
+          "desc": "看什么、到什么程度算预警；已建跟踪事项的在“预警跟踪事项”里关联"
+        },
+        {
+          "name": "response",
+          "title": "触发后应对",
+          "kind": "long",
+          "desc": "复核哪条论点或假设依据、要不要改参数（研究预警，不是交易指令）"
+        },
+        {
+          "name": "status",
+          "title": "状态",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "监控中",
+            "已部分发生",
+            "已发生",
+            "已缓解",
+            "已解除"
+          ]
+        },
+        {
+          "name": "theses",
+          "title": "会削弱的论点",
+          "kind": "m2m",
+          "desc": "",
+          "target": "thesis"
+        },
+        {
+          "name": "judgments",
+          "title": "估值对应的假设依据",
+          "kind": "m2m",
+          "desc": "",
+          "target": "judgment"
+        },
+        {
+          "name": "watches",
+          "title": "预警跟踪事项",
+          "kind": "m2m",
+          "desc": "",
+          "target": "watch"
+        },
+        {
+          "name": "facts",
+          "title": "依据事实",
+          "kind": "m2m",
+          "desc": "",
+          "target": "fact"
+        }
+      ],
+      "calc": [
+        {
+          "name": "level",
+          "title": "风险等级",
+          "kind": "select",
+          "desc": "可能性×冲击（高 3、中 2、低 1）：乘积 6—9 重大，3—4 重要，1—2 一般",
+          "options": [
+            "重大",
+            "重要",
+            "一般"
+          ]
+        },
+        {
+          "name": "thesis_verdicts",
+          "title": "相关论点裁决",
+          "kind": "text",
+          "desc": "关联的论点及其当前裁决（按编号，如“T2 观察；T3 成立”）"
+        }
+      ]
+    },
+    {
+      "code": "fit_score",
+      "title": "价值投资适配度",
+      "group": "1 商业模式",
+      "title_field": "dimension",
+      "desc": "长坡、厚雪、慢变、护城河、再投资、财务质量、治理配置、可估值性，各 0—5 分。总分 32—40 适合复利框架，22—31 可研究，21 以下通常不符合价值投资标准。",
+      "fields": [
+        {
+          "name": "company",
+          "title": "公司",
+          "kind": "m2o",
+          "desc": "这条记录属于哪家公司",
+          "target": "company"
+        },
+        {
+          "name": "dimension",
+          "title": "维度",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "长坡",
+            "厚雪",
+            "慢变",
+            "护城河",
+            "再投资",
+            "财务质量",
+            "治理配置",
+            "可估值性"
+          ]
+        },
+        {
+          "name": "score",
+          "title": "评分（0—5）",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "rationale",
+          "title": "理由与证据",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "counter",
+          "title": "反证",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "sort",
+          "title": "排序",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "theses",
+          "title": "相关论点",
+          "kind": "m2m",
+          "desc": "",
+          "target": "thesis"
+        }
+      ]
+    },
+    {
+      "code": "judgment",
+      "title": "假设依据",
+      "group": "3 估值",
+      "title_field": "title",
+      "desc": "事实 → 判断 → 参数：解释事实和论点如何影响哪个估值参数、改参数的门槛、什么情况下不改。论证本身写在核心论点里，这里只写到参数的传导。",
+      "fields": [
+        {
+          "name": "company",
+          "title": "公司",
+          "kind": "m2o",
+          "desc": "这条记录属于哪家公司",
+          "target": "company"
+        },
+        {
+          "name": "code",
+          "title": "编号",
+          "kind": "text",
+          "desc": "如 J-Q"
+        },
+        {
+          "name": "title",
+          "title": "判断主题",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "fact_layer",
+          "title": "事实层",
+          "kind": "long",
+          "desc": "需要观察到什么事实"
+        },
+        {
+          "name": "judgment",
+          "title": "判断",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "transmission",
+          "title": "数学传导",
+          "kind": "long",
+          "desc": "参数变化如何传到利润、现金和估值"
+        },
+        {
+          "name": "parameter",
+          "title": "影响参数",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "affected_years",
+          "title": "影响年份/情景",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "change_threshold",
+          "title": "修改门槛",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "no_change_condition",
+          "title": "不改模型的情况",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "counter_evidence",
+          "title": "反证或替代解释",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "status",
+          "title": "状态",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "研究规则",
+            "已形成建议",
+            "已采纳",
+            "已否决"
+          ]
+        },
+        {
+          "name": "facts",
+          "title": "依据事实",
+          "kind": "m2m",
+          "desc": "",
+          "target": "fact"
+        },
+        {
+          "name": "theses",
+          "title": "相关论点",
+          "kind": "m2m",
+          "desc": "",
+          "target": "thesis"
+        }
+      ]
+    },
+    {
+      "code": "fin_history",
+      "title": "历史财务（年度）",
+      "group": "2 数据底稿",
+      "title_field": "year",
+      "desc": "年报口径的历史数据。空白＝尚未取得，不是 0。派生指标（单价、派息率、同比等）自动计算。",
+      "fields": [
+        {
+          "name": "company",
+          "title": "公司",
+          "kind": "m2o",
+          "desc": "这条记录属于哪家公司",
+          "target": "company"
+        },
+        {
+          "name": "year",
+          "title": "年度",
+          "kind": "year",
+          "desc": ""
+        },
+        {
+          "name": "scope_note",
+          "title": "口径说明",
+          "kind": "text",
+          "desc": "并表范围变化等，如“四站口径”“六站全口径”"
+        },
+        {
+          "name": "volume",
+          "title": "业务量",
+          "kind": "num",
+          "desc": "单位见公司表（长江电力＝发电量，亿千瓦时）",
+          "p": 2
+        },
+        {
+          "name": "revenue",
+          "title": "营业收入（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "cost_of_sales",
+          "title": "营业成本（亿元）",
+          "kind": "num",
+          "desc": "用于毛利率；含折旧等制造成本",
+          "p": 2
+        },
+        {
+          "name": "pretax_profit",
+          "title": "利润总额（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "income_tax",
+          "title": "所得税（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "np_parent",
+          "title": "归母净利润（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "minority_profit",
+          "title": "少数股东损益（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "da",
+          "title": "折旧摊销（亿元）",
+          "kind": "num",
+          "desc": "含使用权资产折旧（2019 年起）",
+          "p": 2
+        },
+        {
+          "name": "finance_cost",
+          "title": "财务费用（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "invest_income",
+          "title": "投资收益（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "equity_income",
+          "title": "权益法投资收益（亿元）",
+          "kind": "num",
+          "desc": "对联营合营企业的投资收益，非当期现金",
+          "p": 2
+        },
+        {
+          "name": "cfo",
+          "title": "经营活动现金流（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "capex",
+          "title": "资本开支（亿元）",
+          "kind": "num",
+          "desc": "购建固定资产、无形资产和其他长期资产支付的现金",
+          "p": 2
+        },
+        {
+          "name": "investee_cash_div",
+          "title": "收到投资分红（亿元）",
+          "kind": "num",
+          "desc": "取得投资收益收到的现金",
+          "p": 2
+        },
+        {
+          "name": "net_borrowing",
+          "title": "净借款（亿元）",
+          "kind": "num",
+          "desc": "取得借款−偿还债务；负数＝净还债",
+          "p": 2
+        },
+        {
+          "name": "interest_debt",
+          "title": "带息负债（期末，亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "cash",
+          "title": "货币资金（期末，亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "equity_parent",
+          "title": "归母净资产（期末，亿元）",
+          "kind": "num",
+          "desc": "用于 ROE 与市净率",
+          "p": 2
+        },
+        {
+          "name": "dividend_total",
+          "title": "现金分红总额（亿元）",
+          "kind": "num",
+          "desc": "归属该年度的分红（含中期）",
+          "p": 2
+        },
+        {
+          "name": "dps",
+          "title": "每股股息（元）",
+          "kind": "num",
+          "desc": "归属该年度，含中期分红",
+          "p": 4
+        },
+        {
+          "name": "source",
+          "title": "主要来源",
+          "kind": "m2o",
+          "desc": "",
+          "target": "source"
+        },
+        {
+          "name": "note",
+          "title": "备注",
+          "kind": "long",
+          "desc": ""
+        }
+      ],
+      "calc": [
+        {
+          "name": "price",
+          "title": "单价（收入÷业务量）",
+          "kind": "num",
+          "desc": "",
+          "p": 4
+        },
+        {
+          "name": "payout",
+          "title": "派息率",
+          "kind": "pct",
+          "desc": "现金分红总额÷归母净利润",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "tax_rate",
+          "title": "所得税率",
+          "kind": "pct",
+          "desc": "所得税÷利润总额",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "minority_share",
+          "title": "少数股东占比",
+          "kind": "pct",
+          "desc": "少数股东损益÷净利润",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "burden",
+          "title": "综合负担率",
+          "kind": "pct",
+          "desc": "1−归母净利润÷利润总额",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "fcf",
+          "title": "经营现金流−资本开支（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "volume_yoy",
+          "title": "业务量同比",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "price_yoy",
+          "title": "单价同比",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "revenue_yoy",
+          "title": "营业收入同比",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "np_yoy",
+          "title": "归母净利润同比",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "finance_cost_yoy",
+          "title": "财务费用同比",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "gross_margin",
+          "title": "毛利率",
+          "kind": "pct",
+          "desc": "1−营业成本÷营业收入",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "roe",
+          "title": "ROE",
+          "kind": "pct",
+          "desc": "归母净利润÷平均归母净资产（上年末与本年末）",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "cfo_to_np",
+          "title": "经营现金流÷归母净利润",
+          "kind": "num",
+          "desc": "利润的现金含量；长期低于 1 要警惕",
+          "p": 2
+        },
+        {
+          "name": "capex_to_cfo",
+          "title": "资本开支÷经营现金流",
+          "kind": "num",
+          "desc": "大于 1＝经营现金流不够投资，需要借钱或少分红",
+          "p": 2
+        },
+        {
+          "name": "net_debt",
+          "title": "净负债（亿元）",
+          "kind": "num",
+          "desc": "带息负债−货币资金",
+          "p": 2
+        },
+        {
+          "name": "net_debt_to_ebitda",
+          "title": "净负债÷EBITDA",
+          "kind": "num",
+          "desc": "EBITDA 近似＝利润总额＋财务费用＋折旧摊销",
+          "p": 2
+        }
+      ]
+    },
+    {
+      "code": "period_data",
+      "title": "定期经营数据",
+      "group": "2 数据底稿",
+      "title_field": "period",
+      "desc": "公司定期披露的经营指标，如销量、订单、用户数、交付量与发电量。区分单季、累计和期末口径；经营解读记录研究判断，披露摘要保留事实与统计口径。",
+      "fields": [
+        {
+          "name": "company",
+          "title": "公司",
+          "kind": "m2o",
+          "desc": "这条记录属于哪家公司",
+          "target": "company"
+        },
+        {
+          "name": "period",
+          "title": "期间",
+          "kind": "text",
+          "desc": "如 2026Q3、2026H1"
+        },
+        {
+          "name": "period_end",
+          "title": "期末日期",
+          "kind": "date",
+          "desc": ""
+        },
+        {
+          "name": "period_kind",
+          "title": "口径",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "单季",
+            "半年累计",
+            "前三季度累计",
+            "全年"
+          ]
+        },
+        {
+          "name": "line_item",
+          "title": "项目",
+          "kind": "text",
+          "desc": "如销量、新签合同额、付费用户、汽车交付量、发电量"
+        },
+        {
+          "name": "value",
+          "title": "数值",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "unit",
+          "title": "单位",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "yoy",
+          "title": "同比",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "impact",
+          "title": "经营影响",
+          "kind": "select",
+          "desc": "结合比较基准与经营解读，判断这项数据对公司经营的影响。中性表示已有依据支持影响有限；待判断表示依据不足。",
+          "options": [
+            "利好",
+            "中性",
+            "利空",
+            "待判断"
+          ],
+          "default": "待判断"
+        },
+        {
+          "name": "assessment",
+          "title": "经营解读",
+          "kind": "long",
+          "desc": "结合公司业务说明比较基准、变化原因及对利润或模型假设的影响；缺少依据时留空。"
+        },
+        {
+          "name": "summary",
+          "title": "披露摘要与口径",
+          "kind": "long",
+          "desc": "记录披露事实、统计范围、单季或累计口径、管理层披露摘要与推算过程；研究判断写在经营解读。"
+        },
+        {
+          "name": "status",
+          "title": "处理状态",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "已入模",
+            "待处理",
+            "无需入模"
+          ]
+        },
+        {
+          "name": "source",
+          "title": "来源文档",
+          "kind": "m2o",
+          "desc": "",
+          "target": "source"
+        }
+      ]
+    },
+    {
+      "code": "metric",
+      "title": "指标",
+      "group": "2 数据底稿",
+      "title_field": "name",
+      "desc": "高频数据指标的定义。所属公司为空的是宏观数据（利率、汇率、商品等），归“宏观数据”项目所有，各公司按需使用；只和一家公司有关的（股价、水位）挂在这家公司下。同一含义不同口径的数据分成不同指标，不拼接。",
+      "fields": [
+        {
+          "name": "code",
+          "title": "指标代码",
+          "kind": "text",
+          "desc": "稳定的英文代码，如 600900.SH.PRICE"
+        },
+        {
+          "name": "name",
+          "title": "指标名称",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "unit",
+          "title": "单位",
+          "kind": "text",
+          "desc": "利率类直接存百分数值，如 1.65 表示 1.65%"
+        },
+        {
+          "name": "category",
+          "title": "类别",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "行情",
+            "利率",
+            "汇率",
+            "商品",
+            "宏观",
+            "水文",
+            "经营",
+            "其他"
+          ]
+        },
+        {
+          "name": "company",
+          "title": "所属公司",
+          "kind": "m2o",
+          "desc": "留空＝宏观数据：不属于任何公司，各公司按需使用",
+          "target": "company"
+        },
+        {
+          "name": "source_name",
+          "title": "数据来源",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "frequency",
+          "title": "频率",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "valid_min",
+          "title": "合理下限",
+          "kind": "num",
+          "desc": "超出范围的观察标记为无效，不参与计算",
+          "p": 4
+        },
+        {
+          "name": "valid_max",
+          "title": "合理上限",
+          "kind": "num",
+          "desc": "",
+          "p": 4
+        },
+        {
+          "name": "notes",
+          "title": "说明",
+          "kind": "long",
+          "desc": ""
+        }
+      ],
+      "calc": [
+        {
+          "name": "obs_count",
+          "title": "观察条数",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "latest_value",
+          "title": "最新有效值",
+          "kind": "num",
+          "desc": "",
+          "p": 4
+        },
+        {
+          "name": "latest_date",
+          "title": "最新日期",
+          "kind": "date",
+          "desc": ""
+        },
+        {
+          "name": "scope",
+          "title": "归属",
+          "kind": "text",
+          "desc": "宏观（所属公司为空）或公司"
+        },
+        {
+          "name": "used_by",
+          "title": "使用公司",
+          "kind": "long",
+          "desc": "哪些公司用到这个指标、做什么用（自有、股价、汇率折算、无风险利率、跟踪事项、订阅）"
+        },
+        {
+          "name": "used_by_codes",
+          "title": "使用公司代码",
+          "kind": "text",
+          "desc": "筛选用：如 ,600900.SH,002078.SZ,"
+        }
+      ]
+    },
+    {
+      "code": "observation",
+      "title": "高频数据",
+      "group": "2 数据底稿",
+      "title_field": "obs_date",
+      "desc": "每个指标每天的观察值。同一天多次采集时取最后一次为“当前版本”；超出合理范围的为无效。",
+      "fields": [
+        {
+          "name": "metric",
+          "title": "指标",
+          "kind": "m2o",
+          "desc": "",
+          "target": "metric"
+        },
+        {
+          "name": "obs_date",
+          "title": "观察日期",
+          "kind": "date",
+          "desc": ""
+        },
+        {
+          "name": "value",
+          "title": "数值",
+          "kind": "num",
+          "desc": "",
+          "p": 4
+        },
+        {
+          "name": "collected_at",
+          "title": "采集时间",
+          "kind": "ts",
+          "desc": ""
+        },
+        {
+          "name": "source",
+          "title": "来源",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "raw_capture",
+          "title": "原始采集记录",
+          "kind": "m2o",
+          "desc": "自动采集写入的观察会关联原始响应",
+          "target": "raw_capture"
+        },
+        {
+          "name": "note",
+          "title": "使用边界",
+          "kind": "long",
+          "desc": ""
+        }
+      ],
+      "calc": [
+        {
+          "name": "is_current",
+          "title": "当前版本",
+          "kind": "bool",
+          "desc": "同指标同日期最后一次采集"
+        },
+        {
+          "name": "is_valid",
+          "title": "有效",
+          "kind": "bool",
+          "desc": "有数值且在指标合理范围内"
+        }
+      ]
+    },
+    {
+      "code": "model",
+      "title": "估值模型",
+      "group": "3 估值",
+      "title_field": "name",
+      "desc": "一家公司的一版估值模型：基准年、终值年、股本、折现率构成、期初负债与安全边际。",
+      "fields": [
+        {
+          "name": "company",
+          "title": "公司",
+          "kind": "m2o",
+          "desc": "这条记录属于哪家公司",
+          "target": "company"
+        },
+        {
+          "name": "name",
+          "title": "模型名称",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "status",
+          "title": "状态",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "当前",
+            "归档"
+          ]
+        },
+        {
+          "name": "method",
+          "title": "方法",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "base_year",
+          "title": "基准年",
+          "kind": "year",
+          "desc": "估值基准日＝该年 12 月 31 日；预测从下一年开始"
+        },
+        {
+          "name": "terminal_year",
+          "title": "终值年",
+          "kind": "year",
+          "desc": "明确预测期最后一年，之后按永续增长"
+        },
+        {
+          "name": "shares",
+          "title": "股本（亿股）",
+          "kind": "num",
+          "desc": "",
+          "p": 4
+        },
+        {
+          "name": "rf",
+          "title": "无风险利率",
+          "kind": "pct",
+          "desc": "长期参数；高频数据不会自动覆盖",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "rf_date",
+          "title": "无风险利率日期",
+          "kind": "date",
+          "desc": ""
+        },
+        {
+          "name": "rf_metric",
+          "title": "无风险利率参考指标",
+          "kind": "m2o",
+          "desc": "用于对照最新观察值",
+          "target": "metric"
+        },
+        {
+          "name": "erp",
+          "title": "风险溢价",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "opening_debt",
+          "title": "期初带息负债（亿元）",
+          "kind": "num",
+          "desc": "基准年末余额，债务滚动的起点",
+          "p": 2
+        },
+        {
+          "name": "opening_op_assets",
+          "title": "期初经营性长期资产（亿元）",
+          "kind": "num",
+          "desc": "基准年末固定资产＋在建工程＋无形资产＋使用权资产",
+          "p": 2
+        },
+        {
+          "name": "opening_lt_invest",
+          "title": "期初长期股权投资（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "opening_equity",
+          "title": "期初归母权益（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "opening_minority",
+          "title": "期初少数股东权益（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "required_return",
+          "title": "要求收益率",
+          "kind": "pct",
+          "desc": "投资者自己的门槛回报（机会成本）。用于算隐含收益率是否达标、以及按此收益率的最高买入价；与基准折现率是两个视角",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "margin_low",
+          "title": "安全边际·低档",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "margin_high",
+          "title": "安全边际·高档",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "notes",
+          "title": "模型说明",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "primary_method",
+          "title": "主估值方法",
+          "kind": "select",
+          "desc": "驾驶舱先展示哪一种，另一种作交叉验证；留空＝股息贴现",
+          "options": [
+            "股息贴现",
+            "分部加总"
+          ]
+        },
+        {
+          "name": "sotp_year",
+          "title": "分部加总·核心盈利年份",
+          "kind": "int",
+          "desc": "取哪一年的预测核心盈利（通常是下一个完整年度）；留空＝不用预测计算，经营业务全部写在“经营分部估值”"
+        },
+        {
+          "name": "sotp_core_adj",
+          "title": "分部加总·核心盈利调整（亿元）",
+          "kind": "num",
+          "desc": "税后归母口径，如加回收购形成的无形资产摊销；股权激励不加回",
+          "p": 2
+        },
+        {
+          "name": "sotp_as_of",
+          "title": "分部加总·资产负债日",
+          "kind": "date",
+          "desc": "现金、负债、对外投资与股本的统一截止日"
+        }
+      ],
+      "calc": [
+        {
+          "name": "base_discount_rate",
+          "title": "基准折现率",
+          "kind": "pct",
+          "desc": "无风险利率＋风险溢价，四舍五入到 0.1%",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "valuation_date",
+          "title": "估值日",
+          "kind": "date",
+          "desc": "今天"
+        },
+        {
+          "name": "years_elapsed",
+          "title": "距基准日（年）",
+          "kind": "num",
+          "desc": "",
+          "p": 3
+        },
+        {
+          "name": "latest_rf",
+          "title": "最新无风险利率观察",
+          "kind": "num",
+          "desc": "参考指标的最新有效值（单位见指标）",
+          "p": 4
+        },
+        {
+          "name": "latest_rf_date",
+          "title": "最新观察日期",
+          "kind": "date",
+          "desc": ""
+        }
+      ]
+    },
+    {
+      "code": "scenario",
+      "title": "情景",
+      "group": "3 估值",
+      "title_field": "name",
+      "desc": "情景＝对逐年假设的整体调整：业务量、单价、付现成本乘以系数，折现率与永续增长按情景设置。",
+      "fields": [
+        {
+          "name": "model",
+          "title": "估值模型",
+          "kind": "m2o",
+          "desc": "",
+          "target": "model"
+        },
+        {
+          "name": "name",
+          "title": "情景",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "is_base",
+          "title": "基准情景",
+          "kind": "bool",
+          "desc": "敏感性分析和单参数试验以基准情景为起点"
+        },
+        {
+          "name": "sort",
+          "title": "排序",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "volume_factor",
+          "title": "业务量系数",
+          "kind": "num",
+          "desc": "1＝不调整；0.9＝业务量−10%",
+          "p": 4
+        },
+        {
+          "name": "price_factor",
+          "title": "单价系数",
+          "kind": "num",
+          "desc": "",
+          "p": 4
+        },
+        {
+          "name": "cost_factor",
+          "title": "付现成本系数",
+          "kind": "num",
+          "desc": "",
+          "p": 4
+        },
+        {
+          "name": "discount_rate",
+          "title": "折现率（留空＝基准折现率）",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "terminal_growth",
+          "title": "永续增长率",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "nature",
+          "title": "假设性质",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "description",
+          "title": "情景说明",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "ronic",
+          "title": "新增投资回报率",
+          "kind": "pct",
+          "desc": "分部加总推导合理倍数用：P/E＝(1−g÷新增投资回报率)÷(r−g)",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "sotp_multiple",
+          "title": "合理倍数（手填）",
+          "kind": "num",
+          "desc": "填了就用手填值，留空则按公式推导",
+          "p": 1
+        },
+        {
+          "name": "probability",
+          "title": "情景概率",
+          "kind": "pct",
+          "desc": "分部加总的概率加权价值用；同一模型各情景合计应为 100%，留空＝不加权",
+          "ui": {
+            "step": "0.1"
+          }
+        }
+      ],
+      "calc": [
+        {
+          "name": "eff_discount_rate",
+          "title": "实际折现率",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.01"
+          }
+        }
+      ]
+    },
+    {
+      "code": "sotp_item",
+      "title": "分部估值项",
+      "group": "3 估值",
+      "title_field": "name",
+      "desc": "分部加总估值里核心业务以外的部分：现金、带息负债、经营所需现金、资金汇出成本、对外投资、少数股东权益。一行一项；适用情景留空＝所有情景，某个情景另有同编号的一行时以那一行为准。",
+      "fields": [
+        {
+          "name": "model",
+          "title": "估值模型",
+          "kind": "m2o",
+          "desc": "",
+          "target": "model"
+        },
+        {
+          "name": "scenario",
+          "title": "适用情景",
+          "kind": "m2o",
+          "desc": "留空＝所有情景",
+          "target": "scenario"
+        },
+        {
+          "name": "code",
+          "title": "编号",
+          "kind": "text",
+          "desc": "如 C1；同一编号可按情景各写一行"
+        },
+        {
+          "name": "name",
+          "title": "项目",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "kind",
+          "title": "类别",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "现金及等价物",
+            "带息负债",
+            "经营所需现金",
+            "资金汇出成本",
+            "对外投资",
+            "少数股东权益",
+            "其他调整"
+          ]
+        },
+        {
+          "name": "amount",
+          "title": "金额（亿元）",
+          "kind": "num",
+          "desc": "填正数，类别决定加减：现金与对外投资为加，其余为减；“其他调整”按填写的正负号",
+          "p": 2
+        },
+        {
+          "name": "haircut",
+          "title": "折价",
+          "kind": "pct",
+          "desc": "对金额打的折扣，如对外投资的持有折价与处置税费",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "as_of",
+          "title": "截至",
+          "kind": "date",
+          "desc": ""
+        },
+        {
+          "name": "basis",
+          "title": "依据",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "facts",
+          "title": "依据事实",
+          "kind": "m2m",
+          "desc": "",
+          "target": "fact"
+        }
+      ],
+      "calc": [
+        {
+          "name": "signed_value",
+          "title": "计入价值（亿元）",
+          "kind": "num",
+          "desc": "带正负号、折价后的金额",
+          "p": 2
+        },
+        {
+          "name": "scope",
+          "title": "适用范围",
+          "kind": "text",
+          "desc": ""
+        }
+      ]
+    },
+    {
+      "code": "sotp_segment",
+      "title": "经营分部估值",
+      "group": "3 估值",
+      "title_field": "name",
+      "desc": "分部加总里的经营业务，按发展阶段各用一种方法：成熟或周期业务用“盈利×倍数”（正常化盈利）；成长业务用“稳态折现”（稳态年盈利×退出倍数折回今天，加上到稳态前的期间现金流）；投入期业务用“承诺投入”（只计已承诺的成本，回报不计入）。一行一个分部；适用情景留空＝所有情景，同编号可按情景另写一行。",
+      "fields": [
+        {
+          "name": "model",
+          "title": "估值模型",
+          "kind": "m2o",
+          "desc": "",
+          "target": "model"
+        },
+        {
+          "name": "scenario",
+          "title": "适用情景",
+          "kind": "m2o",
+          "desc": "留空＝所有情景",
+          "target": "scenario"
+        },
+        {
+          "name": "code",
+          "title": "编号",
+          "kind": "text",
+          "desc": "如 S1；同一编号可按情景各写一行"
+        },
+        {
+          "name": "name",
+          "title": "分部",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "method",
+          "title": "估值方法",
+          "kind": "select",
+          "desc": "盈利×倍数＝成熟或周期业务；稳态折现＝成长业务；承诺投入＝投入期业务（负值）；直接估值＝按可比公司或主观判断给整体价值",
+          "options": [
+            "盈利×倍数",
+            "稳态折现",
+            "承诺投入",
+            "直接估值"
+          ]
+        },
+        {
+          "name": "stage",
+          "title": "发展阶段",
+          "kind": "text",
+          "desc": "如 成熟·周期底部、成长·规模爬坡、投入期"
+        },
+        {
+          "name": "earn_year",
+          "title": "盈利年份",
+          "kind": "year",
+          "desc": "盈利×倍数＝正常化盈利所在年份；稳态折现＝稳态年份。价值按“该年年初价值＝该年盈利×倍数”折回资产负债日，例如资产负债日 2026-06-30、盈利年份 2027 年时折回 0.5 年"
+        },
+        {
+          "name": "revenue",
+          "title": "收入（亿元）",
+          "kind": "num",
+          "desc": "盈利年份的分部收入；承诺投入不填",
+          "p": 2
+        },
+        {
+          "name": "op_margin",
+          "title": "经营利润率",
+          "kind": "pct",
+          "desc": "已扣股权激励，不含利息、投资收益与补贴",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "tax_rate",
+          "title": "所得税率",
+          "kind": "pct",
+          "desc": "承诺投入填研发加计扣除后的实际抵税率",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "attrib",
+          "title": "归母比例",
+          "kind": "pct",
+          "desc": "留空＝100%",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "multiple",
+          "title": "倍数（手填）",
+          "kind": "num",
+          "desc": "填了就用手填值；留空按 (1−g÷新增投资回报率)÷(r−g)",
+          "p": 1
+        },
+        {
+          "name": "ronic",
+          "title": "新增投资回报率",
+          "kind": "pct",
+          "desc": "留空＝情景的新增投资回报率",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "growth",
+          "title": "永续增长率",
+          "kind": "pct",
+          "desc": "留空＝情景的永续增长率；承诺投入＝承诺期后年成本的增长率",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "discount_rate",
+          "title": "折现率",
+          "kind": "pct",
+          "desc": "留空＝情景折现率；成长业务可加执行风险溢价",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "interim_cash",
+          "title": "期间现金流（亿元）",
+          "kind": "num",
+          "desc": "资产负债日到盈利年份年初之间的税后累计现金流（负数＝净投入），按期中折现",
+          "p": 2
+        },
+        {
+          "name": "commit_amount",
+          "title": "承诺投入·剩余金额（亿元）",
+          "kind": "num",
+          "desc": "资产负债日之后尚需投入的税前金额（扣除相关收入）",
+          "p": 2
+        },
+        {
+          "name": "commit_years",
+          "title": "承诺投入·剩余年数",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "ongoing_cost",
+          "title": "承诺期后年成本（亿元）",
+          "kind": "num",
+          "desc": "承诺期结束后每年仍需承担、没有回报覆盖的税前净成本；留空＝0",
+          "p": 2
+        },
+        {
+          "name": "direct_value",
+          "title": "直接估值（亿元）",
+          "kind": "num",
+          "desc": "直接估值：按可比公司、交易价格或主观判断给出的整体价值（已含该业务未来的投入与回报），不折现",
+          "p": 2
+        },
+        {
+          "name": "basis",
+          "title": "依据",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "facts",
+          "title": "依据事实",
+          "kind": "m2m",
+          "desc": "",
+          "target": "fact"
+        }
+      ],
+      "calc": [
+        {
+          "name": "calc_scenario",
+          "title": "数值所属情景",
+          "kind": "text",
+          "desc": "适用全部情景的行按基准情景计算（基准另有专属行时按其他情景）"
+        },
+        {
+          "name": "earnings",
+          "title": "盈利（亿元，税后归母）",
+          "kind": "num",
+          "desc": "承诺投入＝承诺期后的税后年成本（负数）",
+          "p": 2
+        },
+        {
+          "name": "formula_multiple",
+          "title": "公式倍数",
+          "kind": "num",
+          "desc": "",
+          "p": 1
+        },
+        {
+          "name": "multiple_used",
+          "title": "采用倍数",
+          "kind": "num",
+          "desc": "",
+          "p": 1
+        },
+        {
+          "name": "eff_rate",
+          "title": "采用折现率",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "years_to_value",
+          "title": "折现年数",
+          "kind": "num",
+          "desc": "盈利年份年初距资产负债日的年数；承诺投入＝承诺年数",
+          "p": 2
+        },
+        {
+          "name": "terminal_pv",
+          "title": "盈利价值现值（亿元）",
+          "kind": "num",
+          "desc": "盈利×倍数折回资产负债日；承诺投入＝承诺期后成本的现值（负数）",
+          "p": 2
+        },
+        {
+          "name": "interim_pv",
+          "title": "期间现金流现值（亿元）",
+          "kind": "num",
+          "desc": "承诺投入＝承诺期内成本的现值（负数）",
+          "p": 2
+        },
+        {
+          "name": "value",
+          "title": "分部价值（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "scope",
+          "title": "适用范围",
+          "kind": "text",
+          "desc": ""
+        }
+      ]
+    },
+    {
+      "code": "forecast",
+      "title": "逐年假设",
+      "group": "3 估值",
+      "title_field": "year",
+      "desc": "基准情景下每年的经营与现金假设。每格都显式填写（没有“留空继承”）；利息由债务滚动自动计算。",
+      "fields": [
+        {
+          "name": "model",
+          "title": "估值模型",
+          "kind": "m2o",
+          "desc": "",
+          "target": "model"
+        },
+        {
+          "name": "year",
+          "title": "年度",
+          "kind": "year",
+          "desc": ""
+        },
+        {
+          "name": "volume",
+          "title": "业务量",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "price",
+          "title": "单价",
+          "kind": "num",
+          "desc": "",
+          "p": 4
+        },
+        {
+          "name": "cash_cost",
+          "title": "付现成本（亿元）",
+          "kind": "num",
+          "desc": "营业成本中非折旧部分＋期间费用＋税金及附加",
+          "p": 2
+        },
+        {
+          "name": "depreciation",
+          "title": "折旧摊销（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "other_contrib",
+          "title": "其他净贡献（亿元）",
+          "kind": "num",
+          "desc": "投资收益、公允价值变动、减值、营业外等净额",
+          "p": 2
+        },
+        {
+          "name": "tax_rate",
+          "title": "所得税率",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "minority_share",
+          "title": "少数股东占比",
+          "kind": "pct",
+          "desc": "少数股东损益占净利润的比例",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "payout",
+          "title": "派息率",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "net_borrowing",
+          "title": "净借款（亿元）",
+          "kind": "num",
+          "desc": "负数＝净还债；决定期末负债与利息",
+          "p": 2
+        },
+        {
+          "name": "cost_of_debt",
+          "title": "平均债务成本",
+          "kind": "pct",
+          "desc": "利息＝平均带息负债×平均债务成本",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "noncash_gain_deduct",
+          "title": "非现金收益扣除（亿元）",
+          "kind": "num",
+          "desc": "权益法收益等记入利润但未收到现金的部分",
+          "p": 2
+        },
+        {
+          "name": "investee_cash_div",
+          "title": "收到投资分红（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "other_cash_adj",
+          "title": "其他现金调整（亿元）",
+          "kind": "num",
+          "desc": "必须有明确依据；不能用来凑数",
+          "p": 2
+        },
+        {
+          "name": "wc_increase",
+          "title": "营运资本增加（亿元）",
+          "kind": "num",
+          "desc": "增加＝占用现金",
+          "p": 2
+        },
+        {
+          "name": "maint_capex",
+          "title": "维持资本开支（亿元）",
+          "kind": "num",
+          "desc": "维持现有业务量所需的更新改造",
+          "p": 2
+        },
+        {
+          "name": "growth_capex",
+          "title": "扩张资本开支（亿元）",
+          "kind": "num",
+          "desc": "新项目投资；其收益是否已计入收入要在说明里写清",
+          "p": 2
+        },
+        {
+          "name": "min_cash_topup",
+          "title": "最低现金补充（亿元）",
+          "kind": "num",
+          "desc": "为保持安全现金余额而留存的现金",
+          "p": 2
+        },
+        {
+          "name": "operating_status",
+          "title": "经营假设状态",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "旧模型迁移",
+            "建议值待核验",
+            "已核验"
+          ]
+        },
+        {
+          "name": "cash_status",
+          "title": "现金桥接状态",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "未填",
+            "建议值待核验",
+            "已核验"
+          ]
+        },
+        {
+          "name": "note",
+          "title": "说明",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "facts",
+          "title": "依据事实",
+          "kind": "m2m",
+          "desc": "",
+          "target": "fact"
+        },
+        {
+          "name": "judgments",
+          "title": "假设依据",
+          "kind": "m2m",
+          "desc": "",
+          "target": "judgment"
+        }
+      ],
+      "calc": [
+        {
+          "name": "revenue",
+          "title": "营业收入（亿元）",
+          "kind": "num",
+          "desc": "业务量×单价（基准情景）",
+          "p": 2
+        },
+        {
+          "name": "debt_open",
+          "title": "期初带息负债（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "debt_close",
+          "title": "期末带息负债（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "interest",
+          "title": "利息（亿元）",
+          "kind": "num",
+          "desc": "(期初+期末)÷2×平均债务成本",
+          "p": 2
+        },
+        {
+          "name": "attrib_da",
+          "title": "归属折旧加回（亿元）",
+          "kind": "num",
+          "desc": "折旧×(1−少数股东占比)",
+          "p": 2
+        },
+        {
+          "name": "cash_complete",
+          "title": "现金桥接完整",
+          "kind": "bool",
+          "desc": ""
+        }
+      ]
+    },
+    {
+      "code": "trial",
+      "title": "单参数试验",
+      "group": "3 估值",
+      "title_field": "name",
+      "desc": "在基准情景上只改一个参数，看每股价值变化多少。不改正式假设。",
+      "fields": [
+        {
+          "name": "model",
+          "title": "估值模型",
+          "kind": "m2o",
+          "desc": "",
+          "target": "model"
+        },
+        {
+          "name": "name",
+          "title": "试验",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "start_year",
+          "title": "开始年度",
+          "kind": "year",
+          "desc": ""
+        },
+        {
+          "name": "end_year",
+          "title": "结束年度",
+          "kind": "year",
+          "desc": ""
+        },
+        {
+          "name": "volume_delta",
+          "title": "业务量变动",
+          "kind": "pct",
+          "desc": "−0.1＝业务量−10%",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "price_delta",
+          "title": "单价变动",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "cost_delta",
+          "title": "付现成本变动（亿元/年）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "da_delta",
+          "title": "折旧变动（亿元/年）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "interest_delta",
+          "title": "利息变动（亿元/年）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "rate_delta",
+          "title": "折现率变动",
+          "kind": "pct",
+          "desc": "0.005＝提高 50bp",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "boundary",
+          "title": "事实与判断边界",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "judgments",
+          "title": "假设依据",
+          "kind": "m2m",
+          "desc": "",
+          "target": "judgment"
+        }
+      ],
+      "calc": [
+        {
+          "name": "base_value",
+          "title": "基准每股价值（元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "trial_value",
+          "title": "试验后每股价值（元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "value_change",
+          "title": "每股价值变化（元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "change_pct",
+          "title": "变化比例",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        }
+      ]
+    },
+    {
+      "code": "watch",
+      "title": "跟踪事项",
+      "group": "4 跟踪",
+      "title_field": "title",
+      "desc": "需要定期看什么、什么情况触发复核、触发后做什么。关联指标的会自动显示最新观察。",
+      "fields": [
+        {
+          "name": "company",
+          "title": "公司",
+          "kind": "m2o",
+          "desc": "这条记录属于哪家公司",
+          "target": "company"
+        },
+        {
+          "name": "code",
+          "title": "编号",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "title",
+          "title": "跟踪事项",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "metric",
+          "title": "关联指标",
+          "kind": "m2o",
+          "desc": "",
+          "target": "metric"
+        },
+        {
+          "name": "frequency",
+          "title": "频率",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "preferred_source",
+          "title": "首选来源",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "trigger",
+          "title": "触发条件",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "action",
+          "title": "触发后动作",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "nature",
+          "title": "性质",
+          "kind": "text",
+          "desc": "研究预警，不是交易指令"
+        },
+        {
+          "name": "judgments",
+          "title": "假设依据",
+          "kind": "m2m",
+          "desc": "",
+          "target": "judgment"
+        }
+      ],
+      "calc": [
+        {
+          "name": "latest_value",
+          "title": "最新观察值",
+          "kind": "num",
+          "desc": "",
+          "p": 4
+        },
+        {
+          "name": "latest_date",
+          "title": "最新观察日期",
+          "kind": "date",
+          "desc": ""
+        }
+      ]
+    },
+    {
+      "code": "issue",
+      "title": "问题清单",
+      "group": "4 跟踪",
+      "title_field": "title",
+      "desc": "人工维护的待核验事项与模型缺口。自动能判断的检查在“自动检查”。",
+      "fields": [
+        {
+          "name": "company",
+          "title": "公司",
+          "kind": "m2o",
+          "desc": "这条记录属于哪家公司",
+          "target": "company"
+        },
+        {
+          "name": "code",
+          "title": "编号",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "title",
+          "title": "问题",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "severity",
+          "title": "级别",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "关键",
+            "一般",
+            "策略",
+            "数据源"
+          ]
+        },
+        {
+          "name": "impact",
+          "title": "影响范围",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "done_condition",
+          "title": "完成条件",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "status",
+          "title": "状态",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "待处理",
+            "处理中",
+            "已解决",
+            "不处理"
+          ]
+        },
+        {
+          "name": "progress",
+          "title": "进展",
+          "kind": "long",
+          "desc": ""
+        }
+      ]
+    },
+    {
+      "code": "change_log",
+      "title": "变更日志",
+      "group": "4 跟踪",
+      "title_field": "title",
+      "desc": "每次修改假设或数据：旧值、新值、理由、依据、验证。",
+      "fields": [
+        {
+          "name": "company",
+          "title": "公司",
+          "kind": "m2o",
+          "desc": "这条记录属于哪家公司",
+          "target": "company"
+        },
+        {
+          "name": "change_date",
+          "title": "日期",
+          "kind": "date",
+          "desc": ""
+        },
+        {
+          "name": "title",
+          "title": "变更",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "target",
+          "title": "对象",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "old_value",
+          "title": "旧值",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "new_value",
+          "title": "新值",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "reason",
+          "title": "理由",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "basis",
+          "title": "依据",
+          "kind": "long",
+          "desc": ""
+        },
+        {
+          "name": "verification",
+          "title": "验证",
+          "kind": "long",
+          "desc": ""
+        }
+      ]
+    },
+    {
+      "code": "collector",
+      "title": "采集配置",
+      "group": "5 后台",
+      "title_field": "name",
+      "desc": "自动采集的数据源：地址、解析器与参数、写入哪个指标。新增股票或水文站只需加一行配置。",
+      "fields": [
+        {
+          "name": "name",
+          "title": "名称",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "metric",
+          "title": "写入指标",
+          "kind": "m2o",
+          "desc": "",
+          "target": "metric"
+        },
+        {
+          "name": "url",
+          "title": "采集地址",
+          "kind": "url",
+          "desc": ""
+        },
+        {
+          "name": "parser",
+          "title": "解析器",
+          "kind": "select",
+          "desc": "tencent_quote＝腾讯行情（A 股、港股）；tencent_fx＝腾讯外汇行情；chinabond_curve＝中债收益率曲线；cjh_reservoir＝长江水文网水情；sina_future＝新浪期货行情",
+          "options": [
+            "tencent_quote",
+            "tencent_fx",
+            "chinabond_curve",
+            "cjh_reservoir",
+            "sina_future"
+          ]
+        },
+        {
+          "name": "parser_param",
+          "title": "解析参数",
+          "kind": "text",
+          "desc": "腾讯：股票代码如 sh600900、hk01698；腾讯外汇：货币对如 whHKDCNY；中债：期限如 10年；水文：站码:字段，如 60106980:z（z＝水位）；新浪期货：合约如 SP0（纸浆连续）"
+        },
+        {
+          "name": "enabled",
+          "title": "启用",
+          "kind": "bool",
+          "desc": ""
+        },
+        {
+          "name": "max_lag_days",
+          "title": "允许观察滞后（天）",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "last_selfcheck",
+          "title": "最近自检",
+          "kind": "ts",
+          "desc": ""
+        },
+        {
+          "name": "selfcheck_result",
+          "title": "自检结果",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "notes",
+          "title": "说明",
+          "kind": "long",
+          "desc": ""
+        }
+      ],
+      "calc": [
+        {
+          "name": "last_collected",
+          "title": "最近采集",
+          "kind": "ts",
+          "desc": ""
+        },
+        {
+          "name": "last_obs_date",
+          "title": "最近观察日",
+          "kind": "date",
+          "desc": ""
+        },
+        {
+          "name": "last_result",
+          "title": "最近运行结果",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "health",
+          "title": "健康状态",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "needs_alert",
+          "title": "需要处理",
+          "kind": "bool",
+          "desc": ""
+        }
+      ]
+    },
+    {
+      "code": "collect_run",
+      "title": "采集运行",
+      "group": "5 后台",
+      "title_field": "label",
+      "desc": "每按一次“立即采集”新增一行，触发“④ 手动采集”工作流跑完 采集→入库→自检；有公司时只采这家公司和通用指标，结果按本次的原始记录自动统计。",
+      "fields": [
+        {
+          "name": "label",
+          "title": "运行",
+          "kind": "text",
+          "desc": "例如：手动｜2026-10-21 23:50"
+        },
+        {
+          "name": "trigger_source",
+          "title": "发起方式",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "手动",
+            "定时"
+          ]
+        },
+        {
+          "name": "status",
+          "title": "状态",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "排队",
+            "运行中",
+            "完成"
+          ]
+        },
+        {
+          "name": "company",
+          "title": "公司",
+          "kind": "m2o",
+          "desc": "只采这家公司和通用指标（利率、汇率等）的数据源；留空＝全部公司。驾驶舱的按钮会自动填上",
+          "target": "company"
+        }
+      ],
+      "calc": [
+        {
+          "name": "requested_at",
+          "title": "发起时间",
+          "kind": "ts",
+          "desc": ""
+        },
+        {
+          "name": "finished_at",
+          "title": "结束时间",
+          "kind": "ts",
+          "desc": ""
+        },
+        {
+          "name": "seconds",
+          "title": "用时（秒）",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "raw_count",
+          "title": "数据源数",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "ingested",
+          "title": "新入库",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "duplicates",
+          "title": "重复未入库",
+          "kind": "int",
+          "desc": "已有同一天、同一数值的观察"
+        },
+        {
+          "name": "fetch_failed",
+          "title": "抓取失败",
+          "kind": "int",
+          "desc": "连不上网站：网络、代理或网站拒绝"
+        },
+        {
+          "name": "invalid",
+          "title": "校验失败",
+          "kind": "int",
+          "desc": "拿到了响应，但解析不出日期/数值或超出合理范围"
+        },
+        {
+          "name": "summary",
+          "title": "结果",
+          "kind": "text",
+          "desc": ""
+        }
+      ]
+    },
+    {
+      "code": "raw_capture",
+      "title": "原始采集记录",
+      "group": "5 后台",
+      "title_field": "run_label",
+      "desc": "每次采集保存完整原始响应；解析、校验、去重全部由 SQL 视图完成，可追溯。",
+      "fields": [
+        {
+          "name": "collector",
+          "title": "采集配置",
+          "kind": "m2o",
+          "desc": "",
+          "target": "collector"
+        },
+        {
+          "name": "run",
+          "title": "采集运行",
+          "kind": "m2o",
+          "desc": "",
+          "target": "collect_run"
+        },
+        {
+          "name": "run_label",
+          "title": "运行标识",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "collected_at",
+          "title": "采集时间",
+          "kind": "ts",
+          "desc": ""
+        },
+        {
+          "name": "status",
+          "title": "处理状态",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "采集中",
+            "待入库",
+            "抓取失败",
+            "已入库",
+            "重复未入库",
+            "校验失败"
+          ]
+        },
+        {
+          "name": "fetch_result",
+          "title": "抓取结果（原文）",
+          "kind": "text",
+          "desc": "采集工作流写入：HTTP 状态码，或连接错误原文"
+        },
+        {
+          "name": "raw_response",
+          "title": "原始响应",
+          "kind": "long",
+          "desc": ""
+        }
+      ],
+      "calc": [
+        {
+          "name": "fetch_ok",
+          "title": "抓取成功",
+          "kind": "bool",
+          "desc": "HTTP 2xx 且响应非空；迁移来的旧记录按是否有响应判断"
+        },
+        {
+          "name": "fetch_note",
+          "title": "抓取情况",
+          "kind": "text",
+          "desc": "成功 / 网站返回错误 / 连接失败（网络、代理或网站拒绝）"
+        },
+        {
+          "name": "parsed_date",
+          "title": "解析日期",
+          "kind": "date",
+          "desc": ""
+        },
+        {
+          "name": "parsed_value",
+          "title": "解析数值",
+          "kind": "num",
+          "desc": "",
+          "p": 4
+        },
+        {
+          "name": "is_valid",
+          "title": "校验通过",
+          "kind": "bool",
+          "desc": "日期在采集日前 0—7 天，数值在指标合理范围内"
+        },
+        {
+          "name": "already_exists",
+          "title": "已有相同观察",
+          "kind": "bool",
+          "desc": ""
+        },
+        {
+          "name": "decision",
+          "title": "入库判断",
+          "kind": "text",
+          "desc": ""
+        }
+      ]
+    }
+  ],
+  "reports": [
+    {
+      "code": "projection",
+      "title": "预测计算",
+      "group": "3 估值",
+      "title_field": "year",
+      "desc": "情景×年度的利润、股息与现金。全部由公式计算，不能修改。",
+      "fields": [
+        {
+          "name": "model_id",
+          "title": "模型ID",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "company_id",
+          "title": "公司ID",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "company_name",
+          "title": "公司",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "model_name",
+          "title": "模型",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "scenario_name",
+          "title": "情景",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "year",
+          "title": "年度",
+          "kind": "year",
+          "desc": ""
+        },
+        {
+          "name": "volume",
+          "title": "业务量",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "price",
+          "title": "单价",
+          "kind": "num",
+          "desc": "",
+          "p": 4
+        },
+        {
+          "name": "revenue",
+          "title": "营业收入（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "cash_cost",
+          "title": "付现成本（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "depreciation",
+          "title": "折旧摊销（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "interest",
+          "title": "利息（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "other_contrib",
+          "title": "其他净贡献（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "pretax",
+          "title": "利润总额（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "tax",
+          "title": "所得税（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "minority",
+          "title": "少数股东损益（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "np_parent",
+          "title": "归母净利润（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "payout",
+          "title": "派息率",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "dividend",
+          "title": "计划股息（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "dps",
+          "title": "每股股息（元）",
+          "kind": "num",
+          "desc": "",
+          "p": 4
+        },
+        {
+          "name": "discount_rate",
+          "title": "折现率",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "discount_factor",
+          "title": "折现因子",
+          "kind": "num",
+          "desc": "",
+          "p": 6
+        },
+        {
+          "name": "dividend_pv",
+          "title": "股息现值（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "owner_earnings",
+          "title": "所有者收益（亿元）",
+          "kind": "num",
+          "desc": "归母净利＋归属折旧−非现金收益＋投资分红＋其他调整−营运资本增加−维持资本",
+          "p": 2
+        },
+        {
+          "name": "fcfe",
+          "title": "股权自由现金流 FCFE（亿元）",
+          "kind": "num",
+          "desc": "所有者收益−扩张资本＋净借款",
+          "p": 2
+        },
+        {
+          "name": "cash_supported_div",
+          "title": "现金支持股息（亿元）",
+          "kind": "num",
+          "desc": "min(计划股息, FCFE−最低现金补充)",
+          "p": 2
+        },
+        {
+          "name": "funding_gap",
+          "title": "股息资金缺口（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "cash_div_pv",
+          "title": "现金支持股息现值（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "debt_close",
+          "title": "期末带息负债（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        }
+      ]
+    },
+    {
+      "code": "balance",
+      "title": "资产与资本",
+      "group": "3 估值",
+      "title_field": "year",
+      "desc": "资产侧单独滚动：经营性长期资产、长期股权投资、带息负债、权益逐年推算，平衡项＝其他净资产（现金＋营运资本−其他负债）。",
+      "groups": [
+        [
+          "识别",
+          [
+            "scenario_name",
+            "year",
+            "company_name",
+            "model_name",
+            "model_id",
+            "company_id"
+          ]
+        ],
+        [
+          "资产",
+          [
+            "op_assets_open",
+            "capex_total",
+            "depreciation",
+            "op_assets_close",
+            "lt_invest_close",
+            "other_net_assets",
+            "other_net_change"
+          ]
+        ],
+        [
+          "资本",
+          [
+            "debt_close",
+            "equity_open",
+            "np_parent",
+            "dividend",
+            "equity_close",
+            "minority_close"
+          ]
+        ],
+        [
+          "比率",
+          [
+            "roe",
+            "debt_to_capital",
+            "interest_cover",
+            "debt_to_ebitda"
+          ]
+        ]
+      ],
+      "fields": [
+        {
+          "name": "model_id",
+          "title": "模型ID",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "company_id",
+          "title": "公司ID",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "company_name",
+          "title": "公司",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "model_name",
+          "title": "模型",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "scenario_name",
+          "title": "情景",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "year",
+          "title": "年度",
+          "kind": "year",
+          "desc": ""
+        },
+        {
+          "name": "op_assets_open",
+          "title": "经营性长期资产·期初（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "capex_total",
+          "title": "资本开支（维持＋扩张，亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "depreciation",
+          "title": "折旧摊销（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "op_assets_close",
+          "title": "经营性长期资产·期末（亿元）",
+          "kind": "num",
+          "desc": "期初＋资本开支−折旧",
+          "p": 2
+        },
+        {
+          "name": "lt_invest_close",
+          "title": "长期股权投资·期末（亿元）",
+          "kind": "num",
+          "desc": "期初＋权益法收益−收到投资分红",
+          "p": 2
+        },
+        {
+          "name": "debt_close",
+          "title": "带息负债·期末（亿元）",
+          "kind": "num",
+          "desc": "期初＋净借款",
+          "p": 2
+        },
+        {
+          "name": "equity_open",
+          "title": "归母权益·期初（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "np_parent",
+          "title": "归母净利润（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "dividend",
+          "title": "计划股息（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "equity_close",
+          "title": "归母权益·期末（亿元）",
+          "kind": "num",
+          "desc": "期初＋归母净利−股息",
+          "p": 2
+        },
+        {
+          "name": "minority_close",
+          "title": "少数股东权益·期末（亿元）",
+          "kind": "num",
+          "desc": "期初＋少数股东损益×(1−派息率)",
+          "p": 2
+        },
+        {
+          "name": "other_net_assets",
+          "title": "其他净资产·平衡项（亿元）",
+          "kind": "num",
+          "desc": "归母权益＋少数股东权益＋带息负债−经营性长期资产−长期股权投资；逐年下降＝分红计划在消耗现金",
+          "p": 2
+        },
+        {
+          "name": "other_net_change",
+          "title": "其他净资产变化（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "roe",
+          "title": "ROE",
+          "kind": "pct",
+          "desc": "归母净利÷平均归母权益",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "debt_to_capital",
+          "title": "带息负债率",
+          "kind": "pct",
+          "desc": "带息负债÷(带息负债＋权益)",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "interest_cover",
+          "title": "利息保障倍数",
+          "kind": "num",
+          "desc": "(利润总额＋利息)÷利息",
+          "p": 1
+        },
+        {
+          "name": "debt_to_ebitda",
+          "title": "带息负债÷EBITDA",
+          "kind": "num",
+          "desc": "EBITDA＝利润总额＋利息＋折旧",
+          "p": 2
+        }
+      ]
+    },
+    {
+      "code": "valuation",
+      "title": "估值结论",
+      "group": "3 估值",
+      "title_field": "scenario_name",
+      "desc": "每个情景一行：股息贴现价值（基准日与今天）、现金支持价值、终值占比、关注价与市场价对照。研究结论，不是交易指令。",
+      "fields": [
+        {
+          "name": "model_id",
+          "title": "模型ID",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "company_id",
+          "title": "公司ID",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "company_name",
+          "title": "公司",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "model_name",
+          "title": "模型",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "scenario_name",
+          "title": "情景",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "is_base",
+          "title": "基准情景",
+          "kind": "bool",
+          "desc": ""
+        },
+        {
+          "name": "discount_rate",
+          "title": "折现率",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "terminal_growth",
+          "title": "永续增长率",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "value_base_date",
+          "title": "每股价值·基准日（元）",
+          "kind": "num",
+          "desc": "按基准年末折现的股息贴现价值",
+          "p": 2
+        },
+        {
+          "name": "value_today",
+          "title": "每股价值·今天（元）",
+          "kind": "num",
+          "desc": "基准日价值按折现率滚动到今天",
+          "p": 2
+        },
+        {
+          "name": "cash_value_today",
+          "title": "现金支持价值·今天（元）",
+          "kind": "num",
+          "desc": "股息不超过 FCFE 时的价值",
+          "p": 2
+        },
+        {
+          "name": "pv_explicit",
+          "title": "预测期股息现值（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "terminal_pv",
+          "title": "终值现值（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "terminal_share",
+          "title": "终值占比",
+          "kind": "pct",
+          "desc": "越高越依赖远期假设",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "market_price",
+          "title": "市场价（元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "market_date",
+          "title": "市场价日期",
+          "kind": "date",
+          "desc": ""
+        },
+        {
+          "name": "price_vs_value",
+          "title": "市场价相对今天价值",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "watch_low",
+          "title": "关注价·低档边际（元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "watch_high",
+          "title": "关注价·高档边际（元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "required_return",
+          "title": "要求收益率",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "implied_irr",
+          "title": "隐含年化收益率",
+          "kind": "pct",
+          "desc": "按今天市场价买入、获得预测股息及永续增长的年化内部收益率",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "cash_implied_irr",
+          "title": "隐含年化收益率·现金支持",
+          "kind": "pct",
+          "desc": "股息不超过 FCFE 时的内部收益率（更保守）",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "irr_spread",
+          "title": "隐含收益率−要求收益率",
+          "kind": "pct",
+          "desc": "正数＝达到要求",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "value_at_required",
+          "title": "要求收益率下的最高买入价（元）",
+          "kind": "num",
+          "desc": "按要求收益率折现到今天的每股价值",
+          "p": 2
+        },
+        {
+          "name": "years_complete",
+          "title": "预测年份完整",
+          "kind": "bool",
+          "desc": ""
+        },
+        {
+          "name": "cash_years",
+          "title": "现金桥接完整年数",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "conclusion",
+          "title": "结论说明",
+          "kind": "long",
+          "desc": ""
+        }
+      ]
+    },
+    {
+      "code": "sotp",
+      "title": "分部加总估值",
+      "group": "3 估值",
+      "title_field": "scenario_name",
+      "desc": "每个情景一行：核心业务盈利 × 合理倍数 ＋ 经营分部价值 ＋ 可用净现金 ＋ 对外投资（折后）− 少数股东权益与其他。另给出市场隐含的核心倍数或成长业务价值、概率加权价值，并与股息贴现价值对照。",
+      "groups": [
+        [
+          "识别",
+          [
+            "scenario_name",
+            "is_base",
+            "company_name",
+            "model_name",
+            "model_id",
+            "company_id",
+            "core_year",
+            "as_of"
+          ]
+        ],
+        [
+          "核心业务",
+          [
+            "core_pretax",
+            "core_earnings",
+            "discount_rate",
+            "terminal_growth",
+            "ronic",
+            "formula_multiple",
+            "multiple",
+            "core_value"
+          ]
+        ],
+        [
+          "经营分部",
+          [
+            "segments_value",
+            "mature_value",
+            "mature_earnings",
+            "mature_multiple",
+            "growth_value",
+            "invest_value",
+            "direct_value",
+            "mature_earn_pv",
+            "mature_interim_pv"
+          ]
+        ],
+        [
+          "非经营部分",
+          [
+            "cash",
+            "debt",
+            "op_cash",
+            "repatriation",
+            "usable_net_cash",
+            "investments",
+            "minority_other",
+            "noncore"
+          ]
+        ],
+        [
+          "结论",
+          [
+            "equity_value",
+            "shares",
+            "value_per_share",
+            "value_per_share_quote",
+            "market_price",
+            "price_vs_value",
+            "implied_core_multiple",
+            "implied_mature_multiple",
+            "implied_growth_value",
+            "probability",
+            "weighted_value",
+            "ddm_value",
+            "diff_vs_ddm",
+            "watch_low",
+            "watch_high",
+            "conclusion"
+          ]
+        ]
+      ],
+      "fields": [
+        {
+          "name": "model_id",
+          "title": "模型ID",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "company_id",
+          "title": "公司ID",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "company_name",
+          "title": "公司",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "model_name",
+          "title": "模型",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "scenario_name",
+          "title": "情景",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "is_base",
+          "title": "基准情景",
+          "kind": "bool",
+          "desc": ""
+        },
+        {
+          "name": "core_year",
+          "title": "核心盈利年份",
+          "kind": "year",
+          "desc": ""
+        },
+        {
+          "name": "as_of",
+          "title": "资产负债日",
+          "kind": "date",
+          "desc": ""
+        },
+        {
+          "name": "core_pretax",
+          "title": "核心经营利润·税前（亿元）",
+          "kind": "num",
+          "desc": "利润总额−其他净贡献＋利息：不含利息收入、投资收益与财务费用",
+          "p": 2
+        },
+        {
+          "name": "core_earnings",
+          "title": "核心盈利（亿元）",
+          "kind": "num",
+          "desc": "核心经营利润×(1−税率)×(1−少数股东占比)＋核心盈利调整",
+          "p": 2
+        },
+        {
+          "name": "discount_rate",
+          "title": "折现率",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "terminal_growth",
+          "title": "永续增长率",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "ronic",
+          "title": "新增投资回报率",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "formula_multiple",
+          "title": "公式倍数",
+          "kind": "num",
+          "desc": "(1−g÷新增投资回报率)÷(r−g)",
+          "p": 1
+        },
+        {
+          "name": "multiple",
+          "title": "合理倍数",
+          "kind": "num",
+          "desc": "手填优先，否则用公式倍数",
+          "p": 1
+        },
+        {
+          "name": "core_value",
+          "title": "核心业务价值（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "segments_value",
+          "title": "经营分部价值合计（亿元）",
+          "kind": "num",
+          "desc": "「经营分部估值」各分部折回资产负债日的价值之和",
+          "p": 2
+        },
+        {
+          "name": "mature_value",
+          "title": "成熟业务价值（亿元）",
+          "kind": "num",
+          "desc": "方法为“盈利×倍数”的分部",
+          "p": 2
+        },
+        {
+          "name": "mature_earnings",
+          "title": "成熟业务正常化盈利（亿元）",
+          "kind": "num",
+          "desc": "税后归母",
+          "p": 2
+        },
+        {
+          "name": "mature_multiple",
+          "title": "成熟业务采用倍数",
+          "kind": "num",
+          "desc": "(成熟业务价值−期间现金流现值)÷盈利现值",
+          "p": 1
+        },
+        {
+          "name": "growth_value",
+          "title": "成长业务价值（亿元）",
+          "kind": "num",
+          "desc": "方法为“稳态折现”的分部",
+          "p": 2
+        },
+        {
+          "name": "invest_value",
+          "title": "投入期业务价值（亿元）",
+          "kind": "num",
+          "desc": "方法为“承诺投入”的分部（负数＝成本）",
+          "p": 2
+        },
+        {
+          "name": "direct_value",
+          "title": "直接估值业务价值（亿元）",
+          "kind": "num",
+          "desc": "方法为“直接估值”的分部",
+          "p": 2
+        },
+        {
+          "name": "mature_earn_pv",
+          "title": "成熟业务盈利现值（亿元）",
+          "kind": "num",
+          "desc": "正常化盈利折回资产负债日；试算倍数用",
+          "p": 2
+        },
+        {
+          "name": "mature_interim_pv",
+          "title": "成熟业务期间现金流现值（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "cash",
+          "title": "现金及等价物（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "debt",
+          "title": "带息负债（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "op_cash",
+          "title": "经营所需现金（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "repatriation",
+          "title": "资金汇出成本（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "usable_net_cash",
+          "title": "可用净现金（亿元）",
+          "kind": "num",
+          "desc": "现金−带息负债−经营所需现金−资金汇出成本",
+          "p": 2
+        },
+        {
+          "name": "investments",
+          "title": "对外投资·折后（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "minority_other",
+          "title": "少数股东权益与其他（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "noncore",
+          "title": "非经营部分合计（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "equity_value",
+          "title": "股权价值（亿元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "shares",
+          "title": "股本（亿股）",
+          "kind": "num",
+          "desc": "",
+          "p": 4
+        },
+        {
+          "name": "value_per_share",
+          "title": "每股价值（元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "value_per_share_quote",
+          "title": "每股价值·股价币种",
+          "kind": "num",
+          "desc": "境外上市时按最新汇率折回股价币种（如港元）",
+          "p": 2
+        },
+        {
+          "name": "market_price",
+          "title": "市场价（元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "price_vs_value",
+          "title": "市场价相对每股价值",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "implied_core_multiple",
+          "title": "市场隐含核心倍数",
+          "kind": "num",
+          "desc": "(市值−非经营部分−经营分部价值)÷核心盈利：市场为核心业务付了几倍",
+          "p": 1
+        },
+        {
+          "name": "implied_mature_multiple",
+          "title": "市场隐含成熟业务倍数",
+          "kind": "num",
+          "desc": "其余部分按本模型取值时，市值对应的成熟业务倍数（按正常化盈利）",
+          "p": 1
+        },
+        {
+          "name": "implied_growth_value",
+          "title": "市场隐含成长业务价值（亿元）",
+          "kind": "num",
+          "desc": "市值−非经营部分−核心与成熟业务−投入期与直接估值业务：市场为成长业务付了多少",
+          "p": 2
+        },
+        {
+          "name": "probability",
+          "title": "情景概率",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "weighted_value",
+          "title": "概率加权每股价值（元）",
+          "kind": "num",
+          "desc": "各情景每股价值按情景概率加权；同一模型各行相同",
+          "p": 2
+        },
+        {
+          "name": "ddm_value",
+          "title": "股息贴现价值·今天（元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "diff_vs_ddm",
+          "title": "相对股息贴现",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.1"
+          }
+        },
+        {
+          "name": "watch_low",
+          "title": "关注价·低档边际（元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "watch_high",
+          "title": "关注价·高档边际（元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "conclusion",
+          "title": "结论说明",
+          "kind": "long",
+          "desc": ""
+        }
+      ]
+    },
+    {
+      "code": "sensitivity",
+      "title": "敏感性：折现率×永续增长",
+      "group": "3 估值",
+      "title_field": "label",
+      "desc": "基准情景的股息路径不变，只改折现率和永续增长率。",
+      "fields": [
+        {
+          "name": "model_id",
+          "title": "模型ID",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "company_id",
+          "title": "公司ID",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "company_name",
+          "title": "公司",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "model_name",
+          "title": "模型",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "label",
+          "title": "组合",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "r_shift",
+          "title": "折现率变动",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "g_shift",
+          "title": "永续增长变动",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "r",
+          "title": "折现率",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "g",
+          "title": "永续增长率",
+          "kind": "pct",
+          "desc": "",
+          "ui": {
+            "step": "0.01"
+          }
+        },
+        {
+          "name": "value_base_date",
+          "title": "每股价值·基准日（元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        },
+        {
+          "name": "value_today",
+          "title": "每股价值·今天（元）",
+          "kind": "num",
+          "desc": "",
+          "p": 2
+        }
+      ]
+    },
+    {
+      "code": "check",
+      "title": "自动检查",
+      "group": "4 跟踪",
+      "title_field": "name",
+      "desc": "系统自动判断的模型与数据质量检查，每次打开实时计算。",
+      "fields": [
+        {
+          "name": "model_id",
+          "title": "模型ID",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "company_id",
+          "title": "公司ID",
+          "kind": "int",
+          "desc": ""
+        },
+        {
+          "name": "company_name",
+          "title": "公司",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "model_name",
+          "title": "模型",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "code",
+          "title": "编号",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "name",
+          "title": "检查项",
+          "kind": "text",
+          "desc": ""
+        },
+        {
+          "name": "result",
+          "title": "结果",
+          "kind": "select",
+          "desc": "",
+          "options": [
+            "通过",
+            "提示",
+            "阻断"
+          ]
+        },
+        {
+          "name": "detail",
+          "title": "说明",
+          "kind": "long",
+          "desc": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1777 @@
+{
+  "data": {
+    "target": {
+      "locator": {
+        "pageSchemaUid": "w1ihvdkqq8l"
+      },
+      "uid": "qh3q738xo9h",
+      "kind": "page"
+    },
+    "tree": {
+      "parentId": "w1ihvdkqq8l",
+      "subKey": "page",
+      "subType": "object",
+      "use": "RootPageModel",
+      "props": {
+        "routeId": 393850506903552,
+        "title": "核心论点",
+        "enableTabs": false,
+        "displayTitle": true,
+        "icon": "TableOutlined",
+        "enableHeader": null
+      },
+      "stepParams": {
+        "pageSettings": {
+          "general": {
+            "title": "核心论点",
+            "displayTitle": true,
+            "enableTabs": false,
+            "documentTitle": "长江电力 · 核心论点",
+            "icon": "TableOutlined",
+            "enableHeader": null
+          }
+        }
+      },
+      "parent": "w1ihvdkqq8l",
+      "uid": "qh3q738xo9h",
+      "subModels": {
+        "tabs": [
+          {
+            "uid": "r6oc1p3aztg",
+            "use": "RootPageTabModel",
+            "props": {
+              "route": {
+                "createdAt": "2026-10-24T07:22:36.524Z",
+                "updatedAt": "2026-10-24T07:22:36.549Z",
+                "id": 393850506903553,
+                "parentId": 393850506903552,
+                "title": "核心论点",
+                "tooltip": null,
+                "icon": null,
+                "schemaUid": "r6oc1p3aztg",
+                "menuSchemaUid": null,
+                "tabSchemaName": "b9lu39dvvng",
+                "type": "tabs",
+                "options": {
+                  "flowRegistry": {}
+                },
+                "sort": 1792826556513549,
+                "hideInMenu": null,
+                "enableTabs": null,
+                "enableHeader": null,
+                "displayTitle": null,
+                "hidden": true,
+                "createdById": null,
+                "updatedById": null,
+                "children": []
+              },
+              "title": "核心论点",
+              "icon": null
+            },
+            "decoratorProps": {},
+            "flowRegistry": {},
+            "stepParams": {
+              "pageTabSettings": {
+                "tab": {
+                  "title": "核心论点",
+                  "icon": null
+                }
+              }
+            },
+            "subModels": {
+              "grid": {
+                "parentId": "r6oc1p3aztg",
+                "subKey": "grid",
+                "subType": "object",
+                "use": "BlockGridModel",
+                "props": {
+                  "rows": {
+                    "row1": [
+                      [
+                        "q5nwm3uxgr4"
+                      ]
+                    ]
+                  },
+                  "sizes": {
+                    "row1": [
+                      24
+                    ]
+                  },
+                  "rowOrder": [
+                    "row1"
+                  ]
+                },
+                "stepParams": {
+                  "gridSettings": {
+                    "grid": {
+                      "rows": {
+                        "row1": [
+                          [
+                            "q5nwm3uxgr4"
+                          ]
+                        ]
+                      },
+                      "sizes": {
+                        "row1": [
+                          24
+                        ]
+                      },
+                      "rowOrder": [
+                        "row1"
+                      ]
+                    }
+                  }
+                },
+                "uid": "kzolbtpkpfl",
+                "subModels": {
+                  "items": [
+                    {
+                      "parentId": "kzolbtpkpfl",
+                      "subKey": "items",
+                      "subType": "array",
+                      "use": "TableBlockModel",
+                      "props": {},
+                      "decoratorProps": {},
+                      "stepParams": {
+                        "resourceSettings": {
+                          "init": {
+                            "dataSourceKey": "main",
+                            "collectionName": "vi_thesis"
+                          }
+                        },
+                        "tableSettings": {
+                          "pageSize": {
+                            "pageSize": 50
+                          },
+                          "defaultSorting": {
+                            "sort": [
+                              {
+                                "field": "id",
+                                "direction": "asc"
+                              }
+                            ]
+                          },
+                          "dataScope": {
+                            "filter": {
+                              "logic": "$and",
+                              "items": [
+                                {
+                                  "path": "company_id",
+                                  "operator": "$eq",
+                                  "value": 1
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "uid": "q5nwm3uxgr4",
+                      "subModels": {
+                        "columns": [
+                          {
+                            "use": "TableActionsColumnModel",
+                            "props": {},
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "tableColumnSettings": {
+                                "title": {
+                                  "title": "{{t(\"Actions\")}}"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "subKey": "columns",
+                            "subType": "array",
+                            "uid": "iz8fnnpcf4w",
+                            "subModels": {
+                              "actions": [
+                                {
+                                  "parentId": "iz8fnnpcf4w",
+                                  "subKey": "actions",
+                                  "subType": "array",
+                                  "use": "ViewActionModel",
+                                  "props": {
+                                    "type": "link",
+                                    "title": "{{t(\"View\")}}",
+                                    "icon": null
+                                  },
+                                  "decoratorProps": {},
+                                  "stepParams": {
+                                    "buttonSettings": {
+                                      "general": {
+                                        "title": "{{t(\"View\")}}",
+                                        "icon": null,
+                                        "type": "link",
+                                        "iconOnly": false
+                                      }
+                                    },
+                                    "popupSettings": {
+                                      "openView": {
+                                        "mode": "drawer",
+                                        "size": "medium",
+                                        "pageModelClass": "ChildPageModel",
+                                        "dataSourceKey": "main",
+                                        "collectionName": "vi_thesis",
+                                        "title": "核心论点·详情"
+                                      }
+                                    }
+                                  },
+                                  "flowRegistry": {},
+                                  "uid": "tarfhlknlt3",
+                                  "parent": "iz8fnnpcf4w",
+                                  "sortIndex": 1,
+                                  "popup": {
+                                    "template": {
+                                      "uid": "3hfwiyicx3d",
+                                      "mode": "reference"
+                                    }
+                                  }
+                                },
+                                {
+                                  "parentId": "iz8fnnpcf4w",
+                                  "subKey": "actions",
+                                  "subType": "array",
+                                  "use": "EditActionModel",
+                                  "props": {
+                                    "title": "{{t(\"Edit\")}}",
+                                    "icon": null,
+                                    "type": "link"
+                                  },
+                                  "decoratorProps": {},
+                                  "stepParams": {
+                                    "buttonSettings": {
+                                      "general": {
+                                        "title": "{{t(\"Edit\")}}",
+                                        "icon": null,
+                                        "type": "link",
+                                        "iconOnly": false
+                                      }
+                                    },
+                                    "popupSettings": {
+                                      "openView": {
+                                        "mode": "embed",
+                                        "size": "medium",
+                                        "pageModelClass": "ChildPageModel",
+                                        "dataSourceKey": "main",
+                                        "collectionName": "vi_thesis",
+                                        "title": "{{t(\"Edit\")}}"
+                                      }
+                                    }
+                                  },
+                                  "flowRegistry": {},
+                                  "uid": "vz6duoyawyj",
+                                  "parent": "iz8fnnpcf4w",
+                                  "sortIndex": 2,
+                                  "popup": {
+                                    "template": {
+                                      "uid": "988b9sugk4p",
+                                      "mode": "reference"
+                                    }
+                                  }
+                                },
+                                {
+                                  "parentId": "iz8fnnpcf4w",
+                                  "subKey": "actions",
+                                  "subType": "array",
+                                  "use": "DeleteActionModel",
+                                  "props": {
+                                    "type": "link",
+                                    "title": "{{t(\"Delete\")}}",
+                                    "icon": null
+                                  },
+                                  "decoratorProps": {},
+                                  "stepParams": {
+                                    "buttonSettings": {
+                                      "general": {
+                                        "title": "{{t(\"Delete\")}}",
+                                        "icon": null,
+                                        "type": "link",
+                                        "iconOnly": false
+                                      }
+                                    },
+                                    "deleteSettings": {
+                                      "confirm": {
+                                        "enable": true,
+                                        "title": "{{t(\"Delete record\")}}",
+                                        "content": "{{t(\"Are you sure you want to delete it?\")}}"
+                                      }
+                                    }
+                                  },
+                                  "flowRegistry": {},
+                                  "uid": "1o72ehcym2p",
+                                  "parent": "iz8fnnpcf4w",
+                                  "sortIndex": 3,
+                                  "popup": {
+                                    "mode": "local"
+                                  }
+                                }
+                              ]
+                            },
+                            "parent": "q5nwm3uxgr4",
+                            "parentId": "q5nwm3uxgr4",
+                            "sortIndex": 1,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "q5nwm3uxgr4",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_thesis",
+                                  "fieldPath": "code"
+                                }
+                              }
+                            },
+                            "uid": "exvlmqn2hcg",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_thesis",
+                                      "fieldPath": "code"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "f2zm1bfdutn",
+                                "parent": "exvlmqn2hcg",
+                                "parentId": "exvlmqn2hcg",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "q5nwm3uxgr4",
+                            "sortIndex": 2,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "q5nwm3uxgr4",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_thesis",
+                                  "fieldPath": "title"
+                                }
+                              }
+                            },
+                            "uid": "3in7vryi0ey",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_thesis",
+                                      "fieldPath": "title"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "8g7lbfr8hkm",
+                                "parent": "3in7vryi0ey",
+                                "parentId": "3in7vryi0ey",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "q5nwm3uxgr4",
+                            "sortIndex": 3,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "q5nwm3uxgr4",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_thesis",
+                                  "fieldPath": "category"
+                                }
+                              }
+                            },
+                            "uid": "2tlkvtunbfq",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_thesis",
+                                      "fieldPath": "category"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "sbim3pfnrn0",
+                                "parent": "2tlkvtunbfq",
+                                "parentId": "2tlkvtunbfq",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "q5nwm3uxgr4",
+                            "sortIndex": 4,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "q5nwm3uxgr4",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_thesis",
+                                  "fieldPath": "status"
+                                }
+                              }
+                            },
+                            "uid": "1xwp48osy4n",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_thesis",
+                                      "fieldPath": "status"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "qskvg2b787y",
+                                "parent": "1xwp48osy4n",
+                                "parentId": "1xwp48osy4n",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "q5nwm3uxgr4",
+                            "sortIndex": 5,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "q5nwm3uxgr4",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_thesis",
+                                  "fieldPath": "confidence"
+                                }
+                              }
+                            },
+                            "uid": "g36m1ogoyks",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_thesis",
+                                      "fieldPath": "confidence"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "3xf3ohqzek3",
+                                "parent": "g36m1ogoyks",
+                                "parentId": "g36m1ogoyks",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "q5nwm3uxgr4",
+                            "sortIndex": 6,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "q5nwm3uxgr4",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_thesis",
+                                  "fieldPath": "verdict"
+                                }
+                              }
+                            },
+                            "uid": "s0iotd8k5mn",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_thesis",
+                                      "fieldPath": "verdict"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "b57xgq6ho47",
+                                "parent": "s0iotd8k5mn",
+                                "parentId": "s0iotd8k5mn",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "q5nwm3uxgr4",
+                            "sortIndex": 7,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "q5nwm3uxgr4",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_thesis",
+                                  "fieldPath": "mind_changer"
+                                }
+                              }
+                            },
+                            "uid": "s6gcifyzxnz",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_thesis",
+                                      "fieldPath": "mind_changer"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "wx4hucsaewp",
+                                "parent": "s6gcifyzxnz",
+                                "parentId": "s6gcifyzxnz",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "q5nwm3uxgr4",
+                            "sortIndex": 8,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "q5nwm3uxgr4",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_thesis",
+                                  "fieldPath": "check_result"
+                                }
+                              }
+                            },
+                            "uid": "pj7p613cnsg",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_thesis",
+                                      "fieldPath": "check_result"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "bue8y82xcss",
+                                "parent": "pj7p613cnsg",
+                                "parentId": "pj7p613cnsg",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "q5nwm3uxgr4",
+                            "sortIndex": 9,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "q5nwm3uxgr4",
+                            "subKey": "columns",
+                            "subType": "array",
+                            "use": "TableColumnModel",
+                            "props": {},
+                            "stepParams": {
+                              "fieldSettings": {
+                                "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_thesis",
+                                  "fieldPath": "debated_on"
+                                }
+                              }
+                            },
+                            "uid": "m6hfghzw3bn",
+                            "subModels": {
+                              "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_thesis",
+                                      "fieldPath": "debated_on"
+                                    }
+                                  }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "6xwvlxtbyxy",
+                                "parent": "m6hfghzw3bn",
+                                "parentId": "m6hfghzw3bn",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            },
+                            "parent": "q5nwm3uxgr4",
+                            "sortIndex": 10,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          }
+                        ],
+                        "actions": [
+                          {
+                            "parentId": "q5nwm3uxgr4",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "FilterActionModel",
+                            "props": {
+                              "title": "{{t(\"Filter\")}}",
+                              "icon": "FilterOutlined",
+                              "defaultFilterValue": {
+                                "logic": "$and",
+                                "items": [
+                                  {
+                                    "path": "title",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "status",
+                                    "operator": "$eq"
+                                  },
+                                  {
+                                    "path": "code",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "category",
+                                    "operator": "$eq"
+                                  }
+                                ]
+                              },
+                              "filterValue": {
+                                "logic": "$and",
+                                "items": [
+                                  {
+                                    "path": "title",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "status",
+                                    "operator": "$eq"
+                                  },
+                                  {
+                                    "path": "code",
+                                    "operator": "$includes"
+                                  },
+                                  {
+                                    "path": "category",
+                                    "operator": "$eq"
+                                  }
+                                ]
+                              }
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "{{t(\"Filter\")}}",
+                                  "icon": "FilterOutlined"
+                                }
+                              },
+                              "filterSettings": {
+                                "defaultFilter": {
+                                  "defaultFilter": {
+                                    "logic": "$and",
+                                    "items": [
+                                      {
+                                        "path": "title",
+                                        "operator": "$includes"
+                                      },
+                                      {
+                                        "path": "status",
+                                        "operator": "$eq"
+                                      },
+                                      {
+                                        "path": "code",
+                                        "operator": "$includes"
+                                      },
+                                      {
+                                        "path": "category",
+                                        "operator": "$eq"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "pyssxk9zs6x",
+                            "parent": "q5nwm3uxgr4",
+                            "sortIndex": 1,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "q5nwm3uxgr4",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "RefreshActionModel",
+                            "props": {
+                              "title": "{{t(\"Refresh\")}}",
+                              "icon": "ReloadOutlined"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "{{t(\"Refresh\")}}",
+                                  "icon": "ReloadOutlined"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "96n5sln4btn",
+                            "parent": "q5nwm3uxgr4",
+                            "sortIndex": 2,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "q5nwm3uxgr4",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "BulkDeleteActionModel",
+                            "props": {
+                              "title": "",
+                              "tooltip": "{{t(\"Delete\")}}",
+                              "icon": "DeleteOutlined",
+                              "iconOnly": true,
+                              "position": "right"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "",
+                                  "tooltip": "{{t(\"Delete\")}}",
+                                  "icon": "DeleteOutlined",
+                                  "iconOnly": true
+                                }
+                              },
+                              "deleteSettings": {
+                                "confirm": {
+                                  "enable": true,
+                                  "title": "{{t(\"Delete record\")}}",
+                                  "content": "{{t(\"Are you sure you want to delete it?\")}}"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "yh1zlm6t99n",
+                            "parent": "q5nwm3uxgr4",
+                            "sortIndex": 3,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          },
+                          {
+                            "parentId": "q5nwm3uxgr4",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "AddNewActionModel",
+                            "props": {
+                              "type": "primary",
+                              "title": "{{t(\"Add new\")}}",
+                              "icon": "PlusOutlined"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "{{t(\"Add new\")}}",
+                                  "icon": "PlusOutlined",
+                                  "type": "primary"
+                                }
+                              },
+                              "popupSettings": {
+                                "openView": {
+                                  "mode": "embed",
+                                  "size": "medium",
+                                  "pageModelClass": "ChildPageModel",
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_thesis",
+                                  "title": "{{t(\"Add new\")}}"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "fvtne7jae1c",
+                            "parent": "q5nwm3uxgr4",
+                            "sortIndex": 4,
+                            "popup": {
+                              "template": {
+                                "uid": "bffswtejdpy",
+                                "mode": "reference"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "parent": "kzolbtpkpfl",
+                      "sortIndex": 1,
+                      "popup": {
+                        "mode": "local"
+                      }
+                    }
+                  ]
+                },
+                "parent": "r6oc1p3aztg",
+                "sortIndex": 1,
+                "popup": {
+                  "mode": "local"
+                }
+              }
+            },
+            "popup": {
+              "mode": "local"
+            }
+          }
+        ]
+      },
+      "popup": {
+        "mode": "local"
+      }
+    },
+    "nodeMap": {
+      "qh3q738xo9h": {
+        "uid": "qh3q738xo9h",
+        "use": "RootPageModel",
+        "props": {
+          "routeId": 393850506903552,
+          "title": "核心论点",
+          "enableTabs": false,
+          "displayTitle": true,
+          "icon": "TableOutlined",
+          "enableHeader": null
+        },
+        "stepParams": {
+          "pageSettings": {
+            "general": {
+              "title": "核心论点",
+              "displayTitle": true,
+              "enableTabs": false,
+              "documentTitle": "长江电力 · 核心论点",
+              "icon": "TableOutlined",
+              "enableHeader": null
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "r6oc1p3aztg": {
+        "uid": "r6oc1p3aztg",
+        "use": "RootPageTabModel",
+        "props": {
+          "route": {
+            "createdAt": "2026-10-24T07:22:36.524Z",
+            "updatedAt": "2026-10-24T07:22:36.549Z",
+            "id": 393850506903553,
+            "parentId": 393850506903552,
+            "title": "核心论点",
+            "tooltip": null,
+            "icon": null,
+            "schemaUid": "r6oc1p3aztg",
+            "menuSchemaUid": null,
+            "tabSchemaName": "b9lu39dvvng",
+            "type": "tabs",
+            "options": {
+              "flowRegistry": {}
+            },
+            "sort": 1792826556513549,
+            "hideInMenu": null,
+            "enableTabs": null,
+            "enableHeader": null,
+            "displayTitle": null,
+            "hidden": true,
+            "createdById": null,
+            "updatedById": null,
+            "children": []
+          },
+          "title": "核心论点",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "pageTabSettings": {
+            "tab": {
+              "title": "核心论点",
+              "icon": null
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "kzolbtpkpfl": {
+        "uid": "kzolbtpkpfl",
+        "use": "BlockGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "q5nwm3uxgr4"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "q5nwm3uxgr4"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "q5nwm3uxgr4": {
+        "uid": "q5nwm3uxgr4",
+        "use": "TableBlockModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "resourceSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis"
+            }
+          },
+          "tableSettings": {
+            "pageSize": {
+              "pageSize": 50
+            },
+            "defaultSorting": {
+              "sort": [
+                {
+                  "field": "id",
+                  "direction": "asc"
+                }
+              ]
+            },
+            "dataScope": {
+              "filter": {
+                "logic": "$and",
+                "items": [
+                  {
+                    "path": "company_id",
+                    "operator": "$eq",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "iz8fnnpcf4w": {
+        "uid": "iz8fnnpcf4w",
+        "use": "TableActionsColumnModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "tableColumnSettings": {
+            "title": {
+              "title": "{{t(\"Actions\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "tarfhlknlt3": {
+        "uid": "tarfhlknlt3",
+        "use": "ViewActionModel",
+        "props": {
+          "type": "link",
+          "title": "{{t(\"View\")}}",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"View\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "title": "核心论点·详情"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "3hfwiyicx3d",
+            "mode": "reference"
+          }
+        }
+      },
+      "vz6duoyawyj": {
+        "uid": "vz6duoyawyj",
+        "use": "EditActionModel",
+        "props": {
+          "title": "{{t(\"Edit\")}}",
+          "icon": null,
+          "type": "link"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Edit\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "embed",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "title": "{{t(\"Edit\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "988b9sugk4p",
+            "mode": "reference"
+          }
+        }
+      },
+      "1o72ehcym2p": {
+        "uid": "1o72ehcym2p",
+        "use": "DeleteActionModel",
+        "props": {
+          "type": "link",
+          "title": "{{t(\"Delete\")}}",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Delete\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "deleteSettings": {
+            "confirm": {
+              "enable": true,
+              "title": "{{t(\"Delete record\")}}",
+              "content": "{{t(\"Are you sure you want to delete it?\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "exvlmqn2hcg": {
+        "uid": "exvlmqn2hcg",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "f2zm1bfdutn": {
+        "uid": "f2zm1bfdutn",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "3in7vryi0ey": {
+        "uid": "3in7vryi0ey",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "8g7lbfr8hkm": {
+        "uid": "8g7lbfr8hkm",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "2tlkvtunbfq": {
+        "uid": "2tlkvtunbfq",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "category"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "sbim3pfnrn0": {
+        "uid": "sbim3pfnrn0",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "category"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "1xwp48osy4n": {
+        "uid": "1xwp48osy4n",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "status"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "qskvg2b787y": {
+        "uid": "qskvg2b787y",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "status"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "g36m1ogoyks": {
+        "uid": "g36m1ogoyks",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "confidence"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "3xf3ohqzek3": {
+        "uid": "3xf3ohqzek3",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "confidence"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "s0iotd8k5mn": {
+        "uid": "s0iotd8k5mn",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "verdict"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "b57xgq6ho47": {
+        "uid": "b57xgq6ho47",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "verdict"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "s6gcifyzxnz": {
+        "uid": "s6gcifyzxnz",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "mind_changer"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "wx4hucsaewp": {
+        "uid": "wx4hucsaewp",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "mind_changer"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "pj7p613cnsg": {
+        "uid": "pj7p613cnsg",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "check_result"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "bue8y82xcss": {
+        "uid": "bue8y82xcss",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "check_result"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "m6hfghzw3bn": {
+        "uid": "m6hfghzw3bn",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "debated_on"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "6xwvlxtbyxy": {
+        "uid": "6xwvlxtbyxy",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "fieldPath": "debated_on"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "pyssxk9zs6x": {
+        "uid": "pyssxk9zs6x",
+        "use": "FilterActionModel",
+        "props": {
+          "title": "{{t(\"Filter\")}}",
+          "icon": "FilterOutlined",
+          "defaultFilterValue": {
+            "logic": "$and",
+            "items": [
+              {
+                "path": "title",
+                "operator": "$includes"
+              },
+              {
+                "path": "status",
+                "operator": "$eq"
+              },
+              {
+                "path": "code",
+                "operator": "$includes"
+              },
+              {
+                "path": "category",
+                "operator": "$eq"
+              }
+            ]
+          },
+          "filterValue": {
+            "logic": "$and",
+            "items": [
+              {
+                "path": "title",
+                "operator": "$includes"
+              },
+              {
+                "path": "status",
+                "operator": "$eq"
+              },
+              {
+                "path": "code",
+                "operator": "$includes"
+              },
+              {
+                "path": "category",
+                "operator": "$eq"
+              }
+            ]
+          }
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Filter\")}}",
+              "icon": "FilterOutlined"
+            }
+          },
+          "filterSettings": {
+            "defaultFilter": {
+              "defaultFilter": {
+                "logic": "$and",
+                "items": [
+                  {
+                    "path": "title",
+                    "operator": "$includes"
+                  },
+                  {
+                    "path": "status",
+                    "operator": "$eq"
+                  },
+                  {
+                    "path": "code",
+                    "operator": "$includes"
+                  },
+                  {
+                    "path": "category",
+                    "operator": "$eq"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "96n5sln4btn": {
+        "uid": "96n5sln4btn",
+        "use": "RefreshActionModel",
+        "props": {
+          "title": "{{t(\"Refresh\")}}",
+          "icon": "ReloadOutlined"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Refresh\")}}",
+              "icon": "ReloadOutlined"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "yh1zlm6t99n": {
+        "uid": "yh1zlm6t99n",
+        "use": "BulkDeleteActionModel",
+        "props": {
+          "title": "",
+          "tooltip": "{{t(\"Delete\")}}",
+          "icon": "DeleteOutlined",
+          "iconOnly": true,
+          "position": "right"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "",
+              "tooltip": "{{t(\"Delete\")}}",
+              "icon": "DeleteOutlined",
+              "iconOnly": true
+            }
+          },
+          "deleteSettings": {
+            "confirm": {
+              "enable": true,
+              "title": "{{t(\"Delete record\")}}",
+              "content": "{{t(\"Are you sure you want to delete it?\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "fvtne7jae1c": {
+        "uid": "fvtne7jae1c",
+        "use": "AddNewActionModel",
+        "props": {
+          "type": "primary",
+          "title": "{{t(\"Add new\")}}",
+          "icon": "PlusOutlined"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Add new\")}}",
+              "icon": "PlusOutlined",
+              "type": "primary"
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "embed",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_thesis",
+              "title": "{{t(\"Add new\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "bffswtejdpy",
+            "mode": "reference"
+          }
+        }
+      }
+    },
+    "pageRoute": {
+      "createdAt": "2026-10-24T07:22:36.513Z",
+      "updatedAt": "2026-10-24T07:28:10.518Z",
+      "id": 393850506903552,
+      "parentId": 393656988073984,
+      "title": "核心论点",
+      "tooltip": null,
+      "icon": "TableOutlined",
+      "schemaUid": "w1ihvdkqq8l",
+      "menuSchemaUid": "mz677leolpo",
+      "tabSchemaName": null,
+      "type": "flowPage",
+      "options": {
+        "flowSurfaceMenuBindable": true
+      },
+      "sort": 5,
+      "hideInMenu": false,
+      "enableTabs": false,
+      "enableHeader": null,
+      "displayTitle": true,
+      "hidden": null,
+      "createdById": null,
+      "updatedById": 1,
+      "children": [
+        {
+          "createdAt": "2026-10-24T07:22:36.524Z",
+          "updatedAt": "2026-10-24T07:22:36.549Z",
+          "id": 393850506903553,
+          "parentId": 393850506903552,
+          "title": "核心论点",
+          "tooltip": null,
+          "icon": null,
+          "schemaUid": "r6oc1p3aztg",
+          "menuSchemaUid": null,
+          "tabSchemaName": "b9lu39dvvng",
+          "type": "tabs",
+          "options": {
+            "flowRegistry": {}
+          },
+          "sort": 1792826556513549,
+          "hideInMenu": null,
+          "enableTabs": null,
+          "enableHeader": null,
+          "displayTitle": null,
+          "hidden": true,
+          "createdById": null,
+          "updatedById": null
+        }
+      ]
+    }
+  }
+}

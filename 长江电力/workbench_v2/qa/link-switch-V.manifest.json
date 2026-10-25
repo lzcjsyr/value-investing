@@ -1,0 +1,118 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "PMnCb5BsGaME0ysW21uc7pHJnDb",
+  "table_id": "tblgD0RhP6O8CH3n",
+  "rev": 34,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 3,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/qa/link-switch-V.ndjson",
+  "record_file_size_bytes": 828,
+  "manifest_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/qa/link-switch-V.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 14
+      },
+      "example": "recvvEmi1Ftgdf"
+    },
+    "关联预测行数": {
+      "field_id": "fldn9jrvFN",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 2
+      },
+      "example": "10"
+    },
+    "同名模型行数": {
+      "field_id": "fld8L3PIJ8",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 2
+      },
+      "example": "10"
+    },
+    "市场观察价元": {
+      "field_id": "fld07o4qXI",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 5
+      },
+      "example": "28.36"
+    },
+    "市场观察日期": {
+      "field_id": "fldzJsLanG",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 10
+      },
+      "example": "2026-09-24"
+    },
+    "情景": {
+      "field_id": "fldhYZjCjM",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 2
+      },
+      "example": "悲观"
+    },
+    "条件DDM元": {
+      "field_id": "fldDsf8f7E",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "14.23847613"
+    },
+    "模型勾稽": {
+      "field_id": "fld6djDwl4",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 2
+      },
+      "example": "通过"
+    },
+    "终年模型行数": {
+      "field_id": "fldBZ0JOjj",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 1
+      },
+      "example": "1"
+    },
+    "预测期勾稽差额亿元": {
+      "field_id": "fldWxZJP9o",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 1
+      },
+      "example": "0"
+    }
+  }
+}

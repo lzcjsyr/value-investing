@@ -1,0 +1,125 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "PMnCb5BsGaME0ysW21uc7pHJnDb",
+  "table_id": "tbl2aFkmDryVrEX1",
+  "rev": 15,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 3,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/qa/link-setup-S.ndjson",
+  "record_file_size_bytes": 854,
+  "manifest_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/qa/link-setup-S.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 14
+      },
+      "example": "recvvEm3NsbZHF"
+    },
+    "基准电价元": {
+      "field_id": "fldeiGoMxf",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 2,
+        "min": 0.2807,
+        "max": 0.2807,
+        "avg": 0.2807
+      },
+      "example": 0.2807
+    },
+    "情景": {
+      "field_id": "fldtefj4EA",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 2
+      },
+      "example": "悲观"
+    },
+    "最近股价元": {
+      "field_id": "fldkaNRFHR",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 5
+      },
+      "example": "28.36"
+    },
+    "最近股价日期": {
+      "field_id": "fldekzDW2T",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 10
+      },
+      "example": "2026-09-24"
+    },
+    "有效估值基年": {
+      "field_id": "fld8WVhkjD",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 4
+      },
+      "example": "2025"
+    },
+    "有效旧股价": {
+      "field_id": "fldRUeJTN2",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 4
+      },
+      "example": "28.4"
+    },
+    "有效终值年份": {
+      "field_id": "fldq5k5LCH",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 4
+      },
+      "example": "2035"
+    },
+    "有效股本亿股": {
+      "field_id": "fldN00SaBl",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "244.68"
+    },
+    "来源证据": {
+      "field_id": "fldjGgNoHw",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        {
+          "id": "recvvEm0i4tNWz"
+        }
+      ]
+    }
+  }
+}

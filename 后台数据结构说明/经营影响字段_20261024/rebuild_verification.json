@@ -1,0 +1,8 @@
+{
+  "database": "vi_impact_check_20261024_af0bb4a2",
+  "period_content_matches_live": true,
+  "rows": 549,
+  "choices_write_through_view": true,
+  "cleared_choice_normalizes_to_pending": true,
+  "migration_idempotent": true
+}

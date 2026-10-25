@@ -1,0 +1,224 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "PMnCb5BsGaME0ysW21uc7pHJnDb",
+  "table_id": "tblpNOHUjyAlTtoi",
+  "rev": 3,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 12,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/snapshots/20260925T091634/tblpNOHUjyAlTtoi.ndjson",
+  "record_file_size_bytes": 6929,
+  "manifest_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/snapshots/20260925T091634/tblpNOHUjyAlTtoi.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 14
+      },
+      "example": "recvtZ1kHgGcgx"
+    },
+    "发电量_亿千瓦时": {
+      "field_id": "fldw6Mm8Y5",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 9,
+        "min": 2762.63,
+        "max": 3071.94,
+        "avg": 2931.2033333333334
+      },
+      "example": 2762.63
+    },
+    "备注": {
+      "field_id": "fldCZOTNYD",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 36
+      },
+      "example": "四站口径"
+    },
+    "带息负债_亿": {
+      "field_id": "flddPkQ6DP",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 10,
+        "min": 2994.54,
+        "max": 3166.19,
+        "avg": 3080.365
+      },
+      "example": 3166.19
+    },
+    "年份": {
+      "field_id": "fldHW0dWAy",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 2014,
+        "max": 2025,
+        "avg": 2019.5
+      },
+      "example": 2014
+    },
+    "归母净利_亿": {
+      "field_id": "fldH1zdlQ6",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 115.2,
+        "max": 345.03,
+        "avg": 232.22000000000003
+      },
+      "example": 118.3
+    },
+    "投资收益_亿": {
+      "field_id": "fldnk7FXqs",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 10,
+        "min": 49.59,
+        "max": 52.58,
+        "avg": 51.085
+      },
+      "example": 52.58
+    },
+    "折旧加财务费用_亿": {
+      "field_id": "fldKjoHBE7",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "0"
+    },
+    "折旧摊销_亿": {
+      "field_id": "fldg7g8AUs",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 7,
+        "min": 111.16,
+        "max": 197.8,
+        "avg": 162.272
+      },
+      "example": 197.8
+    },
+    "来源": {
+      "field_id": "fldcSbblmd",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 118
+      },
+      "example": "[公司官网分红专栏](https://www.cypc.com.cn/cypc/tzzgx43/xxtm/glfpzcbh/index.html)"
+    },
+    "每股股息_元": {
+      "field_id": "fldsUhZZ5a",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 2,
+        "min": 0.3791,
+        "max": 1,
+        "avg": 0.7550700000000001
+      },
+      "example": 1
+    },
+    "派息率_pct": {
+      "field_id": "fld1WIcCyC",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 5
+      },
+      "example": "67.2"
+    },
+    "经营现金流_亿": {
+      "field_id": "fldraYD1ux",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 7,
+        "min": 309.13,
+        "max": 647.19,
+        "avg": 503.15
+      },
+      "example": 357.32
+    },
+    "综合电价_元": {
+      "field_id": "fldsBm5qz3",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 9,
+        "min": 0.2807,
+        "max": 0.2856,
+        "avg": 0.283
+      },
+      "example": 0.2827
+    },
+    "股息总额_亿": {
+      "field_id": "fld3yufMjC",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 62.55,
+        "max": 244.68,
+        "avg": 164.02833333333334
+      },
+      "example": 62.55
+    },
+    "营业收入_亿": {
+      "field_id": "fldKonHVsZ",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 7,
+        "min": 520.6,
+        "max": 862.42,
+        "avg": 713.104
+      },
+      "example": 520.6
+    },
+    "财务费用_亿": {
+      "field_id": "fld1H1lGnV",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 7,
+        "min": 40.92,
+        "max": 125.56,
+        "avg": 83.80199999999999
+      },
+      "example": 47.51
+    },
+    "资本开支_亿": {
+      "field_id": "fldPwldzIo",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 7,
+        "min": 34.74,
+        "max": 184.88,
+        "avg": 106.97200000000001
+      },
+      "example": 34.74
+    }
+  }
+}

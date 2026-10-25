@@ -1,0 +1,88 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "PMnCb5BsGaME0ysW21uc7pHJnDb",
+  "table_id": "tblvFm47sB0tjy3D",
+  "rev": 11,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 41,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/runs/cloud-20260920T093341570249/V2_11市场观察.ndjson",
+  "record_file_size_bytes": 7509,
+  "manifest_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/runs/cloud-20260920T093341570249/V2_11市场观察.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 14
+      },
+      "example": "recvvEmYZriYFk"
+    },
+    "云端数值原文": {
+      "field_id": "fldE7sT0bS",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 38,
+        "max_length": 6
+      },
+      "example": "28.27"
+    },
+    "指标代码": {
+      "field_id": "fldU9mhzjv",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 16
+      },
+      "example": "M1001654"
+    },
+    "日期": {
+      "field_id": "fldvp1xKdX",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 10
+      },
+      "example": "2026-08-25"
+    },
+    "统一数值": {
+      "field_id": "fldT1JKKVp",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "1.68"
+    },
+    "观察ID": {
+      "field_id": "fldsm8dBfe",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 33
+      },
+      "example": "11c143643c2ba555aca9"
+    },
+    "质量有效": {
+      "field_id": "fldQaXWItd",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 1
+      },
+      "example": "1"
+    }
+  }
+}

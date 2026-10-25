@@ -1,0 +1,164 @@
+[
+  {
+    "default_value": null,
+    "id": "fldAk5f2hS",
+    "name": "发布状态",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldUADCZFy",
+    "name": "公司代码",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldGtnFYZN",
+    "name": "付现成本系数",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldVHXC7aU",
+    "name": "永续增长率",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldEUO5783",
+    "name": "终值年份",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "flduEGvxqe",
+    "name": "电价系数",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldmxKL3yv",
+    "name": "价格日期",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldTpwd4Fn",
+    "name": "旧股价",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldgRBELPZ",
+    "name": "折现率",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldtefj4EA",
+    "name": "情景",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldxAA3rPD",
+    "name": "电量系数",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldRn1sMe8",
+    "name": "估值基年",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldDxWLnwx",
+    "name": "假设性质",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldZ7bDWmI",
+    "name": "情景解释",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldysZ22J8",
+    "name": "股本亿股",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  }
+]

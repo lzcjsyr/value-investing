@@ -1,0 +1,46 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "block": {
+      "block_id": "chtcnkwTKvHcwbNd9PdAcdaUcEd",
+      "data_config": {
+        "group_by": [
+          {
+            "field_name": "情景",
+            "mode": "integrated",
+            "sort": {
+              "order": "asc",
+              "type": "view"
+            }
+          }
+        ],
+        "series": [
+          {
+            "field_name": "关注价10元",
+            "rollup": "MAX"
+          },
+          {
+            "field_name": "关注价30元",
+            "rollup": "MAX"
+          }
+        ],
+        "table_name": "V2_07估值决策"
+      },
+      "name": "两档安全边际关注价（元/股）",
+      "position": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 12
+      },
+      "standard_position": {
+        "h": 416,
+        "w": 498,
+        "x": 0,
+        "y": 1248
+      },
+      "type": "column"
+    }
+  }
+}

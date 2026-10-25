@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "block": {
+      "block_id": "chtcnCrbrerUUxY7EGY1sTvxrue",
+      "data_config": {
+        "filter": {
+          "conditions": [
+            {
+              "field_name": "情景名称",
+              "operator": "is",
+              "value": [
+                "基准"
+              ]
+            }
+          ],
+          "conjunction": "and"
+        },
+        "group_by": [
+          {
+            "field_name": "年份",
+            "mode": "integrated",
+            "sort": {
+              "order": "asc",
+              "type": "group"
+            }
+          }
+        ],
+        "series": [
+          {
+            "field_name": "归母利润代理亿元",
+            "rollup": "SUM"
+          },
+          {
+            "field_name": "计划股息亿元",
+            "rollup": "SUM"
+          }
+        ],
+        "table_name": "V2_06财务引擎"
+      },
+      "name": "基准利润与计划股息（亿元）",
+      "position": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 8
+      },
+      "standard_position": {
+        "h": 416,
+        "w": 498,
+        "x": 0,
+        "y": 832
+      },
+      "type": "line"
+    }
+  }
+}

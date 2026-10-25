@@ -1,0 +1,189 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "fields": [
+      {
+        "default_value": null,
+        "description": "(经营现金流-资本开支)÷股本，2025年校准",
+        "id": "fldNYAw20a",
+        "name": "FCFE每股_元",
+        "style": {
+          "percentage": false,
+          "precision": 2,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "expression": "IFERROR(ROUND(([当前股价_元]-[每股内在价值_元])/[每股内在价值_元]*100,2),\"\")",
+        "id": "fldGPGwZBJ",
+        "name": "折溢价_pct",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "description": "百分数值，如5.2表示5.2%",
+        "id": "fldNcFi7CE",
+        "name": "折现率r",
+        "style": {
+          "percentage": false,
+          "precision": 2,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "expression": "ROUND([终值_亿]/POWER(1+[折现率r]/100,10),2)",
+        "id": "fld0cexkxN",
+        "name": "终值现值_亿",
+        "type": "formula"
+      },
+      {
+        "expression": "ROUND([预测期现值合计_亿]+[终值现值_亿],2)",
+        "id": "fldya8WpUf",
+        "name": "股权内在价值_亿",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fldQYZWz1c",
+        "name": "价格日期",
+        "style": {
+          "format": "yyyy-MM-dd"
+        },
+        "type": "datetime"
+      },
+      {
+        "default_value": null,
+        "id": "fldTtJuMS5",
+        "name": "总股本_亿股",
+        "style": {
+          "percentage": false,
+          "precision": 2,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "expression": "ROUND(SUM([模型预测].[股息现值_亿]),2)",
+        "id": "fldOZ3QmgX",
+        "name": "预测期现值合计_亿",
+        "type": "formula"
+      },
+      {
+        "expression": "ROUND([每股内在价值_元]*(1-[安全边际_pct]/100),2)",
+        "id": "fldJsBhDiN",
+        "name": "买入阈值_元",
+        "type": "formula"
+      },
+      {
+        "expression": "ROUND([股权内在价值_亿]/[总股本_亿股],2)",
+        "id": "fldyUS143g",
+        "name": "每股内在价值_元",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "description": "百分数值",
+        "id": "fldcBHVSeK",
+        "name": "永续增长g",
+        "style": {
+          "percentage": false,
+          "precision": 2,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "id": "fld0Ye2ujG",
+        "name": "安全边际_pct",
+        "style": {
+          "percentage": false,
+          "precision": 0,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "expression": "ROUND([FCFE每股_元]*(1+[永续增长g]/100)/(([折现率r]-[永续增长g])/100),2)",
+        "id": "fldtc4cdlE",
+        "name": "FCFE永续价值_元",
+        "type": "formula"
+      },
+      {
+        "expression": "IFERROR(IF([当前股价_元]\u003c=[买入阈值_元],\"低估·可分批买入\",IF([当前股价_元]\u003c=[每股内在价值_元],\"合理偏低\",\"高估·等待\")),\"—\")",
+        "id": "fldP6VHiu7",
+        "name": "信号",
+        "type": "formula"
+      },
+      {
+        "expression": "ROUND([末期股息_亿]*(1+[永续增长g]/100)/(([折现率r]-[永续增长g])/100),2)",
+        "id": "fldcdXfpQr",
+        "name": "终值_亿",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "description": "百分数值，r=国债+溢价",
+        "id": "fldnIaC0BN",
+        "name": "风险溢价",
+        "style": {
+          "percentage": false,
+          "precision": 2,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "default_value": null,
+        "description": "百分数值，中债10Y到期收益率",
+        "id": "fldWvzYino",
+        "name": "十年期国债收益率",
+        "style": {
+          "percentage": false,
+          "precision": 2,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      },
+      {
+        "expression": "FIRST([模型预测].FILTER(CurrentValue.[年份]=2035).[股息总额_亿])",
+        "id": "fldJQWqFzZ",
+        "name": "末期股息_亿",
+        "type": "formula"
+      },
+      {
+        "default_value": null,
+        "id": "fldN64J0pb",
+        "name": "情景",
+        "style": {
+          "type": "plain"
+        },
+        "type": "text"
+      },
+      {
+        "default_value": null,
+        "description": "对比层：唯一允许股价出现处",
+        "id": "fld08uTPd4",
+        "name": "当前股价_元",
+        "style": {
+          "percentage": false,
+          "precision": 2,
+          "thousands_separator": false,
+          "type": "plain"
+        },
+        "type": "number"
+      }
+    ],
+    "total": 20
+  }
+}

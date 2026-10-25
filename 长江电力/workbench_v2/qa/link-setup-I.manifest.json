@@ -1,0 +1,80 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "PMnCb5BsGaME0ysW21uc7pHJnDb",
+  "table_id": "tblAaz02mrF6O7x6",
+  "rev": 7,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 10,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/qa/link-setup-I.ndjson",
+  "record_file_size_bytes": 1650,
+  "manifest_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/qa/link-setup-I.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 14
+      },
+      "example": "recvvEm5yY6Pqr"
+    },
+    "年份": {
+      "field_id": "fldxaJIDg9",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 2026,
+        "max": 2035,
+        "avg": 2030.5
+      },
+      "example": 2026
+    },
+    "有效其他净贡献亿元": {
+      "field_id": "flde3cRcRV",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 2
+      },
+      "example": "45"
+    },
+    "有效派息率": {
+      "field_id": "fldhKmDeFu",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 4
+      },
+      "example": "0.72"
+    },
+    "有效电价元": {
+      "field_id": "fldk9O2hfM",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "0.2807"
+    },
+    "有效综合负担率": {
+      "field_id": "fld7VdjHZ6",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "0.1734"
+    }
+  }
+}

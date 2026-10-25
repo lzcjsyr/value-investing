@@ -1,0 +1,74 @@
+[
+  {
+    "name": "period_data@600900.SH",
+    "impact_field_uses": [
+      "TableColumnModel",
+      "DisplayEnumFieldModel"
+    ],
+    "valid": true
+  },
+  {
+    "name": "period_data@002078.SZ",
+    "impact_field_uses": [
+      "TableColumnModel",
+      "DisplayEnumFieldModel"
+    ],
+    "valid": true
+  },
+  {
+    "name": "period_data@601668.SH",
+    "impact_field_uses": [
+      "TableColumnModel",
+      "DisplayEnumFieldModel"
+    ],
+    "valid": true
+  },
+  {
+    "name": "period_data@01698.HK",
+    "impact_field_uses": [
+      "TableColumnModel",
+      "DisplayEnumFieldModel"
+    ],
+    "valid": true
+  },
+  {
+    "name": "period_data@01810.HK",
+    "impact_field_uses": [
+      "TableColumnModel",
+      "DisplayEnumFieldModel"
+    ],
+    "valid": true
+  },
+  {
+    "name": "details",
+    "impact_field_uses": [
+      "DetailsItemModel",
+      "DisplayEnumFieldModel"
+    ],
+    "valid": true
+  },
+  {
+    "name": "edit",
+    "impact_field_uses": [
+      "FormItemModel",
+      "SelectFieldModel"
+    ],
+    "valid": true
+  },
+  {
+    "name": "create",
+    "impact_field_uses": [
+      "FormItemModel",
+      "SelectFieldModel"
+    ],
+    "valid": true
+  },
+  {
+    "name": "nested_edit",
+    "impact_field_uses": [
+      "FormItemModel",
+      "SelectFieldModel"
+    ],
+    "valid": true
+  }
+]

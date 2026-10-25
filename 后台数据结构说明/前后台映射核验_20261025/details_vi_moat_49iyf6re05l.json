@@ -1,0 +1,3416 @@
+{
+  "data": {
+    "target": {
+      "locator": {
+        "uid": "0c7yihjrwqm"
+      },
+      "uid": "0c7yihjrwqm",
+      "kind": "node"
+    },
+    "tree": {
+      "use": "ViewActionModel",
+      "props": {
+        "type": "link",
+        "title": "{{t(\"View\")}}",
+        "icon": null
+      },
+      "decoratorProps": {},
+      "stepParams": {
+        "buttonSettings": {
+          "general": {
+            "title": "{{t(\"View\")}}",
+            "icon": null,
+            "type": "link",
+            "iconOnly": false
+          }
+        },
+        "popupSettings": {
+          "openView": {
+            "mode": "drawer",
+            "size": "medium",
+            "pageModelClass": "ChildPageModel",
+            "dataSourceKey": "main",
+            "collectionName": "vi_moat",
+            "title": "竞争壁垒·详情",
+            "filterByTk": "{{ctx.record.id}}"
+          }
+        }
+      },
+      "flowRegistry": {},
+      "uid": "0c7yihjrwqm",
+      "subModels": {
+        "page": {
+          "parentId": "0c7yihjrwqm",
+          "subKey": "page",
+          "subType": "object",
+          "use": "ChildPageModel",
+          "props": {
+            "displayTitle": false,
+            "enableTabs": true
+          },
+          "stepParams": {
+            "pageSettings": {
+              "general": {
+                "displayTitle": false,
+                "enableTabs": true
+              }
+            }
+          },
+          "parent": "0c7yihjrwqm",
+          "sortIndex": 1,
+          "uid": "adpaiww0yvp",
+          "subModels": {
+            "tabs": [
+              {
+                "use": "ChildPageTabModel",
+                "props": {
+                  "title": "竞争壁垒·详情"
+                },
+                "stepParams": {
+                  "pageTabSettings": {
+                    "tab": {
+                      "title": "竞争壁垒·详情"
+                    }
+                  }
+                },
+                "subKey": "tabs",
+                "subType": "array",
+                "parent": "adpaiww0yvp",
+                "parentId": "adpaiww0yvp",
+                "sortIndex": 1,
+                "uid": "dlzxkbl6ob6",
+                "subModels": {
+                  "grid": {
+                    "use": "BlockGridModel",
+                    "subKey": "grid",
+                    "subType": "object",
+                    "props": {
+                      "rows": {
+                        "row1": [
+                          [
+                            "85323v4h3k1"
+                          ]
+                        ]
+                      },
+                      "sizes": {
+                        "row1": [
+                          24
+                        ]
+                      },
+                      "rowOrder": [
+                        "row1"
+                      ]
+                    },
+                    "stepParams": {
+                      "gridSettings": {
+                        "grid": {
+                          "rows": {
+                            "row1": [
+                              [
+                                "ue3pq9g7jfw"
+                              ]
+                            ]
+                          },
+                          "sizes": {
+                            "row1": [
+                              24
+                            ]
+                          },
+                          "rowOrder": [
+                            "row1"
+                          ]
+                        }
+                      }
+                    },
+                    "parent": "dlzxkbl6ob6",
+                    "parentId": "dlzxkbl6ob6",
+                    "sortIndex": 1,
+                    "uid": "h3nn5zngkfx",
+                    "subModels": {
+                      "items": [
+                        {
+                          "parentId": "h3nn5zngkfx",
+                          "subKey": "items",
+                          "subType": "array",
+                          "use": "DetailsBlockModel",
+                          "props": {},
+                          "decoratorProps": {},
+                          "stepParams": {
+                            "resourceSettings": {
+                              "init": {
+                                "dataSourceKey": "main",
+                                "collectionName": "vi_moat",
+                                "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+                              }
+                            },
+                            "detailsSettings": {
+                              "layout": {
+                                "layout": "vertical",
+                                "colon": true
+                              },
+                              "dataScope": {
+                                "filter": {
+                                  "logic": "$and",
+                                  "items": []
+                                }
+                              },
+                              "linkageRules": {
+                                "value": []
+                              }
+                            }
+                          },
+                          "parent": "h3nn5zngkfx",
+                          "sortIndex": 1,
+                          "uid": "ue3pq9g7jfw",
+                          "subModels": {
+                            "grid": {
+                              "use": "DetailsGridModel",
+                              "subKey": "grid",
+                              "subType": "object",
+                              "stepParams": {
+                                "gridSettings": {
+                                  "grid": {
+                                    "rows": {
+                                      "row1": [
+                                        [
+                                          "yc1280fdxre"
+                                        ]
+                                      ],
+                                      "row2": [
+                                        [
+                                          "4cfk11b91nv"
+                                        ],
+                                        [
+                                          "hcnm6nrb9pg"
+                                        ]
+                                      ],
+                                      "row3": [
+                                        [
+                                          "9xebtm73cpi"
+                                        ],
+                                        [
+                                          "ywfmh5p2cjq"
+                                        ]
+                                      ],
+                                      "row4": [
+                                        [
+                                          "eocap3y69i0"
+                                        ],
+                                        [
+                                          "prqmda50w70"
+                                        ]
+                                      ],
+                                      "row5": [
+                                        [
+                                          "l2e73ejpj65"
+                                        ],
+                                        [
+                                          "24mmh3hkry1"
+                                        ]
+                                      ],
+                                      "row6": [
+                                        [
+                                          "ji3a49113w9"
+                                        ],
+                                        [
+                                          "lnlcdc68ils"
+                                        ]
+                                      ],
+                                      "row7": [
+                                        [
+                                          "s60qe3o0zo9"
+                                        ]
+                                      ],
+                                      "row8": [
+                                        [
+                                          "d1olr23jioz"
+                                        ],
+                                        [
+                                          "88p6961aqzm"
+                                        ]
+                                      ],
+                                      "row9": [
+                                        [
+                                          "p1g51tw38n6"
+                                        ],
+                                        [
+                                          "sybsrwnfc8z"
+                                        ]
+                                      ],
+                                      "row10": [
+                                        [
+                                          "cztdmk2ptju"
+                                        ],
+                                        [
+                                          "e66rfciz2si"
+                                        ]
+                                      ],
+                                      "row11": [
+                                        [
+                                          "tbp527u72vz"
+                                        ]
+                                      ],
+                                      "row12": [
+                                        [
+                                          "nsgb3sp9l7q"
+                                        ]
+                                      ],
+                                      "row13": [
+                                        [
+                                          "5wbo0jm8ea7"
+                                        ]
+                                      ],
+                                      "row14": [
+                                        [
+                                          "q4izsktjehs"
+                                        ],
+                                        [
+                                          "fhpnc4bklon"
+                                        ]
+                                      ],
+                                      "row15": [
+                                        [
+                                          "v1fcrzdnvku"
+                                        ],
+                                        [
+                                          "m71yr5zu2ef"
+                                        ]
+                                      ],
+                                      "row16": [
+                                        [
+                                          "1e0gz1o7i1s"
+                                        ]
+                                      ],
+                                      "row17": [
+                                        [
+                                          "heofwnq3lp2"
+                                        ]
+                                      ],
+                                      "row18": [
+                                        [
+                                          "1siay1w2o17"
+                                        ]
+                                      ]
+                                    },
+                                    "sizes": {
+                                      "row1": [
+                                        24
+                                      ],
+                                      "row2": [
+                                        12,
+                                        12
+                                      ],
+                                      "row3": [
+                                        12,
+                                        12
+                                      ],
+                                      "row4": [
+                                        12,
+                                        12
+                                      ],
+                                      "row5": [
+                                        12,
+                                        12
+                                      ],
+                                      "row6": [
+                                        12,
+                                        12
+                                      ],
+                                      "row7": [
+                                        24
+                                      ],
+                                      "row8": [
+                                        12,
+                                        12
+                                      ],
+                                      "row9": [
+                                        12,
+                                        12
+                                      ],
+                                      "row10": [
+                                        12,
+                                        12
+                                      ],
+                                      "row11": [
+                                        24
+                                      ],
+                                      "row12": [
+                                        24
+                                      ],
+                                      "row13": [
+                                        24
+                                      ],
+                                      "row14": [
+                                        12,
+                                        12
+                                      ],
+                                      "row15": [
+                                        12,
+                                        12
+                                      ],
+                                      "row16": [
+                                        24
+                                      ],
+                                      "row17": [
+                                        24
+                                      ],
+                                      "row18": [
+                                        24
+                                      ]
+                                    },
+                                    "rowOrder": [
+                                      "row1",
+                                      "row2",
+                                      "row3",
+                                      "row4",
+                                      "row5",
+                                      "row6",
+                                      "row7",
+                                      "row8",
+                                      "row9",
+                                      "row10",
+                                      "row11",
+                                      "row12",
+                                      "row13",
+                                      "row14",
+                                      "row15",
+                                      "row16",
+                                      "row17",
+                                      "row18"
+                                    ]
+                                  }
+                                }
+                              },
+                              "props": {
+                                "rows": {
+                                  "row1": [
+                                    [
+                                      "mec1o8o6ltj"
+                                    ]
+                                  ],
+                                  "row2": [
+                                    [
+                                      "qtflt7llgxq"
+                                    ],
+                                    [
+                                      "cpwbks10xaw"
+                                    ]
+                                  ],
+                                  "row3": [
+                                    [
+                                      "jymt1o8lp34"
+                                    ],
+                                    [
+                                      "3d7a4nuixa8"
+                                    ]
+                                  ],
+                                  "row4": [
+                                    [
+                                      "w0ay9gt3sgz"
+                                    ],
+                                    [
+                                      "rpgyu2g61la"
+                                    ]
+                                  ],
+                                  "row5": [
+                                    [
+                                      "b77rre4t2b2"
+                                    ],
+                                    [
+                                      "b1d44wtlik5"
+                                    ]
+                                  ],
+                                  "row6": [
+                                    [
+                                      "396hxur72ch"
+                                    ],
+                                    [
+                                      "hkxkp9ykek5"
+                                    ]
+                                  ],
+                                  "row7": [
+                                    [
+                                      "xvdggr9wd58"
+                                    ]
+                                  ],
+                                  "row8": [
+                                    [
+                                      "v8e3cevcq5w"
+                                    ],
+                                    [
+                                      "726617afet2"
+                                    ]
+                                  ],
+                                  "row9": [
+                                    [
+                                      "8xudbi5akti"
+                                    ],
+                                    [
+                                      "immk88pjlkh"
+                                    ]
+                                  ],
+                                  "row10": [
+                                    [
+                                      "bhfb1a3vfvj"
+                                    ],
+                                    [
+                                      "c30h1jeyk3e"
+                                    ]
+                                  ],
+                                  "row11": [
+                                    [
+                                      "986yknoi4su"
+                                    ]
+                                  ],
+                                  "row12": [
+                                    [
+                                      "k24wxcfjn76"
+                                    ]
+                                  ],
+                                  "row13": [
+                                    [
+                                      "64mkhv2hiw1"
+                                    ]
+                                  ],
+                                  "row14": [
+                                    [
+                                      "szbn8adzu5k"
+                                    ],
+                                    [
+                                      "5srheafjao5"
+                                    ]
+                                  ],
+                                  "row15": [
+                                    [
+                                      "9joha8rdo83"
+                                    ],
+                                    [
+                                      "er91an5udtu"
+                                    ]
+                                  ],
+                                  "row16": [
+                                    [
+                                      "c63hbgdzrnv"
+                                    ]
+                                  ],
+                                  "row17": [
+                                    [
+                                      "7w535gkj6h1"
+                                    ]
+                                  ],
+                                  "row18": [
+                                    [
+                                      "0i0eeozs800"
+                                    ]
+                                  ]
+                                },
+                                "sizes": {
+                                  "row1": [
+                                    24
+                                  ],
+                                  "row2": [
+                                    12,
+                                    12
+                                  ],
+                                  "row3": [
+                                    12,
+                                    12
+                                  ],
+                                  "row4": [
+                                    12,
+                                    12
+                                  ],
+                                  "row5": [
+                                    12,
+                                    12
+                                  ],
+                                  "row6": [
+                                    12,
+                                    12
+                                  ],
+                                  "row7": [
+                                    24
+                                  ],
+                                  "row8": [
+                                    12,
+                                    12
+                                  ],
+                                  "row9": [
+                                    12,
+                                    12
+                                  ],
+                                  "row10": [
+                                    12,
+                                    12
+                                  ],
+                                  "row11": [
+                                    24
+                                  ],
+                                  "row12": [
+                                    24
+                                  ],
+                                  "row13": [
+                                    24
+                                  ],
+                                  "row14": [
+                                    12,
+                                    12
+                                  ],
+                                  "row15": [
+                                    12,
+                                    12
+                                  ],
+                                  "row16": [
+                                    24
+                                  ],
+                                  "row17": [
+                                    24
+                                  ],
+                                  "row18": [
+                                    24
+                                  ]
+                                },
+                                "rowOrder": [
+                                  "row1",
+                                  "row2",
+                                  "row3",
+                                  "row4",
+                                  "row5",
+                                  "row6",
+                                  "row7",
+                                  "row8",
+                                  "row9",
+                                  "row10",
+                                  "row11",
+                                  "row12",
+                                  "row13",
+                                  "row14",
+                                  "row15",
+                                  "row16",
+                                  "row17",
+                                  "row18"
+                                ]
+                              },
+                              "parent": "ue3pq9g7jfw",
+                              "parentId": "ue3pq9g7jfw",
+                              "sortIndex": 1,
+                              "uid": "636pki8lcco",
+                              "subModels": {
+                                "items": [
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "基本信息（1/2）",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "基本信息（1/2）",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 1,
+                                    "uid": "yc1280fdxre",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "code"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 2,
+                                    "uid": "4cfk11b91nv",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "code"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "4cfk11b91nv",
+                                        "parentId": "4cfk11b91nv",
+                                        "sortIndex": 1,
+                                        "uid": "m3irlbw7f4a",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "title"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 3,
+                                    "uid": "hcnm6nrb9pg",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "title"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "hcnm6nrb9pg",
+                                        "parentId": "hcnm6nrb9pg",
+                                        "sortIndex": 1,
+                                        "uid": "wwthli22fye",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "moat_type"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 4,
+                                    "uid": "9xebtm73cpi",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayEnumFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "moat_type"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "9xebtm73cpi",
+                                        "parentId": "9xebtm73cpi",
+                                        "sortIndex": 1,
+                                        "uid": "bzl737w72o0",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "verdict"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 5,
+                                    "uid": "ywfmh5p2cjq",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayEnumFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "verdict"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "ywfmh5p2cjq",
+                                        "parentId": "ywfmh5p2cjq",
+                                        "sortIndex": 1,
+                                        "uid": "h1cwszeopdn",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "strength"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 6,
+                                    "uid": "eocap3y69i0",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayEnumFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "strength"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "eocap3y69i0",
+                                        "parentId": "eocap3y69i0",
+                                        "sortIndex": 1,
+                                        "uid": "ipf2e3qa0if",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "trend"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 7,
+                                    "uid": "prqmda50w70",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayEnumFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "trend"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "prqmda50w70",
+                                        "parentId": "prqmda50w70",
+                                        "sortIndex": 1,
+                                        "uid": "k0j5c0zj9tn",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "mechanism"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 8,
+                                    "uid": "l2e73ejpj65",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "mechanism"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "l2e73ejpj65",
+                                        "parentId": "l2e73ejpj65",
+                                        "sortIndex": 1,
+                                        "uid": "fybe3bhlr20",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "financial_link"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 9,
+                                    "uid": "24mmh3hkry1",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "financial_link"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "24mmh3hkry1",
+                                        "parentId": "24mmh3hkry1",
+                                        "sortIndex": 1,
+                                        "uid": "in5qon97w9m",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "evidence"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 10,
+                                    "uid": "ji3a49113w9",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "evidence"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "ji3a49113w9",
+                                        "parentId": "ji3a49113w9",
+                                        "sortIndex": 1,
+                                        "uid": "td9vwdo1dpy",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "counter"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 11,
+                                    "uid": "lnlcdc68ils",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "counter"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "lnlcdc68ils",
+                                        "parentId": "lnlcdc68ils",
+                                        "sortIndex": 1,
+                                        "uid": "swxzi574jr3",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "基本信息（2/2）",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "基本信息（2/2）",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 12,
+                                    "uid": "s60qe3o0zo9",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "replication"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 13,
+                                    "uid": "d1olr23jioz",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "replication"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "d1olr23jioz",
+                                        "parentId": "d1olr23jioz",
+                                        "sortIndex": 1,
+                                        "uid": "0ew8odvuz6z",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "threats"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 14,
+                                    "uid": "88p6961aqzm",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "threats"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "88p6961aqzm",
+                                        "parentId": "88p6961aqzm",
+                                        "sortIndex": 1,
+                                        "uid": "pmsa8jf5xgn",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "check_metric"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 15,
+                                    "uid": "p1g51tw38n6",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayEnumFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "check_metric"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "p1g51tw38n6",
+                                        "parentId": "p1g51tw38n6",
+                                        "sortIndex": 1,
+                                        "uid": "17bufcj7346",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "check_op"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 16,
+                                    "uid": "sybsrwnfc8z",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayEnumFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "check_op"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "sybsrwnfc8z",
+                                        "parentId": "sybsrwnfc8z",
+                                        "sortIndex": 1,
+                                        "uid": "o80n8ai7mwk",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "check_threshold"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 17,
+                                    "uid": "cztdmk2ptju",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayNumberFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "check_threshold"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "cztdmk2ptju",
+                                        "parentId": "cztdmk2ptju",
+                                        "sortIndex": 1,
+                                        "uid": "xauiewzcqjx",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "check_years"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 18,
+                                    "uid": "e66rfciz2si",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayNumberFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "check_years"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "e66rfciz2si",
+                                        "parentId": "e66rfciz2si",
+                                        "sortIndex": 1,
+                                        "uid": "1kjqlwuskxx",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "关联",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "关联",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 19,
+                                    "uid": "tbp527u72vz",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {
+                                      "titleField": "name"
+                                    },
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "company"
+                                        }
+                                      },
+                                      "detailItemSettings": {
+                                        "fieldNames": {
+                                          "label": "name"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 20,
+                                    "uid": "nsgb3sp9l7q",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {
+                                          "titleField": "name",
+                                          "clickToOpen": true
+                                        },
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "company"
+                                            }
+                                          },
+                                          "displayFieldSettings": {
+                                            "clickToOpen": {
+                                              "clickToOpen": true
+                                            }
+                                          },
+                                          "popupSettings": {
+                                            "openView": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_company",
+                                              "associationName": "vi_moat.company"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "nsgb3sp9l7q",
+                                        "parentId": "nsgb3sp9l7q",
+                                        "sortIndex": 1,
+                                        "uid": "m7s617fefvg",
+                                        "popup": {
+                                          "template": {
+                                            "uid": "4hr3gehynkf",
+                                            "mode": "reference"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "自动计算（只读）",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "自动计算（只读）",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 21,
+                                    "uid": "5wbo0jm8ea7",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "check_latest_year"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 22,
+                                    "uid": "q4izsktjehs",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayNumberFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "check_latest_year"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "q4izsktjehs",
+                                        "parentId": "q4izsktjehs",
+                                        "sortIndex": 1,
+                                        "uid": "yjvkbodjw9w",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "check_latest_value"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 23,
+                                    "uid": "fhpnc4bklon",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayNumberFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "check_latest_value"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "fhpnc4bklon",
+                                        "parentId": "fhpnc4bklon",
+                                        "sortIndex": 1,
+                                        "uid": "qq9hsnpyviu",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "check_result"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 24,
+                                    "uid": "v1fcrzdnvku",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "check_result"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "v1fcrzdnvku",
+                                        "parentId": "v1fcrzdnvku",
+                                        "sortIndex": 1,
+                                        "uid": "1k7tq8m5r7x",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "debate_count"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 25,
+                                    "uid": "m71yr5zu2ef",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayNumberFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "debate_count"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "m71yr5zu2ef",
+                                        "parentId": "m71yr5zu2ef",
+                                        "sortIndex": 1,
+                                        "uid": "8fd90n11o41",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "debate_winner"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 26,
+                                    "uid": "1e0gz1o7i1s",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayTextFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "debate_winner"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "1e0gz1o7i1s",
+                                        "parentId": "1e0gz1o7i1s",
+                                        "sortIndex": 1,
+                                        "uid": "dy6yitflrr2",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "系统",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "系统",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 27,
+                                    "uid": "heofwnq3lp2",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "636pki8lcco",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DetailsItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_moat",
+                                          "fieldPath": "updated_at"
+                                        }
+                                      }
+                                    },
+                                    "parent": "636pki8lcco",
+                                    "sortIndex": 28,
+                                    "uid": "1siay1w2o17",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DisplayDateTimeFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_moat",
+                                              "fieldPath": "updated_at"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "1siay1w2o17",
+                                        "parentId": "1siay1w2o17",
+                                        "sortIndex": 1,
+                                        "uid": "uvr9r0976fk",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  }
+                                ]
+                              },
+                              "popup": {
+                                "mode": "local"
+                              }
+                            },
+                            "actions": [
+                              {
+                                "parentId": "ue3pq9g7jfw",
+                                "subKey": "actions",
+                                "subType": "array",
+                                "use": "EditActionModel",
+                                "props": {
+                                  "title": "{{t(\"Edit\")}}",
+                                  "icon": "EditOutlined",
+                                  "type": "default"
+                                },
+                                "decoratorProps": {},
+                                "stepParams": {
+                                  "buttonSettings": {
+                                    "general": {
+                                      "title": "{{t(\"Edit\")}}",
+                                      "icon": "EditOutlined",
+                                      "type": "default"
+                                    }
+                                  },
+                                  "popupSettings": {
+                                    "openView": {
+                                      "mode": "drawer",
+                                      "size": "medium",
+                                      "pageModelClass": "ChildPageModel",
+                                      "dataSourceKey": "main",
+                                      "collectionName": "vi_moat",
+                                      "title": "竞争壁垒·编辑"
+                                    }
+                                  }
+                                },
+                                "flowRegistry": {},
+                                "parent": "ue3pq9g7jfw",
+                                "sortIndex": 1,
+                                "uid": "p2aahgxbafj",
+                                "popup": {
+                                  "template": {
+                                    "uid": "cjr4a4754b6",
+                                    "mode": "reference"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "popup": {
+                            "mode": "local"
+                          }
+                        }
+                      ]
+                    },
+                    "popup": {
+                      "mode": "local"
+                    }
+                  }
+                },
+                "popup": {
+                  "mode": "local"
+                }
+              }
+            ]
+          },
+          "popup": {
+            "mode": "local"
+          }
+        }
+      },
+      "popup": {
+        "mode": "local",
+        "pageUid": "adpaiww0yvp",
+        "tabUid": "dlzxkbl6ob6",
+        "gridUid": "h3nn5zngkfx"
+      }
+    },
+    "nodeMap": {
+      "0c7yihjrwqm": {
+        "uid": "0c7yihjrwqm",
+        "use": "ViewActionModel",
+        "props": {
+          "type": "link",
+          "title": "{{t(\"View\")}}",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"View\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "title": "竞争壁垒·详情",
+              "filterByTk": "{{ctx.record.id}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local",
+          "pageUid": "adpaiww0yvp",
+          "tabUid": "dlzxkbl6ob6",
+          "gridUid": "h3nn5zngkfx"
+        }
+      },
+      "adpaiww0yvp": {
+        "uid": "adpaiww0yvp",
+        "use": "ChildPageModel",
+        "props": {
+          "displayTitle": false,
+          "enableTabs": true
+        },
+        "stepParams": {
+          "pageSettings": {
+            "general": {
+              "displayTitle": false,
+              "enableTabs": true
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "dlzxkbl6ob6": {
+        "uid": "dlzxkbl6ob6",
+        "use": "ChildPageTabModel",
+        "props": {
+          "title": "竞争壁垒·详情"
+        },
+        "stepParams": {
+          "pageTabSettings": {
+            "tab": {
+              "title": "竞争壁垒·详情"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "h3nn5zngkfx": {
+        "uid": "h3nn5zngkfx",
+        "use": "BlockGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "85323v4h3k1"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "ue3pq9g7jfw"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ue3pq9g7jfw": {
+        "uid": "ue3pq9g7jfw",
+        "use": "DetailsBlockModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "resourceSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+            }
+          },
+          "detailsSettings": {
+            "layout": {
+              "layout": "vertical",
+              "colon": true
+            },
+            "dataScope": {
+              "filter": {
+                "logic": "$and",
+                "items": []
+              }
+            },
+            "linkageRules": {
+              "value": []
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "636pki8lcco": {
+        "uid": "636pki8lcco",
+        "use": "DetailsGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "mec1o8o6ltj"
+              ]
+            ],
+            "row2": [
+              [
+                "qtflt7llgxq"
+              ],
+              [
+                "cpwbks10xaw"
+              ]
+            ],
+            "row3": [
+              [
+                "jymt1o8lp34"
+              ],
+              [
+                "3d7a4nuixa8"
+              ]
+            ],
+            "row4": [
+              [
+                "w0ay9gt3sgz"
+              ],
+              [
+                "rpgyu2g61la"
+              ]
+            ],
+            "row5": [
+              [
+                "b77rre4t2b2"
+              ],
+              [
+                "b1d44wtlik5"
+              ]
+            ],
+            "row6": [
+              [
+                "396hxur72ch"
+              ],
+              [
+                "hkxkp9ykek5"
+              ]
+            ],
+            "row7": [
+              [
+                "xvdggr9wd58"
+              ]
+            ],
+            "row8": [
+              [
+                "v8e3cevcq5w"
+              ],
+              [
+                "726617afet2"
+              ]
+            ],
+            "row9": [
+              [
+                "8xudbi5akti"
+              ],
+              [
+                "immk88pjlkh"
+              ]
+            ],
+            "row10": [
+              [
+                "bhfb1a3vfvj"
+              ],
+              [
+                "c30h1jeyk3e"
+              ]
+            ],
+            "row11": [
+              [
+                "986yknoi4su"
+              ]
+            ],
+            "row12": [
+              [
+                "k24wxcfjn76"
+              ]
+            ],
+            "row13": [
+              [
+                "64mkhv2hiw1"
+              ]
+            ],
+            "row14": [
+              [
+                "szbn8adzu5k"
+              ],
+              [
+                "5srheafjao5"
+              ]
+            ],
+            "row15": [
+              [
+                "9joha8rdo83"
+              ],
+              [
+                "er91an5udtu"
+              ]
+            ],
+            "row16": [
+              [
+                "c63hbgdzrnv"
+              ]
+            ],
+            "row17": [
+              [
+                "7w535gkj6h1"
+              ]
+            ],
+            "row18": [
+              [
+                "0i0eeozs800"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ],
+            "row2": [
+              12,
+              12
+            ],
+            "row3": [
+              12,
+              12
+            ],
+            "row4": [
+              12,
+              12
+            ],
+            "row5": [
+              12,
+              12
+            ],
+            "row6": [
+              12,
+              12
+            ],
+            "row7": [
+              24
+            ],
+            "row8": [
+              12,
+              12
+            ],
+            "row9": [
+              12,
+              12
+            ],
+            "row10": [
+              12,
+              12
+            ],
+            "row11": [
+              24
+            ],
+            "row12": [
+              24
+            ],
+            "row13": [
+              24
+            ],
+            "row14": [
+              12,
+              12
+            ],
+            "row15": [
+              12,
+              12
+            ],
+            "row16": [
+              24
+            ],
+            "row17": [
+              24
+            ],
+            "row18": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1",
+            "row2",
+            "row3",
+            "row4",
+            "row5",
+            "row6",
+            "row7",
+            "row8",
+            "row9",
+            "row10",
+            "row11",
+            "row12",
+            "row13",
+            "row14",
+            "row15",
+            "row16",
+            "row17",
+            "row18"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "yc1280fdxre"
+                  ]
+                ],
+                "row2": [
+                  [
+                    "4cfk11b91nv"
+                  ],
+                  [
+                    "hcnm6nrb9pg"
+                  ]
+                ],
+                "row3": [
+                  [
+                    "9xebtm73cpi"
+                  ],
+                  [
+                    "ywfmh5p2cjq"
+                  ]
+                ],
+                "row4": [
+                  [
+                    "eocap3y69i0"
+                  ],
+                  [
+                    "prqmda50w70"
+                  ]
+                ],
+                "row5": [
+                  [
+                    "l2e73ejpj65"
+                  ],
+                  [
+                    "24mmh3hkry1"
+                  ]
+                ],
+                "row6": [
+                  [
+                    "ji3a49113w9"
+                  ],
+                  [
+                    "lnlcdc68ils"
+                  ]
+                ],
+                "row7": [
+                  [
+                    "s60qe3o0zo9"
+                  ]
+                ],
+                "row8": [
+                  [
+                    "d1olr23jioz"
+                  ],
+                  [
+                    "88p6961aqzm"
+                  ]
+                ],
+                "row9": [
+                  [
+                    "p1g51tw38n6"
+                  ],
+                  [
+                    "sybsrwnfc8z"
+                  ]
+                ],
+                "row10": [
+                  [
+                    "cztdmk2ptju"
+                  ],
+                  [
+                    "e66rfciz2si"
+                  ]
+                ],
+                "row11": [
+                  [
+                    "tbp527u72vz"
+                  ]
+                ],
+                "row12": [
+                  [
+                    "nsgb3sp9l7q"
+                  ]
+                ],
+                "row13": [
+                  [
+                    "5wbo0jm8ea7"
+                  ]
+                ],
+                "row14": [
+                  [
+                    "q4izsktjehs"
+                  ],
+                  [
+                    "fhpnc4bklon"
+                  ]
+                ],
+                "row15": [
+                  [
+                    "v1fcrzdnvku"
+                  ],
+                  [
+                    "m71yr5zu2ef"
+                  ]
+                ],
+                "row16": [
+                  [
+                    "1e0gz1o7i1s"
+                  ]
+                ],
+                "row17": [
+                  [
+                    "heofwnq3lp2"
+                  ]
+                ],
+                "row18": [
+                  [
+                    "1siay1w2o17"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ],
+                "row2": [
+                  12,
+                  12
+                ],
+                "row3": [
+                  12,
+                  12
+                ],
+                "row4": [
+                  12,
+                  12
+                ],
+                "row5": [
+                  12,
+                  12
+                ],
+                "row6": [
+                  12,
+                  12
+                ],
+                "row7": [
+                  24
+                ],
+                "row8": [
+                  12,
+                  12
+                ],
+                "row9": [
+                  12,
+                  12
+                ],
+                "row10": [
+                  12,
+                  12
+                ],
+                "row11": [
+                  24
+                ],
+                "row12": [
+                  24
+                ],
+                "row13": [
+                  24
+                ],
+                "row14": [
+                  12,
+                  12
+                ],
+                "row15": [
+                  12,
+                  12
+                ],
+                "row16": [
+                  24
+                ],
+                "row17": [
+                  24
+                ],
+                "row18": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1",
+                "row2",
+                "row3",
+                "row4",
+                "row5",
+                "row6",
+                "row7",
+                "row8",
+                "row9",
+                "row10",
+                "row11",
+                "row12",
+                "row13",
+                "row14",
+                "row15",
+                "row16",
+                "row17",
+                "row18"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "yc1280fdxre": {
+        "uid": "yc1280fdxre",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "基本信息（1/2）",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "基本信息（1/2）",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "4cfk11b91nv": {
+        "uid": "4cfk11b91nv",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "m3irlbw7f4a": {
+        "uid": "m3irlbw7f4a",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "hcnm6nrb9pg": {
+        "uid": "hcnm6nrb9pg",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "wwthli22fye": {
+        "uid": "wwthli22fye",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "9xebtm73cpi": {
+        "uid": "9xebtm73cpi",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "moat_type"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "bzl737w72o0": {
+        "uid": "bzl737w72o0",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "moat_type"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ywfmh5p2cjq": {
+        "uid": "ywfmh5p2cjq",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "verdict"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "h1cwszeopdn": {
+        "uid": "h1cwszeopdn",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "verdict"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "eocap3y69i0": {
+        "uid": "eocap3y69i0",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "strength"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ipf2e3qa0if": {
+        "uid": "ipf2e3qa0if",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "strength"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "prqmda50w70": {
+        "uid": "prqmda50w70",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "trend"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "k0j5c0zj9tn": {
+        "uid": "k0j5c0zj9tn",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "trend"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "l2e73ejpj65": {
+        "uid": "l2e73ejpj65",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "mechanism"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "fybe3bhlr20": {
+        "uid": "fybe3bhlr20",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "mechanism"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "24mmh3hkry1": {
+        "uid": "24mmh3hkry1",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "financial_link"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "in5qon97w9m": {
+        "uid": "in5qon97w9m",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "financial_link"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ji3a49113w9": {
+        "uid": "ji3a49113w9",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "evidence"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "td9vwdo1dpy": {
+        "uid": "td9vwdo1dpy",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "evidence"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "lnlcdc68ils": {
+        "uid": "lnlcdc68ils",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "counter"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "swxzi574jr3": {
+        "uid": "swxzi574jr3",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "counter"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "s60qe3o0zo9": {
+        "uid": "s60qe3o0zo9",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "基本信息（2/2）",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "基本信息（2/2）",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "d1olr23jioz": {
+        "uid": "d1olr23jioz",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "replication"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "0ew8odvuz6z": {
+        "uid": "0ew8odvuz6z",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "replication"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "88p6961aqzm": {
+        "uid": "88p6961aqzm",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "threats"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "pmsa8jf5xgn": {
+        "uid": "pmsa8jf5xgn",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "threats"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "p1g51tw38n6": {
+        "uid": "p1g51tw38n6",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "check_metric"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "17bufcj7346": {
+        "uid": "17bufcj7346",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "check_metric"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "sybsrwnfc8z": {
+        "uid": "sybsrwnfc8z",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "check_op"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "o80n8ai7mwk": {
+        "uid": "o80n8ai7mwk",
+        "use": "DisplayEnumFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "check_op"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "cztdmk2ptju": {
+        "uid": "cztdmk2ptju",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "check_threshold"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "xauiewzcqjx": {
+        "uid": "xauiewzcqjx",
+        "use": "DisplayNumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "check_threshold"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "e66rfciz2si": {
+        "uid": "e66rfciz2si",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "check_years"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "1kjqlwuskxx": {
+        "uid": "1kjqlwuskxx",
+        "use": "DisplayNumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "check_years"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "tbp527u72vz": {
+        "uid": "tbp527u72vz",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "关联",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "关联",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "nsgb3sp9l7q": {
+        "uid": "nsgb3sp9l7q",
+        "use": "DetailsItemModel",
+        "props": {
+          "titleField": "name"
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "company"
+            }
+          },
+          "detailItemSettings": {
+            "fieldNames": {
+              "label": "name"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "m7s617fefvg": {
+        "uid": "m7s617fefvg",
+        "use": "DisplayTextFieldModel",
+        "props": {
+          "titleField": "name",
+          "clickToOpen": true
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "company"
+            }
+          },
+          "displayFieldSettings": {
+            "clickToOpen": {
+              "clickToOpen": true
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_company",
+              "associationName": "vi_moat.company"
+            }
+          }
+        },
+        "popup": {
+          "template": {
+            "uid": "4hr3gehynkf",
+            "mode": "reference"
+          }
+        }
+      },
+      "5wbo0jm8ea7": {
+        "uid": "5wbo0jm8ea7",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "自动计算（只读）",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "自动计算（只读）",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "q4izsktjehs": {
+        "uid": "q4izsktjehs",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "check_latest_year"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "yjvkbodjw9w": {
+        "uid": "yjvkbodjw9w",
+        "use": "DisplayNumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "check_latest_year"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "fhpnc4bklon": {
+        "uid": "fhpnc4bklon",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "check_latest_value"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "qq9hsnpyviu": {
+        "uid": "qq9hsnpyviu",
+        "use": "DisplayNumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "check_latest_value"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "v1fcrzdnvku": {
+        "uid": "v1fcrzdnvku",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "check_result"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "1k7tq8m5r7x": {
+        "uid": "1k7tq8m5r7x",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "check_result"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "m71yr5zu2ef": {
+        "uid": "m71yr5zu2ef",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "debate_count"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "8fd90n11o41": {
+        "uid": "8fd90n11o41",
+        "use": "DisplayNumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "debate_count"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "1e0gz1o7i1s": {
+        "uid": "1e0gz1o7i1s",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "debate_winner"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "dy6yitflrr2": {
+        "uid": "dy6yitflrr2",
+        "use": "DisplayTextFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "debate_winner"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "heofwnq3lp2": {
+        "uid": "heofwnq3lp2",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "系统",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "系统",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "1siay1w2o17": {
+        "uid": "1siay1w2o17",
+        "use": "DetailsItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "updated_at"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "uvr9r0976fk": {
+        "uid": "uvr9r0976fk",
+        "use": "DisplayDateTimeFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "updated_at"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "p2aahgxbafj": {
+        "uid": "p2aahgxbafj",
+        "use": "EditActionModel",
+        "props": {
+          "title": "{{t(\"Edit\")}}",
+          "icon": "EditOutlined",
+          "type": "default"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Edit\")}}",
+              "icon": "EditOutlined",
+              "type": "default"
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "title": "竞争壁垒·编辑"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "template": {
+            "uid": "cjr4a4754b6",
+            "mode": "reference"
+          }
+        }
+      }
+    }
+  }
+}

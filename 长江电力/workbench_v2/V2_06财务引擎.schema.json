@@ -1,0 +1,46 @@
+[
+  {
+    "default_value": null,
+    "id": "fldkt5WgVs",
+    "name": "情景名称",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldIJcsndI",
+    "name": "年份",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "bidirectional": false,
+    "id": "fldRiYOXwp",
+    "link_table": "tblAaz02mrF6O7x6",
+    "name": "年度输入",
+    "type": "link"
+  },
+  {
+    "bidirectional": false,
+    "id": "fldHI6ZTh3",
+    "link_table": "tbl2aFkmDryVrEX1",
+    "name": "情景输入",
+    "type": "link"
+  },
+  {
+    "default_value": null,
+    "id": "fldik45SVM",
+    "name": "模型键",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  }
+]

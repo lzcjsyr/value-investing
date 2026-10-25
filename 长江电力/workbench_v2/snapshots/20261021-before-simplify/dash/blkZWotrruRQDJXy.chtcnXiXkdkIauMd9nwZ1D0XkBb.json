@@ -1,0 +1,42 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "block": {
+      "block_id": "chtcnXiXkdkIauMd9nwZ1D0XkBb",
+      "data_config": {
+        "group_by": [
+          {
+            "field_name": "试验",
+            "mode": "integrated",
+            "sort": {
+              "order": "asc",
+              "type": "view"
+            }
+          }
+        ],
+        "series": [
+          {
+            "field_name": "每股价值变化元",
+            "rollup": "MAX"
+          }
+        ],
+        "table_name": "V2_13参数影响沙盘"
+      },
+      "name": "单参数变化→每股价值变化（元）",
+      "position": {
+        "h": 8,
+        "w": 4,
+        "x": 4,
+        "y": 28
+      },
+      "standard_position": {
+        "h": 832,
+        "w": 498,
+        "x": 498,
+        "y": 2912
+      },
+      "type": "bar"
+    }
+  }
+}

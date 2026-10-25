@@ -1,0 +1,163 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "create_time": 1789825450,
+    "creator_id": "ou_8d00467681fa087e7bcbdacb5b55dc29",
+    "status": "enabled",
+    "steps": [
+      {
+        "children": {
+          "links": []
+        },
+        "data": {
+          "rule": "DAILY",
+          "start_time": "2026/09/20 18:30"
+        },
+        "id": "timer",
+        "next": "begin",
+        "title": "timer",
+        "type": "TimerTrigger"
+      },
+      {
+        "children": {
+          "links": []
+        },
+        "data": {
+          "field_values": [
+            {
+              "field_name": "运行标识",
+              "value": [
+                {
+                  "value": "TENCENT-600900|",
+                  "value_type": "text"
+                },
+                {
+                  "value": "$.timer.scheduleTime",
+                  "value_type": "ref"
+                }
+              ]
+            },
+            {
+              "field_name": "指标代码",
+              "value": [
+                {
+                  "value": "TENCENT-600900",
+                  "value_type": "text"
+                }
+              ]
+            },
+            {
+              "field_name": "来源网址",
+              "value": [
+                {
+                  "value": "https://qt.gtimg.cn/q=sh600900",
+                  "value_type": "text"
+                }
+              ]
+            },
+            {
+              "field_name": "单位",
+              "value": [
+                {
+                  "value": "元",
+                  "value_type": "text"
+                }
+              ]
+            },
+            {
+              "field_name": "采集时间",
+              "value": [
+                {
+                  "value": "now",
+                  "value_type": "date"
+                }
+              ]
+            },
+            {
+              "field_name": "处理状态",
+              "value": [
+                {
+                  "value": "采集中",
+                  "value_type": "text"
+                }
+              ]
+            }
+          ],
+          "table_name": "V2_14云端采集原始记录"
+        },
+        "id": "begin",
+        "next": "http",
+        "title": "begin",
+        "type": "AddRecordAction"
+      },
+      {
+        "children": {
+          "links": []
+        },
+        "data": {
+          "body_type": "none",
+          "method": "GET",
+          "raw_body": [
+            {
+              "value": "{}",
+              "value_type": "text"
+            }
+          ],
+          "response_type": "text",
+          "response_value": "{}",
+          "url": [
+            {
+              "value": "https://qt.gtimg.cn/q=sh600900",
+              "value_type": "text"
+            }
+          ]
+        },
+        "id": "http",
+        "next": "raw",
+        "title": "http",
+        "type": "HTTPClientAction"
+      },
+      {
+        "children": {
+          "links": []
+        },
+        "data": {
+          "field_values": [
+            {
+              "field_name": "原始响应",
+              "value": [
+                {
+                  "value": "$.http",
+                  "value_type": "ref"
+                }
+              ]
+            },
+            {
+              "field_name": "处理状态",
+              "value": [
+                {
+                  "value": "已抓取待校验",
+                  "value_type": "text"
+                }
+              ]
+            }
+          ],
+          "filter_info": null,
+          "max_set_record_num": 15000,
+          "ref_info": {
+            "step_id": "begin"
+          },
+          "table_name": "V2_14云端采集原始记录"
+        },
+        "id": "raw",
+        "title": "raw",
+        "type": "SetRecordAction"
+      }
+    ],
+    "title": "V2云端采集 · 长江电力股价",
+    "update_time": 1789867970,
+    "updater_id": "ou_8d00467681fa087e7bcbdacb5b55dc29",
+    "workflow_id": "wkfr9W1FZzmXeQbF"
+  }
+}

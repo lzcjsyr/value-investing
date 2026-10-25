@@ -1,0 +1,41 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "block": {
+      "block_id": "chtcnyH31kvt1ipTcgfKFk3aBDh",
+      "data_config": {
+        "group_by": [
+          {
+            "field_name": "情景",
+            "mode": "integrated",
+            "sort": {
+              "type": "group"
+            }
+          }
+        ],
+        "series": [
+          {
+            "field_name": "每股内在价值_元",
+            "rollup": "MAX"
+          }
+        ],
+        "table_name": "情景分析"
+      },
+      "name": "情景估值（每股，元）",
+      "position": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 18
+      },
+      "standard_position": {
+        "h": 416,
+        "w": 498,
+        "x": 498,
+        "y": 1872
+      },
+      "type": "column"
+    }
+  }
+}

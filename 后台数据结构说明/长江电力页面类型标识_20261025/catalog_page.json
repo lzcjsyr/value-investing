@@ -1,0 +1,255 @@
+{
+  "data": {
+    "target": {
+      "target": {
+        "uid": "qoj4vtoyq3x"
+      },
+      "uid": "qoj4vtoyq3x",
+      "kind": "page",
+      "node": {
+        "parentId": "713x3wfjx81",
+        "subKey": "page",
+        "subType": "object",
+        "use": "RootPageModel",
+        "props": {
+          "routeId": 393441237925888,
+          "title": "经营数据",
+          "enableTabs": false,
+          "displayTitle": true,
+          "icon": "TableOutlined",
+          "enableHeader": false
+        },
+        "stepParams": {
+          "pageSettings": {
+            "general": {
+              "title": "经营数据",
+              "displayTitle": true,
+              "enableTabs": false,
+              "documentTitle": "长江电力 · 经营数据",
+              "icon": "TableOutlined",
+              "enableHeader": false
+            }
+          }
+        },
+        "parent": "713x3wfjx81",
+        "uid": "qoj4vtoyq3x"
+      },
+      "route": null,
+      "pageRoute": {
+        "createdAt": "2026-10-22T01:10:01.107Z",
+        "updatedAt": "2026-10-24T00:46:48.871Z",
+        "id": 393441237925888,
+        "parentId": 393441179205632,
+        "title": "经营数据",
+        "tooltip": null,
+        "icon": "TableOutlined",
+        "schemaUid": "713x3wfjx81",
+        "menuSchemaUid": "rl9qg3ea3nf",
+        "tabSchemaName": null,
+        "type": "flowPage",
+        "options": {
+          "flowSurfaceMenuBindable": true
+        },
+        "sort": 1,
+        "hideInMenu": false,
+        "enableTabs": false,
+        "enableHeader": false,
+        "displayTitle": true,
+        "hidden": null,
+        "createdById": null,
+        "updatedById": 1
+      },
+      "tabRoute": null
+    },
+    "scenario": {
+      "surfaceKind": "page"
+    },
+    "selectedSections": [
+      "blocks",
+      "node"
+    ],
+    "blocks": [
+      {
+        "key": "jsBlock",
+        "label": "JS block",
+        "use": "JSBlockModel",
+        "kind": "block",
+        "createSupported": true
+      },
+      {
+        "key": "table",
+        "label": "Table",
+        "use": "TableBlockModel",
+        "kind": "block",
+        "requiredInitParams": [
+          "dataSourceKey",
+          "collectionName"
+        ],
+        "createSupported": true
+      },
+      {
+        "key": "calendar",
+        "label": "Calendar",
+        "use": "CalendarBlockModel",
+        "kind": "block",
+        "requiredInitParams": [
+          "dataSourceKey",
+          "collectionName"
+        ],
+        "createSupported": true
+      },
+      {
+        "key": "kanban",
+        "label": "Kanban",
+        "use": "KanbanBlockModel",
+        "kind": "block",
+        "requiredInitParams": [
+          "dataSourceKey",
+          "collectionName"
+        ],
+        "createSupported": true
+      },
+      {
+        "key": "createForm",
+        "label": "Form (Add new)",
+        "use": "CreateFormModel",
+        "kind": "block",
+        "requiredInitParams": [
+          "dataSourceKey",
+          "collectionName"
+        ],
+        "createSupported": true
+      },
+      {
+        "key": "editForm",
+        "label": "Form (Edit)",
+        "use": "EditFormModel",
+        "kind": "block",
+        "requiredInitParams": [
+          "dataSourceKey",
+          "collectionName"
+        ],
+        "createSupported": true
+      },
+      {
+        "key": "details",
+        "label": "Details",
+        "use": "DetailsBlockModel",
+        "kind": "block",
+        "requiredInitParams": [
+          "dataSourceKey",
+          "collectionName"
+        ],
+        "createSupported": true
+      },
+      {
+        "key": "filterForm",
+        "label": "Filter form",
+        "use": "FilterFormBlockModel",
+        "kind": "block",
+        "createSupported": true
+      },
+      {
+        "key": "list",
+        "label": "List",
+        "use": "ListBlockModel",
+        "kind": "block",
+        "requiredInitParams": [
+          "dataSourceKey",
+          "collectionName"
+        ],
+        "createSupported": true
+      },
+      {
+        "key": "gridCard",
+        "label": "Grid card",
+        "use": "GridCardBlockModel",
+        "kind": "block",
+        "requiredInitParams": [
+          "dataSourceKey",
+          "collectionName"
+        ],
+        "createSupported": true
+      },
+      {
+        "key": "markdown",
+        "label": "Markdown",
+        "use": "MarkdownBlockModel",
+        "kind": "block",
+        "createSupported": true
+      },
+      {
+        "key": "iframe",
+        "label": "Iframe",
+        "use": "IframeBlockModel",
+        "kind": "block",
+        "createSupported": true
+      },
+      {
+        "key": "chart",
+        "label": "Chart",
+        "use": "ChartBlockModel",
+        "kind": "block",
+        "createSupported": true
+      },
+      {
+        "key": "actionPanel",
+        "label": "Action panel",
+        "use": "ActionPanelBlockModel",
+        "kind": "block",
+        "createSupported": true
+      },
+      {
+        "key": "tree",
+        "label": "Tree",
+        "use": "TreeBlockModel",
+        "kind": "block",
+        "requiredInitParams": [
+          "dataSourceKey",
+          "collectionName"
+        ],
+        "createSupported": true
+      }
+    ],
+    "node": {
+      "editableDomains": [
+        "props",
+        "stepParams",
+        "flowRegistry"
+      ],
+      "configureOptions": {
+        "title": {
+          "type": "string",
+          "description": "Page title",
+          "example": "User Workspace"
+        },
+        "documentTitle": {
+          "type": "string",
+          "description": "Browser document title",
+          "example": "User Workspace",
+          "supportsFlowContext": true
+        },
+        "displayTitle": {
+          "type": "boolean",
+          "description": "Whether to display the page title",
+          "example": true
+        },
+        "enableTabs": {
+          "type": "boolean",
+          "description": "Whether to enable top-level tabs",
+          "example": true
+        },
+        "icon": {
+          "type": "string",
+          "description": "Icon",
+          "example": "UserOutlined"
+        },
+        "enableHeader": {
+          "type": "boolean",
+          "description": "Whether to display the page header",
+          "example": true
+        }
+      }
+    }
+  }
+}

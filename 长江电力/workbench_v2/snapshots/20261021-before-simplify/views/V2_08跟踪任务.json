@@ -1,0 +1,31 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "total": 2,
+    "views": [
+      {
+        "_meta": {
+          "filter": null,
+          "group": [],
+          "sort": [],
+          "visible_fields": "17 fields"
+        },
+        "id": "vewRyxMICE",
+        "name": "表格",
+        "type": "grid"
+      },
+      {
+        "_meta": {
+          "filter": null,
+          "group": [],
+          "sort": [],
+          "visible_fields": "10 fields"
+        },
+        "id": "vewOpyIgFq",
+        "name": "日常工作视图",
+        "type": "grid"
+      }
+    ]
+  }
+}

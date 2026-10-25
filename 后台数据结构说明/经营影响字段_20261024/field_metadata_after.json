@@ -1,0 +1,488 @@
+[
+  {
+    "key": "e94aym8j9ix",
+    "name": "id",
+    "type": "bigInt",
+    "interface": "id",
+    "description": null,
+    "collectionName": "vi_period_data",
+    "parentKey": null,
+    "reverseKey": null,
+    "options": {
+      "uiSchema": {
+        "type": "number",
+        "title": "ID",
+        "x-component": "InputNumber",
+        "x-read-pretty": true
+      },
+      "primaryKey": true,
+      "allowNull": false,
+      "autoIncrement": true
+    },
+    "sort": 0
+  },
+  {
+    "key": "e8oz63u83eg",
+    "name": "period",
+    "type": "string",
+    "interface": "input",
+    "description": "如 2026Q3、2026H1",
+    "collectionName": "vi_period_data",
+    "parentKey": null,
+    "reverseKey": null,
+    "options": {
+      "uiSchema": {
+        "type": "string",
+        "title": "期间",
+        "x-component": "Input"
+      }
+    },
+    "sort": 2
+  },
+  {
+    "key": "y8y6thxpmtn",
+    "name": "period_end",
+    "type": "dateOnly",
+    "interface": "dateOnly",
+    "description": "",
+    "collectionName": "vi_period_data",
+    "parentKey": null,
+    "reverseKey": null,
+    "options": {
+      "uiSchema": {
+        "type": "string",
+        "title": "期末日期",
+        "x-component": "DatePicker",
+        "x-component-props": {
+          "dateOnly": true,
+          "showTime": false
+        }
+      }
+    },
+    "sort": 3
+  },
+  {
+    "key": "0swa2ocxzkw",
+    "name": "period_kind",
+    "type": "string",
+    "interface": "select",
+    "description": "",
+    "collectionName": "vi_period_data",
+    "parentKey": null,
+    "reverseKey": null,
+    "options": {
+      "enum": [
+        {
+          "value": "单季",
+          "label": "单季",
+          "color": "blue"
+        },
+        {
+          "value": "半年累计",
+          "label": "半年累计",
+          "color": "green"
+        },
+        {
+          "value": "前三季度累计",
+          "label": "前三季度累计",
+          "color": "orange"
+        },
+        {
+          "value": "全年",
+          "label": "全年",
+          "color": "purple"
+        }
+      ],
+      "uiSchema": {
+        "type": "string",
+        "title": "口径",
+        "x-component": "Select",
+        "enum": [
+          {
+            "value": "单季",
+            "label": "单季",
+            "color": "blue"
+          },
+          {
+            "value": "半年累计",
+            "label": "半年累计",
+            "color": "green"
+          },
+          {
+            "value": "前三季度累计",
+            "label": "前三季度累计",
+            "color": "orange"
+          },
+          {
+            "value": "全年",
+            "label": "全年",
+            "color": "purple"
+          }
+        ]
+      }
+    },
+    "sort": 4
+  },
+  {
+    "key": "wqte3p87pd4",
+    "name": "value",
+    "type": "double",
+    "interface": "number",
+    "description": "",
+    "collectionName": "vi_period_data",
+    "parentKey": null,
+    "reverseKey": null,
+    "options": {
+      "uiSchema": {
+        "type": "number",
+        "title": "数值",
+        "x-component": "InputNumber",
+        "x-component-props": {
+          "stringMode": true,
+          "step": "0.01"
+        }
+      }
+    },
+    "sort": 6
+  },
+  {
+    "key": "uqr5vp0crai",
+    "name": "unit",
+    "type": "string",
+    "interface": "input",
+    "description": "",
+    "collectionName": "vi_period_data",
+    "parentKey": null,
+    "reverseKey": null,
+    "options": {
+      "uiSchema": {
+        "type": "string",
+        "title": "单位",
+        "x-component": "Input"
+      }
+    },
+    "sort": 7
+  },
+  {
+    "key": "sk6je71ih3s",
+    "name": "yoy",
+    "type": "float",
+    "interface": "percent",
+    "description": "",
+    "collectionName": "vi_period_data",
+    "parentKey": null,
+    "reverseKey": null,
+    "options": {
+      "uiSchema": {
+        "type": "string",
+        "title": "同比",
+        "x-component": "Percent",
+        "x-component-props": {
+          "stringMode": true,
+          "step": "0.01",
+          "addonAfter": "%"
+        }
+      }
+    },
+    "sort": 8
+  },
+  {
+    "key": "tmhsgtkeuns",
+    "name": "summary",
+    "type": "text",
+    "interface": "textarea",
+    "description": "记录披露事实、统计范围、单季或累计口径、管理层披露摘要与推算过程；研究判断写在经营解读。",
+    "collectionName": "vi_period_data",
+    "parentKey": null,
+    "reverseKey": null,
+    "options": {
+      "uiSchema": {
+        "type": "string",
+        "title": "披露摘要与口径",
+        "x-component": "Input.TextArea"
+      }
+    },
+    "sort": 10
+  },
+  {
+    "key": "e5n6i88h11j",
+    "name": "status",
+    "type": "string",
+    "interface": "select",
+    "description": "",
+    "collectionName": "vi_period_data",
+    "parentKey": null,
+    "reverseKey": null,
+    "options": {
+      "enum": [
+        {
+          "value": "已入模",
+          "label": "已入模",
+          "color": "blue"
+        },
+        {
+          "value": "待处理",
+          "label": "待处理",
+          "color": "orange"
+        },
+        {
+          "value": "无需入模",
+          "label": "无需入模",
+          "color": "orange"
+        }
+      ],
+      "uiSchema": {
+        "type": "string",
+        "title": "处理状态",
+        "x-component": "Select",
+        "enum": [
+          {
+            "value": "已入模",
+            "label": "已入模",
+            "color": "blue"
+          },
+          {
+            "value": "待处理",
+            "label": "待处理",
+            "color": "orange"
+          },
+          {
+            "value": "无需入模",
+            "label": "无需入模",
+            "color": "orange"
+          }
+        ]
+      }
+    },
+    "sort": 11
+  },
+  {
+    "key": "027p6ofbvt0",
+    "name": "source_id",
+    "type": "bigInt",
+    "interface": "integer",
+    "description": "",
+    "collectionName": "vi_period_data",
+    "parentKey": null,
+    "reverseKey": null,
+    "options": {
+      "uiSchema": {
+        "type": "number",
+        "title": "来源文档（ID）",
+        "x-component": "InputNumber",
+        "x-component-props": {
+          "stringMode": true,
+          "step": "1"
+        },
+        "x-validator": "integer"
+      },
+      "isForeignKey": true
+    },
+    "sort": 1
+  },
+  {
+    "key": "palpvzjxgv1",
+    "name": "updated_at",
+    "type": "date",
+    "interface": "datetime",
+    "description": "",
+    "collectionName": "vi_period_data",
+    "parentKey": null,
+    "reverseKey": null,
+    "options": {
+      "uiSchema": {
+        "type": "string",
+        "title": "最后修改",
+        "x-component": "DatePicker",
+        "x-component-props": {
+          "showTime": true,
+          "utc": true
+        }
+      }
+    },
+    "sort": 14
+  },
+  {
+    "key": "p5geuhue18g",
+    "name": "company_id",
+    "type": "bigInt",
+    "interface": "integer",
+    "description": "",
+    "collectionName": "vi_period_data",
+    "parentKey": null,
+    "reverseKey": null,
+    "options": {
+      "uiSchema": {
+        "type": "number",
+        "title": "公司（ID）",
+        "x-component": "InputNumber",
+        "x-component-props": {
+          "stringMode": true,
+          "step": "1"
+        },
+        "x-validator": "integer"
+      },
+      "isForeignKey": true
+    },
+    "sort": 1
+  },
+  {
+    "key": "d3ac0z2hpg9",
+    "name": "impact",
+    "type": "string",
+    "interface": "select",
+    "description": "结合比较基准与经营解读，判断这项数据对公司经营的影响。中性表示已有依据支持影响有限；待判断表示依据不足。",
+    "collectionName": "vi_period_data",
+    "parentKey": null,
+    "reverseKey": null,
+    "options": {
+      "enum": [
+        {
+          "value": "利好",
+          "label": "利好",
+          "color": "red"
+        },
+        {
+          "value": "中性",
+          "label": "中性",
+          "color": "default"
+        },
+        {
+          "value": "利空",
+          "label": "利空",
+          "color": "green"
+        },
+        {
+          "value": "待判断",
+          "label": "待判断",
+          "color": "gold"
+        }
+      ],
+      "uiSchema": {
+        "type": "string",
+        "title": "经营影响",
+        "x-component": "Select",
+        "enum": [
+          {
+            "value": "利好",
+            "label": "利好",
+            "color": "red"
+          },
+          {
+            "value": "中性",
+            "label": "中性",
+            "color": "default"
+          },
+          {
+            "value": "利空",
+            "label": "利空",
+            "color": "green"
+          },
+          {
+            "value": "待判断",
+            "label": "待判断",
+            "color": "gold"
+          }
+        ]
+      },
+      "defaultValue": "待判断"
+    },
+    "sort": 18
+  },
+  {
+    "key": "7youpqvwuau",
+    "name": "line_item",
+    "type": "string",
+    "interface": "input",
+    "description": "如销量、新签合同额、付费用户、汽车交付量、发电量",
+    "collectionName": "vi_period_data",
+    "parentKey": null,
+    "reverseKey": null,
+    "options": {
+      "uiSchema": {
+        "type": "string",
+        "title": "项目",
+        "x-component": "Input"
+      }
+    },
+    "sort": 15
+  },
+  {
+    "key": "0ckkm0604n2",
+    "name": "company",
+    "type": "belongsTo",
+    "interface": "m2o",
+    "description": null,
+    "collectionName": "vi_period_data",
+    "parentKey": null,
+    "reverseKey": null,
+    "options": {
+      "source": "vi_period_data.period",
+      "target": "vi_company",
+      "uiSchema": {
+        "type": "object",
+        "title": "公司",
+        "x-component": "AssociationField",
+        "x-component-props": {
+          "multiple": false,
+          "fieldNames": {
+            "label": "name",
+            "value": "id"
+          }
+        }
+      },
+      "targetKey": "id",
+      "foreignKey": "company_id"
+    },
+    "sort": 16
+  },
+  {
+    "key": "etsx3mfzaxv",
+    "name": "source",
+    "type": "belongsTo",
+    "interface": "m2o",
+    "description": null,
+    "collectionName": "vi_period_data",
+    "parentKey": null,
+    "reverseKey": null,
+    "options": {
+      "source": "vi_period_data.period",
+      "target": "vi_source",
+      "uiSchema": {
+        "type": "object",
+        "title": "来源文档",
+        "x-component": "AssociationField",
+        "x-component-props": {
+          "multiple": false,
+          "fieldNames": {
+            "label": "title",
+            "value": "id"
+          }
+        }
+      },
+      "targetKey": "id",
+      "foreignKey": "source_id"
+    },
+    "sort": 17
+  },
+  {
+    "key": "51x27143ban",
+    "name": "assessment",
+    "type": "text",
+    "interface": "textarea",
+    "description": "结合公司业务说明比较基准、变化原因及对利润或模型假设的影响；缺少依据时留空。",
+    "collectionName": "vi_period_data",
+    "parentKey": null,
+    "reverseKey": null,
+    "options": {
+      "enum": [],
+      "uiSchema": {
+        "type": "string",
+        "title": "经营解读",
+        "x-component": "Input.TextArea",
+        "enum": []
+      }
+    },
+    "sort": 9
+  }
+]

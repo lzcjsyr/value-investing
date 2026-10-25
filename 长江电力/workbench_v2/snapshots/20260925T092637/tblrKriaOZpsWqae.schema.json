@@ -1,0 +1,100 @@
+[
+  {
+    "bidirectional": false,
+    "id": "fld8ZpOIVX",
+    "link_table": "tblwC6gbfMfQjipH",
+    "name": "支撑参数",
+    "type": "link"
+  },
+  {
+    "default_value": null,
+    "id": "fldVxpGDXZ",
+    "multiple": false,
+    "name": "状态",
+    "options": [
+      {
+        "hue": "Green",
+        "lightness": "Lighter",
+        "name": "成立"
+      },
+      {
+        "hue": "Yellow",
+        "lightness": "Lighter",
+        "name": "动摇"
+      },
+      {
+        "hue": "Red",
+        "lightness": "Lighter",
+        "name": "证伪"
+      },
+      {
+        "hue": "Gray",
+        "lightness": "Lighter",
+        "name": "观察"
+      }
+    ],
+    "type": "select"
+  },
+  {
+    "default_value": null,
+    "id": "fldAHQ2ELD",
+    "name": "论点",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldRxMCIkO",
+    "multiple": false,
+    "name": "分类",
+    "options": [
+      {
+        "hue": "Blue",
+        "lightness": "Lighter",
+        "name": "资产"
+      },
+      {
+        "hue": "Lime",
+        "lightness": "Lighter",
+        "name": "经营"
+      },
+      {
+        "hue": "Wathet",
+        "lightness": "Lighter",
+        "name": "财务"
+      },
+      {
+        "hue": "Purple",
+        "lightness": "Lighter",
+        "name": "治理"
+      },
+      {
+        "hue": "Orange",
+        "lightness": "Lighter",
+        "name": "风险"
+      }
+    ],
+    "type": "select"
+  },
+  {
+    "default_value": null,
+    "id": "fldg07Xd3N",
+    "name": "证据",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "description": "触发即重估或卖出",
+    "id": "fldkKWRKf5",
+    "name": "证伪条件",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  }
+]

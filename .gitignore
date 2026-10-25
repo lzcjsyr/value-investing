@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# 原始资料 PDF：公开文件，可重新下载，不入库
+*.pdf
+*.PDF
+
+# Python
+__pycache__/
+*.pyc
+
+# Dependencies
+node_modules/
+
+# Secrets
+.env
+.env.*
+.authorization
+
+# Temporary / logs
+*.log
+*.tmp

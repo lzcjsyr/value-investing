@@ -1,0 +1,74 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "PMnCb5BsGaME0ysW21uc7pHJnDb",
+  "table_id": "tblpNOHUjyAlTtoi",
+  "rev": 4,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 12,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/qa/link-history-check.ndjson",
+  "record_file_size_bytes": 1531,
+  "manifest_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/qa/link-history-check.manifest.json",
+  "columns": {
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 14
+      },
+      "example": "recvtZ1kHgGcgx"
+    },
+    "年份": {
+      "field_id": "fldHW0dWAy",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 2014,
+        "max": 2025,
+        "avg": 2019.5
+      },
+      "example": 2014
+    },
+    "折旧加财务费用_亿": {
+      "field_id": "fldKjoHBE7",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "289"
+    },
+    "折旧摊销_亿": {
+      "field_id": "fldg7g8AUs",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 7,
+        "min": 111.16,
+        "max": 197.8,
+        "avg": 162.272
+      },
+      "example": 197.8
+    },
+    "财务费用_亿": {
+      "field_id": "fld1H1lGnV",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 7,
+        "min": 40.92,
+        "max": 125.56,
+        "avg": 83.80199999999999
+      },
+      "example": 47.51
+    }
+  }
+}

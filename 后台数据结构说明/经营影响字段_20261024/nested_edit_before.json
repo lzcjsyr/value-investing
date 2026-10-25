@@ -1,0 +1,2106 @@
+{
+  "data": {
+    "target": {
+      "locator": {
+        "uid": "39e2uspgp4l"
+      },
+      "uid": "39e2uspgp4l",
+      "kind": "node"
+    },
+    "tree": {
+      "use": "EditActionModel",
+      "props": {
+        "title": "{{t(\"Edit\")}}",
+        "icon": "EditOutlined",
+        "type": "default"
+      },
+      "decoratorProps": {},
+      "stepParams": {
+        "buttonSettings": {
+          "general": {
+            "title": "{{t(\"Edit\")}}",
+            "icon": "EditOutlined",
+            "type": "default"
+          }
+        },
+        "popupSettings": {
+          "openView": {
+            "mode": "drawer",
+            "size": "medium",
+            "pageModelClass": "ChildPageModel",
+            "dataSourceKey": "main",
+            "collectionName": "vi_period_data",
+            "title": "定期经营数据·编辑",
+            "filterByTk": "{{ctx.record.id}}"
+          }
+        }
+      },
+      "flowRegistry": {},
+      "uid": "39e2uspgp4l",
+      "subModels": {
+        "page": {
+          "parentId": "39e2uspgp4l",
+          "subKey": "page",
+          "subType": "object",
+          "use": "ChildPageModel",
+          "props": {
+            "displayTitle": false,
+            "enableTabs": true
+          },
+          "stepParams": {
+            "pageSettings": {
+              "general": {
+                "displayTitle": false,
+                "enableTabs": true
+              }
+            }
+          },
+          "parent": "39e2uspgp4l",
+          "sortIndex": 1,
+          "uid": "z8b2bygj9av",
+          "subModels": {
+            "tabs": [
+              {
+                "use": "ChildPageTabModel",
+                "props": {
+                  "title": "定期经营数据·编辑"
+                },
+                "stepParams": {
+                  "pageTabSettings": {
+                    "tab": {
+                      "title": "定期经营数据·编辑"
+                    }
+                  }
+                },
+                "subKey": "tabs",
+                "subType": "array",
+                "parent": "z8b2bygj9av",
+                "parentId": "z8b2bygj9av",
+                "sortIndex": 1,
+                "uid": "0fib5ykhvwk",
+                "subModels": {
+                  "grid": {
+                    "use": "BlockGridModel",
+                    "subKey": "grid",
+                    "subType": "object",
+                    "props": {
+                      "rows": {
+                        "row1": [
+                          [
+                            "2vjd4ixz7m4"
+                          ]
+                        ]
+                      },
+                      "sizes": {
+                        "row1": [
+                          24
+                        ]
+                      },
+                      "rowOrder": [
+                        "row1"
+                      ]
+                    },
+                    "stepParams": {
+                      "gridSettings": {
+                        "grid": {
+                          "rows": {
+                            "row1": [
+                              [
+                                "z2rx7z8j2xf"
+                              ]
+                            ]
+                          },
+                          "sizes": {
+                            "row1": [
+                              24
+                            ]
+                          },
+                          "rowOrder": [
+                            "row1"
+                          ]
+                        }
+                      }
+                    },
+                    "parent": "0fib5ykhvwk",
+                    "parentId": "0fib5ykhvwk",
+                    "sortIndex": 1,
+                    "uid": "4ieppo11utk",
+                    "subModels": {
+                      "items": [
+                        {
+                          "parentId": "4ieppo11utk",
+                          "subKey": "items",
+                          "subType": "array",
+                          "use": "EditFormModel",
+                          "props": {},
+                          "decoratorProps": {},
+                          "stepParams": {
+                            "resourceSettings": {
+                              "init": {
+                                "dataSourceKey": "main",
+                                "collectionName": "vi_period_data",
+                                "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+                              }
+                            },
+                            "formModelSettings": {
+                              "layout": {
+                                "layout": "vertical",
+                                "colon": false
+                              },
+                              "assignRules": {
+                                "value": []
+                              }
+                            },
+                            "formSettings": {
+                              "dataScope": {
+                                "filter": {
+                                  "logic": "$and",
+                                  "items": []
+                                }
+                              }
+                            }
+                          },
+                          "parent": "4ieppo11utk",
+                          "sortIndex": 1,
+                          "uid": "z2rx7z8j2xf",
+                          "subModels": {
+                            "grid": {
+                              "use": "FormGridModel",
+                              "subKey": "grid",
+                              "subType": "object",
+                              "stepParams": {
+                                "gridSettings": {
+                                  "grid": {
+                                    "rows": {
+                                      "row1": [
+                                        [
+                                          "gu4pv8vvahr"
+                                        ]
+                                      ],
+                                      "row2": [
+                                        [
+                                          "ohj16immxu3"
+                                        ],
+                                        [
+                                          "xthffhic0fs"
+                                        ]
+                                      ],
+                                      "row3": [
+                                        [
+                                          "bjkm3u86epl"
+                                        ],
+                                        [
+                                          "m9rxggi1ncl"
+                                        ]
+                                      ],
+                                      "row4": [
+                                        [
+                                          "hchemzx2ndm"
+                                        ],
+                                        [
+                                          "pild23lx27f"
+                                        ]
+                                      ],
+                                      "row5": [
+                                        [
+                                          "c4yinpvu3k5"
+                                        ],
+                                        [
+                                          "0wg19mei7eu"
+                                        ]
+                                      ],
+                                      "row6": [
+                                        [
+                                          "na3p4q17cm0"
+                                        ]
+                                      ],
+                                      "row7": [
+                                        [
+                                          "k3n62hi3flb"
+                                        ]
+                                      ],
+                                      "row8": [
+                                        [
+                                          "6ywopzexg9p"
+                                        ],
+                                        [
+                                          "hfb157rddz4"
+                                        ]
+                                      ],
+                                      "row9": [
+                                        [
+                                          "c3tbrhcqt1c"
+                                        ]
+                                      ],
+                                      "row10": [
+                                        [
+                                          "m18x4p9g4pw"
+                                        ]
+                                      ]
+                                    },
+                                    "sizes": {
+                                      "row1": [
+                                        24
+                                      ],
+                                      "row2": [
+                                        12,
+                                        12
+                                      ],
+                                      "row3": [
+                                        12,
+                                        12
+                                      ],
+                                      "row4": [
+                                        12,
+                                        12
+                                      ],
+                                      "row5": [
+                                        12,
+                                        12
+                                      ],
+                                      "row6": [
+                                        24
+                                      ],
+                                      "row7": [
+                                        24
+                                      ],
+                                      "row8": [
+                                        12,
+                                        12
+                                      ],
+                                      "row9": [
+                                        24
+                                      ],
+                                      "row10": [
+                                        24
+                                      ]
+                                    },
+                                    "rowOrder": [
+                                      "row1",
+                                      "row2",
+                                      "row3",
+                                      "row4",
+                                      "row5",
+                                      "row6",
+                                      "row7",
+                                      "row8",
+                                      "row9",
+                                      "row10"
+                                    ]
+                                  }
+                                },
+                                "eventSettings": {
+                                  "linkageRules": {
+                                    "value": []
+                                  }
+                                }
+                              },
+                              "props": {
+                                "rows": {
+                                  "row1": [
+                                    [
+                                      "gu4pv8vvahr"
+                                    ]
+                                  ],
+                                  "row2": [
+                                    [
+                                      "ohj16immxu3"
+                                    ],
+                                    [
+                                      "xthffhic0fs"
+                                    ]
+                                  ],
+                                  "row3": [
+                                    [
+                                      "bjkm3u86epl"
+                                    ],
+                                    [
+                                      "m9rxggi1ncl"
+                                    ]
+                                  ],
+                                  "row4": [
+                                    [
+                                      "hchemzx2ndm"
+                                    ],
+                                    [
+                                      "pild23lx27f"
+                                    ]
+                                  ],
+                                  "row5": [
+                                    [
+                                      "c4yinpvu3k5"
+                                    ],
+                                    [
+                                      "0wg19mei7eu"
+                                    ]
+                                  ],
+                                  "row6": [
+                                    [
+                                      "na3p4q17cm0"
+                                    ]
+                                  ],
+                                  "row7": [
+                                    [
+                                      "k3n62hi3flb"
+                                    ]
+                                  ],
+                                  "row8": [
+                                    [
+                                      "6ywopzexg9p"
+                                    ],
+                                    [
+                                      "hfb157rddz4"
+                                    ]
+                                  ],
+                                  "row9": [
+                                    [
+                                      "c3tbrhcqt1c"
+                                    ]
+                                  ],
+                                  "row10": [
+                                    [
+                                      "m18x4p9g4pw"
+                                    ]
+                                  ]
+                                },
+                                "sizes": {
+                                  "row1": [
+                                    24
+                                  ],
+                                  "row2": [
+                                    12,
+                                    12
+                                  ],
+                                  "row3": [
+                                    12,
+                                    12
+                                  ],
+                                  "row4": [
+                                    12,
+                                    12
+                                  ],
+                                  "row5": [
+                                    12,
+                                    12
+                                  ],
+                                  "row6": [
+                                    24
+                                  ],
+                                  "row7": [
+                                    24
+                                  ],
+                                  "row8": [
+                                    12,
+                                    12
+                                  ],
+                                  "row9": [
+                                    24
+                                  ],
+                                  "row10": [
+                                    24
+                                  ]
+                                },
+                                "rowOrder": [
+                                  "row1",
+                                  "row2",
+                                  "row3",
+                                  "row4",
+                                  "row5",
+                                  "row6",
+                                  "row7",
+                                  "row8",
+                                  "row9",
+                                  "row10"
+                                ]
+                              },
+                              "parent": "z2rx7z8j2xf",
+                              "parentId": "z2rx7z8j2xf",
+                              "sortIndex": 1,
+                              "uid": "6taux6le91o",
+                              "subModels": {
+                                "items": [
+                                  {
+                                    "parentId": "6taux6le91o",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "基本信息",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "基本信息",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "6taux6le91o",
+                                    "sortIndex": 1,
+                                    "uid": "gu4pv8vvahr",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "6taux6le91o",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "FormItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_period_data",
+                                          "fieldPath": "period"
+                                        }
+                                      }
+                                    },
+                                    "parent": "6taux6le91o",
+                                    "sortIndex": 2,
+                                    "uid": "ohj16immxu3",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "InputFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_period_data",
+                                              "fieldPath": "period"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "ohj16immxu3",
+                                        "parentId": "ohj16immxu3",
+                                        "sortIndex": 1,
+                                        "uid": "56gf24xch6z",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "6taux6le91o",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "FormItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_period_data",
+                                          "fieldPath": "period_kind"
+                                        }
+                                      }
+                                    },
+                                    "parent": "6taux6le91o",
+                                    "sortIndex": 3,
+                                    "uid": "xthffhic0fs",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "SelectFieldModel",
+                                        "props": {
+                                          "allowClear": true
+                                        },
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_period_data",
+                                              "fieldPath": "period_kind"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "xthffhic0fs",
+                                        "parentId": "xthffhic0fs",
+                                        "sortIndex": 1,
+                                        "uid": "rf0r9q1ceib",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "6taux6le91o",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "FormItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_period_data",
+                                          "fieldPath": "value"
+                                        }
+                                      }
+                                    },
+                                    "parent": "6taux6le91o",
+                                    "sortIndex": 4,
+                                    "uid": "bjkm3u86epl",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "NumberFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_period_data",
+                                              "fieldPath": "value"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "bjkm3u86epl",
+                                        "parentId": "bjkm3u86epl",
+                                        "sortIndex": 1,
+                                        "uid": "oy8vdfy91hd",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "6taux6le91o",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "FormItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_period_data",
+                                          "fieldPath": "unit"
+                                        }
+                                      }
+                                    },
+                                    "parent": "6taux6le91o",
+                                    "sortIndex": 5,
+                                    "uid": "m9rxggi1ncl",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "InputFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_period_data",
+                                              "fieldPath": "unit"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "m9rxggi1ncl",
+                                        "parentId": "m9rxggi1ncl",
+                                        "sortIndex": 1,
+                                        "uid": "269ndurzvw4",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "6taux6le91o",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "FormItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_period_data",
+                                          "fieldPath": "yoy"
+                                        }
+                                      }
+                                    },
+                                    "parent": "6taux6le91o",
+                                    "sortIndex": 6,
+                                    "uid": "hchemzx2ndm",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "PercentFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_period_data",
+                                              "fieldPath": "yoy"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "hchemzx2ndm",
+                                        "parentId": "hchemzx2ndm",
+                                        "sortIndex": 1,
+                                        "uid": "g7rc4u90xd2",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "6taux6le91o",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "FormItemModel",
+                                    "props": {
+                                      "extra": "比较基准 → 变化原因 → 对利润或模型假设的影响。缺少依据时留空。"
+                                    },
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_period_data",
+                                          "fieldPath": "assessment"
+                                        }
+                                      },
+                                      "editItemSettings": {
+                                        "description": {
+                                          "description": "比较基准 → 变化原因 → 对利润或模型假设的影响。缺少依据时留空。"
+                                        }
+                                      }
+                                    },
+                                    "decoratorProps": {},
+                                    "parent": "6taux6le91o",
+                                    "uid": "pild23lx27f",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "TextareaFieldModel",
+                                        "props": {
+                                          "autoSize": {
+                                            "maxRows": 10,
+                                            "minRows": 3
+                                          }
+                                        },
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_period_data",
+                                              "fieldPath": "assessment"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "uid": "ysqk9p65bsg",
+                                        "parent": "pild23lx27f",
+                                        "parentId": "pild23lx27f",
+                                        "sortIndex": 1,
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "sortIndex": 7,
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "6taux6le91o",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "FormItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_period_data",
+                                          "fieldPath": "summary"
+                                        }
+                                      }
+                                    },
+                                    "parent": "6taux6le91o",
+                                    "sortIndex": 8,
+                                    "uid": "c4yinpvu3k5",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "TextareaFieldModel",
+                                        "props": {
+                                          "autoSize": {
+                                            "maxRows": 10,
+                                            "minRows": 3
+                                          }
+                                        },
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_period_data",
+                                              "fieldPath": "summary"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "c4yinpvu3k5",
+                                        "parentId": "c4yinpvu3k5",
+                                        "sortIndex": 1,
+                                        "uid": "xnqjgwu102l",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "6taux6le91o",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "FormItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_period_data",
+                                          "fieldPath": "status"
+                                        }
+                                      }
+                                    },
+                                    "parent": "6taux6le91o",
+                                    "sortIndex": 9,
+                                    "uid": "0wg19mei7eu",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "SelectFieldModel",
+                                        "props": {
+                                          "allowClear": true
+                                        },
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_period_data",
+                                              "fieldPath": "status"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "0wg19mei7eu",
+                                        "parentId": "0wg19mei7eu",
+                                        "sortIndex": 1,
+                                        "uid": "2320cb74ukt",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "6taux6le91o",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "FormItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_period_data",
+                                          "fieldPath": "line_item"
+                                        }
+                                      }
+                                    },
+                                    "parent": "6taux6le91o",
+                                    "sortIndex": 10,
+                                    "uid": "na3p4q17cm0",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "InputFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_period_data",
+                                              "fieldPath": "line_item"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "na3p4q17cm0",
+                                        "parentId": "na3p4q17cm0",
+                                        "sortIndex": 1,
+                                        "uid": "fubgj2k614m",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "6taux6le91o",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "关联",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "关联",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "6taux6le91o",
+                                    "sortIndex": 11,
+                                    "uid": "k3n62hi3flb",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "6taux6le91o",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "FormItemModel",
+                                    "props": {
+                                      "titleField": "name"
+                                    },
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_period_data",
+                                          "fieldPath": "company"
+                                        }
+                                      },
+                                      "editItemSettings": {
+                                        "titleField": {
+                                          "label": "name"
+                                        }
+                                      }
+                                    },
+                                    "parent": "6taux6le91o",
+                                    "sortIndex": 12,
+                                    "uid": "6ywopzexg9p",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "RecordSelectFieldModel",
+                                        "props": {
+                                          "titleField": "name"
+                                        },
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_period_data",
+                                              "fieldPath": "company"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "6ywopzexg9p",
+                                        "parentId": "6ywopzexg9p",
+                                        "sortIndex": 1,
+                                        "uid": "0b4uznatj87",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "6taux6le91o",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "FormItemModel",
+                                    "props": {
+                                      "titleField": "title"
+                                    },
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_period_data",
+                                          "fieldPath": "source"
+                                        }
+                                      },
+                                      "editItemSettings": {
+                                        "titleField": {
+                                          "label": "title"
+                                        }
+                                      }
+                                    },
+                                    "parent": "6taux6le91o",
+                                    "sortIndex": 13,
+                                    "uid": "hfb157rddz4",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "RecordSelectFieldModel",
+                                        "props": {
+                                          "titleField": "title"
+                                        },
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_period_data",
+                                              "fieldPath": "source"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "hfb157rddz4",
+                                        "parentId": "hfb157rddz4",
+                                        "sortIndex": 1,
+                                        "uid": "ydgcsdchukz",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "6taux6le91o",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "DividerItemModel",
+                                    "props": {
+                                      "label": "系统",
+                                      "orientation": "left"
+                                    },
+                                    "decoratorProps": {},
+                                    "stepParams": {
+                                      "markdownItemSetting": {
+                                        "title": {
+                                          "label": "系统",
+                                          "orientation": "left"
+                                        }
+                                      }
+                                    },
+                                    "parent": "6taux6le91o",
+                                    "sortIndex": 14,
+                                    "uid": "c3tbrhcqt1c",
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "6taux6le91o",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "FormItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_period_data",
+                                          "fieldPath": "updated_at"
+                                        }
+                                      }
+                                    },
+                                    "parent": "6taux6le91o",
+                                    "sortIndex": 15,
+                                    "uid": "m18x4p9g4pw",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "DateTimeTzFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_period_data",
+                                              "fieldPath": "updated_at"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "m18x4p9g4pw",
+                                        "parentId": "m18x4p9g4pw",
+                                        "sortIndex": 1,
+                                        "uid": "resv7c6m1we",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  }
+                                ]
+                              },
+                              "popup": {
+                                "mode": "local"
+                              }
+                            },
+                            "actions": [
+                              {
+                                "parentId": "z2rx7z8j2xf",
+                                "subKey": "actions",
+                                "subType": "array",
+                                "use": "FormSubmitActionModel",
+                                "props": {
+                                  "title": "{{t(\"Submit\")}}",
+                                  "type": "primary",
+                                  "htmlType": "submit"
+                                },
+                                "decoratorProps": {},
+                                "stepParams": {
+                                  "buttonSettings": {
+                                    "general": {
+                                      "title": "{{t(\"Submit\")}}",
+                                      "type": "primary"
+                                    }
+                                  },
+                                  "submitSettings": {
+                                    "confirm": {
+                                      "enable": false,
+                                      "title": "{{t(\"Submit record\")}}",
+                                      "content": "{{t(\"Are you sure you want to save it?\")}}"
+                                    }
+                                  }
+                                },
+                                "flowRegistry": {},
+                                "parent": "z2rx7z8j2xf",
+                                "sortIndex": 1,
+                                "uid": "6qape2iknrv",
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            ]
+                          },
+                          "popup": {
+                            "mode": "local"
+                          }
+                        }
+                      ]
+                    },
+                    "popup": {
+                      "mode": "local"
+                    }
+                  }
+                },
+                "popup": {
+                  "mode": "local"
+                }
+              }
+            ]
+          },
+          "popup": {
+            "mode": "local"
+          }
+        }
+      },
+      "popup": {
+        "mode": "local",
+        "pageUid": "z8b2bygj9av",
+        "tabUid": "0fib5ykhvwk",
+        "gridUid": "4ieppo11utk"
+      }
+    },
+    "nodeMap": {
+      "39e2uspgp4l": {
+        "uid": "39e2uspgp4l",
+        "use": "EditActionModel",
+        "props": {
+          "title": "{{t(\"Edit\")}}",
+          "icon": "EditOutlined",
+          "type": "default"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Edit\")}}",
+              "icon": "EditOutlined",
+              "type": "default"
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "title": "定期经营数据·编辑",
+              "filterByTk": "{{ctx.record.id}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local",
+          "pageUid": "z8b2bygj9av",
+          "tabUid": "0fib5ykhvwk",
+          "gridUid": "4ieppo11utk"
+        }
+      },
+      "z8b2bygj9av": {
+        "uid": "z8b2bygj9av",
+        "use": "ChildPageModel",
+        "props": {
+          "displayTitle": false,
+          "enableTabs": true
+        },
+        "stepParams": {
+          "pageSettings": {
+            "general": {
+              "displayTitle": false,
+              "enableTabs": true
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "0fib5ykhvwk": {
+        "uid": "0fib5ykhvwk",
+        "use": "ChildPageTabModel",
+        "props": {
+          "title": "定期经营数据·编辑"
+        },
+        "stepParams": {
+          "pageTabSettings": {
+            "tab": {
+              "title": "定期经营数据·编辑"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "4ieppo11utk": {
+        "uid": "4ieppo11utk",
+        "use": "BlockGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "2vjd4ixz7m4"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "z2rx7z8j2xf"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "z2rx7z8j2xf": {
+        "uid": "z2rx7z8j2xf",
+        "use": "EditFormModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "resourceSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+            }
+          },
+          "formModelSettings": {
+            "layout": {
+              "layout": "vertical",
+              "colon": false
+            },
+            "assignRules": {
+              "value": []
+            }
+          },
+          "formSettings": {
+            "dataScope": {
+              "filter": {
+                "logic": "$and",
+                "items": []
+              }
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "6taux6le91o": {
+        "uid": "6taux6le91o",
+        "use": "FormGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "gu4pv8vvahr"
+              ]
+            ],
+            "row2": [
+              [
+                "ohj16immxu3"
+              ],
+              [
+                "xthffhic0fs"
+              ]
+            ],
+            "row3": [
+              [
+                "bjkm3u86epl"
+              ],
+              [
+                "m9rxggi1ncl"
+              ]
+            ],
+            "row4": [
+              [
+                "hchemzx2ndm"
+              ],
+              [
+                "pild23lx27f"
+              ]
+            ],
+            "row5": [
+              [
+                "c4yinpvu3k5"
+              ],
+              [
+                "0wg19mei7eu"
+              ]
+            ],
+            "row6": [
+              [
+                "na3p4q17cm0"
+              ]
+            ],
+            "row7": [
+              [
+                "k3n62hi3flb"
+              ]
+            ],
+            "row8": [
+              [
+                "6ywopzexg9p"
+              ],
+              [
+                "hfb157rddz4"
+              ]
+            ],
+            "row9": [
+              [
+                "c3tbrhcqt1c"
+              ]
+            ],
+            "row10": [
+              [
+                "m18x4p9g4pw"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ],
+            "row2": [
+              12,
+              12
+            ],
+            "row3": [
+              12,
+              12
+            ],
+            "row4": [
+              12,
+              12
+            ],
+            "row5": [
+              12,
+              12
+            ],
+            "row6": [
+              24
+            ],
+            "row7": [
+              24
+            ],
+            "row8": [
+              12,
+              12
+            ],
+            "row9": [
+              24
+            ],
+            "row10": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1",
+            "row2",
+            "row3",
+            "row4",
+            "row5",
+            "row6",
+            "row7",
+            "row8",
+            "row9",
+            "row10"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "gu4pv8vvahr"
+                  ]
+                ],
+                "row2": [
+                  [
+                    "ohj16immxu3"
+                  ],
+                  [
+                    "xthffhic0fs"
+                  ]
+                ],
+                "row3": [
+                  [
+                    "bjkm3u86epl"
+                  ],
+                  [
+                    "m9rxggi1ncl"
+                  ]
+                ],
+                "row4": [
+                  [
+                    "hchemzx2ndm"
+                  ],
+                  [
+                    "pild23lx27f"
+                  ]
+                ],
+                "row5": [
+                  [
+                    "c4yinpvu3k5"
+                  ],
+                  [
+                    "0wg19mei7eu"
+                  ]
+                ],
+                "row6": [
+                  [
+                    "na3p4q17cm0"
+                  ]
+                ],
+                "row7": [
+                  [
+                    "k3n62hi3flb"
+                  ]
+                ],
+                "row8": [
+                  [
+                    "6ywopzexg9p"
+                  ],
+                  [
+                    "hfb157rddz4"
+                  ]
+                ],
+                "row9": [
+                  [
+                    "c3tbrhcqt1c"
+                  ]
+                ],
+                "row10": [
+                  [
+                    "m18x4p9g4pw"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ],
+                "row2": [
+                  12,
+                  12
+                ],
+                "row3": [
+                  12,
+                  12
+                ],
+                "row4": [
+                  12,
+                  12
+                ],
+                "row5": [
+                  12,
+                  12
+                ],
+                "row6": [
+                  24
+                ],
+                "row7": [
+                  24
+                ],
+                "row8": [
+                  12,
+                  12
+                ],
+                "row9": [
+                  24
+                ],
+                "row10": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1",
+                "row2",
+                "row3",
+                "row4",
+                "row5",
+                "row6",
+                "row7",
+                "row8",
+                "row9",
+                "row10"
+              ]
+            }
+          },
+          "eventSettings": {
+            "linkageRules": {
+              "value": []
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "gu4pv8vvahr": {
+        "uid": "gu4pv8vvahr",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "基本信息",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "基本信息",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ohj16immxu3": {
+        "uid": "ohj16immxu3",
+        "use": "FormItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "period"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "56gf24xch6z": {
+        "uid": "56gf24xch6z",
+        "use": "InputFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "period"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "xthffhic0fs": {
+        "uid": "xthffhic0fs",
+        "use": "FormItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "period_kind"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "rf0r9q1ceib": {
+        "uid": "rf0r9q1ceib",
+        "use": "SelectFieldModel",
+        "props": {
+          "allowClear": true
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "period_kind"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "bjkm3u86epl": {
+        "uid": "bjkm3u86epl",
+        "use": "FormItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "value"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "oy8vdfy91hd": {
+        "uid": "oy8vdfy91hd",
+        "use": "NumberFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "value"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "m9rxggi1ncl": {
+        "uid": "m9rxggi1ncl",
+        "use": "FormItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "unit"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "269ndurzvw4": {
+        "uid": "269ndurzvw4",
+        "use": "InputFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "unit"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "hchemzx2ndm": {
+        "uid": "hchemzx2ndm",
+        "use": "FormItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "yoy"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "g7rc4u90xd2": {
+        "uid": "g7rc4u90xd2",
+        "use": "PercentFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "yoy"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "pild23lx27f": {
+        "uid": "pild23lx27f",
+        "use": "FormItemModel",
+        "props": {
+          "extra": "比较基准 → 变化原因 → 对利润或模型假设的影响。缺少依据时留空。"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "assessment"
+            }
+          },
+          "editItemSettings": {
+            "description": {
+              "description": "比较基准 → 变化原因 → 对利润或模型假设的影响。缺少依据时留空。"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ysqk9p65bsg": {
+        "uid": "ysqk9p65bsg",
+        "use": "TextareaFieldModel",
+        "props": {
+          "autoSize": {
+            "maxRows": 10,
+            "minRows": 3
+          }
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "assessment"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "c4yinpvu3k5": {
+        "uid": "c4yinpvu3k5",
+        "use": "FormItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "summary"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "xnqjgwu102l": {
+        "uid": "xnqjgwu102l",
+        "use": "TextareaFieldModel",
+        "props": {
+          "autoSize": {
+            "maxRows": 10,
+            "minRows": 3
+          }
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "summary"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "0wg19mei7eu": {
+        "uid": "0wg19mei7eu",
+        "use": "FormItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "status"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "2320cb74ukt": {
+        "uid": "2320cb74ukt",
+        "use": "SelectFieldModel",
+        "props": {
+          "allowClear": true
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "status"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "na3p4q17cm0": {
+        "uid": "na3p4q17cm0",
+        "use": "FormItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "line_item"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "fubgj2k614m": {
+        "uid": "fubgj2k614m",
+        "use": "InputFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "line_item"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "k3n62hi3flb": {
+        "uid": "k3n62hi3flb",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "关联",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "关联",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "6ywopzexg9p": {
+        "uid": "6ywopzexg9p",
+        "use": "FormItemModel",
+        "props": {
+          "titleField": "name"
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "company"
+            }
+          },
+          "editItemSettings": {
+            "titleField": {
+              "label": "name"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "0b4uznatj87": {
+        "uid": "0b4uznatj87",
+        "use": "RecordSelectFieldModel",
+        "props": {
+          "titleField": "name"
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "company"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "hfb157rddz4": {
+        "uid": "hfb157rddz4",
+        "use": "FormItemModel",
+        "props": {
+          "titleField": "title"
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "source"
+            }
+          },
+          "editItemSettings": {
+            "titleField": {
+              "label": "title"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "ydgcsdchukz": {
+        "uid": "ydgcsdchukz",
+        "use": "RecordSelectFieldModel",
+        "props": {
+          "titleField": "title"
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "source"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "c3tbrhcqt1c": {
+        "uid": "c3tbrhcqt1c",
+        "use": "DividerItemModel",
+        "props": {
+          "label": "系统",
+          "orientation": "left"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "markdownItemSetting": {
+            "title": {
+              "label": "系统",
+              "orientation": "left"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "m18x4p9g4pw": {
+        "uid": "m18x4p9g4pw",
+        "use": "FormItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "updated_at"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "resv7c6m1we": {
+        "uid": "resv7c6m1we",
+        "use": "DateTimeTzFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_period_data",
+              "fieldPath": "updated_at"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "6qape2iknrv": {
+        "uid": "6qape2iknrv",
+        "use": "FormSubmitActionModel",
+        "props": {
+          "title": "{{t(\"Submit\")}}",
+          "type": "primary",
+          "htmlType": "submit"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Submit\")}}",
+              "type": "primary"
+            }
+          },
+          "submitSettings": {
+            "confirm": {
+              "enable": false,
+              "title": "{{t(\"Submit record\")}}",
+              "content": "{{t(\"Are you sure you want to save it?\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      }
+    }
+  }
+}

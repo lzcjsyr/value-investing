@@ -1,0 +1,467 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "create_time": 1789867304,
+    "creator_id": "ou_8d00467681fa087e7bcbdacb5b55dc29",
+    "status": "enabled",
+    "steps": [
+      {
+        "children": {
+          "links": []
+        },
+        "data": {
+          "rule": "DAILY",
+          "start_time": "2026/09/20 18:40"
+        },
+        "id": "timer",
+        "next": "find",
+        "title": "timer",
+        "type": "TimerTrigger"
+      },
+      {
+        "children": {
+          "links": []
+        },
+        "data": {
+          "field_names": [
+            "指标代码",
+            "原始ID",
+            "数值V2",
+            "日期候选",
+            "入库指令",
+            "采集时间文本",
+            "观测日期",
+            "观察键",
+            "水库对象",
+            "校验V2",
+            "允许入库",
+            "日期有效",
+            "原始响应",
+            "三峡数据对象",
+            "观察键V2",
+            "国债数据行",
+            "响应去转义",
+            "校验通过",
+            "数值候选",
+            "采集时间",
+            "国债行",
+            "已有观察数",
+            "处理状态",
+            "来源网址",
+            "单位",
+            "日期V2",
+            "运行标识",
+            "运行结果"
+          ],
+          "filter_info": {
+            "conditions": [
+              {
+                "field_name": "指标代码",
+                "operator": "is",
+                "value": [
+                  {
+                    "value": "TENCENT-600900",
+                    "value_type": "text"
+                  }
+                ]
+              },
+              {
+                "field_name": "处理状态",
+                "operator": "is",
+                "value": [
+                  {
+                    "value": "已抓取待校验",
+                    "value_type": "text"
+                  }
+                ]
+              }
+            ],
+            "conjunction": "and"
+          },
+          "ref_info": null,
+          "should_proceed_when_no_results": false,
+          "table_name": "V2_14云端采集原始记录"
+        },
+        "id": "find",
+        "next": "valid",
+        "title": "find",
+        "type": "FindRecordAction"
+      },
+      {
+        "children": {
+          "links": [
+            {
+              "kind": "if_true",
+              "to": "duplicate"
+            },
+            {
+              "kind": "if_false",
+              "to": "invalid"
+            }
+          ]
+        },
+        "data": {
+          "condition": {
+            "conditions": [
+              {
+                "conditions": [
+                  {
+                    "left_value": {
+                      "extra_info": {
+                        "table_name": "V2_14云端采集原始记录"
+                      },
+                      "value": "$.find.firstfieldsRecord.fldGCrKtTk",
+                      "value_type": "ref"
+                    },
+                    "operator": "is",
+                    "right_value": [
+                      {
+                        "value": "1",
+                        "value_type": "text"
+                      }
+                    ]
+                  }
+                ],
+                "conjunction": "and"
+              }
+            ],
+            "conjunction": "or"
+          }
+        },
+        "id": "valid",
+        "title": "valid",
+        "type": "IfElseBranch"
+      },
+      {
+        "children": {
+          "links": []
+        },
+        "data": {
+          "field_names": [
+            "观察ID"
+          ],
+          "filter_info": {
+            "conditions": [
+              {
+                "field_name": "观察ID",
+                "operator": "is",
+                "value": [
+                  {
+                    "extra_info": {
+                      "table_name": "V2_14云端采集原始记录"
+                    },
+                    "value": "$.find.firstfieldsRecord.fldtFJhxUL",
+                    "value_type": "ref"
+                  }
+                ]
+              }
+            ],
+            "conjunction": "and"
+          },
+          "ref_info": null,
+          "should_proceed_when_no_results": true,
+          "table_name": "V2_11市场观察"
+        },
+        "id": "duplicate",
+        "next": "new",
+        "title": "duplicate",
+        "type": "FindRecordAction"
+      },
+      {
+        "children": {
+          "links": [
+            {
+              "kind": "if_true",
+              "to": "add"
+            },
+            {
+              "kind": "if_false",
+              "to": "skip"
+            }
+          ]
+        },
+        "data": {
+          "condition": {
+            "conditions": [
+              {
+                "conditions": [
+                  {
+                    "left_value": {
+                      "value": "$.duplicate.recordNum",
+                      "value_type": "ref"
+                    },
+                    "operator": "is",
+                    "right_value": [
+                      {
+                        "value": 0,
+                        "value_type": "number"
+                      }
+                    ]
+                  }
+                ],
+                "conjunction": "and"
+              }
+            ],
+            "conjunction": "or"
+          }
+        },
+        "id": "new",
+        "title": "new",
+        "type": "IfElseBranch"
+      },
+      {
+        "children": {
+          "links": []
+        },
+        "data": {
+          "field_values": [
+            {
+              "field_name": "观察ID",
+              "value": [
+                {
+                  "extra_info": {
+                    "table_name": "V2_14云端采集原始记录"
+                  },
+                  "value": "$.find.firstfieldsRecord.fldtFJhxUL",
+                  "value_type": "ref"
+                }
+              ]
+            },
+            {
+              "field_name": "指标",
+              "value": [
+                {
+                  "value": "长江电力股价",
+                  "value_type": "text"
+                }
+              ]
+            },
+            {
+              "field_name": "指标代码",
+              "value": [
+                {
+                  "value": "TENCENT-600900",
+                  "value_type": "text"
+                }
+              ]
+            },
+            {
+              "field_name": "日期",
+              "value": [
+                {
+                  "extra_info": {
+                    "table_name": "V2_14云端采集原始记录"
+                  },
+                  "value": "$.find.firstfieldsRecord.fldijC8LuF",
+                  "value_type": "ref"
+                }
+              ]
+            },
+            {
+              "field_name": "云端数值原文",
+              "value": [
+                {
+                  "extra_info": {
+                    "table_name": "V2_14云端采集原始记录"
+                  },
+                  "value": "$.find.firstfieldsRecord.fldKKSm2jO",
+                  "value_type": "ref"
+                }
+              ]
+            },
+            {
+              "field_name": "单位",
+              "value": [
+                {
+                  "extra_info": {
+                    "table_name": "V2_14云端采集原始记录"
+                  },
+                  "value": "$.find.firstfieldsRecord.fld42YycI6",
+                  "value_type": "ref"
+                }
+              ]
+            },
+            {
+              "field_name": "来源",
+              "value": [
+                {
+                  "extra_info": {
+                    "table_name": "V2_14云端采集原始记录"
+                  },
+                  "value": "$.find.firstfieldsRecord.fldjjDv7B4",
+                  "value_type": "ref"
+                }
+              ]
+            },
+            {
+              "field_name": "采集时间",
+              "value": [
+                {
+                  "extra_info": {
+                    "table_name": "V2_14云端采集原始记录"
+                  },
+                  "value": "$.find.firstfieldsRecord.fldbCCpftx",
+                  "value_type": "ref"
+                }
+              ]
+            },
+            {
+              "field_name": "原始文件",
+              "value": [
+                {
+                  "value": "https://b7okxcyuao.feishu.cn/base/PMnCb5BsGaME0ysW21uc7pHJnDb?table=tblfGHpu05iEVJrp",
+                  "value_type": "text"
+                }
+              ]
+            },
+            {
+              "field_name": "使用边界",
+              "value": [
+                {
+                  "value": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
+                  "value_type": "text"
+                }
+              ]
+            }
+          ],
+          "table_name": "V2_11市场观察"
+        },
+        "id": "add",
+        "next": "done",
+        "title": "add",
+        "type": "AddRecordAction"
+      },
+      {
+        "children": {
+          "links": []
+        },
+        "data": {
+          "field_values": [
+            {
+              "field_name": "处理状态",
+              "value": [
+                {
+                  "value": "完成（新增或已去重）",
+                  "value_type": "text"
+                }
+              ]
+            }
+          ],
+          "filter_info": {
+            "conditions": [
+              {
+                "field_name": "运行标识",
+                "operator": "is",
+                "value": [
+                  {
+                    "extra_info": {
+                      "table_name": "V2_14云端采集原始记录"
+                    },
+                    "value": "$.find.firstfieldsRecord.fld3b9FaQw",
+                    "value_type": "ref"
+                  }
+                ]
+              }
+            ],
+            "conjunction": "and"
+          },
+          "max_set_record_num": 1,
+          "ref_info": null,
+          "table_name": "V2_14云端采集原始记录"
+        },
+        "id": "done",
+        "title": "done",
+        "type": "SetRecordAction"
+      },
+      {
+        "children": {
+          "links": []
+        },
+        "data": {
+          "field_values": [
+            {
+              "field_name": "处理状态",
+              "value": [
+                {
+                  "value": "完成（重复观察未新增）",
+                  "value_type": "text"
+                }
+              ]
+            }
+          ],
+          "filter_info": {
+            "conditions": [
+              {
+                "field_name": "运行标识",
+                "operator": "is",
+                "value": [
+                  {
+                    "extra_info": {
+                      "table_name": "V2_14云端采集原始记录"
+                    },
+                    "value": "$.find.firstfieldsRecord.fld3b9FaQw",
+                    "value_type": "ref"
+                  }
+                ]
+              }
+            ],
+            "conjunction": "and"
+          },
+          "max_set_record_num": 1,
+          "ref_info": null,
+          "table_name": "V2_14云端采集原始记录"
+        },
+        "id": "skip",
+        "title": "skip",
+        "type": "SetRecordAction"
+      },
+      {
+        "children": {
+          "links": []
+        },
+        "data": {
+          "field_values": [
+            {
+              "field_name": "处理状态",
+              "value": [
+                {
+                  "value": "异常：校验未通过",
+                  "value_type": "text"
+                }
+              ]
+            }
+          ],
+          "filter_info": {
+            "conditions": [
+              {
+                "field_name": "运行标识",
+                "operator": "is",
+                "value": [
+                  {
+                    "extra_info": {
+                      "table_name": "V2_14云端采集原始记录"
+                    },
+                    "value": "$.find.firstfieldsRecord.fld3b9FaQw",
+                    "value_type": "ref"
+                  }
+                ]
+              }
+            ],
+            "conjunction": "and"
+          },
+          "max_set_record_num": 1,
+          "ref_info": null,
+          "table_name": "V2_14云端采集原始记录"
+        },
+        "id": "invalid",
+        "title": "invalid",
+        "type": "SetRecordAction"
+      }
+    ],
+    "title": "V2云端入库 · 长江电力股价",
+    "update_time": 1789867997,
+    "updater_id": "ou_8d00467681fa087e7bcbdacb5b55dc29",
+    "workflow_id": "wkfP4mpXOprNp8Jr"
+  }
+}

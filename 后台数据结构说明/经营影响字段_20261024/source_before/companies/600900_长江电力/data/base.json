@@ -1,0 +1,2543 @@
+{
+  "metric": [
+    {
+      "id": 1,
+      "code": "600900.SH.PRICE",
+      "name": "长江电力收盘价",
+      "unit": "元",
+      "category": "行情",
+      "source_name": "腾讯行情（自动采集）；Wind（2026-09 备份 1 条）",
+      "frequency": "交易日",
+      "valid_min": 0,
+      "valid_max": 1000,
+      "notes": "股价只进入对比层，不进入经营假设。",
+      "company_id": 1
+    },
+    {
+      "id": 4,
+      "code": "SX.LEVEL",
+      "name": "三峡水库水位",
+      "unit": "米",
+      "category": "水文",
+      "source_name": "长江水文网水情页面，自动采集（每日 8 时）",
+      "frequency": "日",
+      "valid_min": 100,
+      "valid_max": 200,
+      "notes": "水位只用于观察来水与蓄水，不能线性折算发电量。",
+      "company_id": 1
+    },
+    {
+      "id": 5,
+      "code": "SX.LEVEL.WIND",
+      "name": "三峡水库水位（Wind）",
+      "unit": "米",
+      "category": "水文",
+      "source_name": "Wind L1680403（来源长江水文网），2026-08/09 手工备份",
+      "frequency": "日",
+      "valid_min": 100,
+      "valid_max": 200,
+      "notes": "已停更，与直采口径分开存放。",
+      "company_id": 1
+    },
+    {
+      "id": 6,
+      "code": "SX.INFLOW.WIND",
+      "name": "三峡水库入库流量（Wind）",
+      "unit": "立方米/秒",
+      "category": "水文",
+      "source_name": "Wind Z3791116（来源长江水文网），2026-08/09 手工备份",
+      "frequency": "日",
+      "valid_min": 0,
+      "valid_max": 120000,
+      "notes": "历史上出现过负值（已标为无效、原值保留待核验）。上下游流量不能相加。",
+      "company_id": 1
+    },
+    {
+      "id": 7,
+      "code": "XJB.INFLOW.WIND",
+      "name": "向家坝水库入库流量（Wind）",
+      "unit": "立方米/秒",
+      "category": "水文",
+      "source_name": "Wind K4903912（来源长江水文网），2026-08/09 手工备份",
+      "frequency": "日",
+      "valid_min": 0,
+      "valid_max": 60000,
+      "notes": "同上；Wind 仍在更新但存在负值，暂未接入自动采集。",
+      "company_id": 1
+    }
+  ],
+  "company": [
+    {
+      "id": 1,
+      "code": "600900.SH",
+      "name": "长江电力",
+      "exchange": "上海证券交易所",
+      "industry": "水电",
+      "currency": "人民币",
+      "volume_label": "发电量（境内六座梯级电站）",
+      "volume_unit": "亿千瓦时",
+      "price_label": "综合电价（营业收入÷发电量）",
+      "price_unit": "元/千瓦时",
+      "is_default": true,
+      "profile": "长江干流六座梯级电站（乌东德、白鹤滩、溪洛渡、向家坝、三峡、葛洲坝），装机 7179.5 万千瓦，全球最大水电。资产不可复制，大坝寿命以百年计，经营近乎永续。收入＝发电量×电价，两者都长期可测：来水围绕均值波动、六库联调平滑；电价以管制为主。成本大头是折旧（非现金）和财务费用（随还债退坡）。2026—2030 年承诺每年现金分红不低于归母净利润的 70%。本质类似“永续债＋温和递增票息”。",
+      "notes": "主要风险：极端枯水、电价市场化折价、低回报资本配置（抽蓄约 800 万千瓦在建、葛洲坝扩能约 266 亿）、利率上行。",
+      "price_metric_id": 1,
+      "price_fx_metric_id": null
+    }
+  ],
+  "source": [
+    {
+      "id": 1,
+      "title": "长江电力 2025 年年度报告",
+      "source_type": "定期报告",
+      "publisher": "长江电力",
+      "publish_date": "2026-04-30",
+      "url": "http://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESH_STOCK/2026/2026-4/2026-04-30/12283277.PDF",
+      "reliability": "一级·法定披露",
+      "verify_status": "待核验",
+      "retrieved_on": "2026-09-01",
+      "summary": "营业收入 862.42 亿元（+2.07%）；归母净利润 345.03 亿元（+6.17%）；六站发电量 3071.94 亿千瓦时首破 3000 亿；每 10 股派 10 元，派息率 70.92%；折旧 195.29 亿元；财务费用 93.71 亿元（−17.60 亿）。",
+      "limitations": "历史数值尚未逐项与原页勾稽（问题清单 Q03）。",
+      "company_id": 1
+    },
+    {
+      "id": 2,
+      "title": "长江电力 2026 年半年度报告",
+      "source_type": "定期报告",
+      "publisher": "长江电力",
+      "publish_date": "2026-08-30",
+      "url": "https://vip.stock.finance.sina.com.cn/corp/go.php/vCB_AllBulletin/stockid/600900.phtml",
+      "reliability": "一级·法定披露",
+      "verify_status": "待核验",
+      "retrieved_on": "2026-09-01",
+      "summary": "营收 379.29 亿元（+3.36%）；归母净利 147.56 亿元（+13.02%）；六站发电量 1327.44 亿千瓦时（+4.81%）创同期新高；财务费用 42.01 亿元（−13.61%）；三峡来水偏丰 28.7% 对冲金沙江偏枯。",
+      "limitations": "链接为公告列表入口。",
+      "company_id": 1
+    },
+    {
+      "id": 3,
+      "title": "未来五年（2026—2030 年）股东分红回报规划",
+      "source_type": "临时公告",
+      "publisher": "长江电力",
+      "publish_date": "2025-08-14",
+      "url": "https://www.cypc.com.cn/eportal/attachDir/cypc/2025/09/2025090114575095227.pdf",
+      "reliability": "一级·法定披露",
+      "verify_status": "已读原文",
+      "retrieved_on": "2026-09-01",
+      "summary": "每年现金分红不低于当年归母净利润的 70%，优先现金分红，写入公司章程。",
+      "limitations": null,
+      "company_id": 1
+    },
+    {
+      "id": 4,
+      "title": "2024 年发电量完成情况公告",
+      "source_type": "临时公告",
+      "publisher": "长江电力",
+      "publish_date": "2025-01-08",
+      "url": "https://static.sse.com.cn/disclosure/listedinfo/announcement/c/new/2025-01-08/600900_20250108_8R1Z.pdf",
+      "reliability": "一级·法定披露",
+      "verify_status": "已读原文",
+      "retrieved_on": "2026-09-01",
+      "summary": "六站全年发电 2959.04 亿千瓦时（+7.11%）；乌东德来水偏丰 9.19%，三峡偏丰 9.11%；四季度丰枯急转，单季 −17.60%。",
+      "limitations": null,
+      "company_id": 1
+    },
+    {
+      "id": 5,
+      "title": "2025 年三季度发电量完成情况公告",
+      "source_type": "临时公告",
+      "publisher": "长江电力",
+      "publish_date": "2025-10-12",
+      "url": null,
+      "reliability": "一级·法定披露",
+      "verify_status": "已读原文",
+      "retrieved_on": "2026-10-21",
+      "summary": "前三季度六站发电 2351.26 亿千瓦时，与上年基本持平（−0.29%）；三季度单季 1084.70，−5.84%。乌东德来水偏枯 6.04%，三峡偏枯 4.54%。",
+      "limitations": "经岗底斯取得公告原文（file-id 12919717）。",
+      "company_id": 1
+    },
+    {
+      "id": 6,
+      "title": "2025 年发电量完成情况公告",
+      "source_type": "临时公告",
+      "publisher": "长江电力",
+      "publish_date": "2026-01-05",
+      "url": null,
+      "reliability": "一级·法定披露",
+      "verify_status": "已读原文",
+      "retrieved_on": "2026-10-21",
+      "summary": "2025 年六站发电 3071.94 亿千瓦时，+3.82%；四季度单季 720.68，+19.93%。乌东德来水偏枯 6.44%，三峡偏丰 5.93%。",
+      "limitations": "经岗底斯取得公告原文（file-id 13680781）。",
+      "company_id": 1
+    },
+    {
+      "id": 7,
+      "title": "2026 年第一季度发电量完成情况公告",
+      "source_type": "临时公告",
+      "publisher": "长江电力",
+      "publish_date": "2026-04-09",
+      "url": null,
+      "reliability": "一级·法定披露",
+      "verify_status": "已读原文",
+      "retrieved_on": "2026-10-21",
+      "summary": "一季度六站发电 618.25 亿千瓦时，+7.19%。乌东德来水偏枯 7.36%，三峡偏丰 5.49%。",
+      "limitations": "经岗底斯取得公告原文（file-id 22722231）。",
+      "company_id": 1
+    },
+    {
+      "id": 8,
+      "title": "2026 年三季度发电量完成情况公告",
+      "source_type": "临时公告",
+      "publisher": "长江电力",
+      "publish_date": "2026-10-12",
+      "url": null,
+      "reliability": "一级·法定披露",
+      "verify_status": "已读原文",
+      "retrieved_on": "2026-10-21",
+      "summary": "前三季度六站发电 2250.58 亿千瓦时，−4.28%；三季度单季 923.14，−14.89%（三峡单季 −29.23%）。乌东德来水偏枯 9.29%，三峡偏丰 0.98%。",
+      "limitations": "经岗底斯取得公告原文（file-id 96518947）。",
+      "company_id": 1
+    },
+    {
+      "id": 9,
+      "title": "控股股东增持计划实施完毕",
+      "source_type": "临时公告",
+      "publisher": "长江电力",
+      "publish_date": "2026-08-25",
+      "url": "https://vip.stock.finance.sina.com.cn/corp/go.php/vCB_AllBulletin/stockid/600900.phtml",
+      "reliability": "一级·法定披露",
+      "verify_status": "待核验",
+      "retrieved_on": "2026-09-01",
+      "summary": "三峡集团累计增持 1.62 亿股、金额 44.99 亿元，超过计划下限。治理信号，不改变模型输入。",
+      "limitations": "链接为公告列表入口。",
+      "company_id": 1
+    },
+    {
+      "id": 10,
+      "title": "2026 年度中期票据及超短期融资券发行",
+      "source_type": "临时公告",
+      "publisher": "长江电力",
+      "publish_date": "2026-07-08",
+      "url": "https://vip.stock.finance.sina.com.cn/corp/go.php/vCB_AllBulletin/stockid/600900.phtml",
+      "reliability": "一级·法定披露",
+      "verify_status": "待核验",
+      "retrieved_on": "2026-09-01",
+      "summary": "中票票面利率 2.05%/2.06%，超短融 1.32%/1.34%，存量债务成本持续压降。",
+      "limitations": "链接为公告列表入口。",
+      "company_id": 1
+    },
+    {
+      "id": 11,
+      "title": "公司官网·分红专栏",
+      "source_type": "官方网站",
+      "publisher": "长江电力",
+      "publish_date": null,
+      "url": "https://www.cypc.com.cn/cypc/tzzgx43/xxtm/glfpzcbh/index.html",
+      "reliability": "一级·法定披露",
+      "verify_status": "仅定位入口",
+      "retrieved_on": "2026-09-01",
+      "summary": "历年分红方案。2014—2020 年归母净利润与分红总额来自此处整理。",
+      "limitations": null,
+      "company_id": 1
+    },
+    {
+      "id": 12,
+      "title": "公司官网·投资者关系",
+      "source_type": "官方网站",
+      "publisher": "长江电力",
+      "publish_date": null,
+      "url": "https://www.cypc.com.cn/cypc/tzzgx43/index.html",
+      "reliability": "一级·法定披露",
+      "verify_status": "仅定位入口",
+      "retrieved_on": "2026-09-01",
+      "summary": "公告、定期报告、分红专栏入口。",
+      "limitations": null,
+      "company_id": 1
+    },
+    {
+      "id": 13,
+      "title": "新浪财经·600900 公告列表",
+      "source_type": "官方网站",
+      "publisher": "新浪财经",
+      "publish_date": null,
+      "url": "https://vip.stock.finance.sina.com.cn/corp/go.php/vCB_AllBulletin/stockid/600900.phtml",
+      "reliability": "三级·第三方数据",
+      "verify_status": "仅定位入口",
+      "retrieved_on": "2026-09-01",
+      "summary": "历史公告 PDF 聚合入口，含历年年报。",
+      "limitations": "第三方聚合，以交易所原件为准。",
+      "company_id": 1
+    },
+    {
+      "id": 14,
+      "title": "Wind：长江电力 2014—2025 年财务数据",
+      "source_type": "数据库取数",
+      "publisher": "万得",
+      "publish_date": null,
+      "url": null,
+      "reliability": "三级·第三方数据",
+      "verify_status": "数值已核对",
+      "retrieved_on": "2026-10-21",
+      "summary": "营业收入、归母净利、财务费用、投资收益、折旧摊销、经营现金流、资本开支、带息债务、每股股利。2021—2025 年与旧值逐项一致。",
+      "limitations": "Wind 折旧不含使用权资产（比本表低约 1 亿/年）；每股股利只含年末分红；带息债务含租赁负债、不含其他流动负债，2024 年比旧值低 19.9 亿。",
+      "company_id": 1
+    },
+    {
+      "id": 15,
+      "title": "Wind EDB：长江电力发电量累计值（S0069453）",
+      "source_type": "数据库取数",
+      "publisher": "万得",
+      "publish_date": null,
+      "url": null,
+      "reliability": "三级·第三方数据",
+      "verify_status": "数值已核对",
+      "retrieved_on": "2026-10-21",
+      "summary": "2014—2026Q3 发电量，来源为上市公司公告。2023—2025 年与公告一致。",
+      "limitations": "各年为当年并表口径，跨期不可直接同比。",
+      "company_id": 1
+    },
+    {
+      "id": 16,
+      "title": "岗底斯：长江电力 2023—2025 年三大报表",
+      "source_type": "数据库取数",
+      "publisher": "岗底斯",
+      "publish_date": null,
+      "url": null,
+      "reliability": "三级·第三方数据",
+      "verify_status": "数值已核对",
+      "retrieved_on": "2026-10-21",
+      "summary": "利润表、现金流量表、资产负债表（合并口径）。用于拆分税与少数股东、现金桥接和债务。",
+      "limitations": "维持与扩张资本开支公司未分开披露。",
+      "company_id": 1
+    },
+    {
+      "id": 17,
+      "title": "旧工作台年度数据（2026-09-01 建表）",
+      "source_type": "旧系统迁移",
+      "publisher": "本研究",
+      "publish_date": "2026-09-01",
+      "url": null,
+      "reliability": "研究推导",
+      "verify_status": "待核验",
+      "retrieved_on": "2026-09-19",
+      "summary": "2026-09 在飞书建表时从官网分红专栏、年报整理的历年归母净利润、分红与部分财务数据。",
+      "limitations": "原表来源不一定覆盖同一行全部指标；重组前后不直接同比。",
+      "company_id": 1
+    },
+    {
+      "id": 18,
+      "title": "伯克希尔·哈撒韦 1986 年致股东信",
+      "source_type": "研究方法",
+      "publisher": "巴菲特",
+      "publish_date": "1987-02-27",
+      "url": "https://www.berkshirehathaway.com/letters/1986.html",
+      "reliability": "研究推导",
+      "verify_status": "已读原文",
+      "retrieved_on": "2026-09-19",
+      "summary": "所有者收益＝净利润＋折旧摊销等非现金费用−维持长期竞争地位与业务量所需的平均资本支出及必要营运资本。",
+      "limitations": null,
+      "company_id": null
+    },
+    {
+      "id": 19,
+      "title": "中国债券信息网",
+      "source_type": "官方网站",
+      "publisher": "中央国债登记结算有限责任公司",
+      "publish_date": null,
+      "url": "https://www.chinabond.com.cn",
+      "reliability": "二级·官方统计",
+      "verify_status": "仅定位入口",
+      "retrieved_on": "2026-09-01",
+      "summary": "中债国债收益率曲线。",
+      "limitations": null,
+      "company_id": null
+    },
+    {
+      "id": 20,
+      "title": "长江水文网",
+      "source_type": "官方网站",
+      "publisher": "水利部长江水利委员会",
+      "publish_date": null,
+      "url": "http://www.cjh.com.cn/sqindex.html",
+      "reliability": "二级·官方统计",
+      "verify_status": "仅定位入口",
+      "retrieved_on": "2026-09-19",
+      "summary": "水库水情日报（水位、出库流量）。三峡入库流量页面未提供。",
+      "limitations": "站点 HTTPS 未连通，使用 HTTP。",
+      "company_id": null
+    },
+    {
+      "id": 21,
+      "title": "上海证券交易所信息披露",
+      "source_type": "官方网站",
+      "publisher": "上交所",
+      "publish_date": null,
+      "url": "https://www.sse.com.cn",
+      "reliability": "一级·法定披露",
+      "verify_status": "仅定位入口",
+      "retrieved_on": "2026-09-01",
+      "summary": "法定披露平台。",
+      "limitations": null,
+      "company_id": null
+    },
+    {
+      "id": 22,
+      "title": "国家发展改革委",
+      "source_type": "官方网站",
+      "publisher": "国家发改委",
+      "publish_date": null,
+      "url": "https://www.ndrc.gov.cn",
+      "reliability": "二级·官方统计",
+      "verify_status": "仅定位入口",
+      "retrieved_on": "2026-09-01",
+      "summary": "电价与能源政策文件。",
+      "limitations": null,
+      "company_id": null
+    },
+    {
+      "id": 23,
+      "title": "研究推导：2026—2035 年现金桥接建议值",
+      "source_type": "研究推导",
+      "publisher": "本研究",
+      "publish_date": "2026-10-21",
+      "url": null,
+      "reliability": "研究推导",
+      "verify_status": "待核验",
+      "retrieved_on": "2026-10-21",
+      "summary": "以 2023—2025 年合并报表实际值为锚推导维持/扩张资本、净借款、投资分红等，详见判断 J-CB2026。",
+      "limitations": "判断成分高，需用户确认。",
+      "company_id": 1
+    }
+  ],
+  "fact": [
+    {
+      "id": 1,
+      "title": "总股本 244.68 亿股",
+      "category": "治理",
+      "statement": "2025 年末发行在外总股本 244.68 亿股，是每股价值的分母。",
+      "value": 244.68,
+      "unit": "亿股",
+      "period": "2025",
+      "as_of": "2025-12-31",
+      "verify_status": "待核验",
+      "notes": null,
+      "company_id": 1,
+      "source_id": 1
+    },
+    {
+      "id": 2,
+      "title": "水电总装机 7179.5 万千瓦，境内六站 7169.5 万千瓦",
+      "category": "经营",
+      "statement": "2025 年年报：水电总装机容量 7179.5 万千瓦，其中国内水电装机 7169.5 万千瓦，约占全国水电装机的 16%。发电量上限＝装机×利用小时，扩机增容（葛洲坝、向家坝、溪洛渡）才改变上限。（2026-10-23 更正：此前把 7179.5 万千瓦写成了境内六站装机。）",
+      "value": 7169.5,
+      "unit": "万千瓦",
+      "period": "2025",
+      "as_of": "2025-12-31",
+      "verify_status": "已核验",
+      "notes": null,
+      "company_id": 1,
+      "source_id": 1
+    },
+    {
+      "id": 3,
+      "title": "2026—2030 年分红承诺不低于 70%",
+      "category": "分红",
+      "statement": "2026—2030 年每年现金分红不低于当年归母净利润的 70%，已写入公司章程。2021—2025 年实际派息率 70.6%、94.3%、73.7%、71.0%、70.9%。",
+      "value": 0.7,
+      "unit": "比率",
+      "period": "2026—2030",
+      "as_of": "2025-08-14",
+      "verify_status": "已核验",
+      "notes": null,
+      "company_id": 1,
+      "source_id": 3
+    },
+    {
+      "id": 4,
+      "title": "新发债务成本约 1.3%—2.1%",
+      "category": "债务",
+      "statement": "2026 年 7 月中期票据票面 2.05%/2.06%，超短期融资券 1.32%/1.34%，低于存量成本，置换持续降费。",
+      "value": null,
+      "unit": null,
+      "period": "2026",
+      "as_of": "2026-07-08",
+      "verify_status": "待核验",
+      "notes": null,
+      "company_id": 1,
+      "source_id": 10
+    },
+    {
+      "id": 5,
+      "title": "折旧政策：大坝 40—60 年、机电设备 5—32 年",
+      "category": "财务",
+      "statement": "直线法计提；机组折旧到期后停止计提，利润释放但不等额增加所有者收益（仍需更新改造）。",
+      "value": null,
+      "unit": null,
+      "period": "2025",
+      "as_of": "2025-12-31",
+      "verify_status": "待核验",
+      "notes": null,
+      "company_id": 1,
+      "source_id": 1
+    },
+    {
+      "id": 6,
+      "title": "2026 上半年来水：三峡偏丰 28.7%、金沙江偏枯",
+      "category": "水文",
+      "statement": "六库联调平滑区域差异，2026H1 发电量创同期新高。",
+      "value": null,
+      "unit": null,
+      "period": "2026H1",
+      "as_of": "2026-06-30",
+      "verify_status": "待核验",
+      "notes": null,
+      "company_id": 1,
+      "source_id": 2
+    },
+    {
+      "id": 7,
+      "title": "电价机制：葛洲坝成本加成、三峡落地倒推，金沙江四站倒推加市场化",
+      "category": "政策",
+      "statement": "葛洲坝（1988 年全部投产）按成本加成定价；三峡首创落地倒推电价（落地价−输电价−线损），丰水期送广东、华东各 50%，枯水期广东 16%、华东 32%、华中 52%；溪洛渡（送浙江、广东）、向家坝（送上海）、乌东德（送广东、广西，留存云南按省内市场价）为倒推电价加市场化电价；白鹤滩（送江苏、浙江，留存四川 100 亿、云南 40 亿千瓦时）过渡期后全部市场化。三峡、葛洲坝不参与市场化交易；2021 年披露向家坝、溪洛渡市场化比例约 22%、26%。市场化电量占比 2023 年以前低于 15%，乌东德、白鹤滩注入后约 40%（2023 年 37.76%）。",
+      "value": 0.3776,
+      "unit": "比率",
+      "period": "2023",
+      "as_of": "2023-12-31",
+      "verify_status": "待核验",
+      "notes": "市场化占比 37.76% 来自年报；各电站定价方式与消纳比例来自《长江电力价值手册 2022》（首创、开源转引）。",
+      "company_id": 1,
+      "source_id": 1
+    },
+    {
+      "id": 8,
+      "title": "在建投资：抽蓄约 800 万千瓦、葛洲坝扩能约 266 亿",
+      "category": "资本开支",
+      "statement": "抽水蓄能：锁定资源近 4000 万千瓦，在建及推进约 800—900 万千瓦（甘肃张掖、湖南攸县、河南巩义、江西寻乌等），2028 年起陆续投产；两部制电价，容量电价按经营期定价法核定（资本金内部收益率 6.5%）；受托运维长龙山抽蓄（210 万千瓦）。2025 年完成河南巩义、江西寻乌 2 个项目投资决策和河北青龙等 4 个项目公司股权收购。葛洲坝航运扩能约 266 亿元（工期 91 个月，年均约 35 亿元）。",
+      "value": null,
+      "unit": null,
+      "period": "2025",
+      "as_of": "2025-12-31",
+      "verify_status": "待核验",
+      "notes": "投资决策与收购来自 2025 年年报；资源规模、受托运维来自卖方与同业对比资料。",
+      "company_id": 1,
+      "source_id": 1
+    },
+    {
+      "id": 10,
+      "title": "所有者收益方法",
+      "category": "估值方法",
+      "statement": "所有者收益须扣除维持长期竞争地位与业务量所需的平均资本支出及必要营运资本投入；折旧到期不代表现金凭空增加。",
+      "value": null,
+      "unit": null,
+      "period": "方法",
+      "as_of": null,
+      "verify_status": "已核验",
+      "notes": null,
+      "company_id": 1,
+      "source_id": 18
+    },
+    {
+      "id": 11,
+      "title": "2025 年现金流补充项",
+      "category": "财务",
+      "statement": "2025 年：折旧摊销 195.29 亿（固定资产 190.89＋使用权 1.14＋无形 3.05＋长摊 0.22）；营运资本释放 12.11 亿（2024 年 10.76 亿）；资产减值准备 15.05 亿（非经常）；子公司付少数股东股利 6.49 亿。",
+      "value": null,
+      "unit": "亿元",
+      "period": "2025",
+      "as_of": "2025-12-31",
+      "verify_status": "已核验",
+      "notes": null,
+      "company_id": 1,
+      "source_id": 16
+    },
+    {
+      "id": 12,
+      "title": "2026 年上半年经营要点",
+      "category": "经营",
+      "statement": "营收 379.29 亿元（+3.36%）；归母净利 147.56 亿元（+13.02%）；发电量 1327.44 亿千瓦时（+4.81%）；财务费用 42.01 亿元（−13.61%）。",
+      "value": 147.56,
+      "unit": "亿元",
+      "period": "2026H1",
+      "as_of": "2026-06-30",
+      "verify_status": "待核验",
+      "notes": null,
+      "company_id": 1,
+      "source_id": 2
+    },
+    {
+      "id": 13,
+      "title": "控股股东增持 44.99 亿元",
+      "category": "治理",
+      "statement": "三峡集团累计增持 1.62 亿股、金额 44.99 亿元，超过计划下限。",
+      "value": 44.99,
+      "unit": "亿元",
+      "period": "2026",
+      "as_of": "2026-08-25",
+      "verify_status": "待核验",
+      "notes": null,
+      "company_id": 1,
+      "source_id": 9
+    },
+    {
+      "id": 14,
+      "title": "2026 年前三季度发电量 −4.28%",
+      "category": "经营",
+      "statement": "前三季度六站发电 2250.58 亿千瓦时，同比 −4.28%；三季度单季 −14.89%，三峡单季 −29.23%。全年模型电量 3100 亿千瓦时需结合四季度复核。",
+      "value": 2250.58,
+      "unit": "亿千瓦时",
+      "period": "2026Q1—Q3",
+      "as_of": "2026-09-30",
+      "verify_status": "已核验",
+      "notes": null,
+      "company_id": 1,
+      "source_id": 8
+    }
+  ],
+  "judgment": [
+    {
+      "id": 1,
+      "code": "J-Q",
+      "title": "来水与发电量",
+      "fact_layer": "观察到来水/发电数据后才录入数值",
+      "judgment": "短期偏枯可能下调年度电量，不必永久化；悲观情景的业务量系数对应连续偏枯。",
+      "transmission": "Δ收入=Δ售电量×不含税电价；经税、现金及折现传导",
+      "parameter": "逐年假设·业务量",
+      "affected_years": "2026近端；结构变化才及远期",
+      "change_threshold": "公司季度电量或经回测的水文—发电关系；同口径累计比较；2026 年发电量在四季度复核。",
+      "no_change_condition": "只有单日、单站流量异常，或已包含在假设内",
+      "counter_evidence": "水头、库容与调度可抵消流量影响",
+      "status": "研究规则",
+      "company_id": 1
+    },
+    {
+      "id": 2,
+      "code": "J-P",
+      "title": "实现电价",
+      "fact_layer": "合同结算或报告披露电价",
+      "judgment": "政策和交易结构改变平均实现价格；基准不假设电价上涨。",
+      "transmission": "Δ收入=售电量×Δ实现电价",
+      "parameter": "逐年假设·单价",
+      "affected_years": "合同生效期及各情景",
+      "change_threshold": "确认含税/不含税、地区、结算量和生效日期；若沿海年度长协继续下降，先在悲观情景下调单价系数，不机械改基准。",
+      "no_change_condition": "只有政策标题或行业平均电价",
+      "counter_evidence": "含税变动、售电结构、境外汇率及其他业务混合",
+      "status": "研究规则",
+      "company_id": 1
+    },
+    {
+      "id": 3,
+      "code": "J-DA",
+      "title": "折旧退坡",
+      "fact_layer": "折旧政策及资产明细原件待核验",
+      "judgment": "旧模型折旧下降可能提升利润，但不等额增加现金",
+      "transmission": "净利+ΔD×(1-t)，加回折旧-ΔD；现金净效应约-ΔD×t，另计税务差异",
+      "parameter": "逐年假设·折旧",
+      "affected_years": "2026—2035",
+      "change_threshold": "按资产类别折旧台账、税务及更新预算",
+      "no_change_condition": "仅推测大坝寿命或设备账面折旧到期",
+      "counter_evidence": "重新购置机组和大修支出上升；税务折旧不同",
+      "status": "研究规则",
+      "company_id": 1
+    },
+    {
+      "id": 4,
+      "code": "J-DEBT",
+      "title": "债务与利息",
+      "fact_layer": "债务到期、利率、净融资与付息分类",
+      "judgment": "降息/去杠杆可降利息但偿债消耗现金",
+      "transmission": "利息=平均债务×有效利率；FCFE另加净借款",
+      "parameter": "逐年假设·净借款、平均债务成本",
+      "affected_years": "逐年；利率冲击独立于经营情景",
+      "change_threshold": "财报债务附注与现金融资勾稽",
+      "no_change_condition": "只看到国债利率下降",
+      "counter_evidence": "新项目加杠杆、浮息重定价延迟",
+      "status": "已形成建议",
+      "company_id": 1
+    },
+    {
+      "id": 5,
+      "code": "J-CAPEX",
+      "title": "维持与扩张资本",
+      "fact_layer": "维持性/扩张性资本项目及预算",
+      "judgment": "只认可增量回报超过资本成本的增长；扩张资本开支计入现金桥接，新项目收益没有计入收入假设（现金支持价值偏保守）。",
+      "transmission": "FCFE扣全部资本开支；所有者收益扣维持资本；终值增长需再投资支持",
+      "parameter": "逐年假设·维持/扩张资本",
+      "affected_years": "建设期现金流及投产后收益",
+      "change_threshold": "项目公告和支付进度，区分承诺额与当年现金支付",
+      "no_change_condition": "只有规划装机，无预算与进度",
+      "counter_evidence": "建设延期、超支、容量电价政策和关联交易",
+      "status": "已形成建议",
+      "company_id": 1
+    },
+    {
+      "id": 6,
+      "code": "J-CASH",
+      "title": "归母现金桥接",
+      "fact_layer": "归母净利与合并CFO口径不同；要看被投资企业分红、少数股东利润及分红、母公司现金（2025 年的权益法收益与现金分红见商业模式 B9）。",
+      "judgment": "需非现金、权益法分红、少数股东等桥接",
+      "transmission": "归母利润+归属折旧-非现金收益+投资现金分红-Δ营运资本-资本开支+净借款",
+      "parameter": "逐年假设·非现金收益扣除、收到投资分红、少数股东占比",
+      "affected_years": "所有年度",
+      "change_threshold": "逐项现金桥接；未知值留空，不能默认0",
+      "no_change_condition": "只算CFO减资本开支",
+      "counter_evidence": "营运资本释放与一次性回款不可永久化；用合并经营现金流估归母 FCFE 可能高估。",
+      "status": "已形成建议",
+      "company_id": 1
+    },
+    {
+      "id": 7,
+      "code": "J-R",
+      "title": "要求回报率",
+      "fact_layer": "国债收益率观察值需日期与来源；中债 10 年收益率趋势、长期通胀与风险溢价。",
+      "judgment": "要求回报率由无风险参考、风险补偿与机会成本共同决定：折现率＝10 年国债＋3.5% 风险溢价。当前国债收益率处历史低位，利率上行是这类“类债资产”最大的估值风险；无风险利率取高频数据里的中债 10 年期国债到期收益率（建模时 1.69%，2026-08-31），加风险溢价后按 0.1 个百分点四舍五入（5.19% → 5.2%）。",
+      "transmission": "r上升→现金折现下降；不改变经营现金流。r 每升 0.5 个百分点，基准价值约 −2.8 元（27.28 → 24.46 元，见敏感性表）。",
+      "parameter": "估值模型·无风险利率、风险溢价；情景·折现率",
+      "affected_years": "估值全期限",
+      "change_threshold": "记录名义人民币口径与期限，独立做利率压力",
+      "no_change_condition": "单日波动不自动覆盖长期要求回报；利率风险用敏感性表展示，不机械改长期折现率。",
+      "counter_evidence": "低利率未必长期持续，风险溢价不能机械固定",
+      "status": "研究规则",
+      "company_id": 1
+    },
+    {
+      "id": 8,
+      "code": "J-TV",
+      "title": "终值与永续增长",
+      "fact_layer": "终期盈利、资本更新与增长条件",
+      "judgment": "永续增长必须有留存与回报支撑；基准永续增长 1%：按稳定现金流建模。",
+      "transmission": "终值=规范化下一年分配/(r-g)；r必须大于g",
+      "parameter": "情景·永续增长率",
+      "affected_years": "2036及以后",
+      "change_threshold": "更新资本、负债与分配可持续；同时报告终值占比",
+      "no_change_condition": "仅以国债低利率或大坝寿命支持高终值",
+      "counter_evidence": "资产寿命/气候/监管结构变化；终值占比高",
+      "status": "研究规则",
+      "company_id": 1
+    },
+    {
+      "id": 9,
+      "code": "J-CB2026",
+      "title": "2026—2035 年现金桥接建议值",
+      "fact_layer": "2023—2025 年合并报表：资本开支 122/144/185 亿；净借款 +295（并购融资）/−152/−95 亿；收到投资分红 21.5/25.5/26.4 亿；权益法收益 42.3/43.6/46.2 亿；营运资本释放 92.9/10.8/12.1 亿。",
+      "judgment": "维持资本 55 亿起、年增 2%（四站时期 2017—2021 年均资本开支约 31 亿，按装机 7179.5/4549.5 放大约 49 亿，再计通胀与设备老化）；扩张资本 2026—2027 年 130 亿、2028 年 110、2029 年 90、2030 年 60、之后 30（2025 年资本开支 184.88 减维持约 55）；净借款 2026—2030 年 −120 亿/年、之后 −100（2024—2025 年均 −124）；非现金收益扣除 46、收到投资分红 26（2025 年实际）；其他现金调整 0（资产减值 15.05 为一次性）；营运资本增加 0（近两年的释放不外推）；最低现金补充 0（年末货币资金 45.86 亿，不额外留存）。",
+      "transmission": "所有者收益＝归母净利＋归属折旧−非现金收益＋投资分红＋其他调整−营运资本增加−维持资本；FCFE＝所有者收益−扩张资本＋净借款；现金支持股息＝min(计划股息, FCFE−最低现金补充)。",
+      "parameter": "逐年假设·现金桥接 7 项与净借款",
+      "affected_years": "2026—2035，全部情景",
+      "change_threshold": "公司披露维持/扩张资本拆分、项目预算与支付进度、债务计划后替换。",
+      "no_change_condition": "只有规划装机、没有预算与进度；或单季现金流波动。",
+      "counter_evidence": "扩张项目投产后的新增收益没有进入收入假设，现金支持价值偏保守；若公司放慢还债，股息缺口可由借款弥补。",
+      "status": "已形成建议",
+      "company_id": 1
+    }
+  ],
+  "fin_history": [
+    {
+      "id": 1,
+      "year": 2014,
+      "scope_note": "重组前（三峡、葛洲坝）",
+      "volume": 1166,
+      "revenue": 268.98,
+      "pretax_profit": null,
+      "income_tax": null,
+      "np_parent": 118.3,
+      "minority_profit": null,
+      "da": 62.21,
+      "finance_cost": 34.04,
+      "invest_income": 10.66,
+      "equity_income": null,
+      "cfo": 212.99,
+      "capex": 8.5,
+      "investee_cash_div": null,
+      "net_borrowing": null,
+      "interest_debt": 566.33,
+      "cash": null,
+      "dividend_total": 62.55,
+      "dps": 0.3791,
+      "note": "重组前口径（三峡+葛洲坝）；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补；2014—2015 年营业成本待补。",
+      "company_id": 1,
+      "source_id": 14,
+      "cost_of_sales": null,
+      "equity_parent": 861.34
+    },
+    {
+      "id": 2,
+      "year": 2015,
+      "scope_note": "重组前（三峡、葛洲坝）",
+      "volume": 1049.79,
+      "revenue": 242.39,
+      "pretax_profit": null,
+      "income_tax": null,
+      "np_parent": 115.2,
+      "minority_profit": null,
+      "da": 61.8,
+      "finance_cost": 28.5,
+      "invest_income": 22.11,
+      "equity_income": null,
+      "cfo": 177.17,
+      "capex": 4.6,
+      "investee_cash_div": null,
+      "net_borrowing": null,
+      "interest_debt": 474.62,
+      "cash": null,
+      "dividend_total": 78.53,
+      "dps": null,
+      "note": "双档派息（重组前/新股东）；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；当年双档派息（重组前股东/新股东），每股股息不填，见分红总额。；归母净资产不填：2017 年报列示的 2015 年末 1207.66 亿元为川云公司并表后的追溯调整数，与本行重组前口径不一致；2014—2015 年营业成本待补。",
+      "company_id": 1,
+      "source_id": 14,
+      "cost_of_sales": null,
+      "equity_parent": null
+    },
+    {
+      "id": 3,
+      "year": 2016,
+      "scope_note": "四站（三峡、葛洲坝、溪洛渡、向家坝）",
+      "volume": 2060.6,
+      "revenue": 489.39,
+      "pretax_profit": null,
+      "income_tax": null,
+      "np_parent": 207.81,
+      "minority_profit": null,
+      "da": 123.19,
+      "finance_cost": 66.79,
+      "invest_income": 13.34,
+      "equity_income": null,
+      "cfo": 389.9,
+      "capex": 22.54,
+      "investee_cash_div": null,
+      "net_borrowing": null,
+      "interest_debt": 928.27,
+      "cash": null,
+      "dividend_total": 156.88,
+      "dps": null,
+      "note": "溪洛渡/向家坝注入后首年；双档派息；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；当年双档派息（重组前股东/新股东），每股股息不填，见分红总额。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补。",
+      "company_id": 1,
+      "source_id": 14,
+      "cost_of_sales": 192.38,
+      "equity_parent": 1281.99
+    },
+    {
+      "id": 4,
+      "year": 2017,
+      "scope_note": "四站（三峡、葛洲坝、溪洛渡、向家坝）",
+      "volume": 2108.93,
+      "revenue": 501.47,
+      "pretax_profit": null,
+      "income_tax": null,
+      "np_parent": 222.61,
+      "minority_profit": null,
+      "da": 122.98,
+      "finance_cost": 58.97,
+      "invest_income": 23.12,
+      "equity_income": null,
+      "cfo": 396.93,
+      "capex": 25.56,
+      "investee_cash_div": null,
+      "net_borrowing": null,
+      "interest_debt": 981.76,
+      "cash": null,
+      "dividend_total": 149.6,
+      "dps": 0.68,
+      "note": "四站口径；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补。",
+      "company_id": 1,
+      "source_id": 14,
+      "cost_of_sales": 194.54,
+      "equity_parent": 1351.01
+    },
+    {
+      "id": 5,
+      "year": 2018,
+      "scope_note": "四站（三峡、葛洲坝、溪洛渡、向家坝）",
+      "volume": 2154.82,
+      "revenue": 512.14,
+      "pretax_profit": null,
+      "income_tax": null,
+      "np_parent": 226.11,
+      "minority_profit": null,
+      "da": 122.23,
+      "finance_cost": 58.54,
+      "invest_income": 27.07,
+      "equity_income": null,
+      "cfo": 397.37,
+      "capex": 31.19,
+      "investee_cash_div": null,
+      "net_borrowing": null,
+      "interest_debt": 952.52,
+      "cash": null,
+      "dividend_total": 149.6,
+      "dps": 0.68,
+      "note": "四站口径；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补；2018 年营业成本按评级报告毛利率 62.89% 推算。",
+      "company_id": 1,
+      "source_id": 14,
+      "cost_of_sales": 190.05,
+      "equity_parent": 1422.25
+    },
+    {
+      "id": 6,
+      "year": 2019,
+      "scope_note": "四站（三峡、葛洲坝、溪洛渡、向家坝）",
+      "volume": 2104.63,
+      "revenue": 498.74,
+      "pretax_profit": null,
+      "income_tax": null,
+      "np_parent": 215.43,
+      "minority_profit": null,
+      "da": 120.6,
+      "finance_cost": 52.11,
+      "invest_income": 30.75,
+      "equity_income": null,
+      "cfo": 364.64,
+      "capex": 27.17,
+      "investee_cash_div": null,
+      "net_borrowing": null,
+      "interest_debt": 1009.7,
+      "cash": null,
+      "dividend_total": 149.6,
+      "dps": 0.68,
+      "note": "四站口径（来水偏枯）；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补。",
+      "company_id": 1,
+      "source_id": 14,
+      "cost_of_sales": 186.97,
+      "equity_parent": 1495.1
+    },
+    {
+      "id": 7,
+      "year": 2020,
+      "scope_note": "四站（三峡、葛洲坝、溪洛渡、向家坝）",
+      "volume": 2269.3,
+      "revenue": 577.83,
+      "pretax_profit": null,
+      "income_tax": null,
+      "np_parent": 262.98,
+      "minority_profit": null,
+      "da": 116.38,
+      "finance_cost": 49.86,
+      "invest_income": 40.53,
+      "equity_income": null,
+      "cfo": 410.37,
+      "capex": 36.28,
+      "investee_cash_div": null,
+      "net_borrowing": null,
+      "interest_debt": 1080.98,
+      "cash": null,
+      "dividend_total": 159.19,
+      "dps": 0.7,
+      "note": "四站口径；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补。",
+      "company_id": 1,
+      "source_id": 14,
+      "cost_of_sales": 211.49,
+      "equity_parent": 1721.18
+    },
+    {
+      "id": 8,
+      "year": 2021,
+      "scope_note": "四站（三峡、葛洲坝、溪洛渡、向家坝）",
+      "volume": 2083.22,
+      "revenue": 556.46,
+      "pretax_profit": null,
+      "income_tax": null,
+      "np_parent": 262.73,
+      "minority_profit": null,
+      "da": 114.98,
+      "finance_cost": 47.51,
+      "invest_income": 54.26,
+      "equity_income": null,
+      "cfo": 357.32,
+      "capex": 34.74,
+      "investee_cash_div": null,
+      "net_borrowing": null,
+      "interest_debt": 1053.15,
+      "cash": null,
+      "dividend_total": 185.41,
+      "dps": 0.8153,
+      "note": "四站口径（乌东德/白鹤滩2023年初并表）；数据为当年披露口径；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补。",
+      "company_id": 1,
+      "source_id": 14,
+      "cost_of_sales": 211.13,
+      "equity_parent": 1810.64
+    },
+    {
+      "id": 9,
+      "year": 2022,
+      "scope_note": "四站（三峡、葛洲坝、溪洛渡、向家坝）",
+      "volume": 1855.81,
+      "revenue": 520.6,
+      "pretax_profit": null,
+      "income_tax": null,
+      "np_parent": 213.09,
+      "minority_profit": null,
+      "da": 111.16,
+      "finance_cost": 40.92,
+      "invest_income": 46,
+      "equity_income": null,
+      "cfo": 309.13,
+      "capex": 48.71,
+      "investee_cash_div": null,
+      "net_borrowing": null,
+      "interest_debt": 1150.37,
+      "cash": null,
+      "dividend_total": 200.92,
+      "dps": 0.8533,
+      "note": "四站口径，特枯年；六站运营口径发电量1855.80亿千瓦时（发电量公告）；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补。",
+      "company_id": 1,
+      "source_id": 14,
+      "cost_of_sales": 222.33,
+      "equity_parent": 1854.88
+    },
+    {
+      "id": 10,
+      "year": 2023,
+      "scope_note": "六站全口径（新增乌东德、白鹤滩）",
+      "volume": 2762.63,
+      "revenue": 781.12,
+      "pretax_profit": 324.13,
+      "income_tax": 44.57,
+      "np_parent": 272.39,
+      "minority_profit": 7.17,
+      "da": 192.13,
+      "finance_cost": 125.56,
+      "invest_income": 47.5,
+      "equity_income": 42.31,
+      "cfo": 647.19,
+      "capex": 122.33,
+      "investee_cash_div": 21.5,
+      "net_borrowing": 295.45,
+      "interest_debt": 3166.19,
+      "cash": 77.78,
+      "dividend_total": 200.64,
+      "dps": 0.82,
+      "note": "乌白并表首年（六站全口径）；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）；2023—2025 年利润总额、所得税、少数股东、权益法收益、投资分红、净借款、货币资金取自岗底斯。",
+      "company_id": 1,
+      "source_id": 1,
+      "cost_of_sales": 329.43,
+      "equity_parent": 2013.3
+    },
+    {
+      "id": 11,
+      "year": 2024,
+      "scope_note": "六站全口径（新增乌东德、白鹤滩）",
+      "volume": 2959.04,
+      "revenue": 844.92,
+      "pretax_profit": 388.62,
+      "income_tax": 59.32,
+      "np_parent": 324.96,
+      "minority_profit": 4.34,
+      "da": 197.8,
+      "finance_cost": 111.31,
+      "invest_income": 52.58,
+      "equity_income": 43.56,
+      "cfo": 596.48,
+      "capex": 144.2,
+      "investee_cash_div": 25.48,
+      "net_borrowing": -152.22,
+      "interest_debt": 2994.54,
+      "cash": 65.55,
+      "dividend_total": 230.74,
+      "dps": 0.943,
+      "note": "来水偏丰；发电量+7.11%；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）；2023—2025 年利润总额、所得税、少数股东、权益法收益、投资分红、净借款、货币资金取自岗底斯。；带息负债 2994.54 为旧表口径；Wind 口径为 2974.63。",
+      "company_id": 1,
+      "source_id": 1,
+      "cost_of_sales": 345.28,
+      "equity_parent": 2102.88
+    },
+    {
+      "id": 12,
+      "year": 2025,
+      "scope_note": "六站全口径（新增乌东德、白鹤滩）",
+      "volume": 3071.94,
+      "revenue": 862.42,
+      "pretax_profit": 417.4,
+      "income_tax": 67.91,
+      "np_parent": 345.03,
+      "minority_profit": 4.46,
+      "da": 195.29,
+      "finance_cost": 93.71,
+      "invest_income": 49.59,
+      "equity_income": 46.16,
+      "cfo": 605.63,
+      "capex": 184.88,
+      "investee_cash_div": 26.35,
+      "net_borrowing": -95.12,
+      "interest_debt": 2907.51,
+      "cash": 45.86,
+      "dividend_total": 244.68,
+      "dps": 1,
+      "note": "模型基期年；总发电量3097.35亿千瓦时；六站电量首破3000亿；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）；2023—2025 年利润总额、所得税、少数股东、权益法收益、投资分红、净借款、货币资金取自岗底斯。；带息负债取 Wind 口径（含租赁负债，不含其他流动负债）。",
+      "company_id": 1,
+      "source_id": 1,
+      "cost_of_sales": 330.58,
+      "equity_parent": 2213.38
+    }
+  ],
+  "period_data": [
+    {
+      "id": 1,
+      "period": "2024Q1",
+      "period_end": "2024-03-31",
+      "period_kind": "单季",
+      "line_item": "发电量",
+      "value": 527.47,
+      "unit": "亿千瓦时",
+      "yoy": -0.0513,
+      "assessment": "原来水评价：偏枯",
+      "summary": "一季度来水偏枯",
+      "status": "已入模",
+      "company_id": 1,
+      "source_id": null
+    },
+    {
+      "id": 2,
+      "period": "2024Q2",
+      "period_end": "2024-06-30",
+      "period_kind": "单季",
+      "line_item": "发电量",
+      "value": 678.71,
+      "unit": "亿千瓦时",
+      "yoy": 0.4254,
+      "assessment": "原来水评价：偏丰",
+      "summary": "汛期来水偏丰",
+      "status": "已入模",
+      "company_id": 1,
+      "source_id": null
+    },
+    {
+      "id": 3,
+      "period": "2024Q3",
+      "period_end": "2024-09-30",
+      "period_kind": "单季",
+      "line_item": "发电量",
+      "value": 1151.96,
+      "unit": "亿千瓦时",
+      "yoy": 0.1505,
+      "assessment": "原来水评价：偏丰",
+      "summary": "主汛期大发",
+      "status": "已入模",
+      "company_id": 1,
+      "source_id": null
+    },
+    {
+      "id": 4,
+      "period": "2024Q4",
+      "period_end": "2024-12-31",
+      "period_kind": "单季",
+      "line_item": "发电量",
+      "value": 600.9,
+      "unit": "亿千瓦时",
+      "yoy": -0.176,
+      "assessment": "原来水评价：偏枯",
+      "summary": "汛末来水丰枯急转",
+      "status": "已入模",
+      "company_id": 1,
+      "source_id": 4
+    },
+    {
+      "id": 5,
+      "period": "2025Q1",
+      "period_end": "2025-03-31",
+      "period_kind": "单季",
+      "line_item": "发电量",
+      "value": 576.79,
+      "unit": "亿千瓦时",
+      "yoy": 0.0935,
+      "assessment": "原来水评价：偏丰",
+      "summary": "乌东德来水偏丰12.5%，三峡偏丰11.6%",
+      "status": "已入模",
+      "company_id": 1,
+      "source_id": null
+    },
+    {
+      "id": 6,
+      "period": "2025H1",
+      "period_end": "2025-06-30",
+      "period_kind": "半年累计",
+      "line_item": "发电量",
+      "value": 1266.6,
+      "unit": "亿千瓦时",
+      "yoy": 0.05,
+      "assessment": "原来水评价：正常",
+      "summary": "乌东德偏丰9.0%，三峡偏枯8.4%",
+      "status": "已入模",
+      "company_id": 1,
+      "source_id": null
+    },
+    {
+      "id": 7,
+      "period": "2025Q3",
+      "period_end": "2025-09-30",
+      "period_kind": "单季",
+      "line_item": "发电量",
+      "value": 1084.7,
+      "unit": "亿千瓦时",
+      "yoy": -0.0584,
+      "assessment": "原来水评价：偏枯",
+      "summary": "前三季度2351.26基本持平；乌东德偏枯6.04%、三峡偏枯4.54%",
+      "status": "待处理",
+      "company_id": 1,
+      "source_id": 5
+    },
+    {
+      "id": 8,
+      "period": "2025Q4",
+      "period_end": "2025-12-31",
+      "period_kind": "单季",
+      "line_item": "发电量",
+      "value": 720.68,
+      "unit": "亿千瓦时",
+      "yoy": 0.1993,
+      "assessment": "原来水评价：偏丰",
+      "summary": "全年3071.94亿千瓦时+3.82%；三峡全年来水偏丰5.93%、乌东德偏枯6.44%",
+      "status": "待处理",
+      "company_id": 1,
+      "source_id": 6
+    },
+    {
+      "id": 9,
+      "period": "2026Q1",
+      "period_end": "2026-03-31",
+      "period_kind": "单季",
+      "line_item": "发电量",
+      "value": 618.25,
+      "unit": "亿千瓦时",
+      "yoy": 0.0719,
+      "assessment": "原来水评价：正常",
+      "summary": "乌东德偏枯7.36%、三峡偏丰5.49%，合计增7.19%",
+      "status": "待处理",
+      "company_id": 1,
+      "source_id": 7
+    },
+    {
+      "id": 10,
+      "period": "2026H1",
+      "period_end": "2026-06-30",
+      "period_kind": "半年累计",
+      "line_item": "发电量",
+      "value": 1327.44,
+      "unit": "亿千瓦时",
+      "yoy": 0.0481,
+      "assessment": "原来水评价：正常",
+      "summary": "三峡偏丰28.7%对冲金沙江偏枯；创历史同期新高",
+      "status": "已入模",
+      "company_id": 1,
+      "source_id": 2
+    },
+    {
+      "id": 11,
+      "period": "2026Q3",
+      "period_end": "2026-09-30",
+      "period_kind": "单季",
+      "line_item": "发电量",
+      "value": 923.14,
+      "unit": "亿千瓦时",
+      "yoy": -0.1489,
+      "assessment": "原来水评价：偏枯",
+      "summary": "前三季度2250.58减4.28%；三峡单季-29.23%，乌东德前三季度来水偏枯9.29%",
+      "status": "待处理",
+      "company_id": 1,
+      "source_id": 8
+    }
+  ],
+  "collector": [
+    {
+      "id": 1,
+      "name": "长江电力股价（腾讯行情）",
+      "url": "https://qt.gtimg.cn/q=sh600900",
+      "parser": "tencent_quote",
+      "parser_param": "sh600900",
+      "enabled": true,
+      "max_lag_days": 7,
+      "last_selfcheck": "2026-10-23T12:58:37.399579+08:00",
+      "selfcheck_result": "正常；未通知",
+      "notes": "返回 GBK 编码，名称会乱码但不影响按“~”分段解析。",
+      "metric_id": 1
+    },
+    {
+      "id": 3,
+      "name": "三峡库水位（长江水文网）",
+      "url": "http://www.cjh.com.cn/sqindex.html",
+      "parser": "cjh_reservoir",
+      "parser_param": "60106980:z",
+      "enabled": true,
+      "max_lag_days": 2,
+      "last_selfcheck": "2026-10-23T12:58:37.399579+08:00",
+      "selfcheck_result": "正常；未通知",
+      "notes": "60106980＝三峡水库站；z＝水位，oq＝出库流量；页面不提供三峡入库流量。",
+      "metric_id": 4
+    }
+  ],
+  "model": [
+    {
+      "id": 1,
+      "name": "长江电力 DDM＋现金桥接（2025 年末基准）",
+      "status": "当前",
+      "method": "股息贴现（DDM）为主，股东现金流（FCFE）约束股息作交叉验证；股价只进对比层。",
+      "base_year": 2025,
+      "terminal_year": 2035,
+      "shares": 244.68,
+      "rf": 0.0169,
+      "rf_date": "2026-08-31",
+      "erp": 0.035,
+      "opening_debt": 2907.51,
+      "margin_low": 0.1,
+      "margin_high": 0.3,
+      "notes": "经营假设来自 2026-09-01 旧模型：业务量 2026 年 3100、此后 3050 亿千瓦时（2023—2025 年均 2931，六库联调缓升）；电价持平 2025 年 0.2807；付现成本 203 起年增约 1%；折旧 190 起，三峡机组到期年均降约 5 亿，2031—2032 年溪洛渡/向家坝到期加速，2035 年约 144；其他净贡献 45（2025 年校准）；派息率 72%（承诺下限 70%）。2026-10-21 重构：综合负担率 17.34% 拆为所得税率 16.27% 与少数股东占比 1.28%（2025 年实际）；利息改为债务滚动，平均债务成本按原利息路径反推（3.02%→2.05%，与新发债利率 1.3%—2.1% 方向一致，待核验）。安全边际两档并列（10% 来自旧飞书，30% 来自旧手册），不替用户选择交易策略。期初资产负债取 2025 年末合并资产负债表（岗底斯）：经营性长期资产 4581.84＝固定资产 4165.74＋在建工程 159.06＋无形资产 250.25＋使用权资产 6.79；长期股权投资 749.36；归母权益 2213.38；少数股东权益 120.23；带息负债 2907.51。",
+      "company_id": 1,
+      "rf_metric_id": 2,
+      "required_return": 0.06,
+      "opening_op_assets": 4581.84,
+      "opening_lt_invest": 749.36,
+      "opening_equity": 2213.38,
+      "opening_minority": 120.23,
+      "primary_method": null,
+      "sotp_year": null,
+      "sotp_core_adj": null,
+      "sotp_as_of": null
+    }
+  ],
+  "scenario": [
+    {
+      "id": 1,
+      "name": "悲观",
+      "is_base": false,
+      "sort": 1,
+      "volume_factor": 0.9,
+      "price_factor": 0.97,
+      "cost_factor": 1.05,
+      "discount_rate": 0.062,
+      "terminal_growth": 0,
+      "nature": "旧模型迁移+研究者压力假设；非预测事实",
+      "description": "业务量 −10%、电价 −3%、付现成本 +5%；折现率 6.2%，永续增长 0%。",
+      "model_id": 1,
+      "ronic": null,
+      "sotp_multiple": null,
+      "probability": null
+    },
+    {
+      "id": 2,
+      "name": "基准",
+      "is_base": true,
+      "sort": 2,
+      "volume_factor": 1,
+      "price_factor": 1,
+      "cost_factor": 1,
+      "discount_rate": null,
+      "terminal_growth": 0.01,
+      "nature": "旧模型迁移+研究者压力假设；非预测事实",
+      "description": "旧模型 10 年路径；折现率＝无风险利率＋风险溢价（5.2%），永续增长 1%。",
+      "model_id": 1,
+      "ronic": null,
+      "sotp_multiple": null,
+      "probability": null
+    },
+    {
+      "id": 3,
+      "name": "乐观",
+      "is_base": false,
+      "sort": 3,
+      "volume_factor": 1.05,
+      "price_factor": 1.01,
+      "cost_factor": 1,
+      "discount_rate": 0.047,
+      "terminal_growth": 0.015,
+      "nature": "旧模型迁移+研究者压力假设；非预测事实",
+      "description": "业务量 +5%、电价 +1%；折现率 4.7%，永续增长 1.5%。",
+      "model_id": 1,
+      "ronic": null,
+      "sotp_multiple": null,
+      "probability": null
+    }
+  ],
+  "forecast": [
+    {
+      "id": 1,
+      "year": 2026,
+      "volume": 3100,
+      "price": 0.2807,
+      "cash_cost": 203,
+      "depreciation": 190,
+      "other_contrib": 45,
+      "tax_rate": 0.1627,
+      "minority_share": 0.0128,
+      "payout": 0.72,
+      "net_borrowing": -120,
+      "cost_of_debt": 0.0302,
+      "noncash_gain_deduct": 46,
+      "investee_cash_div": 26,
+      "other_cash_adj": 0,
+      "wc_increase": 0,
+      "maint_capex": 55,
+      "growth_capex": 130,
+      "min_cash_topup": 0,
+      "operating_status": "旧模型迁移",
+      "cash_status": "建议值待核验",
+      "note": "H1电量1327.44亿千瓦时，全年上调",
+      "model_id": 1
+    },
+    {
+      "id": 2,
+      "year": 2027,
+      "volume": 3050,
+      "price": 0.2807,
+      "cash_cost": 205,
+      "depreciation": 185,
+      "other_contrib": 45,
+      "tax_rate": 0.1627,
+      "minority_share": 0.0128,
+      "payout": 0.72,
+      "net_borrowing": -120,
+      "cost_of_debt": 0.029,
+      "noncash_gain_deduct": 46,
+      "investee_cash_div": 26,
+      "other_cash_adj": 0,
+      "wc_increase": 0,
+      "maint_capex": 56.1,
+      "growth_capex": 130,
+      "min_cash_topup": 0,
+      "operating_status": "旧模型迁移",
+      "cash_status": "建议值待核验",
+      "note": "回归平水基准",
+      "model_id": 1
+    },
+    {
+      "id": 3,
+      "year": 2028,
+      "volume": 3050,
+      "price": 0.2807,
+      "cash_cost": 207,
+      "depreciation": 180,
+      "other_contrib": 45,
+      "tax_rate": 0.1627,
+      "minority_share": 0.0128,
+      "payout": 0.72,
+      "net_borrowing": -120,
+      "cost_of_debt": 0.0276,
+      "noncash_gain_deduct": 46,
+      "investee_cash_div": 26,
+      "other_cash_adj": 0,
+      "wc_increase": 0,
+      "maint_capex": 57.22,
+      "growth_capex": 110,
+      "min_cash_topup": 0,
+      "operating_status": "旧模型迁移",
+      "cash_status": "建议值待核验",
+      "note": "抽蓄开始投产（贡献未计入，保守）",
+      "model_id": 1
+    },
+    {
+      "id": 4,
+      "year": 2029,
+      "volume": 3050,
+      "price": 0.2807,
+      "cash_cost": 209,
+      "depreciation": 175,
+      "other_contrib": 45,
+      "tax_rate": 0.1627,
+      "minority_share": 0.0128,
+      "payout": 0.72,
+      "net_borrowing": -120,
+      "cost_of_debt": 0.0261,
+      "noncash_gain_deduct": 46,
+      "investee_cash_div": 26,
+      "other_cash_adj": 0,
+      "wc_increase": 0,
+      "maint_capex": 58.37,
+      "growth_capex": 90,
+      "min_cash_topup": 0,
+      "operating_status": "旧模型迁移",
+      "cash_status": "建议值待核验",
+      "note": null,
+      "model_id": 1
+    },
+    {
+      "id": 5,
+      "year": 2030,
+      "volume": 3050,
+      "price": 0.2807,
+      "cash_cost": 211,
+      "depreciation": 170,
+      "other_contrib": 45,
+      "tax_rate": 0.1627,
+      "minority_share": 0.0128,
+      "payout": 0.72,
+      "net_borrowing": -120,
+      "cost_of_debt": 0.0245,
+      "noncash_gain_deduct": 46,
+      "investee_cash_div": 26,
+      "other_cash_adj": 0,
+      "wc_increase": 0,
+      "maint_capex": 59.53,
+      "growth_capex": 60,
+      "min_cash_topup": 0,
+      "operating_status": "旧模型迁移",
+      "cash_status": "建议值待核验",
+      "note": "三峡机组折旧退坡过半",
+      "model_id": 1
+    },
+    {
+      "id": 6,
+      "year": 2031,
+      "volume": 3050,
+      "price": 0.2807,
+      "cash_cost": 213,
+      "depreciation": 160,
+      "other_contrib": 45,
+      "tax_rate": 0.1627,
+      "minority_share": 0.0128,
+      "payout": 0.72,
+      "net_borrowing": -100,
+      "cost_of_debt": 0.023,
+      "noncash_gain_deduct": 46,
+      "investee_cash_div": 26,
+      "other_cash_adj": 0,
+      "wc_increase": 0,
+      "maint_capex": 60.72,
+      "growth_capex": 30,
+      "min_cash_topup": 0,
+      "operating_status": "旧模型迁移",
+      "cash_status": "建议值待核验",
+      "note": "溪洛渡/向家坝机组折旧开始到期",
+      "model_id": 1
+    },
+    {
+      "id": 7,
+      "year": 2032,
+      "volume": 3050,
+      "price": 0.2807,
+      "cash_cost": 215,
+      "depreciation": 150,
+      "other_contrib": 45,
+      "tax_rate": 0.1627,
+      "minority_share": 0.0128,
+      "payout": 0.72,
+      "net_borrowing": -100,
+      "cost_of_debt": 0.0218,
+      "noncash_gain_deduct": 46,
+      "investee_cash_div": 26,
+      "other_cash_adj": 0,
+      "wc_increase": 0,
+      "maint_capex": 61.94,
+      "growth_capex": 30,
+      "min_cash_topup": 0,
+      "operating_status": "旧模型迁移",
+      "cash_status": "建议值待核验",
+      "note": null,
+      "model_id": 1
+    },
+    {
+      "id": 8,
+      "year": 2033,
+      "volume": 3050,
+      "price": 0.2807,
+      "cash_cost": 217,
+      "depreciation": 147,
+      "other_contrib": 45,
+      "tax_rate": 0.1627,
+      "minority_share": 0.0128,
+      "payout": 0.72,
+      "net_borrowing": -100,
+      "cost_of_debt": 0.0209,
+      "noncash_gain_deduct": 46,
+      "investee_cash_div": 26,
+      "other_cash_adj": 0,
+      "wc_increase": 0,
+      "maint_capex": 63.18,
+      "growth_capex": 30,
+      "min_cash_topup": 0,
+      "operating_status": "旧模型迁移",
+      "cash_status": "建议值待核验",
+      "note": null,
+      "model_id": 1
+    },
+    {
+      "id": 9,
+      "year": 2034,
+      "volume": 3050,
+      "price": 0.2807,
+      "cash_cost": 219,
+      "depreciation": 145,
+      "other_contrib": 45,
+      "tax_rate": 0.1627,
+      "minority_share": 0.0128,
+      "payout": 0.72,
+      "net_borrowing": -100,
+      "cost_of_debt": 0.0204,
+      "noncash_gain_deduct": 46,
+      "investee_cash_div": 26,
+      "other_cash_adj": 0,
+      "wc_increase": 0,
+      "maint_capex": 64.44,
+      "growth_capex": 30,
+      "min_cash_topup": 0,
+      "operating_status": "旧模型迁移",
+      "cash_status": "建议值待核验",
+      "note": null,
+      "model_id": 1
+    },
+    {
+      "id": 10,
+      "year": 2035,
+      "volume": 3050,
+      "price": 0.2807,
+      "cash_cost": 221,
+      "depreciation": 144,
+      "other_contrib": 45,
+      "tax_rate": 0.1627,
+      "minority_share": 0.0128,
+      "payout": 0.72,
+      "net_borrowing": -100,
+      "cost_of_debt": 0.0205,
+      "noncash_gain_deduct": 46,
+      "investee_cash_div": 26,
+      "other_cash_adj": 0,
+      "wc_increase": 0,
+      "maint_capex": 65.73,
+      "growth_capex": 30,
+      "min_cash_topup": 0,
+      "operating_status": "旧模型迁移",
+      "cash_status": "建议值待核验",
+      "note": "终值年",
+      "model_id": 1
+    }
+  ],
+  "trial": [
+    {
+      "id": 1,
+      "name": "来水压力→仅2026电量-10%",
+      "start_year": 2026,
+      "end_year": 2026,
+      "volume_delta": -0.1,
+      "price_delta": 0,
+      "cost_delta": 0,
+      "da_delta": 0,
+      "interest_delta": 0,
+      "rate_delta": 0,
+      "boundary": "压力测试；不是来水事实，也不是流量与电量的线性回归。",
+      "model_id": 1
+    },
+    {
+      "id": 2,
+      "name": "电价压力→全期电价-3%",
+      "start_year": 2026,
+      "end_year": 2035,
+      "volume_delta": 0,
+      "price_delta": -0.03,
+      "cost_delta": 0,
+      "da_delta": 0,
+      "interest_delta": 0,
+      "rate_delta": 0,
+      "boundary": "压力测试；只有合同/结算口径核实后才能转正式假设。",
+      "model_id": 1
+    },
+    {
+      "id": 3,
+      "name": "折旧减少10亿→2026利润与现金不同",
+      "start_year": 2026,
+      "end_year": 2026,
+      "volume_delta": 0,
+      "price_delta": 0,
+      "cost_delta": 0,
+      "da_delta": -10,
+      "interest_delta": 0,
+      "rate_delta": 0,
+      "boundary": "计划股息随利润增加；同税口径现金因税盾减少约1.734亿。综合负担率为代理，现金税需另核验。",
+      "model_id": 1
+    },
+    {
+      "id": 4,
+      "name": "融资降本→每年利息少10亿",
+      "start_year": 2026,
+      "end_year": 2035,
+      "volume_delta": 0,
+      "price_delta": 0,
+      "cost_delta": 0,
+      "da_delta": 0,
+      "interest_delta": -10,
+      "rate_delta": 0,
+      "boundary": "假设减少的是真实利息；若靠偿债实现，需另计净偿债现金，不是免费收益。",
+      "model_id": 1
+    },
+    {
+      "id": 5,
+      "name": "要求回报率提高50bp",
+      "start_year": 2026,
+      "end_year": 2035,
+      "volume_delta": 0,
+      "price_delta": 0,
+      "cost_delta": 0,
+      "da_delta": 0,
+      "interest_delta": 0,
+      "rate_delta": 0.005,
+      "boundary": "机会成本压力测试；不改变经营利润，仅改变折现。",
+      "model_id": 1
+    }
+  ],
+  "watch": [
+    {
+      "id": 1,
+      "code": "K01",
+      "title": "公司公告与报告",
+      "frequency": "每日18:30",
+      "preferred_source": "https://www.cypc.com.cn/cypc/tzzgx43/index.html",
+      "trigger": "新增财报、分红、重大投资、融资或会计政策",
+      "action": "原件入库，逐项事实摘录；重大事件重新承保",
+      "nature": "研究预警；不是交易授权",
+      "company_id": 1,
+      "metric_id": null
+    },
+    {
+      "id": 2,
+      "code": "K02",
+      "title": "六站累计发电量",
+      "frequency": "季度披露；每日检查新公告",
+      "preferred_source": "https://www.cypc.com.cn",
+      "trigger": "同口径累计同比偏离基准5%以上（研究预警）",
+      "action": "区分来水、投产、调度，改近端电量前核验",
+      "nature": "研究预警；不是交易授权",
+      "company_id": 1,
+      "metric_id": null
+    },
+    {
+      "id": 3,
+      "code": "K03",
+      "title": "来水、库容与水头",
+      "frequency": "每周；汛期异常加查",
+      "preferred_source": "https://www.cjw.gov.cn",
+      "trigger": "连续4周同口径偏离多年同期20%以上（待历史回测）",
+      "action": "仅进入观察；结合多站、库容和季度公告，禁止线性外推全年",
+      "nature": "研究预警；不是交易授权",
+      "company_id": 1,
+      "metric_id": 4
+    },
+    {
+      "id": 4,
+      "code": "K04",
+      "title": "实现售电价",
+      "frequency": "季/半年及政策事件",
+      "preferred_source": "https://www.cypc.com.cn",
+      "trigger": "同比下降3%以上（旧规则）",
+      "action": "确认售电/发电、含税与结构后重估收入",
+      "nature": "研究预警；不是交易授权",
+      "company_id": 1,
+      "metric_id": null
+    },
+    {
+      "id": 5,
+      "code": "K05",
+      "title": "10年国债收益率",
+      "frequency": "工作日；周度汇总",
+      "preferred_source": "https://www.chinabond.com.cn",
+      "trigger": "相对已采用观察值变化50bp（研究预警）",
+      "action": "更新观察，单独做r±50bp敏感性，不机械改长期回报率",
+      "nature": "研究预警；不是交易授权",
+      "company_id": 1,
+      "metric_id": 2
+    },
+    {
+      "id": 6,
+      "code": "K06",
+      "title": "折旧与更新预算",
+      "frequency": "半年/年报",
+      "preferred_source": "https://www.cypc.com.cn",
+      "trigger": "折旧或维持资本偏离假设10%以上（研究预警）",
+      "action": "先核验资产分类与税务折旧，再更新净利及现金桥接",
+      "nature": "研究预警；不是交易授权",
+      "company_id": 1,
+      "metric_id": null
+    },
+    {
+      "id": 7,
+      "code": "K07",
+      "title": "债务与有效融资成本",
+      "frequency": "季度/融资公告",
+      "preferred_source": "https://www.cypc.com.cn",
+      "trigger": "利息不降反升或净偿债超现金承受能力",
+      "action": "更新债务计划与FCFE；禁止固定递减利息",
+      "nature": "研究预警；不是交易授权",
+      "company_id": 1,
+      "metric_id": null
+    },
+    {
+      "id": 8,
+      "code": "K08",
+      "title": "分红及现金覆盖",
+      "frequency": "每次分红/半年年报",
+      "preferred_source": "https://www.cypc.com.cn",
+      "trigger": "派息低于已核验承诺；或现金覆盖<1",
+      "action": "核验政策适用期、母公司现金和偿债约束",
+      "nature": "研究预警；不是交易授权",
+      "company_id": 1,
+      "metric_id": null
+    },
+    {
+      "id": 9,
+      "code": "K09",
+      "title": "资本配置回报",
+      "frequency": "项目公告/季度进度",
+      "preferred_source": "https://www.cypc.com.cn",
+      "trigger": "预算超10%或增量ROIC低于资本成本（研究预警）",
+      "action": "重做项目现金流，削减增长而非忽略投入",
+      "nature": "研究预警；不是交易授权",
+      "company_id": 1,
+      "metric_id": null
+    },
+    {
+      "id": 10,
+      "code": "K10",
+      "title": "权益法收益与现金分红",
+      "frequency": "半年/年报",
+      "preferred_source": "https://www.cypc.com.cn",
+      "trigger": "利润增长而现金分红不匹配",
+      "action": "从利润中剔除非现金收益，再加实际现金回款",
+      "nature": "研究预警；不是交易授权",
+      "company_id": 1,
+      "metric_id": null
+    },
+    {
+      "id": 11,
+      "code": "K11",
+      "title": "价格、股本和除息",
+      "frequency": "工作日/股本公告",
+      "preferred_source": "https://www.sse.com.cn",
+      "trigger": "价格过期>3个交易日或股本变动",
+      "action": "只更新对比层；价格不进入经营假设",
+      "nature": "研究预警；不是交易授权",
+      "company_id": 1,
+      "metric_id": 1
+    },
+    {
+      "id": 12,
+      "code": "K12",
+      "title": "永久损失与治理",
+      "frequency": "事件驱动",
+      "preferred_source": "https://www.sse.com.cn",
+      "trigger": "重大审计保留、关联交易损害、监管或长期水文结构变化",
+      "action": "暂停投资结论并重审所有关键假设",
+      "nature": "研究预警；不是交易授权",
+      "company_id": 1,
+      "metric_id": null
+    }
+  ],
+  "issue": [
+    {
+      "id": 1,
+      "code": "Q01",
+      "title": "安全边际手册30%与表内10%不一致",
+      "severity": "策略",
+      "impact": "关注价",
+      "done_condition": "用户策略明确后记录政策版本",
+      "status": "待处理",
+      "progress": "两档并列展示；等待用户确定策略。",
+      "company_id": 1
+    },
+    {
+      "id": 2,
+      "code": "Q02",
+      "title": "六站发电量乘合并隐含电价可能混用口径",
+      "severity": "关键",
+      "impact": "收入",
+      "done_condition": "核验售电量、含税、海外与其他收入桥接",
+      "status": "待处理",
+      "progress": null,
+      "company_id": 1
+    },
+    {
+      "id": 3,
+      "code": "Q03",
+      "title": "2025历史值尚未逐项与官网原件勾稽",
+      "severity": "关键",
+      "impact": "全模型",
+      "done_condition": "年报、半年报原页与结构化数值一致",
+      "status": "处理中",
+      "progress": "2014—2025 年数据已由 Wind/岗底斯补齐并与旧值交叉核对一致；仍需年报原页抽查。",
+      "company_id": 1
+    },
+    {
+      "id": 4,
+      "code": "Q04",
+      "title": "折旧退坡缺资产级证据",
+      "severity": "关键",
+      "impact": "利润与现金",
+      "done_condition": "按电站/资产类别核验；维护支出联动",
+      "status": "待处理",
+      "progress": null,
+      "company_id": 1
+    },
+    {
+      "id": 5,
+      "code": "Q05",
+      "title": "利息固定递减而无债务滚动",
+      "severity": "关键",
+      "impact": "利润与现金",
+      "done_condition": "期初债务+净借款=期末债务；平均债务×成本",
+      "status": "处理中",
+      "progress": "利息已改为债务滚动计算（期初负债＋净借款，平均负债×债务成本）。隐含债务成本 3.02%→2.05% 待核验。",
+      "company_id": 1
+    },
+    {
+      "id": 6,
+      "code": "Q06",
+      "title": "CFO减资本开支并非完整归母FCFE",
+      "severity": "关键",
+      "impact": "FCFE与现金支持DDM",
+      "done_condition": "填完归属折旧、非现金收益、投资分红、营运资本、资本预算与净借款",
+      "status": "处理中",
+      "progress": "现金桥接 9 项已填建议值（判断 J-CB2026），等待用户确认。",
+      "company_id": 1
+    },
+    {
+      "id": 7,
+      "code": "Q07",
+      "title": "综合负担率混合税率和少数股东",
+      "severity": "关键",
+      "impact": "归母利润",
+      "done_condition": "拆为所得税、少数股东损益及现金归属",
+      "status": "已解决",
+      "progress": "已拆为所得税率 16.27% 与少数股东占比 1.28%（2025 年实际），归属折旧按少数股东占比自动计算。",
+      "company_id": 1
+    },
+    {
+      "id": 8,
+      "code": "Q08",
+      "title": "价格日期2026-09-01；DDM基准2025年末",
+      "severity": "关键",
+      "impact": "现时投资信号",
+      "done_condition": "核验最新价与除息，按实际估值日重置未来现金时点",
+      "status": "处理中",
+      "progress": "股价改为自动采集的最新收盘价；估值结论已把基准日价值按折现率滚动到今天。分红时点仍按年末简化。",
+      "company_id": 1
+    },
+    {
+      "id": 9,
+      "code": "Q09",
+      "title": "终值增长缺更新资本和再投资回报支撑",
+      "severity": "关键",
+      "impact": "终值",
+      "done_condition": "规范化终期现金流，检验g与再投资及资本回报一致",
+      "status": "待处理",
+      "progress": null,
+      "company_id": 1
+    },
+    {
+      "id": 10,
+      "code": "D1",
+      "title": "数据源待接通：三峡入库流量",
+      "severity": "数据源",
+      "impact": "跟踪",
+      "done_condition": "找到可自动采集且口径正确的来源，加入采集配置。",
+      "status": "待处理",
+      "progress": "已抓官方页面未提供入库流量，不能用出库流量替代。Wind手动备份仍保留。",
+      "company_id": 1
+    },
+    {
+      "id": 11,
+      "code": "D2",
+      "title": "数据源待接通：向家坝入库流量",
+      "severity": "数据源",
+      "impact": "跟踪",
+      "done_condition": "找到可自动采集且口径正确的来源，加入采集配置。",
+      "status": "待处理",
+      "progress": "尚无已验证的飞书可直连授权数据接口；不宣称无人值守覆盖。",
+      "company_id": 1
+    },
+    {
+      "id": 12,
+      "code": "D3",
+      "title": "数据源待接通：公司公告及财报",
+      "severity": "数据源",
+      "impact": "跟踪",
+      "done_condition": "找到可自动采集且口径正确的来源，加入采集配置。",
+      "status": "待处理",
+      "progress": "尚未部署云端公告增量、PDF解析与内容哈希去重；不宣称每日自动研究已完成。",
+      "company_id": 1
+    },
+    {
+      "id": 45,
+      "code": "Q10",
+      "title": "2014—2015 年营业成本缺失（毛利率从 2016 年起）",
+      "severity": "数据源",
+      "impact": "历史财务、驾驶舱历史图",
+      "done_condition": "取得 2014—2015 年年报利润表营业成本后补齐。",
+      "status": "处理中",
+      "progress": "2026-10-22：岗底斯知识库补齐 2016—2022 年营业成本与 2014—2022 年归母净资产（2018 年营业成本为评级报告毛利率推算）；Wind 积分不足，岗底斯结构化接口只覆盖近三年。",
+      "company_id": 1
+    }
+  ],
+  "change_log": [
+    {
+      "id": 1,
+      "change_date": "2026-09-19",
+      "title": "建立 V2 研究与估值链",
+      "target": "工作台结构与估值链",
+      "old_value": "10张原表+旧估值看板",
+      "new_value": "增加V2研究、证据、映射、输入、公式、决策、监控与质量层",
+      "reason": "用户要求可复用价值投资数据库；保留旧模型对照，分离事实判断与现金口径",
+      "basis": "本地快照20260919T153616；原表未覆盖",
+      "verification": "78项工程检查通过；财务证据仍待核验",
+      "company_id": 1
+    },
+    {
+      "id": 2,
+      "change_date": "2026-09-20",
+      "title": "隔离水文负流量观察",
+      "target": "V2_11市场观察及三峡历史看板",
+      "old_value": "三条负流量观察混入有效看板",
+      "new_value": "原记录保留；质量有效=0，图表排除；备用采集拒收负数及非有限值",
+      "reason": "入库流量出现-14200、-10000、-4900；未经来源核验，不擅自变更为正数",
+      "basis": "Z3791116 2026-08-27/09-07；K4903912 2026-08-31；原Wind响应留存",
+      "verification": "隔离完成；原始水文事实待核验",
+      "company_id": 1
+    },
+    {
+      "id": 3,
+      "change_date": "2026-09-20",
+      "title": "飞书云端自动采集上线",
+      "target": "V2云端自动化、市场观察与看板",
+      "old_value": "本机Wind采集+Codex定时；电脑离线不可执行",
+      "new_value": "9条飞书原生工作流：3采集、3入库、3异常自检；18:30/18:40/19:10；本机定时暂停",
+      "reason": "满足电脑与Codex离线仍采集的要求；保留原始响应、日期、口径与去重轨迹",
+      "basis": "V2_14六次真实抓取；V2_11新增3条观测；V2_15三项正常自检记录",
+      "verification": "三来源工程链路通过；三峡/向家坝入库流量与公告PDF仍待接通；正式模型假设未改",
+      "company_id": 1
+    },
+    {
+      "id": 4,
+      "change_date": "2026-09-25",
+      "title": "表内联动改造",
+      "target": "年度假设、情景控制、估值链、市场观察与质量检查",
+      "old_value": "年度共同参数逐年重复、情景股本和估值年份重复、跟踪任务最新观察为固定文字",
+      "new_value": "基准输入加单年覆盖；无风险利率1.69%与风险溢价3.5%在表内相加并按0.1个百分点取整为5.2%；公式贯通财务引擎、估值与敏感性；市场观察回查原始采集并汇总到跟踪任务；现金桥接状态实时计算；历史折旧与财务费用缺项保留空白；质量检查及驾驶舱图实时勾稽",
+      "reason": "减少重复录入并保留原始输入、证据与估值结果之间的可追溯关系",
+      "basis": "2026-09-25线上快照与逐行数值对账；V2_04来源证据连接LEGACY-FORECAST",
+      "verification": "三情景、30财务行、25敏感性、5沙盘改造前后数值一致；17条云端观察均匹配原始采集；历史完整5年合计未变、缺项7年由误示0改为空白；现金口径及旧利率来源仍待核验",
+      "company_id": 1
+    },
+    {
+      "id": 5,
+      "change_date": "2026-10-21",
+      "title": "飞书目录精简",
+      "target": "工作台目录、表名、默认视图、使用指南、驾驶舱文字",
+      "old_value": "根目录26张表平铺（V1十张与V2混放）；表名V2_00—V2_15编号与目录顺序不一致；默认视图显示全部字段（财务引擎44列）；使用指南12条；工作流名带V2前缀",
+      "new_value": "驾驶舱＋使用指南＋5个文件夹（1研究/2估值/3跟踪/4后台/5归档）；表名按阅读顺序编号1.1—4.2；每表默认“日常”视图只留关键列，另设“全部字段”视图；使用指南合并为9条并新增表格地图；工作流按①采集②入库③自检命名；Wind停更图表标注；V1十张表、旧估值看板和两份旧文档移入归档",
+      "reason": "让人按“研究→估值→跟踪”的顺序理解框架；不改任何字段、公式、记录数值和工作流逻辑",
+      "basis": "改前本地备份：表结构、全部记录、视图字段、看板配置、工作流定义；本地audit.py与monitor.py改为按表ID访问",
+      "verification": "audit.py 83项通过0失败；三情景条件DDM 14.24/26.19/36.65元与改前一致；工作流与看板引用随表ID自动更名",
+      "company_id": 1
+    },
+    {
+      "id": 6,
+      "change_date": "2026-10-21",
+      "title": "从飞书迁移到本机 NocoBase",
+      "target": "全部表、公式、页面、工作流",
+      "old_value": "飞书多维表格（26 张表、169 个公式、9 条云端工作流）",
+      "new_value": "NocoBase＋PostgreSQL：公式改写为 SQL 视图，页面与工作流重建",
+      "reason": "用户决定脱离飞书",
+      "basis": "逐格对比 8399 个单元格，0 处差异",
+      "verification": "迁移当时的全部输入与计算结果与飞书一致",
+      "company_id": 1
+    },
+    {
+      "id": 7,
+      "change_date": "2026-10-21",
+      "title": "补齐历史年度与季度数据",
+      "target": "归档·年度数据、归档·季度跟踪",
+      "old_value": "2014—2022 发电量/电价/营收/折旧/财务费用/CFO/资本开支多为空；带息负债仅 2023/2024；投资收益仅 2024/2025；季度跟踪止于 2026H1",
+      "new_value": "空缺项按 Wind 补齐（旧值不改）；季度跟踪新增 2025Q3、2025Q4、2026Q1、2026Q3",
+      "reason": "用户要求尽可能补齐数据",
+      "basis": "WIND-FIN-2014-2025；WIND-GEN-S0069453；ANN-GEN-2025Q3/2025FY/2026Q1/2026Q3",
+      "verification": "数据库取数，口径差异见证据“口径与局限”；发电量公告已读原文",
+      "company_id": 1
+    },
+    {
+      "id": 8,
+      "change_date": "2026-10-21",
+      "title": "填入现金桥接建议值",
+      "target": "2.2 年度假设 2026—2035 现金桥接 9 项",
+      "old_value": "9 项全空；FCFE、现金支持分红、现金支持DDM 不输出",
+      "new_value": "按 CASHBRIDGE-PROPOSAL-20261021 填入建议值；条件DDM 不受影响",
+      "reason": "用户要求尽可能补齐数据；以 2023—2025 合并报表实际值为锚",
+      "basis": "GTS-FS-2023-2025；CASHBRIDGE-PROPOSAL-20261021",
+      "verification": "建议值待核验：维持/扩张资本拆分、扩张节奏、净借款为判断；需用户确认后才可视为正式假设",
+      "company_id": 1
+    },
+    {
+      "id": 9,
+      "change_date": "2026-10-21",
+      "title": "重构为通用价值投资框架",
+      "target": "数据结构、估值公式、页面",
+      "old_value": "飞书迁移结构：V1/V2 两套模型并存；证据账本含 JSON；综合负担率；利息手填；年份与情景名写死在公式里",
+      "new_value": "通用框架 vi_：公司/论点/来源/事实/判断/历史财务/定期经营/指标/观察/模型/情景/逐年假设/试验/跟踪/问题/日志；税与少数股东拆分；利息由债务滚动计算；价值滚动到估值日；论点证伪自动检查；自动检查 12 项；采集配置化",
+      "reason": "用户要求数据人能读懂，并可复用到其他公司",
+      "basis": "framework/ 与 companies/600900_长江电力/",
+      "verification": "见回归核对：条件 DDM 与重构前一致（差异来自税/少数股东拆分与债务成本取整，见 README）",
+      "company_id": 1
+    },
+    {
+      "id": 10,
+      "change_date": "2026-10-21",
+      "title": "新增资产侧滚动与财务模型可视化页",
+      "target": "估值模型（期初资产负债 4 项）、资产与资本报表、财务模型页面",
+      "old_value": "只有带息负债滚动，没有资产负债；利润计算只能在“预测计算”宽表里看",
+      "new_value": "经营性长期资产、长期股权投资、带息负债、归母与少数股东权益逐年滚动，平衡项＝其他净资产；ROE、带息负债率、利息保障倍数、带息负债÷EBITDA；“财务模型”页用瀑布图逐步展示营收→利润→股息→现金",
+      "reason": "用户要求看清从营收到利润怎么算，资产另算",
+      "basis": "2025 年末合并资产负债表（岗底斯）",
+      "verification": "其他净资产逐年变化＝FCFE−股息＋少数股东留存＋少数股东折旧−其他现金调整＋营运资本增加，十年逐年一致",
+      "company_id": 1
+    },
+    {
+      "id": 11,
+      "change_date": "2026-10-22",
+      "title": "验证采集工作流并新增“立即采集”按钮",
+      "target": "工作流 ①②③（新版本）与 ④、采集运行表、原始采集记录、驾驶舱",
+      "old_value": "三条定时工作流从未实际运行；抓取失败与解析失败混在“校验失败”里；没有手动触发入口",
+      "new_value": "①②③ 实测可运行；入库/自检逻辑移入 SQL 函数 vi_ingest()/vi_selfcheck()；原始记录增加抓取结果，新增“抓取失败”状态；新增采集运行表与工作流 ④（按钮新增一行即触发，采集→入库→自检一次跑完）",
+      "reason": "用户要求验证自动采集并加一个“按一下就跑一次”的按钮",
+      "basis": "工作流执行记录；原始采集记录 105—113",
+      "verification": "①②③ 各手动执行一次均正常结束；④ 经 API 与浏览器按钮触发，约 3 秒完成，三个数据源 HTTP 200",
+      "company_id": 1
+    },
+    {
+      "id": 20,
+      "change_date": "2026-10-22",
+      "title": "框架升级：按公司分列菜单，新增毛利率等历史指标",
+      "target": "页面菜单、历史财务、论点自动检查、驾驶舱",
+      "old_value": "所有公司的记录混在同一组页面里；驾驶舱只展示勾选“默认展示”的公司；历史财务没有毛利率、ROE 等",
+      "new_value": "顶层菜单按公司分列（长江电力、太阳纸业、框架与后台），页面只显示本公司记录，每家公司有自己的驾驶舱和财务模型；历史财务新增营业成本、归母净资产，自动计算毛利率、ROE、经营现金流÷归母净利润、资本开支÷经营现金流、净负债、净负债÷EBITDA，并可用于论点自动检查",
+      "reason": "加入第二家公司（太阳纸业）时用户要求两个项目分列、不要混在一起",
+      "basis": "framework/build_pages.py、build_overview.py、spec.py",
+      "verification": "长江电力估值结果不变（基准 27.28 元）；2023—2025 年营业成本、归母净资产来自岗底斯，2014—2022 年待补",
+      "company_id": 1
+    }
+  ],
+  "links": {
+    "vi_lnk_judgment_facts": [
+      {
+        "judgment_id": 1,
+        "fact_id": 6
+      },
+      {
+        "judgment_id": 1,
+        "fact_id": 14
+      },
+      {
+        "judgment_id": 2,
+        "fact_id": 7
+      },
+      {
+        "judgment_id": 3,
+        "fact_id": 5
+      },
+      {
+        "judgment_id": 4,
+        "fact_id": 4
+      },
+      {
+        "judgment_id": 5,
+        "fact_id": 8
+      },
+      {
+        "judgment_id": 6,
+        "fact_id": 10
+      },
+      {
+        "judgment_id": 6,
+        "fact_id": 11
+      },
+      {
+        "judgment_id": 8,
+        "fact_id": 10
+      },
+      {
+        "judgment_id": 9,
+        "fact_id": 8
+      },
+      {
+        "judgment_id": 9,
+        "fact_id": 11
+      }
+    ],
+    "vi_lnk_forecast_facts": [
+      {
+        "forecast_id": 1,
+        "fact_id": 8
+      },
+      {
+        "forecast_id": 1,
+        "fact_id": 11
+      },
+      {
+        "forecast_id": 2,
+        "fact_id": 8
+      },
+      {
+        "forecast_id": 2,
+        "fact_id": 11
+      },
+      {
+        "forecast_id": 3,
+        "fact_id": 8
+      },
+      {
+        "forecast_id": 3,
+        "fact_id": 11
+      },
+      {
+        "forecast_id": 4,
+        "fact_id": 8
+      },
+      {
+        "forecast_id": 4,
+        "fact_id": 11
+      },
+      {
+        "forecast_id": 5,
+        "fact_id": 8
+      },
+      {
+        "forecast_id": 5,
+        "fact_id": 11
+      },
+      {
+        "forecast_id": 6,
+        "fact_id": 8
+      },
+      {
+        "forecast_id": 6,
+        "fact_id": 11
+      },
+      {
+        "forecast_id": 7,
+        "fact_id": 8
+      },
+      {
+        "forecast_id": 7,
+        "fact_id": 11
+      },
+      {
+        "forecast_id": 8,
+        "fact_id": 8
+      },
+      {
+        "forecast_id": 8,
+        "fact_id": 11
+      },
+      {
+        "forecast_id": 9,
+        "fact_id": 8
+      },
+      {
+        "forecast_id": 9,
+        "fact_id": 11
+      },
+      {
+        "forecast_id": 10,
+        "fact_id": 8
+      },
+      {
+        "forecast_id": 10,
+        "fact_id": 11
+      }
+    ],
+    "vi_lnk_forecast_judgments": [
+      {
+        "forecast_id": 1,
+        "judgment_id": 4
+      },
+      {
+        "forecast_id": 1,
+        "judgment_id": 5
+      },
+      {
+        "forecast_id": 1,
+        "judgment_id": 6
+      },
+      {
+        "forecast_id": 1,
+        "judgment_id": 9
+      },
+      {
+        "forecast_id": 2,
+        "judgment_id": 4
+      },
+      {
+        "forecast_id": 2,
+        "judgment_id": 5
+      },
+      {
+        "forecast_id": 2,
+        "judgment_id": 6
+      },
+      {
+        "forecast_id": 2,
+        "judgment_id": 9
+      },
+      {
+        "forecast_id": 3,
+        "judgment_id": 4
+      },
+      {
+        "forecast_id": 3,
+        "judgment_id": 5
+      },
+      {
+        "forecast_id": 3,
+        "judgment_id": 6
+      },
+      {
+        "forecast_id": 3,
+        "judgment_id": 9
+      },
+      {
+        "forecast_id": 4,
+        "judgment_id": 4
+      },
+      {
+        "forecast_id": 4,
+        "judgment_id": 5
+      },
+      {
+        "forecast_id": 4,
+        "judgment_id": 6
+      },
+      {
+        "forecast_id": 4,
+        "judgment_id": 9
+      },
+      {
+        "forecast_id": 5,
+        "judgment_id": 4
+      },
+      {
+        "forecast_id": 5,
+        "judgment_id": 5
+      },
+      {
+        "forecast_id": 5,
+        "judgment_id": 6
+      },
+      {
+        "forecast_id": 5,
+        "judgment_id": 9
+      },
+      {
+        "forecast_id": 6,
+        "judgment_id": 4
+      },
+      {
+        "forecast_id": 6,
+        "judgment_id": 5
+      },
+      {
+        "forecast_id": 6,
+        "judgment_id": 6
+      },
+      {
+        "forecast_id": 6,
+        "judgment_id": 9
+      },
+      {
+        "forecast_id": 7,
+        "judgment_id": 4
+      },
+      {
+        "forecast_id": 7,
+        "judgment_id": 5
+      },
+      {
+        "forecast_id": 7,
+        "judgment_id": 6
+      },
+      {
+        "forecast_id": 7,
+        "judgment_id": 9
+      },
+      {
+        "forecast_id": 8,
+        "judgment_id": 4
+      },
+      {
+        "forecast_id": 8,
+        "judgment_id": 5
+      },
+      {
+        "forecast_id": 8,
+        "judgment_id": 6
+      },
+      {
+        "forecast_id": 8,
+        "judgment_id": 9
+      },
+      {
+        "forecast_id": 9,
+        "judgment_id": 4
+      },
+      {
+        "forecast_id": 9,
+        "judgment_id": 5
+      },
+      {
+        "forecast_id": 9,
+        "judgment_id": 6
+      },
+      {
+        "forecast_id": 9,
+        "judgment_id": 9
+      },
+      {
+        "forecast_id": 10,
+        "judgment_id": 4
+      },
+      {
+        "forecast_id": 10,
+        "judgment_id": 5
+      },
+      {
+        "forecast_id": 10,
+        "judgment_id": 6
+      },
+      {
+        "forecast_id": 10,
+        "judgment_id": 9
+      }
+    ],
+    "vi_lnk_trial_judgments": [
+      {
+        "trial_id": 1,
+        "judgment_id": 1
+      },
+      {
+        "trial_id": 2,
+        "judgment_id": 2
+      },
+      {
+        "trial_id": 3,
+        "judgment_id": 3
+      },
+      {
+        "trial_id": 4,
+        "judgment_id": 4
+      },
+      {
+        "trial_id": 5,
+        "judgment_id": 7
+      }
+    ],
+    "vi_lnk_watch_judgments": [
+      {
+        "watch_id": 1,
+        "judgment_id": 1
+      },
+      {
+        "watch_id": 1,
+        "judgment_id": 2
+      },
+      {
+        "watch_id": 1,
+        "judgment_id": 3
+      },
+      {
+        "watch_id": 1,
+        "judgment_id": 4
+      },
+      {
+        "watch_id": 1,
+        "judgment_id": 5
+      },
+      {
+        "watch_id": 1,
+        "judgment_id": 6
+      },
+      {
+        "watch_id": 1,
+        "judgment_id": 7
+      },
+      {
+        "watch_id": 1,
+        "judgment_id": 8
+      },
+      {
+        "watch_id": 2,
+        "judgment_id": 1
+      },
+      {
+        "watch_id": 3,
+        "judgment_id": 1
+      },
+      {
+        "watch_id": 4,
+        "judgment_id": 2
+      },
+      {
+        "watch_id": 5,
+        "judgment_id": 7
+      },
+      {
+        "watch_id": 6,
+        "judgment_id": 3
+      },
+      {
+        "watch_id": 6,
+        "judgment_id": 5
+      },
+      {
+        "watch_id": 7,
+        "judgment_id": 4
+      },
+      {
+        "watch_id": 8,
+        "judgment_id": 4
+      },
+      {
+        "watch_id": 8,
+        "judgment_id": 6
+      },
+      {
+        "watch_id": 9,
+        "judgment_id": 5
+      },
+      {
+        "watch_id": 10,
+        "judgment_id": 6
+      },
+      {
+        "watch_id": 11,
+        "judgment_id": 7
+      },
+      {
+        "watch_id": 12,
+        "judgment_id": 1
+      },
+      {
+        "watch_id": 12,
+        "judgment_id": 2
+      },
+      {
+        "watch_id": 12,
+        "judgment_id": 3
+      },
+      {
+        "watch_id": 12,
+        "judgment_id": 4
+      },
+      {
+        "watch_id": 12,
+        "judgment_id": 5
+      },
+      {
+        "watch_id": 12,
+        "judgment_id": 6
+      },
+      {
+        "watch_id": 12,
+        "judgment_id": 7
+      },
+      {
+        "watch_id": 12,
+        "judgment_id": 8
+      }
+    ],
+    "vi_lnk_company_macro_metrics": [
+      {
+        "company_id": 1,
+        "metric_id": 3
+      }
+    ]
+  }
+}

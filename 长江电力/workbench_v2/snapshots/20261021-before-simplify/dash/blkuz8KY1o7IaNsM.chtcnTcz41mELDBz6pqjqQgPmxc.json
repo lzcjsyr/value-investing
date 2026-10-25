@@ -1,0 +1,36 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "block": {
+      "block_id": "chtcnTcz41mELDBz6pqjqQgPmxc",
+      "data_config": {
+        "number_format": {
+          "formatName": "digital",
+          "precision": 2
+        },
+        "series": [
+          {
+            "field_name": "折溢价_pct",
+            "rollup": "MAX"
+          }
+        ],
+        "table_name": "估值结果"
+      },
+      "name": "折溢价%",
+      "position": {
+        "h": 2,
+        "w": 3,
+        "x": 6,
+        "y": 0
+      },
+      "standard_position": {
+        "h": 208,
+        "w": 373.5,
+        "x": 747,
+        "y": 0
+      },
+      "type": "statistics"
+    }
+  }
+}

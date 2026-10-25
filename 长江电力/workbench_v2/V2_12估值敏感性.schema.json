@@ -1,0 +1,42 @@
+[
+  {
+    "bidirectional": false,
+    "id": "fldX1YfSeU",
+    "link_table": "tbl2aFkmDryVrEX1",
+    "name": "基准情景",
+    "type": "link"
+  },
+  {
+    "default_value": null,
+    "id": "fldtfiXnT4",
+    "name": "利率偏移",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldCo0o6Ju",
+    "name": "增长偏移",
+    "style": {
+      "percentage": false,
+      "precision": 4,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldsZEkfHa",
+    "name": "组合",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  }
+]

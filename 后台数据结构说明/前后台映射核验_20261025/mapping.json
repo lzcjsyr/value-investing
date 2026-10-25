@@ -1,0 +1,5612 @@
+[
+  {
+    "code": "company",
+    "base": "vi_company_base",
+    "collection": "vi_company",
+    "backend_title": "公司",
+    "source_title": "公司",
+    "base_columns": 17,
+    "business_columns": 14,
+    "derived_columns": [
+      "latest_fx",
+      "latest_price",
+      "latest_price_date",
+      "latest_price_raw",
+      "macro_used"
+    ],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 1,
+    "front_titles": [
+      "公司"
+    ],
+    "front_variants": [
+      {
+        "path": "框架与后台 / 公司",
+        "title": "公司",
+        "fields": [
+          "code",
+          "name",
+          "industry",
+          "volume_label",
+          "volume_unit",
+          "price_label",
+          "latest_price",
+          "latest_price_raw",
+          "latest_fx",
+          "latest_price_date"
+        ],
+        "shown_base_fields": [
+          "code",
+          "industry",
+          "name",
+          "price_label",
+          "volume_label",
+          "volume_unit"
+        ],
+        "not_shown_base_fields": [
+          "currency",
+          "exchange",
+          "is_default",
+          "notes",
+          "price_fx_metric_id",
+          "price_metric_id",
+          "price_unit",
+          "profile"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 6,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "code",
+      "industry",
+      "name",
+      "price_label",
+      "volume_label",
+      "volume_unit"
+    ],
+    "form_business_fields": [
+      "code",
+      "currency",
+      "exchange",
+      "industry",
+      "is_default",
+      "name",
+      "notes",
+      "price_fx_metric_id",
+      "price_label",
+      "price_metric_id",
+      "price_unit",
+      "profile",
+      "volume_label",
+      "volume_unit"
+    ],
+    "detail_business_fields": [
+      "code",
+      "currency",
+      "exchange",
+      "industry",
+      "is_default",
+      "name",
+      "notes",
+      "price_label",
+      "price_metric_id",
+      "price_unit",
+      "profile",
+      "volume_label",
+      "volume_unit"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [
+      "price_fx_metric_id"
+    ],
+    "main_detail_templates": [
+      "4hr3gehynkf"
+    ]
+  },
+  {
+    "code": "source",
+    "base": "vi_source_base",
+    "collection": "vi_source",
+    "backend_title": "来源文档",
+    "source_title": "来源文档",
+    "base_columns": 14,
+    "business_columns": 11,
+    "derived_columns": [],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "来源文档"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 数据底稿 / 来源文档",
+        "title": "来源文档",
+        "fields": [
+          "title",
+          "source_type",
+          "publish_date",
+          "reliability",
+          "verify_status",
+          "url"
+        ],
+        "shown_base_fields": [
+          "publish_date",
+          "reliability",
+          "source_type",
+          "title",
+          "url",
+          "verify_status"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "limitations",
+          "publisher",
+          "retrieved_on",
+          "summary"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 数据底稿 / 来源文档",
+        "title": "来源文档",
+        "fields": [
+          "title",
+          "source_type",
+          "publish_date",
+          "reliability",
+          "verify_status",
+          "url"
+        ],
+        "shown_base_fields": [
+          "publish_date",
+          "reliability",
+          "source_type",
+          "title",
+          "url",
+          "verify_status"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "limitations",
+          "publisher",
+          "retrieved_on",
+          "summary"
+        ]
+      },
+      {
+        "path": "中国建筑 / 数据底稿 / 来源文档",
+        "title": "来源文档",
+        "fields": [
+          "title",
+          "source_type",
+          "publish_date",
+          "reliability",
+          "verify_status",
+          "url"
+        ],
+        "shown_base_fields": [
+          "publish_date",
+          "reliability",
+          "source_type",
+          "title",
+          "url",
+          "verify_status"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "limitations",
+          "publisher",
+          "retrieved_on",
+          "summary"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 数据底稿 / 来源文档",
+        "title": "来源文档",
+        "fields": [
+          "source_type",
+          "title",
+          "publish_date",
+          "reliability",
+          "verify_status",
+          "url"
+        ],
+        "shown_base_fields": [
+          "publish_date",
+          "reliability",
+          "source_type",
+          "title",
+          "url",
+          "verify_status"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "limitations",
+          "publisher",
+          "retrieved_on",
+          "summary"
+        ]
+      },
+      {
+        "path": "小米集团 / 数据底稿 / 来源文档",
+        "title": "来源文档",
+        "fields": [
+          "title",
+          "source_type",
+          "publish_date",
+          "reliability",
+          "verify_status",
+          "url"
+        ],
+        "shown_base_fields": [
+          "publish_date",
+          "reliability",
+          "source_type",
+          "title",
+          "url",
+          "verify_status"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "limitations",
+          "publisher",
+          "retrieved_on",
+          "summary"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 6,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "publish_date",
+      "reliability",
+      "source_type",
+      "title",
+      "url",
+      "verify_status"
+    ],
+    "form_business_fields": [
+      "company_id",
+      "limitations",
+      "publish_date",
+      "publisher",
+      "reliability",
+      "retrieved_on",
+      "source_type",
+      "summary",
+      "title",
+      "url",
+      "verify_status"
+    ],
+    "detail_business_fields": [
+      "company_id",
+      "limitations",
+      "publisher",
+      "reliability",
+      "source_type",
+      "summary",
+      "title",
+      "url",
+      "verify_status"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [
+      "publish_date",
+      "retrieved_on"
+    ],
+    "main_detail_templates": [
+      "ugllahz6dfv"
+    ]
+  },
+  {
+    "code": "fact",
+    "base": "vi_fact_base",
+    "collection": "vi_fact",
+    "backend_title": "事实摘录",
+    "source_title": "事实摘录",
+    "base_columns": 14,
+    "business_columns": 11,
+    "derived_columns": [],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "事实摘录"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 数据底稿 / 事实摘录",
+        "title": "事实摘录",
+        "fields": [
+          "title",
+          "category",
+          "period",
+          "value",
+          "unit",
+          "verify_status",
+          "source"
+        ],
+        "shown_base_fields": [
+          "category",
+          "period",
+          "source_id",
+          "title",
+          "unit",
+          "value",
+          "verify_status"
+        ],
+        "not_shown_base_fields": [
+          "as_of",
+          "company_id",
+          "notes",
+          "statement"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 数据底稿 / 事实摘录",
+        "title": "事实摘录",
+        "fields": [
+          "title",
+          "category",
+          "period",
+          "value",
+          "unit",
+          "verify_status",
+          "source"
+        ],
+        "shown_base_fields": [
+          "category",
+          "period",
+          "source_id",
+          "title",
+          "unit",
+          "value",
+          "verify_status"
+        ],
+        "not_shown_base_fields": [
+          "as_of",
+          "company_id",
+          "notes",
+          "statement"
+        ]
+      },
+      {
+        "path": "中国建筑 / 数据底稿 / 事实摘录",
+        "title": "事实摘录",
+        "fields": [
+          "title",
+          "category",
+          "period",
+          "value",
+          "unit",
+          "verify_status",
+          "source"
+        ],
+        "shown_base_fields": [
+          "category",
+          "period",
+          "source_id",
+          "title",
+          "unit",
+          "value",
+          "verify_status"
+        ],
+        "not_shown_base_fields": [
+          "as_of",
+          "company_id",
+          "notes",
+          "statement"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 数据底稿 / 事实摘录",
+        "title": "事实摘录",
+        "fields": [
+          "title",
+          "category",
+          "period",
+          "value",
+          "unit",
+          "verify_status",
+          "source"
+        ],
+        "shown_base_fields": [
+          "category",
+          "period",
+          "source_id",
+          "title",
+          "unit",
+          "value",
+          "verify_status"
+        ],
+        "not_shown_base_fields": [
+          "as_of",
+          "company_id",
+          "notes",
+          "statement"
+        ]
+      },
+      {
+        "path": "小米集团 / 数据底稿 / 事实摘录",
+        "title": "事实摘录",
+        "fields": [
+          "title",
+          "category",
+          "period",
+          "value",
+          "unit",
+          "verify_status",
+          "source"
+        ],
+        "shown_base_fields": [
+          "category",
+          "period",
+          "source_id",
+          "title",
+          "unit",
+          "value",
+          "verify_status"
+        ],
+        "not_shown_base_fields": [
+          "as_of",
+          "company_id",
+          "notes",
+          "statement"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 7,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "category",
+      "period",
+      "source_id",
+      "title",
+      "unit",
+      "value",
+      "verify_status"
+    ],
+    "form_business_fields": [
+      "as_of",
+      "category",
+      "company_id",
+      "notes",
+      "period",
+      "source_id",
+      "statement",
+      "title",
+      "unit",
+      "value",
+      "verify_status"
+    ],
+    "detail_business_fields": [
+      "category",
+      "company_id",
+      "notes",
+      "period",
+      "source_id",
+      "statement",
+      "title",
+      "unit",
+      "value",
+      "verify_status"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [
+      "as_of"
+    ],
+    "main_detail_templates": [
+      "dcix5nym9le"
+    ]
+  },
+  {
+    "code": "biz_model",
+    "base": "vi_biz_model_base",
+    "collection": "vi_biz_model",
+    "backend_title": "商业模式",
+    "source_title": "商业模式",
+    "base_columns": 10,
+    "business_columns": 7,
+    "derived_columns": [],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "商业模式拆解"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 商业模式 / 商业模式拆解",
+        "title": "商业模式拆解",
+        "fields": [
+          "code",
+          "element",
+          "title",
+          "metric",
+          "trend"
+        ],
+        "shown_base_fields": [
+          "code",
+          "element",
+          "metric",
+          "title",
+          "trend"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "content"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 商业模式 / 商业模式拆解",
+        "title": "商业模式拆解",
+        "fields": [
+          "code",
+          "element",
+          "title",
+          "metric",
+          "trend"
+        ],
+        "shown_base_fields": [
+          "code",
+          "element",
+          "metric",
+          "title",
+          "trend"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "content"
+        ]
+      },
+      {
+        "path": "中国建筑 / 商业模式 / 商业模式拆解",
+        "title": "商业模式拆解",
+        "fields": [
+          "code",
+          "element",
+          "title",
+          "metric",
+          "trend"
+        ],
+        "shown_base_fields": [
+          "code",
+          "element",
+          "metric",
+          "title",
+          "trend"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "content"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 商业模式 / 商业模式拆解",
+        "title": "商业模式拆解",
+        "fields": [
+          "code",
+          "element",
+          "title",
+          "metric",
+          "trend"
+        ],
+        "shown_base_fields": [
+          "code",
+          "element",
+          "metric",
+          "title",
+          "trend"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "content"
+        ]
+      },
+      {
+        "path": "小米集团 / 商业模式 / 商业模式拆解",
+        "title": "商业模式拆解",
+        "fields": [
+          "code",
+          "element",
+          "title",
+          "metric",
+          "trend"
+        ],
+        "shown_base_fields": [
+          "code",
+          "element",
+          "metric",
+          "title",
+          "trend"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "content"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 5,
+    "name_mismatch": true,
+    "all_root_shown_business_fields": [
+      "code",
+      "element",
+      "metric",
+      "title",
+      "trend"
+    ],
+    "form_business_fields": [
+      "code",
+      "company_id",
+      "content",
+      "element",
+      "metric",
+      "title",
+      "trend"
+    ],
+    "detail_business_fields": [
+      "code",
+      "company_id",
+      "content",
+      "element",
+      "metric",
+      "title",
+      "trend"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [],
+    "main_detail_templates": [
+      "vmoo0jvm9fq"
+    ]
+  },
+  {
+    "code": "value_chain",
+    "base": "vi_value_chain_base",
+    "collection": "vi_value_chain",
+    "backend_title": "产业链与五力",
+    "source_title": "产业链与五力",
+    "base_columns": 15,
+    "business_columns": 12,
+    "derived_columns": [],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "产业链与五力"
+    ],
+    "front_variants": [
+      {
+        "path": "太阳纸业 / 商业模式 / 产业链与五力",
+        "title": "产业链与五力",
+        "fields": [
+          "code",
+          "position",
+          "participant",
+          "force",
+          "power",
+          "effect",
+          "trend",
+          "profit_share"
+        ],
+        "shown_base_fields": [
+          "code",
+          "effect",
+          "force",
+          "participant",
+          "position",
+          "power",
+          "profit_share",
+          "trend"
+        ],
+        "not_shown_base_fields": [
+          "analysis",
+          "company_id",
+          "counter",
+          "role"
+        ]
+      },
+      {
+        "path": "中国建筑 / 商业模式 / 产业链与五力",
+        "title": "产业链与五力",
+        "fields": [
+          "code",
+          "position",
+          "participant",
+          "force",
+          "power",
+          "effect",
+          "trend",
+          "profit_share"
+        ],
+        "shown_base_fields": [
+          "code",
+          "effect",
+          "force",
+          "participant",
+          "position",
+          "power",
+          "profit_share",
+          "trend"
+        ],
+        "not_shown_base_fields": [
+          "analysis",
+          "company_id",
+          "counter",
+          "role"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 商业模式 / 产业链与五力",
+        "title": "产业链与五力",
+        "fields": [
+          "code",
+          "position",
+          "participant",
+          "force",
+          "power",
+          "effect",
+          "trend",
+          "profit_share"
+        ],
+        "shown_base_fields": [
+          "code",
+          "effect",
+          "force",
+          "participant",
+          "position",
+          "power",
+          "profit_share",
+          "trend"
+        ],
+        "not_shown_base_fields": [
+          "analysis",
+          "company_id",
+          "counter",
+          "role"
+        ]
+      },
+      {
+        "path": "小米集团 / 商业模式 / 产业链与五力",
+        "title": "产业链与五力",
+        "fields": [
+          "code",
+          "position",
+          "participant",
+          "force",
+          "power",
+          "effect",
+          "trend",
+          "profit_share"
+        ],
+        "shown_base_fields": [
+          "code",
+          "effect",
+          "force",
+          "participant",
+          "position",
+          "power",
+          "profit_share",
+          "trend"
+        ],
+        "not_shown_base_fields": [
+          "analysis",
+          "company_id",
+          "counter",
+          "role"
+        ]
+      },
+      {
+        "path": "长江电力 / 商业模式 / 产业链与五力",
+        "title": "产业链与五力",
+        "fields": [
+          "code",
+          "position",
+          "participant",
+          "force",
+          "power",
+          "effect",
+          "trend",
+          "profit_share"
+        ],
+        "shown_base_fields": [
+          "code",
+          "effect",
+          "force",
+          "participant",
+          "position",
+          "power",
+          "profit_share",
+          "trend"
+        ],
+        "not_shown_base_fields": [
+          "analysis",
+          "company_id",
+          "counter",
+          "role"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 8,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "code",
+      "effect",
+      "force",
+      "participant",
+      "position",
+      "power",
+      "profit_share",
+      "trend"
+    ],
+    "form_business_fields": [
+      "analysis",
+      "code",
+      "company_id",
+      "counter",
+      "effect",
+      "force",
+      "participant",
+      "position",
+      "power",
+      "profit_share",
+      "role",
+      "trend"
+    ],
+    "detail_business_fields": [
+      "analysis",
+      "code",
+      "company_id",
+      "counter",
+      "effect",
+      "force",
+      "participant",
+      "position",
+      "power",
+      "profit_share",
+      "role",
+      "trend"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [],
+    "main_detail_templates": [
+      "dqy6sa5cbr8"
+    ]
+  },
+  {
+    "code": "competitor",
+    "base": "vi_competitor_base",
+    "collection": "vi_competitor",
+    "backend_title": "竞争对手",
+    "source_title": "竞争对手",
+    "base_columns": 21,
+    "business_columns": 18,
+    "derived_columns": [],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "产业链与五力",
+      "竞争对手"
+    ],
+    "front_variants": [
+      {
+        "path": "太阳纸业 / 商业模式 / 竞争对手",
+        "title": "竞争对手",
+        "fields": [
+          "name",
+          "relation",
+          "segment",
+          "scale_label",
+          "scale_value",
+          "scale_unit",
+          "paying_rate",
+          "gross_margin",
+          "growth",
+          "price_point",
+          "threat",
+          "trend",
+          "as_of"
+        ],
+        "shown_base_fields": [
+          "as_of",
+          "gross_margin",
+          "growth",
+          "name",
+          "paying_rate",
+          "price_point",
+          "relation",
+          "scale_label",
+          "scale_unit",
+          "scale_value",
+          "segment",
+          "threat",
+          "trend"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "source_id",
+          "strategy",
+          "ticker",
+          "vs_us"
+        ]
+      },
+      {
+        "path": "中国建筑 / 商业模式 / 竞争对手",
+        "title": "竞争对手",
+        "fields": [
+          "name",
+          "relation",
+          "segment",
+          "scale_label",
+          "scale_value",
+          "scale_unit",
+          "paying_rate",
+          "gross_margin",
+          "growth",
+          "price_point",
+          "threat",
+          "trend",
+          "as_of"
+        ],
+        "shown_base_fields": [
+          "as_of",
+          "gross_margin",
+          "growth",
+          "name",
+          "paying_rate",
+          "price_point",
+          "relation",
+          "scale_label",
+          "scale_unit",
+          "scale_value",
+          "segment",
+          "threat",
+          "trend"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "source_id",
+          "strategy",
+          "ticker",
+          "vs_us"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 商业模式 / 竞争对手",
+        "title": "竞争对手",
+        "fields": [
+          "name",
+          "relation",
+          "segment",
+          "scale_label",
+          "scale_value",
+          "scale_unit",
+          "paying_rate",
+          "gross_margin",
+          "growth",
+          "price_point",
+          "threat",
+          "trend",
+          "as_of"
+        ],
+        "shown_base_fields": [
+          "as_of",
+          "gross_margin",
+          "growth",
+          "name",
+          "paying_rate",
+          "price_point",
+          "relation",
+          "scale_label",
+          "scale_unit",
+          "scale_value",
+          "segment",
+          "threat",
+          "trend"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "source_id",
+          "strategy",
+          "ticker",
+          "vs_us"
+        ]
+      },
+      {
+        "path": "小米集团 / 商业模式 / 竞争对手",
+        "title": "竞争对手",
+        "fields": [
+          "name",
+          "relation",
+          "segment",
+          "scale_label",
+          "scale_value",
+          "scale_unit",
+          "paying_rate",
+          "gross_margin",
+          "growth",
+          "price_point",
+          "threat",
+          "trend",
+          "as_of"
+        ],
+        "shown_base_fields": [
+          "as_of",
+          "gross_margin",
+          "growth",
+          "name",
+          "paying_rate",
+          "price_point",
+          "relation",
+          "scale_label",
+          "scale_unit",
+          "scale_value",
+          "segment",
+          "threat",
+          "trend"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "source_id",
+          "strategy",
+          "ticker",
+          "vs_us"
+        ]
+      },
+      {
+        "path": "长江电力 / 商业模式 / 产业链与五力",
+        "title": "产业链与五力",
+        "fields": [
+          "name",
+          "relation",
+          "segment",
+          "scale_label",
+          "scale_value",
+          "scale_unit",
+          "paying_rate",
+          "gross_margin",
+          "growth",
+          "price_point",
+          "threat",
+          "trend",
+          "as_of"
+        ],
+        "shown_base_fields": [
+          "as_of",
+          "gross_margin",
+          "growth",
+          "name",
+          "paying_rate",
+          "price_point",
+          "relation",
+          "scale_label",
+          "scale_unit",
+          "scale_value",
+          "segment",
+          "threat",
+          "trend"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "source_id",
+          "strategy",
+          "ticker",
+          "vs_us"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 13,
+    "name_mismatch": true,
+    "all_root_shown_business_fields": [
+      "as_of",
+      "gross_margin",
+      "growth",
+      "name",
+      "paying_rate",
+      "price_point",
+      "relation",
+      "scale_label",
+      "scale_unit",
+      "scale_value",
+      "segment",
+      "threat",
+      "trend"
+    ],
+    "form_business_fields": [
+      "as_of",
+      "company_id",
+      "gross_margin",
+      "growth",
+      "name",
+      "paying_rate",
+      "price_point",
+      "relation",
+      "scale_label",
+      "scale_unit",
+      "scale_value",
+      "segment",
+      "source_id",
+      "strategy",
+      "threat",
+      "ticker",
+      "trend",
+      "vs_us"
+    ],
+    "detail_business_fields": [
+      "company_id",
+      "gross_margin",
+      "growth",
+      "name",
+      "paying_rate",
+      "price_point",
+      "relation",
+      "scale_label",
+      "scale_unit",
+      "scale_value",
+      "segment",
+      "source_id",
+      "strategy",
+      "threat",
+      "ticker",
+      "trend",
+      "vs_us"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [
+      "as_of"
+    ],
+    "main_detail_templates": [
+      "bvmqjnoz1ct"
+    ]
+  },
+  {
+    "code": "moat",
+    "base": "vi_moat_base",
+    "collection": "vi_moat",
+    "backend_title": "竞争壁垒",
+    "source_title": "竞争壁垒",
+    "base_columns": 20,
+    "business_columns": 17,
+    "derived_columns": [
+      "check_latest_value",
+      "check_latest_year",
+      "check_result",
+      "debate_count",
+      "debate_winner"
+    ],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "竞争壁垒"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 商业模式 / 竞争壁垒",
+        "title": "竞争壁垒",
+        "fields": [
+          "code",
+          "title",
+          "moat_type",
+          "verdict",
+          "strength",
+          "trend",
+          "check_result",
+          "debate_count",
+          "debate_winner"
+        ],
+        "shown_base_fields": [
+          "code",
+          "moat_type",
+          "strength",
+          "title",
+          "trend",
+          "verdict"
+        ],
+        "not_shown_base_fields": [
+          "check_metric",
+          "check_op",
+          "check_threshold",
+          "check_years",
+          "company_id",
+          "counter",
+          "evidence",
+          "financial_link",
+          "mechanism",
+          "replication",
+          "threats"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 商业模式 / 竞争壁垒",
+        "title": "竞争壁垒",
+        "fields": [
+          "code",
+          "title",
+          "moat_type",
+          "verdict",
+          "strength",
+          "trend",
+          "check_result",
+          "debate_count",
+          "debate_winner"
+        ],
+        "shown_base_fields": [
+          "code",
+          "moat_type",
+          "strength",
+          "title",
+          "trend",
+          "verdict"
+        ],
+        "not_shown_base_fields": [
+          "check_metric",
+          "check_op",
+          "check_threshold",
+          "check_years",
+          "company_id",
+          "counter",
+          "evidence",
+          "financial_link",
+          "mechanism",
+          "replication",
+          "threats"
+        ]
+      },
+      {
+        "path": "中国建筑 / 商业模式 / 竞争壁垒",
+        "title": "竞争壁垒",
+        "fields": [
+          "code",
+          "title",
+          "moat_type",
+          "verdict",
+          "strength",
+          "trend",
+          "check_result",
+          "debate_count",
+          "debate_winner"
+        ],
+        "shown_base_fields": [
+          "code",
+          "moat_type",
+          "strength",
+          "title",
+          "trend",
+          "verdict"
+        ],
+        "not_shown_base_fields": [
+          "check_metric",
+          "check_op",
+          "check_threshold",
+          "check_years",
+          "company_id",
+          "counter",
+          "evidence",
+          "financial_link",
+          "mechanism",
+          "replication",
+          "threats"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 商业模式 / 竞争壁垒",
+        "title": "竞争壁垒",
+        "fields": [
+          "code",
+          "title",
+          "moat_type",
+          "verdict",
+          "strength",
+          "trend",
+          "check_result",
+          "debate_count",
+          "debate_winner"
+        ],
+        "shown_base_fields": [
+          "code",
+          "moat_type",
+          "strength",
+          "title",
+          "trend",
+          "verdict"
+        ],
+        "not_shown_base_fields": [
+          "check_metric",
+          "check_op",
+          "check_threshold",
+          "check_years",
+          "company_id",
+          "counter",
+          "evidence",
+          "financial_link",
+          "mechanism",
+          "replication",
+          "threats"
+        ]
+      },
+      {
+        "path": "小米集团 / 商业模式 / 竞争壁垒",
+        "title": "竞争壁垒",
+        "fields": [
+          "code",
+          "title",
+          "moat_type",
+          "verdict",
+          "strength",
+          "trend",
+          "check_result",
+          "debate_count",
+          "debate_winner"
+        ],
+        "shown_base_fields": [
+          "code",
+          "moat_type",
+          "strength",
+          "title",
+          "trend",
+          "verdict"
+        ],
+        "not_shown_base_fields": [
+          "check_metric",
+          "check_op",
+          "check_threshold",
+          "check_years",
+          "company_id",
+          "counter",
+          "evidence",
+          "financial_link",
+          "mechanism",
+          "replication",
+          "threats"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 6,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "code",
+      "moat_type",
+      "strength",
+      "title",
+      "trend",
+      "verdict"
+    ],
+    "form_business_fields": [
+      "check_metric",
+      "check_op",
+      "check_threshold",
+      "check_years",
+      "code",
+      "company_id",
+      "counter",
+      "evidence",
+      "financial_link",
+      "mechanism",
+      "moat_type",
+      "replication",
+      "strength",
+      "threats",
+      "title",
+      "trend",
+      "verdict"
+    ],
+    "detail_business_fields": [
+      "check_metric",
+      "check_op",
+      "check_threshold",
+      "check_years",
+      "code",
+      "company_id",
+      "counter",
+      "evidence",
+      "financial_link",
+      "mechanism",
+      "moat_type",
+      "replication",
+      "strength",
+      "threats",
+      "title",
+      "trend",
+      "verdict"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [],
+    "main_detail_templates": [
+      "49iyf6re05l"
+    ]
+  },
+  {
+    "code": "thesis",
+    "base": "vi_thesis_base",
+    "collection": "vi_thesis",
+    "backend_title": "核心论点",
+    "source_title": "核心论点",
+    "base_columns": 23,
+    "business_columns": 20,
+    "derived_columns": [
+      "check_latest_value",
+      "check_latest_year",
+      "check_result",
+      "judgment_status"
+    ],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "核心论点"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 商业模式 / 核心论点",
+        "title": "核心论点",
+        "fields": [
+          "code",
+          "title",
+          "category",
+          "status",
+          "confidence",
+          "verdict",
+          "mind_changer",
+          "check_result",
+          "debated_on"
+        ],
+        "shown_base_fields": [
+          "category",
+          "code",
+          "confidence",
+          "debated_on",
+          "mind_changer",
+          "status",
+          "title",
+          "verdict"
+        ],
+        "not_shown_base_fields": [
+          "bear_case",
+          "bear_rebuttal",
+          "bull_case",
+          "bull_rebuttal",
+          "check_metric",
+          "check_op",
+          "check_threshold",
+          "check_years",
+          "company_id",
+          "decisive_evidence",
+          "external_view",
+          "model_impact"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 商业模式 / 核心论点",
+        "title": "核心论点",
+        "fields": [
+          "code",
+          "category",
+          "status",
+          "confidence",
+          "verdict",
+          "mind_changer",
+          "check_result",
+          "title",
+          "debated_on"
+        ],
+        "shown_base_fields": [
+          "category",
+          "code",
+          "confidence",
+          "debated_on",
+          "mind_changer",
+          "status",
+          "title",
+          "verdict"
+        ],
+        "not_shown_base_fields": [
+          "bear_case",
+          "bear_rebuttal",
+          "bull_case",
+          "bull_rebuttal",
+          "check_metric",
+          "check_op",
+          "check_threshold",
+          "check_years",
+          "company_id",
+          "decisive_evidence",
+          "external_view",
+          "model_impact"
+        ]
+      },
+      {
+        "path": "中国建筑 / 商业模式 / 核心论点",
+        "title": "核心论点",
+        "fields": [
+          "category",
+          "status",
+          "verdict",
+          "mind_changer",
+          "check_result",
+          "code",
+          "title",
+          "confidence",
+          "debated_on"
+        ],
+        "shown_base_fields": [
+          "category",
+          "code",
+          "confidence",
+          "debated_on",
+          "mind_changer",
+          "status",
+          "title",
+          "verdict"
+        ],
+        "not_shown_base_fields": [
+          "bear_case",
+          "bear_rebuttal",
+          "bull_case",
+          "bull_rebuttal",
+          "check_metric",
+          "check_op",
+          "check_threshold",
+          "check_years",
+          "company_id",
+          "decisive_evidence",
+          "external_view",
+          "model_impact"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 商业模式 / 核心论点",
+        "title": "核心论点",
+        "fields": [
+          "code",
+          "verdict",
+          "title",
+          "category",
+          "status",
+          "confidence",
+          "mind_changer",
+          "check_result",
+          "debated_on"
+        ],
+        "shown_base_fields": [
+          "category",
+          "code",
+          "confidence",
+          "debated_on",
+          "mind_changer",
+          "status",
+          "title",
+          "verdict"
+        ],
+        "not_shown_base_fields": [
+          "bear_case",
+          "bear_rebuttal",
+          "bull_case",
+          "bull_rebuttal",
+          "check_metric",
+          "check_op",
+          "check_threshold",
+          "check_years",
+          "company_id",
+          "decisive_evidence",
+          "external_view",
+          "model_impact"
+        ]
+      },
+      {
+        "path": "小米集团 / 商业模式 / 核心论点",
+        "title": "核心论点",
+        "fields": [
+          "verdict",
+          "mind_changer",
+          "category",
+          "status",
+          "debated_on",
+          "code",
+          "title",
+          "confidence",
+          "check_result"
+        ],
+        "shown_base_fields": [
+          "category",
+          "code",
+          "confidence",
+          "debated_on",
+          "mind_changer",
+          "status",
+          "title",
+          "verdict"
+        ],
+        "not_shown_base_fields": [
+          "bear_case",
+          "bear_rebuttal",
+          "bull_case",
+          "bull_rebuttal",
+          "check_metric",
+          "check_op",
+          "check_threshold",
+          "check_years",
+          "company_id",
+          "decisive_evidence",
+          "external_view",
+          "model_impact"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 8,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "category",
+      "code",
+      "confidence",
+      "debated_on",
+      "mind_changer",
+      "status",
+      "title",
+      "verdict"
+    ],
+    "form_business_fields": [
+      "bear_case",
+      "bear_rebuttal",
+      "bull_case",
+      "bull_rebuttal",
+      "category",
+      "check_metric",
+      "check_op",
+      "check_threshold",
+      "check_years",
+      "code",
+      "company_id",
+      "confidence",
+      "debated_on",
+      "decisive_evidence",
+      "external_view",
+      "mind_changer",
+      "model_impact",
+      "status",
+      "title",
+      "verdict"
+    ],
+    "detail_business_fields": [
+      "bear_case",
+      "bear_rebuttal",
+      "bull_case",
+      "bull_rebuttal",
+      "category",
+      "check_metric",
+      "check_op",
+      "check_threshold",
+      "check_years",
+      "code",
+      "company_id",
+      "confidence",
+      "decisive_evidence",
+      "external_view",
+      "mind_changer",
+      "model_impact",
+      "status",
+      "title",
+      "verdict"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [
+      "debated_on"
+    ],
+    "main_detail_templates": [
+      "3hfwiyicx3d"
+    ]
+  },
+  {
+    "code": "risk",
+    "base": "vi_risk_base",
+    "collection": "vi_risk",
+    "backend_title": "风险分析",
+    "source_title": "风险分析",
+    "base_columns": 18,
+    "business_columns": 15,
+    "derived_columns": [
+      "level",
+      "thesis_verdicts"
+    ],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 1,
+    "front_titles": [
+      "风险分析"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 商业模式 / 风险分析",
+        "title": "风险分析",
+        "fields": [
+          "code",
+          "title",
+          "category",
+          "probability",
+          "impact",
+          "level",
+          "treatment",
+          "status",
+          "thesis_verdicts"
+        ],
+        "shown_base_fields": [
+          "category",
+          "code",
+          "impact",
+          "probability",
+          "status",
+          "title",
+          "treatment"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "early_warning",
+          "horizon",
+          "impact_estimate",
+          "mechanism",
+          "mitigants",
+          "response",
+          "trend"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 7,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "category",
+      "code",
+      "impact",
+      "probability",
+      "status",
+      "title",
+      "treatment"
+    ],
+    "form_business_fields": [
+      "category",
+      "code",
+      "company_id",
+      "early_warning",
+      "horizon",
+      "impact",
+      "impact_estimate",
+      "mechanism",
+      "mitigants",
+      "probability",
+      "response",
+      "status",
+      "title",
+      "treatment",
+      "trend"
+    ],
+    "detail_business_fields": [
+      "category",
+      "code",
+      "company_id",
+      "early_warning",
+      "horizon",
+      "impact",
+      "impact_estimate",
+      "mechanism",
+      "mitigants",
+      "probability",
+      "response",
+      "status",
+      "title",
+      "treatment",
+      "trend"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [],
+    "main_detail_templates": [
+      "46l8u9xtra8"
+    ]
+  },
+  {
+    "code": "fit_score",
+    "base": "vi_fit_score_base",
+    "collection": "vi_fit_score",
+    "backend_title": "价值投资适配度",
+    "source_title": "价值投资适配度",
+    "base_columns": 9,
+    "business_columns": 6,
+    "derived_columns": [],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "价投适配度"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 商业模式 / 价投适配度",
+        "title": "价投适配度",
+        "fields": [
+          "dimension",
+          "score",
+          "rationale",
+          "theses"
+        ],
+        "shown_base_fields": [
+          "dimension",
+          "rationale",
+          "score"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "counter",
+          "sort"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 商业模式 / 价投适配度",
+        "title": "价投适配度",
+        "fields": [
+          "dimension",
+          "score",
+          "rationale",
+          "theses"
+        ],
+        "shown_base_fields": [
+          "dimension",
+          "rationale",
+          "score"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "counter",
+          "sort"
+        ]
+      },
+      {
+        "path": "中国建筑 / 商业模式 / 价投适配度",
+        "title": "价投适配度",
+        "fields": [
+          "dimension",
+          "score",
+          "rationale",
+          "theses"
+        ],
+        "shown_base_fields": [
+          "dimension",
+          "rationale",
+          "score"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "counter",
+          "sort"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 商业模式 / 价投适配度",
+        "title": "价投适配度",
+        "fields": [
+          "dimension",
+          "score",
+          "rationale",
+          "theses"
+        ],
+        "shown_base_fields": [
+          "dimension",
+          "rationale",
+          "score"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "counter",
+          "sort"
+        ]
+      },
+      {
+        "path": "小米集团 / 商业模式 / 价投适配度",
+        "title": "价投适配度",
+        "fields": [
+          "dimension",
+          "score",
+          "rationale",
+          "theses"
+        ],
+        "shown_base_fields": [
+          "dimension",
+          "rationale",
+          "score"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "counter",
+          "sort"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 3,
+    "name_mismatch": true,
+    "all_root_shown_business_fields": [
+      "dimension",
+      "rationale",
+      "score"
+    ],
+    "form_business_fields": [
+      "company_id",
+      "counter",
+      "dimension",
+      "rationale",
+      "score",
+      "sort"
+    ],
+    "detail_business_fields": [
+      "company_id",
+      "counter",
+      "dimension",
+      "rationale",
+      "score",
+      "sort"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [],
+    "main_detail_templates": [
+      "fc7a8x3w9pp"
+    ]
+  },
+  {
+    "code": "judgment",
+    "base": "vi_judgment_base",
+    "collection": "vi_judgment",
+    "backend_title": "假设依据",
+    "source_title": "假设依据",
+    "base_columns": 15,
+    "business_columns": 12,
+    "derived_columns": [],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "假设依据"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 估值 / 假设依据",
+        "title": "假设依据",
+        "fields": [
+          "code",
+          "title",
+          "parameter",
+          "status",
+          "theses",
+          "facts"
+        ],
+        "shown_base_fields": [
+          "code",
+          "parameter",
+          "status",
+          "title"
+        ],
+        "not_shown_base_fields": [
+          "affected_years",
+          "change_threshold",
+          "company_id",
+          "counter_evidence",
+          "fact_layer",
+          "judgment",
+          "no_change_condition",
+          "transmission"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 估值 / 假设依据",
+        "title": "假设依据",
+        "fields": [
+          "code",
+          "title",
+          "parameter",
+          "status",
+          "theses",
+          "facts"
+        ],
+        "shown_base_fields": [
+          "code",
+          "parameter",
+          "status",
+          "title"
+        ],
+        "not_shown_base_fields": [
+          "affected_years",
+          "change_threshold",
+          "company_id",
+          "counter_evidence",
+          "fact_layer",
+          "judgment",
+          "no_change_condition",
+          "transmission"
+        ]
+      },
+      {
+        "path": "中国建筑 / 估值 / 假设依据",
+        "title": "假设依据",
+        "fields": [
+          "code",
+          "title",
+          "parameter",
+          "status",
+          "theses",
+          "facts"
+        ],
+        "shown_base_fields": [
+          "code",
+          "parameter",
+          "status",
+          "title"
+        ],
+        "not_shown_base_fields": [
+          "affected_years",
+          "change_threshold",
+          "company_id",
+          "counter_evidence",
+          "fact_layer",
+          "judgment",
+          "no_change_condition",
+          "transmission"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 估值 / 假设依据",
+        "title": "假设依据",
+        "fields": [
+          "code",
+          "title",
+          "parameter",
+          "status",
+          "theses",
+          "facts"
+        ],
+        "shown_base_fields": [
+          "code",
+          "parameter",
+          "status",
+          "title"
+        ],
+        "not_shown_base_fields": [
+          "affected_years",
+          "change_threshold",
+          "company_id",
+          "counter_evidence",
+          "fact_layer",
+          "judgment",
+          "no_change_condition",
+          "transmission"
+        ]
+      },
+      {
+        "path": "小米集团 / 估值 / 假设依据",
+        "title": "假设依据",
+        "fields": [
+          "code",
+          "title",
+          "parameter",
+          "status",
+          "theses",
+          "facts"
+        ],
+        "shown_base_fields": [
+          "code",
+          "parameter",
+          "status",
+          "title"
+        ],
+        "not_shown_base_fields": [
+          "affected_years",
+          "change_threshold",
+          "company_id",
+          "counter_evidence",
+          "fact_layer",
+          "judgment",
+          "no_change_condition",
+          "transmission"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 4,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "code",
+      "parameter",
+      "status",
+      "title"
+    ],
+    "form_business_fields": [
+      "affected_years",
+      "change_threshold",
+      "code",
+      "company_id",
+      "counter_evidence",
+      "fact_layer",
+      "judgment",
+      "no_change_condition",
+      "parameter",
+      "status",
+      "title",
+      "transmission"
+    ],
+    "detail_business_fields": [
+      "affected_years",
+      "change_threshold",
+      "code",
+      "company_id",
+      "counter_evidence",
+      "fact_layer",
+      "judgment",
+      "no_change_condition",
+      "parameter",
+      "status",
+      "title",
+      "transmission"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [],
+    "main_detail_templates": [
+      "qymrr7vfxka"
+    ]
+  },
+  {
+    "code": "fin_history",
+    "base": "vi_fin_history_base",
+    "collection": "vi_fin_history",
+    "backend_title": "历史财务（年度）",
+    "source_title": "历史财务（年度）",
+    "base_columns": 28,
+    "business_columns": 25,
+    "derived_columns": [
+      "burden",
+      "capex_to_cfo",
+      "cfo_to_np",
+      "fcf",
+      "finance_cost_yoy",
+      "gross_margin",
+      "minority_share",
+      "net_debt",
+      "net_debt_to_ebitda",
+      "np_yoy",
+      "payout",
+      "price",
+      "price_yoy",
+      "revenue_yoy",
+      "roe",
+      "tax_rate",
+      "volume_yoy"
+    ],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "财务数据"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 数据底稿 / 财务数据",
+        "title": "财务数据",
+        "fields": [
+          "year",
+          "scope_note",
+          "volume",
+          "price",
+          "revenue",
+          "gross_margin",
+          "np_parent",
+          "roe",
+          "payout",
+          "dps",
+          "finance_cost",
+          "cfo",
+          "capex",
+          "fcf",
+          "net_debt"
+        ],
+        "shown_base_fields": [
+          "capex",
+          "cfo",
+          "dps",
+          "finance_cost",
+          "np_parent",
+          "revenue",
+          "scope_note",
+          "volume",
+          "year"
+        ],
+        "not_shown_base_fields": [
+          "cash",
+          "company_id",
+          "cost_of_sales",
+          "da",
+          "dividend_total",
+          "equity_income",
+          "equity_parent",
+          "income_tax",
+          "interest_debt",
+          "invest_income",
+          "investee_cash_div",
+          "minority_profit",
+          "net_borrowing",
+          "note",
+          "pretax_profit",
+          "source_id"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 数据底稿 / 财务数据",
+        "title": "财务数据",
+        "fields": [
+          "dps",
+          "finance_cost",
+          "cfo",
+          "capex",
+          "year",
+          "scope_note",
+          "volume",
+          "price",
+          "revenue",
+          "gross_margin",
+          "np_parent",
+          "roe",
+          "payout",
+          "fcf",
+          "net_debt"
+        ],
+        "shown_base_fields": [
+          "capex",
+          "cfo",
+          "dps",
+          "finance_cost",
+          "np_parent",
+          "revenue",
+          "scope_note",
+          "volume",
+          "year"
+        ],
+        "not_shown_base_fields": [
+          "cash",
+          "company_id",
+          "cost_of_sales",
+          "da",
+          "dividend_total",
+          "equity_income",
+          "equity_parent",
+          "income_tax",
+          "interest_debt",
+          "invest_income",
+          "investee_cash_div",
+          "minority_profit",
+          "net_borrowing",
+          "note",
+          "pretax_profit",
+          "source_id"
+        ]
+      },
+      {
+        "path": "中国建筑 / 数据底稿 / 财务数据",
+        "title": "财务数据",
+        "fields": [
+          "year",
+          "scope_note",
+          "volume",
+          "price",
+          "revenue",
+          "gross_margin",
+          "np_parent",
+          "roe",
+          "payout",
+          "dps",
+          "finance_cost",
+          "cfo",
+          "capex",
+          "fcf",
+          "net_debt"
+        ],
+        "shown_base_fields": [
+          "capex",
+          "cfo",
+          "dps",
+          "finance_cost",
+          "np_parent",
+          "revenue",
+          "scope_note",
+          "volume",
+          "year"
+        ],
+        "not_shown_base_fields": [
+          "cash",
+          "company_id",
+          "cost_of_sales",
+          "da",
+          "dividend_total",
+          "equity_income",
+          "equity_parent",
+          "income_tax",
+          "interest_debt",
+          "invest_income",
+          "investee_cash_div",
+          "minority_profit",
+          "net_borrowing",
+          "note",
+          "pretax_profit",
+          "source_id"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 数据底稿 / 财务数据",
+        "title": "财务数据",
+        "fields": [
+          "year",
+          "scope_note",
+          "volume",
+          "price",
+          "revenue",
+          "gross_margin",
+          "np_parent",
+          "roe",
+          "payout",
+          "dps",
+          "finance_cost",
+          "cfo",
+          "capex",
+          "fcf",
+          "net_debt"
+        ],
+        "shown_base_fields": [
+          "capex",
+          "cfo",
+          "dps",
+          "finance_cost",
+          "np_parent",
+          "revenue",
+          "scope_note",
+          "volume",
+          "year"
+        ],
+        "not_shown_base_fields": [
+          "cash",
+          "company_id",
+          "cost_of_sales",
+          "da",
+          "dividend_total",
+          "equity_income",
+          "equity_parent",
+          "income_tax",
+          "interest_debt",
+          "invest_income",
+          "investee_cash_div",
+          "minority_profit",
+          "net_borrowing",
+          "note",
+          "pretax_profit",
+          "source_id"
+        ]
+      },
+      {
+        "path": "小米集团 / 数据底稿 / 财务数据",
+        "title": "财务数据",
+        "fields": [
+          "year",
+          "scope_note",
+          "volume",
+          "price",
+          "revenue",
+          "gross_margin",
+          "np_parent",
+          "roe",
+          "payout",
+          "dps",
+          "finance_cost",
+          "cfo",
+          "capex",
+          "fcf",
+          "net_debt"
+        ],
+        "shown_base_fields": [
+          "capex",
+          "cfo",
+          "dps",
+          "finance_cost",
+          "np_parent",
+          "revenue",
+          "scope_note",
+          "volume",
+          "year"
+        ],
+        "not_shown_base_fields": [
+          "cash",
+          "company_id",
+          "cost_of_sales",
+          "da",
+          "dividend_total",
+          "equity_income",
+          "equity_parent",
+          "income_tax",
+          "interest_debt",
+          "invest_income",
+          "investee_cash_div",
+          "minority_profit",
+          "net_borrowing",
+          "note",
+          "pretax_profit",
+          "source_id"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 9,
+    "name_mismatch": true,
+    "all_root_shown_business_fields": [
+      "capex",
+      "cfo",
+      "dps",
+      "finance_cost",
+      "np_parent",
+      "revenue",
+      "scope_note",
+      "volume",
+      "year"
+    ],
+    "form_business_fields": [
+      "capex",
+      "cash",
+      "cfo",
+      "company_id",
+      "cost_of_sales",
+      "da",
+      "dividend_total",
+      "dps",
+      "equity_income",
+      "equity_parent",
+      "finance_cost",
+      "income_tax",
+      "interest_debt",
+      "invest_income",
+      "investee_cash_div",
+      "minority_profit",
+      "net_borrowing",
+      "note",
+      "np_parent",
+      "pretax_profit",
+      "revenue",
+      "scope_note",
+      "source_id",
+      "volume",
+      "year"
+    ],
+    "detail_business_fields": [
+      "capex",
+      "cash",
+      "cfo",
+      "company_id",
+      "cost_of_sales",
+      "da",
+      "dividend_total",
+      "dps",
+      "equity_income",
+      "equity_parent",
+      "finance_cost",
+      "income_tax",
+      "interest_debt",
+      "invest_income",
+      "investee_cash_div",
+      "minority_profit",
+      "net_borrowing",
+      "note",
+      "np_parent",
+      "pretax_profit",
+      "revenue",
+      "scope_note",
+      "source_id",
+      "volume",
+      "year"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [],
+    "main_detail_templates": [
+      "qoq94uywd6f"
+    ]
+  },
+  {
+    "code": "period_data",
+    "base": "vi_period_data_base",
+    "collection": "vi_period_data",
+    "backend_title": "定期经营数据",
+    "source_title": "定期经营数据",
+    "base_columns": 16,
+    "business_columns": 13,
+    "derived_columns": [],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "经营数据"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 数据底稿 / 经营数据",
+        "title": "经营数据",
+        "fields": [
+          "assessment",
+          "impact",
+          "period",
+          "period_kind",
+          "line_item",
+          "value",
+          "unit",
+          "yoy",
+          "summary"
+        ],
+        "shown_base_fields": [
+          "assessment",
+          "impact",
+          "line_item",
+          "period",
+          "period_kind",
+          "summary",
+          "unit",
+          "value",
+          "yoy"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "period_end",
+          "source_id",
+          "status"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 数据底稿 / 经营数据",
+        "title": "经营数据",
+        "fields": [
+          "assessment",
+          "impact",
+          "period",
+          "period_kind",
+          "line_item",
+          "value",
+          "unit",
+          "yoy",
+          "summary"
+        ],
+        "shown_base_fields": [
+          "assessment",
+          "impact",
+          "line_item",
+          "period",
+          "period_kind",
+          "summary",
+          "unit",
+          "value",
+          "yoy"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "period_end",
+          "source_id",
+          "status"
+        ]
+      },
+      {
+        "path": "中国建筑 / 数据底稿 / 经营数据",
+        "title": "经营数据",
+        "fields": [
+          "period",
+          "period_kind",
+          "line_item",
+          "value",
+          "unit",
+          "yoy",
+          "summary",
+          "assessment",
+          "impact"
+        ],
+        "shown_base_fields": [
+          "assessment",
+          "impact",
+          "line_item",
+          "period",
+          "period_kind",
+          "summary",
+          "unit",
+          "value",
+          "yoy"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "period_end",
+          "source_id",
+          "status"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 数据底稿 / 经营数据",
+        "title": "经营数据",
+        "fields": [
+          "assessment",
+          "impact",
+          "period",
+          "period_kind",
+          "line_item",
+          "value",
+          "unit",
+          "yoy",
+          "summary"
+        ],
+        "shown_base_fields": [
+          "assessment",
+          "impact",
+          "line_item",
+          "period",
+          "period_kind",
+          "summary",
+          "unit",
+          "value",
+          "yoy"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "period_end",
+          "source_id",
+          "status"
+        ]
+      },
+      {
+        "path": "小米集团 / 数据底稿 / 经营数据",
+        "title": "经营数据",
+        "fields": [
+          "assessment",
+          "impact",
+          "period",
+          "period_kind",
+          "line_item",
+          "value",
+          "unit",
+          "yoy",
+          "summary"
+        ],
+        "shown_base_fields": [
+          "assessment",
+          "impact",
+          "line_item",
+          "period",
+          "period_kind",
+          "summary",
+          "unit",
+          "value",
+          "yoy"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "period_end",
+          "source_id",
+          "status"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 9,
+    "name_mismatch": true,
+    "all_root_shown_business_fields": [
+      "assessment",
+      "impact",
+      "line_item",
+      "period",
+      "period_kind",
+      "summary",
+      "unit",
+      "value",
+      "yoy"
+    ],
+    "form_business_fields": [
+      "assessment",
+      "company_id",
+      "impact",
+      "line_item",
+      "period",
+      "period_end",
+      "period_kind",
+      "source_id",
+      "status",
+      "summary",
+      "unit",
+      "value",
+      "yoy"
+    ],
+    "detail_business_fields": [
+      "assessment",
+      "company_id",
+      "impact",
+      "line_item",
+      "period",
+      "period_kind",
+      "source_id",
+      "status",
+      "summary",
+      "unit",
+      "value",
+      "yoy"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [
+      "period_end"
+    ],
+    "main_detail_templates": [
+      "6oawnw8po46"
+    ]
+  },
+  {
+    "code": "metric",
+    "base": "vi_metric_base",
+    "collection": "vi_metric",
+    "backend_title": "指标",
+    "source_title": "指标",
+    "base_columns": 13,
+    "business_columns": 10,
+    "derived_columns": [
+      "latest_date",
+      "latest_value",
+      "obs_count",
+      "scope",
+      "used_by",
+      "used_by_codes"
+    ],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 2,
+    "front_titles": [
+      "指标"
+    ],
+    "front_variants": [
+      {
+        "path": "框架与后台 / 指标",
+        "title": "指标",
+        "fields": [
+          "code",
+          "name",
+          "unit",
+          "category",
+          "scope",
+          "used_by",
+          "latest_value",
+          "latest_date",
+          "obs_count",
+          "source_name"
+        ],
+        "shown_base_fields": [
+          "category",
+          "code",
+          "name",
+          "source_name",
+          "unit"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "frequency",
+          "notes",
+          "valid_max",
+          "valid_min"
+        ]
+      },
+      {
+        "path": "宏观数据 / 指标",
+        "title": "指标",
+        "fields": [
+          "code",
+          "name",
+          "unit",
+          "category",
+          "scope",
+          "used_by",
+          "latest_value",
+          "obs_count",
+          "latest_date",
+          "source_name"
+        ],
+        "shown_base_fields": [
+          "category",
+          "code",
+          "name",
+          "source_name",
+          "unit"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "frequency",
+          "notes",
+          "valid_max",
+          "valid_min"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 5,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "category",
+      "code",
+      "name",
+      "source_name",
+      "unit"
+    ],
+    "form_business_fields": [
+      "category",
+      "code",
+      "company_id",
+      "frequency",
+      "name",
+      "notes",
+      "source_name",
+      "unit",
+      "valid_max",
+      "valid_min"
+    ],
+    "detail_business_fields": [
+      "category",
+      "code",
+      "company_id",
+      "frequency",
+      "name",
+      "notes",
+      "source_name",
+      "unit",
+      "valid_max",
+      "valid_min"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [],
+    "main_detail_templates": [
+      "sjaps967yqj"
+    ]
+  },
+  {
+    "code": "observation",
+    "base": "vi_observation_base",
+    "collection": "vi_observation",
+    "backend_title": "高频数据",
+    "source_title": "高频数据",
+    "base_columns": 10,
+    "business_columns": 7,
+    "derived_columns": [
+      "is_current",
+      "is_valid"
+    ],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 7,
+    "front_titles": [
+      "高频数据",
+      "高频数据（全部指标）"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 数据底稿 / 高频数据",
+        "title": "高频数据",
+        "fields": [
+          "metric",
+          "obs_date",
+          "value",
+          "is_current",
+          "is_valid",
+          "collected_at",
+          "source"
+        ],
+        "shown_base_fields": [
+          "collected_at",
+          "metric_id",
+          "obs_date",
+          "source",
+          "value"
+        ],
+        "not_shown_base_fields": [
+          "note",
+          "raw_capture_id"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 数据底稿 / 高频数据",
+        "title": "高频数据",
+        "fields": [
+          "metric",
+          "obs_date",
+          "value",
+          "is_current",
+          "is_valid",
+          "collected_at",
+          "source"
+        ],
+        "shown_base_fields": [
+          "collected_at",
+          "metric_id",
+          "obs_date",
+          "source",
+          "value"
+        ],
+        "not_shown_base_fields": [
+          "note",
+          "raw_capture_id"
+        ]
+      },
+      {
+        "path": "中国建筑 / 数据底稿 / 高频数据",
+        "title": "高频数据",
+        "fields": [
+          "metric",
+          "obs_date",
+          "value",
+          "is_current",
+          "is_valid",
+          "collected_at",
+          "source"
+        ],
+        "shown_base_fields": [
+          "collected_at",
+          "metric_id",
+          "obs_date",
+          "source",
+          "value"
+        ],
+        "not_shown_base_fields": [
+          "note",
+          "raw_capture_id"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 数据底稿 / 高频数据",
+        "title": "高频数据",
+        "fields": [
+          "metric",
+          "obs_date",
+          "value",
+          "is_current",
+          "is_valid",
+          "collected_at",
+          "source"
+        ],
+        "shown_base_fields": [
+          "collected_at",
+          "metric_id",
+          "obs_date",
+          "source",
+          "value"
+        ],
+        "not_shown_base_fields": [
+          "note",
+          "raw_capture_id"
+        ]
+      },
+      {
+        "path": "小米集团 / 数据底稿 / 高频数据",
+        "title": "高频数据",
+        "fields": [
+          "metric",
+          "obs_date",
+          "value",
+          "is_current",
+          "is_valid",
+          "collected_at",
+          "source"
+        ],
+        "shown_base_fields": [
+          "collected_at",
+          "metric_id",
+          "obs_date",
+          "source",
+          "value"
+        ],
+        "not_shown_base_fields": [
+          "note",
+          "raw_capture_id"
+        ]
+      },
+      {
+        "path": "框架与后台 / 采集 / 高频数据（全部指标）",
+        "title": "高频数据（全部指标）",
+        "fields": [
+          "metric",
+          "obs_date",
+          "value",
+          "is_current",
+          "is_valid",
+          "collected_at",
+          "source"
+        ],
+        "shown_base_fields": [
+          "collected_at",
+          "metric_id",
+          "obs_date",
+          "source",
+          "value"
+        ],
+        "not_shown_base_fields": [
+          "note",
+          "raw_capture_id"
+        ]
+      },
+      {
+        "path": "宏观数据 / 高频数据",
+        "title": "高频数据",
+        "fields": [
+          "metric",
+          "obs_date",
+          "value",
+          "is_current",
+          "is_valid",
+          "collected_at",
+          "source"
+        ],
+        "shown_base_fields": [
+          "collected_at",
+          "metric_id",
+          "obs_date",
+          "source",
+          "value"
+        ],
+        "not_shown_base_fields": [
+          "note",
+          "raw_capture_id"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 5,
+    "name_mismatch": true,
+    "all_root_shown_business_fields": [
+      "collected_at",
+      "metric_id",
+      "obs_date",
+      "source",
+      "value"
+    ],
+    "form_business_fields": [
+      "collected_at",
+      "metric_id",
+      "note",
+      "obs_date",
+      "raw_capture_id",
+      "source",
+      "value"
+    ],
+    "detail_business_fields": [
+      "collected_at",
+      "metric_id",
+      "note",
+      "raw_capture_id",
+      "source",
+      "value"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [
+      "obs_date"
+    ],
+    "main_detail_templates": [
+      "fhz3xa6xz6f"
+    ]
+  },
+  {
+    "code": "model",
+    "base": "vi_model_base",
+    "collection": "vi_model",
+    "backend_title": "估值模型",
+    "source_title": "估值模型",
+    "base_columns": 27,
+    "business_columns": 24,
+    "derived_columns": [
+      "base_discount_rate",
+      "latest_rf",
+      "latest_rf_date",
+      "valuation_date",
+      "years_elapsed"
+    ],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "估值模型"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 估值 / 估值模型",
+        "title": "估值模型",
+        "fields": [
+          "name",
+          "status",
+          "primary_method",
+          "required_return",
+          "base_year",
+          "terminal_year",
+          "shares",
+          "rf",
+          "erp",
+          "base_discount_rate",
+          "sotp_year",
+          "valuation_date"
+        ],
+        "shown_base_fields": [
+          "base_year",
+          "erp",
+          "name",
+          "primary_method",
+          "required_return",
+          "rf",
+          "shares",
+          "sotp_year",
+          "status",
+          "terminal_year"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "margin_high",
+          "margin_low",
+          "method",
+          "notes",
+          "opening_debt",
+          "opening_equity",
+          "opening_lt_invest",
+          "opening_minority",
+          "opening_op_assets",
+          "rf_date",
+          "rf_metric_id",
+          "sotp_as_of",
+          "sotp_core_adj"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 估值 / 估值模型",
+        "title": "估值模型",
+        "fields": [
+          "name",
+          "status",
+          "primary_method",
+          "required_return",
+          "base_year",
+          "terminal_year",
+          "shares",
+          "rf",
+          "erp",
+          "base_discount_rate",
+          "sotp_year",
+          "valuation_date"
+        ],
+        "shown_base_fields": [
+          "base_year",
+          "erp",
+          "name",
+          "primary_method",
+          "required_return",
+          "rf",
+          "shares",
+          "sotp_year",
+          "status",
+          "terminal_year"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "margin_high",
+          "margin_low",
+          "method",
+          "notes",
+          "opening_debt",
+          "opening_equity",
+          "opening_lt_invest",
+          "opening_minority",
+          "opening_op_assets",
+          "rf_date",
+          "rf_metric_id",
+          "sotp_as_of",
+          "sotp_core_adj"
+        ]
+      },
+      {
+        "path": "中国建筑 / 估值 / 估值模型",
+        "title": "估值模型",
+        "fields": [
+          "name",
+          "base_year",
+          "status",
+          "primary_method",
+          "required_return",
+          "terminal_year",
+          "shares",
+          "rf",
+          "erp",
+          "base_discount_rate",
+          "sotp_year",
+          "valuation_date"
+        ],
+        "shown_base_fields": [
+          "base_year",
+          "erp",
+          "name",
+          "primary_method",
+          "required_return",
+          "rf",
+          "shares",
+          "sotp_year",
+          "status",
+          "terminal_year"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "margin_high",
+          "margin_low",
+          "method",
+          "notes",
+          "opening_debt",
+          "opening_equity",
+          "opening_lt_invest",
+          "opening_minority",
+          "opening_op_assets",
+          "rf_date",
+          "rf_metric_id",
+          "sotp_as_of",
+          "sotp_core_adj"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 估值 / 估值模型",
+        "title": "估值模型",
+        "fields": [
+          "name",
+          "status",
+          "primary_method",
+          "required_return",
+          "base_year",
+          "terminal_year",
+          "shares",
+          "rf",
+          "erp",
+          "base_discount_rate",
+          "sotp_year",
+          "valuation_date"
+        ],
+        "shown_base_fields": [
+          "base_year",
+          "erp",
+          "name",
+          "primary_method",
+          "required_return",
+          "rf",
+          "shares",
+          "sotp_year",
+          "status",
+          "terminal_year"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "margin_high",
+          "margin_low",
+          "method",
+          "notes",
+          "opening_debt",
+          "opening_equity",
+          "opening_lt_invest",
+          "opening_minority",
+          "opening_op_assets",
+          "rf_date",
+          "rf_metric_id",
+          "sotp_as_of",
+          "sotp_core_adj"
+        ]
+      },
+      {
+        "path": "小米集团 / 估值 / 估值模型",
+        "title": "估值模型",
+        "fields": [
+          "name",
+          "status",
+          "primary_method",
+          "required_return",
+          "base_year",
+          "terminal_year",
+          "shares",
+          "rf",
+          "erp",
+          "base_discount_rate",
+          "sotp_year",
+          "valuation_date"
+        ],
+        "shown_base_fields": [
+          "base_year",
+          "erp",
+          "name",
+          "primary_method",
+          "required_return",
+          "rf",
+          "shares",
+          "sotp_year",
+          "status",
+          "terminal_year"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "margin_high",
+          "margin_low",
+          "method",
+          "notes",
+          "opening_debt",
+          "opening_equity",
+          "opening_lt_invest",
+          "opening_minority",
+          "opening_op_assets",
+          "rf_date",
+          "rf_metric_id",
+          "sotp_as_of",
+          "sotp_core_adj"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 10,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "base_year",
+      "erp",
+      "name",
+      "primary_method",
+      "required_return",
+      "rf",
+      "shares",
+      "sotp_year",
+      "status",
+      "terminal_year"
+    ],
+    "form_business_fields": [
+      "base_year",
+      "company_id",
+      "erp",
+      "margin_high",
+      "margin_low",
+      "method",
+      "name",
+      "notes",
+      "opening_debt",
+      "opening_equity",
+      "opening_lt_invest",
+      "opening_minority",
+      "opening_op_assets",
+      "primary_method",
+      "required_return",
+      "rf",
+      "rf_date",
+      "rf_metric_id",
+      "shares",
+      "sotp_as_of",
+      "sotp_core_adj",
+      "sotp_year",
+      "status",
+      "terminal_year"
+    ],
+    "detail_business_fields": [
+      "base_year",
+      "company_id",
+      "erp",
+      "margin_high",
+      "margin_low",
+      "method",
+      "name",
+      "notes",
+      "opening_debt",
+      "rf",
+      "rf_metric_id",
+      "shares",
+      "status",
+      "terminal_year"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [
+      "opening_equity",
+      "opening_lt_invest",
+      "opening_minority",
+      "opening_op_assets",
+      "primary_method",
+      "required_return",
+      "rf_date",
+      "sotp_as_of",
+      "sotp_core_adj",
+      "sotp_year"
+    ],
+    "main_detail_templates": [
+      "939a3yvix52"
+    ]
+  },
+  {
+    "code": "scenario",
+    "base": "vi_scenario_base",
+    "collection": "vi_scenario",
+    "backend_title": "情景",
+    "source_title": "情景",
+    "base_columns": 17,
+    "business_columns": 14,
+    "derived_columns": [
+      "eff_discount_rate"
+    ],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "情景"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 估值 / 情景",
+        "title": "情景",
+        "fields": [
+          "name",
+          "is_base",
+          "probability",
+          "volume_factor",
+          "price_factor",
+          "cost_factor",
+          "eff_discount_rate",
+          "terminal_growth",
+          "ronic",
+          "sotp_multiple",
+          "description"
+        ],
+        "shown_base_fields": [
+          "cost_factor",
+          "description",
+          "is_base",
+          "name",
+          "price_factor",
+          "probability",
+          "ronic",
+          "sotp_multiple",
+          "terminal_growth",
+          "volume_factor"
+        ],
+        "not_shown_base_fields": [
+          "discount_rate",
+          "model_id",
+          "nature",
+          "sort"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 估值 / 情景",
+        "title": "情景",
+        "fields": [
+          "name",
+          "is_base",
+          "probability",
+          "volume_factor",
+          "price_factor",
+          "cost_factor",
+          "eff_discount_rate",
+          "terminal_growth",
+          "ronic",
+          "sotp_multiple",
+          "description"
+        ],
+        "shown_base_fields": [
+          "cost_factor",
+          "description",
+          "is_base",
+          "name",
+          "price_factor",
+          "probability",
+          "ronic",
+          "sotp_multiple",
+          "terminal_growth",
+          "volume_factor"
+        ],
+        "not_shown_base_fields": [
+          "discount_rate",
+          "model_id",
+          "nature",
+          "sort"
+        ]
+      },
+      {
+        "path": "中国建筑 / 估值 / 情景",
+        "title": "情景",
+        "fields": [
+          "volume_factor",
+          "price_factor",
+          "ronic",
+          "cost_factor",
+          "eff_discount_rate",
+          "terminal_growth",
+          "sotp_multiple",
+          "description",
+          "name",
+          "is_base",
+          "probability"
+        ],
+        "shown_base_fields": [
+          "cost_factor",
+          "description",
+          "is_base",
+          "name",
+          "price_factor",
+          "probability",
+          "ronic",
+          "sotp_multiple",
+          "terminal_growth",
+          "volume_factor"
+        ],
+        "not_shown_base_fields": [
+          "discount_rate",
+          "model_id",
+          "nature",
+          "sort"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 估值 / 情景",
+        "title": "情景",
+        "fields": [
+          "description",
+          "probability",
+          "volume_factor",
+          "price_factor",
+          "cost_factor",
+          "eff_discount_rate",
+          "terminal_growth",
+          "ronic",
+          "sotp_multiple",
+          "name",
+          "is_base"
+        ],
+        "shown_base_fields": [
+          "cost_factor",
+          "description",
+          "is_base",
+          "name",
+          "price_factor",
+          "probability",
+          "ronic",
+          "sotp_multiple",
+          "terminal_growth",
+          "volume_factor"
+        ],
+        "not_shown_base_fields": [
+          "discount_rate",
+          "model_id",
+          "nature",
+          "sort"
+        ]
+      },
+      {
+        "path": "小米集团 / 估值 / 情景",
+        "title": "情景",
+        "fields": [
+          "volume_factor",
+          "price_factor",
+          "cost_factor",
+          "eff_discount_rate",
+          "name",
+          "is_base",
+          "probability",
+          "terminal_growth",
+          "ronic",
+          "sotp_multiple",
+          "description"
+        ],
+        "shown_base_fields": [
+          "cost_factor",
+          "description",
+          "is_base",
+          "name",
+          "price_factor",
+          "probability",
+          "ronic",
+          "sotp_multiple",
+          "terminal_growth",
+          "volume_factor"
+        ],
+        "not_shown_base_fields": [
+          "discount_rate",
+          "model_id",
+          "nature",
+          "sort"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 10,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "cost_factor",
+      "description",
+      "is_base",
+      "name",
+      "price_factor",
+      "probability",
+      "ronic",
+      "sotp_multiple",
+      "terminal_growth",
+      "volume_factor"
+    ],
+    "form_business_fields": [
+      "cost_factor",
+      "description",
+      "discount_rate",
+      "is_base",
+      "model_id",
+      "name",
+      "nature",
+      "price_factor",
+      "probability",
+      "ronic",
+      "sort",
+      "sotp_multiple",
+      "terminal_growth",
+      "volume_factor"
+    ],
+    "detail_business_fields": [
+      "cost_factor",
+      "description",
+      "discount_rate",
+      "is_base",
+      "model_id",
+      "name",
+      "nature",
+      "price_factor",
+      "sort",
+      "terminal_growth",
+      "volume_factor"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [
+      "probability",
+      "ronic",
+      "sotp_multiple"
+    ],
+    "main_detail_templates": [
+      "5m0puc52834"
+    ]
+  },
+  {
+    "code": "sotp_item",
+    "base": "vi_sotp_item_base",
+    "collection": "vi_sotp_item",
+    "backend_title": "分部估值项",
+    "source_title": "分部估值项",
+    "base_columns": 12,
+    "business_columns": 9,
+    "derived_columns": [
+      "scope",
+      "signed_value"
+    ],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "分部估值项"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 估值 / 分部估值项",
+        "title": "分部估值项",
+        "fields": [
+          "code",
+          "scenario",
+          "name",
+          "kind",
+          "amount",
+          "haircut",
+          "signed_value",
+          "as_of"
+        ],
+        "shown_base_fields": [
+          "amount",
+          "as_of",
+          "code",
+          "haircut",
+          "kind",
+          "name",
+          "scenario_id"
+        ],
+        "not_shown_base_fields": [
+          "basis",
+          "model_id"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 估值 / 分部估值项",
+        "title": "分部估值项",
+        "fields": [
+          "code",
+          "scenario",
+          "name",
+          "kind",
+          "amount",
+          "haircut",
+          "signed_value",
+          "as_of"
+        ],
+        "shown_base_fields": [
+          "amount",
+          "as_of",
+          "code",
+          "haircut",
+          "kind",
+          "name",
+          "scenario_id"
+        ],
+        "not_shown_base_fields": [
+          "basis",
+          "model_id"
+        ]
+      },
+      {
+        "path": "中国建筑 / 估值 / 分部估值项",
+        "title": "分部估值项",
+        "fields": [
+          "code",
+          "scenario",
+          "name",
+          "kind",
+          "amount",
+          "haircut",
+          "signed_value",
+          "as_of"
+        ],
+        "shown_base_fields": [
+          "amount",
+          "as_of",
+          "code",
+          "haircut",
+          "kind",
+          "name",
+          "scenario_id"
+        ],
+        "not_shown_base_fields": [
+          "basis",
+          "model_id"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 估值 / 分部估值项",
+        "title": "分部估值项",
+        "fields": [
+          "code",
+          "scenario",
+          "name",
+          "kind",
+          "amount",
+          "haircut",
+          "signed_value",
+          "as_of"
+        ],
+        "shown_base_fields": [
+          "amount",
+          "as_of",
+          "code",
+          "haircut",
+          "kind",
+          "name",
+          "scenario_id"
+        ],
+        "not_shown_base_fields": [
+          "basis",
+          "model_id"
+        ]
+      },
+      {
+        "path": "小米集团 / 估值 / 分部估值项",
+        "title": "分部估值项",
+        "fields": [
+          "code",
+          "scenario",
+          "name",
+          "kind",
+          "amount",
+          "haircut",
+          "signed_value",
+          "as_of"
+        ],
+        "shown_base_fields": [
+          "amount",
+          "as_of",
+          "code",
+          "haircut",
+          "kind",
+          "name",
+          "scenario_id"
+        ],
+        "not_shown_base_fields": [
+          "basis",
+          "model_id"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 7,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "amount",
+      "as_of",
+      "code",
+      "haircut",
+      "kind",
+      "name",
+      "scenario_id"
+    ],
+    "form_business_fields": [
+      "amount",
+      "as_of",
+      "basis",
+      "code",
+      "haircut",
+      "kind",
+      "model_id",
+      "name",
+      "scenario_id"
+    ],
+    "detail_business_fields": [
+      "amount",
+      "basis",
+      "code",
+      "haircut",
+      "kind",
+      "model_id",
+      "name",
+      "scenario_id"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [
+      "as_of"
+    ],
+    "main_detail_templates": [
+      "vg1rpce8s96"
+    ]
+  },
+  {
+    "code": "sotp_segment",
+    "base": "vi_sotp_segment_base",
+    "collection": "vi_sotp_segment",
+    "backend_title": "经营分部估值",
+    "source_title": "经营分部估值",
+    "base_columns": 24,
+    "business_columns": 21,
+    "derived_columns": [
+      "calc_scenario",
+      "earnings",
+      "eff_rate",
+      "formula_multiple",
+      "interim_pv",
+      "multiple_used",
+      "scope",
+      "terminal_pv",
+      "value",
+      "years_to_value"
+    ],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "经营分部估值"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 估值 / 经营分部估值",
+        "title": "经营分部估值",
+        "fields": [
+          "code",
+          "scenario",
+          "name",
+          "method",
+          "stage",
+          "earn_year",
+          "revenue",
+          "op_margin",
+          "multiple_used",
+          "eff_rate",
+          "interim_cash",
+          "commit_amount",
+          "ongoing_cost",
+          "direct_value",
+          "value",
+          "calc_scenario"
+        ],
+        "shown_base_fields": [
+          "code",
+          "commit_amount",
+          "direct_value",
+          "earn_year",
+          "interim_cash",
+          "method",
+          "name",
+          "ongoing_cost",
+          "op_margin",
+          "revenue",
+          "scenario_id",
+          "stage"
+        ],
+        "not_shown_base_fields": [
+          "attrib",
+          "basis",
+          "commit_years",
+          "discount_rate",
+          "growth",
+          "model_id",
+          "multiple",
+          "ronic",
+          "tax_rate"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 估值 / 经营分部估值",
+        "title": "经营分部估值",
+        "fields": [
+          "method",
+          "code",
+          "scenario",
+          "name",
+          "stage",
+          "earn_year",
+          "revenue",
+          "op_margin",
+          "multiple_used",
+          "eff_rate",
+          "interim_cash",
+          "commit_amount",
+          "ongoing_cost",
+          "direct_value",
+          "value",
+          "calc_scenario"
+        ],
+        "shown_base_fields": [
+          "code",
+          "commit_amount",
+          "direct_value",
+          "earn_year",
+          "interim_cash",
+          "method",
+          "name",
+          "ongoing_cost",
+          "op_margin",
+          "revenue",
+          "scenario_id",
+          "stage"
+        ],
+        "not_shown_base_fields": [
+          "attrib",
+          "basis",
+          "commit_years",
+          "discount_rate",
+          "growth",
+          "model_id",
+          "multiple",
+          "ronic",
+          "tax_rate"
+        ]
+      },
+      {
+        "path": "中国建筑 / 估值 / 经营分部估值",
+        "title": "经营分部估值",
+        "fields": [
+          "method",
+          "stage",
+          "commit_amount",
+          "ongoing_cost",
+          "direct_value",
+          "code",
+          "scenario",
+          "name",
+          "earn_year",
+          "revenue",
+          "op_margin",
+          "multiple_used",
+          "eff_rate",
+          "interim_cash",
+          "value",
+          "calc_scenario"
+        ],
+        "shown_base_fields": [
+          "code",
+          "commit_amount",
+          "direct_value",
+          "earn_year",
+          "interim_cash",
+          "method",
+          "name",
+          "ongoing_cost",
+          "op_margin",
+          "revenue",
+          "scenario_id",
+          "stage"
+        ],
+        "not_shown_base_fields": [
+          "attrib",
+          "basis",
+          "commit_years",
+          "discount_rate",
+          "growth",
+          "model_id",
+          "multiple",
+          "ronic",
+          "tax_rate"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 估值 / 经营分部估值",
+        "title": "经营分部估值",
+        "fields": [
+          "name",
+          "interim_cash",
+          "code",
+          "scenario",
+          "method",
+          "stage",
+          "earn_year",
+          "revenue",
+          "op_margin",
+          "multiple_used",
+          "eff_rate",
+          "commit_amount",
+          "ongoing_cost",
+          "direct_value",
+          "value",
+          "calc_scenario"
+        ],
+        "shown_base_fields": [
+          "code",
+          "commit_amount",
+          "direct_value",
+          "earn_year",
+          "interim_cash",
+          "method",
+          "name",
+          "ongoing_cost",
+          "op_margin",
+          "revenue",
+          "scenario_id",
+          "stage"
+        ],
+        "not_shown_base_fields": [
+          "attrib",
+          "basis",
+          "commit_years",
+          "discount_rate",
+          "growth",
+          "model_id",
+          "multiple",
+          "ronic",
+          "tax_rate"
+        ]
+      },
+      {
+        "path": "小米集团 / 估值 / 经营分部估值",
+        "title": "经营分部估值",
+        "fields": [
+          "code",
+          "scenario",
+          "name",
+          "method",
+          "stage",
+          "earn_year",
+          "revenue",
+          "op_margin",
+          "multiple_used",
+          "eff_rate",
+          "interim_cash",
+          "commit_amount",
+          "ongoing_cost",
+          "direct_value",
+          "value",
+          "calc_scenario"
+        ],
+        "shown_base_fields": [
+          "code",
+          "commit_amount",
+          "direct_value",
+          "earn_year",
+          "interim_cash",
+          "method",
+          "name",
+          "ongoing_cost",
+          "op_margin",
+          "revenue",
+          "scenario_id",
+          "stage"
+        ],
+        "not_shown_base_fields": [
+          "attrib",
+          "basis",
+          "commit_years",
+          "discount_rate",
+          "growth",
+          "model_id",
+          "multiple",
+          "ronic",
+          "tax_rate"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 12,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "code",
+      "commit_amount",
+      "direct_value",
+      "earn_year",
+      "interim_cash",
+      "method",
+      "name",
+      "ongoing_cost",
+      "op_margin",
+      "revenue",
+      "scenario_id",
+      "stage"
+    ],
+    "form_business_fields": [
+      "attrib",
+      "basis",
+      "code",
+      "commit_amount",
+      "commit_years",
+      "direct_value",
+      "discount_rate",
+      "earn_year",
+      "growth",
+      "interim_cash",
+      "method",
+      "model_id",
+      "multiple",
+      "name",
+      "ongoing_cost",
+      "op_margin",
+      "revenue",
+      "ronic",
+      "scenario_id",
+      "stage",
+      "tax_rate"
+    ],
+    "detail_business_fields": [
+      "attrib",
+      "basis",
+      "code",
+      "commit_amount",
+      "commit_years",
+      "direct_value",
+      "discount_rate",
+      "earn_year",
+      "growth",
+      "interim_cash",
+      "method",
+      "model_id",
+      "multiple",
+      "name",
+      "ongoing_cost",
+      "op_margin",
+      "revenue",
+      "ronic",
+      "scenario_id",
+      "stage",
+      "tax_rate"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [],
+    "main_detail_templates": [
+      "3vgjnbalpc9"
+    ]
+  },
+  {
+    "code": "forecast",
+    "base": "vi_forecast_base",
+    "collection": "vi_forecast",
+    "backend_title": "逐年假设",
+    "source_title": "逐年假设",
+    "base_columns": 25,
+    "business_columns": 22,
+    "derived_columns": [
+      "attrib_da",
+      "cash_complete",
+      "debt_close",
+      "debt_open",
+      "interest",
+      "revenue"
+    ],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "逐年假设"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 估值 / 逐年假设",
+        "title": "逐年假设",
+        "fields": [
+          "year",
+          "volume",
+          "price",
+          "revenue",
+          "cash_cost",
+          "depreciation",
+          "interest",
+          "other_contrib",
+          "tax_rate",
+          "payout",
+          "net_borrowing",
+          "cost_of_debt",
+          "maint_capex",
+          "growth_capex",
+          "operating_status",
+          "cash_status"
+        ],
+        "shown_base_fields": [
+          "cash_cost",
+          "cash_status",
+          "cost_of_debt",
+          "depreciation",
+          "growth_capex",
+          "maint_capex",
+          "net_borrowing",
+          "operating_status",
+          "other_contrib",
+          "payout",
+          "price",
+          "tax_rate",
+          "volume",
+          "year"
+        ],
+        "not_shown_base_fields": [
+          "investee_cash_div",
+          "min_cash_topup",
+          "minority_share",
+          "model_id",
+          "noncash_gain_deduct",
+          "note",
+          "other_cash_adj",
+          "wc_increase"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 估值 / 逐年假设",
+        "title": "逐年假设",
+        "fields": [
+          "growth_capex",
+          "price",
+          "revenue",
+          "cash_cost",
+          "depreciation",
+          "interest",
+          "year",
+          "volume",
+          "other_contrib",
+          "tax_rate",
+          "payout",
+          "net_borrowing",
+          "cost_of_debt",
+          "maint_capex",
+          "operating_status",
+          "cash_status"
+        ],
+        "shown_base_fields": [
+          "cash_cost",
+          "cash_status",
+          "cost_of_debt",
+          "depreciation",
+          "growth_capex",
+          "maint_capex",
+          "net_borrowing",
+          "operating_status",
+          "other_contrib",
+          "payout",
+          "price",
+          "tax_rate",
+          "volume",
+          "year"
+        ],
+        "not_shown_base_fields": [
+          "investee_cash_div",
+          "min_cash_topup",
+          "minority_share",
+          "model_id",
+          "noncash_gain_deduct",
+          "note",
+          "other_cash_adj",
+          "wc_increase"
+        ]
+      },
+      {
+        "path": "中国建筑 / 估值 / 逐年假设",
+        "title": "逐年假设",
+        "fields": [
+          "year",
+          "volume",
+          "price",
+          "revenue",
+          "cash_cost",
+          "depreciation",
+          "interest",
+          "other_contrib",
+          "tax_rate",
+          "payout",
+          "net_borrowing",
+          "cost_of_debt",
+          "maint_capex",
+          "growth_capex",
+          "operating_status",
+          "cash_status"
+        ],
+        "shown_base_fields": [
+          "cash_cost",
+          "cash_status",
+          "cost_of_debt",
+          "depreciation",
+          "growth_capex",
+          "maint_capex",
+          "net_borrowing",
+          "operating_status",
+          "other_contrib",
+          "payout",
+          "price",
+          "tax_rate",
+          "volume",
+          "year"
+        ],
+        "not_shown_base_fields": [
+          "investee_cash_div",
+          "min_cash_topup",
+          "minority_share",
+          "model_id",
+          "noncash_gain_deduct",
+          "note",
+          "other_cash_adj",
+          "wc_increase"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 估值 / 逐年假设",
+        "title": "逐年假设",
+        "fields": [
+          "year",
+          "volume",
+          "price",
+          "revenue",
+          "cash_cost",
+          "depreciation",
+          "interest",
+          "other_contrib",
+          "tax_rate",
+          "payout",
+          "net_borrowing",
+          "cost_of_debt",
+          "maint_capex",
+          "growth_capex",
+          "operating_status",
+          "cash_status"
+        ],
+        "shown_base_fields": [
+          "cash_cost",
+          "cash_status",
+          "cost_of_debt",
+          "depreciation",
+          "growth_capex",
+          "maint_capex",
+          "net_borrowing",
+          "operating_status",
+          "other_contrib",
+          "payout",
+          "price",
+          "tax_rate",
+          "volume",
+          "year"
+        ],
+        "not_shown_base_fields": [
+          "investee_cash_div",
+          "min_cash_topup",
+          "minority_share",
+          "model_id",
+          "noncash_gain_deduct",
+          "note",
+          "other_cash_adj",
+          "wc_increase"
+        ]
+      },
+      {
+        "path": "小米集团 / 估值 / 逐年假设",
+        "title": "逐年假设",
+        "fields": [
+          "year",
+          "volume",
+          "price",
+          "revenue",
+          "cash_cost",
+          "depreciation",
+          "interest",
+          "other_contrib",
+          "tax_rate",
+          "payout",
+          "net_borrowing",
+          "cost_of_debt",
+          "maint_capex",
+          "growth_capex",
+          "operating_status",
+          "cash_status"
+        ],
+        "shown_base_fields": [
+          "cash_cost",
+          "cash_status",
+          "cost_of_debt",
+          "depreciation",
+          "growth_capex",
+          "maint_capex",
+          "net_borrowing",
+          "operating_status",
+          "other_contrib",
+          "payout",
+          "price",
+          "tax_rate",
+          "volume",
+          "year"
+        ],
+        "not_shown_base_fields": [
+          "investee_cash_div",
+          "min_cash_topup",
+          "minority_share",
+          "model_id",
+          "noncash_gain_deduct",
+          "note",
+          "other_cash_adj",
+          "wc_increase"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 14,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "cash_cost",
+      "cash_status",
+      "cost_of_debt",
+      "depreciation",
+      "growth_capex",
+      "maint_capex",
+      "net_borrowing",
+      "operating_status",
+      "other_contrib",
+      "payout",
+      "price",
+      "tax_rate",
+      "volume",
+      "year"
+    ],
+    "form_business_fields": [
+      "cash_cost",
+      "cash_status",
+      "cost_of_debt",
+      "depreciation",
+      "growth_capex",
+      "investee_cash_div",
+      "maint_capex",
+      "min_cash_topup",
+      "minority_share",
+      "model_id",
+      "net_borrowing",
+      "noncash_gain_deduct",
+      "note",
+      "operating_status",
+      "other_cash_adj",
+      "other_contrib",
+      "payout",
+      "price",
+      "tax_rate",
+      "volume",
+      "wc_increase",
+      "year"
+    ],
+    "detail_business_fields": [
+      "cash_cost",
+      "cash_status",
+      "cost_of_debt",
+      "depreciation",
+      "growth_capex",
+      "investee_cash_div",
+      "maint_capex",
+      "min_cash_topup",
+      "minority_share",
+      "model_id",
+      "net_borrowing",
+      "noncash_gain_deduct",
+      "note",
+      "operating_status",
+      "other_cash_adj",
+      "other_contrib",
+      "payout",
+      "price",
+      "tax_rate",
+      "volume",
+      "wc_increase",
+      "year"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [],
+    "main_detail_templates": [
+      "6w9lmqqyqw9"
+    ]
+  },
+  {
+    "code": "trial",
+    "base": "vi_trial_base",
+    "collection": "vi_trial",
+    "backend_title": "单参数试验",
+    "source_title": "单参数试验",
+    "base_columns": 14,
+    "business_columns": 11,
+    "derived_columns": [
+      "base_value",
+      "change_pct",
+      "trial_value",
+      "value_change"
+    ],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "单参数试验"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 估值 / 单参数试验",
+        "title": "单参数试验",
+        "fields": [
+          "base_value",
+          "trial_value",
+          "value_change",
+          "change_pct",
+          "name",
+          "start_year",
+          "end_year"
+        ],
+        "shown_base_fields": [
+          "end_year",
+          "name",
+          "start_year"
+        ],
+        "not_shown_base_fields": [
+          "boundary",
+          "cost_delta",
+          "da_delta",
+          "interest_delta",
+          "model_id",
+          "price_delta",
+          "rate_delta",
+          "volume_delta"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 估值 / 单参数试验",
+        "title": "单参数试验",
+        "fields": [
+          "base_value",
+          "trial_value",
+          "value_change",
+          "change_pct",
+          "name",
+          "start_year",
+          "end_year"
+        ],
+        "shown_base_fields": [
+          "end_year",
+          "name",
+          "start_year"
+        ],
+        "not_shown_base_fields": [
+          "boundary",
+          "cost_delta",
+          "da_delta",
+          "interest_delta",
+          "model_id",
+          "price_delta",
+          "rate_delta",
+          "volume_delta"
+        ]
+      },
+      {
+        "path": "中国建筑 / 估值 / 单参数试验",
+        "title": "单参数试验",
+        "fields": [
+          "name",
+          "start_year",
+          "end_year",
+          "base_value",
+          "trial_value",
+          "value_change",
+          "change_pct"
+        ],
+        "shown_base_fields": [
+          "end_year",
+          "name",
+          "start_year"
+        ],
+        "not_shown_base_fields": [
+          "boundary",
+          "cost_delta",
+          "da_delta",
+          "interest_delta",
+          "model_id",
+          "price_delta",
+          "rate_delta",
+          "volume_delta"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 估值 / 单参数试验",
+        "title": "单参数试验",
+        "fields": [
+          "name",
+          "start_year",
+          "end_year",
+          "base_value",
+          "trial_value",
+          "value_change",
+          "change_pct"
+        ],
+        "shown_base_fields": [
+          "end_year",
+          "name",
+          "start_year"
+        ],
+        "not_shown_base_fields": [
+          "boundary",
+          "cost_delta",
+          "da_delta",
+          "interest_delta",
+          "model_id",
+          "price_delta",
+          "rate_delta",
+          "volume_delta"
+        ]
+      },
+      {
+        "path": "小米集团 / 估值 / 单参数试验",
+        "title": "单参数试验",
+        "fields": [
+          "name",
+          "start_year",
+          "end_year",
+          "base_value",
+          "trial_value",
+          "value_change",
+          "change_pct"
+        ],
+        "shown_base_fields": [
+          "end_year",
+          "name",
+          "start_year"
+        ],
+        "not_shown_base_fields": [
+          "boundary",
+          "cost_delta",
+          "da_delta",
+          "interest_delta",
+          "model_id",
+          "price_delta",
+          "rate_delta",
+          "volume_delta"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 3,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "end_year",
+      "name",
+      "start_year"
+    ],
+    "form_business_fields": [
+      "boundary",
+      "cost_delta",
+      "da_delta",
+      "end_year",
+      "interest_delta",
+      "model_id",
+      "name",
+      "price_delta",
+      "rate_delta",
+      "start_year",
+      "volume_delta"
+    ],
+    "detail_business_fields": [
+      "boundary",
+      "cost_delta",
+      "da_delta",
+      "end_year",
+      "interest_delta",
+      "model_id",
+      "name",
+      "price_delta",
+      "rate_delta",
+      "start_year",
+      "volume_delta"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [],
+    "main_detail_templates": [
+      "pq4p7fx223o"
+    ]
+  },
+  {
+    "code": "watch",
+    "base": "vi_watch_base",
+    "collection": "vi_watch",
+    "backend_title": "跟踪事项",
+    "source_title": "跟踪事项",
+    "base_columns": 12,
+    "business_columns": 9,
+    "derived_columns": [
+      "latest_date",
+      "latest_value"
+    ],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "跟踪事项"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 跟踪 / 跟踪事项",
+        "title": "跟踪事项",
+        "fields": [
+          "trigger",
+          "code",
+          "title",
+          "metric",
+          "latest_value",
+          "latest_date",
+          "frequency"
+        ],
+        "shown_base_fields": [
+          "code",
+          "frequency",
+          "metric_id",
+          "title",
+          "trigger"
+        ],
+        "not_shown_base_fields": [
+          "action",
+          "company_id",
+          "nature",
+          "preferred_source"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 跟踪 / 跟踪事项",
+        "title": "跟踪事项",
+        "fields": [
+          "code",
+          "title",
+          "metric",
+          "latest_value",
+          "latest_date",
+          "frequency",
+          "trigger"
+        ],
+        "shown_base_fields": [
+          "code",
+          "frequency",
+          "metric_id",
+          "title",
+          "trigger"
+        ],
+        "not_shown_base_fields": [
+          "action",
+          "company_id",
+          "nature",
+          "preferred_source"
+        ]
+      },
+      {
+        "path": "中国建筑 / 跟踪 / 跟踪事项",
+        "title": "跟踪事项",
+        "fields": [
+          "code",
+          "title",
+          "metric",
+          "latest_value",
+          "latest_date",
+          "frequency",
+          "trigger"
+        ],
+        "shown_base_fields": [
+          "code",
+          "frequency",
+          "metric_id",
+          "title",
+          "trigger"
+        ],
+        "not_shown_base_fields": [
+          "action",
+          "company_id",
+          "nature",
+          "preferred_source"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 跟踪 / 跟踪事项",
+        "title": "跟踪事项",
+        "fields": [
+          "code",
+          "title",
+          "metric",
+          "latest_value",
+          "latest_date",
+          "frequency",
+          "trigger"
+        ],
+        "shown_base_fields": [
+          "code",
+          "frequency",
+          "metric_id",
+          "title",
+          "trigger"
+        ],
+        "not_shown_base_fields": [
+          "action",
+          "company_id",
+          "nature",
+          "preferred_source"
+        ]
+      },
+      {
+        "path": "小米集团 / 跟踪 / 跟踪事项",
+        "title": "跟踪事项",
+        "fields": [
+          "code",
+          "title",
+          "metric",
+          "latest_value",
+          "latest_date",
+          "frequency",
+          "trigger"
+        ],
+        "shown_base_fields": [
+          "code",
+          "frequency",
+          "metric_id",
+          "title",
+          "trigger"
+        ],
+        "not_shown_base_fields": [
+          "action",
+          "company_id",
+          "nature",
+          "preferred_source"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 5,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "code",
+      "frequency",
+      "metric_id",
+      "title",
+      "trigger"
+    ],
+    "form_business_fields": [
+      "action",
+      "code",
+      "company_id",
+      "frequency",
+      "metric_id",
+      "nature",
+      "preferred_source",
+      "title",
+      "trigger"
+    ],
+    "detail_business_fields": [
+      "action",
+      "code",
+      "company_id",
+      "frequency",
+      "metric_id",
+      "nature",
+      "preferred_source",
+      "title",
+      "trigger"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [],
+    "main_detail_templates": [
+      "kz1myd6asv6"
+    ]
+  },
+  {
+    "code": "issue",
+    "base": "vi_issue_base",
+    "collection": "vi_issue",
+    "backend_title": "问题清单",
+    "source_title": "问题清单",
+    "base_columns": 11,
+    "business_columns": 8,
+    "derived_columns": [],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "问题清单"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 跟踪 / 问题清单",
+        "title": "问题清单",
+        "fields": [
+          "severity",
+          "code",
+          "title",
+          "status",
+          "impact",
+          "progress"
+        ],
+        "shown_base_fields": [
+          "code",
+          "impact",
+          "progress",
+          "severity",
+          "status",
+          "title"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "done_condition"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 跟踪 / 问题清单",
+        "title": "问题清单",
+        "fields": [
+          "impact",
+          "progress",
+          "code",
+          "title",
+          "severity",
+          "status"
+        ],
+        "shown_base_fields": [
+          "code",
+          "impact",
+          "progress",
+          "severity",
+          "status",
+          "title"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "done_condition"
+        ]
+      },
+      {
+        "path": "中国建筑 / 跟踪 / 问题清单",
+        "title": "问题清单",
+        "fields": [
+          "title",
+          "code",
+          "severity",
+          "status",
+          "impact",
+          "progress"
+        ],
+        "shown_base_fields": [
+          "code",
+          "impact",
+          "progress",
+          "severity",
+          "status",
+          "title"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "done_condition"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 跟踪 / 问题清单",
+        "title": "问题清单",
+        "fields": [
+          "code",
+          "title",
+          "severity",
+          "status",
+          "impact",
+          "progress"
+        ],
+        "shown_base_fields": [
+          "code",
+          "impact",
+          "progress",
+          "severity",
+          "status",
+          "title"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "done_condition"
+        ]
+      },
+      {
+        "path": "小米集团 / 跟踪 / 问题清单",
+        "title": "问题清单",
+        "fields": [
+          "code",
+          "title",
+          "severity",
+          "status",
+          "impact",
+          "progress"
+        ],
+        "shown_base_fields": [
+          "code",
+          "impact",
+          "progress",
+          "severity",
+          "status",
+          "title"
+        ],
+        "not_shown_base_fields": [
+          "company_id",
+          "done_condition"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 6,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "code",
+      "impact",
+      "progress",
+      "severity",
+      "status",
+      "title"
+    ],
+    "form_business_fields": [
+      "code",
+      "company_id",
+      "done_condition",
+      "impact",
+      "progress",
+      "severity",
+      "status",
+      "title"
+    ],
+    "detail_business_fields": [
+      "code",
+      "company_id",
+      "done_condition",
+      "impact",
+      "progress",
+      "severity",
+      "status",
+      "title"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [],
+    "main_detail_templates": [
+      "ub2vq9a4753"
+    ]
+  },
+  {
+    "code": "change_log",
+    "base": "vi_change_log_base",
+    "collection": "vi_change_log",
+    "backend_title": "变更日志",
+    "source_title": "变更日志",
+    "base_columns": 12,
+    "business_columns": 9,
+    "derived_columns": [],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 5,
+    "front_titles": [
+      "变更日志"
+    ],
+    "front_variants": [
+      {
+        "path": "长江电力 / 跟踪 / 变更日志",
+        "title": "变更日志",
+        "fields": [
+          "target",
+          "reason",
+          "verification",
+          "change_date",
+          "title"
+        ],
+        "shown_base_fields": [
+          "change_date",
+          "reason",
+          "target",
+          "title",
+          "verification"
+        ],
+        "not_shown_base_fields": [
+          "basis",
+          "company_id",
+          "new_value",
+          "old_value"
+        ]
+      },
+      {
+        "path": "太阳纸业 / 跟踪 / 变更日志",
+        "title": "变更日志",
+        "fields": [
+          "target",
+          "reason",
+          "verification",
+          "change_date",
+          "title"
+        ],
+        "shown_base_fields": [
+          "change_date",
+          "reason",
+          "target",
+          "title",
+          "verification"
+        ],
+        "not_shown_base_fields": [
+          "basis",
+          "company_id",
+          "new_value",
+          "old_value"
+        ]
+      },
+      {
+        "path": "中国建筑 / 跟踪 / 变更日志",
+        "title": "变更日志",
+        "fields": [
+          "change_date",
+          "title",
+          "target",
+          "reason",
+          "verification"
+        ],
+        "shown_base_fields": [
+          "change_date",
+          "reason",
+          "target",
+          "title",
+          "verification"
+        ],
+        "not_shown_base_fields": [
+          "basis",
+          "company_id",
+          "new_value",
+          "old_value"
+        ]
+      },
+      {
+        "path": "腾讯音乐 / 跟踪 / 变更日志",
+        "title": "变更日志",
+        "fields": [
+          "change_date",
+          "title",
+          "target",
+          "reason",
+          "verification"
+        ],
+        "shown_base_fields": [
+          "change_date",
+          "reason",
+          "target",
+          "title",
+          "verification"
+        ],
+        "not_shown_base_fields": [
+          "basis",
+          "company_id",
+          "new_value",
+          "old_value"
+        ]
+      },
+      {
+        "path": "小米集团 / 跟踪 / 变更日志",
+        "title": "变更日志",
+        "fields": [
+          "change_date",
+          "title",
+          "target",
+          "reason",
+          "verification"
+        ],
+        "shown_base_fields": [
+          "change_date",
+          "reason",
+          "target",
+          "title",
+          "verification"
+        ],
+        "not_shown_base_fields": [
+          "basis",
+          "company_id",
+          "new_value",
+          "old_value"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 5,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "change_date",
+      "reason",
+      "target",
+      "title",
+      "verification"
+    ],
+    "form_business_fields": [
+      "basis",
+      "change_date",
+      "company_id",
+      "new_value",
+      "old_value",
+      "reason",
+      "target",
+      "title",
+      "verification"
+    ],
+    "detail_business_fields": [
+      "basis",
+      "company_id",
+      "new_value",
+      "old_value",
+      "reason",
+      "target",
+      "title",
+      "verification"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [
+      "change_date"
+    ],
+    "main_detail_templates": [
+      "tr39bdtre9j"
+    ]
+  },
+  {
+    "code": "collector",
+    "base": "vi_collector_base",
+    "collection": "vi_collector",
+    "backend_title": "采集配置",
+    "source_title": "采集配置",
+    "base_columns": 13,
+    "business_columns": 10,
+    "derived_columns": [
+      "health",
+      "last_collected",
+      "last_obs_date",
+      "last_result",
+      "needs_alert"
+    ],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 2,
+    "front_titles": [
+      "采集配置"
+    ],
+    "front_variants": [
+      {
+        "path": "框架与后台 / 采集 / 采集配置",
+        "title": "采集配置",
+        "fields": [
+          "name",
+          "metric",
+          "parser",
+          "parser_param",
+          "enabled",
+          "health",
+          "last_collected",
+          "last_obs_date",
+          "last_result"
+        ],
+        "shown_base_fields": [
+          "enabled",
+          "metric_id",
+          "name",
+          "parser",
+          "parser_param"
+        ],
+        "not_shown_base_fields": [
+          "last_selfcheck",
+          "max_lag_days",
+          "notes",
+          "selfcheck_result",
+          "url"
+        ]
+      },
+      {
+        "path": "宏观数据 / 采集配置",
+        "title": "采集配置",
+        "fields": [
+          "name",
+          "metric",
+          "parser",
+          "enabled",
+          "parser_param",
+          "health",
+          "last_collected",
+          "last_obs_date",
+          "last_result"
+        ],
+        "shown_base_fields": [
+          "enabled",
+          "metric_id",
+          "name",
+          "parser",
+          "parser_param"
+        ],
+        "not_shown_base_fields": [
+          "last_selfcheck",
+          "max_lag_days",
+          "notes",
+          "selfcheck_result",
+          "url"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 5,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "enabled",
+      "metric_id",
+      "name",
+      "parser",
+      "parser_param"
+    ],
+    "form_business_fields": [
+      "enabled",
+      "last_selfcheck",
+      "max_lag_days",
+      "metric_id",
+      "name",
+      "notes",
+      "parser",
+      "parser_param",
+      "selfcheck_result",
+      "url"
+    ],
+    "detail_business_fields": [
+      "enabled",
+      "last_selfcheck",
+      "max_lag_days",
+      "metric_id",
+      "name",
+      "notes",
+      "parser",
+      "parser_param",
+      "selfcheck_result",
+      "url"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [],
+    "main_detail_templates": [
+      "ivyo8mrn1gx"
+    ]
+  },
+  {
+    "code": "collect_run",
+    "base": "vi_collect_run_base",
+    "collection": "vi_collect_run",
+    "backend_title": "采集运行",
+    "source_title": "采集运行",
+    "base_columns": 7,
+    "business_columns": 4,
+    "derived_columns": [
+      "duplicates",
+      "fetch_failed",
+      "finished_at",
+      "ingested",
+      "invalid",
+      "raw_count",
+      "requested_at",
+      "seconds",
+      "summary"
+    ],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 1,
+    "front_titles": [
+      "采集运行"
+    ],
+    "front_variants": [
+      {
+        "path": "框架与后台 / 采集 / 采集运行",
+        "title": "采集运行",
+        "fields": [
+          "status",
+          "requested_at",
+          "seconds",
+          "summary",
+          "label",
+          "trigger_source"
+        ],
+        "shown_base_fields": [
+          "label",
+          "status",
+          "trigger_source"
+        ],
+        "not_shown_base_fields": [
+          "company_id"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 3,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "label",
+      "status",
+      "trigger_source"
+    ],
+    "form_business_fields": [
+      "label",
+      "status",
+      "trigger_source"
+    ],
+    "detail_business_fields": [
+      "label",
+      "status",
+      "trigger_source"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [
+      "company_id"
+    ],
+    "not_present_in_forms": [
+      "company_id"
+    ],
+    "not_present_in_details": [
+      "company_id"
+    ],
+    "main_detail_templates": [
+      "j07qav6jtpb"
+    ]
+  },
+  {
+    "code": "raw_capture",
+    "base": "vi_raw_capture_base",
+    "collection": "vi_raw_capture",
+    "backend_title": "原始采集记录",
+    "source_title": "原始采集记录",
+    "base_columns": 10,
+    "business_columns": 7,
+    "derived_columns": [
+      "already_exists",
+      "decision",
+      "fetch_note",
+      "fetch_ok",
+      "is_valid",
+      "parsed_date",
+      "parsed_value"
+    ],
+    "missing_from_view": [
+      "created_at"
+    ],
+    "unregistered_view_columns": [],
+    "front_table_blocks": 1,
+    "front_titles": [
+      "原始采集记录"
+    ],
+    "front_variants": [
+      {
+        "path": "框架与后台 / 采集 / 原始采集记录",
+        "title": "原始采集记录",
+        "fields": [
+          "run_label",
+          "collector",
+          "collected_at",
+          "fetch_note",
+          "status",
+          "parsed_date",
+          "parsed_value",
+          "decision"
+        ],
+        "shown_base_fields": [
+          "collected_at",
+          "collector_id",
+          "run_label",
+          "status"
+        ],
+        "not_shown_base_fields": [
+          "fetch_result",
+          "raw_response",
+          "run_id"
+        ]
+      }
+    ],
+    "max_shown_business_columns": 4,
+    "name_mismatch": false,
+    "all_root_shown_business_fields": [
+      "collected_at",
+      "collector_id",
+      "run_label",
+      "status"
+    ],
+    "form_business_fields": [
+      "collected_at",
+      "collector_id",
+      "fetch_result",
+      "raw_response",
+      "run_id",
+      "run_label",
+      "status"
+    ],
+    "detail_business_fields": [
+      "collected_at",
+      "collector_id",
+      "fetch_result",
+      "raw_response",
+      "run_id",
+      "run_label",
+      "status"
+    ],
+    "not_present_anywhere_in_reachable_field_bindings": [],
+    "not_present_in_forms": [],
+    "not_present_in_details": [],
+    "main_detail_templates": [
+      "2rxf67rytbs"
+    ]
+  }
+]

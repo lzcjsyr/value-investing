@@ -1,0 +1,480 @@
+{
+  "manifest_version": "v1",
+  "format": "ndjson",
+  "base_token": "PMnCb5BsGaME0ysW21uc7pHJnDb",
+  "table_id": "tbl5aXeR7rjoTkM9",
+  "rev": 50,
+  "timezone": "Asia/Shanghai",
+  "query_context": {
+    "field_scope": "selected_fields",
+    "record_scope": "all_records"
+  },
+  "requested_limit": 2000,
+  "records_count": 30,
+  "page_count": 1,
+  "has_more": false,
+  "record_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/snapshots/20260925T092637/tbl5aXeR7rjoTkM9.ndjson",
+  "record_file_size_bytes": 37338,
+  "manifest_file": "/Users/dielangli/Desktop/二级市场/价值投资/长江电力/workbench_v2/snapshots/20260925T092637/tbl5aXeR7rjoTkM9.manifest.json",
+  "columns": {
+    "FCFE亿元": {
+      "field_id": "fldMTOyyXG",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "FCFE现值亿元": {
+      "field_id": "fldSaC8Btu",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "record_id": {
+      "physical_type": "string",
+      "stats": {
+        "max_length": 14
+      },
+      "example": "recvvEm7nYInUH"
+    },
+    "付现成本亿元": {
+      "field_id": "fldYWA4aKy",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 3
+      },
+      "example": "203"
+    },
+    "付现成本系数": {
+      "field_id": "fldG6wzy8n",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 4
+      },
+      "example": "1"
+    },
+    "估值基年": {
+      "field_id": "fldQT5ymIC",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 4
+      },
+      "example": "2025"
+    },
+    "其他净贡献亿元": {
+      "field_id": "fld2KRWPfa",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 2
+      },
+      "example": "45"
+    },
+    "其他现金调整亿元": {
+      "field_id": "fldBWwtnoQ",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "净借款亿元": {
+      "field_id": "fld23TEDZO",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "利息亿元": {
+      "field_id": "fldoUZ98GP",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 2
+      },
+      "example": "86"
+    },
+    "年份": {
+      "field_id": "fldIJcsndI",
+      "field_type": "number",
+      "physical_type": "number|null",
+      "stats": {
+        "null_count": 0,
+        "min": 2026,
+        "max": 2035,
+        "avg": 2030.5
+      },
+      "example": 2026
+    },
+    "年度输入": {
+      "field_id": "fldRiYOXwp",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        {
+          "id": "recvvEm5yY6Pqr"
+        }
+      ]
+    },
+    "归属折旧加回亿元": {
+      "field_id": "fld42JEyiB",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "归母利润代理亿元": {
+      "field_id": "flde2xKKpi",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "360.538122"
+    },
+    "情景名称": {
+      "field_id": "fldkt5WgVs",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 2
+      },
+      "example": "悲观"
+    },
+    "情景输入": {
+      "field_id": "fldHI6ZTh3",
+      "field_type": "link",
+      "physical_type": "array<struct<id string>>",
+      "stats": {
+        "empty_count": 0,
+        "max_length": 1,
+        "avg_length": 1
+      },
+      "example": [
+        {
+          "id": "recvvEm3NsbZHF"
+        }
+      ]
+    },
+    "所有者收益亿元": {
+      "field_id": "fldkXFcp6y",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "扩张资本亿元": {
+      "field_id": "fldkEADyFP",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "投资现金分红亿元": {
+      "field_id": "fld08ZaqGD",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "折旧亿元": {
+      "field_id": "fldQ2Z7eoB",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 3
+      },
+      "example": "190"
+    },
+    "折现因子": {
+      "field_id": "fldSGT0jQD",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "0.78614369"
+    },
+    "折现率": {
+      "field_id": "fldCybur27",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 5
+      },
+      "example": "0.062"
+    },
+    "收入亿元": {
+      "field_id": "fldEThfDdP",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "870.17"
+    },
+    "最低现金补充亿元": {
+      "field_id": "fldMTciTB3",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "模型键": {
+      "field_id": "fldik45SVM",
+      "field_type": "text",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 7
+      },
+      "example": "悲观-2026"
+    },
+    "永续增长率": {
+      "field_id": "fldFPDHzKN",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 5
+      },
+      "example": "0"
+    },
+    "派息率": {
+      "field_id": "fldtv3afhd",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 4
+      },
+      "example": "0.72"
+    },
+    "现金支持分红亿元": {
+      "field_id": "fld4KVI3rj",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "现金支持股息现值亿元": {
+      "field_id": "fldbM5cW5K",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "现金数据完整": {
+      "field_id": "fldUwbuDiT",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 5
+      },
+      "example": "false"
+    },
+    "电价元": {
+      "field_id": "fldPp8okNW",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "0.2807"
+    },
+    "电价系数": {
+      "field_id": "fldPApgLTU",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 4
+      },
+      "example": "1"
+    },
+    "电量亿千瓦时": {
+      "field_id": "fldhA52FfU",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 4
+      },
+      "example": "3100"
+    },
+    "电量系数": {
+      "field_id": "fldEhCRCPM",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 4
+      },
+      "example": "1"
+    },
+    "税前利润亿元": {
+      "field_id": "fldj6HmDuO",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "436.17"
+    },
+    "终值年份": {
+      "field_id": "fldmrtlHRq",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 4
+      },
+      "example": "2035"
+    },
+    "维持资本亿元": {
+      "field_id": "fld9zThgxP",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "综合负担率": {
+      "field_id": "fldOpmEA18",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "0.1734"
+    },
+    "股本亿股": {
+      "field_id": "fldDR586qx",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 6
+      },
+      "example": "244.68"
+    },
+    "营运资本增加亿元": {
+      "field_id": "fldQwAff0Y",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "计划股息亿元": {
+      "field_id": "fldLF3JadW",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "198.159343"
+    },
+    "计划股息现值亿元": {
+      "field_id": "fldnKpSVaY",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 11
+      },
+      "example": "137.768"
+    },
+    "计算状态": {
+      "field_id": "fld1mHjozY",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 14
+      },
+      "example": "DDM条件计算；现金桥接缺失"
+    },
+    "资金缺口亿元": {
+      "field_id": "fld6LlircL",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    },
+    "非现金收益扣除亿元": {
+      "field_id": "fldTsVhNnD",
+      "field_type": "formula",
+      "physical_type": "string|null",
+      "stats": {
+        "null_count": 0,
+        "max_length": 0
+      },
+      "hint": "All values are empty; type inference may be ambiguous. Avoid analyzing this column unless required."
+    }
+  }
+}

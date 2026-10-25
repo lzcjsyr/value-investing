@@ -1,0 +1,177 @@
+{
+ "version": "1",
+ "mode": "create",
+ "navigation": {
+  "group": {
+   "routeId": 393523187810304
+  },
+  "item": {
+   "title": "分部加总估值",
+   "icon": "FundOutlined"
+  }
+ },
+ "page": {
+  "title": "分部加总估值",
+  "documentTitle": "腾讯音乐 · 分部加总估值"
+ },
+ "defaults": {
+  "collections": {
+   "vi_sotp": {
+    "popups": {
+     "view": {
+      "name": "分部加总估值·详情",
+      "description": "查看一条「分部加总估值」记录"
+     },
+     "addNew": {
+      "name": "分部加总估值·新增",
+      "description": "新增一条「分部加总估值」记录"
+     },
+     "edit": {
+      "name": "分部加总估值·编辑",
+      "description": "编辑一条「分部加总估值」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "识别",
+      "fields": [
+       "scenario_name",
+       "is_base",
+       "company_name",
+       "model_name",
+       "model_id",
+       "company_id",
+       "core_year",
+       "as_of"
+      ]
+     },
+     {
+      "title": "核心业务",
+      "fields": [
+       "core_pretax",
+       "core_earnings",
+       "discount_rate",
+       "terminal_growth",
+       "ronic",
+       "formula_multiple",
+       "multiple",
+       "core_value"
+      ]
+     },
+     {
+      "title": "经营分部",
+      "fields": [
+       "segments_value",
+       "mature_value",
+       "mature_earnings",
+       "mature_multiple",
+       "growth_value",
+       "invest_value",
+       "direct_value",
+       "mature_earn_pv",
+       "mature_interim_pv"
+      ]
+     },
+     {
+      "title": "非经营部分",
+      "fields": [
+       "cash",
+       "debt",
+       "op_cash",
+       "repatriation",
+       "usable_net_cash",
+       "investments",
+       "minority_other",
+       "noncore"
+      ]
+     },
+     {
+      "title": "结论（1/2）",
+      "fields": [
+       "equity_value",
+       "shares",
+       "value_per_share",
+       "value_per_share_quote",
+       "market_price",
+       "price_vs_value",
+       "implied_core_multiple",
+       "implied_mature_multiple",
+       "implied_growth_value",
+       "probability"
+      ]
+     },
+     {
+      "title": "结论（2/2）",
+      "fields": [
+       "weighted_value",
+       "ddm_value",
+       "diff_vs_ddm",
+       "watch_low",
+       "watch_high",
+       "conclusion"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "tabs": [
+  {
+   "title": "分部加总估值",
+   "blocks": [
+    {
+     "key": "main",
+     "type": "table",
+     "collection": "vi_sotp",
+     "fields": [
+      "scenario_name",
+      "probability",
+      "core_earnings",
+      "multiple",
+      "core_value",
+      "segments_value",
+      "usable_net_cash",
+      "investments",
+      "minority_other",
+      "value_per_share",
+      "value_per_share_quote",
+      "market_price",
+      "price_vs_value",
+      "implied_core_multiple",
+      "implied_mature_multiple",
+      "implied_growth_value",
+      "weighted_value",
+      "ddm_value",
+      "conclusion"
+     ],
+     "settings": {
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "id",
+        "direction": "asc"
+       }
+      ],
+      "dataScope": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "company_id",
+         "operator": "$eq",
+         "value": 11
+        }
+       ]
+      }
+     },
+     "actions": [
+      "filter",
+      "refresh"
+     ],
+     "recordActions": [
+      "view"
+     ]
+    }
+   ]
+  }
+ ]
+}

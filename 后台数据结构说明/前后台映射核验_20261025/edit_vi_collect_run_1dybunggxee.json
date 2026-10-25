@@ -1,0 +1,785 @@
+{
+  "data": {
+    "target": {
+      "locator": {
+        "uid": "ubd10xo4i5q"
+      },
+      "uid": "ubd10xo4i5q",
+      "kind": "node"
+    },
+    "tree": {
+      "use": "EditActionModel",
+      "props": {
+        "title": "{{t(\"Edit\")}}",
+        "icon": null,
+        "type": "link"
+      },
+      "decoratorProps": {},
+      "stepParams": {
+        "buttonSettings": {
+          "general": {
+            "title": "{{t(\"Edit\")}}",
+            "icon": null,
+            "type": "link",
+            "iconOnly": false
+          }
+        },
+        "popupSettings": {
+          "openView": {
+            "mode": "drawer",
+            "size": "medium",
+            "pageModelClass": "ChildPageModel",
+            "dataSourceKey": "main",
+            "collectionName": "vi_collect_run",
+            "title": "编辑 · 采集运行",
+            "filterByTk": "{{ctx.record.id}}"
+          }
+        }
+      },
+      "flowRegistry": {},
+      "uid": "ubd10xo4i5q",
+      "subModels": {
+        "page": {
+          "parentId": "ubd10xo4i5q",
+          "subKey": "page",
+          "subType": "object",
+          "use": "ChildPageModel",
+          "props": {
+            "displayTitle": false,
+            "enableTabs": true
+          },
+          "stepParams": {
+            "pageSettings": {
+              "general": {
+                "displayTitle": false,
+                "enableTabs": true
+              }
+            }
+          },
+          "parent": "ubd10xo4i5q",
+          "sortIndex": 1,
+          "uid": "wuklfyhwsfr",
+          "subModels": {
+            "tabs": [
+              {
+                "use": "ChildPageTabModel",
+                "props": {
+                  "title": "{{t(\"Details\")}}"
+                },
+                "stepParams": {
+                  "pageTabSettings": {
+                    "tab": {
+                      "title": "{{t(\"Details\")}}"
+                    }
+                  }
+                },
+                "subKey": "tabs",
+                "subType": "array",
+                "parent": "wuklfyhwsfr",
+                "parentId": "wuklfyhwsfr",
+                "sortIndex": 1,
+                "uid": "snmho2sgxqq",
+                "subModels": {
+                  "grid": {
+                    "use": "BlockGridModel",
+                    "subKey": "grid",
+                    "subType": "object",
+                    "props": {
+                      "rows": {
+                        "row1": [
+                          [
+                            "kvs3liei0nz"
+                          ]
+                        ]
+                      },
+                      "sizes": {
+                        "row1": [
+                          24
+                        ]
+                      },
+                      "rowOrder": [
+                        "row1"
+                      ]
+                    },
+                    "stepParams": {
+                      "gridSettings": {
+                        "grid": {
+                          "rows": {
+                            "row1": [
+                              [
+                                "kjx2qzllzeh"
+                              ]
+                            ]
+                          },
+                          "sizes": {
+                            "row1": [
+                              24
+                            ]
+                          },
+                          "rowOrder": [
+                            "row1"
+                          ]
+                        }
+                      }
+                    },
+                    "parent": "snmho2sgxqq",
+                    "parentId": "snmho2sgxqq",
+                    "sortIndex": 1,
+                    "uid": "v1jof31zw3o",
+                    "subModels": {
+                      "items": [
+                        {
+                          "parentId": "v1jof31zw3o",
+                          "subKey": "items",
+                          "subType": "array",
+                          "use": "EditFormModel",
+                          "props": {},
+                          "decoratorProps": {},
+                          "stepParams": {
+                            "resourceSettings": {
+                              "init": {
+                                "dataSourceKey": "main",
+                                "collectionName": "vi_collect_run",
+                                "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+                              }
+                            }
+                          },
+                          "parent": "v1jof31zw3o",
+                          "sortIndex": 1,
+                          "uid": "kjx2qzllzeh",
+                          "subModels": {
+                            "grid": {
+                              "use": "FormGridModel",
+                              "subKey": "grid",
+                              "subType": "object",
+                              "stepParams": {
+                                "gridSettings": {
+                                  "grid": {
+                                    "rows": {
+                                      "row1": [
+                                        [
+                                          "mdpkc5lbnpi"
+                                        ],
+                                        [
+                                          "mq3hwcdekm6"
+                                        ]
+                                      ],
+                                      "row2": [
+                                        [
+                                          "5d7e94dd7ve"
+                                        ]
+                                      ]
+                                    },
+                                    "sizes": {
+                                      "row1": [
+                                        12,
+                                        12
+                                      ],
+                                      "row2": [
+                                        24
+                                      ]
+                                    },
+                                    "rowOrder": [
+                                      "row1",
+                                      "row2"
+                                    ]
+                                  }
+                                }
+                              },
+                              "props": {
+                                "rows": {
+                                  "row1": [
+                                    [
+                                      "ffmbr0gclj9"
+                                    ],
+                                    [
+                                      "p3nn41i6t4c"
+                                    ]
+                                  ],
+                                  "row2": [
+                                    [
+                                      "wyhkm1qol2j"
+                                    ]
+                                  ]
+                                },
+                                "sizes": {
+                                  "row1": [
+                                    12,
+                                    12
+                                  ],
+                                  "row2": [
+                                    24
+                                  ]
+                                },
+                                "rowOrder": [
+                                  "row1",
+                                  "row2"
+                                ]
+                              },
+                              "parent": "kjx2qzllzeh",
+                              "parentId": "kjx2qzllzeh",
+                              "sortIndex": 1,
+                              "uid": "xl2y1e0lv67",
+                              "subModels": {
+                                "items": [
+                                  {
+                                    "parentId": "xl2y1e0lv67",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "FormItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_collect_run",
+                                          "fieldPath": "label"
+                                        }
+                                      }
+                                    },
+                                    "parent": "xl2y1e0lv67",
+                                    "sortIndex": 1,
+                                    "uid": "mdpkc5lbnpi",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "InputFieldModel",
+                                        "props": {},
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_collect_run",
+                                              "fieldPath": "label"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "mdpkc5lbnpi",
+                                        "parentId": "mdpkc5lbnpi",
+                                        "sortIndex": 1,
+                                        "uid": "2f885dl0ch7",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "xl2y1e0lv67",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "FormItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_collect_run",
+                                          "fieldPath": "trigger_source"
+                                        }
+                                      }
+                                    },
+                                    "parent": "xl2y1e0lv67",
+                                    "sortIndex": 2,
+                                    "uid": "mq3hwcdekm6",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "SelectFieldModel",
+                                        "props": {
+                                          "allowClear": true
+                                        },
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_collect_run",
+                                              "fieldPath": "trigger_source"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "mq3hwcdekm6",
+                                        "parentId": "mq3hwcdekm6",
+                                        "sortIndex": 1,
+                                        "uid": "aefux16vavu",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  },
+                                  {
+                                    "parentId": "xl2y1e0lv67",
+                                    "subKey": "items",
+                                    "subType": "array",
+                                    "use": "FormItemModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "vi_collect_run",
+                                          "fieldPath": "status"
+                                        }
+                                      }
+                                    },
+                                    "parent": "xl2y1e0lv67",
+                                    "sortIndex": 3,
+                                    "uid": "5d7e94dd7ve",
+                                    "subModels": {
+                                      "field": {
+                                        "use": "SelectFieldModel",
+                                        "props": {
+                                          "allowClear": true
+                                        },
+                                        "stepParams": {
+                                          "fieldSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "vi_collect_run",
+                                              "fieldPath": "status"
+                                            }
+                                          }
+                                        },
+                                        "subKey": "field",
+                                        "subType": "object",
+                                        "parent": "5d7e94dd7ve",
+                                        "parentId": "5d7e94dd7ve",
+                                        "sortIndex": 1,
+                                        "uid": "0ybtqjjcv6c",
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    },
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  }
+                                ]
+                              },
+                              "popup": {
+                                "mode": "local"
+                              }
+                            },
+                            "actions": [
+                              {
+                                "parentId": "kjx2qzllzeh",
+                                "subKey": "actions",
+                                "subType": "array",
+                                "use": "FormSubmitActionModel",
+                                "props": {
+                                  "title": "{{t(\"Submit\")}}",
+                                  "type": "primary",
+                                  "htmlType": "submit"
+                                },
+                                "decoratorProps": {},
+                                "stepParams": {
+                                  "buttonSettings": {
+                                    "general": {
+                                      "title": "{{t(\"Submit\")}}",
+                                      "type": "primary"
+                                    }
+                                  },
+                                  "submitSettings": {
+                                    "confirm": {
+                                      "enable": false,
+                                      "title": "{{t(\"Submit record\")}}",
+                                      "content": "{{t(\"Are you sure you want to save it?\")}}"
+                                    }
+                                  }
+                                },
+                                "flowRegistry": {},
+                                "parent": "kjx2qzllzeh",
+                                "sortIndex": 1,
+                                "uid": "c53zliyna52",
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            ]
+                          },
+                          "popup": {
+                            "mode": "local"
+                          }
+                        }
+                      ]
+                    },
+                    "popup": {
+                      "mode": "local"
+                    }
+                  }
+                },
+                "popup": {
+                  "mode": "local"
+                }
+              }
+            ]
+          },
+          "popup": {
+            "mode": "local"
+          }
+        }
+      },
+      "popup": {
+        "mode": "local",
+        "pageUid": "wuklfyhwsfr",
+        "tabUid": "snmho2sgxqq",
+        "gridUid": "v1jof31zw3o"
+      }
+    },
+    "nodeMap": {
+      "ubd10xo4i5q": {
+        "uid": "ubd10xo4i5q",
+        "use": "EditActionModel",
+        "props": {
+          "title": "{{t(\"Edit\")}}",
+          "icon": null,
+          "type": "link"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Edit\")}}",
+              "icon": null,
+              "type": "link",
+              "iconOnly": false
+            }
+          },
+          "popupSettings": {
+            "openView": {
+              "mode": "drawer",
+              "size": "medium",
+              "pageModelClass": "ChildPageModel",
+              "dataSourceKey": "main",
+              "collectionName": "vi_collect_run",
+              "title": "编辑 · 采集运行",
+              "filterByTk": "{{ctx.record.id}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local",
+          "pageUid": "wuklfyhwsfr",
+          "tabUid": "snmho2sgxqq",
+          "gridUid": "v1jof31zw3o"
+        }
+      },
+      "wuklfyhwsfr": {
+        "uid": "wuklfyhwsfr",
+        "use": "ChildPageModel",
+        "props": {
+          "displayTitle": false,
+          "enableTabs": true
+        },
+        "stepParams": {
+          "pageSettings": {
+            "general": {
+              "displayTitle": false,
+              "enableTabs": true
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "snmho2sgxqq": {
+        "uid": "snmho2sgxqq",
+        "use": "ChildPageTabModel",
+        "props": {
+          "title": "{{t(\"Details\")}}"
+        },
+        "stepParams": {
+          "pageTabSettings": {
+            "tab": {
+              "title": "{{t(\"Details\")}}"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "v1jof31zw3o": {
+        "uid": "v1jof31zw3o",
+        "use": "BlockGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "kvs3liei0nz"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "kjx2qzllzeh"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "kjx2qzllzeh": {
+        "uid": "kjx2qzllzeh",
+        "use": "EditFormModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "resourceSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_collect_run",
+              "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "xl2y1e0lv67": {
+        "uid": "xl2y1e0lv67",
+        "use": "FormGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "ffmbr0gclj9"
+              ],
+              [
+                "p3nn41i6t4c"
+              ]
+            ],
+            "row2": [
+              [
+                "wyhkm1qol2j"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              12,
+              12
+            ],
+            "row2": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1",
+            "row2"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "mdpkc5lbnpi"
+                  ],
+                  [
+                    "mq3hwcdekm6"
+                  ]
+                ],
+                "row2": [
+                  [
+                    "5d7e94dd7ve"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  12,
+                  12
+                ],
+                "row2": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1",
+                "row2"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "mdpkc5lbnpi": {
+        "uid": "mdpkc5lbnpi",
+        "use": "FormItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_collect_run",
+              "fieldPath": "label"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "2f885dl0ch7": {
+        "uid": "2f885dl0ch7",
+        "use": "InputFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_collect_run",
+              "fieldPath": "label"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "mq3hwcdekm6": {
+        "uid": "mq3hwcdekm6",
+        "use": "FormItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_collect_run",
+              "fieldPath": "trigger_source"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "aefux16vavu": {
+        "uid": "aefux16vavu",
+        "use": "SelectFieldModel",
+        "props": {
+          "allowClear": true
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_collect_run",
+              "fieldPath": "trigger_source"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "5d7e94dd7ve": {
+        "uid": "5d7e94dd7ve",
+        "use": "FormItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_collect_run",
+              "fieldPath": "status"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "0ybtqjjcv6c": {
+        "uid": "0ybtqjjcv6c",
+        "use": "SelectFieldModel",
+        "props": {
+          "allowClear": true
+        },
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_collect_run",
+              "fieldPath": "status"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "c53zliyna52": {
+        "uid": "c53zliyna52",
+        "use": "FormSubmitActionModel",
+        "props": {
+          "title": "{{t(\"Submit\")}}",
+          "type": "primary",
+          "htmlType": "submit"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "{{t(\"Submit\")}}",
+              "type": "primary"
+            }
+          },
+          "submitSettings": {
+            "confirm": {
+              "enable": false,
+              "title": "{{t(\"Submit record\")}}",
+              "content": "{{t(\"Are you sure you want to save it?\")}}"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      }
+    }
+  }
+}

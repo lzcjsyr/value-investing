@@ -1,0 +1,15 @@
+{
+  "data": {
+    "createdAt": "2026-10-21T14:04:03.128Z",
+    "updatedAt": "2026-10-21T14:04:03.128Z",
+    "uid": "aw62l13qhfd",
+    "name": "新增 · 定期经营数据弹窗模板",
+    "description": "复用弹窗模板。场景：addNew；数据表：vi_period_data；宿主：vi_period_data；触发器：操作“addNew”；上下文：直接/当前记录；内容：vi_period_data。",
+    "targetUid": "snnqe22r0y9",
+    "useModel": "CreateFormModel",
+    "type": "popup",
+    "dataSourceKey": "main",
+    "collectionName": "vi_period_data",
+    "usageCount": 5
+  }
+}

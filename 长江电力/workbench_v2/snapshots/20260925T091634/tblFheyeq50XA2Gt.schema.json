@@ -1,0 +1,75 @@
+[
+  {
+    "default_value": null,
+    "id": "fldoWHX4hx",
+    "name": "折现率r_pct",
+    "style": {
+      "percentage": false,
+      "precision": 2,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldMMsasti",
+    "name": "永续增长g_pct",
+    "style": {
+      "percentage": false,
+      "precision": 2,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "expression": "ROUND([基期每股股息_元]*(1+[十年股息增速g1_pct]/100)*(1-POWER((1+[十年股息增速g1_pct]/100)/(1+[折现率r_pct]/100),10))/(([折现率r_pct]/100)-([十年股息增速g1_pct]/100))+[基期每股股息_元]*POWER(1+[十年股息增速g1_pct]/100,10)*(1+[永续增长g_pct]/100)/((([折现率r_pct]/100)-([永续增长g_pct]/100))*POWER(1+[折现率r_pct]/100,10)),2)",
+    "id": "fldXTWZArF",
+    "name": "每股内在价值_元",
+    "type": "formula"
+  },
+  {
+    "default_value": null,
+    "id": "fldVl6wFrc",
+    "name": "假设说明",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "id": "fldYOFvKFI",
+    "name": "情景",
+    "style": {
+      "type": "plain"
+    },
+    "type": "text"
+  },
+  {
+    "default_value": null,
+    "description": "2025年实际每股股息1.00元",
+    "id": "fldr8edkv1",
+    "name": "基期每股股息_元",
+    "style": {
+      "percentage": false,
+      "precision": 2,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  },
+  {
+    "default_value": null,
+    "id": "fldeFqZbN8",
+    "name": "十年股息增速g1_pct",
+    "style": {
+      "percentage": false,
+      "precision": 2,
+      "thousands_separator": false,
+      "type": "plain"
+    },
+    "type": "number"
+  }
+]

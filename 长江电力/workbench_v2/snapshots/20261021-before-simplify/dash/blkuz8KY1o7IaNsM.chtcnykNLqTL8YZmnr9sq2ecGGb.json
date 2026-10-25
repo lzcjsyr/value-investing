@@ -1,0 +1,54 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "block": {
+      "block_id": "chtcnykNLqTL8YZmnr9sq2ecGGb",
+      "data_config": {
+        "filter": {
+          "conditions": [
+            {
+              "field_name": "年份",
+              "operator": "isGreaterEqual",
+              "value": [
+                "2023"
+              ]
+            }
+          ],
+          "conjunction": "and"
+        },
+        "group_by": [
+          {
+            "field_name": "年份",
+            "mode": "integrated",
+            "sort": {
+              "order": "asc",
+              "type": "group"
+            }
+          }
+        ],
+        "series": [
+          {
+            "field_name": "发电量_亿千瓦时",
+            "rollup": "SUM"
+          }
+        ],
+        "table_name": "年度数据"
+      },
+      "name": "发电量（六站口径）",
+      "position": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 10
+      },
+      "standard_position": {
+        "h": 416,
+        "w": 498,
+        "x": 0,
+        "y": 1040
+      },
+      "type": "column"
+    }
+  }
+}

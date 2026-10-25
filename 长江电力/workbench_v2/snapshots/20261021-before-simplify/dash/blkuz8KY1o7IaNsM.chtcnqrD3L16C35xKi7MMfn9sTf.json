@@ -1,0 +1,62 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "block": {
+      "block_id": "chtcnqrD3L16C35xKi7MMfn9sTf",
+      "data_config": {
+        "filter": {
+          "conditions": [
+            {
+              "field_name": "年份",
+              "operator": "isGreaterEqual",
+              "value": [
+                "2021"
+              ]
+            }
+          ],
+          "conjunction": "and"
+        },
+        "group_by": [
+          {
+            "field_name": "年份",
+            "mode": "integrated",
+            "sort": {
+              "order": "asc",
+              "type": "group"
+            }
+          }
+        ],
+        "series": [
+          {
+            "field_name": "归母净利_亿",
+            "rollup": "SUM"
+          },
+          {
+            "field_name": "经营现金流_亿",
+            "rollup": "SUM"
+          },
+          {
+            "field_name": "折旧加财务费用_亿",
+            "rollup": "SUM"
+          }
+        ],
+        "table_name": "年度数据"
+      },
+      "name": "利润质量：净利/现金流/折旧+财务费用",
+      "position": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 2
+      },
+      "standard_position": {
+        "h": 416,
+        "w": 498,
+        "x": 498,
+        "y": 208
+      },
+      "type": "line"
+    }
+  }
+}
