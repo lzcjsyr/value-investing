@@ -2,24 +2,24 @@
  "version": "1",
  "mode": "replace",
  "page": {
-  "title": "自动检查",
-  "documentTitle": "太阳纸业 · 自动检查"
+  "title": "质量自检",
+  "documentTitle": "太阳纸业 · 质量自检"
  },
  "defaults": {
   "collections": {
    "vi_check": {
     "popups": {
      "view": {
-      "name": "自动检查·详情",
-      "description": "查看一条「自动检查」记录"
+      "name": "质量自检·详情",
+      "description": "查看一条「质量自检」记录"
      },
      "addNew": {
-      "name": "自动检查·新增",
-      "description": "新增一条「自动检查」记录"
+      "name": "质量自检·新增",
+      "description": "新增一条「质量自检」记录"
      },
      "edit": {
-      "name": "自动检查·编辑",
-      "description": "编辑一条「自动检查」记录"
+      "name": "质量自检·编辑",
+      "description": "编辑一条「质量自检」记录"
      }
     }
    }
@@ -27,7 +27,7 @@
  },
  "tabs": [
   {
-   "title": "自动检查",
+   "title": "质量自检",
    "blocks": [
     {
      "key": "main",

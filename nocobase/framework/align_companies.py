@@ -54,9 +54,11 @@ def native_tab(code, title, gid, co):
     return b['tabs'][0], b['defaults']['collections']
 
 
-def business(co):
+def business(co, only=None):
     gid = chain.group_id(co)
     for code in biz.VIEWS:
+        if only and code not in only:
+            continue
         key = bp.page_key(code, co)
         title = biz.page_title(code)
         if key not in bp.state()['pages']:
@@ -64,14 +66,22 @@ def business(co):
                 raise RuntimeError('页面创建失败：' + key)
         b = aligned_blueprint(code, title, gid, co)
         visual = biz.VIEWS[code][0]
+        extra_tabs = []
+        if code == 'biz_model' and co['code'] == '01810.HK':
+            tab, defaults = native_tab('business', '业务分部（编辑）', gid, co)
+            tab['title'] = '业务分部（编辑）'
+            extra_tabs.append(tab)
+            b['defaults']['collections'].update(defaults)
         apply(f'bizview_{code}_{co["code"]}', {
             'version': '1', 'mode': 'replace', 'target': {'pageSchemaUid': bp.state()['pages'][key]['pageSchemaUid']},
             'page': {'title': title, 'documentTitle': f'{co["name"]} · {title}', 'enableTabs': True},
             'defaults': b['defaults'],
             'assets': {'scripts': {code: {'version': 'v2', 'code': business_script(code, co)}}},
             'tabs': [{'title': visual, 'blocks': [{'type': 'jsBlock', 'script': code}]},
-                     {'title': biz.EDIT_TAB, 'blocks': b['tabs'][0]['blocks']}]})
-        bp.order_tabs(key, [visual, biz.EDIT_TAB])
+                     {'title': biz.EDIT_TAB, 'blocks': b['tabs'][0]['blocks']}] + extra_tabs})
+        bp.order_tabs(key, [visual, biz.EDIT_TAB] + [t['title'] for t in extra_tabs])
+    if only:
+        return
     key = bp.page_key(chain.KEY, co)
     b = chain.body(co, gid)
     if key in bp.state()['pages']:
@@ -102,16 +112,18 @@ def business_script(code, co):
     return js
 
 
-def finance(co):
+def finance(co, only=None):
     gid = bp.ensure_group(bp.state(), f'{co["name"]}/预测与估值', '预测与估值', 'CalculatorOutlined', parent=bp.company_root(bp.state(), co))
     profile = val.PROFILES[co['code']]
     for key, title, icon, factory in val.PAGES:
+        if only and key not in only:
+            continue
         script = financial_script(key, co)
         b = val.body(co, key, title, script)
         b['page']['enableTabs'] = True
         b['defaults'] = {'collections': {}}
         edits = [('forecast', '逐年假设（编辑）')] if key == 'assume' else \
-                ([('sotp_segment', '经营分部（编辑）')] if co['code'] == '01810.HK' else []) + [('sotp_item', '资产项目（编辑）')] if profile['method'] == 'sotp' else []
+                ([('sotp_segment', '业务估值（编辑）')] if co['code'] == '01810.HK' else []) + [('sotp_item', '资产估值与调整（编辑）')] if profile['method'] == 'sotp' else []
         if key == 'val':
             b['tabs'][0]['title'] = '分部估值' if profile['method'] == 'sotp' else '回报与门槛'
         for table, label in edits:

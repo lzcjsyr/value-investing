@@ -1,0 +1,138 @@
+{
+ "data": {
+  "fields": [
+   {
+    "name": "id",
+    "rawType": "BIGINT",
+    "field": "id",
+    "type": "bigInt",
+    "possibleTypes": [
+     "bigInt",
+     "snowflakeId",
+     "unixTimestamp",
+     "sort"
+    ]
+   },
+   {
+    "name": "code",
+    "rawType": "TEXT",
+    "field": "code",
+    "type": "text"
+   },
+   {
+    "name": "name",
+    "rawType": "TEXT",
+    "field": "name",
+    "type": "text"
+   },
+   {
+    "name": "kind",
+    "rawType": "TEXT",
+    "field": "kind",
+    "type": "text"
+   },
+   {
+    "name": "treatment",
+    "rawType": "TEXT",
+    "field": "treatment",
+    "type": "text"
+   },
+   {
+    "name": "valuation_method",
+    "rawType": "TEXT",
+    "field": "valuation_method",
+    "type": "text"
+   },
+   {
+    "name": "boundary",
+    "rawType": "TEXT",
+    "field": "boundary",
+    "type": "text"
+   },
+   {
+    "name": "amount",
+    "rawType": "DOUBLE PRECISION",
+    "field": "amount",
+    "type": "float"
+   },
+   {
+    "name": "haircut",
+    "rawType": "DOUBLE PRECISION",
+    "field": "haircut",
+    "type": "float"
+   },
+   {
+    "name": "as_of",
+    "rawType": "DATE",
+    "field": "as_of",
+    "type": "dateOnly"
+   },
+   {
+    "name": "basis",
+    "rawType": "TEXT",
+    "field": "basis",
+    "type": "text"
+   },
+   {
+    "name": "model_id",
+    "rawType": "BIGINT",
+    "field": "model_id",
+    "type": "bigInt",
+    "possibleTypes": [
+     "bigInt",
+     "snowflakeId",
+     "unixTimestamp",
+     "sort"
+    ]
+   },
+   {
+    "name": "scenario_id",
+    "rawType": "BIGINT",
+    "field": "scenario_id",
+    "type": "bigInt",
+    "possibleTypes": [
+     "bigInt",
+     "snowflakeId",
+     "unixTimestamp",
+     "sort"
+    ]
+   },
+   {
+    "name": "business_id",
+    "rawType": "BIGINT",
+    "field": "business_id",
+    "type": "bigInt",
+    "possibleTypes": [
+     "bigInt",
+     "snowflakeId",
+     "unixTimestamp",
+     "sort"
+    ]
+   },
+   {
+    "name": "signed_value",
+    "rawType": "DOUBLE PRECISION",
+    "field": "signed_value",
+    "type": "float"
+   },
+   {
+    "name": "scope",
+    "rawType": "TEXT",
+    "field": "scope",
+    "type": "text"
+   },
+   {
+    "name": "updated_at",
+    "rawType": "TIMESTAMP WITH TIME ZONE",
+    "field": "updated_at",
+    "type": "datetimeTz",
+    "possibleTypes": [
+     "datetimeTz",
+     "date"
+    ]
+   }
+  ],
+  "unsupportedFields": [],
+  "sources": []
+ }
+}

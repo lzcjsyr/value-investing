@@ -1,0 +1,985 @@
+{
+ "new_metrics": [],
+ "stmt_metrics": [
+  {
+   "name": "毛利率",
+   "unit": "%",
+   "formula": "毛利 ÷ 营业额",
+   "basis": "单季"
+  },
+  {
+   "name": "现金、定期存款和短期投资",
+   "unit": "亿元",
+   "formula": "现金及等价物 + 短期存款 + 短期投资 + 中长期存款",
+   "basis": "时点"
+  },
+  {
+   "name": "带息负债（借款＋票据＋租赁）",
+   "unit": "亿元",
+   "formula": "短期贷款 + 长期贷款 + 应付票据 + 应付票据(非流动) + 融资租赁负债(流动) + 融资租赁负债(非流动)",
+   "basis": "时点"
+  },
+  {
+   "name": "营业收入",
+   "unit": "亿元",
+   "formula": "营业额",
+   "basis": "单季"
+  },
+  {
+   "name": "归母净利润",
+   "unit": "亿元",
+   "formula": "股东应占溢利",
+   "basis": "单季"
+  }
+ ],
+ "main_basis": [],
+ "basis_fix": [],
+ "metric_updates": [
+  {
+   "name": "会员（订阅）收入",
+   "unit": "亿元",
+   "notes": "跟踪用途：看剔除喜马拉雅后的同比",
+   "source_name": "季度业绩公告、业绩会"
+  },
+  {
+   "name": "毛利率",
+   "unit": "%",
+   "source_name": "季度业绩公告"
+  },
+  {
+   "name": "回购金额",
+   "unit": "亿美元",
+   "source_name": "业绩公告、港交所回购公告"
+  },
+  {
+   "name": "现金、定期存款和短期投资",
+   "unit": "亿元",
+   "source_name": "资产负债表"
+  },
+  {
+   "name": "带息负债（借款＋票据＋租赁）",
+   "unit": "亿元",
+   "source_name": "资产负债表"
+  },
+  {
+   "name": "竞品月活：汽水音乐",
+   "unit": "百万人",
+   "source_name": "QuestMobile、行业研报"
+  },
+  {
+   "name": "在线音乐付费用户",
+   "unit": "百万人",
+   "source_name": "年报（2027 年 3 月）"
+  }
+ ],
+ "judgment_metrics": [
+  [
+   "J-CASH",
+   {
+    "name": "现金、定期存款和短期投资",
+    "unit": "亿元"
+   }
+  ],
+  [
+   "J-CASH",
+   {
+    "name": "带息负债（借款＋票据＋租赁）",
+    "unit": "亿元"
+   }
+  ],
+  [
+   "J-CASH",
+   {
+    "name": "回购金额",
+    "unit": "亿美元"
+   }
+  ],
+  [
+   "J-DEBT",
+   {
+    "name": "现金、定期存款和短期投资",
+    "unit": "亿元"
+   }
+  ],
+  [
+   "J-DEBT",
+   {
+    "name": "带息负债（借款＋票据＋租赁）",
+    "unit": "亿元"
+   }
+  ],
+  [
+   "J-FX",
+   {
+    "name": "港元兑人民币",
+    "unit": "人民币/港元",
+    "macro": true
+   }
+  ],
+  [
+   "J-M",
+   {
+    "name": "毛利率",
+    "unit": "%"
+   }
+  ],
+  [
+   "J-P",
+   {
+    "name": "会员（订阅）收入",
+    "unit": "亿元"
+   }
+  ],
+  [
+   "J-PAYOUT",
+   {
+    "name": "回购金额",
+    "unit": "亿美元"
+   }
+  ],
+  [
+   "J-Q",
+   {
+    "name": "会员（订阅）收入",
+    "unit": "亿元"
+   }
+  ],
+  [
+   "J-Q",
+   {
+    "name": "在线音乐付费用户",
+    "unit": "百万人"
+   }
+  ],
+  [
+   "J-Q",
+   {
+    "name": "竞品月活：汽水音乐",
+    "unit": "百万人"
+   }
+  ],
+  [
+   "J-R",
+   {
+    "name": "腾讯音乐港股收盘价",
+    "unit": "港元"
+   }
+  ]
+ ],
+ "risk_metrics": [
+  [
+   "R1",
+   {
+    "name": "会员（订阅）收入",
+    "unit": "亿元"
+   }
+  ],
+  [
+   "R1",
+   {
+    "name": "在线音乐付费用户",
+    "unit": "百万人"
+   }
+  ],
+  [
+   "R1",
+   {
+    "name": "竞品月活：汽水音乐",
+    "unit": "百万人"
+   }
+  ],
+  [
+   "R2",
+   {
+    "name": "毛利率",
+    "unit": "%"
+   }
+  ],
+  [
+   "R3",
+   {
+    "name": "现金、定期存款和短期投资",
+    "unit": "亿元"
+   }
+  ],
+  [
+   "R3",
+   {
+    "name": "带息负债（借款＋票据＋租赁）",
+    "unit": "亿元"
+   }
+  ],
+  [
+   "R3",
+   {
+    "name": "回购金额",
+    "unit": "亿美元"
+   }
+  ],
+  [
+   "R5",
+   {
+    "name": "港元兑人民币",
+    "unit": "人民币/港元",
+    "macro": true
+   }
+  ]
+ ],
+ "text": [
+  [
+   "judgment",
+   "J-SOTP-E",
+   "fact_layer",
+   "2027 年基准：营业收入 373、付现成本 249.2、折旧摊销 17.5，核心经营利润（税前）106.3 亿元；利息收入等其他净贡献 9.5 亿元、利息支出 7.5 亿元不计入核心盈利。收购摊销 2027 年约 9 亿元（税前），其中含版权公允价值调整。\n持续跟踪：市场隐含核心倍数（交易日；来源：分部加总估值（自动计算））"
+  ],
+  [
+   "risk",
+   "R1",
+   "early_warning",
+   "会员服务收入同比（剔除喜马拉雅）：连续两个季度同比为负\n汽水音乐、番茄音乐月活与付费：汽水月活超过 2.5 亿或推出更低价会员\n年末付费用户总数：2026 年末低于 1.22 亿（−4%）\n持续跟踪：番茄音乐月活、汽水音乐付费情况（月；来源：QuestMobile、行业研报）"
+  ],
+  [
+   "risk",
+   "R2",
+   "early_warning",
+   "毛利率：单季毛利率低于 42%\nAI 音乐与版权政策：AI 翻唱或生成音乐的版权规则落地\n持续跟踪：AI 音乐与版权政策（季；来源：监管部门、行业协会、唱片公司）"
+  ],
+  [
+   "risk",
+   "R3",
+   "early_warning",
+   "回购执行与新回购计划：新一轮回购计划公布（规模、期限）；或回购明显放缓而股价低于 9 美元\n现金、借款与美元票据：净现金低于 150 亿元，或带息负债超过 250 亿元\n持续跟踪：新回购计划（季；来源：业绩公告、港交所回购公告）"
+  ],
+  [
+   "risk",
+   "R4",
+   "early_warning",
+   "喜马拉雅收入与利润贡献：整合后收入下降或出现商誉减值\n持续跟踪：喜马拉雅收入与利润贡献（季；来源：业绩公告、年报分部或附注）"
+  ],
+  [
+   "risk",
+   "R5",
+   "early_warning",
+   "港元兑人民币：一个月内变动超过 3%\n对外持股市值（Spotify、UMG）：金融资产较上季变动超过 20%\n持续跟踪：对外持股市值（Spotify、UMG）（季；来源：资产负债表的金融资产；Spotify、UMG 股价）"
+  ]
+ ],
+ "facts": [
+  [
+   "付费用户 1.274 亿、ARPPU 11.9 元，月活连续下滑",
+   {
+    "name": "在线音乐付费用户",
+    "unit": "百万人"
+   },
+   null
+  ],
+  [
+   "回购与分红：2026 年二季度回购 4 亿美元，新一轮在准备",
+   {
+    "name": "回购金额",
+    "unit": "亿美元"
+   },
+   null
+  ],
+  [
+   "管理层：竞争冲击轻度用户，超级会员稳定",
+   null,
+   "原“数值”字段：20 百万人（2025Q4），为正文数字的推算或合计"
+  ],
+  [
+   "自制音乐播放份额约 20%—30%，已超过三大唱片",
+   null,
+   "原“数值”字段：0.25 比率（2025Q2），为正文数字的推算或合计"
+  ]
+ ],
+ "history": [
+  {
+   "field": "volume",
+   "metric": {
+    "name": "在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）",
+    "unit": "亿人"
+   },
+   "formula": null,
+   "balance": false,
+   "values": [
+    {
+     "year": 2021,
+     "value": 0.762,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2022,
+     "value": 0.885,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2023,
+     "value": 1.067,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2024,
+     "value": 1.21,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 629
+    },
+    {
+     "year": 2025,
+     "value": 1.274,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 629
+    }
+   ]
+  },
+  {
+   "field": "revenue",
+   "metric": {
+    "name": "营业收入",
+    "unit": "亿元"
+   },
+   "formula": "营业额",
+   "balance": false,
+   "values": [
+    {
+     "year": 2017,
+     "value": 109.81,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2018,
+     "value": 189.85,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    }
+   ]
+  },
+  {
+   "field": "cost_of_sales",
+   "metric": {
+    "name": "营业成本",
+    "unit": "亿元"
+   },
+   "formula": "营业额 − 毛利",
+   "balance": false,
+   "values": [
+    {
+     "year": 2017,
+     "value": 71.71,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2018,
+     "value": 117.08,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    }
+   ]
+  },
+  {
+   "field": "pretax_profit",
+   "metric": {
+    "name": "利润总额",
+    "unit": "亿元"
+   },
+   "formula": "除税前溢利",
+   "balance": false,
+   "values": [
+    {
+     "year": 2017,
+     "value": 15.97,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2018,
+     "value": 20.03,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    }
+   ]
+  },
+  {
+   "field": "income_tax",
+   "metric": {
+    "name": "所得税",
+    "unit": "亿元"
+   },
+   "formula": "税项",
+   "balance": false,
+   "values": [
+    {
+     "year": 2017,
+     "value": 2.78,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2018,
+     "value": 1.71,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    }
+   ]
+  },
+  {
+   "field": "np_parent",
+   "metric": {
+    "name": "归母净利润",
+    "unit": "亿元"
+   },
+   "formula": "股东应占溢利",
+   "balance": false,
+   "values": [
+    {
+     "year": 2017,
+     "value": 13.26,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2018,
+     "value": 18.33,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    }
+   ]
+  },
+  {
+   "field": "minority_profit",
+   "metric": {
+    "name": "少数股东损益",
+    "unit": "亿元"
+   },
+   "formula": "少数股东损益",
+   "balance": false,
+   "values": [
+    {
+     "year": 2017,
+     "value": -0.07,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2018,
+     "value": -0.01,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    }
+   ]
+  },
+  {
+   "field": "da",
+   "metric": {
+    "name": "折旧摊销",
+    "unit": "亿元"
+   },
+   "formula": "加:折旧及摊销",
+   "balance": false,
+   "values": [
+    {
+     "year": 2017,
+     "value": 3.79,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2018,
+     "value": 3.69,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    }
+   ]
+  },
+  {
+   "field": "finance_cost",
+   "metric": {
+    "name": "财务费用",
+    "unit": "亿元"
+   },
+   "formula": "融资成本",
+   "balance": false,
+   "values": [
+    {
+     "year": 2018,
+     "value": 0.35,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    }
+   ]
+  },
+  {
+   "field": "invest_income",
+   "metric": {
+    "name": "投资收益",
+    "unit": "亿元"
+   },
+   "formula": null,
+   "balance": false,
+   "values": [
+    {
+     "year": 2017,
+     "value": 2.17,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2018,
+     "value": -12.66,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2019,
+     "value": 6.93,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2020,
+     "value": 9.84,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2021,
+     "value": 10.83,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2022,
+     "value": 12.27,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2023,
+     "value": 12.82,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2024,
+     "value": 13.61,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 629
+    },
+    {
+     "year": 2025,
+     "value": 36.86,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 629
+    }
+   ]
+  },
+  {
+   "field": "equity_income",
+   "metric": {
+    "name": "权益法投资收益",
+    "unit": "亿元"
+   },
+   "formula": "应占联营公司溢利",
+   "balance": false,
+   "values": [
+    {
+     "year": 2017,
+     "value": 0.04,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2018,
+     "value": -0.01,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    }
+   ]
+  },
+  {
+   "field": "cfo",
+   "metric": {
+    "name": "经营活动现金流量净额",
+    "unit": "亿元"
+   },
+   "formula": "经营业务现金净额",
+   "balance": false,
+   "values": [
+    {
+     "year": 2017,
+     "value": 25,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2018,
+     "value": 56.32,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    }
+   ]
+  },
+  {
+   "field": "capex",
+   "metric": {
+    "name": "资本开支",
+    "unit": "亿元"
+   },
+   "formula": "购建固定资产 + 购建无形资产及其他资产",
+   "balance": false,
+   "values": [
+    {
+     "year": 2017,
+     "value": 1.38,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2018,
+     "value": 4.83,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    }
+   ]
+  },
+  {
+   "field": "investee_cash_div",
+   "metric": {
+    "name": "收到投资分红",
+    "unit": "亿元"
+   },
+   "formula": "已收股息(投资)",
+   "balance": false,
+   "values": []
+  },
+  {
+   "field": "net_borrowing",
+   "metric": {
+    "name": "净借款",
+    "unit": "亿元"
+   },
+   "formula": null,
+   "balance": false,
+   "values": [
+    {
+     "year": 2017,
+     "value": 0,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2018,
+     "value": 0,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2019,
+     "value": 0,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2020,
+     "value": 54,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2021,
+     "value": 0,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2022,
+     "value": 0,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2023,
+     "value": 0,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2024,
+     "value": 0,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 629
+    },
+    {
+     "year": 2025,
+     "value": -21.31,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 629
+    }
+   ]
+  },
+  {
+   "field": "interest_debt",
+   "metric": {
+    "name": "带息负债（借款＋票据＋租赁）",
+    "unit": "亿元"
+   },
+   "formula": "短期贷款 + 长期贷款 + 应付票据 + 应付票据(非流动) + 融资租赁负债(流动) + 融资租赁负债(非流动)",
+   "balance": true,
+   "values": [
+    {
+     "year": 2017,
+     "value": 0,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2018,
+     "value": 0,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    }
+   ]
+  },
+  {
+   "field": "cash",
+   "metric": {
+    "name": "货币资金",
+    "unit": "亿元"
+   },
+   "formula": "现金及等价物 + 短期存款 + 中长期存款",
+   "balance": true,
+   "values": [
+    {
+     "year": 2017,
+     "value": 64.8,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2018,
+     "value": 200.8,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    }
+   ]
+  },
+  {
+   "field": "equity_parent",
+   "metric": {
+    "name": "归母净资产",
+    "unit": "亿元"
+   },
+   "formula": "股东权益",
+   "balance": true,
+   "values": [
+    {
+     "year": 2017,
+     "value": 261.41,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2018,
+     "value": 377.21,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    }
+   ]
+  },
+  {
+   "field": "dividend_total",
+   "metric": {
+    "name": "现金分红总额",
+    "unit": "亿元"
+   },
+   "formula": null,
+   "balance": false,
+   "values": [
+    {
+     "year": 2017,
+     "value": 0,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2018,
+     "value": 0,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2019,
+     "value": 0,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2020,
+     "value": 1.34,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2021,
+     "value": 34.79,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2022,
+     "value": 31.27,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2023,
+     "value": 28.25,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2024,
+     "value": 39.6,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 629
+    },
+    {
+     "year": 2025,
+     "value": 29.11,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 629
+    }
+   ]
+  },
+  {
+   "field": "dps",
+   "metric": {
+    "name": "每股股息",
+    "unit": "元"
+   },
+   "formula": null,
+   "balance": false,
+   "values": [
+    {
+     "year": 2017,
+     "value": 0,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2018,
+     "value": 0,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2019,
+     "value": 0,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2020,
+     "value": 0,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2021,
+     "value": 0,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2022,
+     "value": 0,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2023,
+     "value": 0.5,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 641
+    },
+    {
+     "year": 2024,
+     "value": 0.65,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 629
+    },
+    {
+     "year": 2025,
+     "value": 0.82,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 629
+    }
+   ]
+  }
+ ],
+ "assets": [
+  {
+   "code": "C1",
+   "scenario": null,
+   "metric": {
+    "name": "现金、定期存款和短期投资",
+    "unit": "亿元"
+   }
+  },
+  {
+   "code": "C2",
+   "scenario": null,
+   "metric": {
+    "name": "带息负债（借款＋票据＋租赁）",
+    "unit": "亿元"
+   }
+  },
+  {
+   "code": "C5",
+   "scenario": null,
+   "metric": {
+    "name": "对外上市股权（公允价值）",
+    "unit": "亿元"
+   }
+  },
+  {
+   "code": "C5",
+   "scenario": "悲观",
+   "metric": {
+    "name": "对外上市股权（公允价值）",
+    "unit": "亿元"
+   }
+  },
+  {
+   "code": "C5",
+   "scenario": "乐观",
+   "metric": {
+    "name": "对外上市股权（公允价值）",
+    "unit": "亿元"
+   }
+  },
+  {
+   "code": "C8",
+   "scenario": null,
+   "metric": {
+    "name": "少数股东权益",
+    "unit": "亿元"
+   }
+  }
+ ],
+ "new_stmt": [
+  {
+   "name": "对外上市股权（公允价值）",
+   "unit": "亿元",
+   "formula": "指定以公允价值记账之金融资产"
+  },
+  {
+   "name": "少数股东权益",
+   "unit": "亿元",
+   "formula": "少数股东权益"
+  }
+ ]
+}

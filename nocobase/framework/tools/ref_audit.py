@@ -1,4 +1,4 @@
-"""正文编号引用体检：商业模式、论点、风险、假设依据等正文里写的编号（B3、V2、M1、T4、R2、J-WC、W5、Q11……），
+"""正文编号引用体检：商业模式、论点、风险、假设依据等正文里写的编号（B3、V2、M1、T4、R2、J-WC、Q11……），
 是否在这家公司的对应表里存在。只读在线库，不改任何数据。
 
   python3 tools/ref_audit.py            全部公司
@@ -13,7 +13,7 @@ from collections import defaultdict
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 # 编号前缀 → (表, 编号列)
 TARGETS = {'B': ('biz_model', 'code'), 'V': ('value_chain', 'code'), 'M': ('moat', 'code'), 'T': ('thesis', 'code'),
-           'R': ('risk', 'code'), 'J': ('judgment', 'code'), 'W': ('watch', 'code'), 'K': ('watch', 'code'), 'Q': ('issue', 'code')}
+           'R': ('risk', 'code'), 'J': ('judgment', 'code'), 'Q': ('issue', 'code')}
 # 被扫描的正文列（表 → 列）
 TEXT = {
     'biz_model': ['title', 'content', 'metric', 'trend'],
@@ -26,7 +26,7 @@ TEXT = {
     'judgment': ['fact_layer', 'judgment', 'transmission', 'change_threshold', 'no_change_condition', 'counter_evidence'],
 }
 # J-XXX 的假设依据编号；其余是“字母＋数字”。前后不能紧挨字母数字（避免 B2B、5G、M2 芯片型号之类误报时仍可人工判断）
-PAT = re.compile(r'(?<![A-Za-z0-9-])(J-[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*|[BVMTRWKQ]\d{1,2})(?![A-Za-z0-9])')
+PAT = re.compile(r'(?<![A-Za-z0-9-])(J-[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*|[BVMTRQ]\d{1,2})(?![A-Za-z0-9])')
 SEP = '\x1f'
 
 

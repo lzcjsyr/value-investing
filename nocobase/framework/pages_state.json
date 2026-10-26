@@ -4,19 +4,14 @@
   "框架与后台/采集": 393441097416704,
   "长江电力": 393441126776832,
   "长江电力/数据底稿": 393441179205632,
-  "长江电力/跟踪": 393441395212288,
   "太阳纸业": 393441447641088,
   "太阳纸业/数据底稿": 393441485389824,
-  "太阳纸业/跟踪": 393441619607552,
   "中国建筑": 393515315625984,
   "中国建筑/数据底稿": 393515361763328,
-  "中国建筑/跟踪": 393515516952576,
   "腾讯音乐": 393523095535616,
   "腾讯音乐/数据底稿": 393523143770112,
-  "腾讯音乐/跟踪": 393524699856896,
   "小米集团": 393570819244032,
   "小米集团/数据底稿": 393570928295936,
-  "小米集团/跟踪": 393571131719680,
   "长江电力/商业模式": 393656988073984,
   "太阳纸业/商业模式": 393657214566400,
   "中国建筑/商业模式": 393657292161024,
@@ -32,7 +27,12 @@
   "太阳纸业/预测与估值/模型底稿": 394098734727168,
   "中国建筑/预测与估值/模型底稿": 394099942686720,
   "腾讯音乐/预测与估值/模型底稿": 394100483751936,
-  "小米集团/预测与估值/模型底稿": 394100980776960
+  "小米集团/预测与估值/模型底稿": 394100980776960,
+  "长江电力/研究维护": 393441395212288,
+  "太阳纸业/研究维护": 393441619607552,
+  "中国建筑/研究维护": 393515516952576,
+  "腾讯音乐/研究维护": 393524699856896,
+  "小米集团/研究维护": 393571131719680
  },
  "pages": {
   "collector": {
@@ -51,14 +51,6 @@
    "routeId": 393441399406592,
    "pageSchemaUid": "yeslwvjeigp"
   },
-  "issue@600900.SH": {
-   "routeId": 393441420378112,
-   "pageSchemaUid": "5hf8thzw6x7"
-  },
-  "watch@600900.SH": {
-   "routeId": 393441430863872,
-   "pageSchemaUid": "683h3i9mmog"
-  },
   "change_log@600900.SH": {
    "routeId": 393441441349632,
    "pageSchemaUid": "7n2vi7amcyx"
@@ -66,14 +58,6 @@
   "check@002078.SZ": {
    "routeId": 393441621704704,
    "pageSchemaUid": "zs2sm40y7pb"
-  },
-  "issue@002078.SZ": {
-   "routeId": 393441640579072,
-   "pageSchemaUid": "7tu7kl2kaqs"
-  },
-  "watch@002078.SZ": {
-   "routeId": 393441646870528,
-   "pageSchemaUid": "2lgm6vqx15f"
   },
   "change_log@002078.SZ": {
    "routeId": 393441657356288,
@@ -87,14 +71,6 @@
    "routeId": 393515521146880,
    "pageSchemaUid": "4v4cnnnlu8r"
   },
-  "issue@601668.SH": {
-   "routeId": 393515540021248,
-   "pageSchemaUid": "5sg0pxa0kwy"
-  },
-  "watch@601668.SH": {
-   "routeId": 393515550507008,
-   "pageSchemaUid": "7iv4wgxr82e"
-  },
   "change_log@601668.SH": {
    "routeId": 393515558895616,
    "pageSchemaUid": "6jcp70i4yji"
@@ -102,14 +78,6 @@
   "check@01698.HK": {
    "routeId": 393524704051200,
    "pageSchemaUid": "4cu0ofhqbi8"
-  },
-  "issue@01698.HK": {
-   "routeId": 393524722925568,
-   "pageSchemaUid": "8hb7w6gwwdr"
-  },
-  "watch@01698.HK": {
-   "routeId": 393524733411328,
-   "pageSchemaUid": "qywtkvvw8s2"
   },
   "change_log@01698.HK": {
    "routeId": 393524743897088,
@@ -138,14 +106,6 @@
   "check@01810.HK": {
    "routeId": 393571138011136,
    "pageSchemaUid": "xxu3jyqq44j"
-  },
-  "issue@01810.HK": {
-   "routeId": 393571158982656,
-   "pageSchemaUid": "udhnp9nwwmw"
-  },
-  "watch@01810.HK": {
-   "routeId": 393571167371264,
-   "pageSchemaUid": "6xhan5tretv"
   },
   "change_log@01810.HK": {
    "routeId": 393571177857024,
@@ -271,29 +231,9 @@
    "routeId": 393657516556288,
    "pageSchemaUid": "uoe2xtvktqe"
   },
-  "dashboard@002078.SZ": {
-   "routeId": 393693719691264,
-   "pageSchemaUid": "avp4c1gkm4k"
-  },
-  "dashboard@601668.SH": {
-   "routeId": 393693759537152,
-   "pageSchemaUid": "b67iad4p38r"
-  },
-  "dashboard@01698.HK": {
-   "routeId": 393693795188736,
-   "pageSchemaUid": "q7dkk2q0gzc"
-  },
-  "dashboard@01810.HK": {
-   "routeId": 393693824548864,
-   "pageSchemaUid": "16rpqdqad0m"
-  },
   "chainmap@600900.SH": {
    "routeId": 393798560514048,
    "pageSchemaUid": "i9r038m23ia"
-  },
-  "metric": {
-   "routeId": 393818739965952,
-   "pageSchemaUid": "patpbug4kmq"
   },
   "company": {
    "routeId": 393818874183680,
@@ -359,10 +299,6 @@
    "routeId": 394012070838272,
    "pageSchemaUid": "8zlkrvhqkth"
   },
-  "dashboard@600900.SH": {
-   "routeId": 394012966322176,
-   "pageSchemaUid": "n853jlsnk76"
-  },
   "finstmt@600900.SH": {
    "routeId": 394029525041152,
    "pageSchemaUid": "n0b7h2uthi6"
@@ -382,18 +318,6 @@
   "finstmt@01810.HK": {
    "routeId": 394029558595584,
    "pageSchemaUid": "5afwnthnnab"
-  },
-  "doc_guide": {
-   "routeId": 394036621803520,
-   "pageSchemaUid": "g5bofyannjt"
-  },
-  "doc_structure": {
-   "routeId": 394036630192128,
-   "pageSchemaUid": "czqmmyk6vg3"
-  },
-  "doc_formulas": {
-   "routeId": 394036638580736,
-   "pageSchemaUid": "mkkx6jbs1za"
   },
   "observation@600900.SH": {
    "routeId": 394093129039872,
@@ -506,6 +430,78 @@
   "val@01810.HK": {
    "routeId": 394100953513984,
    "pageSchemaUid": "hbswju6nw3f"
+  },
+  "dashboard@600900.SH": {
+   "routeId": 394197284093952,
+   "pageSchemaUid": "iihbe468odp"
+  },
+  "dashboard@002078.SZ": {
+   "routeId": 394197296676864,
+   "pageSchemaUid": "d3pps9o6z1p"
+  },
+  "dashboard@601668.SH": {
+   "routeId": 394197307162624,
+   "pageSchemaUid": "d9uoj7oiltg"
+  },
+  "dashboard@01698.HK": {
+   "routeId": 394197323939840,
+   "pageSchemaUid": "i82dvrivrum"
+  },
+  "dashboard@01810.HK": {
+   "routeId": 394197347008512,
+   "pageSchemaUid": "qsjr3v77mh2"
+  },
+  "issue@600900.SH": {
+   "routeId": 394203908800512,
+   "pageSchemaUid": "ks4es76n7y2"
+  },
+  "issue@002078.SZ": {
+   "routeId": 394203915091968,
+   "pageSchemaUid": "s07036zu3dd"
+  },
+  "issue@601668.SH": {
+   "routeId": 394203923480576,
+   "pageSchemaUid": "xvug1zu72p3"
+  },
+  "issue@01698.HK": {
+   "routeId": 394203929772032,
+   "pageSchemaUid": "rp9its1a3vq"
+  },
+  "issue@01810.HK": {
+   "routeId": 394203938160640,
+   "pageSchemaUid": "y54r45tif1g"
+  },
+  "metric@600900.SH": {
+   "routeId": 394242680422400,
+   "pageSchemaUid": "fhpvayq7fez"
+  },
+  "metric@002078.SZ": {
+   "routeId": 394242745434112,
+   "pageSchemaUid": "ke1xrh678v1"
+  },
+  "metric@601668.SH": {
+   "routeId": 394242802057216,
+   "pageSchemaUid": "eifh75xy5xw"
+  },
+  "metric@01698.HK": {
+   "routeId": 394242875457536,
+   "pageSchemaUid": "k087d6z6aqb"
+  },
+  "metric@01810.HK": {
+   "routeId": 394242976120832,
+   "pageSchemaUid": "hirlb8scuv2"
+  },
+  "doc_guide": {
+   "routeId": 394252138774528,
+   "pageSchemaUid": "lelck3ag7rm"
+  },
+  "doc_structure": {
+   "routeId": 394252149260288,
+   "pageSchemaUid": "v3gtbdl9n21"
+  },
+  "doc_formulas": {
+   "routeId": 394252153454592,
+   "pageSchemaUid": "9fnpd3la1cx"
   }
  }
 }

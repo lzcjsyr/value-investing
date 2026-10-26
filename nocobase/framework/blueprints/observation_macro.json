@@ -1,15 +1,6 @@
 {
  "version": "1",
- "mode": "create",
- "navigation": {
-  "group": {
-   "routeId": 393818928709632
-  },
-  "item": {
-   "title": "高频数据",
-   "icon": "TableOutlined"
-  }
- },
+ "mode": "replace",
  "page": {
   "title": "高频数据",
   "documentTitle": "宏观数据 · 高频数据"
@@ -33,42 +24,32 @@
     },
     "fieldGroups": [
      {
-      "title": "基本信息（1/2）",
+      "title": "基本信息",
       "fields": [
        "obs_date",
-       "value",
-       "collected_at",
-       "source",
-       "note",
        "period",
+       "basis",
+       "value",
        "yoy",
-       "impact",
-       "assessment",
-       "summary"
-      ]
-     },
-     {
-      "title": "基本信息（2/2）",
-      "fields": [
-       "status"
+       "summary",
+       "collected_at"
       ]
      },
      {
       "title": "关联",
       "fields": [
        "metric",
-       "raw_capture",
-       "doc"
+       "doc",
+       "raw_capture"
       ]
      },
      {
       "title": "自动计算（只读）",
       "fields": [
-       "is_current",
-       "is_valid",
        "unit",
-       "basis",
-       "source_kind"
+       "source_kind",
+       "is_current",
+       "is_valid"
       ]
      },
      {
@@ -102,18 +83,20 @@
        "name",
        "unit",
        "category",
+       "source_kind",
+       "basis",
+       "model_field",
+       "formula",
        "source_name",
-       "frequency",
-       "valid_min",
-       "valid_max",
-       "notes",
-       "source_kind"
+       "frequency"
       ]
      },
      {
       "title": "基本信息（2/2）",
       "fields": [
-       "basis"
+       "valid_min",
+       "valid_max",
+       "notes"
       ]
      },
      {
@@ -123,13 +106,23 @@
       ]
      },
      {
-      "title": "自动计算（只读）",
+      "title": "自动计算（只读）（1/2）",
       "fields": [
        "obs_count",
        "latest_value",
+       "latest_period",
        "latest_date",
+       "state",
+       "next_due",
+       "tracked_by",
+       "tracked_codes",
        "scope",
-       "used_by",
+       "used_by"
+      ]
+     },
+     {
+      "title": "自动计算（只读）（2/2）",
+      "fields": [
        "used_by_codes"
       ]
      },
@@ -272,19 +265,104 @@
           ]
          }
         ]
+       },
+       "settings": {
+        "width": 280
        }
       },
-      "obs_date",
-      "value",
-      "unit",
-      "is_current",
-      "is_valid",
-      "collected_at",
-      "source"
+      {
+       "field": "obs_date",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "value",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "unit",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "is_current",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "is_valid",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "collected_at",
+       "settings": {
+        "width": 170
+       }
+      },
+      {
+       "field": "doc",
+       "titleField": "title",
+       "popup": {
+        "title": "来源文档",
+        "blocks": [
+         {
+          "type": "details",
+          "resource": {
+           "binding": "currentRecord",
+           "collectionName": "vi_source"
+          },
+          "fields": [
+           "title",
+           "source_type",
+           "publisher",
+           "publish_date",
+           "url",
+           "reliability"
+          ]
+         }
+        ]
+       },
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "raw_capture",
+       "titleField": "run_label",
+       "popup": {
+        "title": "原始采集记录",
+        "blocks": [
+         {
+          "type": "details",
+          "resource": {
+           "binding": "currentRecord",
+           "collectionName": "vi_raw_capture"
+          },
+          "fields": [
+           "run_label",
+           "collected_at",
+           "status",
+           "fetch_result",
+           "raw_response"
+          ]
+         }
+        ]
+       },
+       "settings": {
+        "width": 200
+       }
+      }
      ],
      "settings": {
       "title": "",
-      "description": "每个指标每一期的数值，以及对它的理解（经营影响、经营解读）；引用【来源文档】【指标】【原始采集记录】；被【自动检查】引用。",
+      "description": "每个指标每一期的数：期间、口径、数值、同比、来源文档和说明；引用【来源文档】【指标】【原始采集记录】；被【质量自检】引用。",
       "pageSize": 50,
       "sorting": [
        {
@@ -301,7 +379,8 @@
          "value": "宏观"
         }
        ]
-      }
+      },
+      "density": "middle"
      },
      "actions": [
       "filter",
@@ -316,44 +395,25 @@
           "resource": {
            "collectionName": "vi_observation"
           },
-          "fieldGroups": [
+          "fields": [
+           "obs_date",
+           "period",
+           "basis",
+           "value",
+           "yoy",
+           "summary",
+           "collected_at",
            {
-            "title": "基本信息（1/2）",
-            "fields": [
-             "obs_date",
-             "period",
-             "value",
-             "yoy",
-             "impact",
-             "assessment",
-             "summary",
-             "status",
-             "collected_at",
-             "source"
-            ]
+            "field": "metric",
+            "titleField": "name"
            },
            {
-            "title": "基本信息（2/2）",
-            "fields": [
-             "note"
-            ]
+            "field": "doc",
+            "titleField": "title"
            },
            {
-            "title": "关联",
-            "fields": [
-             {
-              "field": "metric",
-              "titleField": "name"
-             },
-             {
-              "field": "doc",
-              "titleField": "title"
-             },
-             {
-              "field": "raw_capture",
-              "titleField": "run_label"
-             }
-            ]
+            "field": "raw_capture",
+            "titleField": "run_label"
            }
           ],
           "actions": [
@@ -374,44 +434,25 @@
         "blocks": [
          {
           "type": "editForm",
-          "fieldGroups": [
+          "fields": [
+           "obs_date",
+           "period",
+           "basis",
+           "value",
+           "yoy",
+           "summary",
+           "collected_at",
            {
-            "title": "基本信息（1/2）",
-            "fields": [
-             "obs_date",
-             "period",
-             "value",
-             "yoy",
-             "impact",
-             "assessment",
-             "summary",
-             "status",
-             "collected_at",
-             "source"
-            ]
+            "field": "metric",
+            "titleField": "name"
            },
            {
-            "title": "基本信息（2/2）",
-            "fields": [
-             "note"
-            ]
+            "field": "doc",
+            "titleField": "title"
            },
            {
-            "title": "关联",
-            "fields": [
-             {
-              "field": "metric",
-              "titleField": "name"
-             },
-             {
-              "field": "doc",
-              "titleField": "title"
-             },
-             {
-              "field": "raw_capture",
-              "titleField": "run_label"
-             }
-            ]
+            "field": "raw_capture",
+            "titleField": "run_label"
            }
           ],
           "actions": [
@@ -426,5 +467,8 @@
     }
    ]
   }
- ]
+ ],
+ "target": {
+  "pageSchemaUid": "l53crbbiima"
+ }
 }

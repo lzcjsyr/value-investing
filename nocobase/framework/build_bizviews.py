@@ -26,7 +26,7 @@ PRELUDE = r"""const COMPANY = '__COMPANY__';   // 由 build_bizviews.py 写入�
 const EDIT_TAB = '__EDIT__';
 const { React } = ctx.libs;
 const { useState, useRef } = React;
-const { Tooltip, Alert, Empty, theme } = ctx.libs.antd;
+const { Tooltip, Alert, Empty, Segmented, theme } = ctx.libs.antd;
 
 async function listRows(name, filter, appends, pageSize = 500) {
   const resource = ctx.makeResource('MultiRecordResource');
@@ -59,8 +59,8 @@ const codeNum = (c) => Number(String(c || '').replace(/\D/g, '')) || 0;
 const byCode = (a, b) => codeNum(a.code) - codeNum(b.code) || String(a.code).localeCompare(String(b.code));
 const head = (s) => String(s || '').split(/[：:]/)[0];
 const short = (s, n = 16) => { const x = head(String(s || '').replace(/^伪壁垒[：:]\s*/, '')).replace(/（[^）]*）/g, '').trim(); return x.length > n ? x.slice(0, n) + '…' : x; };
-const clamp = (n) => ({ overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: n, WebkitBoxOrient: 'vertical', wordBreak: 'break-all' });
-const REF_KIND = { V: '产业链', M: '壁垒', T: '论点', B: '商业模式', J: '假设依据', R: '风险', K: '跟踪事项', W: '跟踪事项' };
+const clamp = (n) => ({ overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: n, WebkitBoxOrient: 'vertical', wordBreak: 'normal', overflowWrap: 'anywhere' });
+const REF_KIND = { V: '产业链', M: '壁垒', T: '论点', B: '商业模式', J: '假设依据', R: '风险' };
 const REF_RE = /(?<![A-Za-z0-9-])(V\d{1,2}|M\d{1,2}|T\d{1,2}|B\d{1,2}|R\d{1,2}|K\d{1,2}|W\d{1,2}|J-[A-Z0-9]+)(?![0-9])/g;
 
 // 设计约定：颜色只出现在圆点、色条这类标记上（表示状态），文字一律用正文色；
@@ -295,18 +295,17 @@ function Shell({ eyebrow, headline, hint, stats, notice, main, detail, sel, deta
 
 // 所有编号 → 标题（正文里的引用悬停用）
 async function loadRefs(scope) {
-  const [chain, moats, theses, biz, judgments, risks, watches] = await Promise.all([
+  const [chain, moats, theses, biz, judgments, risks] = await Promise.all([
     listRows('vi_value_chain', scope), listRows('vi_moat', scope), listRows('vi_thesis', scope), listRows('vi_biz_model', scope),
-    listRows('vi_judgment', scope), listRows('vi_risk', scope), listRows('vi_watch', scope),
+    listRows('vi_judgment', scope), listRows('vi_risk', scope),
   ]);
   const refs = {};
   chain.forEach((r) => { refs[r.code] = r.participant; });
   moats.forEach((r) => { refs[r.code] = `${r.title}（${r.verdict || ''}）`; });
   theses.forEach((r) => { refs[r.code] = `${r.title}${r.status ? '（' + r.status + '）' : ''}`; });
-  biz.forEach((r) => { refs[r.code] = `${r.element}：${r.title}`; });
+  biz.filter((r) => !r.business_id).forEach((r) => { refs[r.code] = `${r.element}：${r.title}`; });
   judgments.forEach((r) => { refs[r.code] = r.title; });
   risks.forEach((r) => { refs[r.code] = r.title; });
-  watches.forEach((r) => { refs[r.code] = r.title; });
   return refs;
 }
 
@@ -325,32 +324,58 @@ async function boot(what, fn) {
 CANVAS = r"""
 // 商业模式画布：左半边怎么做（合作、业务、资源），右半边为谁做（关系、渠道、客户），中间价值主张，底部成本与收入
 const AREA = { 重要合作: 'kp', 关键业务: 'ka', 核心资源: 'kr', 价值主张: 'vp', 客户关系: 'cr', 渠道通路: 'ch', 客户细分: 'cs', 成本结构: 'cost', 收入来源: 'rev' };
+// 五个区域各一个颜色，只用在圆点和色条上：怎么做、价值主张、为谁做、钱怎么花、钱怎么来
+function zoneColor(t, el) {
+  if (el === '价值主张') return t.colorPrimary;
+  if (['重要合作', '关键业务', '核心资源'].includes(el)) return t.geekblue6 || '#2f54eb';
+  if (['客户关系', '渠道通路', '客户细分'].includes(el)) return t.cyan6 || '#08979c';
+  return el === '成本结构' ? (t.orange6 || '#d46b08') : t.colorSuccess;
+}
 
-function Cell({ r, element, selected, onSelect, tall, core }) {
+// 关键数字：按“；”拆成一行一条，数字加粗
+// 只加粗“带单位的数”“千分位数”“小数”；年份、2026H1、A2 这类编号不加粗
+const NUM_RE = /((?<![A-Za-z\d.])[+−\-–]?\d[\d,，]*(?:\.\d+)?\s*(?:%|pt|个百分点|万亿元|亿元|万元|元|亿|万㎡|万吨|倍|bp)|(?<![A-Za-z\d.])[+−\-–]?\d{1,3}(?:[,，]\d{3})+(?:\.\d+)?(?![\dA-Za-z])|(?<![A-Za-z\d.])[+−\-–]?\d+\.\d+(?![\dA-Za-z%]))/g;
+function Num({ text }) {
+  const { t } = useUI();
+  return String(text).split(NUM_RE).map((x, i) => (i % 2
+    ? <b key={i} style={{ fontWeight: 600, color: t.colorTextHeading, fontVariantNumeric: 'tabular-nums' }}>{x}</b>
+    : <React.Fragment key={i}>{x}</React.Fragment>));
+}
+const parts = (s) => String(s || '').split(/[；;]\s*/).map((x) => x.trim()).filter(Boolean);
+
+function Cell({ r, element, selected, onSelect, max = 3, core, wide }) {
   const { t, fs } = useUI();
+  const color = zoneColor(t, element);
   if (!r) {
     return (
       <div style={{ gridArea: AREA[element], border: `1px dashed ${t.colorBorder}`, borderRadius: 12, padding: 16 }}>
-        <div style={{ ...fs.meta, fontWeight: 600 }}>{element}</div>
+        <Status label={element} color={color} />
         <div style={{ ...fs.meta, color: t.colorTextQuaternary, marginTop: 6 }}>未填写</div>
       </div>
     );
   }
+  const ms = usable(r.metric) ? parts(r.metric) : [];
   return (
     <Card selected={selected} onClick={() => onSelect(r.code)}
-          style={{ gridArea: AREA[element], padding: '14px 16px 16px', display: 'flex', flexDirection: 'column', gap: 10,
-                   background: core && !selected ? t.colorPrimaryBg : undefined }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+          style={{ gridArea: AREA[element], padding: core ? '18px 18px 20px' : '14px 16px 16px', display: 'flex', flexDirection: 'column', gap: 12,
+                   background: core && !selected ? t.colorPrimaryBg : undefined, borderTop: `3px solid ${color}` }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{ fontSize: 13, fontWeight: 600, color: core ? t.colorPrimary : t.colorTextSecondary }}>{element}</span>
         <span style={fs.code}>{r.code}</span>
       </div>
-      <div style={{ ...fs.title, fontSize: core ? 17 : 15, ...clamp(tall ? 4 : 3) }}>{r.title}</div>
-      {usable(r.metric) ? (
-        <div style={{ borderLeft: `3px solid ${t.colorPrimary}`, paddingLeft: 10 }}>
-          <div style={{ fontSize: 13.5, lineHeight: 1.65, color: t.colorText, fontWeight: 500, ...clamp(tall ? 5 : 3) }}>{r.metric}</div>
+      <div style={{ ...fs.title, fontSize: core ? 18 : 15.5, lineHeight: 1.55, ...clamp(core ? 5 : 4) }}>{r.title}</div>
+      {ms.length ? (
+        <div style={{ display: wide ? 'grid' : 'flex', gridTemplateColumns: wide ? 'repeat(2, minmax(0,1fr))' : undefined, flexDirection: 'column',
+                      gap: wide ? '6px 20px' : 6, paddingTop: 10, borderTop: `1px solid ${t.colorSplit}` }}>
+          {ms.slice(0, max).map((m, i) => (
+            <div key={i} style={{ display: 'flex', gap: 8, fontSize: 13, lineHeight: 1.6, color: t.colorTextSecondary, minWidth: 0 }}>
+              <span style={{ width: 4, height: 4, borderRadius: 2, background: color, flex: 'none', marginTop: 9 }} />
+              <span style={{ minWidth: 0, ...clamp(core ? 4 : 2) }}><Num text={m} /></span>
+            </div>
+          ))}
+          {ms.length > max ? <div style={{ ...fs.code, paddingLeft: 12 }}>另有 {ms.length - max} 项，点开看</div> : null}
         </div>
       ) : null}
-      {usable(r.trend) ? <div style={{ ...fs.meta, ...clamp(tall ? 5 : 3) }}>{r.trend}</div> : null}
     </Card>
   );
 }
@@ -369,38 +394,54 @@ function Detail({ r, refs }) {
 }
 
 boot('商业模式', async (company, scope) => {
-  const [rows, refs] = await Promise.all([listRows('vi_biz_model', scope, ['facts']), loadRefs(scope)]);
-  rows.sort(byCode);
-  const of = (el) => rows.find((r) => r.element === el);
+  const [allRows, refs, businesses] = await Promise.all([listRows('vi_biz_model', scope, ['facts']), loadRefs(scope), listRows('vi_business', scope)]);
+  allRows.sort(byCode);
+  businesses.sort((a, b) => (a.sort || 0) - (b.sort || 0) || byCode(a,b));
   function Page() {
     const { t, fs } = useUI();
-    const [sel, setSel] = useState(of('价值主张')?.code || rows[0]?.code);
-    if (!rows.length) return <Empty description={`${company.name}还没有填写商业模式（切到“${EDIT_TAB}”标签新增）`} />;
-    const p = (el, tall) => <Cell key={el} r={of(el)} element={el} selected={of(el)?.code === sel} onSelect={setSel} tall={tall} core={el === '价值主张'} />;
+    const [businessId, setBusinessId] = useState('group');
+    const rows = allRows.filter((r) => businessId === 'group' ? !r.business_id : String(r.business_id) === String(businessId));
+    const business = businesses.find((b) => String(b.id) === String(businessId));
+    const of = (el) => rows.find((r) => r.element === el);
+    const [sel, setSel] = useState('B2');
+    if (!allRows.length) return <Empty description={`${company.name}还没有填写商业模式（切到“${EDIT_TAB}”标签新增）`} />;
+    const p = (el, opt = {}) => <Cell key={el} r={of(el)} element={el} selected={of(el)?.code === sel} onSelect={setSel} core={el === '价值主张'} {...opt} />;
+    const zone = (area, label, color, align) => (
+      <div style={{ gridArea: area, display: 'flex', alignItems: 'center', gap: 8, justifyContent: align || 'flex-start', fontSize: 12.5, color: t.colorTextSecondary }}>
+        <Dot color={color} size={7} />{label}
+      </div>
+    );
     const canvas = (w) => (w >= 760 ? (
-      <div style={{ display: 'grid', gap: 12, gridTemplateColumns: 'repeat(10, minmax(0,1fr))',
-                    gridTemplateAreas: '"c1 c1 c1 c1 c2 c2 c3 c3 c3 c3" "kp kp ka ka vp vp cr cr cs cs" "kp kp kr kr vp vp ch ch cs cs" "cost cost cost cost cost rev rev rev rev rev"' }}>
-        <div style={{ gridArea: 'c1', fontSize: 12, color: t.colorTextTertiary, letterSpacing: 1 }}>怎么做 · 靠谁、做什么、靠什么</div>
-        <div style={{ gridArea: 'c2', fontSize: 12, color: t.colorTextTertiary, letterSpacing: 1, textAlign: 'center' }}>提供什么</div>
-        <div style={{ gridArea: 'c3', fontSize: 12, color: t.colorTextTertiary, letterSpacing: 1, textAlign: 'right' }}>为谁做 · 怎么维系、怎么送达、卖给谁</div>
-        {p('重要合作', true)}{p('关键业务')}{p('核心资源')}{p('价值主张', true)}{p('客户关系')}{p('渠道通路')}{p('客户细分', true)}{p('成本结构')}{p('收入来源')}
+      <div style={{ display: 'grid', gap: 12, gridTemplateColumns: 'repeat(10, minmax(0,1fr))', alignItems: 'stretch',
+                    gridTemplateAreas: '"c1 c1 c1 c1 c2 c2 c3 c3 c3 c3" "kp kp ka ka vp vp cr cr cs cs" "kp kp kr kr vp vp ch ch cs cs" "c4 c4 c4 c4 c4 c5 c5 c5 c5 c5" "cost cost cost cost cost rev rev rev rev rev"' }}>
+        {zone('c1', '怎么做 · 靠谁、做什么、靠什么', zoneColor(t, '关键业务'))}
+        {zone('c2', '提供什么', t.colorPrimary, 'center')}
+        {zone('c3', '为谁做 · 怎么维系、怎么送达、卖给谁', zoneColor(t, '客户细分'), 'flex-end')}
+        {p('重要合作', { max: 4 })}{p('关键业务')}{p('核心资源')}{p('价值主张', { max: 4 })}{p('客户关系')}{p('渠道通路')}{p('客户细分', { max: 4 })}
+        <div style={{ gridArea: 'c4', marginTop: 8 }}>{zone(undefined, '钱怎么花', zoneColor(t, '成本结构'))}</div>
+        <div style={{ gridArea: 'c5', marginTop: 8 }}>{zone(undefined, '钱怎么来', zoneColor(t, '收入来源'))}</div>
+        {p('成本结构', { max: 4, wide: w >= 1100 })}{p('收入来源', { max: 4, wide: w >= 1100 })}
       </div>
     ) : (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {rows.map((r) => <Cell key={r.code} r={r} element={r.element} selected={r.code === sel} onSelect={setSel} core={r.element === '价值主张'} />)}
       </div>
     ));
-    const vp = of('价值主张'), cs = of('客户细分'), rev = of('收入来源'), cost = of('成本结构');
-    const line = (k, r) => (r ? <div style={{ display: 'flex', gap: 10 }}><span style={{ color: t.colorTextSecondary, flex: 'none', width: 32 }}>{k}</span><span style={{ color: t.colorText }}>{r.title}</span></div> : null);
-    const brief = (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 14, lineHeight: 1.7 }}>
-        {line('客户', cs)}{line('收入', rev)}{line('成本', cost)}
-      </div>
-    );
+    const vp = of('价值主张');
     return (
-      <Shell eyebrow={`${company.name} · 商业模式画布`} headline={vp ? vp.title : '商业模式'}
-             hint="左半边是公司怎么做，右半边是为谁做，中间是价值主张；底部是钱怎么花、怎么来。点格子看详情。"
-             stats={brief} main={canvas} sel={sel} minSide={1800} detail={<Detail r={rows.find((r) => r.code === sel)} refs={refs} />} />
+      <div>
+      {businesses.length > 0 && <div style={{ marginBottom: 18 }}>
+        <Segmented value={businessId} onChange={(id) => {setBusinessId(id); setSel('B2');}} options={[{label:'集团整体 / 共性',value:'group'}, ...businesses.map((b) => ({label:b.name,value:String(b.id)}))]} block />
+        {business && <div style={{ marginTop: 12, ...fs.body }}>
+          <Section label="业务边界" text={business.boundary} refs={refs} />
+          <Section label="费用分摊" text={business.cost_allocation} refs={refs} />
+          <Section label="经营资产与投入" text={business.asset_boundary} refs={refs} />
+        </div>}
+      </div>}
+      <Shell eyebrow={`${company.name} · ${business?.name || '集团整体 / 共性'} · 商业模式画布`} headline={vp ? vp.title : '商业模式'}
+             hint="左边怎么做、右边为谁做、中间价值主张，底部是钱怎么花、怎么来。点格子看说明、变化与风险和依据事实。"
+             main={canvas} sel={sel} minSide={1800} detail={<Detail r={rows.find((r) => r.code === sel)} refs={refs} />} />
+      </div>
     );
   }
   ctx.render(<Page />);
@@ -620,7 +661,7 @@ boot('核心论点', async (company, scope) => {
     const cur = rows.find((x) => x.code === sel);
     return (
       <Shell eyebrow={`${company.name} · 核心论点`} headline={headline}
-             hint="每条都正反辩论后下结论；卡片底部是引用它的壁垒、风险、假设依据和适配度维度。点卡片看辩论全文。"
+             hint="对公司的判断只写在这里：每条都正反辩论后下结论，还没答案的判断也写成论点，缺的证据写在“决定胜负的证据”（待办清单只放待办）。卡片底部是引用它的壁垒、风险、假设依据和适配度维度，点卡片看辩论全文。"
              stats={<Stats items={['成立', '观察', '存疑', '证伪'].map((s) => ({ label: s, value: n(s), unit: '条', color: status[s] }))} />}
              notice={<Notice items={todo} />} main={list} sel={sel} detailWidth={480}
              detail={<Detail x={cur} used={cur ? used[cur.code] : null} refs={refs} />} />
@@ -683,7 +724,7 @@ function Detail({ r, refs }) {
   if (!r) return <Empty description="点击矩阵里的风险查看详情" />;
   const ts = (r.theses || []).slice().sort(byCode);
   const js = (r.judgments || []).slice().sort(byCode);
-  const ws = (r.watches || []).slice().sort(byCode);
+  const ms = (r.metrics || []).slice().sort((a, b) => String(a.name).localeCompare(String(b.name), 'zh'));
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
       <DetailHead meta={`${r.code}${r.category ? ' · ' + r.category : ''}${r.status ? ' · ' + r.status : ''}`} title={r.title} />
@@ -696,14 +737,14 @@ function Detail({ r, refs }) {
       <Section label="触发后应对" text={r.response} refs={refs} />
       <LinkList label="会削弱的论点" items={ts.map((x) => ({ code: x.code, title: x.title, tag: x.status || '未裁决', color: status[x.status] }))} />
       <LinkList label="估值对应的假设依据" items={js.map((j) => ({ code: j.code, title: `${j.title}${j.parameter ? '　→ ' + j.parameter : ''}` }))} />
-      <LinkList label="预警跟踪事项" items={ws.map((w) => ({ code: w.code, title: `${w.title}${w.trigger ? '：' + w.trigger : ''}` }))} />
+      <LinkList label="预警指标" items={ms.map((m) => ({ code: '', title: `${m.name}${m.unit ? '（' + m.unit + '）' : ''}` }))} />
       <Facts facts={r.facts} />
     </div>
   );
 }
 
 boot('风险分析', async (company, scope) => {
-  const [rows, refs] = await Promise.all([listRows('vi_risk', scope, ['theses', 'judgments', 'watches', 'facts']), loadRefs(scope)]);
+  const [rows, refs] = await Promise.all([listRows('vi_risk', scope, ['theses', 'judgments', 'metrics', 'facts']), loadRefs(scope)]);
   rows.sort(byCode);
   function Page() {
     const { t, fs, level } = useUI();
@@ -731,7 +772,7 @@ boot('风险分析', async (company, scope) => {
     );
     return (
       <Shell eyebrow={`${company.name} · 风险分析`} headline={headline}
-             hint={`${top.level || ''}风险，${top.treatment || '估值处理未填'}。右上角是可能性高、冲击大的风险；点风险看传导路径和对应的论点、跟踪事项。`}
+             hint={`${top.level || ''}风险，${top.treatment || '估值处理未填'}。右上角是可能性高、冲击大的风险；点风险看传导路径和对应的论点、预警指标。`}
              stats={<Stats items={[...['重大', '重要', '一般'].map((l) => ({ label: l, value: rows.filter((r) => r.level === l).length, unit: '项', color: level[l] })),
                                    { label: '未计入估值', value: notIn.length, unit: '项' }]} />}
              notice={<Notice items={todo} />} main={main} sel={sel} detail={<Detail r={rows.find((r) => r.code === sel)} refs={refs} />} />
@@ -1059,6 +1100,11 @@ def convert(co, code):
     st = state()
     gid = ensure_group(st, f"{co['name']}/商业模式", '商业模式', 'SafetyOutlined', parent=company_root(st, co))
     b = bp.blueprint(code, title, gid, co)                 # 明细标签：与原表格页完全相同的表格、弹窗、表单
+    extra_tabs = []
+    if code == 'biz_model' and co['code'] == '01810.HK':
+        businesses = bp.blueprint('business', '业务分部（编辑）', gid, co)
+        b['defaults']['collections'].update(businesses['defaults']['collections'])
+        extra_tabs = businesses['tabs']
     with bp.no_field_desc([code]):
         apply_page(f"bizview_{code}_{co['code']}", {
           'version': '1', 'mode': 'replace', 'target': {'pageSchemaUid': page['pageSchemaUid']},
@@ -1066,8 +1112,8 @@ def convert(co, code):
           'defaults': b['defaults'],
           'assets': {'scripts': {'view': {'version': 'v2', 'code': script(code, co)}}},
           'tabs': [{'title': tab, 'blocks': [{'key': 'view', 'type': 'jsBlock', 'script': 'view'}]},
-                   {'title': EDIT_TAB, 'blocks': [b['tabs'][0]['blocks'][0]]}]})
-    bp.order_tabs(key, [tab, EDIT_TAB])
+                   {'title': EDIT_TAB, 'blocks': [b['tabs'][0]['blocks'][0]]}] + extra_tabs})
+    bp.order_tabs(key, [tab, EDIT_TAB] + [x['title'] for x in extra_tabs])
     print(f"{co['name']} · {title}：{tab} ＋ {EDIT_TAB}")
 
 

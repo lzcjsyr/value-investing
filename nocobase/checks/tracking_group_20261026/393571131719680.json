@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "createdAt": "2026-10-22T18:22:20.962Z",
+      "updatedAt": "2026-10-26T08:19:19.150Z",
+      "id": 393571131719680,
+      "parentId": 393570819244032,
+      "title": "持续跟踪",
+      "tooltip": null,
+      "icon": "RadarChartOutlined",
+      "schemaUid": "7gu4d4kta9n",
+      "menuSchemaUid": null,
+      "tabSchemaName": null,
+      "type": "group",
+      "options": null,
+      "sort": 5050,
+      "hideInMenu": null,
+      "enableTabs": null,
+      "enableHeader": null,
+      "displayTitle": null,
+      "hidden": null,
+      "createdById": 1,
+      "updatedById": 1
+    }
+  ]
+}

@@ -513,7 +513,7 @@ try {
 """
 
 PAGES = [('assume', '财务模型', 'ExperimentOutlined', lambda prof: ASSUME_JS),   # 页面键仍是 assume（原名「情景假设」）
-         ('val', '估值', 'FundOutlined', lambda prof: IRR_JS if prof['method'] == 'irr' else __import__('build_overview').kpi_code('__COMPANY__'))]
+         ('val', '估值', 'FundOutlined', lambda prof: IRR_JS if prof['method'] == 'irr' else __import__('build_sotp').JS)]
 
 
 def body(co, key, title, js):

@@ -106,5 +106,43 @@
    "notes": "市场汇率（非中间价）；第 6 段是时间戳 YYYYMMDDhhmmss。",
    "metric_id": 29
   }
+ ],
+ "source": [
+  {
+   "id": 924,
+   "company_id": null,
+   "title": "10年国债到期收益率（中证口径）：Wind / 中证指数公司（2026 年历史数据）",
+   "source_type": "数据库取数",
+   "publisher": "Wind / 中证指数公司",
+   "url": null,
+   "reliability": "三级·第三方数据",
+   "verify_status": "待核验",
+   "summary": "19 条历史数据（2026-08-25 至 2026-09-18）",
+   "limitations": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率"
+  },
+  {
+   "id": 925,
+   "company_id": null,
+   "title": "纸浆期货收盘价（Wind 活跃合约）：Wind 期货收盘价（活跃合约）（2021—2026 年历史数据）",
+   "source_type": "数据库取数",
+   "publisher": "Wind EDB M0330982",
+   "url": null,
+   "reliability": "三级·第三方数据",
+   "verify_status": "待核验",
+   "summary": "1212 条历史数据（2021-10-21 至 2026-10-21）",
+   "limitations": "历史补数：Wind 期货收盘价（活跃合约）"
+  },
+  {
+   "id": 926,
+   "company_id": null,
+   "title": "港元兑人民币：腾讯外汇 K 线收盘价（2025—2026 年历史数据）",
+   "source_type": "数据库取数",
+   "publisher": null,
+   "url": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=whHKDCNY,day",
+   "reliability": "三级·第三方数据",
+   "verify_status": "待核验",
+   "summary": "263 条历史数据（2025-10-20 至 2026-10-22）",
+   "limitations": "历史补数：腾讯外汇 K 线收盘价"
+  }
  ]
 }

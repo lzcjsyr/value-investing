@@ -1,15 +1,6 @@
 {
  "version": "1",
- "mode": "create",
- "navigation": {
-  "group": {
-   "routeId": 393818928709632
-  },
-  "item": {
-   "title": "指标",
-   "icon": "TableOutlined"
-  }
- },
+ "mode": "replace",
  "page": {
   "title": "指标",
   "documentTitle": "宏观数据 · 指标"
@@ -33,15 +24,23 @@
     },
     "fieldGroups": [
      {
-      "title": "基本信息",
+      "title": "基本信息（1/2）",
       "fields": [
        "code",
        "name",
        "unit",
        "category",
+       "source_kind",
+       "basis",
+       "formula",
        "source_name",
        "frequency",
-       "valid_min",
+       "valid_min"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
        "valid_max",
        "notes"
       ]
@@ -53,13 +52,23 @@
       ]
      },
      {
-      "title": "自动计算（只读）",
+      "title": "自动计算（只读）（1/2）",
       "fields": [
        "obs_count",
        "latest_value",
+       "latest_period",
        "latest_date",
+       "state",
+       "next_due",
+       "tracked_by",
+       "tracked_codes",
        "scope",
-       "used_by",
+       "used_by"
+      ]
+     },
+     {
+      "title": "自动计算（只读）（2/2）",
+      "fields": [
        "used_by_codes"
       ]
      },
@@ -145,22 +154,84 @@
      "type": "table",
      "collection": "vi_metric",
      "fields": [
-      "code",
-      "name",
-      "unit",
-      "category",
-      "scope",
-      "used_by",
-      "latest_value",
-      "latest_date",
-      "obs_count",
-      "source_name"
+      {
+       "field": "name",
+       "settings": {
+        "width": 280
+       }
+      },
+      {
+       "field": "category",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "unit",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "basis",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "latest_value",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "latest_period",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "state",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "tracked_by",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "source_kind",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "formula",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "source_name",
+       "settings": {
+        "width": 200
+       }
+      }
      ],
      "settings": {
+      "title": "",
+      "description": "一家公司要看的每一个数（经营、财务、行情与环境），一个指标一行：从哪来、最新值、是否到期、被哪些假设或风险盯着；被【公司】【重要事实】【风险分析】【假设依据】【数据】【估值模型】【采集配置】【质量自检】引用。",
       "pageSize": 50,
       "sorting": [
        {
-        "field": "id",
+        "field": "category",
+        "direction": "asc"
+       },
+       {
+        "field": "name",
         "direction": "asc"
        }
       ],
@@ -173,7 +244,8 @@
          "value": "宏观"
         }
        ]
-      }
+      },
+      "density": "middle"
      },
      "actions": [
       "filter",
@@ -188,19 +260,37 @@
           "resource": {
            "collectionName": "vi_metric"
           },
-          "fields": [
-           "code",
-           "name",
-           "unit",
-           "category",
-           "source_name",
-           "frequency",
-           "valid_min",
-           "valid_max",
-           "notes",
+          "fieldGroups": [
            {
-            "field": "company",
-            "titleField": "name"
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "name",
+             "unit",
+             "category",
+             "source_kind",
+             "basis",
+             "formula",
+             "source_name",
+             "frequency",
+             "valid_min"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "valid_max",
+             "notes"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             }
+            ]
            }
           ],
           "actions": [
@@ -221,19 +311,37 @@
         "blocks": [
          {
           "type": "editForm",
-          "fields": [
-           "code",
-           "name",
-           "unit",
-           "category",
-           "source_name",
-           "frequency",
-           "valid_min",
-           "valid_max",
-           "notes",
+          "fieldGroups": [
            {
-            "field": "company",
-            "titleField": "name"
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "name",
+             "unit",
+             "category",
+             "source_kind",
+             "basis",
+             "formula",
+             "source_name",
+             "frequency",
+             "valid_min"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "valid_max",
+             "notes"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             }
+            ]
            }
           ],
           "actions": [
@@ -248,5 +356,8 @@
     }
    ]
   }
- ]
+ ],
+ "target": {
+  "pageSchemaUid": "ujvwu8gqecp"
+ }
 }

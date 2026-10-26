@@ -1,0 +1,576 @@
+[
+ {
+  "company": "600900.SH",
+  "code": "K01",
+  "title": "公司公告与报告",
+  "metrics": [],
+  "text": "公司公告与报告",
+  "to": "risk"
+ },
+ {
+  "company": "600900.SH",
+  "code": "K02",
+  "title": "六站累计发电量",
+  "metrics": [
+   "97"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "600900.SH",
+  "code": "K03",
+  "title": "来水、库容与水头",
+  "metrics": [
+   "4"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "600900.SH",
+  "code": "K04",
+  "title": "实现售电价",
+  "metrics": [
+   "NEW:售电价"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "600900.SH",
+  "code": "K05",
+  "title": "10年国债收益率",
+  "metrics": [
+   "2"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "600900.SH",
+  "code": "K06",
+  "title": "折旧与更新预算",
+  "metrics": [],
+  "text": "折旧与更新预算",
+  "to": "risk"
+ },
+ {
+  "company": "600900.SH",
+  "code": "K07",
+  "title": "债务与有效融资成本",
+  "metrics": [],
+  "text": "债务与有效融资成本",
+  "to": "risk"
+ },
+ {
+  "company": "600900.SH",
+  "code": "K08",
+  "title": "分红及现金覆盖",
+  "metrics": [],
+  "text": "分红及现金覆盖",
+  "to": "judgment"
+ },
+ {
+  "company": "600900.SH",
+  "code": "K09",
+  "title": "资本配置回报",
+  "metrics": [],
+  "text": "资本配置回报",
+  "to": "risk"
+ },
+ {
+  "company": "600900.SH",
+  "code": "K10",
+  "title": "权益法收益与现金分红",
+  "metrics": [],
+  "text": "权益法收益与现金分红",
+  "to": "judgment"
+ },
+ {
+  "company": "600900.SH",
+  "code": "K11",
+  "title": "价格、股本和除息",
+  "metrics": [
+   "1"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "600900.SH",
+  "code": "K12",
+  "title": "永久损失与治理",
+  "metrics": [],
+  "text": "永久损失与治理",
+  "to": "risk"
+ },
+ {
+  "company": "002078.SZ",
+  "code": "W1",
+  "title": "股价与隐含收益率",
+  "metrics": [
+   "8"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "002078.SZ",
+  "code": "W2",
+  "title": "纸浆价格",
+  "metrics": [
+   "10"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "002078.SZ",
+  "code": "W3",
+  "title": "季度毛利率与分产品吨利",
+  "metrics": [
+   "101"
+  ],
+  "text": "分产品吨利",
+  "to": "risk"
+ },
+ {
+  "company": "002078.SZ",
+  "code": "W4",
+  "title": "箱板纸、文化纸价格与提价落地",
+  "metrics": [],
+  "text": "箱板纸、文化纸价格与提价落地",
+  "to": "risk"
+ },
+ {
+  "company": "002078.SZ",
+  "code": "W5",
+  "title": "新产能爬坡与南宁项目进度",
+  "metrics": [],
+  "text": "新产能爬坡与南宁项目进度",
+  "to": "risk"
+ },
+ {
+  "company": "002078.SZ",
+  "code": "W6",
+  "title": "资本开支与净负债",
+  "metrics": [],
+  "text": "资本开支与净负债",
+  "to": "risk"
+ },
+ {
+  "company": "002078.SZ",
+  "code": "W7",
+  "title": "分红政策（2027—2029 年规划）",
+  "metrics": [],
+  "text": "分红政策（2027—2029 年规划）",
+  "to": "risk"
+ },
+ {
+  "company": "002078.SZ",
+  "code": "W8",
+  "title": "股权激励考核完成情况",
+  "metrics": [],
+  "text": "股权激励考核完成情况",
+  "to": "risk"
+ },
+ {
+  "company": "002078.SZ",
+  "code": "W9",
+  "title": "关联交易",
+  "metrics": [],
+  "text": "关联交易",
+  "to": "risk"
+ },
+ {
+  "company": "002078.SZ",
+  "code": "W10",
+  "title": "老挝新项目与林地",
+  "metrics": [],
+  "text": "老挝新项目与林地",
+  "to": "risk"
+ },
+ {
+  "company": "601668.SH",
+  "code": "W1",
+  "title": "股价",
+  "metrics": [
+   "23"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "601668.SH",
+  "code": "W2",
+  "title": "新签合同总额·年初累计同比",
+  "metrics": [
+   "190"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "601668.SH",
+  "code": "W3",
+  "title": "建筑新签占全国比重",
+  "metrics": [
+   "193"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "601668.SH",
+  "code": "W4",
+  "title": "营业收入·单季同比",
+  "metrics": [
+   "103"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "601668.SH",
+  "code": "W5",
+  "title": "房屋建筑新开工面积·年初累计同比",
+  "metrics": [
+   "192"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "601668.SH",
+  "code": "W6",
+  "title": "毛利率·滚动四季度",
+  "metrics": [
+   "189"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "601668.SH",
+  "code": "W7",
+  "title": "地产业务毛利率·半年",
+  "metrics": [
+   "194"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "601668.SH",
+  "code": "W8",
+  "title": "地产合约销售额·年初累计同比",
+  "metrics": [
+   "191"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "601668.SH",
+  "code": "W9",
+  "title": "资产及信用减值损失·年初累计同比",
+  "metrics": [
+   "184"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "601668.SH",
+  "code": "W10",
+  "title": "经营现金流·滚动四季度",
+  "metrics": [
+   "185"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "601668.SH",
+  "code": "W11",
+  "title": "应收账款＋合同资产·期末同比",
+  "metrics": [
+   "186"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "601668.SH",
+  "code": "W12",
+  "title": "PPP 相关长期资产·期末同比",
+  "metrics": [
+   "187"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "601668.SH",
+  "code": "W13",
+  "title": "清收政府逾期债权·半年",
+  "metrics": [
+   "196"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "601668.SH",
+  "code": "W14",
+  "title": "带息负债·期末",
+  "metrics": [
+   "188"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "601668.SH",
+  "code": "W15",
+  "title": "每股现金分红·年度",
+  "metrics": [
+   "195"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "01698.HK",
+  "code": "W1",
+  "title": "股价与隐含收益率",
+  "metrics": [
+   "28"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "01698.HK",
+  "code": "W2",
+  "title": "会员服务收入同比（剔除喜马拉雅）",
+  "metrics": [
+   "120"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "01698.HK",
+  "code": "W3",
+  "title": "汽水音乐、番茄音乐月活与付费",
+  "metrics": [
+   "133"
+  ],
+  "text": "番茄音乐月活、汽水音乐付费情况",
+  "to": "risk"
+ },
+ {
+  "company": "01698.HK",
+  "code": "W4",
+  "title": "毛利率",
+  "metrics": [
+   "123"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "01698.HK",
+  "code": "W5",
+  "title": "回购执行与新回购计划",
+  "metrics": [
+   "132"
+  ],
+  "text": "新回购计划",
+  "to": "risk"
+ },
+ {
+  "company": "01698.HK",
+  "code": "W6",
+  "title": "喜马拉雅收入与利润贡献",
+  "metrics": [],
+  "text": "喜马拉雅收入与利润贡献",
+  "to": "risk"
+ },
+ {
+  "company": "01698.HK",
+  "code": "W7",
+  "title": "现金、借款与美元票据",
+  "metrics": [
+   "130",
+   "131"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "01698.HK",
+  "code": "W8",
+  "title": "年末付费用户总数",
+  "metrics": [
+   "126"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "01698.HK",
+  "code": "W9",
+  "title": "AI 音乐与版权政策",
+  "metrics": [],
+  "text": "AI 音乐与版权政策",
+  "to": "risk"
+ },
+ {
+  "company": "01698.HK",
+  "code": "W10",
+  "title": "港元兑人民币",
+  "metrics": [
+   "29"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "01698.HK",
+  "code": "W11",
+  "title": "对外持股市值（Spotify、UMG）",
+  "metrics": [],
+  "text": "对外持股市值（Spotify、UMG）",
+  "to": "risk"
+ },
+ {
+  "company": "01698.HK",
+  "code": "W12",
+  "title": "市场隐含核心倍数",
+  "metrics": [],
+  "text": "市场隐含核心倍数",
+  "to": "judgment"
+ },
+ {
+  "company": "01810.HK",
+  "code": "W1",
+  "title": "股价、分部估值与概率加权价值",
+  "metrics": [
+   "48"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "01810.HK",
+  "code": "W2",
+  "title": "存储合约价（DRAM、NAND）",
+  "metrics": [],
+  "text": "存储合约价（DRAM、NAND）",
+  "to": "judgment"
+ },
+ {
+  "company": "01810.HK",
+  "code": "W3",
+  "title": "手机毛利率、ASP 与出货",
+  "metrics": [
+   "142",
+   "148",
+   "145"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "01810.HK",
+  "code": "W4",
+  "title": "IoT 毛利率与生态营业费用率",
+  "metrics": [
+   "143",
+   "170"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "01810.HK",
+  "code": "W5",
+  "title": "汽车月度交付与订单",
+  "metrics": [
+   "149"
+  ],
+  "text": "汽车月度交付与订单（单季交付量见指标）",
+  "to": "judgment"
+ },
+ {
+  "company": "01810.HK",
+  "code": "W6",
+  "title": "汽车及 AI 分部经营损益与 AI 投入口径",
+  "metrics": [
+   "151"
+  ],
+  "text": "AI 投入口径",
+  "to": "judgment"
+ },
+ {
+  "company": "01810.HK",
+  "code": "W7",
+  "title": "互联网服务收入与月活",
+  "metrics": [
+   "139",
+   "156"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "01810.HK",
+  "code": "W8",
+  "title": "回购执行与股本",
+  "metrics": [
+   "159"
+  ],
+  "text": "股本变动",
+  "to": "judgment"
+ },
+ {
+  "company": "01810.HK",
+  "code": "W9",
+  "title": "现金储备、借款、投资者负债",
+  "metrics": [
+   "157",
+   "158"
+  ],
+  "text": "投资者负债",
+  "to": "judgment"
+ },
+ {
+  "company": "01810.HK",
+  "code": "W10",
+  "title": "港元兑人民币",
+  "metrics": [
+   "29"
+  ],
+  "text": null,
+  "to": null
+ },
+ {
+  "company": "01810.HK",
+  "code": "W11",
+  "title": "AI 商业化与可比公司估值",
+  "metrics": [],
+  "text": "AI 商业化与可比公司估值",
+  "to": "judgment"
+ },
+ {
+  "company": "01810.HK",
+  "code": "W12",
+  "title": "印度诉讼",
+  "metrics": [],
+  "text": "印度诉讼",
+  "to": "judgment"
+ }
+]

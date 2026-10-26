@@ -8,45 +8,50 @@
  "defaults": {
   "collections": {
    "vi_watch": {
-    "popups": {
-     "view": {
-      "name": "跟踪事项·详情",
-      "description": "查看一条「跟踪事项」记录"
-     },
-     "addNew": {
-      "name": "跟踪事项·新增",
-      "description": "新增一条「跟踪事项」记录"
-     },
-     "edit": {
-      "name": "跟踪事项·编辑",
-      "description": "编辑一条「跟踪事项」记录"
-     }
-    },
     "fieldGroups": [
      {
-      "title": "基本信息",
+      "title": "基本信息（1/2）",
       "fields": [
        "code",
        "title",
-       "frequency",
+       "fact_note",
+       "fact_date",
+       "purpose",
+       "fetch_method",
        "preferred_source",
+       "frequency",
+       "compare",
+       "baseline"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "lower",
+       "upper",
        "trigger",
-       "action",
-       "nature"
+       "action"
       ]
      },
      {
       "title": "关联",
       "fields": [
        "company",
-       "metric"
+       "metric",
+       "source"
       ]
      },
      {
       "title": "自动计算（只读）",
       "fields": [
+       "state",
        "latest_value",
-       "latest_date"
+       "latest_period",
+       "latest_date",
+       "vs_baseline",
+       "next_due",
+       "latest_fact",
+       "fact_as_of"
       ]
      },
      {
@@ -55,15 +60,7 @@
        "updated_at"
       ]
      }
-    ],
-    "formBehaviorDescriptionReview": {
-     "fields": {
-      "nature": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      }
-     }
-    }
+    ]
    },
    "vi_company": {
     "popups": {
@@ -176,6 +173,125 @@
      }
     }
    },
+   "vi_thesis": {
+    "popups": {
+     "view": {
+      "name": "核心论点·详情",
+      "description": "查看一条「核心论点」记录"
+     },
+     "addNew": {
+      "name": "核心论点·新增",
+      "description": "新增一条「核心论点」记录"
+     },
+     "edit": {
+      "name": "核心论点·编辑",
+      "description": "编辑一条「核心论点」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "title",
+       "category",
+       "status",
+       "confidence",
+       "bull_case",
+       "bear_case",
+       "bull_rebuttal",
+       "bear_rebuttal",
+       "verdict"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "decisive_evidence",
+       "mind_changer",
+       "model_impact",
+       "external_view",
+       "debated_on",
+       "check_metric",
+       "check_op",
+       "check_threshold",
+       "check_years"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "check_latest_year",
+       "check_latest_value",
+       "check_result",
+       "judgment_status"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_judgment": {
+    "popups": {
+     "view": {
+      "name": "假设依据·详情",
+      "description": "查看一条「假设依据」记录"
+     },
+     "addNew": {
+      "name": "假设依据·新增",
+      "description": "新增一条「假设依据」记录"
+     },
+     "edit": {
+      "name": "假设依据·编辑",
+      "description": "编辑一条「假设依据」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "title",
+       "fact_layer",
+       "judgment",
+       "transmission",
+       "parameter",
+       "affected_years",
+       "change_threshold",
+       "no_change_condition",
+       "counter_evidence"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "status"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
    "vi_metric": {
     "popups": {
      "view": {
@@ -236,79 +352,37 @@
        "updated_at"
       ]
      }
-    ],
-    "formBehaviorDescriptionReview": {
-     "fields": {
-      "code": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "unit": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "valid_min": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "scope": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "used_by": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "used_by_codes": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "source_kind": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "basis": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      }
-     }
-    }
+    ]
    },
-   "vi_judgment": {
+   "vi_source": {
     "popups": {
      "view": {
-      "name": "假设依据·详情",
-      "description": "查看一条「假设依据」记录"
+      "name": "来源文档·详情",
+      "description": "查看一条「来源文档」记录"
      },
      "addNew": {
-      "name": "假设依据·新增",
-      "description": "新增一条「假设依据」记录"
+      "name": "来源文档·新增",
+      "description": "新增一条「来源文档」记录"
      },
      "edit": {
-      "name": "假设依据·编辑",
-      "description": "编辑一条「假设依据」记录"
+      "name": "来源文档·编辑",
+      "description": "编辑一条「来源文档」记录"
      }
     },
     "fieldGroups": [
      {
-      "title": "基本信息（1/2）",
+      "title": "基本信息",
       "fields": [
-       "code",
        "title",
-       "fact_layer",
-       "judgment",
-       "transmission",
-       "parameter",
-       "affected_years",
-       "change_threshold",
-       "no_change_condition",
-       "counter_evidence"
-      ]
-     },
-     {
-      "title": "基本信息（2/2）",
-      "fields": [
-       "status"
+       "source_type",
+       "publisher",
+       "publish_date",
+       "url",
+       "reliability",
+       "verify_status",
+       "retrieved_on",
+       "summary",
+       "limitations"
       ]
      },
      {
@@ -323,23 +397,7 @@
        "updated_at"
       ]
      }
-    ],
-    "formBehaviorDescriptionReview": {
-     "fields": {
-      "code": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "fact_layer": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "transmission": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      }
-     }
-    }
+    ]
    }
   }
  },
@@ -365,60 +423,99 @@
        }
       },
       {
-       "field": "metric",
-       "titleField": "name",
-       "popup": {
-        "title": "指标",
-        "blocks": [
-         {
-          "type": "details",
-          "resource": {
-           "binding": "currentRecord",
-           "collectionName": "vi_metric"
-          },
-          "fields": [
-           "name",
-           "code",
-           "unit",
-           "category",
-           "source_kind",
-           "basis"
-          ]
-         }
-        ]
-       },
+       "field": "latest_fact",
        "settings": {
-        "width": 280
+        "width": 360
        }
       },
       {
-       "field": "latest_value",
-       "settings": {
-        "width": 150
-       }
-      },
-      {
-       "field": "latest_date",
+       "field": "fact_as_of",
        "settings": {
         "width": 200
+       }
+      },
+      {
+       "field": "fetch_method",
+       "settings": {
+        "width": 140
        }
       },
       {
        "field": "frequency",
        "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "state",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "source",
+       "titleField": "title",
+       "popup": {
+        "title": "来源文档",
+        "blocks": [
+         {
+          "type": "details",
+          "resource": {
+           "binding": "currentRecord",
+           "collectionName": "vi_source"
+          },
+          "fields": [
+           "title",
+           "source_type",
+           "publisher",
+           "publish_date",
+           "url",
+           "reliability"
+          ]
+         }
+        ]
+       },
+       "settings": {
         "width": 200
        }
       },
       {
-       "field": "trigger",
+       "field": "preferred_source",
        "settings": {
         "width": 360
+       }
+      },
+      {
+       "field": "theses",
+       "titleField": "title",
+       "popup": {
+        "title": "核心论点",
+        "blocks": [
+         {
+          "type": "details",
+          "resource": {
+           "binding": "currentRecord",
+           "collectionName": "vi_thesis"
+          },
+          "fields": [
+           "title",
+           "code",
+           "category",
+           "status",
+           "confidence",
+           "bull_case"
+          ]
+         }
+        ]
+       },
+       "settings": {
+        "width": 200
        }
       }
      ],
      "settings": {
       "title": "",
-      "description": "要定期盯的指标，以及到什么程度要复核；引用【假设依据】【指标】；被【风险分析】引用。",
+      "description": "记录需要持续跟踪的定量数据与定性事实；保留来源、取数方式、取数频率和更新状态；引用【来源文档】【核心论点】【假设依据】【指标】；被【风险分析】引用。",
       "pageSize": 50,
       "sorting": [
        {
@@ -451,25 +548,45 @@
           "resource": {
            "collectionName": "vi_watch"
           },
-          "fields": [
-           "code",
-           "title",
-           "frequency",
-           "preferred_source",
-           "trigger",
-           "action",
-           "nature",
+          "fieldGroups": [
            {
-            "field": "company",
-            "titleField": "name"
+            "title": "基本信息",
+            "fields": [
+             "code",
+             "title",
+             "fact_note",
+             "fact_date",
+             "purpose",
+             "fetch_method",
+             "preferred_source",
+             "frequency",
+             "compare"
+            ]
            },
            {
-            "field": "metric",
-            "titleField": "name"
-           },
-           {
-            "field": "judgments",
-            "titleField": "title"
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             },
+             {
+              "field": "theses",
+              "titleField": "title"
+             },
+             {
+              "field": "judgments",
+              "titleField": "title"
+             },
+             {
+              "field": "metric",
+              "titleField": "name"
+             },
+             {
+              "field": "source",
+              "titleField": "title"
+             }
+            ]
            }
           ],
           "actions": [
@@ -482,7 +599,70 @@
       "bulkDelete"
      ],
      "recordActions": [
-      "view",
+      {
+       "type": "view",
+       "popup": {
+        "title": "跟踪事项 · 事实",
+        "blocks": [
+         {
+          "type": "details",
+          "resource": {
+           "binding": "currentRecord",
+           "collectionName": "vi_watch"
+          },
+          "fieldGroups": [
+           {
+            "title": "最新事实",
+            "fields": [
+             "latest_fact",
+             "fact_as_of",
+             "state"
+            ]
+           },
+           {
+            "title": "记录与取数",
+            "fields": [
+             "code",
+             "title",
+             "fact_note",
+             "fact_date",
+             "purpose",
+             "fetch_method",
+             "preferred_source",
+             "frequency",
+             "compare"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             },
+             {
+              "field": "theses",
+              "titleField": "title"
+             },
+             {
+              "field": "judgments",
+              "titleField": "title"
+             },
+             {
+              "field": "metric",
+              "titleField": "name"
+             },
+             {
+              "field": "source",
+              "titleField": "title"
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      },
       {
        "type": "edit",
        "popup": {
@@ -490,25 +670,45 @@
         "blocks": [
          {
           "type": "editForm",
-          "fields": [
-           "code",
-           "title",
-           "frequency",
-           "preferred_source",
-           "trigger",
-           "action",
-           "nature",
+          "fieldGroups": [
            {
-            "field": "company",
-            "titleField": "name"
+            "title": "基本信息",
+            "fields": [
+             "code",
+             "title",
+             "fact_note",
+             "fact_date",
+             "purpose",
+             "fetch_method",
+             "preferred_source",
+             "frequency",
+             "compare"
+            ]
            },
            {
-            "field": "metric",
-            "titleField": "name"
-           },
-           {
-            "field": "judgments",
-            "titleField": "title"
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             },
+             {
+              "field": "theses",
+              "titleField": "title"
+             },
+             {
+              "field": "judgments",
+              "titleField": "title"
+             },
+             {
+              "field": "metric",
+              "titleField": "name"
+             },
+             {
+              "field": "source",
+              "titleField": "title"
+             }
+            ]
            }
           ],
           "actions": [
@@ -525,6 +725,6 @@
   }
  ],
  "target": {
-  "pageSchemaUid": "7iv4wgxr82e"
+  "pageSchemaUid": "s4a98olh0sy"
  }
 }

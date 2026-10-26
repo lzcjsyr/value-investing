@@ -11,7 +11,7 @@ import build_pages as bp
 
 JS = r"""const COMPANY = '__COMPANY__';   // 由 build_fitboard.py 写入：只看这家公司的适配度
 const { React } = ctx.libs;
-const { Tooltip, Alert, Empty, theme } = ctx.libs.antd;
+const { Alert, Empty, theme } = ctx.libs.antd;
 
 async function listRows(name, filter) {
   const resource = ctx.makeResource('MultiRecordResource');
@@ -42,59 +42,69 @@ function Board({ company, rows }) {
   const weak = rows.filter((r) => Number(r.score) <= 2);
   const list = (xs) => xs.map((r) => `${r.dimension} ${r.score}`).join('、');
   const narrow = (typeof window !== 'undefined' ? window.innerWidth : 1400) < 900;
+  const label = { fontSize: 12, color: token.colorTextTertiary };
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'minmax(260px, 1fr) minmax(0, 2fr)', gap: narrow ? 20 : 40, alignItems: 'center' }}>
-      {/* 左：总分与归类 */}
-      <div>
-        <div style={{ fontSize: 12, color: token.colorTextTertiary }}>{company.name} · 价投适配度</div>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginTop: 4 }}>
-          <span style={{ fontSize: 44, fontWeight: 600, lineHeight: 1.1, color: tone[band.name] }}>{total}</span>
-          <span style={{ fontSize: 16, color: token.colorTextTertiary }}>/ {max}</span>
-          <span style={{ fontSize: 13, fontWeight: 600, color: tone[band.name], background: soft[band.name], borderRadius: 4, padding: '2px 8px' }}>{band.name}</span>
-        </div>
-        <div style={{ fontSize: 13, color: token.colorTextSecondary, marginTop: 6, lineHeight: 1.6 }}>{band.text}</div>
-        {/* 归类刻度：三段，标出当前分数 */}
-        <div style={{ position: 'relative', marginTop: 14, paddingTop: 10 }}>
-          <div style={{ display: 'flex', height: 6, borderRadius: 3, overflow: 'hidden' }}>
-            {BANDS.map((b) => (
-              <div key={b.name} style={{ flex: b.to - b.from + 1, background: b.name === band.name ? tone[b.name] : token.colorFillSecondary, opacity: b.name === band.name ? 0.85 : 1 }} />
-            ))}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 28, maxWidth: 1100 }}>
+      {/* 结论：总分、归类、刻度、强项与短板 */}
+      <div style={{ display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'minmax(0, 1fr) minmax(0, 1fr)', gap: narrow ? 18 : 48, alignItems: 'end' }}>
+        <div>
+          <div style={label}>{company.name} · 价投适配度</div>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginTop: 4 }}>
+            <span style={{ fontSize: 44, fontWeight: 600, lineHeight: 1.1, color: tone[band.name] }}>{total}</span>
+            <span style={{ fontSize: 16, color: token.colorTextTertiary }}>/ {max}</span>
+            <span style={{ fontSize: 13, fontWeight: 600, color: tone[band.name], background: soft[band.name], borderRadius: 4, padding: '2px 8px' }}>{band.name}</span>
           </div>
-          <div style={{ position: 'absolute', top: 0, left: `calc(${(Math.min(scaled, 40) / 41) * 100}% - 5px)`, width: 0, height: 0,
-                        borderLeft: '5px solid transparent', borderRight: '5px solid transparent', borderTop: `7px solid ${token.colorText}` }} />
-          <div style={{ display: 'flex', fontSize: 11, color: token.colorTextTertiary, marginTop: 4 }}>
-            {BANDS.map((b) => <span key={b.name} style={{ flex: b.to - b.from + 1 }}>{b.name} {b.from === 0 ? `≤${b.to}` : b.to === 40 ? `${b.from}+` : `${b.from}–${b.to}`}</span>)}
+          <div style={{ fontSize: 13, color: token.colorTextSecondary, marginTop: 6, lineHeight: 1.6 }}>{band.text}</div>
+        </div>
+        <div>
+          <div style={{ position: 'relative', paddingTop: 10 }}>
+            <div style={{ display: 'flex', height: 8, borderRadius: 4, overflow: 'hidden' }}>
+              {BANDS.map((b) => (
+                <div key={b.name} style={{ flex: b.to - b.from + 1, background: b.name === band.name ? tone[b.name] : token.colorFillSecondary, opacity: b.name === band.name ? 0.85 : 1 }} />
+              ))}
+            </div>
+            <div style={{ position: 'absolute', top: 0, left: `calc(${(Math.min(scaled, 40) / 41) * 100}% - 5px)`, width: 0, height: 0,
+                          borderLeft: '5px solid transparent', borderRight: '5px solid transparent', borderTop: `7px solid ${token.colorText}` }} />
+            <div style={{ display: 'flex', fontSize: 11, color: token.colorTextTertiary, marginTop: 6 }}>
+              {BANDS.map((b) => <span key={b.name} style={{ flex: b.to - b.from + 1 }}>{b.name} {b.from === 0 ? `≤${b.to}` : b.to === 40 ? `${b.from}+` : `${b.from}–${b.to}`}</span>)}
+            </div>
+          </div>
+          <div style={{ marginTop: 14, fontSize: 13, lineHeight: 1.9, color: token.colorTextSecondary }}>
+            <div><span style={{ color: token.colorSuccess, fontWeight: 600, marginRight: 12 }}>强项</span>{strong.length ? list(strong) : '—'}</div>
+            <div><span style={{ color: token.colorError, fontWeight: 600, marginRight: 12 }}>短板</span>{weak.length ? list(weak) : '—'}</div>
           </div>
         </div>
       </div>
-      {/* 右：八个维度 */}
+      {/* 八个维度：分数、理由、反面，一行一个 */}
       <div>
-        <div style={{ display: 'grid', gridTemplateColumns: narrow ? 'repeat(2, minmax(0,1fr))' : 'repeat(4, minmax(0,1fr))', gap: '14px 24px' }}>
-          {rows.map((r) => {
-            const s = Number(r.score) || 0;
-            return (
-              <Tooltip key={r.id} title={<div style={{ maxWidth: 360 }}><div>{r.rationale}</div>{r.counter ? <div style={{ marginTop: 6, opacity: 0.8 }}>反面：{r.counter}</div> : null}</div>}>
-                <div style={{ cursor: 'help', minWidth: 0 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                    <span style={{ fontSize: 13, color: token.colorText }}>{r.dimension}</span>
-                    <span style={{ fontSize: 15, fontWeight: 600, color: color(s) }}>{r.score ?? '—'}</span>
-                  </div>
-                  <div style={{ display: 'flex', gap: 3, marginTop: 5 }}>
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <span key={i} style={{ flex: 1, height: 5, borderRadius: 2, background: i <= s ? color(s) : token.colorFillSecondary }} />
-                    ))}
-                  </div>
-                </div>
-              </Tooltip>
-            );
-          })}
-        </div>
-        <div style={{ marginTop: 16, fontSize: 13, color: token.colorTextSecondary, lineHeight: 1.7 }}>
-          {strong.length ? <span><span style={{ color: token.colorSuccess, fontWeight: 600 }}>强项</span>　{list(strong)}</span> : null}
-          {strong.length && weak.length ? <span style={{ margin: '0 12px', color: token.colorSplit }}>|</span> : null}
-          {weak.length ? <span><span style={{ color: token.colorError, fontWeight: 600 }}>短板</span>　{list(weak)}</span> : null}
-          <span style={{ marginLeft: 12, color: token.colorTextQuaternary }}>悬停维度看理由与反面</span>
-        </div>
+        {!narrow ? (
+          <div style={{ display: 'grid', gridTemplateColumns: '88px 150px 32px minmax(0, 1fr) minmax(0, 1fr)', gap: 20, padding: '0 0 8px', ...label,
+                        borderBottom: `1px solid ${token.colorSplit}` }}>
+            <span>维度</span><span>评分</span><span /><span>理由</span><span>反面</span>
+          </div>
+        ) : null}
+        {rows.map((r) => {
+          const s = Number(r.score) || 0;
+          const bar = (
+            <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>
+              {[1, 2, 3, 4, 5].map((i) => (
+                <span key={i} style={{ flex: 1, height: 6, borderRadius: 2, background: i <= s ? color(s) : token.colorFillSecondary }} />
+              ))}
+            </div>
+          );
+          return (
+            <div key={r.id} style={{ display: 'grid', gridTemplateColumns: narrow ? '72px minmax(0, 1fr) 28px' : '88px 150px 32px minmax(0, 1fr) minmax(0, 1fr)',
+                                     gap: narrow ? '6px 12px' : 20, padding: '12px 0', alignItems: 'baseline', borderBottom: `1px solid ${token.colorSplit}` }}>
+              <span style={{ fontSize: 14, fontWeight: 500, color: token.colorText }}>{r.dimension}</span>
+              <div style={{ alignSelf: 'center' }}>{bar}</div>
+              <span style={{ fontSize: 16, fontWeight: 600, color: color(s), textAlign: 'right' }}>{r.score ?? '—'}</span>
+              <div style={{ fontSize: 13, color: token.colorText, lineHeight: 1.65, gridColumn: narrow ? '1 / -1' : undefined }}>{r.rationale || '—'}</div>
+              <div style={{ fontSize: 13, color: token.colorTextTertiary, lineHeight: 1.65, gridColumn: narrow ? '1 / -1' : undefined }}>
+                {narrow && r.counter ? '反面：' : ''}{r.counter || '—'}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

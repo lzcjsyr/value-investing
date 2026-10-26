@@ -1,772 +1,637 @@
 [
-{
-"id": 20,
-"obs_date": "2026-08-27",
-"value": -14200,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind / 长江水文网",
-"note": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率",
-"metric_id": 6,
-"raw_capture_id": null
-},
-{
-"id": 21,
-"obs_date": "2026-08-31",
-"value": 18000,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind / 长江水文网",
-"note": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率",
-"metric_id": 6,
-"raw_capture_id": null
-},
-{
-"id": 22,
-"obs_date": "2026-09-03",
-"value": 13300,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind / 长江水文网",
-"note": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率",
-"metric_id": 6,
-"raw_capture_id": null
-},
-{
-"id": 23,
-"obs_date": "2026-09-07",
-"value": -10000,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind / 长江水文网",
-"note": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率",
-"metric_id": 6,
-"raw_capture_id": null
-},
-{
-"id": 24,
-"obs_date": "2026-09-10",
-"value": 10300,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind / 长江水文网",
-"note": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率",
-"metric_id": 6,
-"raw_capture_id": null
-},
-{
-"id": 25,
-"obs_date": "2026-09-17",
-"value": 11600,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind / 长江水文网",
-"note": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率",
-"metric_id": 6,
-"raw_capture_id": null
-},
-{
-"id": 26,
-"obs_date": "2026-08-27",
-"value": 157.36,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind / 长江水文网",
-"note": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率",
-"metric_id": 5,
-"raw_capture_id": null
-},
-{
-"id": 27,
-"obs_date": "2026-08-31",
-"value": 157.33,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind / 长江水文网",
-"note": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率",
-"metric_id": 5,
-"raw_capture_id": null
-},
-{
-"id": 28,
-"obs_date": "2026-09-03",
-"value": 158.67,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind / 长江水文网",
-"note": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率",
-"metric_id": 5,
-"raw_capture_id": null
-},
-{
-"id": 29,
-"obs_date": "2026-09-07",
-"value": 159.12,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind / 长江水文网",
-"note": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率",
-"metric_id": 5,
-"raw_capture_id": null
-},
-{
-"id": 30,
-"obs_date": "2026-09-10",
-"value": 159.21,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind / 长江水文网",
-"note": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率",
-"metric_id": 5,
-"raw_capture_id": null
-},
-{
-"id": 31,
-"obs_date": "2026-09-17",
-"value": 160.94,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind / 长江水文网",
-"note": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率",
-"metric_id": 5,
-"raw_capture_id": null
-},
-{
-"id": 32,
-"obs_date": "2026-08-27",
-"value": 3200,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind / 长江水文网",
-"note": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率",
-"metric_id": 7,
-"raw_capture_id": null
-},
-{
-"id": 33,
-"obs_date": "2026-08-31",
-"value": -4900,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind / 长江水文网",
-"note": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率",
-"metric_id": 7,
-"raw_capture_id": null
-},
-{
-"id": 34,
-"obs_date": "2026-09-03",
-"value": 5900,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind / 长江水文网",
-"note": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率",
-"metric_id": 7,
-"raw_capture_id": null
-},
-{
-"id": 35,
-"obs_date": "2026-09-07",
-"value": 4100,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind / 长江水文网",
-"note": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率",
-"metric_id": 7,
-"raw_capture_id": null
-},
-{
-"id": 36,
-"obs_date": "2026-09-10",
-"value": 3600,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind / 长江水文网",
-"note": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率",
-"metric_id": 7,
-"raw_capture_id": null
-},
-{
-"id": 37,
-"obs_date": "2026-09-17",
-"value": 3100,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind / 长江水文网",
-"note": "观察数据；水文不得直接外推全年电量；国债为中证口径，非中债，不自动改长期折现率",
-"metric_id": 7,
-"raw_capture_id": null
-},
-{
-"id": 38,
-"obs_date": "2026-09-18",
-"value": 28.27,
-"collected_at": "2026-09-19T15:45:48.195416+08:00",
-"source": "Wind 金融数据服务",
-"note": "独立市场观察；不得直接与2025年末条件估值作为现时买卖信号比较",
-"metric_id": 1,
-"raw_capture_id": null
-},
-{
-"id": 39,
-"obs_date": "2026-09-18",
-"value": 28.27,
-"collected_at": "2026-09-19T21:46:02+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 3
-},
-{
-"id": 40,
-"obs_date": "2026-09-19",
-"value": 161.61,
-"collected_at": "2026-09-19T21:46:01+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 1
-},
-{
-"id": 42,
-"obs_date": "2026-09-20",
-"value": 161.74,
-"collected_at": "2026-09-20T18:30:05+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 8
-},
-{
-"id": 45,
-"obs_date": "2026-09-21",
-"value": 161.89,
-"collected_at": "2026-09-21T18:30:07+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 11
-},
-{
-"id": 46,
-"obs_date": "2026-09-21",
-"value": 28.1,
-"collected_at": "2026-09-21T18:30:07+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 12
-},
-{
-"id": 47,
-"obs_date": "2026-09-22",
-"value": 162.17,
-"collected_at": "2026-09-22T18:30:07+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 14
-},
-{
-"id": 49,
-"obs_date": "2026-09-22",
-"value": 28.02,
-"collected_at": "2026-09-22T18:30:03+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 13
-},
-{
-"id": 50,
-"obs_date": "2026-09-23",
-"value": 162.54,
-"collected_at": "2026-09-23T18:30:05+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 17
-},
-{
-"id": 52,
-"obs_date": "2026-09-23",
-"value": 28.08,
-"collected_at": "2026-09-23T18:30:04+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 16
-},
-{
-"id": 54,
-"obs_date": "2026-09-24",
-"value": 162.94,
-"collected_at": "2026-09-24T18:30:05+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 20
-},
-{
-"id": 55,
-"obs_date": "2026-09-24",
-"value": 28.36,
-"collected_at": "2026-09-24T18:30:08+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 21
-},
-{
-"id": 56,
-"obs_date": "2026-09-25",
-"value": 163.62,
-"collected_at": "2026-09-25T18:30:04+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 22
-},
-{
-"id": 57,
-"obs_date": "2026-09-26",
-"value": 164.28,
-"collected_at": "2026-09-26T18:30:04+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 25
-},
-{
-"id": 58,
-"obs_date": "2026-09-27",
-"value": 165.24,
-"collected_at": "2026-09-27T18:30:02+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 28
-},
-{
-"id": 59,
-"obs_date": "2026-09-28",
-"value": 28.55,
-"collected_at": "2026-09-28T18:30:05+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 33
-},
-{
-"id": 60,
-"obs_date": "2026-09-28",
-"value": 165.81,
-"collected_at": "2026-09-28T18:30:03+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 32
-},
-{
-"id": 62,
-"obs_date": "2026-09-29",
-"value": 28.38,
-"collected_at": "2026-09-29T18:30:08+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 36
-},
-{
-"id": 63,
-"obs_date": "2026-09-29",
-"value": 166.61,
-"collected_at": "2026-09-29T18:30:04+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 34
-},
-{
-"id": 65,
-"obs_date": "2026-09-30",
-"value": 167.41,
-"collected_at": "2026-09-30T18:30:04+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 37
-},
-{
-"id": 66,
-"obs_date": "2026-09-30",
-"value": 28.54,
-"collected_at": "2026-09-30T18:30:07+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 38
-},
-{
-"id": 68,
-"obs_date": "2026-10-01",
-"value": 168.38,
-"collected_at": "2026-10-01T18:30:04+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 40
-},
-{
-"id": 69,
-"obs_date": "2026-10-02",
-"value": 169.29,
-"collected_at": "2026-10-02T18:30:06+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 44
-},
-{
-"id": 70,
-"obs_date": "2026-10-03",
-"value": 169.87,
-"collected_at": "2026-10-03T18:30:06+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 48
-},
-{
-"id": 71,
-"obs_date": "2026-10-04",
-"value": 170.52,
-"collected_at": "2026-10-04T18:30:06+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 51
-},
-{
-"id": 72,
-"obs_date": "2026-10-05",
-"value": 171.06,
-"collected_at": "2026-10-05T18:30:07+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 54
-},
-{
-"id": 73,
-"obs_date": "2026-10-06",
-"value": 171.55,
-"collected_at": "2026-10-06T18:30:04+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 55
-},
-{
-"id": 74,
-"obs_date": "2026-10-07",
-"value": 171.93,
-"collected_at": "2026-10-07T18:30:03+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 59
-},
-{
-"id": 75,
-"obs_date": "2026-10-08",
-"value": 28.9,
-"collected_at": "2026-10-08T18:30:07+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 63
-},
-{
-"id": 76,
-"obs_date": "2026-10-08",
-"value": 172.29,
-"collected_at": "2026-10-08T18:30:04+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 61
-},
-{
-"id": 78,
-"obs_date": "2026-10-09",
-"value": 172.62,
-"collected_at": "2026-10-09T18:30:05+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 64
-},
-{
-"id": 80,
-"obs_date": "2026-10-09",
-"value": 28.99,
-"collected_at": "2026-10-09T18:30:10+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 66
-},
-{
-"id": 81,
-"obs_date": "2026-10-10",
-"value": 172.92,
-"collected_at": "2026-10-10T18:30:05+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 68
-},
-{
-"id": 83,
-"obs_date": "2026-10-11",
-"value": 173.02,
-"collected_at": "2026-10-11T18:30:06+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 72
-},
-{
-"id": 84,
-"obs_date": "2026-10-12",
-"value": 173.03,
-"collected_at": "2026-10-12T18:30:01+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 73
-},
-{
-"id": 86,
-"obs_date": "2026-10-12",
-"value": 29.38,
-"collected_at": "2026-10-12T18:30:07+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 75
-},
-{
-"id": 87,
-"obs_date": "2026-10-13",
-"value": 29.15,
-"collected_at": "2026-10-13T18:30:07+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 78
-},
-{
-"id": 89,
-"obs_date": "2026-10-13",
-"value": 173.04,
-"collected_at": "2026-10-13T18:30:02+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 76
-},
-{
-"id": 90,
-"obs_date": "2026-10-14",
-"value": 172.99,
-"collected_at": "2026-10-14T18:30:04+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 80
-},
-{
-"id": 91,
-"obs_date": "2026-10-14",
-"value": 29.45,
-"collected_at": "2026-10-14T18:30:03+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 79
-},
-{
-"id": 93,
-"obs_date": "2026-10-15",
-"value": 29.6,
-"collected_at": "2026-10-15T18:30:05+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 82
-},
-{
-"id": 95,
-"obs_date": "2026-10-15",
-"value": 172.97,
-"collected_at": "2026-10-15T18:30:07+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 84
-},
-{
-"id": 96,
-"obs_date": "2026-10-16",
-"value": 172.79,
-"collected_at": "2026-10-16T18:30:03+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 85
-},
-{
-"id": 97,
-"obs_date": "2026-10-16",
-"value": 29.38,
-"collected_at": "2026-10-16T18:30:07+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 87
-},
-{
-"id": 99,
-"obs_date": "2026-10-17",
-"value": 173.07,
-"collected_at": "2026-10-17T18:30:04+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 88
-},
-{
-"id": 100,
-"obs_date": "2026-10-18",
-"value": 173.39,
-"collected_at": "2026-10-18T18:30:05+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 93
-},
-{
-"id": 101,
-"obs_date": "2026-10-19",
-"value": 29.54,
-"collected_at": "2026-10-19T18:30:05+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 95
-},
-{
-"id": 103,
-"obs_date": "2026-10-19",
-"value": 173.79,
-"collected_at": "2026-10-19T18:30:02+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 94
-},
-{
-"id": 104,
-"obs_date": "2026-10-20",
-"value": 174.32,
-"collected_at": "2026-10-20T18:30:02+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 97
-},
-{
-"id": 106,
-"obs_date": "2026-10-20",
-"value": 29.69,
-"collected_at": "2026-10-20T18:30:07+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 99
-},
-{
-"id": 107,
-"obs_date": "2026-10-21",
-"value": 29.57,
-"collected_at": "2026-10-21T18:30:05+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 101
-},
-{
-"id": 108,
-"obs_date": "2026-10-21",
-"value": 174.64,
-"collected_at": "2026-10-21T18:30:07+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "飞书原生云端采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 102
-},
-{
-"id": 111,
-"obs_date": "2026-10-22",
-"value": 174.83,
-"collected_at": "2026-10-22T08:16:43.538+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "本机 NocoBase 自动采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 110
-},
-{
-"id": 1568,
-"obs_date": "2026-10-22",
-"value": 174.86,
-"collected_at": "2026-10-22T09:02:34.516+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "本机 NocoBase 自动采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 116
-},
-{
-"id": 1815,
-"obs_date": "2026-10-22",
-"value": 29.82,
-"collected_at": "2026-10-22T19:05:15.656+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "本机 NocoBase 自动采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 119
-},
-{
-"id": 1817,
-"obs_date": "2026-10-22",
-"value": 174.81,
-"collected_at": "2026-10-22T19:05:16.789+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "本机 NocoBase 自动采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 121
-},
-{
-"id": 2842,
-"obs_date": "2026-10-22",
-"value": 174.78,
-"collected_at": "2026-10-22T20:16:56.068+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "本机 NocoBase 自动采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 127
-},
-{
-"id": 3095,
-"obs_date": "2026-10-23",
-"value": 29.85,
-"collected_at": "2026-10-23T12:40:38.049+08:00",
-"source": "https://qt.gtimg.cn/q=sh600900",
-"note": "本机 NocoBase 自动采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 1,
-"raw_capture_id": 142
-},
-{
-"id": 3096,
-"obs_date": "2026-10-23",
-"value": 174.8,
-"collected_at": "2026-10-23T12:40:39.185+08:00",
-"source": "http://www.cjh.com.cn/sqindex.html",
-"note": "本机 NocoBase 自动采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。",
-"metric_id": 4,
-"raw_capture_id": 144
-}
+ {
+  "id": 20,
+  "obs_date": "2026-08-27",
+  "value": -14200,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 6,
+  "raw_capture_id": null,
+  "doc_id": 927
+ },
+ {
+  "id": 21,
+  "obs_date": "2026-08-31",
+  "value": 18000,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 6,
+  "raw_capture_id": null,
+  "doc_id": 927
+ },
+ {
+  "id": 22,
+  "obs_date": "2026-09-03",
+  "value": 13300,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 6,
+  "raw_capture_id": null,
+  "doc_id": 927
+ },
+ {
+  "id": 23,
+  "obs_date": "2026-09-07",
+  "value": -10000,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 6,
+  "raw_capture_id": null,
+  "doc_id": 927
+ },
+ {
+  "id": 24,
+  "obs_date": "2026-09-10",
+  "value": 10300,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 6,
+  "raw_capture_id": null,
+  "doc_id": 927
+ },
+ {
+  "id": 25,
+  "obs_date": "2026-09-17",
+  "value": 11600,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 6,
+  "raw_capture_id": null,
+  "doc_id": 927
+ },
+ {
+  "id": 26,
+  "obs_date": "2026-08-27",
+  "value": 157.36,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 5,
+  "raw_capture_id": null,
+  "doc_id": 927
+ },
+ {
+  "id": 27,
+  "obs_date": "2026-08-31",
+  "value": 157.33,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 5,
+  "raw_capture_id": null,
+  "doc_id": 927
+ },
+ {
+  "id": 28,
+  "obs_date": "2026-09-03",
+  "value": 158.67,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 5,
+  "raw_capture_id": null,
+  "doc_id": 927
+ },
+ {
+  "id": 29,
+  "obs_date": "2026-09-07",
+  "value": 159.12,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 5,
+  "raw_capture_id": null,
+  "doc_id": 927
+ },
+ {
+  "id": 30,
+  "obs_date": "2026-09-10",
+  "value": 159.21,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 5,
+  "raw_capture_id": null,
+  "doc_id": 927
+ },
+ {
+  "id": 31,
+  "obs_date": "2026-09-17",
+  "value": 160.94,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 5,
+  "raw_capture_id": null,
+  "doc_id": 927
+ },
+ {
+  "id": 32,
+  "obs_date": "2026-08-27",
+  "value": 3200,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 7,
+  "raw_capture_id": null,
+  "doc_id": 927
+ },
+ {
+  "id": 33,
+  "obs_date": "2026-08-31",
+  "value": -4900,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 7,
+  "raw_capture_id": null,
+  "doc_id": 927
+ },
+ {
+  "id": 34,
+  "obs_date": "2026-09-03",
+  "value": 5900,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 7,
+  "raw_capture_id": null,
+  "doc_id": 927
+ },
+ {
+  "id": 35,
+  "obs_date": "2026-09-07",
+  "value": 4100,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 7,
+  "raw_capture_id": null,
+  "doc_id": 927
+ },
+ {
+  "id": 36,
+  "obs_date": "2026-09-10",
+  "value": 3600,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 7,
+  "raw_capture_id": null,
+  "doc_id": 927
+ },
+ {
+  "id": 37,
+  "obs_date": "2026-09-17",
+  "value": 3100,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 7,
+  "raw_capture_id": null,
+  "doc_id": 927
+ },
+ {
+  "id": 38,
+  "obs_date": "2026-09-18",
+  "value": 28.27,
+  "collected_at": "2026-09-19T15:45:48.195416+08:00",
+  "metric_id": 1,
+  "raw_capture_id": null,
+  "doc_id": 928
+ },
+ {
+  "id": 39,
+  "obs_date": "2026-09-18",
+  "value": 28.27,
+  "collected_at": "2026-09-19T21:46:02+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 3
+ },
+ {
+  "id": 40,
+  "obs_date": "2026-09-19",
+  "value": 161.61,
+  "collected_at": "2026-09-19T21:46:01+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 1
+ },
+ {
+  "id": 42,
+  "obs_date": "2026-09-20",
+  "value": 161.74,
+  "collected_at": "2026-09-20T18:30:05+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 8
+ },
+ {
+  "id": 45,
+  "obs_date": "2026-09-21",
+  "value": 161.89,
+  "collected_at": "2026-09-21T18:30:07+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 11
+ },
+ {
+  "id": 46,
+  "obs_date": "2026-09-21",
+  "value": 28.1,
+  "collected_at": "2026-09-21T18:30:07+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 12
+ },
+ {
+  "id": 47,
+  "obs_date": "2026-09-22",
+  "value": 162.17,
+  "collected_at": "2026-09-22T18:30:07+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 14
+ },
+ {
+  "id": 49,
+  "obs_date": "2026-09-22",
+  "value": 28.02,
+  "collected_at": "2026-09-22T18:30:03+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 13
+ },
+ {
+  "id": 50,
+  "obs_date": "2026-09-23",
+  "value": 162.54,
+  "collected_at": "2026-09-23T18:30:05+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 17
+ },
+ {
+  "id": 52,
+  "obs_date": "2026-09-23",
+  "value": 28.08,
+  "collected_at": "2026-09-23T18:30:04+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 16
+ },
+ {
+  "id": 54,
+  "obs_date": "2026-09-24",
+  "value": 162.94,
+  "collected_at": "2026-09-24T18:30:05+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 20
+ },
+ {
+  "id": 55,
+  "obs_date": "2026-09-24",
+  "value": 28.36,
+  "collected_at": "2026-09-24T18:30:08+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 21
+ },
+ {
+  "id": 56,
+  "obs_date": "2026-09-25",
+  "value": 163.62,
+  "collected_at": "2026-09-25T18:30:04+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 22
+ },
+ {
+  "id": 57,
+  "obs_date": "2026-09-26",
+  "value": 164.28,
+  "collected_at": "2026-09-26T18:30:04+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 25
+ },
+ {
+  "id": 58,
+  "obs_date": "2026-09-27",
+  "value": 165.24,
+  "collected_at": "2026-09-27T18:30:02+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 28
+ },
+ {
+  "id": 59,
+  "obs_date": "2026-09-28",
+  "value": 28.55,
+  "collected_at": "2026-09-28T18:30:05+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 33
+ },
+ {
+  "id": 60,
+  "obs_date": "2026-09-28",
+  "value": 165.81,
+  "collected_at": "2026-09-28T18:30:03+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 32
+ },
+ {
+  "id": 62,
+  "obs_date": "2026-09-29",
+  "value": 28.38,
+  "collected_at": "2026-09-29T18:30:08+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 36
+ },
+ {
+  "id": 63,
+  "obs_date": "2026-09-29",
+  "value": 166.61,
+  "collected_at": "2026-09-29T18:30:04+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 34
+ },
+ {
+  "id": 65,
+  "obs_date": "2026-09-30",
+  "value": 167.41,
+  "collected_at": "2026-09-30T18:30:04+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 37
+ },
+ {
+  "id": 66,
+  "obs_date": "2026-09-30",
+  "value": 28.54,
+  "collected_at": "2026-09-30T18:30:07+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 38
+ },
+ {
+  "id": 68,
+  "obs_date": "2026-10-01",
+  "value": 168.38,
+  "collected_at": "2026-10-01T18:30:04+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 40
+ },
+ {
+  "id": 69,
+  "obs_date": "2026-10-02",
+  "value": 169.29,
+  "collected_at": "2026-10-02T18:30:06+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 44
+ },
+ {
+  "id": 70,
+  "obs_date": "2026-10-03",
+  "value": 169.87,
+  "collected_at": "2026-10-03T18:30:06+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 48
+ },
+ {
+  "id": 71,
+  "obs_date": "2026-10-04",
+  "value": 170.52,
+  "collected_at": "2026-10-04T18:30:06+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 51
+ },
+ {
+  "id": 72,
+  "obs_date": "2026-10-05",
+  "value": 171.06,
+  "collected_at": "2026-10-05T18:30:07+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 54
+ },
+ {
+  "id": 73,
+  "obs_date": "2026-10-06",
+  "value": 171.55,
+  "collected_at": "2026-10-06T18:30:04+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 55
+ },
+ {
+  "id": 74,
+  "obs_date": "2026-10-07",
+  "value": 171.93,
+  "collected_at": "2026-10-07T18:30:03+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 59
+ },
+ {
+  "id": 75,
+  "obs_date": "2026-10-08",
+  "value": 28.9,
+  "collected_at": "2026-10-08T18:30:07+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 63
+ },
+ {
+  "id": 76,
+  "obs_date": "2026-10-08",
+  "value": 172.29,
+  "collected_at": "2026-10-08T18:30:04+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 61
+ },
+ {
+  "id": 78,
+  "obs_date": "2026-10-09",
+  "value": 172.62,
+  "collected_at": "2026-10-09T18:30:05+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 64
+ },
+ {
+  "id": 80,
+  "obs_date": "2026-10-09",
+  "value": 28.99,
+  "collected_at": "2026-10-09T18:30:10+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 66
+ },
+ {
+  "id": 81,
+  "obs_date": "2026-10-10",
+  "value": 172.92,
+  "collected_at": "2026-10-10T18:30:05+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 68
+ },
+ {
+  "id": 83,
+  "obs_date": "2026-10-11",
+  "value": 173.02,
+  "collected_at": "2026-10-11T18:30:06+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 72
+ },
+ {
+  "id": 84,
+  "obs_date": "2026-10-12",
+  "value": 173.03,
+  "collected_at": "2026-10-12T18:30:01+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 73
+ },
+ {
+  "id": 86,
+  "obs_date": "2026-10-12",
+  "value": 29.38,
+  "collected_at": "2026-10-12T18:30:07+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 75
+ },
+ {
+  "id": 87,
+  "obs_date": "2026-10-13",
+  "value": 29.15,
+  "collected_at": "2026-10-13T18:30:07+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 78
+ },
+ {
+  "id": 89,
+  "obs_date": "2026-10-13",
+  "value": 173.04,
+  "collected_at": "2026-10-13T18:30:02+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 76
+ },
+ {
+  "id": 90,
+  "obs_date": "2026-10-14",
+  "value": 172.99,
+  "collected_at": "2026-10-14T18:30:04+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 80
+ },
+ {
+  "id": 91,
+  "obs_date": "2026-10-14",
+  "value": 29.45,
+  "collected_at": "2026-10-14T18:30:03+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 79
+ },
+ {
+  "id": 93,
+  "obs_date": "2026-10-15",
+  "value": 29.6,
+  "collected_at": "2026-10-15T18:30:05+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 82
+ },
+ {
+  "id": 95,
+  "obs_date": "2026-10-15",
+  "value": 172.97,
+  "collected_at": "2026-10-15T18:30:07+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 84
+ },
+ {
+  "id": 96,
+  "obs_date": "2026-10-16",
+  "value": 172.79,
+  "collected_at": "2026-10-16T18:30:03+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 85
+ },
+ {
+  "id": 97,
+  "obs_date": "2026-10-16",
+  "value": 29.38,
+  "collected_at": "2026-10-16T18:30:07+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 87
+ },
+ {
+  "id": 99,
+  "obs_date": "2026-10-17",
+  "value": 173.07,
+  "collected_at": "2026-10-17T18:30:04+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 88
+ },
+ {
+  "id": 100,
+  "obs_date": "2026-10-18",
+  "value": 173.39,
+  "collected_at": "2026-10-18T18:30:05+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 93
+ },
+ {
+  "id": 101,
+  "obs_date": "2026-10-19",
+  "value": 29.54,
+  "collected_at": "2026-10-19T18:30:05+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 95
+ },
+ {
+  "id": 103,
+  "obs_date": "2026-10-19",
+  "value": 173.79,
+  "collected_at": "2026-10-19T18:30:02+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 94
+ },
+ {
+  "id": 104,
+  "obs_date": "2026-10-20",
+  "value": 174.32,
+  "collected_at": "2026-10-20T18:30:02+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 97
+ },
+ {
+  "id": 106,
+  "obs_date": "2026-10-20",
+  "value": 29.69,
+  "collected_at": "2026-10-20T18:30:07+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 99
+ },
+ {
+  "id": 107,
+  "obs_date": "2026-10-21",
+  "value": 29.57,
+  "collected_at": "2026-10-21T18:30:05+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 101
+ },
+ {
+  "id": 108,
+  "obs_date": "2026-10-21",
+  "value": 174.64,
+  "collected_at": "2026-10-21T18:30:07+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 102
+ },
+ {
+  "id": 111,
+  "obs_date": "2026-10-22",
+  "value": 174.83,
+  "collected_at": "2026-10-22T08:16:43.538+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 110
+ },
+ {
+  "id": 1568,
+  "obs_date": "2026-10-22",
+  "value": 174.86,
+  "collected_at": "2026-10-22T09:02:34.516+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 116
+ },
+ {
+  "id": 1815,
+  "obs_date": "2026-10-22",
+  "value": 29.82,
+  "collected_at": "2026-10-22T19:05:15.656+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 119
+ },
+ {
+  "id": 1817,
+  "obs_date": "2026-10-22",
+  "value": 174.81,
+  "collected_at": "2026-10-22T19:05:16.789+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 121
+ },
+ {
+  "id": 2842,
+  "obs_date": "2026-10-22",
+  "value": 174.78,
+  "collected_at": "2026-10-22T20:16:56.068+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 127
+ },
+ {
+  "id": 3095,
+  "obs_date": "2026-10-23",
+  "value": 29.85,
+  "collected_at": "2026-10-23T12:40:38.049+08:00",
+  "metric_id": 1,
+  "raw_capture_id": 142
+ },
+ {
+  "id": 3096,
+  "obs_date": "2026-10-23",
+  "value": 174.8,
+  "collected_at": "2026-10-23T12:40:39.185+08:00",
+  "metric_id": 4,
+  "raw_capture_id": 144
+ }
 ]

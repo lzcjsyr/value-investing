@@ -1,0 +1,172 @@
+{
+ "version": "1",
+ "mode": "create",
+ "navigation": {
+  "group": {
+   "routeId": 393523143770112
+  },
+  "item": {
+   "title": "重点跟踪",
+   "icon": "FundOutlined"
+  }
+ },
+ "page": {
+  "title": "重点跟踪",
+  "documentTitle": "腾讯音乐 · 重点跟踪"
+ },
+ "defaults": {
+  "collections": {
+   "vi_tracking": {
+    "popups": {
+     "view": {
+      "name": "重点跟踪·详情",
+      "description": "查看一条「重点跟踪」记录"
+     },
+     "addNew": {
+      "name": "重点跟踪·新增",
+      "description": "新增一条「重点跟踪」记录"
+     },
+     "edit": {
+      "name": "重点跟踪·编辑",
+      "description": "编辑一条「重点跟踪」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "company_id",
+       "metric_id",
+       "metric_name",
+       "category",
+       "basis",
+       "unit",
+       "used_for",
+       "latest_value",
+       "latest_yoy",
+       "latest_period"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "latest_date",
+       "frequency",
+       "state",
+       "next_due",
+       "source_name",
+       "notes"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "tabs": [
+  {
+   "title": "重点跟踪",
+   "blocks": [
+    {
+     "key": "main",
+     "type": "table",
+     "collection": "vi_tracking",
+     "fields": [
+      {
+       "field": "metric_name",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "used_for",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "latest_value",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "unit",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "latest_yoy",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "latest_period",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "state",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "next_due",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "frequency",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "source_name",
+       "settings": {
+        "width": 200
+       }
+      }
+     ],
+     "settings": {
+      "title": "",
+      "description": "假设依据和风险要盯的数据，一指标一行：最新值、是否到期；引用【风险分析】【假设依据】【指标】【数据】。",
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "used_for",
+        "direction": "asc"
+       },
+       {
+        "field": "metric_name",
+        "direction": "asc"
+       }
+      ],
+      "dataScope": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "company_id",
+         "operator": "$eq",
+         "value": 11
+        }
+       ]
+      },
+      "density": "middle"
+     },
+     "actions": [
+      "filter",
+      "refresh"
+     ],
+     "recordActions": [
+      "view"
+     ]
+    }
+   ]
+  }
+ ]
+}

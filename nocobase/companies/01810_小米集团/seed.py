@@ -12,9 +12,11 @@
 岗底斯（业绩会纪要、卖方与外资研报、行业交流纪要、行业数据，均标为三级来源）；腾讯行情 K 线（hk01810、whHKDCNY）。
 输出 seed.sql。执行：./psql.sh -f "companies/01810_小米集团/seed.sql"
 """
-import json, pathlib
+import json, pathlib, sys
 
 HERE = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[1] / 'framework'))
+import data_layer_seed
 DATA = HERE / 'data'
 CODE = '01810.HK'
 CO = f"(SELECT id FROM vi_company_base WHERE code = '{CODE}')"
@@ -61,14 +63,14 @@ def ins(table, rows):
     vals = ',\n'.join('(' + ', '.join(lit(r.get(c)) for c in cols) + ')' for r in rows)
     OUT.append(f'INSERT INTO vi_{table}_base ({", ".join(cols)}) VALUES\n{vals};')
 
-# 经营数据写进“指标＋数据”：vi_put_disclosed 按 公司×项目×口径×单位 找或建“公司披露”指标（指标代码保持不变），同一期间先删后写
-DISCLOSED = ('company_id', 'line_item', 'period_kind', 'unit', 'period', 'period_end', 'value', 'yoy', 'impact', 'assessment',
-             'summary', 'status', 'source_id')
+# 经营数据写进“指标＋数据”：vi_put_disclosed 按 公司×项目×单位 找或建指标（口径记在每期数据上；报表计算的指标不写），同一期间同一口径先删后写
+DISCLOSED = ('company_id', 'line_item', 'period_kind', 'unit', 'period', 'period_end', 'value', 'yoy', 'summary', 'source_id')
 
 
 def put_disclosed(rows):
     for r in rows:
-        r = {'impact': '待判断'} | r
+        if r.get('assessment'):         # 经营解读并入说明（2026-10-26）
+            r = r | {'summary': (r['summary'] + '\n' if r.get('summary') else '') + '解读：' + r['assessment']}
         OUT.append('SELECT vi_put_disclosed(' + ', '.join(lit(r.get(k)) for k in DISCLOSED) + ');')
 
 
@@ -110,16 +112,28 @@ UPDATE vi_collector_base SET metric_id = {metric(PRICE_METRIC).sql}, url = {lit(
   max_lag_days = 7, notes = {lit(notes)} WHERE name = {lit(name)};""")
 
 
+
+KLINE_TITLE = '小米集团港股收盘价：腾讯 K 线收盘价（港元，不复权）（2025—2026 年历史数据）'
+KLINE_DOC = f"(SELECT id FROM vi_source_base WHERE company_id = {CO} AND title = {lit(KLINE_TITLE)})"
+
+
+def kline_source():
+    """K 线历史补数的来源文档（数据关联它，不逐行抄地址和说明）。"""
+    return (f"INSERT INTO vi_source_base (company_id, title, source_type, url, reliability, verify_status, summary, limitations) "
+            f"SELECT {CO}, {lit(KLINE_TITLE)}, '数据库取数', 'https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk01810,day（不复权日线）', '三级·第三方数据', '待核验', '历史日线收盘价', '历史补数：腾讯 K 线收盘价（港元，不复权）' "
+            f"WHERE NOT EXISTS (SELECT 1 FROM vi_source_base WHERE company_id = {CO} AND title = {lit(KLINE_TITLE)});")
+
 def observations():
     """历史行情只补缺：同一指标同一天已有观察就跳过（自动采集来的数据优先）。"""
+    OUT.append(kline_source())          # 出处只记一处：来源文档
     for fname, key, code, url, note in [
         ('tencent_kline_hk01810.json', 'hk01810', PRICE_METRIC, 'https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk01810,day（不复权日线）',
          '历史补数：腾讯 K 线收盘价（港元，不复权）'),
     ]:
         k = json.loads((DATA / fname).read_text())['data'][key]['day']
         vals = ',\n'.join(f"('{d[0]}'::date, {float(d[2])})" for d in k)          # [日期, 开, 收, 高, 低, 量]
-        OUT.append(f"""INSERT INTO vi_observation_base (metric_id, obs_date, value, collected_at, source, note)
-SELECT {metric(code).sql}, v.d, v.x, '2026-10-23T02:00:00+08:00', {lit(url)}, {lit(note)}
+        OUT.append(f"""INSERT INTO vi_observation_base (metric_id, obs_date, value, collected_at, doc_id)
+SELECT {metric(code).sql}, v.d, v.x, '2026-10-23T02:00:00+08:00', {KLINE_DOC}
 FROM (VALUES
 {vals}) v(d, x)
 WHERE NOT EXISTS (SELECT 1 FROM vi_observation_base o WHERE o.metric_id = {metric(code).sql} AND o.obs_date = v.d);""")
@@ -138,7 +152,6 @@ DELETE FROM vi_moat_base WHERE company_id = {CO};
 DELETE FROM vi_competitor_base WHERE company_id = {CO};
 DELETE FROM vi_value_chain_base WHERE company_id = {CO};
 DELETE FROM vi_biz_model_base WHERE company_id = {CO};
-DELETE FROM vi_watch_base WHERE company_id = {CO};
 DELETE FROM vi_issue_base WHERE company_id = {CO};
 DELETE FROM vi_change_log_base WHERE company_id = {CO};
 DELETE FROM vi_judgment_base WHERE company_id = {CO};
@@ -475,7 +488,7 @@ FACTS = [
 
 
 def facts():
-    ins('fact', [dict(company_id=Raw(CO), title=f[0], category=f[1], statement=f[2], value=f[3], unit=f[4], period=f[5], as_of=f[6],
+    ins('fact', [dict(company_id=Raw(CO), title=f[0], category=f[1], statement=f[2], period=f[5], as_of=f[6],
                       verify_status=f[7], source_id=src(f[8]), notes=f[9]) for f in FACTS])
 
 
@@ -1084,7 +1097,8 @@ def fin_history():
                         interest_debt=yi(z, '短期贷款', '长期贷款'), cash=yi(z, '现金及等价物', '短期存款', '中长期存款', '受限制存款及现金'),
                         equity_parent=yi(z, '股东权益'), dividend_total=yi(x, '回购股份') or 0.0, dps=0.0,
                         source_id=src(S_FY25 if y >= 2024 else S_EM), note='；'.join(note)))
-    ins('fin_history', out)
+    # 2026-10-26 起历史年度的数值来自指标（报表公式＋data/data_layer.json 的录入值），这里只写口径说明、来源和备注；上面算出的数只作对照，不入库
+    ins('fin_history', [{k: r[k] for k in data_layer_seed.HISTORY_KEYS if k in r} for r in out])
 
 
 # ================================================================ 定期经营数据
@@ -1547,24 +1561,8 @@ SELECT t.id, j.id, now(), now() FROM (VALUES {', '.join(f'({lit(t[0])}, {lit(t[9
 JOIN vi_trial_base t ON t.model_id = {MODEL} AND t.name = v.tn JOIN vi_judgment_base j ON j.company_id = {CO} AND j.code = v.jc;""")
 
 
-# ================================================================ 跟踪事项、问题清单、变更日志
-WATCH = [
-    ('W1', '股价、分部估值与概率加权价值', PRICE_METRIC, '交易日', '腾讯行情（自动）；预测与估值 / 分部加总估值', '股价低于 30% 安全边际的关注价（约 20.0 元），或高于基准价值（约 28.6 元）',
-     '复核三个情景、概率与 AI 估值；研究提示，不是交易指令', ['J-PROB', 'J-METHOD', 'J-AI']),
-    ('W2', '存储合约价（DRAM、NAND）', None, '月度', 'TrendForce、管理层电话会', '合约价连续两个月环比下跌，或 2027 年仍在上涨', '复核 J-MEM、J-PHONE 与正常化年份', ['J-MEM', 'J-PHONE']),
-    ('W3', '手机毛利率、ASP 与出货', None, '季度', '季度业绩公告', '手机毛利率低于 7% 或高于 11%；出货同比连续两季低于 −20%', '复核 J-PHONE、J-MEM', ['J-PHONE', 'J-MEM']),
-    ('W4', 'IoT 毛利率与生态营业费用率', None, '季度', '季度业绩公告：分项毛利、集团费用、汽车分部经营开支',
-     'IoT 毛利率（含其他相关业务）连续两季低于 18%；或生态营业费用率连续四个季度高于 15.5% 或低于 12.5%', '复核 J-AIOT、J-OPEX 与悲观/乐观情景', ['J-AIOT', 'J-OPEX']),
-    ('W5', '汽车月度交付与订单', None, '月度', '公司公告与微博、乘联会', '四季度月均低于 5 万辆；2027 年全年低于 55 万辆或高于 70 万辆', '复核 J-EV', ['J-EV']),
-    ('W6', '汽车及 AI 分部经营损益与 AI 投入口径', None, '季度', '季度业绩公告、业绩会', 'AI 投入规划调整；分部亏损扩大到单季 40 亿元以上', '复核 J-AI、J-EV-SPLIT', ['J-AI', 'J-EV-SPLIT']),
-    ('W7', '互联网服务收入与月活', None, '季度', '季度业绩公告', '互联网收入连续两季同比下降，或月活增速低于 2%', '复核 J-NET、J-MULT 与论点 T1', ['J-NET', 'J-MULT']),
-    ('W8', '回购执行与股本', None, '月度', '港交所翌日披露报表、证券变动月报表', '回购暂停，或股权激励发股超过回购', '复核 J-SHR、J-PAYOUT', ['J-SHR', 'J-PAYOUT']),
-    ('W9', '现金储备、借款、投资者负债', None, '季度', '资产负债表与附注', '现金储备低于 2,000 亿元或借款超过 500 亿元', '更新分部估值项 C1—C9', ['J-CASH', 'J-INV']),
-    ('W10', '港元兑人民币', FX_METRIC, '交易日', '腾讯外汇（自动）', '一个月内变动超过 3%', '记录：只影响人民币口径的市场价', ['J-FX']),
-    ('W11', 'AI 商业化与可比公司估值', None, '季度', '业绩公告“其他相关业务”、MiMo 调用量与价格；智谱、MiniMax 市值，月之暗面、阶跃星辰上市定价',
-     'AI 收入年化超过 50 亿元且毛利为正；或可比公司估值中枢变化超过 50%', '复核 S5 直接估值 1,000 亿元（J-AI）', ['J-AI']),
-    ('W12', '印度诉讼', None, '半年', '中报、年报或有事项附注', '判决或和解', '更新分部估值项 C7', ['J-IND']),
-]
+# ================================================================ 跟踪事项、待办清单、变更日志
+# 关注（原跟踪事项）：假设依据与风险关联的指标，见 data/data_layer.json（framework/data_layer_seed.py 写入）
 ISSUES = [
     ('Q01', '安全边际选 10% 还是 30%', '策略', '关注价', '用户确定交易纪律后在估值模型里只保留一档。', '待处理', '两档并列（与其他公司一致）。'),
     ('Q02', '经营假设待核验', '关键', '2026—2035 年全部情景', '三季报（2026 年 11 月下旬）与年报出来后逐项对照，逐年标记“已核验”。', '待处理', '三季报重点：手机与 IoT 毛利率、生态费用率、汽车交付与分部损益、AI 投入口径。'),
@@ -1583,12 +1581,6 @@ ISSUES = [
 
 
 def tracking():
-    ins('watch', [dict(company_id=Raw(CO), code=w[0], title=w[1], metric_id=metric(w[2]) if w[2] else None, frequency=w[3],
-                       preferred_source=w[4], trigger=w[5], action=w[6], nature='研究预警，不是交易指令') for w in WATCH])
-    pairs = [(w[0], j) for w in WATCH for j in w[7]]
-    OUT.append(f"""INSERT INTO vi_lnk_watch_judgments (watch_id, judgment_id, "createdAt", "updatedAt")
-SELECT w.id, j.id, now(), now() FROM (VALUES {', '.join(f'({lit(a)}, {lit(b)})' for a, b in pairs)}) v(wc, jc)
-JOIN vi_watch_base w ON w.company_id = {CO} AND w.code = v.wc JOIN vi_judgment_base j ON j.company_id = {CO} AND j.code = v.jc;""")
     ins('issue', [dict(company_id=Raw(CO), code=i[0], title=i[1], severity=i[2], impact=i[3], done_condition=i[4], status=i[5], progress=i[6])
                   for i in ISSUES])
     ins('change_log', [
@@ -1630,10 +1622,16 @@ JOIN vi_watch_base w ON w.company_id = {CO} AND w.code = v.wc JOIN vi_judgment_b
 if __name__ == '__main__':
     OUT.append('BEGIN;')
     company_and_metrics()
-    observations()
     reset()
+    observations()          # 在 reset 之后：reset 会清空本公司的来源文档
+    OUT.append(f"UPDATE vi_observation_base SET doc_id = {KLINE_DOC} WHERE doc_id IS NULL AND raw_capture_id IS NULL "
+               f"AND metric_id = (SELECT price_metric_id FROM vi_company_base WHERE code = '{CODE}');")
     sources(); facts(); theses(); judgments(); business()
     fin_history(); period_data(); model(); tracking()
+    OUT.extend(data_layer_seed.fin_stmt_statements(CO, HERE / 'data' / 'fin_stmt.json'))   # 三大报表原值（报表计算指标读它）
+    OUT.extend(data_layer_seed.statements(CO, HERE / 'data' / 'data_layer.json'))   # 关注与数据底稿补充，放最后
+    from business_bridge import sql as business_bridge_sql
+    OUT.append(business_bridge_sql())
     OUT.append('COMMIT;')
     (HERE / 'seed.sql').write_text('\n\n'.join(OUT) + '\n')
     print('seed.sql written,', sum(s.count('\n') for s in OUT), 'lines')

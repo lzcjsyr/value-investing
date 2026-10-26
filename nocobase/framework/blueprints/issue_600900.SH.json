@@ -6,29 +6,29 @@
    "routeId": 393441395212288
   },
   "item": {
-   "title": "问题清单",
+   "title": "待办清单",
    "icon": "TableOutlined"
   }
  },
  "page": {
-  "title": "问题清单",
-  "documentTitle": "长江电力 · 问题清单"
+  "title": "待办清单",
+  "documentTitle": "长江电力 · 待办清单"
  },
  "defaults": {
   "collections": {
    "vi_issue": {
     "popups": {
      "view": {
-      "name": "问题清单·详情",
-      "description": "查看一条「问题清单」记录"
+      "name": "待办清单·详情",
+      "description": "查看一条「待办清单」记录"
      },
      "addNew": {
-      "name": "问题清单·新增",
-      "description": "新增一条「问题清单」记录"
+      "name": "待办清单·新增",
+      "description": "新增一条「待办清单」记录"
      },
      "edit": {
-      "name": "问题清单·编辑",
-      "description": "编辑一条「问题清单」记录"
+      "name": "待办清单·编辑",
+      "description": "编辑一条「待办清单」记录"
      }
     }
    },
@@ -73,14 +73,18 @@
      {
       "title": "关联",
       "fields": [
-       "price_metric"
+       "price_metric",
+       "price_fx_metric"
       ]
      },
      {
       "title": "自动计算（只读）",
       "fields": [
        "latest_price",
-       "latest_price_date"
+       "latest_price_date",
+       "latest_price_raw",
+       "latest_fx",
+       "macro_used"
       ]
      },
      {
@@ -95,7 +99,7 @@
  },
  "tabs": [
   {
-   "title": "问题清单",
+   "title": "待办清单",
    "blocks": [
     {
      "key": "main",
@@ -110,6 +114,8 @@
       "progress"
      ],
      "settings": {
+      "title": "",
+      "description": "做完即关的研究与工程待办：数据源、核验、模型缺口、待定的策略选择；不放对公司的判断。",
       "pageSize": 50,
       "sorting": [
        {
@@ -134,7 +140,7 @@
       {
        "type": "addNew",
        "popup": {
-        "title": "新增 · 问题清单",
+        "title": "新增 · 待办清单",
         "blocks": [
          {
           "type": "createForm",
@@ -168,7 +174,7 @@
       {
        "type": "edit",
        "popup": {
-        "title": "编辑 · 问题清单",
+        "title": "编辑 · 待办清单",
         "blocks": [
          {
           "type": "editForm",

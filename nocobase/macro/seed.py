@@ -1,7 +1,7 @@
 """宏观数据（独立项目）→ 价值投资框架（vi_）的种子数据。
 
 宏观数据＝不属于任何公司、各公司都可能用到的指标（vi_metric_base.company_id 为空）：利率、汇率、大宗商品等。
-各公司按需使用：估值参数（无风险利率、股价汇率）与跟踪事项直接引用指标；其他想看的在公司表的“订阅的宏观数据”里订阅，
+各公司按需使用：估值参数（无风险利率、股价汇率）与重点跟踪（假设依据、风险关联的指标）直接引用指标；其他想看的在公司表的“订阅的宏观数据”里订阅，
 写在各公司自己的种子里（谁使用、谁声明）。用途汇总见视图 vi_company_metric。
 
   · data/base.json：指标定义与采集配置（字段与 vi_ 表一致，可直接编辑）；
@@ -44,6 +44,7 @@ if __name__ == '__main__':
     ins('metric', base['metric'])
     ins('collector', base['collector'])
     ins('raw_capture', json.loads((DATA / 'raw_capture.json').read_text()))
+    ins('source', base.get('source', []))          # 历史补数的出处（数据关联来源文档）
     ins('observation', json.loads((DATA / 'observations.json').read_text()))
     OUT.append('COMMIT;')
     (HERE / 'seed.sql').write_text('\n\n'.join(OUT) + '\n')

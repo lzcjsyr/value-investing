@@ -13,13 +13,11 @@ OPERATING_NAMES = {
     '拥有五件及以上AIoT设备的用户数',
 }
 
-# 三大报表中已有的集团收入、利润与研发费用，不在财务补充表重复列一遍。
-# 分部财务、毛利率及公司自定义现金/调整利润口径仍属于财务补充。
-STATEMENT_DUPLICATES = {'营业收入', '归母净利润', '期间利润（国际财务报告准则）', '研发开支'}
+# 三大报表里有的科目不另存：这类指标的来源方式是“报表计算”（写报表公式，从财务数据实时算），不出现在财务补充里。
 
 
 def business_description(automatic=False):
-    downstream = ('被【驾驶舱】【自动检查】引用；【重要事实】【跟踪事项】通过关联【指标】间接引用本序列。')
+    downstream = ('被【驾驶舱】【自动检查】【重点跟踪】引用；【重要事实】通过“相关指标”引用本序列。')
     if automatic:
         return ('自动采集的水位、来水、纸浆价格等高频经营环境数据；'
                 '引用【指标】【原始采集记录】，保留采集地址；' + downstream +
@@ -53,4 +51,4 @@ def financial_supplement_scope(company):
     return {'logic': '$and', 'items': [
         {'path': 'metric.company_id', 'operator': '$eq', 'value': company['id']},
         {'path': 'metric.category', 'operator': '$eq', 'value': '财务'},
-        *[{'path': 'metric.name', 'operator': '$ne', 'value': name} for name in sorted(STATEMENT_DUPLICATES)]]}
+        {'path': 'metric.source_kind', 'operator': '$ne', 'value': '报表计算'}]}

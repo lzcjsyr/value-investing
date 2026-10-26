@@ -3,8 +3,9 @@
 -- 约定：未知值保持 NULL（不当作 0）；r <= g 时不输出价值；比率均为小数。
 BEGIN;
 
+DROP MATERIALIZED VIEW IF EXISTS vi_fin_history_cache, vi_stmt_cache CASCADE;
 DROP VIEW IF EXISTS vi_check, vi_sotp, vi_sotp_segment_calc, vi_sotp_segment_val, vi_sotp_item_calc, vi_moat_calc, vi_risk_calc, vi_sensitivity, vi_valuation, vi_valuation_cf, vi_balance, vi_projection, vi_collect_run_calc, vi_trial_calc,
-  vi_forecast_calc, vi_scenario_calc, vi_model_calc, vi_watch_calc, vi_thesis_calc, vi_fin_metric,
+  vi_forecast_calc, vi_scenario_calc, vi_model_calc, vi_series, vi_thesis_calc, vi_fin_metric,
   vi_fin_history_calc, vi_collector_calc, vi_raw_capture_calc, vi_observation_calc, vi_obs_current, vi_disclosed,
   vi_metric_calc, vi_company_calc, vi_company_metric CASCADE;
 
@@ -78,30 +79,139 @@ BEGIN
 END $$;
 
 ---------------------------------------------------------------------------
--- 高频数据
+-- 数据（每期数值）。口径记在每一行上；同一指标、同一口径、同一日期多次采集时取最后一次为当前版本
 ---------------------------------------------------------------------------
 CREATE VIEW vi_observation_calc AS
-SELECT o.id, m.unit, m.basis, m.source_kind,
-       o.id = (SELECT o2.id FROM vi_observation_base o2
-                WHERE o2.metric_id = o.metric_id AND o2.obs_date = o.obs_date
-                ORDER BY o2.collected_at DESC NULLS LAST, o2.id DESC LIMIT 1) AS is_current,
+SELECT o.id, m.unit, m.source_kind,
+       row_number() OVER (PARTITION BY o.metric_id, o.basis, o.obs_date ORDER BY o.collected_at DESC NULLS LAST, o.id DESC) = 1 AS is_current,
        (o.value IS NOT NULL
         AND o.value >= coalesce(m.valid_min, '-infinity'::float8)
         AND o.value <= coalesce(m.valid_max, 'infinity'::float8)) AS is_valid
 FROM vi_observation_base o LEFT JOIN vi_metric_base m ON m.id = o.metric_id;
 
--- 每个指标的“当前且有效”观察（供其他视图引用）
+-- 每个指标的“当前且有效”数据（供其他视图引用）
+-- 写成“没有更新的同期同口径数据”，按指标走索引（单个指标取最新值时不用把全部数据排一遍）
 CREATE VIEW vi_obs_current AS
-SELECT o.metric_id, o.obs_date, o.value, o.id
-FROM vi_observation_base o JOIN vi_observation_calc c USING (id)
-WHERE c.is_current AND c.is_valid;
-
--- 公司披露的数据：指标＋数据里来源方式＝公司披露的部分，按“期间 × 项目 × 口径”展开（驾驶舱图表、核对脚本读这里）
-CREATE VIEW vi_disclosed AS
-SELECT o.id, m.company_id, o.period, o.obs_date AS period_end, m.basis AS period_kind, m.name AS line_item, o.value, m.unit, o.yoy,
-       o.impact, o.assessment, o.summary, o.status, o.doc_id AS source_id, m.id AS metric_id, m.code AS metric_code
+SELECT o.metric_id, o.basis, o.period, o.obs_date, o.value, o.yoy, o.id
 FROM vi_observation_base o JOIN vi_metric_base m ON m.id = o.metric_id
-WHERE m.source_kind = '公司披露';
+WHERE o.value IS NOT NULL AND o.value >= coalesce(m.valid_min, '-infinity'::float8) AND o.value <= coalesce(m.valid_max, 'infinity'::float8)
+  AND NOT EXISTS (SELECT 1 FROM vi_observation_base o2
+                  WHERE o2.metric_id = o.metric_id AND o2.obs_date = o.obs_date AND o2.basis IS NOT DISTINCT FROM o.basis
+                    AND (o2.collected_at > o.collected_at OR (o2.collected_at IS NOT NULL AND o.collected_at IS NULL)
+                         OR (o2.collected_at IS NOT DISTINCT FROM o.collected_at AND o2.id > o.id)));
+
+-- 报表计算：指标的“报表公式”从三大报表（vi_fin_stmt_base）实时算出各口径的数，不另存。
+-- 公式写法：科目相加相减，如“应收账款 + 合同资产”“−资产减值损失 − 信用减值损失”；比率用“÷”，两边各是一组科目，
+--   如“（营业收入 − 营业成本）÷ 营业收入”“毛利 ÷ 营业额”，结果×100（单位 %）。科目名与报表一致；同名科目出现在
+--   多张报表时写成“资产负债表：科目”。缺项按 0 计，整组都缺则该期为空。
+-- 口径：利润表、现金流量表在报表里是年初至今累计——单季＝本期累计−上季累计（一季度即累计），滚动四季度＝本期累计＋上年全年−上年同期累计，
+--   四季度的累计记为“全年”（期间写年份），一至三季度记为“年初至今累计”；只含资产负债表科目的公式为“时点”（期末余额）。
+-- 同比＝本期÷上年同期−1（上年同期不为正时不算；比率不算同比）。
+CREATE OR REPLACE FUNCTION vi_stmt_series(p_company bigint, p_formula text)
+RETURNS TABLE (basis text, period text, period_end date, value double precision, yoy double precision)
+LANGUAGE sql STABLE AS $fn$
+WITH s AS (
+  SELECT ord::int AS side, btrim(regexp_replace(btrim(x), '^（(.*)）$', '\1')) AS expr
+  FROM unnest(string_to_array(p_formula, '÷')) WITH ORDINALITY u(x, ord)
+), t AS (
+  SELECT s.side, CASE WHEN m[1] IN ('−', '－', '-') THEN -1 ELSE 1 END AS sign, btrim(m[2]) AS term
+  FROM s, regexp_matches(s.expr, '([+＋−－-]?)\s*([^+＋−－-]+)', 'g') m
+  WHERE btrim(m[2]) <> ''
+), r AS (
+  SELECT t.side, t.sign,
+         CASE WHEN t.term ~ '^(利润表|资产负债表|现金流量表)[:：]' THEN substring(t.term FROM '^(利润表|资产负债表|现金流量表)') END AS stmt0,
+         btrim(regexp_replace(t.term, '^(利润表|资产负债表|现金流量表)[:：]', '')) AS item
+  FROM t
+), r2 AS (
+  SELECT r.side, r.sign, r.item,
+         coalesce(r.stmt0, (SELECT min(f.stmt) FROM vi_fin_stmt_base f WHERE f.company_id = p_company AND f.item = r.item)) AS stmt
+  FROM r
+), q AS (
+  SELECT r2.side, f.period, max(f.period_end) AS pe, sum(r2.sign * f.amount) AS v,
+         substr(f.period, 1, 4)::int AS y, right(f.period, 1)::int AS qn
+  FROM r2 JOIN vi_fin_stmt_base f ON f.company_id = p_company AND f.item = r2.item AND f.stmt = r2.stmt AND f.amount IS NOT NULL
+  WHERE f.period ~ '^\d{4}Q[1-4]$'
+  GROUP BY r2.side, f.period
+), flow AS (
+  SELECT coalesce(bool_or(stmt <> '资产负债表'), false) AS is_flow, count(DISTINCT side) AS sides FROM r2
+), c AS (
+  SELECT a.side, a.period, a.pe, a.y, a.qn, a.v AS ytd,
+         a.v - CASE WHEN a.qn = 1 THEN 0 ELSE p.v END AS sq,
+         a.v + fy.v - ly.v AS ttm
+  FROM q a
+  LEFT JOIN q p ON p.side = a.side AND p.y = a.y AND p.qn = a.qn - 1
+  LEFT JOIN q fy ON fy.side = a.side AND fy.y = a.y - 1 AND fy.qn = 4
+  LEFT JOIN q ly ON ly.side = a.side AND ly.y = a.y - 1 AND ly.qn = a.qn
+), b AS (
+  SELECT c.side, k.basis, k.period, c.pe, c.y, c.qn, k.v
+  FROM c CROSS JOIN flow
+  CROSS JOIN LATERAL (VALUES
+    ('单季', c.period, c.sq, flow.is_flow),
+    ('滚动四季度', c.period, c.ttm, flow.is_flow),
+    (CASE WHEN c.qn = 4 THEN '全年' ELSE '年初至今累计' END, CASE WHEN c.qn = 4 THEN c.y::text ELSE c.period END, c.ytd, flow.is_flow),
+    ('时点', c.period, c.ytd, NOT flow.is_flow)
+  ) k(basis, period, v, keep)
+  WHERE k.keep AND k.v IS NOT NULL
+), v AS (
+  SELECT n.basis, n.period, n.pe, n.y, n.qn,
+         CASE WHEN (SELECT sides FROM flow) = 1 THEN n.v
+              WHEN d.v IS NOT NULL AND d.v <> 0 THEN n.v / d.v * 100 END AS value,
+         (SELECT sides FROM flow) > 1 AS ratio
+  FROM b n LEFT JOIN b d ON d.side = 2 AND d.basis = n.basis AND d.period = n.period
+  WHERE n.side = 1
+)
+SELECT v.basis, v.period, v.pe, v.value,
+       CASE WHEN NOT v.ratio AND l.value > 0 THEN v.value / l.value - 1 END
+FROM v
+LEFT JOIN v l ON l.basis = v.basis AND l.y = v.y - 1 AND l.qn = v.qn
+WHERE v.value IS NOT NULL
+$fn$;
+
+-- 报表计算的结果缓存：由数据库自动维护（三大报表或指标公式一变就整体刷新），不是手工数据；其他视图都读它，避免每次重算公式
+CREATE MATERIALIZED VIEW vi_stmt_cache AS
+SELECT m.id AS metric_id, s.basis, s.period, s.period_end, s.value, s.yoy
+FROM vi_metric_base m CROSS JOIN LATERAL vi_stmt_series(m.company_id, m.formula) s
+WHERE m.source_kind = '报表计算' AND nullif(btrim(m.formula), '') IS NOT NULL;
+CREATE INDEX ON vi_stmt_cache (metric_id, basis, period);
+
+CREATE OR REPLACE FUNCTION vi_refresh_stmt_cache() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  REFRESH MATERIALIZED VIEW vi_stmt_cache;
+  IF to_regclass('vi_fin_history_cache') IS NOT NULL THEN REFRESH MATERIALIZED VIEW vi_fin_history_cache; END IF;
+  RETURN NULL;
+END $$;
+DROP TRIGGER IF EXISTS vi_fin_stmt_refresh ON vi_fin_stmt_base;
+CREATE TRIGGER vi_fin_stmt_refresh AFTER INSERT OR UPDATE OR DELETE OR TRUNCATE ON vi_fin_stmt_base
+  FOR EACH STATEMENT EXECUTE FUNCTION vi_refresh_stmt_cache();
+DROP TRIGGER IF EXISTS vi_metric_stmt_ins ON vi_metric_base;
+CREATE TRIGGER vi_metric_stmt_ins AFTER INSERT ON vi_metric_base FOR EACH ROW WHEN (NEW.source_kind = '报表计算')
+  EXECUTE FUNCTION vi_refresh_stmt_cache();
+DROP TRIGGER IF EXISTS vi_metric_stmt_upd ON vi_metric_base;
+CREATE TRIGGER vi_metric_stmt_upd AFTER UPDATE ON vi_metric_base FOR EACH ROW
+  WHEN (OLD.formula IS DISTINCT FROM NEW.formula OR OLD.source_kind IS DISTINCT FROM NEW.source_kind OR OLD.company_id IS DISTINCT FROM NEW.company_id)
+  EXECUTE FUNCTION vi_refresh_stmt_cache();
+DROP TRIGGER IF EXISTS vi_metric_stmt_del ON vi_metric_base;
+CREATE TRIGGER vi_metric_stmt_del AFTER DELETE ON vi_metric_base FOR EACH ROW WHEN (OLD.source_kind = '报表计算')
+  EXECUTE FUNCTION vi_refresh_stmt_cache();
+
+-- 每个指标的全部数值（唯一入口）：「数据」里存的当前有效值 ＋ 报表计算指标从三大报表实时算出的值。
+-- 报表计算的指标在「数据」里录了某期某口径的数（追溯调整、口径不同），以录的为准，算出的那期不再出现。
+CREATE VIEW vi_series AS
+SELECT o.metric_id, o.basis, o.period, o.obs_date, o.value, o.yoy, o.id AS observation_id
+FROM vi_obs_current o
+UNION ALL
+SELECT s.metric_id, s.basis, s.period, s.period_end, s.value, s.yoy, NULL::bigint
+FROM vi_stmt_cache s
+LEFT JOIN vi_observation_base o ON o.metric_id = s.metric_id AND o.basis = s.basis AND o.period = s.period
+WHERE o.id IS NULL;
+
+-- 公司的定期数据（披露＋报表计算），按“期间 × 项目 × 口径”展开（驾驶舱图表、核对脚本读这里）
+CREATE VIEW vi_disclosed AS
+SELECT x.observation_id AS id, m.company_id, x.period, x.obs_date AS period_end, x.basis AS period_kind, m.name AS line_item, x.value, m.unit, x.yoy,
+       o.summary, o.doc_id AS source_id, m.id AS metric_id, m.code AS metric_code
+FROM vi_series x JOIN vi_metric_base m ON m.id = x.metric_id
+LEFT JOIN vi_observation_base o ON o.id = x.observation_id
+WHERE m.company_id IS NOT NULL AND m.source_kind <> '自动采集';
 
 -- 写入一条公司披露的数据：按 公司×项目×口径×单位 找指标，没有就新建（代码＝公司代码.D001 起顺序编号）；
 -- 同一指标同一期间已有的数据先删掉再写，可重复执行。种子脚本和迁移都用它，规则只写一处。
@@ -112,31 +222,71 @@ SELECT CASE WHEN p_item = ANY(ARRAY['AIoT平台连接设备数（不含手机和
             ELSE '其他' END
 $$;
 
+DROP FUNCTION IF EXISTS vi_put_disclosed(bigint, text, text, text, text, date, double precision, double precision, text, text, text, text, bigint);
 CREATE OR REPLACE FUNCTION vi_put_disclosed(p_company bigint, p_item text, p_basis text, p_unit text, p_period text, p_end date,
-                                            p_value double precision, p_yoy double precision, p_impact text, p_assessment text,
-                                            p_summary text, p_status text, p_doc bigint) RETURNS bigint LANGUAGE plpgsql AS $$
-DECLARE mid bigint; ccode text; n int; oid bigint;
+                                            p_value double precision, p_yoy double precision, p_summary text, p_doc bigint) RETURNS bigint LANGUAGE plpgsql AS $$
+DECLARE mid bigint; kind text; ccode text; n int; oid bigint;
 BEGIN
-  SELECT id INTO mid FROM vi_metric_base
-   WHERE company_id = p_company AND source_kind = '公司披露' AND name = p_item AND basis IS NOT DISTINCT FROM p_basis
-     AND unit IS NOT DISTINCT FROM p_unit
+  -- 一个指标一行：按 公司×名称×单位 找（口径记在每期数据上）
+  SELECT id, source_kind INTO mid, kind FROM vi_metric_base
+   WHERE company_id = p_company AND source_kind <> '自动采集' AND name = p_item AND unit IS NOT DISTINCT FROM p_unit
    ORDER BY id LIMIT 1;
+  IF kind = '报表计算' THEN
+    RETURN NULL;                         -- 派生值不手填：这个数由三大报表算出
+  END IF;
   IF mid IS NULL THEN
     SELECT code INTO ccode FROM vi_company_base WHERE id = p_company;
     SELECT coalesce(max(substring(code FROM '\.D(\d+)$')::int), 0) + 1 INTO n FROM vi_metric_base WHERE code LIKE ccode || '.D%';
     INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency)
     VALUES (ccode || '.D' || lpad(n::text, 3, '0'), p_item, p_unit, vi_disclosed_category(p_item), '公司披露', p_basis, p_company, '公司披露',
-            CASE p_basis WHEN '单季' THEN '季' WHEN '半年累计' THEN '半年' WHEN '前三季度累计' THEN '年' WHEN '全年' THEN '年' END)
+            CASE p_basis WHEN '单季' THEN '季' WHEN '时点' THEN '季' WHEN '半年累计' THEN '半年' WHEN '前三季度累计' THEN '年' WHEN '全年' THEN '年' END)
     RETURNING id INTO mid;
   END IF;
-  DELETE FROM vi_observation_base WHERE metric_id = mid AND period IS NOT DISTINCT FROM p_period;
-  INSERT INTO vi_observation_base (metric_id, obs_date, period, value, yoy, impact, assessment, summary, status, doc_id, collected_at)
-  VALUES (mid, p_end, p_period, p_value, p_yoy, p_impact, p_assessment, p_summary, p_status, p_doc, now())
+  DELETE FROM vi_observation_base WHERE metric_id = mid AND period IS NOT DISTINCT FROM p_period AND basis IS NOT DISTINCT FROM p_basis;
+  INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, doc_id, collected_at)
+  VALUES (mid, p_end, p_period, p_basis, p_value, p_yoy, p_summary, p_doc, now())
   RETURNING id INTO oid;
   RETURN oid;
 END $$;
 
--- 每家公司用到哪些指标、做什么用（唯一来源，不另存）：自有指标、股价、股价汇率、估值模型的无风险利率、跟踪事项、订阅的宏观数据。
+-- 把一家公司“与三大报表重复”的指标改成报表计算：写上公式，删掉另存的数（迁移和种子共用）
+CREATE OR REPLACE FUNCTION vi_metric_to_stmt(p_company bigint, p_name text, p_unit text, p_formula text, p_basis text) RETURNS bigint
+LANGUAGE plpgsql AS $$
+DECLARE mid bigint;
+BEGIN
+  SELECT id INTO mid FROM vi_metric_base WHERE company_id = p_company AND name = p_name AND unit IS NOT DISTINCT FROM p_unit ORDER BY id LIMIT 1;
+  IF mid IS NULL THEN RETURN NULL; END IF;
+  UPDATE vi_metric_base SET source_kind = '报表计算', formula = p_formula, basis = p_basis, source_name = '财务数据（三大报表）：' || p_formula
+   WHERE id = mid;
+  DELETE FROM vi_observation_base WHERE metric_id = mid;
+  RETURN mid;
+END $$;
+
+-- 一家公司里同名同单位的指标合成一个（口径已记在每期数据上）：保留被假设依据/风险关联的、否则编号最小的，引用全部改指向它
+CREATE OR REPLACE FUNCTION vi_merge_company_metrics(p_company bigint) RETURNS int LANGUAGE plpgsql AS $$
+DECLARE g record; keep bigint; d bigint; n int := 0;
+BEGIN
+  FOR g IN SELECT name, unit, array_agg(id ORDER BY
+             (EXISTS (SELECT 1 FROM vi_lnk_judgment_metrics l WHERE l.metric_id = m.id) OR EXISTS (SELECT 1 FROM vi_lnk_risk_metrics l WHERE l.metric_id = m.id)) DESC, id) AS ids
+           FROM vi_metric_base m WHERE company_id = p_company GROUP BY name, unit HAVING count(*) > 1 LOOP
+    keep := g.ids[1];
+    FOREACH d IN ARRAY g.ids[2:] LOOP
+      UPDATE vi_observation_base SET metric_id = keep WHERE metric_id = d;
+      UPDATE vi_fact_base SET metric_id = keep WHERE metric_id = d;
+      UPDATE vi_collector_base SET metric_id = keep WHERE metric_id = d;
+      UPDATE vi_company_base SET price_metric_id = keep WHERE price_metric_id = d;
+      UPDATE vi_company_base SET price_fx_metric_id = keep WHERE price_fx_metric_id = d;
+      UPDATE vi_model_base SET rf_metric_id = keep WHERE rf_metric_id = d;
+      INSERT INTO vi_lnk_judgment_metrics (judgment_id, metric_id) SELECT judgment_id, keep FROM vi_lnk_judgment_metrics WHERE metric_id = d ON CONFLICT DO NOTHING;
+      INSERT INTO vi_lnk_risk_metrics (risk_id, metric_id) SELECT risk_id, keep FROM vi_lnk_risk_metrics WHERE metric_id = d ON CONFLICT DO NOTHING;
+      DELETE FROM vi_metric_base WHERE id = d;
+      n := n + 1;
+    END LOOP;
+  END LOOP;
+  RETURN n;
+END $$;
+
+-- 每家公司用到哪些指标、做什么用（唯一来源，不另存）：自有指标、股价、股价汇率、估值模型的无风险利率、重点跟踪（假设依据、风险关联的指标）、订阅的宏观数据。
 -- 指标的“使用公司”、公司的“用到的宏观数据”、一键采集的范围都从这里读。
 CREATE VIEW vi_company_metric AS
 SELECT company_id, metric_id, string_agg(DISTINCT usage, '、' ORDER BY usage) AS usages
@@ -145,20 +295,36 @@ FROM (
   UNION ALL SELECT id, price_metric_id, '股价' FROM vi_company_base WHERE price_metric_id IS NOT NULL
   UNION ALL SELECT id, price_fx_metric_id, '汇率折算' FROM vi_company_base WHERE price_fx_metric_id IS NOT NULL
   UNION ALL SELECT company_id, rf_metric_id, '无风险利率' FROM vi_model_base WHERE rf_metric_id IS NOT NULL AND company_id IS NOT NULL
-  UNION ALL SELECT company_id, metric_id, '跟踪事项' FROM vi_watch_base WHERE metric_id IS NOT NULL AND company_id IS NOT NULL
+  UNION ALL SELECT j.company_id, l.metric_id, '重点跟踪' FROM vi_lnk_judgment_metrics l JOIN vi_judgment_base j ON j.id = l.judgment_id WHERE j.company_id IS NOT NULL
+  UNION ALL SELECT r.company_id, l.metric_id, '重点跟踪' FROM vi_lnk_risk_metrics l JOIN vi_risk_base r ON r.id = l.risk_id WHERE r.company_id IS NOT NULL
   UNION ALL SELECT company_id, metric_id, '订阅' FROM vi_lnk_company_macro_metrics
 ) u
 GROUP BY company_id, metric_id;
 
+-- 指标的最新值按“主口径”取（没有主口径的数据时取最新一期）；状态只看数据是否到期：最新一期日期＋频率对应的披露间隔
 CREATE VIEW vi_metric_calc AS
 SELECT m.id,
-       (SELECT count(*) FROM vi_observation_base o WHERE o.metric_id = m.id)::int AS obs_count,
-       l.value AS latest_value, l.obs_date AS latest_date,
+       (SELECT count(*) FROM vi_series x WHERE x.metric_id = m.id)::int AS obs_count,
+       l.value AS latest_value, l.period AS latest_period, l.obs_date AS latest_date,
        CASE WHEN m.company_id IS NULL THEN '宏观' ELSE '公司' END AS scope,
-       u.used_by, u.used_by_codes
+       u.used_by, u.used_by_codes,
+       CASE WHEN l.obs_date IS NULL THEN '未记录' WHEN d.due < vi_today() THEN '待更新' ELSE '已更新' END AS state,
+       d.due AS next_due, t.tracked_by, t.tracked_codes
 FROM vi_metric_base m
-LEFT JOIN LATERAL (SELECT value, obs_date FROM vi_obs_current x WHERE x.metric_id = m.id
-                   ORDER BY obs_date DESC LIMIT 1) l ON true
+LEFT JOIN LATERAL (SELECT value, period, obs_date FROM vi_series x WHERE x.metric_id = m.id
+                   ORDER BY (x.basis IS NOT DISTINCT FROM m.basis) DESC, obs_date DESC LIMIT 1) l ON true
+CROSS JOIN LATERAL (
+  SELECT (l.obs_date + CASE WHEN m.frequency IN ('交易日', '工作日', '日') THEN interval '5 days' WHEN m.frequency = '周' THEN interval '12 days'
+          WHEN m.frequency IN ('月', '月度') THEN interval '55 days' WHEN m.frequency IN ('季', '季度') THEN interval '4 months'
+          WHEN m.frequency = '半年' THEN interval '10 months' WHEN m.frequency = '年' THEN interval '16 months' END)::date AS due
+) d
+LEFT JOIN LATERAL (
+  SELECT string_agg(z.txt, '；' ORDER BY z.cid) AS tracked_by, ',' || string_agg(z.code, ',' ORDER BY z.cid) || ',' AS tracked_codes
+  FROM (SELECT c.id AS cid, c.code, CASE WHEN m.company_id IS NULL THEN c.name || ' ' ELSE '' END || string_agg(DISTINCT u.code, '、' ORDER BY u.code) AS txt
+        FROM (SELECT j.company_id, j.code FROM vi_lnk_judgment_metrics l JOIN vi_judgment_base j ON j.id = l.judgment_id WHERE l.metric_id = m.id
+              UNION ALL SELECT r.company_id, r.code FROM vi_lnk_risk_metrics l JOIN vi_risk_base r ON r.id = l.risk_id WHERE l.metric_id = m.id) u
+        JOIN vi_company_base c ON c.id = u.company_id GROUP BY c.id, c.code, c.name) z
+) t ON true
 LEFT JOIN LATERAL (SELECT string_agg(c.name || '（' || cm.usages || '）', '；' ORDER BY c.id) AS used_by,
                           ',' || string_agg(c.code, ',' ORDER BY c.id) || ',' AS used_by_codes
                    FROM vi_company_metric cm JOIN vi_company_base c ON c.id = cm.company_id
@@ -289,7 +455,7 @@ FROM vi_collect_run_base b LEFT JOIN r ON r.run_id = b.id;
 ---------------------------------------------------------------------------
 -- 采集工作流调用的函数（逻辑放在 SQL 里，改逻辑不用改工作流）
 --   vi_collect_targets(run) ④ 手动采集：本次要采的数据源。运行有公司时＝这家公司用到的指标（vi_company_metric：
---                           自有、股价、汇率折算、无风险利率、跟踪事项、订阅的宏观数据）；没有公司时＝全部启用的数据源
+--                           自有、股价、汇率折算、无风险利率、重点跟踪、订阅的宏观数据）；没有公司时＝全部启用的数据源
 --   vi_ingest()    ② 入库：“待入库”的原始记录按入库判断写入高频数据，并回写处理状态
 --   vi_selfcheck() ③ 自检：回写每个启用数据源的最近自检时间与结果
 ---------------------------------------------------------------------------
@@ -312,9 +478,8 @@ WITH c AS (
   JOIN vi_collector_base k ON k.id = r.collector_id
   WHERE r.status = '待入库'
 ), ins AS (
-  INSERT INTO vi_observation_base (metric_id, obs_date, value, collected_at, source, raw_capture_id, note)
-  SELECT metric_id, parsed_date, parsed_value, collected_at, url, id,
-         '本机 NocoBase 自动采集；通过基础解析与范围校验，非财务核验；不得自动改变估值假设。'
+  INSERT INTO vi_observation_base (metric_id, obs_date, value, collected_at, raw_capture_id)   -- 出处＝原始采集记录（→ 采集配置的地址）
+  SELECT metric_id, parsed_date, parsed_value, collected_at, id
   FROM c WHERE decision = '可入库'
   RETURNING raw_capture_id
 )
@@ -339,17 +504,84 @@ $fn$;
 ---------------------------------------------------------------------------
 -- 年度关键项派生指标 & 论点自动证伪检查（同比只在口径相同的相邻年份之间计算，并表/重组年份为空）
 ---------------------------------------------------------------------------
-CREATE VIEW vi_fin_history_calc AS
-WITH b AS (
-  SELECT h.*,
-         h.revenue / NULLIF(h.volume, 0) AS price_,
-         lag(h.year) OVER w AS py, lag(h.scope_note) OVER w AS p_scope, lag(h.volume) OVER w AS p_volume, lag(h.revenue) OVER w AS p_revenue,
-         lag(h.revenue / NULLIF(h.volume, 0)) OVER w AS p_price, lag(h.np_parent) OVER w AS p_np,
-         lag(h.finance_cost) OVER w AS p_fc, lag(h.equity_parent) OVER w AS p_equity
-  FROM vi_fin_history_base h
-  WINDOW w AS (PARTITION BY h.company_id ORDER BY h.year)
+-- 历史年度：数值全部来自指标（指标的“模型字段”说明它是哪一列）。期间数取“全年”，余额取四季度“时点”；本表只存口径说明与来源
+-- 历史年度数值缓存：由数据库自动维护（报表、模型字段指标的数据、历史年度的年份或口径变化时刷新），自动检查和图表都读它
+CREATE MATERIALIZED VIEW vi_fin_history_cache AS
+WITH a AS (
+  SELECT m.company_id, m.model_field, x.value,
+         CASE WHEN x.basis = '全年' AND x.period ~ '^\d{4}$' THEN x.period::int
+              WHEN x.basis = '时点' AND x.period ~ '^\d{4}Q4$' THEN left(x.period, 4)::int END AS year
+  FROM vi_metric_base m JOIN vi_series x ON x.metric_id = m.id
+  WHERE m.model_field IS NOT NULL AND m.company_id IS NOT NULL
 )
-SELECT id,
+SELECT h.id, h.company_id, h.year, h.scope_note,
+         max(a.value) FILTER (WHERE a.model_field = 'volume') AS volume,
+         max(a.value) FILTER (WHERE a.model_field = 'revenue') AS revenue,
+         max(a.value) FILTER (WHERE a.model_field = 'cost_of_sales') AS cost_of_sales,
+         max(a.value) FILTER (WHERE a.model_field = 'pretax_profit') AS pretax_profit,
+         max(a.value) FILTER (WHERE a.model_field = 'income_tax') AS income_tax,
+         max(a.value) FILTER (WHERE a.model_field = 'np_parent') AS np_parent,
+         max(a.value) FILTER (WHERE a.model_field = 'minority_profit') AS minority_profit,
+         max(a.value) FILTER (WHERE a.model_field = 'da') AS da,
+         max(a.value) FILTER (WHERE a.model_field = 'finance_cost') AS finance_cost,
+         max(a.value) FILTER (WHERE a.model_field = 'invest_income') AS invest_income,
+         max(a.value) FILTER (WHERE a.model_field = 'equity_income') AS equity_income,
+         max(a.value) FILTER (WHERE a.model_field = 'cfo') AS cfo,
+         max(a.value) FILTER (WHERE a.model_field = 'capex') AS capex,
+         max(a.value) FILTER (WHERE a.model_field = 'investee_cash_div') AS investee_cash_div,
+         max(a.value) FILTER (WHERE a.model_field = 'net_borrowing') AS net_borrowing,
+         max(a.value) FILTER (WHERE a.model_field = 'interest_debt') AS interest_debt,
+         max(a.value) FILTER (WHERE a.model_field = 'cash') AS cash,
+         max(a.value) FILTER (WHERE a.model_field = 'equity_parent') AS equity_parent,
+         max(a.value) FILTER (WHERE a.model_field = 'dividend_total') AS dividend_total,
+         max(a.value) FILTER (WHERE a.model_field = 'dps') AS dps
+  FROM vi_fin_history_base h LEFT JOIN a ON a.company_id = h.company_id AND a.year = h.year
+  GROUP BY h.id, h.company_id, h.year, h.scope_note;
+CREATE UNIQUE INDEX ON vi_fin_history_cache (id);
+CREATE INDEX ON vi_fin_history_cache (company_id, year);
+
+-- 刷新时机：历史年度的年份或口径说明变了；模型字段改了；模型字段指标的数据变了（只看这次改到的行，其他数据不触发）
+CREATE OR REPLACE FUNCTION vi_refresh_fin_history() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  IF TG_TABLE_NAME = 'vi_observation_base' THEN       -- 每种操作只引用它自己有的转换表（INSERT 只有 nt，DELETE 只有 ot）
+    IF TG_OP = 'INSERT' THEN
+      IF NOT EXISTS (SELECT 1 FROM nt JOIN vi_metric_base m ON m.id = nt.metric_id WHERE m.model_field IS NOT NULL) THEN RETURN NULL; END IF;
+    ELSIF TG_OP = 'DELETE' THEN
+      IF NOT EXISTS (SELECT 1 FROM ot JOIN vi_metric_base m ON m.id = ot.metric_id WHERE m.model_field IS NOT NULL) THEN RETURN NULL; END IF;
+    ELSE
+      IF NOT EXISTS (SELECT 1 FROM nt JOIN vi_metric_base m ON m.id = nt.metric_id WHERE m.model_field IS NOT NULL)
+         AND NOT EXISTS (SELECT 1 FROM ot JOIN vi_metric_base m ON m.id = ot.metric_id WHERE m.model_field IS NOT NULL) THEN RETURN NULL; END IF;
+    END IF;
+  END IF;
+  REFRESH MATERIALIZED VIEW vi_fin_history_cache;
+  RETURN NULL;
+END $$;
+DROP TRIGGER IF EXISTS vi_obs_hist_ins ON vi_observation_base;
+CREATE TRIGGER vi_obs_hist_ins AFTER INSERT ON vi_observation_base REFERENCING NEW TABLE AS nt FOR EACH STATEMENT EXECUTE FUNCTION vi_refresh_fin_history();
+DROP TRIGGER IF EXISTS vi_obs_hist_upd ON vi_observation_base;
+CREATE TRIGGER vi_obs_hist_upd AFTER UPDATE ON vi_observation_base REFERENCING NEW TABLE AS nt OLD TABLE AS ot FOR EACH STATEMENT EXECUTE FUNCTION vi_refresh_fin_history();
+DROP TRIGGER IF EXISTS vi_obs_hist_del ON vi_observation_base;
+CREATE TRIGGER vi_obs_hist_del AFTER DELETE ON vi_observation_base REFERENCING OLD TABLE AS ot FOR EACH STATEMENT EXECUTE FUNCTION vi_refresh_fin_history();
+DROP TRIGGER IF EXISTS vi_metric_hist ON vi_metric_base;
+CREATE TRIGGER vi_metric_hist AFTER UPDATE ON vi_metric_base FOR EACH ROW WHEN (OLD.model_field IS DISTINCT FROM NEW.model_field)
+  EXECUTE FUNCTION vi_refresh_fin_history();
+DROP TRIGGER IF EXISTS vi_metric_hist_del ON vi_metric_base;
+CREATE TRIGGER vi_metric_hist_del AFTER DELETE ON vi_metric_base FOR EACH ROW WHEN (OLD.model_field IS NOT NULL)
+  EXECUTE FUNCTION vi_refresh_fin_history();
+DROP TRIGGER IF EXISTS vi_fin_history_refresh ON vi_fin_history_base;
+CREATE TRIGGER vi_fin_history_refresh AFTER INSERT OR UPDATE OR DELETE ON vi_fin_history_base FOR EACH STATEMENT EXECUTE FUNCTION vi_refresh_fin_history();
+
+CREATE VIEW vi_fin_history_calc AS
+WITH v AS (SELECT * FROM vi_fin_history_cache), b AS (
+  SELECT v.*,
+         revenue / NULLIF(volume, 0) AS price_,
+         lag(year) OVER w AS py, lag(scope_note) OVER w AS p_scope, lag(volume) OVER w AS p_volume, lag(revenue) OVER w AS p_revenue,
+         lag(revenue / NULLIF(volume, 0)) OVER w AS p_price, lag(np_parent) OVER w AS p_np,
+         lag(finance_cost) OVER w AS p_fc, lag(equity_parent) OVER w AS p_equity
+  FROM v
+  WINDOW w AS (PARTITION BY company_id ORDER BY year)
+)
+SELECT id, volume, revenue, cost_of_sales, pretax_profit, income_tax, np_parent, minority_profit, da, finance_cost, invest_income, equity_income, cfo, capex, investee_cash_div, net_borrowing, interest_debt, cash, equity_parent, dividend_total, dps,
        price_ AS price,
        dividend_total / NULLIF(np_parent, 0) AS payout,
        income_tax / NULLIF(pretax_profit, 0) AS tax_rate,
@@ -374,8 +606,8 @@ CREATE VIEW vi_fin_metric AS
 SELECT h.company_id, h.year, x.metric, x.value
 FROM vi_fin_history_base h JOIN vi_fin_history_calc c USING (id)
 CROSS JOIN LATERAL (VALUES
-  ('业务量', h.volume), ('单价', c.price), ('营业收入', h.revenue), ('归母净利润', h.np_parent),
-  ('派息率', c.payout), ('财务费用', h.finance_cost), ('业务量同比', c.volume_yoy),
+  ('业务量', c.volume), ('单价', c.price), ('营业收入', c.revenue), ('归母净利润', c.np_parent),
+  ('派息率', c.payout), ('财务费用', c.finance_cost), ('业务量同比', c.volume_yoy),
   ('单价同比', c.price_yoy), ('营业收入同比', c.revenue_yoy), ('财务费用同比', c.finance_cost_yoy),
   ('毛利率', c.gross_margin), ('ROE', c.roe), ('经营现金流÷归母净利润', c.cfo_to_np),
   ('资本开支÷经营现金流', c.capex_to_cfo), ('净负债', c.net_debt), ('净负债÷EBITDA', c.net_debt_to_ebitda)
@@ -736,15 +968,6 @@ SELECT id, base_value, tv AS trial_value, tv - base_value AS value_change, (tv -
 FROM v;
 
 ---------------------------------------------------------------------------
--- 跟踪事项
----------------------------------------------------------------------------
-CREATE VIEW vi_watch_calc AS
-SELECT w.id, l.value AS latest_value, l.obs_date AS latest_date
-FROM vi_watch_base w
-LEFT JOIN LATERAL (SELECT value, obs_date FROM vi_obs_current x WHERE x.metric_id = w.metric_id
-                   ORDER BY obs_date DESC LIMIT 1) l ON true;
-
----------------------------------------------------------------------------
 -- 自动检查：每个“当前”模型一组
 ---------------------------------------------------------------------------
 -- 分部加总估值：核心业务盈利 × 合理倍数 ＋ 经营分部价值 ＋ 可用净现金 ＋ 对外投资（折后）− 少数股东权益与其他
@@ -758,30 +981,36 @@ LEFT JOIN LATERAL (SELECT value, obs_date FROM vi_obs_current x WHERE x.metric_i
 --     承诺投入：价值＝−(剩余金额÷n)×(1−税率)×[1−(1+r)^−n]÷r − 承诺期后年成本×(1−税率)÷(r−g)÷(1+r)^n，n＝剩余年数
 --     直接估值：价值＝填写的直接估值（可比公司或主观判断给出的整体价值，不折现）
 ---------------------------------------------------------------------------
+-- 金额：关联了取数指标时取该指标在“截至”日的值（期末余额优先），否则用手填金额；两者只能有一个
 CREATE VIEW vi_sotp_item_calc AS
 SELECT i.id,
-       CASE WHEN i.kind = '其他调整' THEN i.amount
-            WHEN i.kind IN ('现金及等价物', '对外投资') THEN abs(i.amount)
-            ELSE -abs(i.amount) END * (1 - coalesce(i.haircut, 0)) AS signed_value,
-       coalesce(s.name, '全部情景') AS scope
-FROM vi_sotp_item_base i LEFT JOIN vi_scenario_base s ON s.id = i.scenario_id;
+       CASE WHEN i.treatment IN ('已含业务估值', '不计价') THEN 0
+            WHEN i.kind = '其他调整' THEN a.amount
+            WHEN i.kind IN ('现金及等价物', '对外投资', '固定资产', '其他非经营资产') THEN abs(a.amount)
+            ELSE -abs(a.amount) END * (1 - coalesce(i.haircut, 0)) AS signed_value,
+       coalesce(s.name, '全部情景') AS scope, a.amount AS amount_used
+FROM vi_sotp_item_base i LEFT JOIN vi_scenario_base s ON s.id = i.scenario_id
+CROSS JOIN LATERAL (
+  SELECT coalesce(i.amount, (SELECT x.value FROM vi_series x WHERE x.metric_id = i.metric_id AND x.obs_date = i.as_of
+                             ORDER BY (x.basis = '时点') DESC LIMIT 1)) AS amount
+) a;
 
 -- 经营分部：情景 × 分部一行（同编号有情景专属行时以专属行为准）
 CREATE VIEW vi_sotp_segment_val AS
 WITH pick AS (
-  SELECT DISTINCT ON (s.id, g.code)
+  SELECT DISTINCT ON (s.id, coalesce('business:' || g.business_id::text, 'code:' || g.code))
          s.id AS scenario_id, s.model_id, s.name AS scenario_name, coalesce(s.is_base, false) AS is_base,
          g.id AS segment_id, g.code, g.name, g.method, g.earn_year, g.revenue, g.op_margin,
          coalesce(g.tax_rate, 0) AS tax_rate, coalesce(g.attrib, 1) AS attrib, g.multiple,
          coalesce(g.ronic, s.ronic) AS ronic, coalesce(g.growth, s.terminal_growth) AS growth,
          coalesce(g.discount_rate, x.eff_discount_rate) AS r, coalesce(g.interim_cash, 0) AS interim_cash,
          coalesce(g.commit_amount, 0) AS commit_amount, g.commit_years, coalesce(g.ongoing_cost, 0) AS ongoing_cost,
-         g.direct_value, m.sotp_as_of AS as_of
+         g.direct_value, m.sotp_as_of AS as_of, g.business_id
   FROM vi_scenario_base s
   JOIN vi_scenario_calc x ON x.id = s.id
   JOIN vi_model_base m ON m.id = s.model_id
   JOIN vi_sotp_segment_base g ON g.model_id = s.model_id AND (g.scenario_id = s.id OR g.scenario_id IS NULL)
-  ORDER BY s.id, g.code, (g.scenario_id IS NULL)
+  ORDER BY s.id, coalesce('business:' || g.business_id::text, 'code:' || g.code), (g.scenario_id IS NULL)
 ), a AS (
   SELECT pick.*,
          CASE WHEN method = '承诺投入' THEN -ongoing_cost * (1 - tax_rate) * attrib
@@ -812,7 +1041,7 @@ WITH pick AS (
 SELECT scenario_id * 100000 + segment_id AS id, scenario_id, model_id, scenario_name, is_base, segment_id, code, name, method,
        earn_year, revenue, op_margin, tax_rate, attrib, r, growth, ronic, earnings, formula_multiple, multiple_used, tau,
        interim_cash, commit_amount, commit_years, ongoing_cost, direct_value, terminal_pv, interim_pv, earn_pv,
-       terminal_pv + interim_pv AS value
+       terminal_pv + interim_pv AS value, business_id
 FROM c;
 
 -- 经营分部表的计算列：适用全部情景的行按基准情景计算（基准另有专属行时按其他情景）
@@ -835,14 +1064,14 @@ WITH sc AS (
   JOIN vi_model_base m ON m.id = s.model_id
   LEFT JOIN vi_company_base co ON co.id = m.company_id
   LEFT JOIN vi_company_calc cc ON cc.id = m.company_id
-  WHERE (m.sotp_year IS NOT NULL AND EXISTS (SELECT 1 FROM vi_sotp_item_base i WHERE i.model_id = m.id))
+  WHERE EXISTS (SELECT 1 FROM vi_sotp_item_base i WHERE i.model_id = m.id)
      OR EXISTS (SELECT 1 FROM vi_sotp_segment_base g WHERE g.model_id = m.id)
 ), core AS (
   SELECT sc.*, p.pretax - p.other_contrib + p.interest AS core_pretax,
          (p.pretax - p.other_contrib + p.interest) * p.np_parent / NULLIF(p.pretax, 0) + coalesce(sc.sotp_core_adj, 0) AS core_earnings
   FROM sc LEFT JOIN vi_projection p ON p.scenario_id = sc.scenario_id AND p.year = sc.sotp_year
 ), items AS (
-  SELECT DISTINCT ON (c.scenario_id, i.code) c.scenario_id, i.kind, ic.signed_value
+  SELECT DISTINCT ON (c.scenario_id, i.code) c.scenario_id, i.kind, i.treatment, i.business_id, ic.signed_value
   FROM core c
   JOIN vi_sotp_item_base i ON i.model_id = c.model_id AND (i.scenario_id = c.scenario_id OR i.scenario_id IS NULL)
   JOIN vi_sotp_item_calc ic ON ic.id = i.id
@@ -854,6 +1083,10 @@ WITH sc AS (
          sum(signed_value) FILTER (WHERE kind = '经营所需现金') AS op_cash,
          sum(signed_value) FILTER (WHERE kind = '资金汇出成本') AS repatriation,
          sum(signed_value) FILTER (WHERE kind = '对外投资') AS investments,
+         sum(signed_value) FILTER (WHERE kind = '固定资产') AS fixed_assets,
+         sum(signed_value) FILTER (WHERE kind = '其他非经营资产') AS other_assets,
+         count(*) FILTER (WHERE signed_value IS NULL OR (treatment = '已含业务估值' AND NOT EXISTS
+           (SELECT 1 FROM vi_sotp_segment_val v WHERE v.scenario_id = items.scenario_id AND v.business_id = items.business_id))) AS asset_incomplete,
          sum(signed_value) FILTER (WHERE kind IN ('少数股东权益', '其他调整')) AS minority_other,
          sum(signed_value) AS noncore
   FROM items GROUP BY scenario_id
@@ -869,7 +1102,9 @@ WITH sc AS (
          sum(value) FILTER (WHERE method = '直接估值') AS direct_value
   FROM vi_sotp_segment_val GROUP BY scenario_id
 ), v AS (
-  SELECT core.*, a.cash, a.debt, a.op_cash, a.repatriation, a.investments, a.minority_other, coalesce(a.noncore, 0) AS noncore,
+  SELECT core.*, a.cash, a.debt, a.op_cash, a.repatriation, a.investments, a.minority_other,
+         CASE WHEN coalesce(a.asset_incomplete, 0) = 0 THEN coalesce(a.noncore, 0) END AS noncore,
+         a.fixed_assets, a.other_assets, coalesce(a.asset_incomplete, 0) AS asset_incomplete,
          coalesce(a.cash, 0) + coalesce(a.debt, 0) + coalesce(a.op_cash, 0) + coalesce(a.repatriation, 0) AS usable_net_cash,
          CASE WHEN core.ronic > 0 AND core.r > core.g THEN (1 - core.g / core.ronic) / (core.r - core.g) END AS formula_multiple,
          coalesce(sg.n_segments, 0) AS n_segments, coalesce(sg.n_incomplete, 0) AS n_incomplete,
@@ -880,7 +1115,7 @@ WITH sc AS (
   SELECT v.*, coalesce(v.sotp_multiple, v.formula_multiple) AS multiple FROM v
 ), x AS (
   SELECT w.*, w.core_earnings * w.multiple AS core_value,
-         CASE WHEN w.n_incomplete = 0 AND (w.sotp_year IS NULL OR w.core_earnings * w.multiple IS NOT NULL)
+         CASE WHEN w.n_incomplete = 0 AND w.asset_incomplete = 0 AND (w.sotp_year IS NULL OR w.core_earnings * w.multiple IS NOT NULL)
               THEN coalesce(w.core_earnings * w.multiple, 0) + coalesce(w.segments_value, 0) + w.noncore END AS equity_value
   FROM w
 ), y AS (
@@ -911,6 +1146,8 @@ SELECT z.scenario_id AS id, z.model_id, z.company_id, z.company_name, z.model_na
        CASE WHEN z.sotp_year IS NOT NULL AND z.core_earnings IS NULL THEN format('预测计算里没有 %s 年的数据，核心盈利无法计算', z.sotp_year)
             WHEN z.sotp_year IS NOT NULL AND z.multiple IS NULL THEN '没有合理倍数：在情景里填“合理倍数”或“新增投资回报率”'
             WHEN z.n_incomplete > 0 THEN format('经营分部有 %s 项输入不完整，无法计算（见「估值 / 经营分部估值」）', z.n_incomplete)
+            WHEN z.asset_incomplete > 0 THEN format('资产估值与调整有 %s 项金额未知或缺少对应业务估值，暂不输出总价值', z.asset_incomplete)
+            WHEN z.n_segments = 0 AND z.sotp_year IS NULL THEN format('纯资产估值：资产估值与调整净额 %s 亿元；股本 %s 亿股，每股 %s 元。',vi_fmt(z.noncore,0),vi_fmt(z.shares,2),vi_fmt(z.vps))
             WHEN z.n_segments = 0 THEN
               format('核心盈利 %s 亿元（%s 年）× 合理倍数 %s 倍 ＝ %s 亿元；可用净现金 %s 亿元；对外投资（折后）%s 亿元；少数股东权益与其他 %s 亿元；'
                      '股权价值 %s 亿元，每股 %s 元%s。市场价 %s 元，%s；市场给核心业务的隐含倍数 %s 倍。股息贴现口径 %s 元。',
@@ -943,7 +1180,10 @@ SELECT z.scenario_id AS id, z.model_id, z.company_id, z.company_name, z.model_na
                           vi_fmt(z.implied_growth_value, 0), vi_fmt(z.growth_value, 0)) ELSE '' END,
                      CASE WHEN z.weighted_value IS NOT NULL THEN format('按情景概率加权，每股 %s 元。', vi_fmt(z.weighted_value)) ELSE '' END,
                      vi_fmt(dv.value_today)) END
-       || ' 研究提示，不是交易指令。' AS conclusion
+       || format(' 单独计价固定资产 %s 亿元，其他非经营资产 %s 亿元；业务估值与资产调整分开汇总，已含业务价值的资产不再加计。', vi_fmt(coalesce(z.fixed_assets, 0), 0), vi_fmt(coalesce(z.other_assets, 0), 0)) AS conclusion,
+       CASE WHEN z.n_incomplete = 0 AND (z.sotp_year IS NULL OR z.core_earnings * z.multiple IS NOT NULL)
+            THEN coalesce(z.core_value, 0) + coalesce(z.segments_value, 0) END AS business_value,
+       z.noncore AS asset_value, z.fixed_assets, z.other_assets, z.asset_incomplete
 FROM z LEFT JOIN vi_valuation dv ON dv.id = z.scenario_id;
 
 ---------------------------------------------------------------------------
@@ -1009,7 +1249,7 @@ WITH m AS (
       WHERE r.company_id = m.company_id AND rc.level = '重大' AND coalesce(r.treatment, '未计入估值') = '未计入估值') AS risk_unpriced,
     (SELECT string_agg(r.code, '、' ORDER BY r.code) FROM vi_risk_base r JOIN vi_risk_calc rc USING (id)
       WHERE r.company_id = m.company_id AND rc.level IN ('重大', '重要') AND nullif(trim(r.early_warning), '') IS NULL
-        AND NOT EXISTS (SELECT 1 FROM vi_lnk_risk_watches l WHERE l.risk_id = r.id)) AS risk_no_signal,
+        AND NOT EXISTS (SELECT 1 FROM vi_lnk_risk_metrics l WHERE l.risk_id = r.id)) AS risk_no_signal,
     (SELECT string_agg(r.code, '、' ORDER BY r.code) FROM vi_risk_base r
       WHERE r.company_id = m.company_id AND (r.probability IS NULL OR r.impact IS NULL OR r.treatment IS NULL)) AS risk_incomplete,
     sb.value_per_share AS sotp_base, sb.diff_vs_ddm AS sotp_diff, sb.implied_core_multiple AS sotp_implied, sb.multiple AS sotp_multiple,

@@ -4,7 +4,7 @@
 
 快照目录里是重构前导出的 db_<表>.json（每张表全部行的 JSON 数组）。
   1. 数字核对：重构前这家公司研究文字里出现的每个“带单位的数字”（44%、2.6 亿首、1,274 万……），
-     重构后是否还出现在这家公司的任意研究文字里（商业模式分析九张表＋跟踪事项＋问题清单）。丢失的逐条列出，人工确认是有意删除还是漏了。
+     重构后是否还出现在这家公司的任意研究文字里（商业模式分析九张表＋假设依据＋待办清单）。丢失的逐条列出，人工确认是有意删除还是漏了。
   2. 重复度：任意两行研究文字之间共有的长片段（≥ 18 个字符）有多少对，重构前后对比，并列出重构后最长的几处。
 """
 import json, re, subprocess, sys, pathlib
@@ -13,7 +13,7 @@ from collections import defaultdict
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 TEXT_TABLES = {   # 表 → 用来标识一行的列
     'thesis': 'code', 'debate': 'code', 'moat': 'code', 'biz_model': 'code', 'value_chain': 'code', 'competitor': 'name',
-    'fit_score': 'dimension', 'judgment': 'code', 'fact': 'title', 'watch': 'code', 'issue': 'code',
+    'fit_score': 'dimension', 'judgment': 'code', 'fact': 'title', 'issue': 'code',
 }
 SKIP = {'id', 'company_id', 'created_at', 'updated_at', 'source_id', 'metric_id', 'check_metric', 'check_op', 'check_threshold',
         'check_years', 'sort', 'debated_on', 'as_of', 'scale_value', 'paying_rate', 'gross_margin', 'growth', 'value'}

@@ -48,7 +48,8 @@ BEGIN NEW.updated_at := now(); RETURN NEW; END $$;''']
                        f"REFERENCES vi_{f['target']}_base(id) ON DELETE SET NULL;")
             out.append(f"CREATE INDEX ON vi_{t['code']}_base ({f['name']}_id);")
     for code, cols in spec.UNIQUE.items():
-        out.append(f"ALTER TABLE vi_{code}_base ADD CONSTRAINT vi_{code}_uniq UNIQUE ({', '.join(cols)});")
+        nulls = ' NULLS NOT DISTINCT' if code == 'biz_model' else ''
+        out.append(f"ALTER TABLE vi_{code}_base ADD CONSTRAINT vi_{code}_uniq UNIQUE{nulls} ({', '.join(cols)});")
     for t in spec.TABLES:
         for f in spec.m2m_fields(t):
             lt, a, b = spec.lnk_table(t, f), f"{t['code']}_id", f"{f['target']}_id"
@@ -60,6 +61,8 @@ BEGIN NEW.updated_at := now(); RETURN NEW; END $$;''']
   PRIMARY KEY ({a}, {b})
 );''')
             out.append(f"COMMENT ON TABLE {lt} IS {lit(t['title'] + ' ↔ ' + f['title'] + '（多对多）')};")
+    out.append((OUT / 'business_rules.sql').read_text())
+    out.append((OUT / 'data_rules.sql').read_text())
     out.append('COMMIT;')
     (OUT / '01_schema.sql').write_text('\n\n'.join(out) + '\n')
 

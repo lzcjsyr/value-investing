@@ -1,0 +1,26 @@
+{
+ "businesses": 5,
+ "xiaomi_canvas": 54,
+ "linked_segments": 15,
+ "asset_boundaries": 5,
+ "unknown_assets": 0,
+ "protected_pages": 85,
+ "protected_nodes": 170,
+ "unchanged": true,
+ "vi_valuation": {
+  "rows": 15,
+  "values_unchanged": true
+ },
+ "vi_sotp": {
+  "rows": 6,
+  "values_unchanged": true
+ },
+ "boundary_assertions": 19,
+ "fresh_rebuild": "passed",
+ "browser_checks": [
+  "集团与汽车画布切换",
+  "基准与悲观情景切换",
+  "资产项目编辑表单",
+  "业务到商业模式关联"
+ ]
+}

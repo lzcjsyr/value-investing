@@ -9,9 +9,11 @@
 岗底斯（2026 年中报电话会问答、卖方一致预期与点评、AI 汇总，均标为三级来源）、腾讯行情 K 线。
 输出 seed.sql。执行：./psql.sh -f "companies/002078_太阳纸业/seed.sql"
 """
-import json, pathlib
+import json, pathlib, sys
 
 HERE = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[1] / 'framework'))
+import data_layer_seed
 DATA = HERE / 'data'
 CODE = '002078.SZ'
 CO = f"(SELECT id FROM vi_company_base WHERE code = '{CODE}')"
@@ -55,14 +57,14 @@ def ins(table, rows):
     vals = ',\n'.join('(' + ', '.join(lit(r.get(c)) for c in cols) + ')' for r in rows)
     OUT.append(f'INSERT INTO vi_{table}_base ({", ".join(cols)}) VALUES\n{vals};')
 
-# 经营数据写进“指标＋数据”：vi_put_disclosed 按 公司×项目×口径×单位 找或建“公司披露”指标（指标代码保持不变），同一期间先删后写
-DISCLOSED = ('company_id', 'line_item', 'period_kind', 'unit', 'period', 'period_end', 'value', 'yoy', 'impact', 'assessment',
-             'summary', 'status', 'source_id')
+# 经营数据写进“指标＋数据”：vi_put_disclosed 按 公司×项目×单位 找或建指标（口径记在每期数据上；报表计算的指标不写），同一期间同一口径先删后写
+DISCLOSED = ('company_id', 'line_item', 'period_kind', 'unit', 'period', 'period_end', 'value', 'yoy', 'summary', 'source_id')
 
 
 def put_disclosed(rows):
     for r in rows:
-        r = {'impact': '待判断'} | r
+        if r.get('assessment'):         # 经营解读并入说明（2026-10-26）
+            r = r | {'summary': (r['summary'] + '\n' if r.get('summary') else '') + '解读：' + r['assessment']}
         OUT.append('SELECT vi_put_disclosed(' + ', '.join(lit(r.get(k)) for k in DISCLOSED) + ');')
 
 
@@ -113,15 +115,27 @@ UPDATE vi_collector_base SET metric_id = {lit(metric(mcode))}, url = {lit(url)},
   max_lag_days = {lag}, notes = {lit(notes)} WHERE name = {lit(name)};""")
 
 
+
+KLINE_TITLE = '太阳纸业收盘价：腾讯 K 线收盘价（不复权）（2025—2026 年历史数据）'
+KLINE_DOC = f"(SELECT id FROM vi_source_base WHERE company_id = {CO} AND title = {lit(KLINE_TITLE)})"
+
+
+def kline_source():
+    """K 线历史补数的来源文档（数据关联它，不逐行抄地址和说明）。"""
+    return (f"INSERT INTO vi_source_base (company_id, title, source_type, url, reliability, verify_status, summary, limitations) "
+            f"SELECT {CO}, {lit(KLINE_TITLE)}, '数据库取数', 'https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz002078,day（不复权日线）', '三级·第三方数据', '待核验', '历史日线收盘价', '历史补数：腾讯 K 线收盘价（不复权）' "
+            f"WHERE NOT EXISTS (SELECT 1 FROM vi_source_base WHERE company_id = {CO} AND title = {lit(KLINE_TITLE)});")
+
 def observations():
     """历史行情只补缺：同一指标同一天已有观察就跳过（自动采集来的数据优先）。"""
+    OUT.append(kline_source())          # 出处只记一处：来源文档
     k = json.loads((DATA / 'tencent_kline_sz002078.json').read_text())['data']['sz002078']['day']
     price = [(d[0], float(d[2])) for d in k]             # [日期, 开, 收, 高, 低, 量]
     for code, rows, source, note in (
             ('002078.SZ.PRICE', price, 'https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz002078,day（不复权日线）', '历史补数：腾讯 K 线收盘价（不复权）'),):
         vals = ',\n'.join(f"('{d}'::date, {v})" for d, v in rows)
-        OUT.append(f"""INSERT INTO vi_observation_base (metric_id, obs_date, value, collected_at, source, note)
-SELECT {metric(code).sql}, v.d, v.x, '2026-10-22T09:00:00+08:00', {lit(source)}, {lit(note)}
+        OUT.append(f"""INSERT INTO vi_observation_base (metric_id, obs_date, value, collected_at, doc_id)
+SELECT {metric(code).sql}, v.d, v.x, '2026-10-22T09:00:00+08:00', {KLINE_DOC}
 FROM (VALUES
 {vals}) v(d, x)
 WHERE NOT EXISTS (SELECT 1 FROM vi_observation_base o WHERE o.metric_id = {metric(code).sql} AND o.obs_date = v.d);""")
@@ -138,7 +152,6 @@ DELETE FROM vi_moat_base WHERE company_id = {CO};
 DELETE FROM vi_competitor_base WHERE company_id = {CO};
 DELETE FROM vi_value_chain_base WHERE company_id = {CO};
 DELETE FROM vi_biz_model_base WHERE company_id = {CO};
-DELETE FROM vi_watch_base WHERE company_id = {CO};
 DELETE FROM vi_issue_base WHERE company_id = {CO};
 DELETE FROM vi_change_log_base WHERE company_id = {CO};
 DELETE FROM vi_judgment_base WHERE company_id = {CO};
@@ -273,7 +286,7 @@ FACTS = [
 
 
 def facts():
-    ins('fact', [dict(company_id=Raw(CO), title=f[0], category=f[1], statement=f[2], value=f[3], unit=f[4], period=f[5], as_of=f[6],
+    ins('fact', [dict(company_id=Raw(CO), title=f[0], category=f[1], statement=f[2], period=f[5], as_of=f[6],
                       verify_status=f[7], source_id=src(f[8]) if f[8] else None) for f in FACTS])
 
 
@@ -822,7 +835,8 @@ def fin_history():
                         equity_parent=eq, dividend_total=div, dps=dps,
                         source_id=src(HIST_SOURCE[y]) if y in HIST_SOURCE else src('Wind：太阳纸业 2014—2025 年财务数据'),
                         note='；'.join(note)))
-    ins('fin_history', out)
+    # 2026-10-26 起历史年度的数值来自指标（报表公式＋data/data_layer.json 的录入值），这里只写口径说明、来源和备注；上面算出的数只作对照，不入库
+    ins('fin_history', [{k: r[k] for k in data_layer_seed.HISTORY_KEYS if k in r} for r in out])
 
 
 # ================================================================ 定期经营数据（单季，亿元；岗底斯利润表单季）
@@ -942,19 +956,8 @@ SELECT t.id, j.id, now(), now() FROM (VALUES {', '.join(f'({lit(t[0])}, {lit(t[9
 JOIN vi_trial_base t ON t.model_id = {MODEL} AND t.name = v.tn JOIN vi_judgment_base j ON j.company_id = {CO} AND j.code = v.jc;""")
 
 
-# ================================================================ 跟踪事项、问题清单、变更日志
-WATCH = [
-    ('W1', '股价与隐含收益率', '002078.SZ.PRICE', '交易日', '腾讯行情（自动）', '隐含年化收益率高于要求收益率 3 个百分点以上，或低于要求收益率', '复核情景与派息率假设；研究提示，不是交易指令', ['J-R']),
-    ('W2', '纸浆价格', 'SP.SHFE.SINA', '交易日', '新浪期货（自动）；Wind EDB 备份', '较 2026-10 水平（约 4700 元/吨）变动超过 ±15% 且持续一个月', '对照纸价看价差，复核 EBITDA 率假设', ['J-M']),
-    ('W3', '季度毛利率与分产品吨利', None, '季度', '季报、半年报分产品毛利率', '综合毛利率连续两季低于 13%，或箱板纸毛利率低于 13%', '复核 J-M、J-P', ['J-M', 'J-P']),
-    ('W4', '箱板纸、文化纸价格与提价落地', None, '月度', '卓创/隆众/钢联（券商转引）', '旺季提价未落地、价格反跌', '复核 2026—2027 年吨收入', ['J-P']),
-    ('W5', '新产能爬坡与南宁项目进度', None, '季度', '公告、互动平台、业绩会', 'PM47 未在 2026 年四季度满产；南宁项目延期超过两个季度', '复核销量与资本开支节奏', ['J-Q', 'J-CAPEX']),
-    ('W6', '资本开支与净负债', None, '半年', '半年报、年报现金流量表与资产负债表', '资本开支连续两年超过 60 亿元，或带息负债超过 230 亿元', '复核 T3、T6 与现金桥接', ['J-CAPEX', 'J-DEBT']),
-    ('W7', '分红政策（2027—2029 年规划）', None, '年度', '年报、分红规划公告', '新规划下限仍为 20% 且实际派息率不升', '复核 J-PAYOUT；必要时下调派息率路径', ['J-PAYOUT']),
-    ('W8', '股权激励考核完成情况', None, '年度', '年报', '2026 年扣非归母净利低于 35.11 亿元', '复核 2026—2028 年利润路径', ['J-OTHER']),
-    ('W9', '关联交易', None, '年度', '年报关联交易章节', '关联销售占比明显上升或定价偏离市价', '复核治理论点 T4', []),
-    ('W10', '老挝新项目与林地', None, '半年', '业绩会、公告', '老挝新浆线立项（最早 2027H2）', '加入扩张资本与销量，重算现金桥接', ['J-CAPEX']),
-]
+# ================================================================ 跟踪事项、待办清单、变更日志
+# 关注（原跟踪事项）：假设依据与风险关联的指标，见 data/data_layer.json（framework/data_layer_seed.py 写入）
 ISSUES = [
     ('Q01', '安全边际选 10% 还是 30%', '策略', '关注价', '用户确定交易纪律后在估值模型里只保留一档。', '待处理', '两档并列展示（与长江电力一致）。'),
     ('Q02', '经营假设待核验（销量、吨收入、EBITDA 率）', '关键', '2026—2035 年全部情景', '三季报、年报出来后对照修正，逐年标记“已核验”。', '待处理',
@@ -973,12 +976,6 @@ ISSUES = [
 
 
 def tracking():
-    ins('watch', [dict(company_id=Raw(CO), code=w[0], title=w[1], metric_id=metric(w[2]) if w[2] else None, frequency=w[3],
-                       preferred_source=w[4], trigger=w[5], action=w[6], nature='研究预警，不是交易指令') for w in WATCH])
-    pairs = [(w[0], j) for w in WATCH for j in w[7]]
-    OUT.append(f"""INSERT INTO vi_lnk_watch_judgments (watch_id, judgment_id, "createdAt", "updatedAt")
-SELECT w.id, j.id, now(), now() FROM (VALUES {', '.join(f'({lit(a)}, {lit(b)})' for a, b in pairs)}) v(wc, jc)
-JOIN vi_watch_base w ON w.company_id = {CO} AND w.code = v.wc JOIN vi_judgment_base j ON j.company_id = {CO} AND j.code = v.jc;""")
     ins('issue', [dict(company_id=Raw(CO), code=i[0], title=i[1], severity=i[2], impact=i[3], done_condition=i[4], status=i[5], progress=i[6])
                   for i in ISSUES])
     ins('change_log', [
@@ -1009,10 +1006,14 @@ JOIN vi_watch_base w ON w.company_id = {CO} AND w.code = v.wc JOIN vi_judgment_b
 if __name__ == '__main__':
     OUT.append('BEGIN;')
     company_and_metrics()
-    observations()
     reset()
+    observations()          # 在 reset 之后：reset 会清空本公司的来源文档
+    OUT.append(f"UPDATE vi_observation_base SET doc_id = {KLINE_DOC} WHERE doc_id IS NULL AND raw_capture_id IS NULL "
+               f"AND metric_id = (SELECT price_metric_id FROM vi_company_base WHERE code = '{CODE}');")
     sources(); facts(); theses(); judgments(); business()
     fin_history(); period_data(); model(); tracking()
+    OUT.extend(data_layer_seed.fin_stmt_statements(CO, HERE / 'data' / 'fin_stmt.json'))   # 三大报表原值（报表计算指标读它）
+    OUT.extend(data_layer_seed.statements(CO, HERE / 'data' / 'data_layer.json'))   # 关注与数据底稿补充，放最后
     OUT.append('COMMIT;')
     (HERE / 'seed.sql').write_text('\n\n'.join(OUT) + '\n')
     print('seed.sql written,', sum(s.count('\n') for s in OUT), 'lines')

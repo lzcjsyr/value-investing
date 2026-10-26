@@ -18,37 +18,37 @@ GUIDE = """# 使用说明
 
 ## 菜单怎么看
 - **每家公司一个顶层菜单**（现在有长江电力、太阳纸业、中国建筑、腾讯音乐、小米集团），点进去只看到这家公司的数据：驾驶舱，以及四组页面：**商业模式**（只放分析）、**预测与估值**（从历史年度开始：历史年度 → 财务模型 → 假设依据……）、**数据底稿**（只放事实：业务数据、财务数据、重要事实、来源文档）、**跟踪**。各公司的数据在同一个数据库里，但页面互不混。
-- **宏观数据**（独立项目）：利率、汇率、大宗商品等不属于任何公司的数据（指标、高频数据、采集配置）。各公司按需使用：估值参数（无风险利率、股价汇率）和跟踪事项直接引用；其他想看的在「框架与后台 / 公司」里勾选“订阅的宏观数据”。公司菜单里「业务数据」的高频标签只展示经营、水文和商品指标；股价、利率与汇率在驾驶舱及宏观数据查看。驾驶舱“立即采集一次”仍采这家公司需要的所有指标。
+- **宏观数据**（独立项目）：利率、汇率、大宗商品等不属于任何公司的数据（指标、高频数据、采集配置）。各公司按需使用：估值参数（无风险利率、股价汇率）和重点跟踪（假设依据、风险关联的指标）直接引用；其他想看的在「框架与后台 / 公司」里勾选“订阅的宏观数据”。公司菜单里「业务数据」的高频标签只展示经营、水文和商品指标；股价、利率与汇率在驾驶舱及宏观数据查看。驾驶舱“立即采集一次”仍采这家公司需要的所有指标。
 - **框架与后台**：这三篇说明、公司列表（含订阅的宏观数据）、全部指标定义，以及自动采集（采集配置、采集运行、原始采集记录、全部数据）。
 
 ## 每天/每周怎么用
-1. **<公司> / 驾驶舱**：看今天每股价值、市场价、按要求收益率的最高买入价和自动检查。
+1. **<公司> / 驾驶舱**：看今天每股价值、市场价、按要求收益率的最高买入价和质量自检。
    想看某一年的利润、现金、资产负债是怎么算出来的，打开 **<公司> / 预测与估值 / 财务模型**：选情景和年份，瀑布图逐步展示营收 → 利润 → 股息 → 现金，另有一页资产与资本。
-2. **<公司> / 跟踪 / 自动检查**：先看“阻断”和“提示”，它们说明结论能不能用。
+2. **<公司> / 研究维护 / 质量自检**：先看“阻断”和“提示”，它们说明结论能不能用。
 3. **<公司> / 数据底稿 / 业务数据**：只放形成财务结果的经营驱动。“定期经营数据”是发电量、浆纸销量、合同额、开工面积、用户、设备数与单位售价；“高频业务数据”是水位、来水和纸浆价格等经营环境指标。收入、利润、毛利率、现金和负债统一看 **财务数据**；三大报表之外的分部口径在“分部与财务补充”，已在三表呈现的集团收入、归母利润等不再重复列示。股价看驾驶舱，利率与汇率看宏观数据。想更新自动采集指标，可按驾驶舱的 **立即采集一次**；该按钮仍采集这家公司需要的全部数据源。
 4. 有新公告或财报：先在 **数据底稿 / 来源文档** 登记原件，再写 **重要事实**；结论有变化先改 **核心论点**（裁决、改判条件），需要改假设时写 **预测与估值 / 假设依据**，然后改 **逐年假设**，最后在 **变更日志** 记录旧值、新值与理由。
    在公司菜单里新增记录时，表单里的“公司”要选这家公司，否则这条记录不会出现在它的页面里。
 
 ## 商业模式分析（先于估值）
 价值投资的核心是识别竞争壁垒，而壁垒要从商业模式、产业链和竞争对手里找。「<公司> / 商业模式」的页面按阅读顺序排列：
-1. **商业模式拆解**：用标准的商业模式画布，每家公司都是同样的 9 项（B1—B9）：客户细分、价值主张、渠道通路、客户关系、收入来源、核心资源、关键业务、重要合作、成本结构。投资者关心的内容放进画布：盈利公式的收入一侧（量×价）、收入结构、单价、增长与周期写在**收入来源**；盈利公式的成本一侧、成本构成与经营杠杆、单位利润、资本需求与现金循环写在**成本结构**。
+1. **商业模式拆解**：用标准的商业模式画布，按集团或所属业务各写 9 项（B1—B9）：客户细分、价值主张、渠道通路、客户关系、收入来源、核心资源、关键业务、重要合作、成本结构。投资者关心的内容放进画布：盈利公式的收入一侧（量×价）、收入结构、单价、增长与周期写在**收入来源**；盈利公式的成本一侧、成本构成与经营杠杆、单位利润、资本需求与现金循环写在**成本结构**。
 2. **产业链与五力**：上游、本公司、下游、渠道、互补方、替代品、潜在进入者、同业、监管各一行；写谁拿走多少利润，并标出属于波特五力中的哪一种力量、强弱、对公司有利还是不利、趋势。同业、替代品、进入者这几行只评估力量，具体对手关联到竞争对手表。
 3. **竞争对手**：直接对手、替代品、潜在进入者与海外对标；关键数字写截至日期，第三方估算在来源里注明。
 4. **竞争壁垒**：每项候选壁垒写机制、财务体现（更高 ROIC 或毛利率、更高留存、更低获客成本、更稳定的现金流）、证据、反证、复制难度。**看起来像壁垒、其实不是的（伪壁垒）也要列出来**。能量化的设自动检查（读历史年度）。
 5. **核心论点**：决定价值的几个关键判断——壁垒能否持续、增长与利润率、现金与资本配置、治理、估值。每条写正方立论、反方立论、互相反驳，再给裁决（成立 / 观察 / 存疑 / 证伪）、把握、决定胜负的证据、改判条件和对模型的影响。伪壁垒以外的每项壁垒至少关联一条辩论过的论点（填辩论日期）。岗底斯观点 PK、卖方与外资的正反观点写在“外部观点”里，裁决仍由自己负责。能量化的改判条件设自动检查。
-6. **风险分析**：会让这笔投资亏钱的不利事件。每条写传导路径、可能性与冲击（系统按可能性×冲击自动定级为重大、重要、一般）、影响测算、缓冲因素、在估值里怎么处理（基准情景、悲观情景、折现率或未计入）、预警信号与触发后应对。论证不在这里重复：关联会被削弱的论点（自动显示其当前裁决）、估值对应的假设依据、盯着的跟踪事项。
+6. **风险分析**：会让这笔投资亏钱的不利事件。每条写传导路径、可能性与冲击（系统按可能性×冲击自动定级为重大、重要、一般）、影响测算、缓冲因素、在估值里怎么处理（基准情景、悲观情景、折现率或未计入）、预警信号与触发后应对。论证不在这里重复：关联会被削弱的论点（自动显示其当前裁决）、估值对应的假设依据、盯着的预警指标（汇总在「数据底稿 / 重点跟踪」）。
 7. **价投适配度**：顶部是结论看板（总分、归类、八个维度的分数条、强项与短板），下方表格录入。长坡、厚雪、慢变、护城河、再投资、财务质量、治理配置、可估值性，各 0—5 分并写反证，关联支撑它的论点。总分 32—40 适合复利框架，22—31 可研究（要说明更偏复利、现金流价值还是资产价值），21 以下通常不符合。
 证据在「数据底稿」：**重要事实**是从**来源文档**里摘出的一次性事实（披露的数字、政策、管理层表述），上面各表都关联到它；按期重复的数（经营数字、股价、利率、汇率、期货、水位）只放**数据**，重要事实不抄，需要时用“数字引自”指向那个指标。
 落到估值的在「预测与估值 / **假设依据**」：事实和论点如何决定每个估值参数（逐年假设、情景、估值模型），改参数的门槛，什么情况下不改。
 
-**每个观点只写一处**：描述性的内容放商业模式、产业链、竞争对手、竞争壁垒；有争议、决定价值的判断放核心论点（对应哪条假设依据在假设依据里关联，论点上自动显示“假设依据（状态）”）；会让人亏钱的事件放风险分析；参数怎么设、什么时候改放假设依据。其他地方按编号引用（如“见 T2”“J-P”），不重复论证。
+**每个观点只写一处**：描述性的内容放商业模式、产业链、竞争对手、竞争壁垒；有争议、决定价值的判断放核心论点（对应哪条假设依据在假设依据里关联，论点上自动显示“假设依据（状态）”）；会让人亏钱的事件放风险分析；参数怎么设、什么时候改放假设依据；还没有答案的判断性问题（如“应收能收回多少”）也写成核心论点，缺的证据写在“决定胜负的证据”。「跟踪 / 待办清单」只放做完即关的待办（数据源、核验、模型缺口、等你拍板的策略选择），不放判断。其他地方按编号引用（如“见 T2”“J-P”），不重复论证。
 
-自动检查 C09、C14、C15、C18、C19 会提示：论点的自动检查有没有触发、还有哪些壁垒没辩论、适配度总分与归类、高分维度是否关联了存疑或证伪的论点、重大风险有没有计入估值和预警信号。
+质量自检 C09、C14、C15、C18、C19 会提示：论点的自动检查有没有触发、还有哪些壁垒没辩论、适配度总分与归类、高分维度是否关联了存疑或证伪的论点、重大风险有没有计入估值和预警信号。
 
 ## 主估值方法：按生意选，不套一个公式
 - **股息贴现**（默认）：只承认分给股东的现金；适合派息稳定、留存少的公司（长江电力）。
 - **分部加总**（在估值模型里把“主估值方法”设为分部加总）：核心业务盈利 × 合理倍数 ＋ 可用净现金 ＋ 对外投资（折后）− 少数股东权益。适合“经营业务＋大额现金与持股”的公司（腾讯音乐）。
-- **经营分部估值**（分部加总的一种，估值模型的“核心盈利年份”留空）：一家公司里处在不同发展阶段的业务各用一种方法，写在「预测与估值 / 经营分部估值」，每个情景可以有自己的一行：
+- **经营分部估值**（分部加总的一种，估值模型的“核心盈利年份”留空）：一家公司里处在不同发展阶段的业务各用一种方法，写在「估值 / 业务估值（编辑）」，每个情景可以有自己的一行：
   - **盈利×倍数**：成熟或周期业务，用正常化盈利（不用周期顶部或底部的当年利润）；倍数按价值驱动公式推导，正常化年份晚于下一年时折回今天，并加上过渡期的现金流。
   - **稳态折现**：成长业务，用稳态年份的盈利 × 退出倍数折回今天（可单独设更高的折现率），加上到稳态前的期间现金流（负数＝还要投钱）。
   - **承诺投入**：投入期业务，只计已承诺投入的税后现值和承诺期后仍得不到回报的年成本，回报不计入。
@@ -56,8 +56,8 @@ GUIDE = """# 使用说明
   - 驾驶舱给出“市场隐含成熟业务倍数”和“市场隐含成长业务价值”：其余部分按本模型取值时，现价等于在为哪一部分付多少钱。情景可以填概率，得到概率加权价值。小米集团用这种方法。
   - 核心盈利取预测计算里某一年的核心经营利润（不含利息收入、投资收益与财务费用），按税率与少数股东占比折成归母，可再加减“核心盈利调整”。
   - 合理倍数不手拍：P/E＝(1−永续增长率÷新增投资回报率)÷(折现率−永续增长率)，在“情景”里填新增投资回报率即可，也可手填覆盖。
-  - 现金、负债、经营所需现金、资金汇出成本、对外投资、少数股东权益写在「预测与估值 / 分部估值项」，可以按情景设不同金额与折价。
-  - 驾驶舱可拖动“试算倍数”；“市场隐含核心倍数”告诉你市场为核心业务付了几倍。另一种方法作交叉验证，自动检查 C16 会提示两者差距，C17 检查经营分部是否完整、价值是否主要来自尚未成熟的业务。
+  - 现金、负债、经营所需现金、资金汇出成本、对外投资、少数股东权益写在「估值 / 资产估值与调整（编辑）」，可以按情景设不同金额与折价。
+  - 驾驶舱可拖动“试算倍数”；“市场隐含核心倍数”告诉你市场为核心业务付了几倍。另一种方法作交叉验证，质量自检 C16 会提示两者差距，C17 检查经营分部是否完整、价值是否主要来自尚未成熟的业务。
 
 ## 按要求收益率估值（内部收益率视角）
 - **要求收益率**（默认 6%）是你自己的门槛回报，即机会成本；在“估值模型”里设置，驾驶舱可以临时拖动并保存为默认。
@@ -137,9 +137,9 @@ FORMULAS = """# 模型公式
 - 核心经营利润（税前）＝ 利润总额 − 其他净贡献 ＋ 利息（取“核心盈利年份”那一年的预测计算）
 - 核心盈利 ＝ 核心经营利润 × 归母净利润 ÷ 利润总额 ＋ 核心盈利调整（税后归母口径）
 - 公式倍数 ＝ (1 − g ÷ 新增投资回报率) ÷ (r − g)；合理倍数 ＝ 情景手填倍数，否则公式倍数
-- 分部估值项计入值 ＝ ±金额 × (1 − 折价)：现金与对外投资为加，带息负债、经营所需现金、资金汇出成本、少数股东权益为减，“其他调整”按填写的正负号；同编号有情景专属行时以专属行为准
+- 资产计入值：单独计价＝±金额×(1−折价)，现金、投资、独立固定资产、其他非经营资产为加；负债等为减，其他调整按填写正负号。已含业务估值或不计价＝0；单独计价缺金额时不输出总值。公共行与情景专属行按编号覆盖。
 - 可用净现金 ＝ 现金 − 带息负债 − 经营所需现金 − 资金汇出成本
-- 每股价值 ＝ (核心盈利 × 合理倍数 ＋ 非经营部分合计) ÷ 股本；境外上市时再按最新汇率折回股价币种
+- 每股价值 ＝ (业务估值合计 ＋ 资产估值与调整净额) ÷ 股本；境外上市时再按最新汇率折回股价币种
 - 市场隐含核心倍数 ＝ (市场价 × 股本 − 非经营部分合计 − 经营分部价值) ÷ 核心盈利
 - C16：基准情景分部加总与股息贴现相差超过 25% 时提示
 
@@ -191,7 +191,7 @@ async function listRows(collectionName, filter, pageSize = 200) {
 const fmt = (v, d = 2) => (v === null || v === undefined || Number.isNaN(v) ? '—' : Number(v).toFixed(d));
 const pct = (v, d = 2) => (v === null || v === undefined || Number.isNaN(v) ? '—' : (Number(v) * 100).toFixed(d) + '%');
 
-// 这家公司要采的数据源＝它用到的指标（自有、股价、汇率折算、无风险利率、跟踪事项、订阅的宏观数据）。
+// 这家公司要采的数据源＝它用到的指标（自有、股价、汇率折算、无风险利率、重点跟踪、订阅的宏观数据）。
 // 用途由数据库视图 vi_company_metric 汇总，指标的 used_by_codes 来自它；SQL vi_collect_targets 用的是同一个视图。
 function ownCollectors(collectors, metrics, companies, coId) {
   const code = companies.find((c) => c.id === coId)?.code;
@@ -289,7 +289,9 @@ try {
       const vps = equity === null ? null : equity / r.shares;
       return { key: r.id, name: r.scenario_name, prob: r.probability, core: r.core_earnings, m, coreValue: hasCore ? r.core_earnings * m : null,
                mature: hasSeg ? anchorTrial : null, growth: r.growth_value, invest: r.invest_value, direct: r.direct_value, cash: r.usable_net_cash,
-               inv: r.investments, other: r.minority_other, vps, quote: fx && vps !== null ? vps / fx : null,
+               inv: r.investments, other: r.minority_other, fixed: r.fixed_assets, otherAssets: r.other_assets,
+               business: r.business_value === null || r.business_value === undefined ? null : r.business_value - anchor + anchorTrial,
+               assets: r.asset_value, equity, shares: r.shares, vps, quote: fx && vps !== null ? vps / fx : null,
                vsPrice: r.market_price && vps ? r.market_price / vps - 1 : null };
     });
     const sotpBaseCalc = sotpCalc.find((r) => sotpBase && r.key === sotpBase.id) || sotpCalc[0] || {};
@@ -301,8 +303,7 @@ try {
     const quoteReference = sotpPrimary ? (weighted !== null ? weighted : sotpCalc.find((r) => r.name === '悲观')?.vps) : baseRow.ceiling;
     const quoteReferenceTitle = sotpPrimary ? (weighted !== null ? '概率加权价值' : '悲观分部估值') : `回报门槛 ${reqPct}% 的最高买入价`;
     const sotpTitle = !sotpPrimary ? '分部加总（交叉验证）'
-      : hasSeg ? '主估值：经营分部估值（成熟业务 × 倍数 ＋ 成长业务稳态折现 ＋ 投入期成本或直接估值 ＋ 净现金与投资）'
-      : '主估值：分部加总（核心业务盈利 × 合理倍数 ＋ 可用净现金 ＋ 对外投资）';
+      : '主估值：业务估值合计＋资产估值与调整净额';
     const sotpCard = sotp.length === 0 ? null : (
       <Card size="small" style={{ marginBottom: 12 }} title={sotpTitle}>
         <Row gutter={[12, 12]}>
@@ -329,32 +330,81 @@ try {
           <InputNumber min={1} max={60} step={0.5} value={trialMult ?? Number(fmt(baseMult(sotpBase), 1))} onChange={(v) => setTrialMult(v)} addonAfter="倍" />
           <Button onClick={() => setTrialMult(null)}>恢复各情景倍数</Button>
         </Space>
-        <Table size="small" pagination={false} dataSource={sotpCalc} columns={[
-          { title: '情景', dataIndex: 'name' },
-          ...(weighted !== null ? [{ title: '概率', dataIndex: 'prob', render: (v) => pct(v, 0) }] : []),
-          ...(hasCore ? [
-            { title: `核心盈利（${sotpBase.core_year} 年，亿元）`, dataIndex: 'core', render: (v) => fmt(v, 1) },
-            { title: '倍数', dataIndex: 'm', render: (v) => fmt(v, 1) },
-            { title: '核心业务价值（亿元）', dataIndex: 'coreValue', render: (v) => fmt(v, 0) },
-          ] : []),
-          ...(hasSeg ? [
-            { title: '成熟业务（亿元）', dataIndex: 'mature', render: (v) => fmt(v, 0) },
-            { title: '成长业务（亿元）', dataIndex: 'growth', render: (v) => fmt(v, 0) },
-          ] : []),
-          ...(hasSeg && hasInvest ? [{ title: '投入期业务（亿元）', dataIndex: 'invest', render: (v) => fmt(v, 0) }] : []),
-          ...(hasSeg && hasDirect ? [{ title: '直接估值业务（亿元）', dataIndex: 'direct', render: (v) => fmt(v, 0) }] : []),
-          { title: '可用净现金（亿元）', dataIndex: 'cash', render: (v) => fmt(v, 0) },
-          { title: '对外投资·折后（亿元）', dataIndex: 'inv', render: (v) => fmt(v, 0) },
-          { title: '少数股东与其他（亿元）', dataIndex: 'other', render: (v) => fmt(v, 0) },
-          { title: '每股价值（元）', dataIndex: 'vps', render: (v) => <b>{fmt(v)}</b> },
-          ...(fx ? [{ title: '每股价值（港元）', dataIndex: 'quote', render: (v) => fmt(v) }] : []),
-          { title: '市场价相对', dataIndex: 'vsPrice', render: (v) => (v === null ? '—' : pct(v, 1)) },
-        ]} />
+        {(() => {
+          // 价值桥：每行一个组成部分，每列一个情景；① 业务估值 ＋ ② 资产估值与调整净额 ＝ ③ 股权价值 → 每股价值
+          const coreOnly = hasCore && !hasSeg;
+          const anyNonZero = (k) => sotpCalc.some((r) => r[k] !== null && r[k] !== undefined && Number(r[k]) !== 0);
+          const signed = (v, d = 0) => (v === null || v === undefined ? '—' : (Number(v) > 0 ? '＋' : Number(v) < 0 ? '−' : '') + fmt(Math.abs(Number(v)), d));
+          const lines = [
+            { key: 'h1', kind: 'head', label: '① 业务估值' },
+            ...(hasCore ? [
+              { key: 'core', label: `核心盈利（${sotpBase.core_year} 年）`, v: (r) => fmt(r.core, 1) },
+              { key: 'm', label: '× 倍数', v: (r) => `${fmt(r.m, 1)} 倍` },
+            ] : []),
+            ...(hasCore && !coreOnly ? [{ key: 'coreValue', label: '核心业务价值', v: (r) => fmt(r.coreValue, 0) }] : []),
+            ...(hasSeg ? [
+              { key: 'mature', label: '成熟业务（盈利×倍数）', v: (r) => fmt(r.mature, 0) },
+              { key: 'growth', label: '成长业务', v: (r) => fmt(r.growth, 0) },
+            ] : []),
+            ...(hasSeg && hasInvest ? [{ key: 'invest', label: '投入期业务（承诺投入的成本）', v: (r) => fmt(r.invest, 0) }] : []),
+            ...(hasSeg && hasDirect ? [{ key: 'direct', label: '直接估值业务', v: (r) => fmt(r.direct, 0) }] : []),
+            { key: 'business', kind: 'total', label: coreOnly ? '＝ 业务估值合计（核心盈利 × 倍数）' : '＝ 业务估值合计', v: (r) => fmt(r.business, 0) },
+            { key: 'h2', kind: 'head', label: '② 资产估值与调整' },
+            { key: 'cash', label: '可用净现金（现金 − 带息负债 − 经营所需现金 − 汇出成本）', v: (r) => signed(r.cash) },
+            { key: 'inv', label: '对外投资（折价后）', v: (r) => signed(r.inv) },
+            ...(anyNonZero('fixed') ? [{ key: 'fixed', label: '独立固定资产', v: (r) => signed(r.fixed) }] : []),
+            ...(anyNonZero('otherAssets') ? [{ key: 'otherAssets', label: '其他非经营资产', v: (r) => signed(r.otherAssets) }] : []),
+            { key: 'other', label: '少数股东权益与其他调整', v: (r) => signed(r.other) },
+            { key: 'assets', kind: 'total', label: '＝ 资产估值与调整净额', v: (r) => signed(r.assets) },
+            { key: 'h3', kind: 'head', label: '③ 每股价值' },
+            { key: 'equity', kind: 'total', label: '股权价值 ＝ ① ＋ ②', v: (r) => fmt(r.equity, 0) },
+            { key: 'shares', label: '÷ 股本（亿股）', v: (r) => fmt(r.shares, 2) },
+            { key: 'vps', kind: 'final', label: '＝ 每股价值', v: (r) => (r.vps === null ? '—' : `${fmt(r.vps)} 元`) },
+            ...(fx ? [{ key: 'quote', label: '折合港元', v: (r) => (r.quote === null ? '—' : `${fmt(r.quote)} 港元`) }] : []),
+            { key: 'vsPrice', label: `市场价 ${fmt(sotpBase.market_price)} 元相对每股价值`, v: (r) => (r.vsPrice === null ? '—' : pct(r.vsPrice, 1)),
+              color: (r) => (r.vsPrice === null ? undefined : r.vsPrice < 0 ? '#389e0d' : '#cf1322') },
+            ...(weighted !== null ? [{ key: 'prob', label: '情景概率', v: (r) => pct(r.prob, 0) }] : []),
+          ];
+          const baseKey = sotpBase ? sotpBase.id : null;
+          const rowStyle = (l) => (l.kind === 'head' ? { background: 'rgba(0,0,0,0.03)', fontWeight: 600 }
+            : l.kind === 'total' ? { fontWeight: 600, borderTop: '1px solid rgba(0,0,0,0.15)' }
+            : l.kind === 'final' ? { fontWeight: 700, fontSize: 15, borderTop: '2px solid rgba(0,0,0,0.45)' } : {});
+          const cellPad = { padding: '6px 12px' };
+          return (
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontVariantNumeric: 'tabular-nums', fontSize: 13 }}>
+                <thead>
+                  <tr style={{ borderBottom: '1px solid rgba(0,0,0,0.15)' }}>
+                    <th style={{ ...cellPad, textAlign: 'left', fontWeight: 600, width: '46%' }}>亿元（另注明的除外）</th>
+                    {sotpCalc.map((r) => (
+                      <th key={r.key} style={{ ...cellPad, textAlign: 'right', fontWeight: 600, background: r.key === baseKey ? 'rgba(22,119,255,0.06)' : undefined }}>
+                        {r.name}{r.key === baseKey && r.name !== '基准' ? '（基准）' : ''}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {lines.map((l) => (
+                    <tr key={l.key} style={rowStyle(l)}>
+                      <td style={{ ...cellPad, paddingLeft: l.kind ? 12 : 28, color: l.kind ? undefined : 'rgba(0,0,0,0.65)' }}>{l.label}</td>
+                      {sotpCalc.map((r) => (
+                        <td key={r.key} style={{ ...cellPad, textAlign: 'right', background: r.key === baseKey ? 'rgba(22,119,255,0.06)' : undefined,
+                                                 color: l.color ? l.color(r) : undefined }}>
+                          {l.kind === 'head' ? '' : l.v(r)}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          );
+        })()}
         <Typography.Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0 }}>
           {hasSeg
-            ? <>经营分部按发展阶段估值（明细见「预测与估值 / 经营分部估值」）：成熟业务＝正常化盈利×倍数，倍数＝(1−永续增长率÷新增投资回报率)÷(折现率−永续增长率)；成长业务＝稳态年盈利×退出倍数折回资产负债日，加上到稳态前的期间现金流；投入期业务＝已承诺投入的税后现值加承诺期后年成本（负值）；直接估值业务＝按可比公司或主观判断给出的整体价值。非经营部分统一截至 {sotpBase.as_of}，明细见「预测与估值 / 分部估值项」。
+            ? <>经营分部按发展阶段估值（明细见「估值 / 业务估值（编辑）」）：成熟业务＝正常化盈利×倍数，倍数＝(1−永续增长率÷新增投资回报率)÷(折现率−永续增长率)；成长业务＝稳态年盈利×退出倍数折回资产负债日，加上到稳态前的期间现金流；投入期业务＝已承诺投入的税后现值加承诺期后年成本（负值）；直接估值业务＝按可比公司或主观判断给出的整体价值。非经营部分统一截至 {sotpBase.as_of}，明细见「估值 / 资产估值与调整（编辑）」。
                 市场隐含值＝其余部分按本模型取值时，市值对应的成熟业务倍数或成长业务价值。试算倍数只改成熟业务的倍数。股东回报折现（交叉验证）基准 {fmt(sotpBase.ddm_value)} 元。</>
-            : <>合理倍数＝(1−永续增长率÷新增投资回报率)÷(折现率−永续增长率)，可在“情景”里手填覆盖；非经营部分统一截至 {sotpBase.as_of}（与股本同日），明细见「预测与估值 / 分部估值项」。
+            : <>合理倍数＝(1−永续增长率÷新增投资回报率)÷(折现率−永续增长率)，可在“情景”里手填覆盖；非经营部分统一截至 {sotpBase.as_of}（与股本同日），明细见「估值 / 资产估值与调整（编辑）」。
                 隐含倍数＝(市值−非经营部分)÷核心盈利：市场为核心业务付了几倍。股息贴现口径（交叉验证）基准 {fmt(sotpBase.ddm_value)} 元。</>}
         </Typography.Paragraph>
       </Card>
@@ -415,7 +465,7 @@ try {
         {!sotpPrimary ? sotpCard : null}
         {IRR_ONLY ? (
           <Typography.Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0 }}>
-            自动检查：通过 {count('通过')} · 提示 {count('提示')} · 阻断 {count('阻断')}。自动采集（这家公司和通用指标）：{healthy} / {enabled.length} 个数据源正常。
+            质量自检：通过 {count('通过')} · 提示 {count('提示')} · 阻断 {count('阻断')}。自动采集（这家公司和通用指标）：{healthy} / {enabled.length} 个数据源正常。
             回报拆解、买入价与假设的影响见「预测与估值 / 估值」。
           </Typography.Paragraph>
         ) : (<>
@@ -423,7 +473,7 @@ try {
           <Col xs={12} md={6}><Card size="small"><Statistic title={`${sotpPrimary ? '股息贴现·' : ''}今天每股价值（折现率 ${pct(base.discount_rate)}）`} value={fmt(base.value_today)} suffix="元" /></Card></Col>
           <Col xs={12} md={6}><Card size="small"><Statistic title="现金支持价值·今天" value={fmt(base.cash_value_today)} suffix="元" /></Card></Col>
           <Col xs={12} md={6}><Card size="small"><Statistic title={`${sotpPrimary ? '股息贴现·' : ''}关注价（低档/高档边际）`} value={`${fmt(base.watch_low)} / ${fmt(base.watch_high)}`} /></Card></Col>
-          <Col xs={12} md={6}><Card size="small"><Statistic title="自动检查" value={`通过 ${count('通过')} · 提示 ${count('提示')} · 阻断 ${count('阻断')}`} /></Card></Col>
+          <Col xs={12} md={6}><Card size="small"><Statistic title="质量自检" value={`通过 ${count('通过')} · 提示 ${count('提示')} · 阻断 ${count('阻断')}`} /></Card></Col>
         </Row>
         <Typography.Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0 }}>
           {base.conclusion || ''} 自动采集（这家公司和通用指标）：{healthy} / {enabled.length} 个数据源正常。
@@ -451,9 +501,18 @@ const listOf = async (name, params = {}) => (await get(`${name}:list`, { pageSiz
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const when = (v) => (v ? new Date(v).toLocaleString('zh-CN', { hour12: false }) : '—');
 const healthTag = (h) => <Tag color={h === '正常' ? 'green' : h === '已停用' ? 'default' : 'red'}>{h || '—'}</Tag>;
-const STATUS_COLOR = { 已入库: 'green', 重复未入库: 'blue', 抓取失败: 'red', 校验失败: 'orange', 待入库: 'gold', 采集中: 'gold' };
+// 最新值：每个数据源取“最新观察日期”那天的观察（同一天有多条时取最后写入的）
+async function latestValues(collectors) {
+  const keys = collectors.filter((c) => c.metric_id && c.last_obs_date);
+  if (!keys.length) return {};
+  const rows = await listOf('vi_observation', { sort: '-id', pageSize: 500,
+    filter: JSON.stringify({ $or: keys.map((c) => ({ metric_id: { $eq: c.metric_id }, obs_date: { $eq: c.last_obs_date } })) }) });
+  const out = {};
+  for (const r of rows) if (!(r.metric_id in out)) out[r.metric_id] = r.value;
+  return out;
+}
 const STEP = { 排队: 0, 运行中: 1, 完成: 2 };
-// 这家公司要采的数据源＝它用到的指标（自有、股价、汇率折算、无风险利率、跟踪事项、订阅的宏观数据）。
+// 这家公司要采的数据源＝它用到的指标（自有、股价、汇率折算、无风险利率、重点跟踪、订阅的宏观数据）。
 // 用途由数据库视图 vi_company_metric 汇总，指标的 used_by_codes 来自它；SQL vi_collect_targets 用的是同一个视图。
 function ownCollectors(collectors, metrics, companies, coId) {
   const code = companies.find((c) => c.id === coId)?.code;
@@ -471,8 +530,8 @@ async function flowState() {
 function Panel() {
   const [flows, setFlows] = useState(null);
   const [collectors, setCollectors] = useState([]);
-  const [allCollectors, setAllCollectors] = useState([]);
-  const [runs, setRuns] = useState([]);
+  const [values, setValues] = useState({});
+  const [lastRun, setLastRun] = useState(null);
   const [coId, setCoId] = useState(null);
   const [run, setRun] = useState(null);
   const [seconds, setSeconds] = useState(0);
@@ -484,8 +543,11 @@ function Panel() {
     const [f, c, ms, cos] = await Promise.all([flowState(), listOf('vi_collector', { sort: 'id' }),
       listOf('vi_metric', { pageSize: 500 }), listOf('vi_company')]);
     const id = cos.find((x) => x.code === COMPANY)?.id;
-    const r = id ? await listOf('vi_collect_run', { sort: '-id', pageSize: 5, filter: JSON.stringify({ company_id: { $eq: id } }) }) : [];
-    setFlows(f); setCoId(id ?? null); setAllCollectors(c); setCollectors(ownCollectors(c, ms, cos, id)); setRuns(r);
+    const own = ownCollectors(c, ms, cos, id);
+    const [r, v] = await Promise.all([
+      id ? listOf('vi_collect_run', { sort: '-id', pageSize: 1, filter: JSON.stringify({ company_id: { $eq: id } }) }) : [],
+      latestValues(own)]);
+    setFlows(f); setCoId(id ?? null); setCollectors(own); setValues(v); setLastRun(r[0] || null);
   };
   useEffect(() => { refresh().catch((e) => setError(String(e?.message || e))); }, []);
 
@@ -519,7 +581,8 @@ function Panel() {
     }
   };
 
-  const nameOf = (id) => allCollectors.find((c) => String(c.id) === String(id))?.name || `数据源 ${id}`;
+  // 本次采集里出问题的数据源（抓取失败、校验失败），直接在表格的状态列里显示原因
+  const issueOf = (c) => (results || []).find((r) => String(r.collector_id) === String(c.id) && /失败/.test(r.status || ''));
   const ready = flows?.manual?.enabled;
   const scheduledOn = flows && flows.scheduled.length && flows.scheduled.every((w) => w.enabled);
   const step = run ? STEP[run.status] ?? 0 : -1;
@@ -534,7 +597,7 @@ function Panel() {
       )}
       <Space wrap align="center" style={{ marginBottom: 12 }}>
         <Button type="primary" loading={running} disabled={!ready} onClick={start}>立即采集一次</Button>
-        <Text type="secondary">只采这家公司和通用指标（利率等）的数据源：采集 → 入库 → 自检，通常 5—30 秒；结果记在「框架与后台 / 采集 / 采集运行」。其他公司在各自的驾驶舱里采。</Text>
+        <Text type="secondary">只采这家公司用到的数据源，通常 5—30 秒。</Text>
       </Space>
       {run && (
         <Steps size="small" style={{ marginBottom: 12 }} items={[
@@ -544,39 +607,24 @@ function Panel() {
         ]} />
       )}
       {error && <Alert type="error" showIcon style={{ marginBottom: 12 }} message={error} />}
-      {results && run && (
-        <div style={{ marginBottom: 12 }}>
-          <Alert showIcon style={{ marginBottom: 8 }} type={run.fetch_failed || run.invalid ? 'warning' : 'success'}
-            message={`本次${run.summary ? '：' + run.summary : ''}（用时 ${run.seconds ?? seconds} 秒）`}
-            description={run.fetch_failed
-              ? '抓取失败＝连不上网站，不是解析问题：本机网络、代理/VPN 或网站临时不可用。稍后再按一次；一直失败就检查代理是否让这些国内网站直连。'
-              : run.duplicates ? '“重复”是正常的：同一天的数已经采过（例如收盘后、下一个交易日开盘前再按）。' : undefined} />
-          <Table size="small" pagination={false} rowKey="id" dataSource={results} scroll={{ x: 'max-content' }} columns={[
-            { title: '数据源', key: 'c', render: (_, r) => nameOf(r.collector_id) },
-            { title: '抓取情况', dataIndex: 'fetch_note' },
-            { title: '解析日期', dataIndex: 'parsed_date', render: (v) => v || '—' },
-            { title: '解析数值', dataIndex: 'parsed_value', render: (v) => (v === null || v === undefined ? '—' : v) },
-            { title: '处理结果', dataIndex: 'status', render: (v) => <Tag color={STATUS_COLOR[v]}>{v}</Tag> },
-          ]} />
-        </div>
-      )}
-      <Table size="small" pagination={false} rowKey="id" dataSource={collectors} scroll={{ x: 'max-content' }} columns={[
+      {results && run && (run.fetch_failed || run.invalid) ? (
+        <Alert type="warning" showIcon style={{ marginBottom: 12 }} message={`本次：${run.summary || ''}`}
+          description={run.fetch_failed
+            ? '抓取失败＝连不上网站，不是解析问题：本机网络、代理/VPN 或网站临时不可用。稍后再按一次；一直失败就检查代理是否让这些国内网站直连。'
+            : '校验失败＝拿到了网页但解析不出数，多半是网站改版，到「框架与后台 / 采集 / 原始采集记录」看原文。'} />
+      ) : null}
+      <Table size="small" pagination={false} rowKey="id" dataSource={collectors} columns={[
         { title: '数据源', dataIndex: 'name' },
-        { title: '健康', dataIndex: 'health', render: healthTag },
-        { title: '最近采集', dataIndex: 'last_collected', render: when },
-        { title: '最新观察日期', dataIndex: 'last_obs_date', render: (v) => v || '—' },
-        { title: '最近自检', dataIndex: 'selfcheck_result', render: (v) => v || '—' },
+        { title: '最新值', key: 'value', align: 'right', render: (_, c) => values[c.metric_id] ?? '—' },
+        { title: '观察日期', dataIndex: 'last_obs_date', render: (v) => v || '—' },
+        { title: '状态', key: 'state', render: (_, c) => {
+          const bad = issueOf(c);
+          return bad ? <span><Tag color="red">{bad.status}</Tag><Text type="secondary">{bad.fetch_note}</Text></span> : healthTag(c.health);
+        } },
       ]} />
-      {runs.length > 0 && (
-        <Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0 }}>
-          这家公司最近几次：{runs.map((r) => `${when(r.requested_at)}（${r.trigger_source || '—'}）${r.summary || ''}`).join('；')}
-        </Paragraph>
-      )}
-      <Paragraph type="secondary" style={{ marginTop: 4, marginBottom: 0 }}>
-        {scheduledOn
-          ? '定时采集已启用：每天 18:30 采集、18:40 入库、19:10 自检。电脑关机或休眠错过的时点不会补跑，可以按上面的按钮补一次。'
-          : '定时采集未启用（「设置 → 工作流」里的 ①②③）；不打开也可以随时按按钮手动采集。'}
-        按完后刷新页面，下面的图表会用到新数据。
+      <Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0 }}>
+        {lastRun ? `最近采集 ${when(lastRun.requested_at)}（${lastRun.trigger_source || '—'}）：${lastRun.summary || ''}。` : '还没有采集过。'}
+        {scheduledOn ? '定时采集已启用（每天 18:30）。' : '定时采集未启用。'}按完后刷新页面，下面的图表会用到新数据。
       </Paragraph>
     </div>
   );
@@ -587,6 +635,44 @@ ctx.render(<Panel />);
 
 def c(sql, kind, mapping):
     return {'query': {'mode': 'sql', 'sql': sql}, 'visual': {'mode': 'basic', 'type': kind, 'mappings': mapping}}
+
+
+def raw(sql, js):
+    """basic 柱状图在“系列”分组时每根柱子只占一格里的一小段、长名称互相遮挡；这类图改用自定义 ECharts option。"""
+    return {'query': {'mode': 'sql', 'sql': sql}, 'visual': {'mode': 'custom', 'raw': js}}
+
+
+# 横向条形图：每行一个条目（编号＋名称，过长截断、悬停看全称），按 grp 上色、同一行只有一根条；刻度用 强/中/弱。
+# 数据列：code、name、v（-3—3）、grp。__MIN__ 为 0 时是单向（强度），为 -3 时左不利、右有利。
+HBAR = r"""const rows = ctx.data?.objects || [];
+const GROUPS = __GROUPS__;
+const MIN = __MIN__;
+const LEVEL = ['无', '弱', '中', '强'];
+const short = (s, n) => (s && s.length > n ? s.slice(0, n) + '…' : s || '');
+const labels = rows.map((r) => `${r.code} ${short(r.name, 9)}`);
+const tick = (v) => (v === 0 && MIN < 0 ? '' : LEVEL[Math.abs(v)] || '');
+const level = (v) => (MIN < 0 && v ? (v < 0 ? '不利·' : '有利·') : '') + LEVEL[Math.abs(v)];
+return {
+  grid: { left: 8, right: 24, top: 8, bottom: MIN < 0 ? 56 : 40, containLabel: true },
+  legend: { bottom: 0, data: GROUPS.map((g) => g[0]) },
+  tooltip: { trigger: 'item', formatter: (p) => {
+    const r = rows[p.dataIndex];
+    return `${r.code} ${r.name}<br/>${r.grp}${r.v ? '：' + level(Number(r.v)) : ''}`;
+  } },
+  xAxis: { type: 'value', min: MIN, max: 3, interval: 1, axisLabel: { formatter: tick },
+    name: MIN < 0 ? '← 不利　　有利 →' : '', nameLocation: 'middle', nameGap: 26,
+    splitLine: { lineStyle: { type: 'dashed' } } },
+  yAxis: { type: 'category', inverse: true, data: labels, axisTick: { show: false } },
+  series: GROUPS.map(([g, color]) => ({
+    name: g, type: 'bar', stack: 'one', barMaxWidth: 16, itemStyle: { color, borderRadius: 2 },
+    // 0 画不出条，写字标出来（强度“无”、影响“中性”），免得像漏了数据
+    label: { show: true, position: 'right', color: '#8c8c8c', formatter: (p) => (p.value === 0 ? (MIN < 0 ? '中性' : p.seriesName) : '') },
+    data: rows.map((r) => (r.grp === g ? Number(r.v) : null)),
+  })),
+};
+"""
+MOAT_GROUPS = "[['真实壁垒', '#389e0d'], ['局部优势', '#1677ff'], ['待验证', '#faad14'], ['伪壁垒', '#cf1322']]"
+FORCE_GROUPS = "[['有利', '#389e0d'], ['中性', '#bfbfbf'], ['不利', '#cf1322']]"
 
 
 def obs(metric_code, label='数值'):
@@ -644,30 +730,30 @@ def charts(co):
             "round(s.value_today::numeric, 2) AS value FROM vi_sensitivity s JOIN vi_model_base m ON m.id = s.model_id " + DEF +
             " ORDER BY s.r, s.g", 'line', {'x': 'r', 'y': 'value', 'series': 'g'})),
         ('debt', '带息负债：历史与预测（亿元）', c(
-            "SELECT h.year::text AS year, '历史' AS kind, round(h.interest_debt::numeric, 0) AS debt FROM vi_fin_history_base h "
+            "SELECT h.year::text AS year, '历史' AS kind, round(h.interest_debt::numeric, 0) AS debt FROM vi_fin_history h "
             + CO.format(t='h') + " WHERE h.interest_debt IS NOT NULL "
             "UNION ALL SELECT f.year::text, '预测', round(fc.debt_close::numeric, 0) FROM vi_forecast_base f JOIN vi_forecast_calc fc USING (id) "
             "JOIN vi_model_base m ON m.id = f.model_id " + DEF + " ORDER BY year", 'bar', {'x': 'year', 'y': 'debt', 'series': 'kind'})),
         ('hist_np', '历史：归母净利润与分红总额（亿元）', c(
-            "SELECT h.year, x.item, x.amount FROM vi_fin_history_base h " + CO.format(t='h') +
+            "SELECT h.year, x.item, x.amount FROM vi_fin_history h " + CO.format(t='h') +
             " CROSS JOIN LATERAL (VALUES ('归母净利润', h.np_parent), ('分红总额', h.dividend_total)) x(item, amount) "
             "WHERE x.amount IS NOT NULL ORDER BY h.year, x.item", 'line', {'x': 'year', 'y': 'amount', 'series': 'item'})),
         ('hist_cash', '历史：经营现金流与资本开支（亿元）', c(
-            "SELECT h.year, x.item, x.amount FROM vi_fin_history_base h " + CO.format(t='h') +
+            "SELECT h.year, x.item, x.amount FROM vi_fin_history h " + CO.format(t='h') +
             " CROSS JOIN LATERAL (VALUES ('经营现金流', h.cfo), ('资本开支', h.capex)) x(item, amount) "
             "WHERE x.amount IS NOT NULL ORDER BY h.year, x.item", 'bar', {'x': 'year', 'y': 'amount', 'series': 'item'})),
         ('hist_quality', '历史：毛利率与 ROE（%）', c(
-            "SELECT h.year, x.item, round((x.v * 100)::numeric, 1) AS pct FROM vi_fin_history_base h JOIN vi_fin_history_calc hc USING (id) "
-            + CO.format(t='h') + " CROSS JOIN LATERAL (VALUES ('毛利率', hc.gross_margin), ('ROE', hc.roe)) x(item, v) "
+            "SELECT h.year, x.item, round((x.v * 100)::numeric, 1) AS pct FROM vi_fin_history h "
+            + CO.format(t='h') + " CROSS JOIN LATERAL (VALUES ('毛利率', h.gross_margin), ('ROE', h.roe)) x(item, v) "
             "WHERE x.v IS NOT NULL ORDER BY h.year, x.item", 'line', {'x': 'year', 'y': 'pct', 'series': 'item'})),
         ('hist_vol', f"历史：{co.get('volume_label') or '业务量'}（{co.get('volume_unit') or ''}）", c(
-            "SELECT h.year, round(h.volume::numeric, CASE WHEN h.volume < 100 THEN 3 ELSE 0 END) AS \"业务量\" FROM vi_fin_history_base h " + CO.format(t='h') +
+            "SELECT h.year, round(h.volume::numeric, CASE WHEN h.volume < 100 THEN 3 ELSE 0 END) AS \"业务量\" FROM vi_fin_history h " + CO.format(t='h') +
             " WHERE h.volume IS NOT NULL ORDER BY h.year", 'bar', {'x': 'year', 'y': '业务量'})),
         ('sotp_parts', '分部加总：每股价值构成（元）', c(
             "SELECT s.scenario_name AS \"情景\", x.k AS \"部分\", round((x.v / s.shares)::numeric, 2) AS \"元/股\", s.id, x.o FROM vi_sotp s "
             + CO.format(t='s') + " CROSS JOIN LATERAL (VALUES ('核心业务', s.core_value, 1), ('成熟业务', s.mature_value, 2), ('成长业务', s.growth_value, 3), "
             "('投入期业务', s.invest_value, 4), ('直接估值业务', s.direct_value, 4), ('可用净现金', s.usable_net_cash, 5), ('对外投资（折后）', s.investments, 6), "
-            "('少数股东与其他', s.minority_other, 7), ('合计', s.equity_value, 8)) x(k, v, o) "
+            "('独立固定资产', s.fixed_assets, 7), ('其他非经营资产', s.other_assets, 8), ('少数股东与其他', s.minority_other, 9), ('合计', s.equity_value, 10)) x(k, v, o) "
             "WHERE x.v IS NOT NULL ORDER BY s.id, x.o", 'bar', {'x': '情景', 'y': '元/股', 'series': '部分'})),
         ('sotp_bridge', '分部加总：基准情景价值构成（元/股，逐项）', c(
             "SELECT g.name AS \"部分\", round((g.value / s.shares)::numeric, 2) AS \"元/股\", 10 + coalesce(nullif(regexp_replace(g.code, '\\D', '', 'g'), '')::int, 0) AS o "
@@ -675,7 +761,7 @@ def charts(co):
             "UNION ALL SELECT '核心业务', round((s.core_value / s.shares)::numeric, 2), 1 FROM vi_sotp s " + CO.format(t='s') +
             " WHERE s.is_base AND s.core_value IS NOT NULL "
             "UNION ALL SELECT x.k, round((x.v / s.shares)::numeric, 2), x.o FROM vi_sotp s " + CO.format(t='s') +
-            " CROSS JOIN LATERAL (VALUES ('可用净现金', s.usable_net_cash, 30), ('对外投资（折后）', s.investments, 31), ('少数股东与其他', s.minority_other, 32), "
+            " CROSS JOIN LATERAL (VALUES ('可用净现金', s.usable_net_cash, 30), ('对外投资（折后）', s.investments, 31), ('独立固定资产', s.fixed_assets, 32), ('其他非经营资产', s.other_assets, 33), ('少数股东与其他', s.minority_other, 34), "
             "('每股价值', s.equity_value, 40), ('市场价', s.market_price * s.shares, 41)) x(k, v, o) WHERE s.is_base AND x.v IS NOT NULL ORDER BY 3",
             'bar', {'x': '部分', 'y': '元/股'})),
         ('sotp_grid', '分部加总：倍数 → 每股价值（元；核心业务或成熟业务的倍数）', c(
@@ -690,30 +776,31 @@ def charts(co):
             "ORDER BY s.id, 2", 'bar', {'x': '情景', 'y': '倍', 'series': '口径'})),
         ('fit', '价投适配度（各维度 0—5 分）', c(
             "SELECT f.dimension AS \"维度\", f.score AS \"评分\" FROM vi_fit_score_base f " + CO.format(t='f') + " ORDER BY f.sort, f.id",
-            'bar', {'x': '维度', 'y': '评分'})),
-        ('moat', '竞争壁垒：强度（强 3、中 2、弱 1、无 0）与判定', c(
-            "SELECT m.code || ' ' || left(m.title, 14) AS \"壁垒\", CASE m.strength WHEN '强' THEN 3 WHEN '中' THEN 2 WHEN '弱' THEN 1 ELSE 0 END AS \"强度\", "
-            "coalesce(m.verdict, '待验证') AS \"判定\" FROM vi_moat_base m " + CO.format(t='m') + " ORDER BY m.code", 'bar',
-            {'x': '壁垒', 'y': '强度', 'series': '判定'})),
-        ('forces', '产业链与五力：对公司的影响（有利为正、不利为负，强 3、中 2、弱 1）', c(
-            "SELECT v.code || ' ' || left(v.participant, 12) AS \"环节\", v.force AS \"五力\", "
-            "CASE v.power WHEN '强' THEN 3 WHEN '中' THEN 2 ELSE 1 END * CASE v.effect WHEN '有利' THEN 1 WHEN '不利' THEN -1 ELSE 0 END AS \"影响\" "
-            "FROM vi_value_chain_base v " + CO.format(t='v') + " ORDER BY v.code", 'bar', {'x': '环节', 'y': '影响', 'series': '五力'})),
+            'barHorizontal', {'x': '维度', 'y': '评分'})),
+        ('moat', '竞争壁垒：强度与判定', raw(
+            "SELECT m.code AS code, m.title AS name, CASE m.strength WHEN '强' THEN 3 WHEN '中' THEN 2 WHEN '弱' THEN 1 ELSE 0 END AS v, "
+            "coalesce(m.verdict, '待验证') AS grp FROM vi_moat_base m " + CO.format(t='m') + " ORDER BY length(m.code), m.code",
+            HBAR.replace('__GROUPS__', MOAT_GROUPS).replace('__MIN__', '0'))),
+        ('forces', '产业链与五力：有利还是不利', raw(
+            "SELECT v.code AS code, v.participant || CASE WHEN v.force IS NULL OR v.force = '不适用' THEN '' ELSE '（' || v.force || '）' END AS name, "
+            "CASE v.power WHEN '强' THEN 3 WHEN '中' THEN 2 ELSE 1 END * CASE v.effect WHEN '有利' THEN 1 WHEN '不利' THEN -1 ELSE 0 END AS v, "
+            "coalesce(v.effect, '中性') AS grp FROM vi_value_chain_base v " + CO.format(t='v') + " ORDER BY length(v.code), v.code",
+            HBAR.replace('__GROUPS__', FORCE_GROUPS).replace('__MIN__', '-3'))),
         ('peers', '竞争对手对比（%）：付费率、毛利率、增速', c(
             "SELECT c.name AS \"对手\", x.k AS \"指标\", round((x.v * 100)::numeric, 1) AS \"%\" FROM vi_competitor_base c " + CO.format(t='c') +
             " CROSS JOIN LATERAL (VALUES ('付费率或渗透率', c.paying_rate), ('毛利率', c.gross_margin), ('增速', c.growth)) x(k, v) WHERE x.v IS NOT NULL "
-            "UNION ALL SELECT co.name || '（本公司）', x.k, round((x.v * 100)::numeric, 1) FROM vi_fin_history_base h JOIN vi_fin_history_calc hc USING (id) "
-            + CO.format(t='h') + " CROSS JOIN LATERAL (VALUES ('毛利率', hc.gross_margin), ('增速', hc.revenue_yoy)) x(k, v) "
-            "WHERE x.v IS NOT NULL AND h.year = (SELECT max(h2.year) FROM vi_fin_history_base h2 WHERE h2.company_id = h.company_id) ORDER BY 1, 2", 'bar',
+            "UNION ALL SELECT co.name || '（本公司）', x.k, round((x.v * 100)::numeric, 1) FROM vi_fin_history h "
+            + CO.format(t='h') + " CROSS JOIN LATERAL (VALUES ('毛利率', h.gross_margin), ('增速', h.revenue_yoy)) x(k, v) "
+            "WHERE x.v IS NOT NULL AND h.year = (SELECT max(h2.year) FROM vi_fin_history h2 WHERE h2.company_id = h.company_id) ORDER BY 1, 2", 'bar',
             {'x': '对手', 'y': '%', 'series': '指标'})),
         ('theses', '核心论点：裁决（成立 / 观察 / 存疑 / 证伪）', c(
             "SELECT coalesce(t.status, '未裁决') AS \"裁决\", count(*) AS n FROM vi_thesis_base t " + CO.format(t='t') + " GROUP BY 1 ORDER BY 2 DESC",
             'pie', {'category': '裁决', 'value': 'n'})),
         ('quarter', '经营数据：单季同比（%）', c(
             "SELECT d.period, d.line_item, round((d.yoy * 100)::numeric, 1) AS \"同比（%）\" FROM vi_disclosed d " + CO.format(t='d') +
-            " WHERE d.period_kind = '单季' AND d.yoy IS NOT NULL ORDER BY d.period_end, d.line_item", 'bar',
+            " WHERE d.period_kind = '单季' AND d.yoy IS NOT NULL AND d.period_end >= vi_today() - interval '3 years' ORDER BY d.period_end, d.line_item", 'bar',
             {'x': 'period', 'y': '同比（%）', 'series': 'line_item'})),
-        ('checks', '自动检查结果', c(
+        ('checks', '质量自检结果', c(
             "SELECT k.result, count(*) AS n FROM vi_check k JOIN vi_model_base m ON m.id = k.model_id " + DEF +
             " GROUP BY k.result ORDER BY k.result", 'pie', {'category': 'result', 'value': 'n'})),
         ('facts', '重要事实核验状态', c(
@@ -760,24 +847,24 @@ EXTRA = {   # 行业专属图表
             {'x': 'obs_date', 'y': '价格', 'series': '口径'})),
         ('gm_q', '经营数据：单季毛利率（%）', c(
             "SELECT d.period, d.value AS \"毛利率（%）\" FROM vi_disclosed d JOIN vi_company_base co ON co.id = d.company_id "
-            "AND co.code = '002078.SZ' WHERE d.line_item = '毛利率' ORDER BY d.period_end", 'line', {'x': 'period', 'y': '毛利率（%）'})),
+            "AND co.code = '002078.SZ' WHERE d.line_item = '毛利率' AND d.period_kind = '单季' AND d.period_end >= vi_today() - interval '3 years' ORDER BY d.period_end", 'line', {'x': 'period', 'y': '毛利率（%）'})),
     ],
     '601668.SH': [
         ('conv', '历史：收入转化率（营业收入÷新签合同总额）', c(
-            "SELECT h.year, round(hc.price::numeric, 3) AS \"收入转化率\" FROM vi_fin_history_base h JOIN vi_fin_history_calc hc USING (id) "
-            "JOIN vi_company_base co ON co.id = h.company_id AND co.code = '601668.SH' WHERE hc.price IS NOT NULL ORDER BY h.year", 'line',
+            "SELECT h.year, round(h.price::numeric, 3) AS \"收入转化率\" FROM vi_fin_history h "
+            "JOIN vi_company_base co ON co.id = h.company_id AND co.code = '601668.SH' WHERE h.price IS NOT NULL ORDER BY h.year", 'line',
             {'x': 'year', 'y': '收入转化率'})),
         ('wc', '应收账款＋合同资产、应付票据及账款 vs 营业收入（亿元）', c(
-            "SELECT d.period, d.line_item AS \"项目\", round(d.value::numeric, 0) AS \"亿元\" FROM vi_disclosed d "
+            "SELECT left(d.period, 4) AS period, d.line_item AS \"项目\", round(d.value::numeric, 0) AS \"亿元\" FROM vi_disclosed d "
             "JOIN vi_company_base co ON co.id = d.company_id AND co.code = '601668.SH' "
-            "WHERE d.period_kind = '全年' AND d.line_item IN ('应收账款＋合同资产', '应付票据及应付账款') "
-            "UNION ALL SELECT h.year::text, '营业收入', round(h.revenue::numeric, 0) FROM vi_fin_history_base h "
+            "WHERE d.period_kind = '时点' AND d.period LIKE '%Q4' AND d.period >= '2019' AND d.line_item IN ('应收账款＋合同资产', '应付票据及应付账款') "
+            "UNION ALL SELECT h.year::text, '营业收入', round(h.revenue::numeric, 0) FROM vi_fin_history h "
             "JOIN vi_company_base co ON co.id = h.company_id AND co.code = '601668.SH' WHERE h.year >= 2019 ORDER BY 1, 2", 'bar',
             {'x': 'period', 'y': '亿元', 'series': '项目'})),
         ('imp', '资产及信用减值损失（亿元）', c(
             "SELECT d.period, round(d.value::numeric, 1) AS \"减值\" FROM vi_disclosed d "
             "JOIN vi_company_base co ON co.id = d.company_id AND co.code = '601668.SH' "
-            "WHERE d.line_item = '资产及信用减值损失' AND d.period_kind = '全年' ORDER BY d.period_end", 'bar', {'x': 'period', 'y': '减值'})),
+            "WHERE d.line_item = '资产及信用减值损失' AND d.period_kind = '全年' AND d.period >= '2019' ORDER BY d.period_end", 'bar', {'x': 'period', 'y': '减值'})),
     ],
     '01698.HK': [
         ('rev_mix', '单季收入结构（亿元）：会员、非订阅音乐、社交娱乐', c(
@@ -786,24 +873,24 @@ EXTRA = {   # 行业专属图表
             "ORDER BY d.period_end, 2", 'bar', {'x': 'period', 'y': '亿元', 'series': '项目'})),
         ('sub_yoy', '单季同比（%）：会员 vs 社交娱乐 vs 总收入', c(
             "SELECT d.period, d.line_item AS \"项目\", round((d.yoy * 100)::numeric, 1) AS \"同比（%）\" FROM vi_disclosed d JOIN vi_company_base co ON co.id = d.company_id AND co.code = '01698.HK' "
-            "WHERE d.period_kind = '单季' AND d.yoy IS NOT NULL AND d.line_item IN ('会员（订阅）收入', '社交娱乐及其他收入', '营业收入') "
+            "WHERE d.period_kind = '单季' AND d.yoy IS NOT NULL AND d.period_end >= '2024-01-01' AND d.line_item IN ('会员（订阅）收入', '社交娱乐及其他收入', '营业收入') "
             "ORDER BY d.period_end, 2", 'line', {'x': 'period', 'y': '同比（%）', 'series': '项目'})),
         ('gm_q', '单季毛利率（%）：摩根大通警戒线约 42%', c(
             "SELECT d.period, d.value AS \"毛利率（%）\" FROM vi_disclosed d JOIN vi_company_base co ON co.id = d.company_id AND co.code = '01698.HK' "
-            "WHERE d.line_item = '毛利率' ORDER BY d.period_end", 'line', {'x': 'period', 'y': '毛利率（%）'})),
+            "WHERE d.line_item = '毛利率' AND d.period_kind = '单季' AND d.period_end >= vi_today() - interval '3 years' ORDER BY d.period_end", 'line', {'x': 'period', 'y': '毛利率（%）'})),
         ('users', '在线音乐月活与付费用户（百万人；2026 年起停止季度披露）', c(
             "SELECT d.period, d.line_item AS \"项目\", d.value AS \"百万人\" FROM vi_disclosed d JOIN vi_company_base co ON co.id = d.company_id AND co.code = '01698.HK' "
             "WHERE d.line_item IN ('在线音乐月活跃用户', '在线音乐付费用户') ORDER BY d.period_end, 2", 'bar',
             {'x': 'period', 'y': '百万人', 'series': '项目'})),
         ('cash', '现金与定期存款 vs 带息负债（亿元）', c(
-            "SELECT h.year::text AS year, x.item AS \"项目\", x.v AS \"亿元\" FROM vi_fin_history_base h JOIN vi_company_base co ON co.id = h.company_id AND co.code = '01698.HK' "
+            "SELECT h.year::text AS year, x.item AS \"项目\", x.v AS \"亿元\" FROM vi_fin_history h JOIN vi_company_base co ON co.id = h.company_id AND co.code = '01698.HK' "
             "CROSS JOIN LATERAL (VALUES ('现金与定期存款', h.cash), ('带息负债', h.interest_debt)) x(item, v) WHERE h.year >= 2019 "
             "UNION ALL SELECT d.period, CASE WHEN d.line_item LIKE '现金%' THEN '现金与定期存款' ELSE '带息负债' END, d.value "
             "FROM vi_disclosed d JOIN vi_company_base co ON co.id = d.company_id AND co.code = '01698.HK' WHERE d.period = '2026Q2' "
             "AND (d.line_item LIKE '现金%' OR d.line_item LIKE '带息负债%') ORDER BY 1, 2", 'bar', {'x': 'year', 'y': '亿元', 'series': '项目'})),
         ('payout', '股东回报率（股息＋回购÷归母净利，%）：历史与基准预测', c(
-            "SELECT h.year::text AS year, '历史' AS \"口径\", round((hc.payout * 100)::numeric, 1) AS \"%\" FROM vi_fin_history_base h "
-            "JOIN vi_fin_history_calc hc USING (id) JOIN vi_company_base co ON co.id = h.company_id AND co.code = '01698.HK' WHERE h.year >= 2020 AND hc.payout IS NOT NULL "
+            "SELECT h.year::text AS year, '历史' AS \"口径\", round((h.payout * 100)::numeric, 1) AS \"%\" FROM vi_fin_history h "
+            "JOIN vi_company_base co ON co.id = h.company_id AND co.code = '01698.HK' WHERE h.year >= 2020 AND h.payout IS NOT NULL "
             "UNION ALL SELECT p.year::text, '预测', round((p.payout * 100)::numeric, 1) FROM vi_projection p "
             "JOIN vi_company_base co ON co.id = p.company_id AND co.code = '01698.HK' JOIN vi_model_base m ON m.id = p.model_id AND m.status = '当前' "
             "WHERE p.is_base ORDER BY 1", 'bar', {'x': 'year', 'y': '%', 'series': '口径'})),
@@ -848,7 +935,7 @@ EXTRA = {   # 行业专属图表
             "WHERE d.line_item IN ('全球月活跃用户（12 月）', '全球月活跃用户') ORDER BY d.period_end, d.period_kind", 'bar', {'x': 'period', 'y': '百万人'})),
         ('cash_q', '现金储备与借款（亿元，季末）', c(
             "SELECT d.period, d.line_item AS \"项目\", d.value AS \"亿元\" FROM vi_disclosed d JOIN vi_company_base co ON co.id = d.company_id AND co.code = '01810.HK' "
-            "WHERE d.line_item IN ('现金储备', '借款') ORDER BY d.period_end, 2", 'bar', {'x': 'period', 'y': '亿元', 'series': '项目'})),
+            "WHERE d.line_item IN ('现金储备', '借款') AND d.period_end >= '2025-01-01' ORDER BY d.period_end, 2", 'bar', {'x': 'period', 'y': '亿元', 'series': '项目'})),
         ('fx', '市场：港元兑人民币', c(obs('HKDCNY'), 'line', {'x': 'obs_date', 'y': '数值'})),
     ],
 }
@@ -949,9 +1036,12 @@ if __name__ == '__main__':
     if '--rebuild-docs' in sys.argv:
         for key, *_ in DOCS:
             destroy_page(key)
-    for co in cos:
-        if f"dashboard@{co['code']}" not in state()['pages']:
-            dashboard(co)
+    built = [co for co in cos if f"dashboard@{co['code']}" not in state()['pages']]
+    for co in built:
+        dashboard(co)
+    if built:                                      # 新建的页面排在菜单最后；驾驶舱要回到公司菜单最上面（点公司时默认打开）
+        from build_pages import sort_menu
+        sort_menu({co['code'] for co in built})
     for key, title, icon, content in DOCS:
         if key not in state()['pages']:
             if content is None:

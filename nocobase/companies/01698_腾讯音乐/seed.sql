@@ -25,8 +25,30 @@ WHERE NOT EXISTS (SELECT 1 FROM vi_collector_base WHERE name = '腾讯音乐港�
 UPDATE vi_collector_base SET metric_id = (SELECT id FROM vi_metric_base WHERE code = '01698.HK.PRICE'), url = 'https://qt.gtimg.cn/q=hk01698', parser = 'tencent_quote', parser_param = 'hk01698',
   max_lag_days = 7, notes = '返回 GBK 编码；港股日期格式为 2026/10/22 16:08:42，解析器只取数字。港股收盘约 16:10，之前采集到的是盘中价。' WHERE name = '腾讯音乐港股股价（腾讯行情）';
 
-INSERT INTO vi_observation_base (metric_id, obs_date, value, collected_at, source, note)
-SELECT (SELECT id FROM vi_metric_base WHERE code = '01698.HK.PRICE'), v.d, v.x, '2026-10-22T20:00:00+08:00', 'https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk01698,day（不复权日线）', '历史补数：腾讯 K 线收盘价（港元，不复权）'
+DELETE FROM vi_sotp_segment_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK'));
+DELETE FROM vi_sotp_item_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK'));
+DELETE FROM vi_trial_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK'));
+DELETE FROM vi_forecast_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK'));
+DELETE FROM vi_scenario_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK'));
+DELETE FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
+DELETE FROM vi_fit_score_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
+DELETE FROM vi_moat_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
+DELETE FROM vi_competitor_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
+DELETE FROM vi_value_chain_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
+DELETE FROM vi_biz_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
+DELETE FROM vi_issue_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
+DELETE FROM vi_change_log_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
+DELETE FROM vi_judgment_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
+DELETE FROM vi_thesis_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
+DELETE FROM vi_observation_base WHERE metric_id IN (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND source_kind = '公司披露');
+DELETE FROM vi_fin_history_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
+DELETE FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
+
+INSERT INTO vi_source_base (company_id, title, source_type, url, reliability, verify_status, summary, limitations) SELECT (SELECT id FROM vi_company_base WHERE code = '01698.HK'), '腾讯音乐港股收盘价：腾讯 K 线收盘价（港元，不复权）（2025—2026 年历史数据）', '数据库取数', 'https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk01698,day（不复权日线）', '三级·第三方数据', '待核验', '历史日线收盘价', '历史补数：腾讯 K 线收盘价（港元，不复权）' WHERE NOT EXISTS (SELECT 1 FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '腾讯音乐港股收盘价：腾讯 K 线收盘价（港元，不复权）（2025—2026 年历史数据）');
+
+INSERT INTO vi_observation_base (metric_id, obs_date, value, collected_at, doc_id)
+SELECT (SELECT id FROM vi_metric_base WHERE code = '01698.HK.PRICE'), v.d, v.x, '2026-10-22T20:00:00+08:00', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '腾讯音乐港股收盘价：腾讯 K 线收盘价（港元，不复权）（2025—2026 年历史数据）')
 FROM (VALUES
 ('2025-10-20'::date, 87.6),
 ('2025-10-21'::date, 86.7),
@@ -278,26 +300,7 @@ FROM (VALUES
 ('2026-10-22'::date, 32.14)) v(d, x)
 WHERE NOT EXISTS (SELECT 1 FROM vi_observation_base o WHERE o.metric_id = (SELECT id FROM vi_metric_base WHERE code = '01698.HK.PRICE') AND o.obs_date = v.d);
 
-DELETE FROM vi_sotp_segment_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK'));
-DELETE FROM vi_sotp_item_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK'));
-DELETE FROM vi_trial_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK'));
-DELETE FROM vi_forecast_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK'));
-DELETE FROM vi_scenario_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK'));
-DELETE FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
-DELETE FROM vi_fit_score_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
-DELETE FROM vi_moat_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
-DELETE FROM vi_competitor_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
-DELETE FROM vi_value_chain_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
-DELETE FROM vi_biz_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
-DELETE FROM vi_watch_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
-DELETE FROM vi_issue_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
-DELETE FROM vi_change_log_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
-DELETE FROM vi_judgment_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
-DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
-DELETE FROM vi_thesis_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
-DELETE FROM vi_observation_base WHERE metric_id IN (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND source_kind = '公司披露');
-DELETE FROM vi_fin_history_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
-DELETE FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
+UPDATE vi_observation_base SET doc_id = (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '腾讯音乐港股收盘价：腾讯 K 线收盘价（港元，不复权）（2025—2026 年历史数据）') WHERE doc_id IS NULL AND raw_capture_id IS NULL AND metric_id = (SELECT price_metric_id FROM vi_company_base WHERE code = '01698.HK');
 
 INSERT INTO vi_source_base (company_id, title, source_type, publisher, publish_date, url, reliability, verify_status, retrieved_on, summary, limitations) VALUES
 ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '腾讯音乐 2025 年年报', '定期报告', '腾讯音乐', '2026-04-17', 'https://www.hkexnews.hk/', '一级·法定披露', '仅定位入口', '2026-10-22', '以公允价值计量且其变动计入其他综合收益的金融资产 262.31 亿元，主要是 Spotify 与环球音乐（UMG）股权；第四季度在线音乐付费用户 1.274 亿。', '经岗底斯知识库取得片段（file-id 22997104），全文未下载。'),
@@ -321,48 +324,48 @@ INSERT INTO vi_source_base (company_id, title, source_type, publisher, publish_d
 ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '研究推导：商业模式、产业链、竞争壁垒、多空辩论与适配度评分（2026-10-22）', '研究推导', '本研究', '2026-10-22', NULL, '研究推导', '待核验', '2026-10-22', '商业模式画布 9 项、产业链 11 个环节（含五力归类）、6 个竞争对手、9 项候选壁垒（含 4 项伪壁垒）、5 场多空辩论与 8 维适配度评分的推导过程。', '岗底斯观点 PK 三次调用均超时、技能脚本未配置授权，辩论由本研究按正反证据组织，裁决是判断。'),
 ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '研究推导：2026—2035 年经营与现金桥接假设', '研究推导', '本研究', '2026-10-22', NULL, '研究推导', '待核验', '2026-10-22', '付费用户、每付费用户收入、核心利润率、利息收入、借款、股东回报率与超额现金释放路径的推导过程，见判断 J-Q、J-P、J-M、J-OTH、J-DEBT、J-PAYOUT、J-CASH。', '判断成分高，需逐项核验。');
 
-INSERT INTO vi_fact_base (company_id, title, category, statement, value, unit, period, as_of, verify_status, source_id) VALUES
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '流通股约 31.5 亿股（估算）', '治理', '腾讯行情显示已发行股份 33.02 亿股（含库存股与股权激励信托持有股份）；2026 年二季度加权平均基本股数 31.28 亿股。期末流通股估算：一季度约 30.8 亿股＋喜马拉雅对价发行最多 1.75 亿股−二季度回购 0.87 亿股（4,350 万 ADS）≈ 31.4—31.7 亿股。每股价值的分母用 31.5 亿股（1 股 ADS＝2 股）。精确数待年报或股份变动月报核对。', 31.5, '亿股', '2026-06-30', '2026-10-22', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025 年收入 329.0 亿元（+15.8%），订阅 176.6 亿元', '经营', '2025 年总收入 329.02 亿元：在线音乐服务 267.26 亿元（+22.9%；其中订阅 176.6 亿元 +16.0%、非订阅 90.7 亿元 +39.2%，主要是线下演出、广告、艺人周边）、社交娱乐及其他 61.76 亿元（−7.3%）。', 329.02, '亿元', '2025', '2025-12-31', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '付费用户 1.274 亿、ARPPU 11.9 元，月活连续下滑', '经营', '第四季度在线音乐付费用户：2021 年 7,620 万 → 2022 年 8,850 万 → 2023 年 1.067 亿 → 2024 年 1.210 亿 → 2025 年 1.274 亿（+5.3%，增速逐年放缓）；ARPPU 2022 年 8.9 元 → 2025 年 11.9 元。月活 2024 年四季度 5.56 亿 → 2025 年四季度 5.28 亿（−5.0%）。2026 年起停止披露季度月活、付费用户和 ARPPU，只在年报披露年末付费用户总数。', 1.274, '亿人', '2025Q4', '2025-12-31', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '订阅（会员）收入增速：+26% → +16% → 内生约持平', '经营', '订阅收入同比：2024 年 +25.9%（152.3 亿元）、2025 年 +16.0%（176.6 亿元；四个季度 +16.6%、+17.1%、+17.2%、+13.2%）；2026 年起改称“会员服务”（含长音频）：一季度 45.68 亿元 +6.6%、二季度 47.92 亿元 +8.1%（含喜马拉雅）。摩根大通估算剔除喜马拉雅后二季度会员内生增长约持平。', 0.081, '比率', '2026Q2', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026 年上半年：收入 +6.5%、非国际财务报告准则归母 +5.6%', '财务', '2026 年上半年收入 168.28 亿元（+6.5%）、毛利率 44.5%、归母净利 45.62 亿元（2025 年上半年 67.00 亿元含 23.7 亿元一次性收益）、非国际财务报告准则归母 49.59 亿元（+5.6%）；经营现金流 51.96 亿元（+25%）。', 45.62, '亿元', '2026H1', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026 年二季度：喜马拉雅并表 4.07 亿元，社交娱乐 −16%', '经营', '二季度收入 89.33 亿元（+5.8%）：会员 47.92 亿元（+8.1%）、营销及消费类服务 28.13 亿元（+16.2%，演出、周边增长，广告承压）、社交娱乐 13.28 亿元（−16.4%）。喜马拉雅 5 月 18 日起并表，贡献收入 4.07 亿元；广发据此估算其年化收入约 34 亿元、经营利润约 5.4 亿元。', 4.07, '亿元', '2026Q2', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率从 30% 升到 44%，2026 年下半年同比略降', '经营', '毛利率 2021—2025 年 30.1%、31.0%、35.3%、42.3%、44.2%，2026 年一、二季度 44.9%、44.2%：版权成本优化、订阅占比提升和社交娱乐分成比例下降。线下演出与艺人经纪毛利率低，占比上升会拉低毛利率；管理层预计 2026 年下半年同比略降。', 0.442, '比率', '2025', '2026-08-11', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '经营费用率从 18% 降到 15%', '财务', '经营费用率 2021 年 21.4%、2022 年 19.6%、2023 年 18.1%、2024 年 16.5%、2025 年 14.8%，2026 年二季度 14.5%（喜马拉雅并表与无形资产摊销使同比 +0.8pt）。核心经营利润率（毛利−经营费用）2025 年 29.4%。', 0.148, '比率', '2025', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025 年一次性收益 23.7 亿元（UMG 股权实物分派）', '财务', '2025 年 3 月一家联营公司（腾讯牵头的财团）把所持环球音乐股份实物分派给各股东，腾讯音乐直接取得 UMG 约 2% 股权，并确认视同处置收益 23.7 亿元，计入其他收益。剔除后 2025 年归母净利约 86.9 亿元。', 23.7, '亿元', '2025Q1', '2025-12-31', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '现金等 442 亿元，借款与票据约 165 亿元', '债务', '现金、定期存款和短期投资：2024 年末 375.8 亿元、2025 年末 380.4 亿元、2026 年 3 月末 410.0 亿元、6 月末 442.2 亿元。2026 年 6 月末新增借款 131.39 亿元（非流动 71.42、流动 59.97），应付票据 33.90 亿元、租赁负债 3.55 亿元，带息负债约 168.8 亿元，净现金约 273 亿元。借款与上半年喜马拉雅现金对价、回购同期发生；现金大部分在境内，回购与分红在境外支付。', 442.2, '亿元', '2026-06-30', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026 年 9 月发行 10 亿美元票据（5.05%、5.65%）', '债务', '2026 年 9 月发行 5 亿美元 5.050%（2031 年到期）与 5 亿美元 5.650%（2036 年到期）优先无抵押票据，净额约 9.92 亿美元，用于境外债务再融资和股份回购。原有 5 亿美元票据（2030 年到期）仍在；2025 年已偿还 3 亿美元票据（21.31 亿元）。', 10, '亿美元', '2026-09', '2026-09-11', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '10 亿美元票据发售的定价与完成公告（2026-09）' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '喜马拉雅：总对价约 140 亿元，现金约 80 亿元，商誉约 92 亿元', '资本开支', '2026 年 5 月 18 日完成收购喜马拉雅：现金最高 12.6 亿美元＋最多 1.753 亿股 A 类普通股。腾讯控股中报披露：总对价约 140 亿元（现金约 80 亿元、原持有权益公允价值约 11 亿元，其余为腾讯音乐发行或待发行的股份），可辨认净资产约 48 亿元、商誉约 92 亿元。腾讯音乐 6 月末商誉 297.6 亿元（年初 205.2 亿元）、无形资产 59.0 亿元（年初 29.0 亿元）。', 80, '亿元', '2026', '2026-08-25', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '腾讯控股 2026 年中期报告（业务合并附注）' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '回购与分红：2026 年二季度回购 4 亿美元，新一轮在准备', '分红', '回购（亿元）：2021 年 34.8、2022 年 31.3、2023 年 12.5、2024 年 19.3、2025 年 3.9；2026 年二季度 4.0 亿美元（约 27 亿元，4,350 万 ADS，均价 9.2 美元）。现金股息：2023 年度每股 0.07 美元、2024 年度 0.09 美元、2025 年度 0.12 美元（约 3.68 亿美元）。2025 年 3 月宣布的 10 亿美元回购计划截至 2026-08-27 剩余约 5.44 亿美元（2027 年 3 月到期）；管理层称正积极准备新一轮回购，并探讨不同的股东回报方式。', 4.0, '亿美元', '2026Q2', '2026-08-27', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '对外投资 191 亿元：Spotify、UMG、WMG、SME', '估值方法', '以公允价值计量且其变动计入其他综合收益的金融资产：2024 年末 144.98 亿元、2025 年末 262.31 亿元、2026 年 6 月末 191.47 亿元（主要是 Spotify 与 UMG，另有 WMG、SME）；权益法投资 26.91 亿元。摩根士丹利口径持股比例：Spotify 2.5%、UMG 2%、WMG 0.8%、SME 9.7%。这些股权不分红或分红很少，股息贴现模型里没有计入（见判断 J-REL）。', 191.47, '亿元', '2026-06-30', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '汽水音乐月活 1.7 亿，定价约为 QQ 音乐的三分之一', '经营', '字节跳动旗下汽水音乐 2026 年 7 月月活 1.7 亿、日活 5,969 万，iOS 免费榜稳定前 7、音乐类第一；番茄音乐月活 4,553 万。汽水用“每天看约 80 秒广告换全天免费”＋抖音导流，VIP 8 元/月、SVIP 18 元/月，QQ 音乐会员 20—40 元。EP 平台数据显示 2026 年 6、7 月腾讯音乐付费用户净增环比下降，分流主要来自酷狗、酷我。', 1.7, '亿人', '2026-07', '2026-09-16', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '行业竞争资料：汽水音乐、番茄音乐用户规模与定价' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '管理层：竞争冲击轻度用户，超级会员稳定', '经营', '管理层（2026-08）：竞争主要冲击轻度、泛用户，高价值的超级会员受影响有限（超级会员 2025 年末超过 2,000 万）；应对是接管微信视频号音乐垂类运营、推出酷狗免费版、波点音乐等轻量 App、把演唱会优先购票、周边和喜马拉雅长音频放进超级会员权益。不会大水漫灌式投放，7 月起按集团统一 ROI 标准恢复喜马拉雅投放。', 20, '百万人', '2025Q4', '2026-08-11', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度业绩电话会纪要（2026-08-11）' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026 年指引：净利率小幅承压，经调整 EBITDA 小幅增长', '经营', '2026 年 3 月业绩会口径（首席观点转述）：音乐收入增速约 10%—13%、会员中高个位数、其他 20% 以上、毛利率持平、经调整净利率约 29%。8 月更新：下半年毛利率同比略降，销售与管理费用合理增加，加上借款利息，全年净利率小幅承压，经调整 EBITDA 小幅增长。', 0.29, '比率', '2026', '2026-08-11', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度业绩电话会纪要（2026-08-11）' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '卖方预期 2026—2028 年经调整归母约 98/109/118 亿元', '估值方法', '中报后卖方 2026—2028 年经调整归母预测：国信 98.6/111.4/124.3、光大 99/110/119、华泰 98.0/108.3/115.5 亿元；网络纪要称公司全年预期约 100 亿元。经调整口径加回股权激励（约 7 亿元）和收购摊销（约 5 亿元），比国际财务报告准则归母高约 10—12 亿元。', 98.6, '亿元', '2026E', '2026-10-15', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '岗底斯：卖方 2026 年中报点评（国信、光大、广发、华泰等）与外资估值' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '股价一年跌 63%：87.1 → 32.14 港元', '估值方法', '港股 2025-10-20 收盘 87.10 港元，2026-03-17 发布 2025 年业绩并宣布停披季度指标后，美股单日 −24.7%、港股 −20% 以上；2026-10-22 收盘 32.14 港元（一年 −63%），美股 ADS 8.44 美元（2026-10-21）。', 32.14, '港元', '2026-10-22', '2026-10-22', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '腾讯行情 K 线：腾讯音乐港股日线与港元兑人民币（2025-10—2026-10）' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '市值约 862 亿元，扣除净现金与投资后经营业务约 370 亿元', '估值方法', '31.5 亿股 × 32.14 港元 × 0.851 ≈ 862 亿元人民币。扣除 6 月末净现金约 273 亿元和对外投资约 218 亿元（金融资产 191.5＋权益法 26.9）后，经营业务约 370 亿元，约为本模型 2026 年归母净利（88 亿元）的 4.2 倍；按经调整口径约 3.8 倍。', 862, '亿元', '2026-10-22', '2026-10-22', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '腾讯行情 K 线：腾讯音乐港股日线与港元兑人民币（2025-10—2026-10）' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐收入持续收缩', '经营', '社交娱乐及其他收入（直播打赏为主）：2024 年 66.6 亿元、2025 年 61.8 亿元（−7.3%）；2026 年一、二季度 13.81、13.28 亿元（−11.0%、−16.4%），二季度只占总收入的 14.9%。分成比例下降使这块业务的毛利率在改善，但收入在持续收缩。', 61.76, '亿元', '2025', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '经营现金流约 100 亿元，与经调整净利相当', '财务', '经营现金流 2021—2025 年 52.4、74.8、73.4、102.8、102.3 亿元，2026 年上半年 52.0 亿元；资本开支（固定资产＋无形资产）每年 10—12 亿元。经营现金流约等于经调整净利：负营运资本（预收会员费、应付版权方）随收入增长释放现金。', 102.31, '亿元', '2025', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '有效税率约 17.5%，少数股东约 3%', '财务', '有效税率 2024 年 18.4%、2025 年 14.5%（剔除不征税的一次性收益约 17.6%）、2026 年上半年 17.2%；少数股东损益占税后利润 2024 年 6.5%、2025 年 2.6%、2026 年上半年 2.7%。', 0.175, '比率', '2026H1', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '股权激励费用约 7 亿元/年', '财务', '以股份为基础的薪酬开支 2024 年 6.81 亿元、2025 年 6.80 亿元、2026 年上半年 3.39 亿元；收购产生的无形资产摊销 2025 年 3.86 亿元、2026 年上半年 2.46 亿元（喜马拉雅并表后上升）。两者在国际财务报告准则利润里已扣除，本模型不加回。', 6.8, '亿元', '2025', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '港元兑人民币 0.851，一年内人民币升值约 7%', '估值方法', '港元兑人民币（腾讯外汇）2025-10-20 0.9163 → 2026-10-22 0.8507；国家外汇管理局中间价 2026-10-22 每 100 港元 85.64 元。人民币升值使同样的港元股价折成人民币更低；港元盯住美元。', 0.851, '人民币/港元', '2026-10-22', '2026-10-22', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '腾讯行情 K 线：腾讯音乐港股日线与港元兑人民币（2025-10—2026-10）' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'AI 音乐：供给多但有效播放少', '其他', '管理层与摩根大通转述：AI 音乐在供给端占比高，但没有成熟 IP 的纯 AI 歌曲只吸引很少的有效播放，播放量仍集中在知名歌曲和艺人；中金认为真人版权的核心地位中长期难以撼动。腾讯音乐自己的 AI 作歌工具已赋能 15 万音乐人、1,000 万普通用户。', NULL, NULL, '2026', '2026-09-07', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '摩根大通：2026 年二季度业绩后投资者交流会要点（2026-08-16）及 3 月下调评级报告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '上游分散：国内前五大唱片公司约 29%，平台付给版权方约 45%—55%', '经营', '2022 年全球唱片公司在中国市场收入 CR3、CR5、CR10 为 23.6%、29.1%、35.2%（风华秋实招股书，卖方转引）；全球三大唱片加 Merlin 约 75%。国内平台付给版权方约相关收入的 45%—55%，全球约 60%—70%（录音 50%—55%、词曲 10%—15%）。上游分散、下游集中，是国内平台毛利率高于 Spotify 的结构性原因。', 0.291, '比率', '2022', '2025-06-18', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业对比：付费率 24% 对 31%、39%；毛利率 44% 对 37%、30% 出头', '经营', '中金（2026-09-07，2026 年起为估算）2026 年二季度：腾讯音乐月活 5.25 亿、付费 1.28 亿、付费率 24.4%、ARPPU 12.5 元；网易云 2.21 亿、0.69 亿、31.2%、6.4 元；Spotify 7.77 亿、3.00 亿、38.6%、4.9 欧元。毛利率：腾讯音乐 44.2%（2025）、网易云 37.2%（2026H1）、Spotify 30% 出头；2023 年三家分别为 35.3%、26.7%、25.6%。腾讯音乐付费用户 2026 年一、二季度都在约 1.28 亿。', 0.244, '比率', '2026Q2', '2026-09-07', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '网易云音乐 2026 年上半年：收入 +3.4%、会员订阅 +5.3%、毛利率 37.2%', '经营', '收入 39.59 亿元（+3.4%）；在线音乐 30.67 亿元，会员订阅 26.01 亿元（+5.3%，会员规模增长约 13%、学生会员占比上升使 ARPPU 约 −7%）；毛利率 37.2%（+0.8pt）；销售费用率 7.5%（上年同期 4.3%）；经调整经营利润 7.97 亿元（−12%）；DAU/MAU 30% 以上，留存率与续费率提升；注册独立音乐人超 125 万；上半年回购约 9.67 亿港元。', 39.59, '亿元', '2026H1', '2026-06-30', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '网易云音乐 2026 年中期业绩点评（光大、东财、浦银国际、华兴、中金）' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '汽水音乐的打法：抖音热歌、对三大唱片“必采”、曲库约 5,000 万首', '经营', '汽水前 1,000 首热歌 86% 来自抖音、54% 从抖音冷启动走红（2024 年）；“抖汽互通”：版权方只授权抖音不授权汽水，可能影响抖音对其内容的推广；对三大唱片、太合“必采”，即使 ROI 未打正也采购，对头部艺人“单点突破”拿非独家内容。汽水曲库约 5,000 万首，已获三大唱片部分授权（非全曲库）；腾讯音乐约 2.6 亿首、覆盖 95% 以上华语热门（含周杰伦、S.H.E. 等），网易云约 1.6 亿首。', 0.86, '比率', '2024', '2025-12-07', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '自制音乐播放份额约 20%—30%，已超过三大唱片', '经营', '中金估计 2025 年二季度腾讯音乐自制音乐播放份额 20%—30%，已超过三大唱片在平台的播放份额（约 20%）；部分自制音乐在付费墙内，有助于毛利率。', 0.25, '比率', '2025Q2', '2025-09-09', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '经营性投入资本约等于商誉，剔除商誉后为负', '财务', '2025 年末：归母权益 802.87＋少数股东 27.63＋带息负债 38.13−现金与定期存款 380.43−以公允价值计量的金融资产 262.31−权益法投资 16.59−其他投资 3.86＝205.44 亿元，几乎等于商誉 205.21 亿元。2025 年核心经营利润（毛利−经营费用）96.78 亿元，按 17.5% 税率税后约 79.8 亿元，对含商誉的经营性投入资本回报约 39%（2024 年约 32%）。', 205.44, '亿元', '2025', '2025-12-31', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '销售费用率约 3%，2026 年一季度销售费用 +36%', '财务', '销售及市场推广开支 2024 年 8.65 亿元（收入的 3.0%）、2025 年 9.41 亿元（2.9%）；2026 年一季度 2.71 亿元（+36%，管理层称战略性加大获客，投放广点通、字节等渠道）、二季度 2.36 亿元（+9.3%，2.6%）。网易云 2026 年上半年 7.5%。', 0.029, '比率', '2025', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '版权授权：期限 1—3 年，最低保底＋收入分成', '经营', '与唱片公司的录音分销与授权协议期限 1—3 年，费用为最低保底授权费加收入分成；与音著协为框架协议（保底加按收入比例）；个人艺人以收入分成为主（招股书，外资研报转引）。2020 年起监管要求按保底金加分成支付版权费。', NULL, NULL, '2025', '2025-10-28', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '续费率 80% 以上；付费墙比例说法不一', '经营', '国信行业交流（2025-06）：腾讯音乐续费率 80% 以上，付费墙比例接近 60%—70%，网易云约 30%；同一机构 2025-05 的另一场交流称腾讯付费墙占比“20% 多”（口径可能不同：歌曲数量占比与播放占比）。两种说法并列，待核验。中金（2025-04）：网易云平均付费墙约为腾讯音乐的一半。', 0.8, '比率', '2025', '2025-06-20', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '券商组织的行业专家与业内交流纪要（国信 2025-05、06、11；弘则 2025-06；汽水音乐专题 2026-06；中金业绩会纪要与月度交流）' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'AI 音乐：日上传量约 40%，播放只占 1%—3%', '其他', '中金（2026-07）：AI 音乐日上传量占比约 40%，实际播放量占比只有 1%—3%。三大唱片推动 AI 音乐标识与“AI 歌曲上榜准则”，以训练数据合法授权为前提；腾讯音乐、网易云目前不给 AI 歌曲结算版税（产业公众号）。', 0.4, '比率', '2026', '2026-08-21', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '监管：2021 年解除独家版权，2026 年喜马拉雅收购附条件批准', '政策', '2021 年 7 月市场监管总局责令腾讯解除独家音乐版权；2026 年 5 月市场监管总局附加限制性条件批准收购喜马拉雅，限制期五年，涉及免费内容比例和非独家授权等（中金月度交流转述，公告原文未下载）。', NULL, NULL, '2026', '2026-05-21', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '券商组织的行业专家与业内交流纪要（国信 2025-05、06、11；弘则 2025-06；汽水音乐专题 2026-06；中金业绩会纪要与月度交流）' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026 年 6 月末：现金等 442.2 亿元、带息负债 168.8 亿元、对外投资 228.4 亿元', '财务', '2026 年 6 月 30 日合并资产负债表：现金及现金等价物 236.98、定期存款（流动 67.61、非流动 136.40）、短期投资 1.23，合计 442.22 亿元；借款 131.39（非流动 71.42、流动 59.97）、应付票据 33.90、租赁负债 3.55，带息负债合计 168.84 亿元；以公允价值计量且其变动计入其他综合收益的金融资产 191.47、权益法投资 26.91、其他投资 10.06（非流动 9.34、流动 0.72），对外投资合计 228.44 亿元；少数股东权益 28.01 亿元。2026 年 9 月新发 10 亿美元票据，所得款项用于再融资与回购，发行当时净现金不变。', 442.22, '亿元', '2026-06-30', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '境内未分派利润 172.5 亿元，汇出预提税约 17.3 亿元（2025 年末）', '财务', '2025 年年报：截至 2025 年末，中国附属公司及可变利益实体未计入预扣税的未分派利润 172.47 亿元，未确认的所得税负债 17.25 亿元（即按 10% 预提税计）；2024 年末分别为 174.53 亿元、17.45 亿元。境内资金汇出还受外汇管理与法定储备金限制（每年至少提取税后利润的 10%，直到达到注册资本的 50%）。', 17.25, '亿元', '2025', '2025-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '腾讯音乐 2025 年年报' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '收购摊销：2026 年二季度 1.57 亿元，全年化约 9 亿元', '财务', '收购及企业合并产生的无形资产和其他资产摊销（非国际财务报告准则调整项）：2024 年 4.40、2025 年 3.86 亿元；2026 年一季度 0.89、二季度 1.57 亿元（喜马拉雅自 5 月 18 日并表 44 天）。按喜马拉雅满季度推算约 2.3 亿元/季、2027 年约 9 亿元。口径含“版权公允价值调整”（取得的版权使用权在合同期内摊销），合同到期后需按市价重新采购。', 1.57, '亿元', '2026Q2', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '倍数参照：同业约 10 倍，卖方 9—17 倍，市场隐含核心倍数约 5.5 倍', '估值方法', '同业：网易云音乐 2026 年 8 月末约 10 倍 2026E 经调整市盈率；卖方对腾讯音乐：摩根大通 9 倍 2027E（目标价 36 港元）、另一家 12 倍 2026E（44.9 港元）、华泰 17 倍 2026E（61.29 港元）、广发分部估值 13.35 美元/ADS；摩根士丹利对对外持股给予 30% 控股折价、美元 WACC 14%。腾讯音乐 2025 年中约 26—28 倍、2026 年 3 月约 15 倍。按本模型基准，市场给核心业务的隐含倍数约 5.5 倍（相当于零增长下约 18% 的要求回报）。', 5.5, '倍', '2026-10-22', '2026-10-22', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '岗底斯：卖方 2026 年中报点评（国信、光大、广发、华泰等）与外资估值' LIMIT 1));
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '流通股约 31.5 亿股（估算）', '治理', '腾讯行情显示已发行股份 33.02 亿股（含库存股与股权激励信托持有股份）；2026 年二季度加权平均基本股数 31.28 亿股。期末流通股估算：一季度约 30.8 亿股＋喜马拉雅对价发行最多 1.75 亿股−二季度回购 0.87 亿股（4,350 万 ADS）≈ 31.4—31.7 亿股。每股价值的分母用 31.5 亿股（1 股 ADS＝2 股）。精确数待年报或股份变动月报核对。', '2026-06-30', '2026-10-22', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025 年收入 329.0 亿元（+15.8%），订阅 176.6 亿元', '经营', '2025 年总收入 329.02 亿元：在线音乐服务 267.26 亿元（+22.9%；其中订阅 176.6 亿元 +16.0%、非订阅 90.7 亿元 +39.2%，主要是线下演出、广告、艺人周边）、社交娱乐及其他 61.76 亿元（−7.3%）。', '2025', '2025-12-31', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '付费用户 1.274 亿、ARPPU 11.9 元，月活连续下滑', '经营', '第四季度在线音乐付费用户：2021 年 7,620 万 → 2022 年 8,850 万 → 2023 年 1.067 亿 → 2024 年 1.210 亿 → 2025 年 1.274 亿（+5.3%，增速逐年放缓）；ARPPU 2022 年 8.9 元 → 2025 年 11.9 元。月活 2024 年四季度 5.56 亿 → 2025 年四季度 5.28 亿（−5.0%）。2026 年起停止披露季度月活、付费用户和 ARPPU，只在年报披露年末付费用户总数。', '2025Q4', '2025-12-31', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '订阅（会员）收入增速：+26% → +16% → 内生约持平', '经营', '订阅收入同比：2024 年 +25.9%（152.3 亿元）、2025 年 +16.0%（176.6 亿元；四个季度 +16.6%、+17.1%、+17.2%、+13.2%）；2026 年起改称“会员服务”（含长音频）：一季度 45.68 亿元 +6.6%、二季度 47.92 亿元 +8.1%（含喜马拉雅）。摩根大通估算剔除喜马拉雅后二季度会员内生增长约持平。', '2026Q2', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026 年上半年：收入 +6.5%、非国际财务报告准则归母 +5.6%', '财务', '2026 年上半年收入 168.28 亿元（+6.5%）、毛利率 44.5%、归母净利 45.62 亿元（2025 年上半年 67.00 亿元含 23.7 亿元一次性收益）、非国际财务报告准则归母 49.59 亿元（+5.6%）；经营现金流 51.96 亿元（+25%）。', '2026H1', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026 年二季度：喜马拉雅并表 4.07 亿元，社交娱乐 −16%', '经营', '二季度收入 89.33 亿元（+5.8%）：会员 47.92 亿元（+8.1%）、营销及消费类服务 28.13 亿元（+16.2%，演出、周边增长，广告承压）、社交娱乐 13.28 亿元（−16.4%）。喜马拉雅 5 月 18 日起并表，贡献收入 4.07 亿元；广发据此估算其年化收入约 34 亿元、经营利润约 5.4 亿元。', '2026Q2', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率从 30% 升到 44%，2026 年下半年同比略降', '经营', '毛利率 2021—2025 年 30.1%、31.0%、35.3%、42.3%、44.2%，2026 年一、二季度 44.9%、44.2%：版权成本优化、订阅占比提升和社交娱乐分成比例下降。线下演出与艺人经纪毛利率低，占比上升会拉低毛利率；管理层预计 2026 年下半年同比略降。', '2025', '2026-08-11', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '经营费用率从 18% 降到 15%', '财务', '经营费用率 2021 年 21.4%、2022 年 19.6%、2023 年 18.1%、2024 年 16.5%、2025 年 14.8%，2026 年二季度 14.5%（喜马拉雅并表与无形资产摊销使同比 +0.8pt）。核心经营利润率（毛利−经营费用）2025 年 29.4%。', '2025', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025 年一次性收益 23.7 亿元（UMG 股权实物分派）', '财务', '2025 年 3 月一家联营公司（腾讯牵头的财团）把所持环球音乐股份实物分派给各股东，腾讯音乐直接取得 UMG 约 2% 股权，并确认视同处置收益 23.7 亿元，计入其他收益。剔除后 2025 年归母净利约 86.9 亿元。', '2025Q1', '2025-12-31', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '现金等 442 亿元，借款与票据约 165 亿元', '债务', '现金、定期存款和短期投资：2024 年末 375.8 亿元、2025 年末 380.4 亿元、2026 年 3 月末 410.0 亿元、6 月末 442.2 亿元。2026 年 6 月末新增借款 131.39 亿元（非流动 71.42、流动 59.97），应付票据 33.90 亿元、租赁负债 3.55 亿元，带息负债约 168.8 亿元，净现金约 273 亿元。借款与上半年喜马拉雅现金对价、回购同期发生；现金大部分在境内，回购与分红在境外支付。', '2026-06-30', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026 年 9 月发行 10 亿美元票据（5.05%、5.65%）', '债务', '2026 年 9 月发行 5 亿美元 5.050%（2031 年到期）与 5 亿美元 5.650%（2036 年到期）优先无抵押票据，净额约 9.92 亿美元，用于境外债务再融资和股份回购。原有 5 亿美元票据（2030 年到期）仍在；2025 年已偿还 3 亿美元票据（21.31 亿元）。', '2026-09', '2026-09-11', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '10 亿美元票据发售的定价与完成公告（2026-09）' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '喜马拉雅：总对价约 140 亿元，现金约 80 亿元，商誉约 92 亿元', '资本开支', '2026 年 5 月 18 日完成收购喜马拉雅：现金最高 12.6 亿美元＋最多 1.753 亿股 A 类普通股。腾讯控股中报披露：总对价约 140 亿元（现金约 80 亿元、原持有权益公允价值约 11 亿元，其余为腾讯音乐发行或待发行的股份），可辨认净资产约 48 亿元、商誉约 92 亿元。腾讯音乐 6 月末商誉 297.6 亿元（年初 205.2 亿元）、无形资产 59.0 亿元（年初 29.0 亿元）。', '2026', '2026-08-25', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '腾讯控股 2026 年中期报告（业务合并附注）' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '回购与分红：2026 年二季度回购 4 亿美元，新一轮在准备', '分红', '回购（亿元）：2021 年 34.8、2022 年 31.3、2023 年 12.5、2024 年 19.3、2025 年 3.9；2026 年二季度 4.0 亿美元（约 27 亿元，4,350 万 ADS，均价 9.2 美元）。现金股息：2023 年度每股 0.07 美元、2024 年度 0.09 美元、2025 年度 0.12 美元（约 3.68 亿美元）。2025 年 3 月宣布的 10 亿美元回购计划截至 2026-08-27 剩余约 5.44 亿美元（2027 年 3 月到期）；管理层称正积极准备新一轮回购，并探讨不同的股东回报方式。', '2026Q2', '2026-08-27', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '对外投资 191 亿元：Spotify、UMG、WMG、SME', '估值方法', '以公允价值计量且其变动计入其他综合收益的金融资产：2024 年末 144.98 亿元、2025 年末 262.31 亿元、2026 年 6 月末 191.47 亿元（主要是 Spotify 与 UMG，另有 WMG、SME）；权益法投资 26.91 亿元。摩根士丹利口径持股比例：Spotify 2.5%、UMG 2%、WMG 0.8%、SME 9.7%。这些股权不分红或分红很少，股息贴现模型里没有计入（见判断 J-REL）。', '2026-06-30', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '汽水音乐月活 1.7 亿，定价约为 QQ 音乐的三分之一', '经营', '字节跳动旗下汽水音乐 2026 年 7 月月活 1.7 亿、日活 5,969 万，iOS 免费榜稳定前 7、音乐类第一；番茄音乐月活 4,553 万。汽水用“每天看约 80 秒广告换全天免费”＋抖音导流，VIP 8 元/月、SVIP 18 元/月，QQ 音乐会员 20—40 元。EP 平台数据显示 2026 年 6、7 月腾讯音乐付费用户净增环比下降，分流主要来自酷狗、酷我。', '2026-07', '2026-09-16', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '行业竞争资料：汽水音乐、番茄音乐用户规模与定价' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '管理层：竞争冲击轻度用户，超级会员稳定', '经营', '管理层（2026-08）：竞争主要冲击轻度、泛用户，高价值的超级会员受影响有限（超级会员 2025 年末超过 2,000 万）；应对是接管微信视频号音乐垂类运营、推出酷狗免费版、波点音乐等轻量 App、把演唱会优先购票、周边和喜马拉雅长音频放进超级会员权益。不会大水漫灌式投放，7 月起按集团统一 ROI 标准恢复喜马拉雅投放。', '2025Q4', '2026-08-11', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度业绩电话会纪要（2026-08-11）' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026 年指引：净利率小幅承压，经调整 EBITDA 小幅增长', '经营', '2026 年 3 月业绩会口径（首席观点转述）：音乐收入增速约 10%—13%、会员中高个位数、其他 20% 以上、毛利率持平、经调整净利率约 29%。8 月更新：下半年毛利率同比略降，销售与管理费用合理增加，加上借款利息，全年净利率小幅承压，经调整 EBITDA 小幅增长。', '2026', '2026-08-11', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度业绩电话会纪要（2026-08-11）' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '卖方预期 2026—2028 年经调整归母约 98/109/118 亿元', '估值方法', '中报后卖方 2026—2028 年经调整归母预测：国信 98.6/111.4/124.3、光大 99/110/119、华泰 98.0/108.3/115.5 亿元；网络纪要称公司全年预期约 100 亿元。经调整口径加回股权激励（约 7 亿元）和收购摊销（约 5 亿元），比国际财务报告准则归母高约 10—12 亿元。', '2026E', '2026-10-15', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '岗底斯：卖方 2026 年中报点评（国信、光大、广发、华泰等）与外资估值' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '股价一年跌 63%：87.1 → 32.14 港元', '估值方法', '港股 2025-10-20 收盘 87.10 港元，2026-03-17 发布 2025 年业绩并宣布停披季度指标后，美股单日 −24.7%、港股 −20% 以上；2026-10-22 收盘 32.14 港元（一年 −63%），美股 ADS 8.44 美元（2026-10-21）。', '2026-10-22', '2026-10-22', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '腾讯行情 K 线：腾讯音乐港股日线与港元兑人民币（2025-10—2026-10）' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '市值约 862 亿元，扣除净现金与投资后经营业务约 370 亿元', '估值方法', '31.5 亿股 × 32.14 港元 × 0.851 ≈ 862 亿元人民币。扣除 6 月末净现金约 273 亿元和对外投资约 218 亿元（金融资产 191.5＋权益法 26.9）后，经营业务约 370 亿元，约为本模型 2026 年归母净利（88 亿元）的 4.2 倍；按经调整口径约 3.8 倍。', '2026-10-22', '2026-10-22', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '腾讯行情 K 线：腾讯音乐港股日线与港元兑人民币（2025-10—2026-10）' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐收入持续收缩', '经营', '社交娱乐及其他收入（直播打赏为主）：2024 年 66.6 亿元、2025 年 61.8 亿元（−7.3%）；2026 年一、二季度 13.81、13.28 亿元（−11.0%、−16.4%），二季度只占总收入的 14.9%。分成比例下降使这块业务的毛利率在改善，但收入在持续收缩。', '2025', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '经营现金流约 100 亿元，与经调整净利相当', '财务', '经营现金流 2021—2025 年 52.4、74.8、73.4、102.8、102.3 亿元，2026 年上半年 52.0 亿元；资本开支（固定资产＋无形资产）每年 10—12 亿元。经营现金流约等于经调整净利：负营运资本（预收会员费、应付版权方）随收入增长释放现金。', '2025', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '有效税率约 17.5%，少数股东约 3%', '财务', '有效税率 2024 年 18.4%、2025 年 14.5%（剔除不征税的一次性收益约 17.6%）、2026 年上半年 17.2%；少数股东损益占税后利润 2024 年 6.5%、2025 年 2.6%、2026 年上半年 2.7%。', '2026H1', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '股权激励费用约 7 亿元/年', '财务', '以股份为基础的薪酬开支 2024 年 6.81 亿元、2025 年 6.80 亿元、2026 年上半年 3.39 亿元；收购产生的无形资产摊销 2025 年 3.86 亿元、2026 年上半年 2.46 亿元（喜马拉雅并表后上升）。两者在国际财务报告准则利润里已扣除，本模型不加回。', '2025', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '港元兑人民币 0.851，一年内人民币升值约 7%', '估值方法', '港元兑人民币（腾讯外汇）2025-10-20 0.9163 → 2026-10-22 0.8507；国家外汇管理局中间价 2026-10-22 每 100 港元 85.64 元。人民币升值使同样的港元股价折成人民币更低；港元盯住美元。', '2026-10-22', '2026-10-22', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '腾讯行情 K 线：腾讯音乐港股日线与港元兑人民币（2025-10—2026-10）' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'AI 音乐：供给多但有效播放少', '其他', '管理层与摩根大通转述：AI 音乐在供给端占比高，但没有成熟 IP 的纯 AI 歌曲只吸引很少的有效播放，播放量仍集中在知名歌曲和艺人；中金认为真人版权的核心地位中长期难以撼动。腾讯音乐自己的 AI 作歌工具已赋能 15 万音乐人、1,000 万普通用户。', '2026', '2026-09-07', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '摩根大通：2026 年二季度业绩后投资者交流会要点（2026-08-16）及 3 月下调评级报告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '上游分散：国内前五大唱片公司约 29%，平台付给版权方约 45%—55%', '经营', '2022 年全球唱片公司在中国市场收入 CR3、CR5、CR10 为 23.6%、29.1%、35.2%（风华秋实招股书，卖方转引）；全球三大唱片加 Merlin 约 75%。国内平台付给版权方约相关收入的 45%—55%，全球约 60%—70%（录音 50%—55%、词曲 10%—15%）。上游分散、下游集中，是国内平台毛利率高于 Spotify 的结构性原因。', '2022', '2025-06-18', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业对比：付费率 24% 对 31%、39%；毛利率 44% 对 37%、30% 出头', '经营', '中金（2026-09-07，2026 年起为估算）2026 年二季度：腾讯音乐月活 5.25 亿、付费 1.28 亿、付费率 24.4%、ARPPU 12.5 元；网易云 2.21 亿、0.69 亿、31.2%、6.4 元；Spotify 7.77 亿、3.00 亿、38.6%、4.9 欧元。毛利率：腾讯音乐 44.2%（2025）、网易云 37.2%（2026H1）、Spotify 30% 出头；2023 年三家分别为 35.3%、26.7%、25.6%。腾讯音乐付费用户 2026 年一、二季度都在约 1.28 亿。', '2026Q2', '2026-09-07', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '网易云音乐 2026 年上半年：收入 +3.4%、会员订阅 +5.3%、毛利率 37.2%', '经营', '收入 39.59 亿元（+3.4%）；在线音乐 30.67 亿元，会员订阅 26.01 亿元（+5.3%，会员规模增长约 13%、学生会员占比上升使 ARPPU 约 −7%）；毛利率 37.2%（+0.8pt）；销售费用率 7.5%（上年同期 4.3%）；经调整经营利润 7.97 亿元（−12%）；DAU/MAU 30% 以上，留存率与续费率提升；注册独立音乐人超 125 万；上半年回购约 9.67 亿港元。', '2026H1', '2026-06-30', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '网易云音乐 2026 年中期业绩点评（光大、东财、浦银国际、华兴、中金）' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '汽水音乐的打法：抖音热歌、对三大唱片“必采”、曲库约 5,000 万首', '经营', '汽水前 1,000 首热歌 86% 来自抖音、54% 从抖音冷启动走红（2024 年）；“抖汽互通”：版权方只授权抖音不授权汽水，可能影响抖音对其内容的推广；对三大唱片、太合“必采”，即使 ROI 未打正也采购，对头部艺人“单点突破”拿非独家内容。汽水曲库约 5,000 万首，已获三大唱片部分授权（非全曲库）；腾讯音乐约 2.6 亿首、覆盖 95% 以上华语热门（含周杰伦、S.H.E. 等），网易云约 1.6 亿首。', '2024', '2025-12-07', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '自制音乐播放份额约 20%—30%，已超过三大唱片', '经营', '中金估计 2025 年二季度腾讯音乐自制音乐播放份额 20%—30%，已超过三大唱片在平台的播放份额（约 20%）；部分自制音乐在付费墙内，有助于毛利率。', '2025Q2', '2025-09-09', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '经营性投入资本约等于商誉，剔除商誉后为负', '财务', '2025 年末：归母权益 802.87＋少数股东 27.63＋带息负债 38.13−现金与定期存款 380.43−以公允价值计量的金融资产 262.31−权益法投资 16.59−其他投资 3.86＝205.44 亿元，几乎等于商誉 205.21 亿元。2025 年核心经营利润（毛利−经营费用）96.78 亿元，按 17.5% 税率税后约 79.8 亿元，对含商誉的经营性投入资本回报约 39%（2024 年约 32%）。', '2025', '2025-12-31', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '销售费用率约 3%，2026 年一季度销售费用 +36%', '财务', '销售及市场推广开支 2024 年 8.65 亿元（收入的 3.0%）、2025 年 9.41 亿元（2.9%）；2026 年一季度 2.71 亿元（+36%，管理层称战略性加大获客，投放广点通、字节等渠道）、二季度 2.36 亿元（+9.3%，2.6%）。网易云 2026 年上半年 7.5%。', '2025', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '版权授权：期限 1—3 年，最低保底＋收入分成', '经营', '与唱片公司的录音分销与授权协议期限 1—3 年，费用为最低保底授权费加收入分成；与音著协为框架协议（保底加按收入比例）；个人艺人以收入分成为主（招股书，外资研报转引）。2020 年起监管要求按保底金加分成支付版权费。', '2025', '2025-10-28', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '续费率 80% 以上；付费墙比例说法不一', '经营', '国信行业交流（2025-06）：腾讯音乐续费率 80% 以上，付费墙比例接近 60%—70%，网易云约 30%；同一机构 2025-05 的另一场交流称腾讯付费墙占比“20% 多”（口径可能不同：歌曲数量占比与播放占比）。两种说法并列，待核验。中金（2025-04）：网易云平均付费墙约为腾讯音乐的一半。', '2025', '2025-06-20', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '券商组织的行业专家与业内交流纪要（国信 2025-05、06、11；弘则 2025-06；汽水音乐专题 2026-06；中金业绩会纪要与月度交流）' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'AI 音乐：日上传量约 40%，播放只占 1%—3%', '其他', '中金（2026-07）：AI 音乐日上传量占比约 40%，实际播放量占比只有 1%—3%。三大唱片推动 AI 音乐标识与“AI 歌曲上榜准则”，以训练数据合法授权为前提；腾讯音乐、网易云目前不给 AI 歌曲结算版税（产业公众号）。', '2026', '2026-08-21', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '监管：2021 年解除独家版权，2026 年喜马拉雅收购附条件批准', '政策', '2021 年 7 月市场监管总局责令腾讯解除独家音乐版权；2026 年 5 月市场监管总局附加限制性条件批准收购喜马拉雅，限制期五年，涉及免费内容比例和非独家授权等（中金月度交流转述，公告原文未下载）。', '2026', '2026-05-21', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '券商组织的行业专家与业内交流纪要（国信 2025-05、06、11；弘则 2025-06；汽水音乐专题 2026-06；中金业绩会纪要与月度交流）' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026 年 6 月末：现金等 442.2 亿元、带息负债 168.8 亿元、对外投资 228.4 亿元', '财务', '2026 年 6 月 30 日合并资产负债表：现金及现金等价物 236.98、定期存款（流动 67.61、非流动 136.40）、短期投资 1.23，合计 442.22 亿元；借款 131.39（非流动 71.42、流动 59.97）、应付票据 33.90、租赁负债 3.55，带息负债合计 168.84 亿元；以公允价值计量且其变动计入其他综合收益的金融资产 191.47、权益法投资 26.91、其他投资 10.06（非流动 9.34、流动 0.72），对外投资合计 228.44 亿元；少数股东权益 28.01 亿元。2026 年 9 月新发 10 亿美元票据，所得款项用于再融资与回购，发行当时净现金不变。', '2026-06-30', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '境内未分派利润 172.5 亿元，汇出预提税约 17.3 亿元（2025 年末）', '财务', '2025 年年报：截至 2025 年末，中国附属公司及可变利益实体未计入预扣税的未分派利润 172.47 亿元，未确认的所得税负债 17.25 亿元（即按 10% 预提税计）；2024 年末分别为 174.53 亿元、17.45 亿元。境内资金汇出还受外汇管理与法定储备金限制（每年至少提取税后利润的 10%，直到达到注册资本的 50%）。', '2025', '2025-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '腾讯音乐 2025 年年报' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '收购摊销：2026 年二季度 1.57 亿元，全年化约 9 亿元', '财务', '收购及企业合并产生的无形资产和其他资产摊销（非国际财务报告准则调整项）：2024 年 4.40、2025 年 3.86 亿元；2026 年一季度 0.89、二季度 1.57 亿元（喜马拉雅自 5 月 18 日并表 44 天）。按喜马拉雅满季度推算约 2.3 亿元/季、2027 年约 9 亿元。口径含“版权公允价值调整”（取得的版权使用权在合同期内摊销），合同到期后需按市价重新采购。', '2026Q2', '2026-06-30', '已核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1)),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '倍数参照：同业约 10 倍，卖方 9—17 倍，市场隐含核心倍数约 5.5 倍', '估值方法', '同业：网易云音乐 2026 年 8 月末约 10 倍 2026E 经调整市盈率；卖方对腾讯音乐：摩根大通 9 倍 2027E（目标价 36 港元）、另一家 12 倍 2026E（44.9 港元）、华泰 17 倍 2026E（61.29 港元）、广发分部估值 13.35 美元/ADS；摩根士丹利对对外持股给予 30% 控股折价、美元 WACC 14%。腾讯音乐 2025 年中约 26—28 倍、2026 年 3 月约 15 倍。按本模型基准，市场给核心业务的隐含倍数约 5.5 倍（相当于零增长下约 18% 的要求回报）。', '2026-10-22', '2026-10-22', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '岗底斯：卖方 2026 年中报点评（国信、光大、广发、华泰等）与外资估值' LIMIT 1));
 
 INSERT INTO vi_thesis_base (company_id, code, title, category, status, confidence, bull_case, bear_case, bull_rebuttal, bear_rebuttal, verdict, decisive_evidence, mind_changer, model_impact, external_view, debated_on, check_metric, check_op, check_threshold, check_years) VALUES
 ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'T1', '上游议价权与头部曲库，在取消独家、AI 兴起后仍是护城河（毛利率守得住）', '壁垒', '成立', '中', '1）结构没变（V2、M1）：毛利率 44% 仍高于网易云（37%）和 Spotify（30% 出头）。2）头部曲库（M2）：约 2.6 亿首、覆盖 95% 华语热门，汽水只有约 5,000 万首，经典与港台版权缺口大；会员 20—40 元/月仍是行业最高价。3）AI 音乐“供给多、播放少”（V9），播放仍集中在头部真人作品；三大唱片推动的“先授权”规则，保护的正是持牌平台。4）自制音乐播放份额 20%—30% 已超过三大唱片，平台在向上游延伸。', '1）独家没了：网易云、汽水都拿到了三大唱片的部分授权，字节对三大“必采”、对头部艺人“单点突破”，曲库差距可以用钱缩小。2）发现入口变了（V5）：版权方必须在抖音宣发，“抖汽互通”让版权方有动力授权给汽水。3）管理层自己把竞争描述为“曲库成本差异”：对手用更便宜的曲库和 AI 翻唱填充，用低价换用户。4）高毛利主要来自产业结构，网易云也同样受益（毛利率 2023 年约 27% → 37%），说明这不是腾讯音乐独有的护城河。5）版权方若转向更高分成，或给对手更低价的授权，这项优势会变成成本劣势；AI 长期削弱版权稀缺性。', '轻度用户本来就不是利润来源；超级会员稳定、ARPPU 还在升（2025 年四季度 11.9 元），说明核心用户仍为完整曲库和音质付费。产业结构对两家都有利，但腾讯音乐占三分之二的份额，议价力最强。', 'ARPPU 的提升越来越依赖超级会员占比和喜马拉雅并表；剔除喜马拉雅后会员收入内生约持平，付费用户两个季度没有净增。护城河如果真宽，增长不会这么快停下来。', '护城河真实，但在收窄：它从“独占资源”（独家版权，见伪壁垒 M7）变成了“规模带来的成本与完整度优势”（上游议价权＋曲库）。对核心付费用户仍有效（2026 年二季度毛利率 44.2%，高于摩根大通设的 42% 警戒线；超级会员稳定），对轻度用户已基本失效。定为：上游议价权＝真实壁垒（强、稳定），头部曲库＝局部优势（中、削弱）。', '单季毛利率是否守在 42%—43% 以上；版权续约条款（保底与分成比例）；演出与周边的收入占比（毛利率低）；剔除喜马拉雅后会员收入同比；字节是否拿到头部华语全曲库授权。', '改判为反方占优：毛利率连续两个季度低于 42%，或字节以独家或首发方式拿下周杰伦等头部版权，或三大唱片要求的分成比例明显上调。自动检查：年度毛利率连续两年低于 40%。', '不改参数', '看多方（中金 2026-09、长江 2026-04、中信建投）：真人版权秩序韧性强，汽水只影响泛用户，上限约 2 亿月活。看空方（摩根大通 2026-03、08）：订阅增长不再线性，估值框架弱化；产业公众号：竞争从“谁有歌”变成“歌在哪火”。岗底斯观点 PK 三次调用均超时、技能脚本未配置授权，本次未取得其结果。', '2026-10-22', '毛利率', '<', 0.4, 2),
@@ -488,250 +491,250 @@ INSERT INTO vi_lnk_fit_score_theses (fit_score_id, thesis_id, "createdAt", "upda
 SELECT x.id, y.id, now(), now() FROM (VALUES ('长坡', 'T3'), ('厚雪', 'T1'), ('慢变', 'T1'), ('慢变', 'T3'), ('护城河', 'T1'), ('护城河', 'T2'), ('护城河', 'T4'), ('再投资', 'T4'), ('财务质量', 'T6'), ('财务质量', 'T7'), ('治理配置', 'T5'), ('可估值性', 'T3'), ('可估值性', 'T5')) v(k1, k2)
 JOIN vi_fit_score_base x ON x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.dimension = v.k1 JOIN vi_thesis_base y ON y.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND y.code = v.k2;
 
-INSERT INTO vi_fin_history_base (company_id, year, scope_note, volume, revenue, cost_of_sales, pretax_profit, income_tax, np_parent, minority_profit, da, finance_cost, invest_income, equity_income, cfo, capex, investee_cash_div, net_borrowing, interest_debt, cash, equity_parent, dividend_total, dps, source_id, note) VALUES
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2017, '合并口径', NULL, 109.81, 71.71, 15.97, 2.78, 13.26, -0.07, 3.79, NULL, 2.17, 0.04, 25.0, 1.38, NULL, 0.0, 0.0, 64.8, 261.41, 0, 0.0, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；美股格式报表（东方财富）；腾讯音乐 2018 年 12 月在纽交所上市。；付费用户（第四季度）未取得。'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2018, '合并口径', NULL, 189.85, 117.08, 20.03, 1.71, 18.33, -0.01, 3.69, 0.35, -12.66, -0.01, 56.32, 4.83, NULL, 0.0, 0.0, 200.8, 377.21, 0, 0.0, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；美股格式报表（东方财富）；纽交所上市募资约 77 亿元。；付费用户（第四季度）未取得。'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2019, '合并口径', NULL, 254.34, 167.61, 45.4, 5.63, 39.82, -0.05, 5.83, 0.64, 6.93, -0.18, 62.0, 2.86, 0.32, 0.0, 1.47, 229.26, 435.9, 0, 0.0, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；付费用户（第四季度）未取得。'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2020, '合并口径', NULL, 291.53, 198.51, 46.32, 4.56, 41.55, 0.21, 8.24, 0.97, 9.84, 0.19, 48.85, 5.01, NULL, 54.0, 54.96, 289.39, 522.45, 1.34, 0.0, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；发行 8 亿美元票据（54.0 亿元）；开始回购。；付费用户（第四季度）未取得。'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2021, '合并口径', 0.762, 312.44, 218.4, 36.32, 4.17, 30.29, 1.86, 10.01, 1.21, 10.83, -0.47, 52.39, 27.58, 0.88, 0.0, 53.59, 236.63, 503.17, 34.79, 0.0, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；市场监管总局责令解除独家版权（2021 年 7 月）；回购 34.8 亿元。'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2022, '合并口径', 0.885, 283.39, 195.66, 43.73, 5.34, 36.77, 1.62, 11.6, 1.08, 12.27, 0.38, 74.81, 10.53, 0.74, 0.0, 59.65, 273.76, 480.99, 31.27, 0.0, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；收入下降 9.3%；在港交所以介绍方式上市（2022 年 9 月）。'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2023, '合并口径', 1.067, 277.52, 179.57, 60.45, 8.25, 49.2, 3.0, 10.04, 1.41, 12.82, 1.27, 73.37, 11.64, 1.26, 0.0, 60.48, 322.23, 559.07, 28.25, 0.5, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；首次宣派年度现金股息（每股 0.07 美元）；毛利率升到 35.3%。'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2024, '合并口径', 1.21, 284.01, 163.76, 87.12, 16.03, 66.44, 4.65, 9.78, 0.94, 13.61, 0.96, 102.75, 10.32, 0.61, 0.0, 60.51, 375.82, 678.63, 39.6, 0.65, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；订阅收入 +25.9%；毛利率 42.3%。'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2025, '合并口径', 1.274, 329.02, 183.67, 132.77, 19.24, 110.56, 2.97, 13.75, 1.29, 36.86, 0.42, 102.31, 11.88, 3.32, -21.31, 38.13, 380.43, 802.87, 29.11, 0.82, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；模型基准年。归母净利含 UMG 实物分派带来的视同处置收益 23.7 亿元（剔除后约 86.9 亿元，股东回报率约 33%）；偿还 3 亿美元票据。');
+INSERT INTO vi_fin_history_base (company_id, year, scope_note, source_id, note) VALUES
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2017, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；美股格式报表（东方财富）；腾讯音乐 2018 年 12 月在纽交所上市。；付费用户（第四季度）未取得。'),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2018, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；美股格式报表（东方财富）；纽交所上市募资约 77 亿元。；付费用户（第四季度）未取得。'),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2019, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；付费用户（第四季度）未取得。'),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2020, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；发行 8 亿美元票据（54.0 亿元）；开始回购。；付费用户（第四季度）未取得。'),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2021, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；市场监管总局责令解除独家版权（2021 年 7 月）；回购 34.8 亿元。'),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2022, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；收入下降 9.3%；在港交所以介绍方式上市（2022 年 9 月）。'),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2023, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；首次宣派年度现金股息（每股 0.07 美元）；毛利率升到 35.3%。'),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2024, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；订阅收入 +25.9%；毛利率 42.3%。'),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2025, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；模型基准年。归母净利含 UMG 实物分派带来的视同处置收益 23.7 亿元（剔除后约 86.9 亿元，股东回报率约 33%）；偿还 3 亿美元票据。');
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2024Q1', '2024-03-31', 67.68, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2024Q1', '2024-03-31', 67.68, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2024Q1', '2024-03-31', 50.07, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2024Q1', '2024-03-31', 50.07, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2024Q1', '2024-03-31', 36.2, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2024Q1', '2024-03-31', 36.2, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2024Q1', '2024-03-31', 13.87, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2024Q1', '2024-03-31', 13.87, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2024Q1', '2024-03-31', 17.61, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2024Q1', '2024-03-31', 17.61, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2024Q1', '2024-03-31', 40.94, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2024Q1', '2024-03-31', 40.94, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2024Q1', '2024-03-31', 14.22, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2024Q1', '2024-03-31', 14.22, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2024Q1', '2024-03-31', 17.04, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2024Q1', '2024-03-31', 17.04, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐付费用户', '单季', '百万人', '2024Q1', '2024-03-31', 113.5, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐付费用户', '单季', '百万人', '2024Q1', '2024-03-31', 113.5, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '单个付费用户月均收入（ARPPU）', '单季', '元', '2024Q1', '2024-03-31', 10.6, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '单个付费用户月均收入（ARPPU）', '单季', '元', '2024Q1', '2024-03-31', 10.6, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐月活跃用户', '单季', '百万人', '2024Q1', '2024-03-31', 578, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐月活跃用户', '单季', '百万人', '2024Q1', '2024-03-31', 578, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2024Q2', '2024-06-30', 71.6, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2024Q2', '2024-06-30', 71.6, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2024Q2', '2024-06-30', 54.24, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2024Q2', '2024-06-30', 54.24, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2024Q2', '2024-06-30', 37.4, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2024Q2', '2024-06-30', 37.4, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2024Q2', '2024-06-30', 16.84, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2024Q2', '2024-06-30', 16.84, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2024Q2', '2024-06-30', 17.36, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2024Q2', '2024-06-30', 17.36, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2024Q2', '2024-06-30', 42.04, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2024Q2', '2024-06-30', 42.04, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2024Q2', '2024-06-30', 16.82, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2024Q2', '2024-06-30', 16.82, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2024Q2', '2024-06-30', 18.73, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2024Q2', '2024-06-30', 18.73, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐付费用户', '单季', '百万人', '2024Q2', '2024-06-30', 117.0, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐付费用户', '单季', '百万人', '2024Q2', '2024-06-30', 117.0, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '单个付费用户月均收入（ARPPU）', '单季', '元', '2024Q2', '2024-06-30', 10.7, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '单个付费用户月均收入（ARPPU）', '单季', '元', '2024Q2', '2024-06-30', 10.7, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐月活跃用户', '单季', '百万人', '2024Q2', '2024-06-30', 571, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐月活跃用户', '单季', '百万人', '2024Q2', '2024-06-30', 571, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2024Q3', '2024-09-30', 70.15, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2024Q3', '2024-09-30', 70.15, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2024Q3', '2024-09-30', 54.8, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2024Q3', '2024-09-30', 54.8, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2024Q3', '2024-09-30', 38.4, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2024Q3', '2024-09-30', 38.4, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2024Q3', '2024-09-30', 16.4, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2024Q3', '2024-09-30', 16.4, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2024Q3', '2024-09-30', 15.35, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2024Q3', '2024-09-30', 15.35, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2024Q3', '2024-09-30', 42.64, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2024Q3', '2024-09-30', 42.64, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2024Q3', '2024-09-30', 15.83, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2024Q3', '2024-09-30', 15.83, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2024Q3', '2024-09-30', 18.14, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2024Q3', '2024-09-30', 18.14, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐付费用户', '单季', '百万人', '2024Q3', '2024-09-30', 119.0, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐付费用户', '单季', '百万人', '2024Q3', '2024-09-30', 119.0, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '单个付费用户月均收入（ARPPU）', '单季', '元', '2024Q3', '2024-09-30', 10.8, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '单个付费用户月均收入（ARPPU）', '单季', '元', '2024Q3', '2024-09-30', 10.8, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐月活跃用户', '单季', '百万人', '2024Q3', '2024-09-30', 576, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐月活跃用户', '单季', '百万人', '2024Q3', '2024-09-30', 576, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2024Q4', '2024-12-31', 74.58, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2024Q4', '2024-12-31', 74.58, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2024Q4', '2024-12-31', 58.31, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2024Q4', '2024-12-31', 58.31, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2024Q4', '2024-12-31', 40.3, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2024Q4', '2024-12-31', 40.3, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2024Q4', '2024-12-31', 18.01, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2024Q4', '2024-12-31', 18.01, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2024Q4', '2024-12-31', 16.27, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2024Q4', '2024-12-31', 16.27, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2024Q4', '2024-12-31', 43.62, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2024Q4', '2024-12-31', 43.62, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2024Q4', '2024-12-31', 19.57, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2024Q4', '2024-12-31', 19.57, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2024Q4', '2024-12-31', 22.8, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2024Q4', '2024-12-31', 22.8, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐付费用户', '单季', '百万人', '2024Q4', '2024-12-31', 121.0, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐付费用户', '单季', '百万人', '2024Q4', '2024-12-31', 121.0, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '单个付费用户月均收入（ARPPU）', '单季', '元', '2024Q4', '2024-12-31', 11.1, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '单个付费用户月均收入（ARPPU）', '单季', '元', '2024Q4', '2024-12-31', 11.1, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐月活跃用户', '单季', '百万人', '2024Q4', '2024-12-31', 556, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐月活跃用户', '单季', '百万人', '2024Q4', '2024-12-31', 556, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2025Q1', '2025-03-31', 73.56, 0.086879, '待判断', NULL, '归母含 UMG 实物分派带来的视同处置收益 23.7 亿元。', '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2025Q1', '2025-03-31', 73.56, 0.086879, '归母含 UMG 实物分派带来的视同处置收益 23.7 亿元。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2025Q1', '2025-03-31', 58.04, 0.159177, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2025Q1', '2025-03-31', 58.04, 0.159177, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2025Q1', '2025-03-31', 42.2, 0.165746, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2025Q1', '2025-03-31', 42.2, 0.165746, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2025Q1', '2025-03-31', 15.84, 0.142033, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2025Q1', '2025-03-31', 15.84, 0.142033, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2025Q1', '2025-03-31', 15.52, -0.118683, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2025Q1', '2025-03-31', 15.52, -0.118683, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2025Q1', '2025-03-31', 44.07, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2025Q1', '2025-03-31', 44.07, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2025Q1', '2025-03-31', 42.91, 2.017581, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2025Q1', '2025-03-31', 42.91, 2.017581, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2025Q1', '2025-03-31', 21.24, 0.246479, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2025Q1', '2025-03-31', 21.24, 0.246479, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐付费用户', '单季', '百万人', '2025Q1', '2025-03-31', 122.9, 0.082819, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐付费用户', '单季', '百万人', '2025Q1', '2025-03-31', 122.9, 0.082819, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '单个付费用户月均收入（ARPPU）', '单季', '元', '2025Q1', '2025-03-31', 11.4, 0.075472, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '单个付费用户月均收入（ARPPU）', '单季', '元', '2025Q1', '2025-03-31', 11.4, 0.075472, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐月活跃用户', '单季', '百万人', '2025Q1', '2025-03-31', 555, -0.039792, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐月活跃用户', '单季', '百万人', '2025Q1', '2025-03-31', 555, -0.039792, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2025Q2', '2025-06-30', 84.42, 0.17905, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2025Q2', '2025-06-30', 84.42, 0.17905, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2025Q2', '2025-06-30', 68.54, 0.263643, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2025Q2', '2025-06-30', 68.54, 0.263643, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2025Q2', '2025-06-30', 43.8, 0.171123, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2025Q2', '2025-06-30', 43.8, 0.171123, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2025Q2', '2025-06-30', 24.74, 0.469121, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2025Q2', '2025-06-30', 24.74, 0.469121, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2025Q2', '2025-06-30', 15.88, -0.085253, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2025Q2', '2025-06-30', 15.88, -0.085253, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2025Q2', '2025-06-30', 44.41, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2025Q2', '2025-06-30', 44.41, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2025Q2', '2025-06-30', 24.09, 0.432224, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2025Q2', '2025-06-30', 24.09, 0.432224, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2025Q2', '2025-06-30', 25.74, 0.374266, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2025Q2', '2025-06-30', 25.74, 0.374266, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐付费用户', '单季', '百万人', '2025Q2', '2025-06-30', 124.4, 0.063248, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐付费用户', '单季', '百万人', '2025Q2', '2025-06-30', 124.4, 0.063248, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '单个付费用户月均收入（ARPPU）', '单季', '元', '2025Q2', '2025-06-30', 11.7, 0.093458, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '单个付费用户月均收入（ARPPU）', '单季', '元', '2025Q2', '2025-06-30', 11.7, 0.093458, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐月活跃用户', '单季', '百万人', '2025Q2', '2025-06-30', 553, -0.031524, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐月活跃用户', '单季', '百万人', '2025Q2', '2025-06-30', 553, -0.031524, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2025Q3', '2025-09-30', 84.63, 0.206415, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2025Q3', '2025-09-30', 84.63, 0.206415, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2025Q3', '2025-09-30', 69.69, 0.271715, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2025Q3', '2025-09-30', 69.69, 0.271715, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2025Q3', '2025-09-30', 45.0, 0.171875, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2025Q3', '2025-09-30', 45.0, 0.171875, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2025Q3', '2025-09-30', 24.69, 0.505488, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2025Q3', '2025-09-30', 24.69, 0.505488, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2025Q3', '2025-09-30', 14.94, -0.02671, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2025Q3', '2025-09-30', 14.94, -0.02671, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2025Q3', '2025-09-30', 43.51, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2025Q3', '2025-09-30', 43.51, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2025Q3', '2025-09-30', 21.53, 0.360076, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2025Q3', '2025-09-30', 21.53, 0.360076, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2025Q3', '2025-09-30', 24.05, 0.325799, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2025Q3', '2025-09-30', 24.05, 0.325799, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐付费用户', '单季', '百万人', '2025Q3', '2025-09-30', 125.7, 0.056303, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐付费用户', '单季', '百万人', '2025Q3', '2025-09-30', 125.7, 0.056303, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '单个付费用户月均收入（ARPPU）', '单季', '元', '2025Q3', '2025-09-30', 11.9, 0.101852, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '单个付费用户月均收入（ARPPU）', '单季', '元', '2025Q3', '2025-09-30', 11.9, 0.101852, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐月活跃用户', '单季', '百万人', '2025Q3', '2025-09-30', 551, -0.043403, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐月活跃用户', '单季', '百万人', '2025Q3', '2025-09-30', 551, -0.043403, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2025Q4', '2025-12-31', 86.41, 0.158622, '待判断', NULL, '2026-03-17 发布：宣布停止披露季度月活、付费用户和 ARPPU；美股次日 −24.7%。', '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2025Q4', '2025-12-31', 86.41, 0.158622, '2026-03-17 发布：宣布停止披露季度月活、付费用户和 ARPPU；美股次日 −24.7%。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2025Q4', '2025-12-31', 70.99, 0.217458, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2025Q4', '2025-12-31', 70.99, 0.217458, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2025Q4', '2025-12-31', 45.6, 0.131514, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2025Q4', '2025-12-31', 45.6, 0.131514, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2025Q4', '2025-12-31', 25.39, 0.409772, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2025Q4', '2025-12-31', 25.39, 0.409772, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2025Q4', '2025-12-31', 15.42, -0.052243, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2025Q4', '2025-12-31', 15.42, -0.052243, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2025Q4', '2025-12-31', 44.69, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2025Q4', '2025-12-31', 44.69, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2025Q4', '2025-12-31', 22.03, 0.125703, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2025Q4', '2025-12-31', 22.03, 0.125703, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2025Q4', '2025-12-31', 24.85, 0.089912, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2025Q4', '2025-12-31', 24.85, 0.089912, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐付费用户', '单季', '百万人', '2025Q4', '2025-12-31', 127.4, 0.052893, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐付费用户', '单季', '百万人', '2025Q4', '2025-12-31', 127.4, 0.052893, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '单个付费用户月均收入（ARPPU）', '单季', '元', '2025Q4', '2025-12-31', 11.9, 0.072072, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '单个付费用户月均收入（ARPPU）', '单季', '元', '2025Q4', '2025-12-31', 11.9, 0.072072, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐月活跃用户', '单季', '百万人', '2025Q4', '2025-12-31', 528, -0.05036, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '在线音乐月活跃用户', '单季', '百万人', '2025Q4', '2025-12-31', 528, -0.05036, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2026Q1', '2026-03-31', 78.95, 0.073274, '待判断', NULL, '“在线音乐服务”更名为“音乐相关服务”（含长音频）；会员服务同比 +6.6%（重述口径）。', '已入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2026Q1', '2026-03-31', 78.95, 0.073274, '“在线音乐服务”更名为“音乐相关服务”（含长音频）；会员服务同比 +6.6%（重述口径）。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2026Q1', '2026-03-31', 65.14, 0.122329, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2026Q1', '2026-03-31', 65.14, 0.122329, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2026Q1', '2026-03-31', 45.68, 0.066293, '待判断', NULL, '2026 年起为“会员服务”（含长音频）；同比按重述后的 2025Q1 数 42.84 亿元计算。', '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2026Q1', '2026-03-31', 45.68, 0.066293, '2026 年起为“会员服务”（含长音频）；同比按重述后的 2025Q1 数 42.84 亿元计算。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2026Q1', '2026-03-31', 19.46, 0.280263, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2026Q1', '2026-03-31', 19.46, 0.280263, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2026Q1', '2026-03-31', 13.81, -0.11018, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2026Q1', '2026-03-31', 13.81, -0.11018, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2026Q1', '2026-03-31', 44.91, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2026Q1', '2026-03-31', 44.91, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2026Q1', '2026-03-31', 20.91, -0.512701, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2026Q1', '2026-03-31', 20.91, -0.512701, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2026Q1', '2026-03-31', 22.73, 0.070151, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2026Q1', '2026-03-31', 22.73, 0.070151, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2026Q2', '2026-06-30', 89.33, 0.058162, '待判断', NULL, '喜马拉雅 5 月 18 日起并表，贡献收入 4.07 亿元；剔除后会员内生增长约持平（摩根大通估算）；回购 4.0 亿美元。', '已入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2026Q2', '2026-06-30', 89.33, 0.058162, '喜马拉雅 5 月 18 日起并表，贡献收入 4.07 亿元；剔除后会员内生增长约持平（摩根大通估算）；回购 4.0 亿美元。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2026Q2', '2026-06-30', 76.05, 0.109571, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '音乐相关服务收入', '单季', '亿元', '2026Q2', '2026-06-30', 76.05, 0.109571, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2026Q2', '2026-06-30', 47.92, 0.08074, '待判断', NULL, '2026 年起为“会员服务”（含长音频）；同比按重述后的 2025Q2 数 44.34 亿元计算。', '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '会员（订阅）收入', '单季', '亿元', '2026Q2', '2026-06-30', 47.92, 0.08074, '2026 年起为“会员服务”（含长音频）；同比按重述后的 2025Q2 数 44.34 亿元计算。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2026Q2', '2026-06-30', 28.13, 0.162397, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非订阅音乐收入（广告、演出、周边）', '单季', '亿元', '2026Q2', '2026-06-30', 28.13, 0.162397, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2026Q2', '2026-06-30', 13.28, -0.163728, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '社交娱乐及其他收入', '单季', '亿元', '2026Q2', '2026-06-30', 13.28, -0.163728, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2026Q2', '2026-06-30', 44.21, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '单季', '%', '2026Q2', '2026-06-30', 44.21, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2026Q2', '2026-06-30', 24.71, 0.025737, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '单季', '亿元', '2026Q2', '2026-06-30', 24.71, 0.025737, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2026Q2', '2026-06-30', 26.86, 0.043512, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '非国际财务报告准则归母净利润', '单季', '亿元', '2026Q2', '2026-06-30', 26.86, 0.043512, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '订阅收入', '全年', '亿元', '2021', '2021-12-31', 73.33, NULL, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2022、2023 年第四季度业绩公告与 2023 年年报（经营指标片段）' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '订阅收入', '全年', '亿元', '2021', '2021-12-31', 73.33, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2022、2023 年第四季度业绩公告与 2023 年年报（经营指标片段）' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '订阅收入', '全年', '亿元', '2022', '2022-12-31', 86.99, 0.186281, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2022、2023 年第四季度业绩公告与 2023 年年报（经营指标片段）' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '订阅收入', '全年', '亿元', '2022', '2022-12-31', 86.99, 0.186281, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2022、2023 年第四季度业绩公告与 2023 年年报（经营指标片段）' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '订阅收入', '全年', '亿元', '2023', '2023-12-31', 120.96, 0.390505, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2022、2023 年第四季度业绩公告与 2023 年年报（经营指标片段）' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '订阅收入', '全年', '亿元', '2023', '2023-12-31', 120.96, 0.390505, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2022、2023 年第四季度业绩公告与 2023 年年报（经营指标片段）' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '订阅收入', '全年', '亿元', '2024', '2024-12-31', 152.3, 0.259094, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '订阅收入', '全年', '亿元', '2024', '2024-12-31', 152.3, 0.259094, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '订阅收入', '全年', '亿元', '2025', '2025-12-31', 176.6, 0.159554, '待判断', NULL, NULL, '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '订阅收入', '全年', '亿元', '2025', '2025-12-31', 176.6, 0.159554, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '现金、定期存款和短期投资', '单季', '亿元', '2025Q3', '2025-09-30', 360.8, NULL, '待判断', NULL, '季末余额', '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '现金、定期存款和短期投资', '单季', '亿元', '2025Q3', '2025-09-30', 360.8, NULL, '季末余额', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '现金、定期存款和短期投资', '单季', '亿元', '2025Q4', '2025-12-31', 380.4, NULL, '待判断', NULL, '季末余额', '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '现金、定期存款和短期投资', '单季', '亿元', '2025Q4', '2025-12-31', 380.4, NULL, '季末余额', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '现金、定期存款和短期投资', '单季', '亿元', '2026Q1', '2026-03-31', 410.0, NULL, '待判断', NULL, '季末余额', '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '现金、定期存款和短期投资', '单季', '亿元', '2026Q1', '2026-03-31', 410.0, NULL, '季末余额', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '现金、定期存款和短期投资', '单季', '亿元', '2026Q2', '2026-06-30', 442.2, NULL, '待判断', NULL, '季末余额；同期新增借款 131.4 亿元。', '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '现金、定期存款和短期投资', '单季', '亿元', '2026Q2', '2026-06-30', 442.2, NULL, '季末余额；同期新增借款 131.4 亿元。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '带息负债（借款＋票据＋租赁）', '单季', '亿元', '2026Q2', '2026-06-30', 168.84, NULL, '待判断', NULL, '季末余额：借款 131.39＋应付票据 33.90＋租赁负债 3.55。', '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '带息负债（借款＋票据＋租赁）', '单季', '亿元', '2026Q2', '2026-06-30', 168.84, NULL, '季末余额：借款 131.39＋应付票据 33.90＋租赁负债 3.55。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '回购金额', '单季', '亿美元', '2025Q1', '2025-03-31', 0.645, NULL, '待判断', NULL, '590 万股 ADS，均价 10.8 美元。', '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '回购金额', '单季', '亿美元', '2025Q1', '2025-03-31', 0.645, NULL, '590 万股 ADS，均价 10.8 美元。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '回购金额', '单季', '亿美元', '2026Q2', '2026-06-30', 4.0, NULL, '待判断', NULL, '4,350 万股 ADS，均价 9.2 美元。', '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '回购金额', '单季', '亿美元', '2026Q2', '2026-06-30', 4.0, NULL, '4,350 万股 ADS，均价 9.2 美元。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2026 年第二季度未经审计财务业绩公告' LIMIT 1));
 
-SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '竞品月活：汽水音乐', '单季', '百万人', '2026Q3', '2026-07-31', 170, NULL, '待判断', NULL, '2026 年 7 月数据（第三方监测）：日活 5,969 万；番茄音乐月活 4,553 万。', '无需入模', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '行业竞争资料：汽水音乐、番茄音乐用户规模与定价' LIMIT 1));
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '竞品月活：汽水音乐', '单季', '百万人', '2026Q3', '2026-07-31', 170, NULL, '2026 年 7 月数据（第三方监测）：日活 5,969 万；番茄音乐月活 4,553 万。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '行业竞争资料：汽水音乐、番茄音乐用户规模与定价' LIMIT 1));
 
 INSERT INTO vi_model_base (company_id, name, status, method, base_year, terminal_year, shares, rf, rf_date, rf_metric_id, erp,
   opening_debt, opening_op_assets, opening_lt_invest, opening_equity, opening_minority, required_return, margin_low, margin_high, notes,
@@ -804,24 +807,6 @@ INSERT INTO vi_lnk_trial_judgments (trial_id, judgment_id, "createdAt", "updated
 SELECT t.id, j.id, now(), now() FROM (VALUES ('订阅被分流：收入 −5%（利润率不变）', 'J-Q'), ('超级会员提价成功：收入 +5%（利润率不变）', 'J-P'), ('毛利率 −2pt（演出占比上升、版权成本上涨）', 'J-M'), ('经营效率 +1pt', 'J-M'), ('借钱回购：利息 +5 亿元/年', 'J-DEBT'), ('要求回报上升：折现率 +1%', 'J-R')) v(tn, jc)
 JOIN vi_trial_base t ON t.model_id = (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '腾讯音乐 分部加总＋股息贴现（2025 年末基准）') AND t.name = v.tn JOIN vi_judgment_base j ON j.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND j.code = v.jc;
 
-INSERT INTO vi_watch_base (company_id, code, title, metric_id, frequency, preferred_source, trigger, action, nature) VALUES
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'W1', '股价与隐含收益率', (SELECT id FROM vi_metric_base WHERE code = '01698.HK.PRICE'), '交易日', '腾讯行情（自动）', '隐含年化收益率高于要求收益率 3 个百分点以上，或低于要求收益率', '复核情景与股东回报率假设；研究提示，不是交易指令', '研究预警，不是交易指令'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'W2', '会员服务收入同比（剔除喜马拉雅）', NULL, '季度', '季度业绩公告、业绩会', '连续两个季度同比为负', '复核 J-Q、J-P 与论点 T3', '研究预警，不是交易指令'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'W3', '汽水音乐、番茄音乐月活与付费', NULL, '月度', 'QuestMobile、行业研报', '汽水月活超过 2.5 亿或推出更低价会员', '复核论点 T3 与悲观情景', '研究预警，不是交易指令'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'W4', '毛利率', NULL, '季度', '季度业绩公告', '单季毛利率低于 42%', '复核 J-M 与论点 T1', '研究预警，不是交易指令'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'W5', '回购执行与新回购计划', NULL, '季度', '业绩公告、港交所回购公告', '新一轮回购计划公布（规模、期限）；或回购明显放缓而股价低于 9 美元', '复核 J-PAYOUT、J-CASH', '研究预警，不是交易指令'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'W6', '喜马拉雅收入与利润贡献', NULL, '季度', '业绩公告、年报分部或附注', '整合后收入下降或出现商誉减值', '复核论点 T4 与 J-CAPEX', '研究预警，不是交易指令'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'W7', '现金、借款与美元票据', NULL, '季度', '资产负债表', '净现金低于 150 亿元，或带息负债超过 250 亿元', '复核 J-DEBT、J-CASH 与论点 T7', '研究预警，不是交易指令'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'W8', '年末付费用户总数', NULL, '年度', '年报（2027 年 3 月）', '2026 年末低于 1.22 亿（−4%）', '复核 J-Q；必要时转用悲观情景', '研究预警，不是交易指令'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'W9', 'AI 音乐与版权政策', NULL, '季度', '监管部门、行业协会、唱片公司', 'AI 翻唱或生成音乐的版权规则落地', '复核论点 T1 与产业链 V9（AI）、V11（监管）', '研究预警，不是交易指令'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'W10', '港元兑人民币', (SELECT id FROM vi_metric_base WHERE code = 'HKDCNY'), '交易日', '腾讯外汇（自动）', '一个月内变动超过 3%', '记录：只影响人民币口径的市场价，不改经营假设', '研究预警，不是交易指令'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'W11', '对外持股市值（Spotify、UMG）', NULL, '季度', '资产负债表的金融资产；Spotify、UMG 股价', '金融资产较上季变动超过 20%', '更新分部估值项 C5 的金额', '研究预警，不是交易指令'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'W12', '市场隐含核心倍数', NULL, '交易日', '分部加总估值（自动计算）', '隐含倍数升到 10 倍以上，或核心盈利预测下调 10% 以上', '复核合理倍数与核心盈利（J-SOTP-M、J-SOTP-E）', '研究预警，不是交易指令');
-
-INSERT INTO vi_lnk_watch_judgments (watch_id, judgment_id, "createdAt", "updatedAt")
-SELECT w.id, j.id, now(), now() FROM (VALUES ('W1', 'J-R'), ('W2', 'J-Q'), ('W2', 'J-P'), ('W3', 'J-Q'), ('W4', 'J-M'), ('W5', 'J-PAYOUT'), ('W5', 'J-CASH'), ('W6', 'J-CAPEX'), ('W7', 'J-DEBT'), ('W7', 'J-CASH'), ('W8', 'J-Q'), ('W9', 'J-TV'), ('W10', 'J-FX'), ('W11', 'J-SOTP-I'), ('W12', 'J-SOTP-M'), ('W12', 'J-SOTP-E')) v(wc, jc)
-JOIN vi_watch_base w ON w.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND w.code = v.wc JOIN vi_judgment_base j ON j.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND j.code = v.jc;
-
 INSERT INTO vi_issue_base (company_id, code, title, severity, impact, done_condition, status, progress) VALUES
 ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'Q01', '安全边际选 10% 还是 30%', '策略', '关注价', '用户确定交易纪律后在估值模型里只保留一档。', '待处理', '两档并列展示（与其他三家公司一致）。'),
 ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 'Q02', '经营假设待核验（付费用户、收入、利润率、股东回报）', '关键', '2026—2035 年全部情景', '三季报（2026 年 11 月中旬）与年报出来后对照修正，逐年标记“已核验”。', '待处理', '三季报重点：剔除喜马拉雅后的会员收入同比、毛利率是否守住 43%、新一轮回购计划。'),
@@ -838,5 +823,2454 @@ INSERT INTO vi_change_log_base (company_id, change_date, title, target, old_valu
 ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026-10-22', '补充商业与壁垒：商业模式、产业链与五力、竞争对手、竞争壁垒、多空辩论、适配度', '新增六张表的内容；新增 4 个来源、11 张事实卡', '框架没有商业模式、产业链、竞对与壁垒的结构化分析', '商业模式 9 个要素；产业链 11 个环节（含五力归类）；竞争对手 6 个；候选壁垒 9 项（真实 1：上游议价权；局部优势 3：曲库、转换成本、腾讯生态；待验证 1：IP 与粉丝经济；伪壁垒 4）；多空辩论 5 场（正方占优 1、势均力敌 2、反方占优 2）；适配度 25/40（可研究，更偏现金流价值）', '用户要求补充竞争壁垒、商业模式、竞对和产业链分析，并用辩论方式对抗检验', '岗底斯：卖方行业深度（国信、中金、长江、中信建投）、行业交流纪要、网易云中报点评、汽水音乐专题；公司公告。岗底斯观点 PK 三次调用均超时，辩论由本研究组织', '新增关联 11 张表的条数与脚本预期一致；壁垒自动检查（毛利率、付费用户同比）未触发；估值与论点检查结果不变'),
 ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026-10-22', '主估值改为分部加总，股息贴现作交叉验证', '估值模型、情景、分部估值项；新增判断 J-SOTP-E、J-SOTP-M、J-SOTP-C、J-SOTP-I', '股息贴现（股息＋回购）为唯一估值：基准 44.58 元；现金只释放约 100 亿元，对外投资不计入', '核心盈利 90.1 亿元（2027 年）×13.1 倍＋可用净现金 231.7 亿元＋对外投资（折后）159.9 亿元−少数股东 28.0 亿元：基准每股 49.10 元；悲观 29.27 元、乐观 72.84 元；市场隐含核心倍数约 5.5 倍', '用户要求按“核心业务盈利×合理倍数＋可用净现金＋对外投资”估值，并做深度优化', '2026 年二季报资产负债表；2025 年年报未分派利润与预提税；收购摊销；同业与卖方倍数；价值驱动公式', 'Python 独立复算三情景的核心盈利、倍数、可用净现金、对外投资与每股价值，与数据库视图一致'),
 ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026-10-23', '商业模式分析重构：论点与多空辩论合并，同一观点只写一处', '论点与辩论、竞争壁垒、商业模式、产业链与五力、适配度的关联，参数判断与跟踪事项里的论点编号', '投资论点 10 条＋多空辩论 5 场，分在“研究”“商业与壁垒”两组；同一观点在论点、辩论、壁垒、产业链里重复（例如版权护城河同时写在 T1、D1、M1、M2、V2）', '论点与辩论 7 条（辩论过 5 条，带自动检查 6 条）：T1 上游议价权与曲库（原 T1＋D1）、T2 腾讯生态入口（原 D4）、T3 免费模式只分流轻度用户（原 T2＋D2＋T8）、T4 多元变现（原 T3＋D3＋T7）、T5 治理与股东回报（原 T5＋D5＋T9）、T6 利润是真现金（原 T4）、T7 借钱回购但保持净现金（原 T6）；原 T10（监管）并入产业链 V11。商业模式、产业链、竞争壁垒里与论点重复的论证改成按编号引用；产业链的同业、进入者、替代品关联到具体对手。原 T2 标“存疑”与辩论 D2 的“势均力敌”不一致，按辩论记为“观察”。', '用户要求把“研究”和“商业与壁垒”合并为“商业模式分析”，尽量减少冗余、确保内容完整', '框架迁移 2026-10-23d（多空辩论并入论点：正方占优→成立、势均力敌→观察、反方占优→存疑）；内容来自原论点、辩论与各表，没有新增研究结论', 'tools/content_audit.py：重构前研究文字里 432 个带单位的数字，重构后只有 1 个找不到（“28 元”，J-PAYOUT 里写作“28.0 元”）；行与行之间共有的长片段从 57 对降到 38 对（剩下的多是事实卡与引用它的行）。估值不变：股息贴现 24.51、44.59、66.65 元，分部加总 29.27、49.10、72.84 元；C09、C14、C15、C16 通过，5 项非伪壁垒都关联了辩论过的论点。');
+
+DELETE FROM vi_fin_stmt_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
+
+INSERT INTO vi_fin_stmt_base (company_id, period, period_end, stmt, item, seq, amount) VALUES
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '物业厂房及设备', 1, 15.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '无形资产', 2, 58.95),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '商誉', 3, 297.57),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '土地使用权', 4, 22.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '递延税项资产', 5, 6.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '预付款项', 6, 4.45),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '其他投资', 7, 36.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '指定以公允价值记账之金融资产', 8, 191.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '中长期存款', 9, 136.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '非流动资产其他项目', 10, 3.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '非流动资产合计', 11, 772.58),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '存货', 12, 0.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '应收帐款', 13, 41.84),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '预付款按金及其他应收款', 14, 47.45),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '短期投资', 15, 1.95),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '受限制存款及现金', 16, 0.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '现金及等价物', 17, 236.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '短期存款', 18, 67.61),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '流动资产合计', 19, 396.89),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '总资产', 20, 1169.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '应付帐款', 21, 67.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '应付税项', 22, 9.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '融资租赁负债(流动)', 23, 1.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '递延收入(流动)', 24, 44.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '其他应付款及应计费用', 25, 44.51),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '短期贷款', 26, 59.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '流动负债合计', 27, 227.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '净流动资产', 28, 169.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '总资产减流动负债', 29, 942.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '长期贷款', 30, 71.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '递延税项负债', 31, 14.62),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '融资租赁负债(非流动)', 32, 2.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '递延收入(非流动)', 33, 4.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '长期应付款', 34, 4.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '应付票据(非流动)', 35, 33.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '非流动负债合计', 36, 131.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '总负债', 37, 358.74),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '少数股东权益', 38, 28.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '净资产', 39, 810.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '保留溢利(累计亏损)', 41, 311.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '公积金', 42, 349.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '其他储备', 43, 156.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '库存股', 44, -33.89),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '股东权益', 45, 782.72),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '总权益', 46, 810.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '总权益及非流动负债', 47, 942.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '资产负债表', '总权益及总负债', 48, 1169.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '物业厂房及设备', 1, 13.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '无形资产', 2, 27.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '商誉', 3, 205.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '土地使用权', 4, 22.72),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '递延税项资产', 5, 5.35),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '预付款项', 6, 4.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '其他投资', 7, 28.92),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '指定以公允价值记账之金融资产', 8, 198.66),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '中长期存款', 9, 143.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '非流动资产其他项目', 10, 2.72),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '非流动资产合计', 11, 651.84),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '存货', 12, 0.48),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '应收帐款', 13, 38.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '预付款按金及其他应收款', 14, 40.36),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '短期投资', 15, 0.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '受限制存款及现金', 16, 0.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '现金及等价物', 17, 184.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '短期存款', 18, 82.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '流动资产合计', 19, 346.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '总资产', 20, 998.51),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '应付帐款', 21, 61.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '应付税项', 22, 10.59),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '融资租赁负债(流动)', 23, 1.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '递延收入(流动)', 24, 38.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '其他应付款及应计费用', 25, 54.6),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '流动负债合计', 27, 166.21),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '净流动资产', 28, 180.46),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '总资产减流动负债', 29, 832.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '长期贷款', 30, 11.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '递延税项负债', 31, 5.88),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '融资租赁负债(非流动)', 32, 1.88),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '递延收入(非流动)', 33, 3.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '长期应付款', 34, 4.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '应付票据(非流动)', 35, 34.43),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '非流动负债合计', 36, 61.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '总负债', 37, 227.21),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '少数股东权益', 38, 27.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '净资产', 39, 771.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '保留溢利(累计亏损)', 41, 286.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '公积金', 42, 300.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '其他储备', 43, 163.35),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '库存股', 44, -6.64),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '股东权益', 45, 743.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '总权益', 46, 771.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '总权益及非流动负债', 47, 832.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '资产负债表', '总权益及总负债', 48, 998.51),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '物业厂房及设备', 1, 12.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '无形资产', 2, 28.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '商誉', 3, 205.21),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '土地使用权', 4, 22.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '递延税项资产', 5, 4.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '预付款项', 6, 3.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '其他投资', 7, 19.62),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '指定以公允价值记账之金融资产', 8, 262.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '中长期存款', 9, 138.1),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '非流动资产其他项目', 10, 2.87),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '非流动资产合计', 11, 700.64),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '存货', 12, 0.41),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '应收帐款', 13, 39.03),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '预付款按金及其他应收款', 14, 41.83),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '短期投资', 15, 0.83),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '受限制存款及现金', 16, 0.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '现金及等价物', 17, 84.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '短期存款', 18, 157.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '流动资产合计', 19, 324.58),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '总资产', 20, 1025.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '应付帐款', 21, 62.84),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '应付税项', 22, 10.92),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '融资租赁负债(流动)', 23, 1.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '递延收入(流动)', 24, 35.39),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '其他应付款及应计费用', 25, 35.58),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '流动负债合计', 27, 145.89),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '净流动资产', 28, 178.69),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '总资产减流动负债', 29, 879.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '递延税项负债', 31, 5.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '融资租赁负债(非流动)', 32, 2.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '递延收入(非流动)', 33, 3.03),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '长期应付款', 34, 3.79),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '应付票据(非流动)', 35, 34.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '非流动负债合计', 36, 48.83),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '总负债', 37, 194.72),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '少数股东权益', 38, 27.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '净资产', 39, 830.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '保留溢利(累计亏损)', 41, 293.81),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '公积金', 42, 299.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '其他储备', 43, 216.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '库存股', 44, -6.64),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '股东权益', 45, 802.87),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '总权益', 46, 830.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '总权益及非流动负债', 47, 879.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '资产负债表', '总权益及总负债', 48, 1025.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '物业厂房及设备', 1, 10.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '无形资产', 2, 29.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '商誉', 3, 205.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '土地使用权', 4, 23.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '递延税项资产', 5, 5.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '预付款项', 6, 3.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '其他投资', 7, 21.61),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '指定以公允价值记账之金融资产', 8, 309.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '中长期存款', 9, 138.1),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '非流动资产其他项目', 10, 3.09),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '非流动资产合计', 11, 749.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '存货', 12, 0.57),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '应收帐款', 13, 36.82),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '预付款按金及其他应收款', 14, 38.43),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '短期投资', 15, 0.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '受限制存款及现金', 16, 0.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '现金及等价物', 17, 112.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '短期存款', 18, 110.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '流动资产合计', 19, 299.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '总资产', 20, 1048.66),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '应付帐款', 21, 66.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '应付税项', 22, 9.48),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '融资租赁负债(流动)', 23, 1.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '递延收入(流动)', 24, 34.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '其他应付款及应计费用', 25, 32.69),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '流动负债合计', 27, 143.48),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '净流动资产', 28, 155.69),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '总资产减流动负债', 29, 905.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '递延税项负债', 31, 6.79),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '融资租赁负债(非流动)', 32, 2.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '递延收入(非流动)', 33, 2.8),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '长期应付款', 34, 3.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '应付票据(非流动)', 35, 35.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '非流动负债合计', 36, 50.85),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '总负债', 37, 194.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '少数股东权益', 38, 26.82),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '净资产', 39, 854.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '保留溢利(累计亏损)', 41, 271.88),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '公积金', 42, 298.95),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '其他储备', 43, 263.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '库存股', 44, -6.64),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '股东权益', 45, 827.51),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '总权益', 46, 854.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '总权益及非流动负债', 47, 905.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '资产负债表', '总权益及总负债', 48, 1048.66),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '物业厂房及设备', 1, 9.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '无形资产', 2, 30.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '商誉', 3, 204.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '土地使用权', 4, 23.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '递延税项资产', 5, 4.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '预付款项', 6, 2.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '其他投资', 7, 21.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '指定以公允价值记账之金融资产', 8, 342.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '中长期存款', 9, 127.69),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '非流动资产其他项目', 10, 3.1),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '非流动资产合计', 11, 769.96),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '存货', 12, 0.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '应收帐款', 13, 37.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '预付款按金及其他应收款', 14, 49.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '短期投资', 15, 0.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '受限制存款及现金', 16, 0.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '现金及等价物', 17, 109.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '短期存款', 18, 111.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '流动资产合计', 19, 308.77),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '总资产', 20, 1078.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '应付帐款', 21, 69.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '应付票据', 49, 21.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '应付税项', 22, 8.51),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '融资租赁负债(流动)', 23, 1.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '递延收入(流动)', 24, 34.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '其他应付款及应计费用', 25, 30.1),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '流动负债合计', 27, 164.96),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '净流动资产', 28, 143.81),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '总资产减流动负债', 29, 913.77),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '递延税项负债', 31, 6.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '融资租赁负债(非流动)', 32, 2.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '递延收入(非流动)', 33, 2.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '长期应付款', 34, 3.45),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '应付票据(非流动)', 35, 35.59),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '非流动负债合计', 36, 50.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '总负债', 37, 214.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '少数股东权益', 38, 24.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '净资产', 39, 863.75),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '保留溢利(累计亏损)', 41, 250.36),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '公积金', 42, 294.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '其他储备', 43, 303.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '库存股', 44, -9.39),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '股东权益', 45, 838.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '总权益', 46, 863.75),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '总权益及非流动负债', 47, 913.77),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '资产负债表', '总权益及总负债', 48, 1078.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '物业厂房及设备', 1, 8.81),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '无形资产', 2, 20.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '商誉', 3, 196.48),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '土地使用权', 4, 23.45),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '递延税项资产', 5, 3.93),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '预付款项', 6, 3.12),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '其他投资', 7, 21.75),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '指定以公允价值记账之金融资产', 8, 247.8),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '中长期存款', 9, 110.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '非流动资产其他项目', 10, 3.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '非流动资产合计', 11, 639.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '存货', 12, 0.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '应收帐款', 13, 32.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '预付款按金及其他应收款', 14, 42.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '短期投资', 15, 0.48),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '受限制存款及现金', 16, 0.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '现金及等价物', 17, 120.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '短期存款', 18, 146.21),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '流动资产合计', 19, 341.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '总资产', 20, 980.84),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '应付帐款', 21, 72.96),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '应付票据', 49, 21.52),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '应付税项', 22, 9.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '融资租赁负债(流动)', 23, 1.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '递延收入(流动)', 24, 33.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '其他应付款及应计费用', 25, 48.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '流动负债合计', 27, 186.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '净流动资产', 28, 155.46),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '总资产减流动负债', 29, 794.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '递延税项负债', 31, 2.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '融资租赁负债(非流动)', 32, 2.51),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '递延收入(非流动)', 33, 2.09),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '应付票据(非流动)', 35, 35.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '非流动负债合计', 36, 42.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '总负债', 37, 228.85),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '少数股东权益', 38, 19.62),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '净资产', 39, 751.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '保留溢利(累计亏损)', 41, 226.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '公积金', 42, 291.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '其他储备', 43, 224.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '库存股', 44, -10.09),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '股东权益', 45, 732.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '总权益', 46, 751.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '总权益及非流动负债', 47, 794.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '资产负债表', '总权益及总负债', 48, 980.84),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '物业厂房及设备', 1, 8.03),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '无形资产', 2, 20.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '商誉', 3, 196.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '土地使用权', 4, 23.64),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '递延税项资产', 5, 4.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '预付款项', 6, 4.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '其他投资', 7, 49.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '指定以公允价值记账之金融资产', 8, 144.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '中长期存款', 9, 104.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '非流动资产其他项目', 10, 2.95),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '非流动资产合计', 11, 559.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '存货', 12, 0.23),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '应收帐款', 13, 35.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '预付款按金及其他应收款', 14, 37.93),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '短期投资', 15, 0.46),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '受限制存款及现金', 16, 0.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '现金及等价物', 17, 131.64),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '短期存款', 18, 139.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '流动资产合计', 19, 345.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '总资产', 20, 904.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '应付帐款', 21, 68.79),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '应付票据', 49, 21.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '应付税项', 22, 9.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '融资租赁负债(流动)', 23, 1.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '递延收入(流动)', 24, 30.96),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '其他应付款及应计费用', 25, 33.81),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '流动负债合计', 27, 165.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '净流动资产', 28, 179.94),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '总资产减流动负债', 29, 738.94),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '递延税项负债', 31, 1.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '融资租赁负债(非流动)', 32, 2.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '递延收入(非流动)', 33, 1.79),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '应付票据(非流动)', 35, 35.72),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '非流动负债合计', 36, 41.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '总负债', 37, 207.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '少数股东权益', 38, 18.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '净资产', 39, 697.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '保留溢利(累计亏损)', 41, 200.51),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '公积金', 42, 290.35),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '其他储备', 43, 193.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '库存股', 44, -5.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '股东权益', 45, 678.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '总权益', 46, 697.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '总权益及非流动负债', 47, 738.94),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '资产负债表', '总权益及总负债', 48, 904.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '物业厂房及设备', 1, 7.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '无形资产', 2, 19.96),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '商誉', 3, 196.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '土地使用权', 4, 23.82),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '递延税项资产', 5, 3.88),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '预付款项', 6, 4.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '其他投资', 7, 48.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '指定以公允价值记账之金融资产', 8, 117.77),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '中长期存款', 9, 75.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '非流动资产其他项目', 10, 3.12),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '非流动资产合计', 11, 500.87),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '存货', 12, 0.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '应收帐款', 13, 29.35),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '预付款按金及其他应收款', 14, 30.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '短期投资', 15, 0.48),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '受限制存款及现金', 16, 0.1),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '现金及等价物', 17, 102.09),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '短期存款', 18, 183.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '流动资产合计', 19, 345.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '总资产', 20, 846.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '应付帐款', 21, 65.23),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '应付票据', 49, 20.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '应付税项', 22, 8.23),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '融资租赁负债(流动)', 23, 1.09),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '递延收入(流动)', 24, 29.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '其他应付款及应计费用', 25, 27.86),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '流动负债合计', 27, 152.71),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '净流动资产', 28, 192.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '总资产减流动负债', 29, 693.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '递延税项负债', 31, 2.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '融资租赁负债(非流动)', 32, 2.35),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '递延收入(非流动)', 33, 1.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '应付票据(非流动)', 35, 34.81),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '非流动负债合计', 36, 41.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '总负债', 37, 193.84),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '少数股东权益', 38, 17.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '净资产', 39, 652.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '保留溢利(累计亏损)', 41, 181.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '公积金', 42, 367.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '其他储备', 43, 162.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '库存股', 44, -75.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '股东权益', 45, 634.85),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '总权益', 46, 652.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '总权益及非流动负债', 47, 693.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '资产负债表', '总权益及总负债', 48, 846.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '物业厂房及设备', 1, 5.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '无形资产', 2, 20.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '商誉', 3, 196.46),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '土地使用权', 4, 24.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '递延税项资产', 5, 3.69),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '预付款项', 6, 4.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '其他投资', 7, 50.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '指定以公允价值记账之金融资产', 8, 102.94),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '中长期存款', 9, 105.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '非流动资产其他项目', 10, 3.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '非流动资产合计', 11, 516.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '存货', 12, 0.14),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '应收帐款', 13, 30.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '预付款按金及其他应收款', 14, 31.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '短期投资', 15, 10.43),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '受限制存款及现金', 16, 0.07),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '现金及等价物', 17, 122.51),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '短期存款', 18, 112.53),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '流动资产合计', 19, 307.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '总资产', 20, 824.05),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '应付帐款', 21, 62.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '应付税项', 22, 6.96),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '融资租赁负债(流动)', 23, 1.12),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '递延收入(流动)', 24, 29.52),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '其他应付款及应计费用', 25, 32.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '流动负债合计', 27, 131.79),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '净流动资产', 28, 176.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '总资产减流动负债', 29, 692.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '递延税项负债', 31, 2.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '融资租赁负债(非流动)', 32, 2.43),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '递延收入(非流动)', 33, 1.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '应付票据(非流动)', 35, 56.74),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '非流动负债合计', 36, 63.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '总负债', 37, 195.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '少数股东权益', 38, 16.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '净资产', 39, 628.79),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '保留溢利(累计亏损)', 41, 165.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '公积金', 42, 366.43),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '其他储备', 43, 151.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '库存股', 44, -70.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '股东权益', 45, 612.09),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '总权益', 46, 628.79),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '总权益及非流动负债', 47, 692.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '资产负债表', '总权益及总负债', 48, 824.05),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '物业厂房及设备', 1, 5.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '无形资产', 2, 20.23),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '商誉', 3, 195.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '土地使用权', 4, 24.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '递延税项资产', 5, 3.6),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '预付款项', 6, 4.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '其他投资', 7, 46.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '指定以公允价值记账之金融资产', 8, 87.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '中长期存款', 9, 75.89),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '非流动资产其他项目', 10, 3.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '非流动资产合计', 11, 466.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '存货', 12, 0.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '应收帐款', 13, 28.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '预付款按金及其他应收款', 14, 30.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '短期投资', 15, 0.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '受限制存款及现金', 16, 0.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '现金及等价物', 17, 102.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '短期存款', 18, 163.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '流动资产合计', 19, 325.43),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '总资产', 20, 791.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '应付帐款', 21, 54.93),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '应付税项', 22, 6.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '融资租赁负债(流动)', 23, 0.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '递延收入(流动)', 24, 29.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '其他应付款及应计费用', 25, 29.36),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '流动负债合计', 27, 121.87),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '净流动资产', 28, 203.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '总资产减流动负债', 29, 669.89),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '递延税项负债', 31, 1.74),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '融资租赁负债(非流动)', 32, 2.57),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '递延收入(非流动)', 33, 1.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '应付票据(非流动)', 35, 56.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '非流动负债合计', 36, 62.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '总负债', 37, 184.21),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '少数股东权益', 38, 14.39),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '净资产', 39, 607.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '保留溢利(累计亏损)', 41, 183.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '公积金', 42, 365.59),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '其他储备', 43, 115.6),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '库存股', 44, -71.96),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '股东权益', 45, 593.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '总权益', 46, 607.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '总权益及非流动负债', 47, 669.89),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '资产负债表', '总权益及总负债', 48, 791.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '物业厂房及设备', 1, 4.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '无形资产', 2, 20.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '商誉', 3, 195.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '土地使用权', 4, 24.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '递延税项资产', 5, 3.52),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '预付款项', 6, 5.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '其他投资', 7, 45.81),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '指定以公允价值记账之金融资产', 8, 65.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '中长期存款', 9, 87.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '非流动资产其他项目', 10, 3.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '非流动资产合计', 11, 456.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '存货', 12, 0.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '应收帐款', 13, 29.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '预付款按金及其他应收款', 14, 34.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '短期投资', 15, 0.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '受限制存款及现金', 16, 0.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '现金及等价物', 17, 135.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '短期存款', 18, 99.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '流动资产合计', 19, 299.36),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '总资产', 20, 755.36),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '应付帐款', 21, 50.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '应付税项', 22, 5.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '融资租赁负债(流动)', 23, 1.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '递延收入(流动)', 24, 28.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '其他应付款及应计费用', 25, 34.72),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '流动负债合计', 27, 120.14),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '净流动资产', 28, 179.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '总资产减流动负债', 29, 635.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '递延税项负债', 31, 2.39),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '融资租赁负债(非流动)', 32, 2.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '递延收入(非流动)', 33, 1.48),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '应付票据(非流动)', 35, 56.36),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '非流动负债合计', 36, 63.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '总负债', 37, 183.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '少数股东权益', 38, 12.95),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '净资产', 39, 572.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '保留溢利(累计亏损)', 41, 169.69),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '公积金', 42, 365.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '其他储备', 43, 93.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '库存股', 44, -69.96),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '股东权益', 45, 559.07),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '总权益', 46, 572.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '总权益及非流动负债', 47, 635.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '资产负债表', '总权益及总负债', 48, 755.36),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '物业厂房及设备', 1, 4.36),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '无形资产', 2, 21.36),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '商誉', 3, 195.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '土地使用权', 4, 24.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '递延税项资产', 5, 3.75),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '预付款项', 6, 5.8),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '其他投资', 7, 46.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '中长期存款', 9, 87.69),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '非流动资产其他项目', 10, 58.92),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '非流动资产合计', 11, 448.77),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '存货', 12, 0.05),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '应收帐款', 13, 25.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '预付款按金及其他应收款', 14, 33.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '短期投资', 15, 0.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '受限制存款及现金', 16, 0.1),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '现金及等价物', 17, 123.81),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '短期存款', 18, 98.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '流动资产合计', 19, 280.79),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '总资产', 20, 729.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '应付帐款', 21, 50.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '应付税项', 22, 4.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '融资租赁负债(流动)', 23, 1.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '递延收入(流动)', 24, 25.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '其他应付款及应计费用', 25, 32.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '流动负债合计', 27, 114.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '净流动资产', 28, 166.66),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '总资产减流动负债', 29, 615.43),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '递延税项负债', 31, 2.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '融资租赁负债(非流动)', 32, 3.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '递延收入(非流动)', 33, 1.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '应付票据(非流动)', 35, 57.12),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '非流动负债合计', 36, 63.75),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '总负债', 37, 177.88),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '少数股东权益', 38, 12.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '净资产', 39, 551.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '保留溢利(累计亏损)', 41, 156.66),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '公积金', 42, 365.95),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '其他储备', 43, 82.1),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '库存股', 44, -65.39),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '股东权益', 45, 539.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '总权益', 46, 551.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '总权益及非流动负债', 47, 615.43),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '资产负债表', '总权益及总负债', 48, 729.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '物业厂房及设备', 1, 4.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '无形资产', 2, 21.95),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '商誉', 3, 195.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '土地使用权', 4, 24.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '递延税项资产', 5, 3.43),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '预付款项', 6, 6.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '其他投资', 7, 48.05),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '指定以公允价值记账之金融资产', 8, 55.92),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '中长期存款', 9, 75.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '非流动资产其他项目', 10, 3.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '非流动资产合计', 11, 438.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '存货', 12, 0.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '应收帐款', 13, 24.59),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '预付款按金及其他应收款', 14, 31.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '短期投资', 15, 0.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '受限制存款及现金', 16, 0.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '现金及等价物', 17, 129.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '短期存款', 18, 100.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '流动资产合计', 19, 286.03),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '总资产', 20, 724.66),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '应付帐款', 21, 52.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '应付税项', 22, 4.61),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '融资租赁负债(流动)', 23, 1.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '递延收入(流动)', 24, 24.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '其他应付款及应计费用', 25, 32.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '流动负债合计', 27, 114.41),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '净流动资产', 28, 171.62),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '总资产减流动负债', 29, 610.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '递延税项负债', 31, 1.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '融资租赁负债(非流动)', 32, 2.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '递延收入(非流动)', 33, 1.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '应付票据(非流动)', 35, 57.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '非流动负债合计', 36, 63.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '总负债', 37, 177.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '少数股东权益', 38, 11.35),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '净资产', 39, 547.12),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '保留溢利(累计亏损)', 41, 144.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '公积金', 42, 365.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '其他储备', 43, 85.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '库存股', 44, -59.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '股东权益', 45, 535.77),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '总权益', 46, 547.12),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '总权益及非流动负债', 47, 610.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '资产负债表', '总权益及总负债', 48, 724.66),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '物业厂房及设备', 1, 3.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '无形资产', 2, 22.89),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '商誉', 3, 195.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '土地使用权', 4, 24.62),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '递延税项资产', 5, 3.52),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '预付款项', 6, 5.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '其他投资', 7, 45.92),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '指定以公允价值记账之金融资产', 8, 46.94),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '中长期存款', 9, 80.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '非流动资产其他项目', 10, 3.62),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '非流动资产合计', 11, 432.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '存货', 12, 0.12),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '应收帐款', 13, 27.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '预付款按金及其他应收款', 14, 25.79),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '短期投资', 15, 0.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '受限制存款及现金', 16, 0.41),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '现金及等价物', 17, 121.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '短期存款', 18, 83.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '流动资产合计', 19, 258.45),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '总资产', 20, 691.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '应付帐款', 21, 53.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '应付税项', 22, 4.14),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '融资租赁负债(流动)', 23, 1.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '递延收入(流动)', 24, 23.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '其他应付款及应计费用', 25, 27.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '流动负债合计', 27, 109.8),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '净流动资产', 28, 148.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '总资产减流动负债', 29, 581.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '递延税项负债', 31, 1.93),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '融资租赁负债(非流动)', 32, 2.84),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '递延收入(非流动)', 33, 1.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '长期应付款', 34, 0.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '应付票据(非流动)', 35, 54.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '非流动负债合计', 36, 60.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '总负债', 37, 170.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '少数股东权益', 38, 10.83),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '净资产', 39, 520.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '保留溢利(累计亏损)', 41, 132.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '公积金', 42, 364.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '其他储备', 43, 74.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '库存股', 44, -60.88),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '股东权益', 45, 509.8),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '总权益', 46, 520.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '总权益及非流动负债', 47, 581.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '资产负债表', '总权益及总负债', 48, 691.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '物业厂房及设备', 1, 3.23),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '无形资产', 2, 23.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '商誉', 3, 194.93),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '土地使用权', 4, 24.8),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '递延税项资产', 5, 3.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '预付款项', 6, 7.09),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '其他投资', 7, 46.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '指定以公允价值记账之金融资产', 8, 31.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '中长期存款', 9, 65.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '非流动资产其他项目', 10, 3.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '非流动资产合计', 11, 404.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '存货', 12, 0.14),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '应收帐款', 13, 26.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '预付款按金及其他应收款', 14, 29.58),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '短期投资', 15, 0.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '受限制存款及现金', 16, 0.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '现金及等价物', 17, 95.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '短期存款', 18, 112.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '流动资产合计', 19, 265.59),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '总资产', 20, 670.09),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '应付帐款', 21, 49.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '应付税项', 22, 4.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '融资租赁负债(流动)', 23, 1.23),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '递延收入(流动)', 24, 21.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '其他应付款及应计费用', 25, 40.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '流动负债合计', 27, 117.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '净流动资产', 28, 148.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '总资产减流动负债', 29, 552.92),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '递延税项负债', 31, 2.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '融资租赁负债(非流动)', 32, 3.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '递延收入(非流动)', 33, 1.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '长期应付款', 34, 0.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '应付票据(非流动)', 35, 55.36),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '非流动负债合计', 36, 61.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '总负债', 37, 178.82),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '少数股东权益', 38, 10.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '净资产', 39, 491.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '保留溢利(累计亏损)', 41, 120.52),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '公积金', 42, 364.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '其他储备', 43, 59.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '库存股', 44, -63.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '股东权益', 45, 480.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '总权益', 46, 491.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '总权益及非流动负债', 47, 552.92),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '资产负债表', '总权益及总负债', 48, 670.09),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '物业厂房及设备', 1, 2.89),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '无形资产', 2, 24.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '商誉', 3, 194.93),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '土地使用权', 4, 24.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '递延税项资产', 5, 3.92),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '预付款项', 6, 6.59),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '其他投资', 7, 46.85),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '指定以公允价值记账之金融资产', 8, 31.72),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '中长期存款', 9, 65.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '非流动资产其他项目', 10, 4.35),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '非流动资产合计', 11, 406.85),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '存货', 12, 0.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '应收帐款', 13, 29.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '预付款按金及其他应收款', 14, 42.21),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '短期投资', 15, 0.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '现金及等价物', 17, 85.82),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '短期存款', 18, 102.94),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '流动资产合计', 19, 260.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '总资产', 20, 667.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '应付帐款', 21, 48.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '应付税项', 22, 4.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '融资租赁负债(流动)', 23, 0.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '递延收入(流动)', 24, 22.35),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '其他应付款及应计费用', 25, 44.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '流动负债合计', 27, 121.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '净流动资产', 28, 139.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '总资产减流动负债', 29, 546.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '递延税项负债', 31, 2.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '融资租赁负债(非流动)', 32, 3.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '递延收入(非流动)', 33, 1.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '长期应付款', 34, 0.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '应付票据(非流动)', 35, 56.41),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '非流动负债合计', 36, 63.23),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '总负债', 37, 184.61),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '少数股东权益', 38, 10.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '净资产', 39, 482.94),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '保留溢利(累计亏损)', 41, 109.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '公积金', 42, 364.93),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '其他储备', 43, 52.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '库存股', 44, -54.45),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '股东权益', 45, 472.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '总权益', 46, 482.94),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '总权益及非流动负债', 47, 546.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '资产负债表', '总权益及总负债', 48, 667.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '物业厂房及设备', 1, 2.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '无形资产', 2, 27.51),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '商誉', 3, 194.93),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '土地使用权', 4, 25.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '递延税项资产', 5, 3.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '预付款项', 6, 6.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '其他投资', 7, 44.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '指定以公允价值记账之金融资产', 8, 32.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '中长期存款', 9, 44.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '非流动资产其他项目', 10, 4.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '非流动资产合计', 11, 385.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '存货', 12, 0.23),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '应收帐款', 13, 28.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '预付款按金及其他应收款', 14, 33.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '短期投资', 15, 11.53),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '现金及等价物', 17, 100.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '短期存款', 18, 102.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '流动资产合计', 19, 277.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '总资产', 20, 663.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '应付帐款', 21, 57.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '应付税项', 22, 3.93),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '融资租赁负债(流动)', 23, 0.88),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '递延收入(流动)', 24, 18.95),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '其他应付款及应计费用', 25, 37.87),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '流动负债合计', 27, 119.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '净流动资产', 28, 158.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '总资产减流动负债', 29, 544.07),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '递延税项负债', 31, 2.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '融资租赁负债(非流动)', 32, 3.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '递延收入(非流动)', 33, 1.1),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '长期应付款', 34, 0.62),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '应付票据(非流动)', 35, 53.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '非流动负债合计', 36, 61.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '总负债', 37, 180.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '少数股东权益', 38, 10.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '净资产', 39, 482.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '保留溢利(累计亏损)', 41, 156.59),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '公积金', 42, 363.79),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '其他储备', 43, -1.71),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '库存股', 44, -46.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '股东权益', 45, 472.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '总权益', 46, 482.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '总权益及非流动负债', 47, 544.07),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '资产负债表', '总权益及总负债', 48, 663.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '物业厂房及设备', 1, 2.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '无形资产', 2, 26.92),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '商誉', 3, 191.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '土地使用权', 4, 25.35),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '递延税项资产', 5, 3.57),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '预付款项', 6, 6.75),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '其他投资', 7, 40.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '指定以公允价值记账之金融资产', 8, 49.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '中长期存款', 9, 59.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '非流动资产其他项目', 10, 2.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '非流动资产合计', 11, 407.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '存货', 12, 0.23),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '应收帐款', 13, 25.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '预付款按金及其他应收款', 14, 26.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '短期投资', 15, 11.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '现金及等价物', 17, 83.53),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '短期存款', 18, 105.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '流动资产合计', 19, 252.6),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '总资产', 20, 659.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '应付帐款', 21, 51.79),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '应付税项', 22, 4.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '融资租赁负债(流动)', 23, 0.86),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '递延收入(流动)', 24, 18.72),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '其他应付款及应计费用', 25, 35.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '流动负债合计', 27, 110.62),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '净流动资产', 28, 141.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '总资产减流动负债', 29, 549.35),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '递延税项负债', 31, 2.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '融资租赁负债(非流动)', 32, 1.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '递延收入(非流动)', 33, 1.05),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '长期应付款', 34, 1.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '应付票据(非流动)', 35, 50.41),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '非流动负债合计', 36, 57.14),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '总负债', 37, 167.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '少数股东权益', 38, 7.89),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '净资产', 39, 492.21),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '保留溢利(累计亏损)', 41, 148.03),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '公积金', 42, 361.87),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '其他储备', 43, 11.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '库存股', 44, -36.64),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '股东权益', 45, 484.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '总权益', 46, 492.21),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '总权益及非流动负债', 47, 549.35),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '资产负债表', '总权益及总负债', 48, 659.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '物业厂房及设备', 1, 2.43),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '无形资产', 2, 28.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '商誉', 3, 191.21),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '土地使用权', 4, 14.95),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '递延税项资产', 5, 3.46),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '预付款项', 6, 7.43),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '其他投资', 7, 37.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '指定以公允价值记账之金融资产', 8, 73.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '中长期存款', 9, 43.03),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '非流动资产其他项目', 10, 2.83),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '非流动资产合计', 11, 404.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '存货', 12, 0.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '应收帐款', 13, 36.1),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '预付款按金及其他应收款', 14, 27.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '短期投资', 15, 10.66),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '现金及等价物', 17, 65.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '短期存款', 18, 127.69),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '流动资产合计', 19, 267.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '总资产', 20, 672.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '应付帐款', 21, 43.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '应付税项', 22, 3.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '融资租赁负债(流动)', 23, 0.92),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '递延收入(流动)', 24, 18.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '其他应付款及应计费用', 25, 38.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '流动负债合计', 27, 104.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '净流动资产', 28, 163.41),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '总资产减流动负债', 29, 568.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '递延税项负债', 31, 2.71),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '融资租赁负债(非流动)', 32, 2.05),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '递延收入(非流动)', 33, 0.86),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '长期应付款', 34, 1.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '应付票据(非流动)', 35, 50.62),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '非流动负债合计', 36, 57.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '总负债', 37, 161.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '少数股东权益', 38, 7.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '净资产', 39, 510.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '保留溢利(累计亏损)', 41, 141.94),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '公积金', 42, 362.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '其他储备', 43, 35.43),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '库存股', 44, -36.6),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '股东权益', 45, 503.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '总权益', 46, 510.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '总权益及非流动负债', 47, 568.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '资产负债表', '总权益及总负债', 48, 672.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '物业厂房及设备', 1, 1.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '无形资产', 2, 20.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '商誉', 3, 174.92),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '递延税项资产', 5, 3.03),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '预付款项', 6, 9.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '其他投资', 7, 26.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '指定以公允价值记账之金融资产', 8, 97.71),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '中长期存款', 9, 29.53),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '非流动资产其他项目', 10, 3.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '非流动资产合计', 11, 365.86),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '存货', 12, 0.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '应收帐款', 13, 28.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '预付款按金及其他应收款', 14, 28.46),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '短期投资', 15, 0.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '现金及等价物', 17, 111.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '短期存款', 18, 148.58),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '流动资产合计', 19, 316.87),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '总资产', 20, 682.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '应付帐款', 21, 35.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '应付税项', 22, 4.45),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '融资租赁负债(流动)', 23, 1.03),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '递延收入(流动)', 24, 16.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '其他应付款及应计费用', 25, 38.81),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '流动负债合计', 27, 96.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '净流动资产', 28, 220.85),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '总资产减流动负债', 29, 586.71),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '递延税项负债', 31, 2.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '融资租赁负债(非流动)', 32, 2.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '递延收入(非流动)', 33, 0.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '长期应付款', 34, 2.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '应付票据(非流动)', 35, 51.75),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '非流动负债合计', 36, 59.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '总负债', 37, 155.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '少数股东权益', 38, 4.86),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '净资产', 39, 527.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '保留溢利(累计亏损)', 41, 111.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '公积金', 42, 350.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '其他储备', 43, 62.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '库存股', 44, -1.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '股东权益', 45, 522.45),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '总权益', 46, 527.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '总权益及非流动负债', 47, 586.71),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '资产负债表', '总权益及总负债', 48, 682.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '物业厂房及设备', 1, 1.79),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '无形资产', 2, 16.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '商誉', 3, 171.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '递延税项资产', 5, 1.92),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '预付款项', 6, 8.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '其他投资', 7, 7.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '指定以公允价值记账之金融资产', 8, 44.61),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '中长期存款', 9, 5.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '非流动资产其他项目', 10, 1.48),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '非流动资产合计', 11, 257.64),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '存货', 12, 0.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '应收帐款', 13, 21.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '预付款按金及其他应收款', 14, 22.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '短期投资', 15, 0.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '现金及等价物', 17, 154.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '短期存款', 18, 70.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '流动资产合计', 19, 269.14),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '总资产', 20, 526.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '应付帐款', 21, 25.59),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '应付税项', 22, 3.86),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '融资租赁负债(流动)', 23, 0.69),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '递延收入(流动)', 24, 16.94),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '其他应付款及应计费用', 25, 37.82),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '流动负债合计', 27, 84.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '净流动资产', 28, 184.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '总资产减流动负债', 29, 441.88),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '递延税项负债', 31, 2.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '融资租赁负债(非流动)', 32, 0.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '递延收入(非流动)', 33, 0.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '长期应付款', 34, 0.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '非流动负债合计', 36, 5.1),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '总负债', 37, 90.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '少数股东权益', 38, 0.88),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '净资产', 39, 436.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '股本', 40, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '保留溢利(累计亏损)', 41, 70.07),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '公积金', 42, 344.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '其他储备', 43, 21.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '股东权益', 45, 435.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '总权益', 46, 436.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '总权益及非流动负债', 47, 441.88),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '资产负债表', '总权益及总负债', 48, 526.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '营业额', 1, 168.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '营运收入', 2, 168.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '营运支出', 3, 93.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '毛利', 4, 74.95),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '其他收入', 5, 4.75),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '其他收益', 6, 2.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '销售及分销费用', 7, 5.07),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '行政开支', 8, 19.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '经营溢利', 9, 56.82),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '融资成本', 10, 0.51),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '应占联营公司溢利', 11, 0.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '除税前溢利', 12, 56.61),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '税项', 13, 9.71),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '持续经营业务税后利润', 14, 46.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '除税后溢利', 15, 46.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '少数股东损益', 16, 1.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '股东应占溢利', 17, 45.62),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '利润表', '非运算项目', 20, -24.829649),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '营业额', 1, 78.95),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '营运收入', 2, 78.95),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '营运支出', 3, 43.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '毛利', 4, 35.46),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '其他收入', 5, 2.46),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '其他收益', 6, 0.66),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '销售及分销费用', 7, 2.71),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '行政开支', 8, 9.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '经营溢利', 9, 26.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '融资成本', 10, 0.46),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '应占联营公司溢利', 11, -0.07),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '除税前溢利', 12, 25.94),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '税项', 13, 4.57),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '持续经营业务税后利润', 14, 21.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '除税后溢利', 15, 21.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '少数股东损益', 16, 0.46),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '股东应占溢利', 17, 20.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '利润表', '非运算项目', 20, 37.290653),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '营业额', 1, 329.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '营运收入', 2, 329.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '营运支出', 3, 183.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '毛利', 4, 145.35),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '其他收入', 5, 10.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '其他收益', 6, 26.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '销售及分销费用', 7, 9.41),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '行政开支', 8, 39.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '经营溢利', 9, 133.64),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '融资成本', 10, 1.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '应占联营公司溢利', 11, 0.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '除税前溢利', 12, 132.77),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '税项', 13, 19.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '持续经营业务税后利润', 14, 113.53),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '除税后溢利', 15, 113.53),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '少数股东损益', 16, 2.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '股东应占溢利', 17, 110.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '其他全面收益其他项目', 21, 32.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '其他全面收益', 22, 32.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '全面收益总额', 23, 145.87),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '非控股权益应占全面收益总额', 24, 2.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '本公司拥有人应占全面收益总额', 25, 142.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '利润表', '非运算项目', 20, -232.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '营业额', 1, 242.61),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '营运收入', 2, 242.61),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '营运支出', 3, 135.88),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '毛利', 4, 106.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '其他收入', 5, 7.96),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '其他收益', 6, 26.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '销售及分销费用', 7, 6.75),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '行政开支', 8, 29.35),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '经营溢利', 9, 105.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '融资成本', 10, 0.69),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '应占联营公司溢利', 11, 0.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '除税前溢利', 12, 105.05),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '税项', 13, 14.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '持续经营业务税后利润', 14, 90.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '除税后溢利', 15, 90.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '少数股东损益', 16, 2.14),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '股东应占溢利', 17, 88.53),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '利润表', '非运算项目', 20, -79.4917),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '营业额', 1, 157.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '营运收入', 2, 157.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '营运支出', 3, 88.07),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '毛利', 4, 69.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '其他收入', 5, 5.51),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '其他收益', 6, 25.71),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '销售及分销费用', 7, 4.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '行政开支', 8, 18.84),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '经营溢利', 9, 78.14),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '融资成本', 10, 0.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '应占联营公司溢利', 11, 0.39),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '除税前溢利', 12, 78.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '税项', 13, 9.61),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '持续经营业务税后利润', 14, 68.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '除税后溢利', 15, 68.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '少数股东损益', 16, 1.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '股东应占溢利', 17, 67.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '利润表', '非运算项目', 20, -18.724511),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '营业额', 1, 73.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '营运收入', 2, 73.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '营运支出', 3, 41.14),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '毛利', 4, 32.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '其他收入', 5, 2.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '其他收益', 6, 24.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '销售及分销费用', 7, 1.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '行政开支', 8, 9.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '经营溢利', 9, 48.36),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '融资成本', 10, 0.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '应占联营公司溢利', 11, 0.23),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '除税前溢利', 12, 48.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '税项', 13, 4.46),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '持续经营业务税后利润', 14, 43.88),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '除税后溢利', 15, 43.88),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '少数股东损益', 16, 0.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '股东应占溢利', 17, 42.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '利润表', '非运算项目', 20, 39.642961),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '营业额', 1, 284.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '营运收入', 2, 284.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '营运支出', 3, 163.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '毛利', 4, 120.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '其他收入', 5, 11.96),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '其他收益', 6, 1.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '销售及分销费用', 7, 8.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '行政开支', 8, 38.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '经营溢利', 9, 87.1),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '融资成本', 10, 0.94),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '应占联营公司溢利', 11, 0.96),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '除税前溢利', 12, 87.12),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '税项', 13, 16.03),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '持续经营业务税后利润', 14, 71.09),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '除税后溢利', 15, 71.09),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '少数股东损益', 16, 4.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '股东应占溢利', 17, 66.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '其他全面收益其他项目', 21, 80.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '其他全面收益', 22, 80.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '全面收益总额', 23, 151.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '非控股权益应占全面收益总额', 24, 4.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '本公司拥有人应占全面收益总额', 25, 146.62),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '利润表', '非运算项目', 20, -210.52),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '营业额', 1, 209.43),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '营运收入', 2, 209.43),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '营运支出', 3, 121.71),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '毛利', 4, 87.72),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '其他收入', 5, 8.81),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '其他收益', 6, 1.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '销售及分销费用', 7, 6.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '行政开支', 8, 28.85),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '经营溢利', 9, 63.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '融资成本', 10, 1.53),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '应占联营公司溢利', 11, 0.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '除税前溢利', 12, 62.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '税项', 13, 11.8),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '持续经营业务税后利润', 14, 50.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '除税后溢利', 15, 50.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '少数股东损益', 16, 3.46),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '股东应占溢利', 17, 46.87),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '利润表', '非运算项目', 20, -63.430119),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '营业额', 1, 139.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '营运收入', 2, 139.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '营运支出', 3, 81.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '毛利', 4, 57.81),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '其他收入', 5, 5.82),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '其他收益', 6, 0.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '销售及分销费用', 7, 3.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '行政开支', 8, 18.87),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '经营溢利', 9, 41.57),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '融资成本', 10, 0.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '应占联营公司溢利', 11, 0.36),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '除税前溢利', 12, 41.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '税项', 13, 8.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '持续经营业务税后利润', 14, 33.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '除税后溢利', 15, 33.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '少数股东损益', 16, 2.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '股东应占溢利', 17, 31.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '利润表', '非运算项目', 20, -11.387386),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '营业额', 1, 67.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '营运收入', 2, 67.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '营运支出', 3, 39.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '毛利', 4, 27.71),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '其他收入', 5, 2.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '其他收益', 6, 0.46),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '销售及分销费用', 7, 1.87),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '行政开支', 8, 9.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '经营溢利', 9, 19.59),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '融资成本', 10, 0.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '应占联营公司溢利', 11, -0.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '除税前溢利', 12, 19.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '税项', 13, 3.81),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '持续经营业务税后利润', 14, 15.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '除税后溢利', 15, 15.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '少数股东损益', 16, 1.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '股东应占溢利', 17, 14.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '利润表', '非运算项目', 20, 41.748525),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '营业额', 1, 277.52),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '营运收入', 2, 277.52),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '营运支出', 3, 179.57),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '毛利', 4, 97.95),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '其他收入', 5, 10.52),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '其他收益', 6, 2.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '销售及分销费用', 7, 8.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '行政开支', 8, 41.21),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '经营溢利', 9, 60.59),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '融资成本', 10, 1.41),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '应占联营公司溢利', 11, 1.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '除税前溢利', 12, 60.45),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '税项', 13, 8.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '持续经营业务税后利润', 14, 52.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '除税后溢利', 15, 52.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '少数股东损益', 16, 3.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '股东应占溢利', 17, 49.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '其他全面收益其他项目', 21, 34.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '其他全面收益', 22, 34.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '全面收益总额', 23, 86.87),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '非控股权益应占全面收益总额', 24, 3.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '本公司拥有人应占全面收益总额', 25, 83.87),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '利润表', '非运算项目', 20, -229.75),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '营业额', 1, 208.59),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '营运收入', 2, 208.59),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '营运支出', 3, 137.05),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '毛利', 4, 71.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '其他收入', 5, 7.75),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '其他收益', 6, 1.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '销售及分销费用', 7, 6.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '行政开支', 8, 31.1),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '经营溢利', 9, 43.45),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '融资成本', 10, 1.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '应占联营公司溢利', 11, 1.07),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '除税前溢利', 12, 43.41),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '税项', 13, 5.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '持续经营业务税后利润', 14, 38.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '除税后溢利', 15, 38.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '少数股东损益', 16, 1.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '股东应占溢利', 17, 36.14),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '利润表', '非运算项目', 20, 94498322.6),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '营业额', 1, 142.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '营运收入', 2, 142.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '营运支出', 3, 94.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '毛利', 4, 48.12),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '其他收入', 5, 5.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '其他收益', 6, 0.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '销售及分销费用', 7, 4.23),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '行政开支', 8, 20.61),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '经营溢利', 9, 29.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '融资成本', 10, 0.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '应占联营公司溢利', 11, 0.58),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '除税前溢利', 12, 29.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '税项', 13, 3.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '持续经营业务税后利润', 14, 25.48),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '除税后溢利', 15, 25.48),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '少数股东损益', 16, 1.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '股东应占溢利', 17, 24.46),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '利润表', '非运算项目', 20, 94494423.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '营业额', 1, 70.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '营运收入', 2, 70.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '营运支出', 3, 46.89),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '毛利', 4, 23.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '其他收入', 5, 2.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '其他收益', 6, 0.58),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '销售及分销费用', 7, 2.12),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '行政开支', 8, 10.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '经营溢利', 9, 13.81),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '融资成本', 10, 0.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '应占联营公司溢利', 11, 0.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '除税前溢利', 12, 13.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '税项', 13, 1.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '持续经营业务税后利润', 14, 12.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '除税后溢利', 15, 12.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '少数股东损益', 16, 0.52),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '股东应占溢利', 17, 11.48),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '利润表', '非运算项目', 20, 94289839.96),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '营业额', 1, 283.39),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '营运收入', 2, 283.39),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '营运支出', 3, 195.66),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '毛利', 4, 87.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '其他收入', 5, 7.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '其他收益', 6, 5.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '销售及分销费用', 7, 11.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '行政开支', 8, 44.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '经营溢利', 9, 44.43),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '融资成本', 10, 1.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '应占联营公司溢利', 11, 0.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '除税前溢利', 12, 43.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '税项', 13, 5.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '持续经营业务税后利润', 14, 38.39),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '除税后溢利', 15, 38.39),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '少数股东损益', 16, 1.62),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '股东应占溢利', 17, 36.77),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '其他全面收益其他项目', 21, -35.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '其他全面收益', 22, -35.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '全面收益总额', 23, 3.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '非控股权益应占全面收益总额', 24, 1.62),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '本公司拥有人应占全面收益总额', 25, 1.51),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '利润表', '非运算项目', 20, -251.23),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '营业额', 1, 209.14),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '营运收入', 2, 209.14),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '营运支出', 3, 145.88),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '毛利', 4, 63.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '其他收入', 5, 4.87),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '其他收益', 6, 4.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '销售及分销费用', 7, 8.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '行政开支', 8, 33.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '经营溢利', 9, 30.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '融资成本', 10, 0.77),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '应占联营公司溢利', 11, 0.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '除税前溢利', 12, 30.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '税项', 13, 3.66),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '持续经营业务税后利润', 14, 26.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '除税后溢利', 15, 26.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '少数股东损益', 16, 1.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '股东应占溢利', 17, 25.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '利润表', '非运算项目', 20, 97212741.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '营业额', 1, 135.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '营运收入', 2, 135.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '营运支出', 3, 96.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '毛利', 4, 39.23),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '其他收入', 5, 3.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '其他收益', 6, 3.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '销售及分销费用', 7, 6.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '行政开支', 8, 21.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '经营溢利', 9, 17.94),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '融资成本', 10, 0.53),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '应占联营公司溢利', 11, 0.14),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '除税前溢利', 12, 17.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '税项', 13, 2.14),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '持续经营业务税后利润', 14, 15.41),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '除税后溢利', 15, 15.41),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '少数股东损益', 16, 0.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '股东应占溢利', 17, 14.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '利润表', '非运算项目', 20, 97837594.58),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '营业额', 1, 66.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '营运收入', 2, 66.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '营运支出', 3, 47.84),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '毛利', 4, 18.6),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '其他收入', 5, 1.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '其他收益', 6, 0.81),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '销售及分销费用', 7, 3.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '行政开支', 8, 10.12),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '经营溢利', 9, 7.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '融资成本', 10, 0.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '应占联营公司溢利', 11, 0.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '除税前溢利', 12, 7.39),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '税项', 13, 0.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '持续经营业务税后利润', 14, 6.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '除税后溢利', 15, 6.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '少数股东损益', 16, 0.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '股东应占溢利', 17, 6.09),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '利润表', '非运算项目', 20, 98631111.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '营业额', 1, 312.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '营运收入', 2, 312.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '营运支出', 3, 218.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '毛利', 4, 94.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '其他收入', 5, 5.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '其他收益', 6, 5.53),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '销售及分销费用', 7, 26.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '行政开支', 8, 40.09),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '经营溢利', 9, 38.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '融资成本', 10, 1.21),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '应占联营公司溢利', 11, -0.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '除税前溢利', 12, 36.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '税项', 13, 4.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '持续经营业务税后利润', 14, 32.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '除税后溢利', 15, 32.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '少数股东损益', 16, 1.86),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '股东应占溢利', 17, 30.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '其他全面收益其他项目', 21, -25.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '其他全面收益', 22, -25.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '全面收益总额', 23, 7.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '非控股权益应占全面收益总额', 24, 1.86),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '本公司拥有人应占全面收益总额', 25, 5.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '利润表', '非运算项目', 20, -285.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '营业额', 1, 236.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '营运收入', 2, 236.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '营运支出', 3, 164.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '毛利', 4, 72.12),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '其他收入', 5, 4.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '其他收益', 6, 3.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '销售及分销费用', 7, 19.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '行政开支', 8, 29.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '经营溢利', 9, 31.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '融资成本', 10, 0.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '应占联营公司溢利', 11, -0.48),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '除税前溢利', 12, 29.8),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '税项', 13, 3.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '持续经营业务税后利润', 14, 26.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '除税后溢利', 15, 26.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '少数股东损益', 16, 1.45),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '股东应占溢利', 17, 24.93),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '利润表', '非运算项目', 20, 100749802.7797),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '营业额', 1, 158.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '营运收入', 2, 158.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '营运支出', 3, 109.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '毛利', 4, 49.03),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '其他收入', 5, 2.77),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '其他收益', 6, 2.51),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '销售及分销费用', 7, 13.41),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '行政开支', 8, 18.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '经营溢利', 9, 21.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '融资成本', 10, 0.6),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '应占联营公司溢利', 11, -0.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '除税前溢利', 12, 20.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '税项', 13, 2.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '持续经营业务税后利润', 14, 18.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '除税后溢利', 15, 18.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '少数股东损益', 16, 0.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '股东应占溢利', 17, 17.53),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '其他全面收益其他项目', 21, -13.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '其他全面收益', 22, -13.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '全面收益总额', 23, 5.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '非控股权益应占全面收益总额', 24, 0.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '本公司拥有人应占全面收益总额', 25, 4.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '利润表', '非运算项目', 20, -117.8),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '营业额', 1, 78.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '营运收入', 2, 78.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '营运支出', 3, 53.58),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '毛利', 4, 24.66),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '其他收入', 5, 1.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '其他收益', 6, 0.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '销售及分销费用', 7, 6.72),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '行政开支', 8, 8.83),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '经营溢利', 9, 11.64),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '融资成本', 10, 0.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '应占联营公司溢利', 11, -0.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '除税前溢利', 12, 11.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '税项', 13, 1.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '持续经营业务税后利润', 14, 9.79),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '除税后溢利', 15, 9.79),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '少数股东损益', 16, 0.53),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '股东应占溢利', 17, 9.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '其他全面收益其他项目', 21, -12.77),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '其他全面收益', 22, -12.77),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '全面收益总额', 23, -2.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '非控股权益应占全面收益总额', 24, 0.53),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '本公司拥有人应占全面收益总额', 25, -3.51),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '利润表', '非运算项目', 20, -62.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '营业额', 1, 291.53),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '营运收入', 2, 291.53),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '营运支出', 3, 198.51),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '毛利', 4, 93.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '其他收入', 5, 6.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '其他收益', 6, 3.62),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '销售及分销费用', 7, 24.75),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '行政开支', 8, 31.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '经营溢利', 9, 47.1),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '融资成本', 10, 0.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '应占联营公司溢利', 11, 0.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '除税前溢利', 12, 46.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '税项', 13, 4.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '持续经营业务税后利润', 14, 41.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '除税后溢利', 15, 41.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '少数股东损益', 16, 0.21),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '股东应占溢利', 17, 41.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '其他全面收益其他项目', 21, 39.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '其他全面收益', 22, 39.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '全面收益总额', 23, 81.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '非控股权益应占全面收益总额', 24, 0.21),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '本公司拥有人应占全面收益总额', 25, 80.79),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '利润表', '非运算项目', 20, -254.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '营业额', 1, 254.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '营运收入', 2, 254.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '营运支出', 3, 167.61),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '毛利', 4, 86.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '其他收入', 5, 6.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '其他收益', 6, 0.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '销售及分销费用', 7, 20.41),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '行政开支', 8, 27.03),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '经营溢利', 9, 46.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '融资成本', 10, 0.64),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '应占联营公司溢利', 11, -0.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '除税前溢利', 12, 45.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '税项', 13, 5.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '持续经营业务税后利润', 14, 39.77),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '除税后溢利', 15, 39.77),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '少数股东损益', 16, -0.05),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '股东应占溢利', 17, 39.82),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '每股基本盈利', 18, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '每股摊薄盈利', 19, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '其他全面收益其他项目', 21, 12.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '其他全面收益', 22, 12.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '全面收益总额', 23, 52.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '非控股权益应占全面收益总额', 24, -0.05),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '本公司拥有人应占全面收益总额', 25, 52.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '利润表', '非运算项目', 20, -122.6),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '现金流量表', '经营业务现金净额', 1, 51.96),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '现金流量表', '投资业务现金净额', 2, 29.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '现金流量表', '融资前现金净额', 3, 81.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '现金流量表', '融资业务现金净额', 4, 72.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '现金流量表', '现金净额', 5, 154.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '现金流量表', '期初现金', 6, 84.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '现金流量表', '期间变动其他项目', 7, -1.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q2', '2026-06-30', '现金流量表', '期末现金', 8, 236.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '现金流量表', '经营业务现金净额', 1, 23.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '现金流量表', '投资业务现金净额', 2, 66.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '现金流量表', '融资前现金净额', 3, 89.82),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '现金流量表', '融资业务现金净额', 4, 10.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '现金流量表', '现金净额', 5, 99.93),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '现金流量表', '期初现金', 6, 84.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '现金流量表', '期间变动其他项目', 7, -0.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2026Q1', '2026-03-31', '现金流量表', '期末现金', 8, 184.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '除税前溢利(业务利润)', 9, 132.77),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '减:利息收入', 10, 10.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '加:利息支出', 11, 1.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '减:投资收益', 12, 1.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '减:应占附属公司溢利', 13, 0.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '加:折旧及摊销', 14, 13.75),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '减:汇兑收益', 15, -0.07),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '加:经营调整其他项目', 16, -20.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '营运资金变动前经营溢利', 17, 114.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '存货(增加)减少', 18, -0.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '应付帐款及应计费用增加(减少)', 19, -7.83),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '营运资本变动其他项目', 20, 1.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '经营产生现金', 21, 108.12),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '已收利息(经营)', 22, 12.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '已付税项', 23, 18.21),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '经营业务现金净额', 1, 102.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '已收股息(投资)', 24, 3.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '存款减少(增加)', 25, -178.8),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '购建固定资产', 26, 3.05),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '购建无形资产及其他资产', 27, 8.83),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '收回投资所得现金', 28, 0.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '投资支付现金', 29, 50.75),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '投资业务其他项目', 30, 135.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '投资业务现金净额', 2, -102.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '融资前现金净额', 3, 0.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '已付利息(融资)', 31, 1.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '已付股息(融资)', 32, 20.35),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '吸收投资所得', 33, 0.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '发行股份', 34, 4.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '回购股份', 35, 3.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '赎回债券', 36, 21.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '偿还融资租赁', 37, 1.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '融资业务其他项目', 38, -2.81),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '融资业务现金净额', 4, -46.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '现金净额', 5, -46.45),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '期初现金', 6, 131.64),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '期间变动其他项目', 7, -0.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q4', '2025-12-31', '现金流量表', '期末现金', 8, 84.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '现金流量表', '经营业务现金净额', 1, 78.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '现金流量表', '投资业务现金净额', 2, -50.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '现金流量表', '融资前现金净额', 3, 27.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '现金流量表', '融资业务现金净额', 4, -46.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '现金流量表', '现金净额', 5, -18.92),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '现金流量表', '期初现金', 6, 131.64),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '现金流量表', '期间变动其他项目', 7, -0.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q3', '2025-09-30', '现金流量表', '期末现金', 8, 112.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '现金流量表', '经营业务现金净额', 1, 41.57),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '现金流量表', '投资业务现金净额', 2, -38.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '现金流量表', '融资前现金净额', 3, 3.03),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '现金流量表', '融资业务现金净额', 4, -25.12),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '现金流量表', '现金净额', 5, -22.09),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '现金流量表', '期初现金', 6, 131.64),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '现金流量表', '期间变动其他项目', 7, 0.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q2', '2025-06-30', '现金流量表', '期末现金', 8, 109.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '现金流量表', '经营业务现金净额', 1, 25.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '现金流量表', '投资业务现金净额', 2, -32.21),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '现金流量表', '融资前现金净额', 3, -7.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '现金流量表', '融资业务现金净额', 4, -4.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '现金流量表', '现金净额', 5, -11.58),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '现金流量表', '期初现金', 6, 131.64),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '现金流量表', '期间变动其他项目', 7, 0.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025Q1', '2025-03-31', '现金流量表', '期末现金', 8, 120.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '除税前溢利(业务利润)', 9, 87.12),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '减:利息收入', 10, 11.96),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '加:利息支出', 11, 1.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '减:投资收益', 12, 0.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '减:应占附属公司溢利', 13, 0.96),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '加:折旧及摊销', 14, 9.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '减:汇兑收益', 15, 0.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '加:经营调整其他项目', 16, 1.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '营运资金变动前经营溢利', 17, 86.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '存货(增加)减少', 18, -0.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '应付帐款及应计费用增加(减少)', 19, 18.45),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '营运资本变动其他项目', 20, 2.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '经营产生现金', 21, 107.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '已收利息(经营)', 22, 9.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '已付税项', 23, 13.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '经营业务现金净额', 1, 102.75),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '已收股息(投资)', 24, 0.61),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '存款减少(增加)', 25, -244.58),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '购建固定资产', 26, 3.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '购建无形资产及其他资产', 27, 7.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '出售附属公司', 39, -0.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '收回投资所得现金', 28, 0.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '投资支付现金', 29, 120.09),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '投资业务其他项目', 30, 306.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '投资业务现金净额', 2, -68.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '融资前现金净额', 3, 34.57),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '已付利息(融资)', 31, 1.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '已付股息(融资)', 32, 15.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '吸收投资所得', 33, 0.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '发行股份', 34, 1.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '回购股份', 35, 19.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '偿还融资租赁', 37, 1.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '融资业务其他项目', 38, -2.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '融资业务现金净额', 4, -38.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '现金净额', 5, -3.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '期初现金', 6, 135.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '期间变动其他项目', 7, -0.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q4', '2024-12-31', '现金流量表', '期末现金', 8, 131.64),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '现金流量表', '经营业务现金净额', 1, 77.95),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '现金流量表', '投资业务现金净额', 2, -81.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '现金流量表', '融资前现金净额', 3, -3.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '现金流量表', '融资业务现金净额', 4, -30.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '现金流量表', '现金净额', 5, -33.62),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '现金流量表', '期初现金', 6, 135.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '现金流量表', '期间变动其他项目', 7, 0.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q3', '2024-09-30', '现金流量表', '期末现金', 8, 102.09),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '现金流量表', '经营业务现金净额', 1, 56.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '现金流量表', '投资业务现金净额', 2, -48.05),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '现金流量表', '融资前现金净额', 3, 8.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '现金流量表', '融资业务现金净额', 4, -21.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '现金流量表', '现金净额', 5, -13.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '现金流量表', '期初现金', 6, 135.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '现金流量表', '期间变动其他项目', 7, -0.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q2', '2024-06-30', '现金流量表', '期末现金', 8, 122.51),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '现金流量表', '经营业务现金净额', 1, 26.86),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '现金流量表', '投资业务现金净额', 2, -54.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '现金流量表', '融资前现金净额', 3, -28.12),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '现金流量表', '融资业务现金净额', 4, -5.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '现金流量表', '现金净额', 5, -33.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '现金流量表', '期初现金', 6, 135.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '现金流量表', '期间变动其他项目', 7, -0.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024Q1', '2024-03-31', '现金流量表', '期末现金', 8, 102.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '除税前溢利(业务利润)', 9, 60.45),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '减:利息收入', 10, 10.52),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '加:利息支出', 11, 1.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '减:投资收益', 12, 0.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '减:应占附属公司溢利', 13, 1.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '加:折旧及摊销', 14, 10.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '减:汇兑收益', 15, -0.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '加:经营调整其他项目', 16, 4.69),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '营运资金变动前经营溢利', 17, 64.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '存货(增加)减少', 18, 0.07),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '应付帐款及应计费用增加(减少)', 19, 0.52),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '营运资本变动其他项目', 20, 9.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '经营产生现金', 21, 74.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '已收利息(经营)', 22, 7.07),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '已付税项', 23, 8.25),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '经营业务现金净额', 1, 73.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '已收股息(投资)', 24, 1.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '存款减少(增加)', 25, -136.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '购建固定资产', 26, 1.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '购建无形资产及其他资产', 27, 9.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '出售附属公司', 39, 0.07),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '收回投资所得现金', 28, 0.59),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '投资支付现金', 29, 0.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '投资业务其他项目', 30, 127.8),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '投资业务现金净额', 2, -18.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '融资前现金净额', 3, 54.74),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '已付利息(融资)', 31, 1.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '已付股息(融资)', 32, 0.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '发行股份', 34, 0.57),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '回购股份', 35, 12.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '偿还融资租赁', 37, 1.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '融资业务其他项目', 38, -0.71),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '融资业务现金净额', 4, -15.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '现金净额', 5, 39.36),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '期初现金', 6, 95.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '期间变动其他项目', 7, 0.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q4', '2023-12-31', '现金流量表', '期末现金', 8, 135.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '现金流量表', '经营业务现金净额', 1, 53.6),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '现金流量表', '投资业务现金净额', 2, -16.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '现金流量表', '融资前现金净额', 3, 36.9),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '现金流量表', '融资业务现金净额', 4, -9.62),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '现金流量表', '现金净额', 5, 27.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '现金流量表', '期初现金', 6, 95.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '现金流量表', '期间变动其他项目', 7, 0.98),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q3', '2023-09-30', '现金流量表', '期末现金', 8, 123.81),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '现金流量表', '经营业务现金净额', 1, 39.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '现金流量表', '投资业务现金净额', 2, -5.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '现金流量表', '融资前现金净额', 3, 33.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '现金流量表', '融资业务现金净额', 4, -1.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '现金流量表', '现金净额', 5, 32.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '现金流量表', '期初现金', 6, 95.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '现金流量表', '期间变动其他项目', 7, 1.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q2', '2023-06-30', '现金流量表', '期末现金', 8, 129.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '现金流量表', '经营业务现金净额', 1, 18.52),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '现金流量表', '投资业务现金净额', 2, 8.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '现金流量表', '融资前现金净额', 3, 26.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '现金流量表', '融资业务现金净额', 4, -0.8),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '现金流量表', '现金净额', 5, 25.83),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '现金流量表', '期初现金', 6, 95.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '现金流量表', '期间变动其他项目', 7, -0.09),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023Q1', '2023-03-31', '现金流量表', '期末现金', 8, 121.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '除税前溢利(业务利润)', 9, 43.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '减:利息收入', 10, 7.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '加:利息支出', 11, 1.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '减:投资收益', 12, 0.14),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '减:应占附属公司溢利', 13, 0.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '减:重估盈余', 40, 0.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '加:折旧及摊销', 14, 11.6),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '减:汇兑收益', 15, 0.07),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '加:经营调整其他项目', 16, 5.45),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '营运资金变动前经营溢利', 17, 54.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '存货(增加)减少', 18, 0.1),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '应收帐款减少', 41, 9.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '应付帐款及应计费用增加(减少)', 19, 6.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '营运资本变动其他项目', 20, 6.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '经营产生现金', 21, 76.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '已收利息(经营)', 22, 5.87),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '已付税项', 23, 7.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '经营业务现金净额', 1, 74.81),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '已收股息(投资)', 24, 0.74),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '存款减少(增加)', 25, -339.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '购建固定资产', 26, 0.85),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '购建无形资产及其他资产', 27, 9.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '出售附属公司', 39, 0.21),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '投资支付现金', 29, 3.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '投资业务其他项目', 30, 337.47),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '投资业务现金净额', 2, -14.46),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '融资前现金净额', 3, 60.35),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '已付利息(融资)', 31, 1.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '已付股息(融资)', 32, 0.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '发行股份', 34, 0.03),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '回购股份', 35, 31.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '偿还融资租赁', 37, 1.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '融资业务其他项目', 38, 0.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '融资业务现金净额', 4, -34.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '现金净额', 5, 26.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '期初现金', 6, 65.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '期间变动其他项目', 7, 3.48),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q4', '2022-12-31', '现金流量表', '期末现金', 8, 95.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '现金流量表', '经营业务现金净额', 1, 49.87),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '现金流量表', '投资业务现金净额', 2, -3.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '现金流量表', '融资前现金净额', 3, 46.49),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '现金流量表', '融资业务现金净额', 4, -30.36),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '现金流量表', '现金净额', 5, 16.13),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '现金流量表', '期初现金', 6, 65.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '现金流量表', '期间变动其他项目', 7, 3.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q3', '2022-09-30', '现金流量表', '期末现金', 8, 85.82),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '现金流量表', '经营业务现金净额', 1, 37.35),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '现金流量表', '投资业务现金净额', 2, 9.05),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '现金流量表', '融资前现金净额', 3, 46.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '现金流量表', '融资业务现金净额', 4, -13.68),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '现金流量表', '现金净额', 5, 32.72),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '现金流量表', '期初现金', 6, 65.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '现金流量表', '期间变动其他项目', 7, 1.81),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q2', '2022-06-30', '现金流量表', '期末现金', 8, 100.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '现金流量表', '经营业务现金净额', 1, 24.94),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '现金流量表', '投资业务现金净额', 2, -3.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '现金流量表', '融资前现金净额', 3, 21.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '现金流量表', '融资业务现金净额', 4, -3.95),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '现金流量表', '现金净额', 5, 17.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '现金流量表', '期初现金', 6, 65.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '现金流量表', '期间变动其他项目', 7, -0.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022Q1', '2022-03-31', '现金流量表', '期末现金', 8, 83.53),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '除税前溢利(业务利润)', 9, 36.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '减:利息收入', 10, 5.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '加:利息支出', 11, 1.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '减:投资收益', 12, 0.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '加:折旧及摊销', 14, 10.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '减:汇兑收益', 15, -0.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '加:经营调整其他项目', 16, 6.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '营运资金变动前经营溢利', 17, 47.97),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '存货(增加)减少', 18, -0.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '应收帐款减少', 41, -7.69),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '应付帐款及应计费用增加(减少)', 19, 6.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '营运资本变动其他项目', 20, 7.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '经营产生现金', 21, 53.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '已收利息(经营)', 22, 4.58),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '已付税项', 23, 5.89),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '经营业务现金净额', 1, 52.39),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '已收股息(投资)', 24, 0.88),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '存款减少(增加)', 25, -151.53),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '购建固定资产', 26, 1.59),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '购建无形资产及其他资产', 27, 25.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '出售附属公司', 39, 0.03),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '收回投资所得现金', 28, 3.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '投资支付现金', 29, 56.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '投资业务其他项目', 30, 170.74),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '投资业务现金净额', 2, -59.99),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '融资前现金净额', 3, -7.6),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '已付利息(融资)', 31, 1.05),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '已付股息(融资)', 32, 0.03),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '发行股份', 34, 1.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '回购股份', 35, 34.79),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '偿还融资租赁', 37, 1.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '融资业务其他项目', 38, -1.11),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '融资业务现金净额', 4, -37.1),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '现金净额', 5, -44.7),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '期初现金', 6, 111.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '期间变动其他项目', 7, -0.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q4', '2021-12-31', '现金流量表', '期末现金', 8, 65.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '现金流量表', '经营业务现金净额', 1, 44.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '现金流量表', '投资业务现金净额', 2, -69.95),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '现金流量表', '融资业务现金净额', 4, -34.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '现金流量表', '现金净额', 5, -60.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '现金流量表', '期初现金', 6, 111.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '现金流量表', '期间变动其他项目', 7, -0.48),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q3', '2021-09-30', '现金流量表', '期末现金', 8, 50.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '经营产生现金', 21, 28.48),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '已收利息(经营)', 22, 2.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '已付税项', 23, 2.82),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '经营业务现金净额', 1, 28.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '存款减少(增加)', 25, -75.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '购建固定资产', 26, 0.89),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '购建无形资产及其他资产', 27, 7.94),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '出售附属公司', 39, 0.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '投资支付现金', 29, 45.96),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '投资业务其他项目', 30, 77.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '投资业务现金净额', 2, -53.03),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '已付利息(融资)', 31, 0.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '已付股息(融资)', 32, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '发行股份', 34, 0.85),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '回购股份', 35, 16.83),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '偿还融资租赁', 37, 0.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '融资业务其他项目', 38, -0.65),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '融资业务现金净额', 4, -17.73),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '现金净额', 5, -42.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '期初现金', 6, 111.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '期间变动其他项目', 7, -0.52),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q2', '2021-06-30', '现金流量表', '期末现金', 8, 68.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '除税前溢利(业务利润)', 9, 11.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '减:利息收入', 10, 1.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '加:利息支出', 11, 0.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '减:投资收益', 12, 0.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '减:应占附属公司溢利', 13, -0.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '加:减值及拨备', 42, 0.03),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '加:折旧及摊销', 14, 2.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '加:经营调整其他项目', 16, 1.61),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '营运资金变动前经营溢利', 17, 13.93),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '应收帐款减少', 41, 0.1),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '应付帐款及应计费用增加(减少)', 19, 3.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '营运资本变动其他项目', 20, 1.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '经营产生现金', 21, 18.38),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '已收利息(经营)', 22, 1.54),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '已付税项', 23, 1.14),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '经营业务现金净额', 1, 18.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '存款减少(增加)', 25, -29.41),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '购建固定资产', 26, 0.39),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '购建无形资产及其他资产', 27, 1.61),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '出售附属公司', 39, 0.01),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '投资支付现金', 29, 24.16),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '投资业务其他项目', 30, 31.74),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '投资业务现金净额', 2, -23.82),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '融资前现金净额', 3, -5.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '已付利息(融资)', 31, 0.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '已付股息(融资)', 32, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '回购股份', 35, 3.27),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '偿还融资租赁', 37, 0.23),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '融资业务其他项目', 38, 0.3),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '融资业务现金净额', 4, -3.72),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '现金净额', 5, -8.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '期初现金', 6, 111.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '期间变动其他项目', 7, 0.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021Q1', '2021-03-31', '现金流量表', '期末现金', 8, 102.74),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '除税前溢利(业务利润)', 9, 46.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '减:利息收入', 10, 6.22),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '加:利息支出', 11, 0.62),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '减:应占附属公司溢利', 13, 0.19),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '加:折旧及摊销', 14, 8.24),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '减:汇兑收益', 15, 0.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '加:经营调整其他项目', 16, 5.67),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '营运资金变动前经营溢利', 17, 54.42),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '存货(增加)减少', 18, 0.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '应收帐款减少', 41, -5.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '应付帐款及应计费用增加(减少)', 19, 6.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '营运资本变动其他项目', 20, -6.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '经营产生现金', 21, 49.45),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '已收利息(经营)', 22, 5.77),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '已付税项', 23, 6.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '经营业务现金净额', 1, 48.85),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '存款减少(增加)', 25, -306.43),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '购建固定资产', 26, 1.08),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '购建无形资产及其他资产', 27, 3.93),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '出售附属公司', 39, 0.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '投资支付现金', 29, 9.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '投资业务其他项目', 30, 178.41),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '投资业务现金净额', 2, -142.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '融资前现金净额', 3, -93.21),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '已付利息(融资)', 31, 0.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '发行股份', 34, 1.63),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '回购股份', 35, 1.34),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '发行债券', 43, 54.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '偿还融资租赁', 37, 0.78),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '融资业务其他项目', 38, -0.44),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '融资业务现金净额', 4, 52.92),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '现金净额', 5, -40.29),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '期初现金', 6, 154.26),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '期间变动其他项目', 7, -2.69),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020Q4', '2020-12-31', '现金流量表', '期末现金', 8, 111.28),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '除税前溢利(业务利润)', 9, 45.4),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '减:利息收入', 10, 6.15),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '加:利息支出', 11, 0.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '减:投资收益', 12, -0.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '减:应占附属公司溢利', 13, -0.18),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '加:减值及拨备', 42, 0.61),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '加:折旧及摊销', 14, 5.83),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '减:汇兑收益', 15, 0.04),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '加:经营调整其他项目', 16, 5.55),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '营运资金变动前经营溢利', 17, 52.06),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '存货(增加)减少', 18, 0.09),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '应收帐款减少', 41, -7.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '应付帐款及应计费用增加(减少)', 19, 7.17),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '营运资本变动其他项目', 20, 9.89),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '经营产生现金', 21, 61.88),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '已收利息(经营)', 22, 5.76),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '已付税项', 23, 5.64),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '经营业务现金净额', 1, 62.0),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '已收股息(投资)', 24, 0.32),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '存款减少(增加)', 25, -120.5),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '购建固定资产', 26, 0.95),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '购建无形资产及其他资产', 27, 1.91),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '投资支付现金', 29, 0.37),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '投资业务其他项目', 30, 42.39),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '投资业务现金净额', 2, -81.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '融资前现金净额', 3, -19.02),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '已付利息(融资)', 31, 0.07),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '发行股份', 34, 0.12),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '偿还融资租赁', 37, 0.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '融资业务其他项目', 38, 0.2),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '融资业务现金净额', 4, -0.31),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '现金净额', 5, -19.33),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '期初现金', 6, 173.56),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '期间变动其他项目', 7, 0.03),
+((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019Q4', '2019-12-31', '现金流量表', '期末现金', 8, 154.26);
+
+SELECT vi_merge_company_metrics((SELECT id FROM vi_company_base WHERE code = '01698.HK'));
+
+UPDATE vi_metric_base SET notes = '跟踪用途：看剔除喜马拉雅后的同比', source_name = '季度业绩公告、业绩会' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '会员（订阅）收入' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+UPDATE vi_metric_base SET source_name = '季度业绩公告' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '毛利率' AND unit IS NOT DISTINCT FROM '%' ORDER BY id LIMIT 1);
+
+UPDATE vi_metric_base SET source_name = '业绩公告、港交所回购公告' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '回购金额' AND unit IS NOT DISTINCT FROM '亿美元' ORDER BY id LIMIT 1);
+
+UPDATE vi_metric_base SET source_name = '资产负债表' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金、定期存款和短期投资' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+UPDATE vi_metric_base SET source_name = '资产负债表' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '带息负债（借款＋票据＋租赁）' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+UPDATE vi_metric_base SET source_name = 'QuestMobile、行业研报' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '竞品月活：汽水音乐' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1);
+
+UPDATE vi_metric_base SET source_name = '年报（2027 年 3 月）' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1);
+
+SELECT vi_metric_to_stmt((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '毛利率', '%', '毛利 ÷ 营业额', '单季');
+
+SELECT vi_metric_to_stmt((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '现金、定期存款和短期投资', '亿元', '现金及等价物 + 短期存款 + 短期投资 + 中长期存款', '时点');
+
+SELECT vi_metric_to_stmt((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '带息负债（借款＋票据＋租赁）', '亿元', '短期贷款 + 长期贷款 + 应付票据 + 应付票据(非流动) + 融资租赁负债(流动) + 融资租赁负债(非流动)', '时点');
+
+SELECT vi_metric_to_stmt((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '亿元', '营业额', '单季');
+
+SELECT vi_metric_to_stmt((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '归母净利润', '亿元', '股东应占溢利', '单季');
+
+INSERT INTO vi_lnk_judgment_metrics (judgment_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金、定期存款和短期投资' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) FROM vi_judgment_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'J-CASH' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金、定期存款和短期投资' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_judgment_metrics (judgment_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '带息负债（借款＋票据＋租赁）' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) FROM vi_judgment_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'J-CASH' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '带息负债（借款＋票据＋租赁）' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_judgment_metrics (judgment_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '回购金额' AND unit IS NOT DISTINCT FROM '亿美元' ORDER BY id LIMIT 1) FROM vi_judgment_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'J-CASH' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '回购金额' AND unit IS NOT DISTINCT FROM '亿美元' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_judgment_metrics (judgment_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金、定期存款和短期投资' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) FROM vi_judgment_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'J-DEBT' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金、定期存款和短期投资' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_judgment_metrics (judgment_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '带息负债（借款＋票据＋租赁）' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) FROM vi_judgment_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'J-DEBT' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '带息负债（借款＋票据＋租赁）' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_judgment_metrics (judgment_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '港元兑人民币' AND unit IS NOT DISTINCT FROM '人民币/港元' ORDER BY id LIMIT 1) FROM vi_judgment_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'J-FX' AND (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '港元兑人民币' AND unit IS NOT DISTINCT FROM '人民币/港元' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_judgment_metrics (judgment_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '毛利率' AND unit IS NOT DISTINCT FROM '%' ORDER BY id LIMIT 1) FROM vi_judgment_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'J-M' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '毛利率' AND unit IS NOT DISTINCT FROM '%' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_judgment_metrics (judgment_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '会员（订阅）收入' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) FROM vi_judgment_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'J-P' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '会员（订阅）收入' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_judgment_metrics (judgment_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '回购金额' AND unit IS NOT DISTINCT FROM '亿美元' ORDER BY id LIMIT 1) FROM vi_judgment_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'J-PAYOUT' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '回购金额' AND unit IS NOT DISTINCT FROM '亿美元' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_judgment_metrics (judgment_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '会员（订阅）收入' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) FROM vi_judgment_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'J-Q' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '会员（订阅）收入' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_judgment_metrics (judgment_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) FROM vi_judgment_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'J-Q' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_judgment_metrics (judgment_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '竞品月活：汽水音乐' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) FROM vi_judgment_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'J-Q' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '竞品月活：汽水音乐' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_judgment_metrics (judgment_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '腾讯音乐港股收盘价' AND unit IS NOT DISTINCT FROM '港元' ORDER BY id LIMIT 1) FROM vi_judgment_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'J-R' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '腾讯音乐港股收盘价' AND unit IS NOT DISTINCT FROM '港元' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_risk_metrics (risk_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '会员（订阅）收入' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) FROM vi_risk_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'R1' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '会员（订阅）收入' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_risk_metrics (risk_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) FROM vi_risk_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'R1' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_risk_metrics (risk_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '竞品月活：汽水音乐' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) FROM vi_risk_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'R1' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '竞品月活：汽水音乐' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_risk_metrics (risk_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '毛利率' AND unit IS NOT DISTINCT FROM '%' ORDER BY id LIMIT 1) FROM vi_risk_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'R2' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '毛利率' AND unit IS NOT DISTINCT FROM '%' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_risk_metrics (risk_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金、定期存款和短期投资' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) FROM vi_risk_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'R3' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金、定期存款和短期投资' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_risk_metrics (risk_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '带息负债（借款＋票据＋租赁）' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) FROM vi_risk_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'R3' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '带息负债（借款＋票据＋租赁）' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_risk_metrics (risk_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '回购金额' AND unit IS NOT DISTINCT FROM '亿美元' ORDER BY id LIMIT 1) FROM vi_risk_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'R3' AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '回购金额' AND unit IS NOT DISTINCT FROM '亿美元' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_lnk_risk_metrics (risk_id, metric_id) SELECT x.id, (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '港元兑人民币' AND unit IS NOT DISTINCT FROM '人民币/港元' ORDER BY id LIMIT 1) FROM vi_risk_base x WHERE x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.code = 'R5' AND (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '港元兑人民币' AND unit IS NOT DISTINCT FROM '人民币/港元' ORDER BY id LIMIT 1) IS NOT NULL ON CONFLICT DO NOTHING;
+
+UPDATE vi_judgment_base SET fact_layer = '2027 年基准：营业收入 373、付现成本 249.2、折旧摊销 17.5，核心经营利润（税前）106.3 亿元；利息收入等其他净贡献 9.5 亿元、利息支出 7.5 亿元不计入核心盈利。收购摊销 2027 年约 9 亿元（税前），其中含版权公允价值调整。
+持续跟踪：市场隐含核心倍数（交易日；来源：分部加总估值（自动计算））' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND code = 'J-SOTP-E';
+
+UPDATE vi_risk_base SET early_warning = '会员服务收入同比（剔除喜马拉雅）：连续两个季度同比为负
+汽水音乐、番茄音乐月活与付费：汽水月活超过 2.5 亿或推出更低价会员
+年末付费用户总数：2026 年末低于 1.22 亿（−4%）
+持续跟踪：番茄音乐月活、汽水音乐付费情况（月；来源：QuestMobile、行业研报）' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND code = 'R1';
+
+UPDATE vi_risk_base SET early_warning = '毛利率：单季毛利率低于 42%
+AI 音乐与版权政策：AI 翻唱或生成音乐的版权规则落地
+持续跟踪：AI 音乐与版权政策（季；来源：监管部门、行业协会、唱片公司）' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND code = 'R2';
+
+UPDATE vi_risk_base SET early_warning = '回购执行与新回购计划：新一轮回购计划公布（规模、期限）；或回购明显放缓而股价低于 9 美元
+现金、借款与美元票据：净现金低于 150 亿元，或带息负债超过 250 亿元
+持续跟踪：新回购计划（季；来源：业绩公告、港交所回购公告）' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND code = 'R3';
+
+UPDATE vi_risk_base SET early_warning = '喜马拉雅收入与利润贡献：整合后收入下降或出现商誉减值
+持续跟踪：喜马拉雅收入与利润贡献（季；来源：业绩公告、年报分部或附注）' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND code = 'R4';
+
+UPDATE vi_risk_base SET early_warning = '港元兑人民币：一个月内变动超过 3%
+对外持股市值（Spotify、UMG）：金融资产较上季变动超过 20%
+持续跟踪：对外持股市值（Spotify、UMG）（季；来源：资产负债表的金融资产；Spotify、UMG 股价）' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND code = 'R5';
+
+UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1), notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '付费用户 1.274 亿、ARPPU 11.9 元，月活连续下滑';
+
+UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '回购金额' AND unit IS NOT DISTINCT FROM '亿美元' ORDER BY id LIMIT 1), notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '回购与分红：2026 年二季度回购 4 亿美元，新一轮在准备';
+
+UPDATE vi_fact_base SET metric_id = NULL, notes = '原“数值”字段：20 百万人（2025Q4），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '管理层：竞争冲击轻度用户，超级会员稳定';
+
+UPDATE vi_fact_base SET metric_id = NULL, notes = '原“数值”字段：0.25 比率（2025Q2），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '自制音乐播放份额约 20%—30%，已超过三大唱片';
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '对外上市股权（公允价值）', '亿元', '财务', '报表计算', '时点', c.id, '财务数据（三大报表）：指定以公允价值记账之金融资产', '季', '指定以公允价值记账之金融资产'
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '对外上市股权（公允价值）' AND unit IS NOT DISTINCT FROM '亿元');
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '少数股东权益', '亿元', '财务', '报表计算', '时点', c.id, '财务数据（三大报表）：少数股东权益', '季', '少数股东权益'
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '少数股东权益' AND unit IS NOT DISTINCT FROM '亿元');
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）', '亿人', '经营', '年报', '全年', c.id, '年报', '年', NULL
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人');
+
+UPDATE vi_metric_base SET model_field = 'volume' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2021';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1), '2021-12-31', '2021', '全年', 0.762, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2022';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1), '2022-12-31', '2022', '全年', 0.885, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2023';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1), '2023-12-31', '2023', '全年', 1.067, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2024';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1), '2024-12-31', '2024', '全年', 1.21, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2025';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1), '2025-12-31', '2025', '全年', 1.274, '历史年度原值；口径：合并口径', now());
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '营业收入', '亿元', '财务', '报表计算', '全年', c.id, '财务数据（三大报表）：营业额', '年', '营业额'
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '营业收入' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET model_field = 'revenue' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '营业收入' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '营业收入' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2017';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '营业收入' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2017-12-31', '2017', '全年', 109.81, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '营业收入' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2018';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '营业收入' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2018-12-31', '2018', '全年', 189.85, '历史年度原值；口径：合并口径', now());
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '营业成本', '亿元', '财务', '报表计算', '全年', c.id, '财务数据（三大报表）：营业额 − 毛利', '年', '营业额 − 毛利'
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '营业成本' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET model_field = 'cost_of_sales' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '营业成本' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '营业成本' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2017';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '营业成本' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2017-12-31', '2017', '全年', 71.71, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '营业成本' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2018';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '营业成本' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2018-12-31', '2018', '全年', 117.08, '历史年度原值；口径：合并口径', now());
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '利润总额', '亿元', '财务', '报表计算', '全年', c.id, '财务数据（三大报表）：除税前溢利', '年', '除税前溢利'
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '利润总额' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET model_field = 'pretax_profit' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '利润总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '利润总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2017';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '利润总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2017-12-31', '2017', '全年', 15.97, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '利润总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2018';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '利润总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2018-12-31', '2018', '全年', 20.03, '历史年度原值；口径：合并口径', now());
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '所得税', '亿元', '财务', '报表计算', '全年', c.id, '财务数据（三大报表）：税项', '年', '税项'
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '所得税' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET model_field = 'income_tax' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '所得税' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '所得税' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2017';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '所得税' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2017-12-31', '2017', '全年', 2.78, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '所得税' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2018';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '所得税' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2018-12-31', '2018', '全年', 1.71, '历史年度原值；口径：合并口径', now());
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '归母净利润', '亿元', '财务', '报表计算', '全年', c.id, '财务数据（三大报表）：股东应占溢利', '年', '股东应占溢利'
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '归母净利润' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET model_field = 'np_parent' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '归母净利润' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '归母净利润' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2017';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '归母净利润' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2017-12-31', '2017', '全年', 13.26, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '归母净利润' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2018';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '归母净利润' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2018-12-31', '2018', '全年', 18.33, '历史年度原值；口径：合并口径', now());
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '少数股东损益', '亿元', '财务', '报表计算', '全年', c.id, '财务数据（三大报表）：少数股东损益', '年', '少数股东损益'
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '少数股东损益' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET model_field = 'minority_profit' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '少数股东损益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '少数股东损益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2017';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '少数股东损益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2017-12-31', '2017', '全年', -0.07, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '少数股东损益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2018';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '少数股东损益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2018-12-31', '2018', '全年', -0.01, '历史年度原值；口径：合并口径', now());
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '折旧摊销', '亿元', '财务', '报表计算', '全年', c.id, '财务数据（三大报表）：加:折旧及摊销', '年', '加:折旧及摊销'
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '折旧摊销' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET model_field = 'da' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '折旧摊销' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '折旧摊销' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2017';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '折旧摊销' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2017-12-31', '2017', '全年', 3.79, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '折旧摊销' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2018';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '折旧摊销' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2018-12-31', '2018', '全年', 3.69, '历史年度原值；口径：合并口径', now());
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '财务费用', '亿元', '财务', '报表计算', '全年', c.id, '财务数据（三大报表）：融资成本', '年', '融资成本'
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '财务费用' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET model_field = 'finance_cost' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '财务费用' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '财务费用' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2018';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '财务费用' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2018-12-31', '2018', '全年', 0.35, '历史年度原值；口径：合并口径', now());
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '投资收益', '亿元', '财务', '年报', '全年', c.id, '年报', '年', NULL
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET model_field = 'invest_income' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2017';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2017-12-31', '2017', '全年', 2.17, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2018';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2018-12-31', '2018', '全年', -12.66, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2019';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2019-12-31', '2019', '全年', 6.93, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2020';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2020-12-31', '2020', '全年', 9.84, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2021';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2021-12-31', '2021', '全年', 10.83, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2022';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2022-12-31', '2022', '全年', 12.27, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2023';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2023-12-31', '2023', '全年', 12.82, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2024';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2024-12-31', '2024', '全年', 13.61, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2025';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2025-12-31', '2025', '全年', 36.86, '历史年度原值；口径：合并口径', now());
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '权益法投资收益', '亿元', '财务', '报表计算', '全年', c.id, '财务数据（三大报表）：应占联营公司溢利', '年', '应占联营公司溢利'
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '权益法投资收益' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET model_field = 'equity_income' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '权益法投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '权益法投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2017';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '权益法投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2017-12-31', '2017', '全年', 0.04, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '权益法投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2018';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '权益法投资收益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2018-12-31', '2018', '全年', -0.01, '历史年度原值；口径：合并口径', now());
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '经营活动现金流量净额', '亿元', '财务', '报表计算', '全年', c.id, '财务数据（三大报表）：经营业务现金净额', '年', '经营业务现金净额'
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '经营活动现金流量净额' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET model_field = 'cfo' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '经营活动现金流量净额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '经营活动现金流量净额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2017';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '经营活动现金流量净额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2017-12-31', '2017', '全年', 25, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '经营活动现金流量净额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2018';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '经营活动现金流量净额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2018-12-31', '2018', '全年', 56.32, '历史年度原值；口径：合并口径', now());
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '资本开支', '亿元', '财务', '报表计算', '全年', c.id, '财务数据（三大报表）：购建固定资产 + 购建无形资产及其他资产', '年', '购建固定资产 + 购建无形资产及其他资产'
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '资本开支' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET model_field = 'capex' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '资本开支' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '资本开支' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2017';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '资本开支' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2017-12-31', '2017', '全年', 1.38, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '资本开支' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2018';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '资本开支' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2018-12-31', '2018', '全年', 4.83, '历史年度原值；口径：合并口径', now());
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '收到投资分红', '亿元', '财务', '报表计算', '全年', c.id, '财务数据（三大报表）：已收股息(投资)', '年', '已收股息(投资)'
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '收到投资分红' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET model_field = 'investee_cash_div' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '收到投资分红' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '净借款', '亿元', '财务', '年报', '全年', c.id, '年报', '年', NULL
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET model_field = 'net_borrowing' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2017';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2017-12-31', '2017', '全年', 0, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2018';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2018-12-31', '2018', '全年', 0, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2019';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2019-12-31', '2019', '全年', 0, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2020';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2020-12-31', '2020', '全年', 54, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2021';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2021-12-31', '2021', '全年', 0, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2022';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2022-12-31', '2022', '全年', 0, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2023';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2023-12-31', '2023', '全年', 0, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2024';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2024-12-31', '2024', '全年', 0, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2025';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '净借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2025-12-31', '2025', '全年', -21.31, '历史年度原值；口径：合并口径', now());
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '带息负债（借款＋票据＋租赁）', '亿元', '财务', '报表计算', '时点', c.id, '财务数据（三大报表）：短期贷款 + 长期贷款 + 应付票据 + 应付票据(非流动) + 融资租赁负债(流动) + 融资租赁负债(非流动)', '年', '短期贷款 + 长期贷款 + 应付票据 + 应付票据(非流动) + 融资租赁负债(流动) + 融资租赁负债(非流动)'
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '带息负债（借款＋票据＋租赁）' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET model_field = 'interest_debt' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '带息负债（借款＋票据＋租赁）' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '带息负债（借款＋票据＋租赁）' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '时点' AND period = '2017Q4';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '带息负债（借款＋票据＋租赁）' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2017-12-31', '2017Q4', '时点', 0, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '带息负债（借款＋票据＋租赁）' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '时点' AND period = '2018Q4';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '带息负债（借款＋票据＋租赁）' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2018-12-31', '2018Q4', '时点', 0, '历史年度原值；口径：合并口径', now());
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '货币资金', '亿元', '财务', '报表计算', '时点', c.id, '财务数据（三大报表）：现金及等价物 + 短期存款 + 中长期存款', '年', '现金及等价物 + 短期存款 + 中长期存款'
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '货币资金' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET model_field = 'cash' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '货币资金' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '货币资金' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '时点' AND period = '2017Q4';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '货币资金' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2017-12-31', '2017Q4', '时点', 64.8, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '货币资金' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '时点' AND period = '2018Q4';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '货币资金' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2018-12-31', '2018Q4', '时点', 200.8, '历史年度原值；口径：合并口径', now());
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '归母净资产', '亿元', '财务', '报表计算', '时点', c.id, '财务数据（三大报表）：股东权益', '年', '股东权益'
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '归母净资产' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET model_field = 'equity_parent' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '归母净资产' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '归母净资产' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '时点' AND period = '2017Q4';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '归母净资产' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2017-12-31', '2017Q4', '时点', 261.41, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '归母净资产' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '时点' AND period = '2018Q4';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '归母净资产' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2018-12-31', '2018Q4', '时点', 377.21, '历史年度原值；口径：合并口径', now());
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '现金分红总额', '亿元', '财务', '年报', '全年', c.id, '年报', '年', NULL
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET model_field = 'dividend_total' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2017';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2017-12-31', '2017', '全年', 0, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2018';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2018-12-31', '2018', '全年', 0, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2019';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2019-12-31', '2019', '全年', 0, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2020';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2020-12-31', '2020', '全年', 1.34, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2021';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2021-12-31', '2021', '全年', 34.79, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2022';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2022-12-31', '2022', '全年', 31.27, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2023';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2023-12-31', '2023', '全年', 28.25, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2024';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2024-12-31', '2024', '全年', 39.6, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2025';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金分红总额' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), '2025-12-31', '2025', '全年', 29.11, '历史年度原值；口径：合并口径', now());
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
+SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
+       '每股股息', '元', '财务', '年报', '全年', c.id, '年报', '年', NULL
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元');
+
+UPDATE vi_metric_base SET model_field = 'dps' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1);
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2017';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1), '2017-12-31', '2017', '全年', 0, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2018';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1), '2018-12-31', '2018', '全年', 0, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2019';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1), '2019-12-31', '2019', '全年', 0, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2020';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1), '2020-12-31', '2020', '全年', 0, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2021';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1), '2021-12-31', '2021', '全年', 0, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2022';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1), '2022-12-31', '2022', '全年', 0, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2023';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1), '2023-12-31', '2023', '全年', 0.5, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2024';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1), '2024-12-31', '2024', '全年', 0.65, '历史年度原值；口径：合并口径', now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2025';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '每股股息' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1), '2025-12-31', '2025', '全年', 0.82, '历史年度原值；口径：合并口径', now());
+
+UPDATE vi_sotp_item_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '现金、定期存款和短期投资' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), amount = NULL WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK')) AND code = 'C1' AND scenario_id IS NULL;
+
+UPDATE vi_sotp_item_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '带息负债（借款＋票据＋租赁）' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), amount = NULL WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK')) AND code = 'C2' AND scenario_id IS NULL;
+
+UPDATE vi_sotp_item_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '对外上市股权（公允价值）' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), amount = NULL WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK')) AND code = 'C5' AND scenario_id IS NULL;
+
+UPDATE vi_sotp_item_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '对外上市股权（公允价值）' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), amount = NULL WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK')) AND code = 'C5' AND scenario_id IN (SELECT id FROM vi_scenario_base WHERE name = '悲观');
+
+UPDATE vi_sotp_item_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '对外上市股权（公允价值）' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), amount = NULL WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK')) AND code = 'C5' AND scenario_id IN (SELECT id FROM vi_scenario_base WHERE name = '乐观');
+
+UPDATE vi_sotp_item_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '少数股东权益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), amount = NULL WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK')) AND code = 'C8' AND scenario_id IS NULL;
 
 COMMIT;

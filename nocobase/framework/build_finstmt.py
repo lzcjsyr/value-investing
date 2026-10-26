@@ -153,7 +153,7 @@ def page_body(co, gid, has_supplement=False):
         from page_style import column_settings
         fields = ['metric','period','basis','value','unit','yoy','summary','doc']
         block['fields'] = [dict(bp.rel_popup(rels[f]) if f in rels else {'field': f}, settings=column_settings(meta[f])) for f in fields]
-        block['settings']['description'] = '分部收入、分部利润率、现金口径及调整后利润等财务补充；三大报表已有的集团收入、归母利润、期间利润和研发费用不重复列示。合同额、销量、用户和设备数见「业务数据」。'
+        block['settings']['description'] = '三大报表里没有的财务数：分部收入与利润率、公司口径的现金与调整后利润等。报表里有的科目（收入、利润、毛利率、应收、负债等）由「指标」按报表公式直接算，不另存。合同额、销量、用户和设备数见「业务数据」。'
         body['defaults'] = b['defaults']
         body['tabs'].append({'title': '分部与财务补充', 'blocks': [block]})
         body['page']['enableTabs'] = True
@@ -161,9 +161,7 @@ def page_body(co, gid, has_supplement=False):
 
 
 def has_financial_supplement(co):
-    from data_domains import STATEMENT_DUPLICATES
-    conditions = [{'company_id': {'$eq': co['id']}}, {'category': {'$eq': '财务'}}]
-    conditions += [{'name': {'$ne': name}} for name in sorted(STATEMENT_DUPLICATES)]
+    conditions = [{'company_id': {'$eq': co['id']}}, {'category': {'$eq': '财务'}}, {'source_kind': {'$ne': '报表计算'}}]
     return bool(nb_json('resource','list','--resource','vi_metric','--filter',json.dumps({'$and': conditions}), '--page-size','1')['data'])
 
 

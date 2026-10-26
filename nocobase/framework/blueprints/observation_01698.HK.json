@@ -25,42 +25,32 @@
     },
     "fieldGroups": [
      {
-      "title": "基本信息（1/2）",
+      "title": "基本信息",
       "fields": [
        "obs_date",
-       "value",
-       "collected_at",
-       "source",
-       "note",
        "period",
+       "basis",
+       "value",
        "yoy",
-       "impact",
-       "assessment",
-       "summary"
-      ]
-     },
-     {
-      "title": "基本信息（2/2）",
-      "fields": [
-       "status"
+       "summary",
+       "collected_at"
       ]
      },
      {
       "title": "关联",
       "fields": [
        "metric",
-       "raw_capture",
-       "doc"
+       "doc",
+       "raw_capture"
       ]
      },
      {
       "title": "自动计算（只读）",
       "fields": [
-       "is_current",
-       "is_valid",
        "unit",
-       "basis",
-       "source_kind"
+       "source_kind",
+       "is_current",
+       "is_valid"
       ]
      },
      {
@@ -69,47 +59,7 @@
        "updated_at"
       ]
      }
-    ],
-    "formBehaviorDescriptionReview": {
-     "fields": {
-      "is_current": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "is_valid": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "period": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "impact": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "assessment": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "summary": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "unit": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "basis": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "source_kind": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      }
-     }
-    }
+    ]
    },
    "vi_metric": {
     "popups": {
@@ -134,18 +84,20 @@
        "name",
        "unit",
        "category",
+       "source_kind",
+       "basis",
+       "model_field",
+       "formula",
        "source_name",
-       "frequency",
-       "valid_min",
-       "valid_max",
-       "notes",
-       "source_kind"
+       "frequency"
       ]
      },
      {
       "title": "基本信息（2/2）",
       "fields": [
-       "basis"
+       "valid_min",
+       "valid_max",
+       "notes"
       ]
      },
      {
@@ -155,13 +107,23 @@
       ]
      },
      {
-      "title": "自动计算（只读）",
+      "title": "自动计算（只读）（1/2）",
       "fields": [
        "obs_count",
        "latest_value",
+       "latest_period",
        "latest_date",
+       "state",
+       "next_due",
+       "tracked_by",
+       "tracked_codes",
        "scope",
-       "used_by",
+       "used_by"
+      ]
+     },
+     {
+      "title": "自动计算（只读）（2/2）",
+      "fields": [
        "used_by_codes"
       ]
      },
@@ -171,47 +133,7 @@
        "updated_at"
       ]
      }
-    ],
-    "formBehaviorDescriptionReview": {
-     "fields": {
-      "code": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "unit": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "category": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "valid_min": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "scope": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "used_by": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "used_by_codes": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "source_kind": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "basis": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      }
-     }
-    }
+    ]
    },
    "vi_source": {
     "popups": {
@@ -309,27 +231,7 @@
        "updated_at"
       ]
      }
-    ],
-    "formBehaviorDescriptionReview": {
-     "fields": {
-      "is_valid": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "fetch_result": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "fetch_ok": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "fetch_note": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      }
-     }
-    }
+    ]
    }
   }
  },
@@ -376,6 +278,12 @@
        }
       },
       {
+       "field": "basis",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
        "field": "value",
        "settings": {
         "width": 150
@@ -394,27 +302,9 @@
        }
       },
       {
-       "field": "impact",
-       "settings": {
-        "width": 140
-       }
-      },
-      {
-       "field": "assessment",
-       "settings": {
-        "width": 360
-       }
-      },
-      {
        "field": "summary",
        "settings": {
         "width": 360
-       }
-      },
-      {
-       "field": "status",
-       "settings": {
-        "width": 140
        }
       },
       {
@@ -447,7 +337,7 @@
      ],
      "settings": {
       "title": "",
-      "description": "按期披露的量、价、订单、面积、用户与设备等经营指标及解读；引用【指标】【来源文档】；被【驾驶舱】【自动检查】引用；【重要事实】【跟踪事项】通过关联【指标】间接引用本序列。收入、利润、毛利率、现金与负债见【财务数据】。",
+      "description": "按期披露的量、价、订单、面积、用户与设备等经营指标及解读；引用【指标】【来源文档】；被【驾驶舱】【自动检查】【重点跟踪】引用；【重要事实】通过“相关指标”引用本序列。收入、利润、毛利率、现金与负债见【财务数据】。",
       "pageSize": 50,
       "sorting": [
        {
@@ -494,44 +384,25 @@
           "resource": {
            "collectionName": "vi_observation"
           },
-          "fieldGroups": [
+          "fields": [
+           "obs_date",
+           "period",
+           "basis",
+           "value",
+           "yoy",
+           "summary",
+           "collected_at",
            {
-            "title": "基本信息（1/2）",
-            "fields": [
-             "obs_date",
-             "period",
-             "value",
-             "yoy",
-             "impact",
-             "assessment",
-             "summary",
-             "status",
-             "collected_at",
-             "source"
-            ]
+            "field": "metric",
+            "titleField": "name"
            },
            {
-            "title": "基本信息（2/2）",
-            "fields": [
-             "note"
-            ]
+            "field": "doc",
+            "titleField": "title"
            },
            {
-            "title": "关联",
-            "fields": [
-             {
-              "field": "metric",
-              "titleField": "name"
-             },
-             {
-              "field": "doc",
-              "titleField": "title"
-             },
-             {
-              "field": "raw_capture",
-              "titleField": "run_label"
-             }
-            ]
+            "field": "raw_capture",
+            "titleField": "run_label"
            }
           ],
           "actions": [
@@ -552,44 +423,25 @@
         "blocks": [
          {
           "type": "editForm",
-          "fieldGroups": [
+          "fields": [
+           "obs_date",
+           "period",
+           "basis",
+           "value",
+           "yoy",
+           "summary",
+           "collected_at",
            {
-            "title": "基本信息（1/2）",
-            "fields": [
-             "obs_date",
-             "period",
-             "value",
-             "yoy",
-             "impact",
-             "assessment",
-             "summary",
-             "status",
-             "collected_at",
-             "source"
-            ]
+            "field": "metric",
+            "titleField": "name"
            },
            {
-            "title": "基本信息（2/2）",
-            "fields": [
-             "note"
-            ]
+            "field": "doc",
+            "titleField": "title"
            },
            {
-            "title": "关联",
-            "fields": [
-             {
-              "field": "metric",
-              "titleField": "name"
-             },
-             {
-              "field": "doc",
-              "titleField": "title"
-             },
-             {
-              "field": "raw_capture",
-              "titleField": "run_label"
-             }
-            ]
+            "field": "raw_capture",
+            "titleField": "run_label"
            }
           ],
           "actions": [
@@ -676,15 +528,62 @@
        }
       },
       {
-       "field": "source",
+       "field": "doc",
+       "titleField": "title",
+       "popup": {
+        "title": "来源文档",
+        "blocks": [
+         {
+          "type": "details",
+          "resource": {
+           "binding": "currentRecord",
+           "collectionName": "vi_source"
+          },
+          "fields": [
+           "title",
+           "source_type",
+           "publisher",
+           "publish_date",
+           "url",
+           "reliability"
+          ]
+         }
+        ]
+       },
        "settings": {
-        "width": 360
+        "width": 200
+       }
+      },
+      {
+       "field": "raw_capture",
+       "titleField": "run_label",
+       "popup": {
+        "title": "原始采集记录",
+        "blocks": [
+         {
+          "type": "details",
+          "resource": {
+           "binding": "currentRecord",
+           "collectionName": "vi_raw_capture"
+          },
+          "fields": [
+           "run_label",
+           "collected_at",
+           "status",
+           "fetch_result",
+           "raw_response"
+          ]
+         }
+        ]
+       },
+       "settings": {
+        "width": 200
        }
       }
      ],
      "settings": {
       "title": "",
-      "description": "自动采集的水位、来水、纸浆价格等高频经营环境数据；引用【指标】【原始采集记录】，保留采集地址；被【驾驶舱】【自动检查】引用；【重要事实】【跟踪事项】通过关联【指标】间接引用本序列。股价见【驾驶舱】，利率与汇率见【宏观数据】。",
+      "description": "自动采集的水位、来水、纸浆价格等高频经营环境数据；引用【指标】【原始采集记录】，保留采集地址；被【驾驶舱】【自动检查】【重点跟踪】引用；【重要事实】通过“相关指标”引用本序列。股价见【驾驶舱】，利率与汇率见【宏观数据】。",
       "pageSize": 50,
       "sorting": [
        {
@@ -741,44 +640,25 @@
           "resource": {
            "collectionName": "vi_observation"
           },
-          "fieldGroups": [
+          "fields": [
+           "obs_date",
+           "period",
+           "basis",
+           "value",
+           "yoy",
+           "summary",
+           "collected_at",
            {
-            "title": "基本信息（1/2）",
-            "fields": [
-             "obs_date",
-             "period",
-             "value",
-             "yoy",
-             "impact",
-             "assessment",
-             "summary",
-             "status",
-             "collected_at",
-             "source"
-            ]
+            "field": "metric",
+            "titleField": "name"
            },
            {
-            "title": "基本信息（2/2）",
-            "fields": [
-             "note"
-            ]
+            "field": "doc",
+            "titleField": "title"
            },
            {
-            "title": "关联",
-            "fields": [
-             {
-              "field": "metric",
-              "titleField": "name"
-             },
-             {
-              "field": "doc",
-              "titleField": "title"
-             },
-             {
-              "field": "raw_capture",
-              "titleField": "run_label"
-             }
-            ]
+            "field": "raw_capture",
+            "titleField": "run_label"
            }
           ],
           "actions": [
@@ -799,44 +679,25 @@
         "blocks": [
          {
           "type": "editForm",
-          "fieldGroups": [
+          "fields": [
+           "obs_date",
+           "period",
+           "basis",
+           "value",
+           "yoy",
+           "summary",
+           "collected_at",
            {
-            "title": "基本信息（1/2）",
-            "fields": [
-             "obs_date",
-             "period",
-             "value",
-             "yoy",
-             "impact",
-             "assessment",
-             "summary",
-             "status",
-             "collected_at",
-             "source"
-            ]
+            "field": "metric",
+            "titleField": "name"
            },
            {
-            "title": "基本信息（2/2）",
-            "fields": [
-             "note"
-            ]
+            "field": "doc",
+            "titleField": "title"
            },
            {
-            "title": "关联",
-            "fields": [
-             {
-              "field": "metric",
-              "titleField": "name"
-             },
-             {
-              "field": "doc",
-              "titleField": "title"
-             },
-             {
-              "field": "raw_capture",
-              "titleField": "run_label"
-             }
-            ]
+            "field": "raw_capture",
+            "titleField": "run_label"
            }
           ],
           "actions": [

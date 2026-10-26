@@ -1,0 +1,693 @@
+{
+ "new_metrics": [],
+ "stmt_metrics": [
+  {
+   "name": "毛利率",
+   "unit": "%",
+   "formula": "（营业收入 − 营业成本）÷ 营业收入",
+   "basis": "单季"
+  },
+  {
+   "name": "营业收入",
+   "unit": "亿元",
+   "formula": "营业收入",
+   "basis": "单季"
+  },
+  {
+   "name": "归母净利润",
+   "unit": "亿元",
+   "formula": "归属于母公司所有者的净利润",
+   "basis": "单季"
+  }
+ ],
+ "main_basis": [],
+ "basis_fix": [],
+ "metric_updates": [
+  {
+   "name": "毛利率",
+   "unit": "%",
+   "source_name": "季报、半年报分产品毛利率"
+  }
+ ],
+ "judgment_metrics": [
+  [
+   "J-M",
+   {
+    "name": "纸浆期货最新价（新浪 SP0 连续）",
+    "unit": "元/吨",
+    "macro": true
+   }
+  ],
+  [
+   "J-M",
+   {
+    "name": "毛利率",
+    "unit": "%"
+   }
+  ],
+  [
+   "J-P",
+   {
+    "name": "毛利率",
+    "unit": "%"
+   }
+  ],
+  [
+   "J-R",
+   {
+    "name": "太阳纸业收盘价",
+    "unit": "元"
+   }
+  ]
+ ],
+ "risk_metrics": [
+  [
+   "R1",
+   {
+    "name": "纸浆期货最新价（新浪 SP0 连续）",
+    "unit": "元/吨",
+    "macro": true
+   }
+  ],
+  [
+   "R1",
+   {
+    "name": "毛利率",
+    "unit": "%"
+   }
+  ]
+ ],
+ "text": [
+  [
+   "risk",
+   "R1",
+   "early_warning",
+   "纸浆价格：较 2026-10 水平（约 4700 元/吨）变动超过 ±15% 且持续一个月\n季度毛利率与分产品吨利：综合毛利率连续两季低于 13%，或箱板纸毛利率低于 13%\n箱板纸、文化纸价格与提价落地：旺季提价未落地、价格反跌\n持续跟踪：分产品吨利（季；来源：季报、半年报分产品毛利率）\n持续跟踪：箱板纸、文化纸价格与提价落地（月；来源：卓创/隆众/钢联（券商转引））"
+  ],
+  [
+   "risk",
+   "R2",
+   "early_warning",
+   "新产能爬坡与南宁项目进度：PM47 未在 2026 年四季度满产；南宁项目延期超过两个季度\n老挝新项目与林地：老挝新浆线立项（最早 2027H2）\n持续跟踪：新产能爬坡与南宁项目进度（季；来源：公告、互动平台、业绩会）\n持续跟踪：老挝新项目与林地（半年；来源：业绩会、公告）"
+  ],
+  [
+   "risk",
+   "R3",
+   "early_warning",
+   "资本开支与净负债：资本开支连续两年超过 60 亿元，或带息负债超过 230 亿元\n老挝新项目与林地：老挝新浆线立项（最早 2027H2）\n持续跟踪：资本开支与净负债（半年；来源：半年报、年报现金流量表与资产负债表）"
+  ],
+  [
+   "risk",
+   "R4",
+   "early_warning",
+   "分红政策（2027—2029 年规划）：新规划下限仍为 20% 且实际派息率不升\n股权激励考核完成情况：2026 年扣非归母净利低于 35.11 亿元\n关联交易：关联销售占比明显上升或定价偏离市价\n持续跟踪：分红政策（2027—2029 年规划）（年；来源：年报、分红规划公告）\n持续跟踪：股权激励考核完成情况（年；来源：年报）\n持续跟踪：关联交易（年；来源：年报关联交易章节）"
+  ]
+ ],
+ "facts": [
+  [
+   "2026 年上半年分产品销量（管理层口径）",
+   {
+    "name": "浆纸销量（管理层口径）",
+    "unit": "万吨"
+   },
+   null
+  ],
+  [
+   "2019—2025 年经营现金流≈资本开支",
+   null,
+   "原“数值”字段：-5 亿元（2019—2025），为正文数字的推算或合计"
+  ]
+ ],
+ "history": [
+  {
+   "field": "volume",
+   "metric": {
+    "name": "浆纸销量（纸＋外销浆）",
+    "unit": "万吨"
+   },
+   "formula": null,
+   "balance": false,
+   "values": [
+    {
+     "year": 2016,
+     "value": 307,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 809
+    },
+    {
+     "year": 2017,
+     "value": 360,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 809
+    },
+    {
+     "year": 2019,
+     "value": 471,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 810
+    },
+    {
+     "year": 2020,
+     "value": 477,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 800
+    },
+    {
+     "year": 2021,
+     "value": 630,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 799
+    },
+    {
+     "year": 2022,
+     "value": 741,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 798
+    },
+    {
+     "year": 2023,
+     "value": 812,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 797
+    },
+    {
+     "year": 2024,
+     "value": 897,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 796
+    },
+    {
+     "year": 2025,
+     "value": 929,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 795
+    }
+   ]
+  },
+  {
+   "field": "revenue",
+   "metric": {
+    "name": "营业收入",
+    "unit": "亿元"
+   },
+   "formula": "营业收入",
+   "balance": false,
+   "values": [
+    {
+     "year": 2021,
+     "value": 319.97,
+     "summary": "历史年度原值（报表算出 321.5916，差异为追溯调整或口径不同）；口径：合并口径",
+     "source_id": 799
+    }
+   ]
+  },
+  {
+   "field": "cost_of_sales",
+   "metric": {
+    "name": "营业成本",
+    "unit": "亿元"
+   },
+   "formula": "营业成本",
+   "balance": false,
+   "values": [
+    {
+     "year": 2021,
+     "value": 264.38,
+     "summary": "历史年度原值（报表算出 266.3165，差异为追溯调整或口径不同）；口径：合并口径",
+     "source_id": 799
+    }
+   ]
+  },
+  {
+   "field": "pretax_profit",
+   "metric": {
+    "name": "利润总额",
+    "unit": "亿元"
+   },
+   "formula": "利润总额",
+   "balance": false,
+   "values": [
+    {
+     "year": 2021,
+     "value": 33.79,
+     "summary": "历史年度原值（报表算出 33.4805，差异为追溯调整或口径不同）；口径：合并口径",
+     "source_id": 799
+    }
+   ]
+  },
+  {
+   "field": "income_tax",
+   "metric": {
+    "name": "所得税",
+    "unit": "亿元"
+   },
+   "formula": "所得税费用",
+   "balance": false,
+   "values": [
+    {
+     "year": 2021,
+     "value": 4.12,
+     "summary": "历史年度原值（报表算出 4.0881，差异为追溯调整或口径不同）；口径：合并口径",
+     "source_id": 799
+    }
+   ]
+  },
+  {
+   "field": "np_parent",
+   "metric": {
+    "name": "归母净利润",
+    "unit": "亿元"
+   },
+   "formula": "归属于母公司所有者的净利润",
+   "balance": false,
+   "values": [
+    {
+     "year": 2021,
+     "value": 29.57,
+     "summary": "历史年度原值（报表算出 29.2940，差异为追溯调整或口径不同）；口径：合并口径",
+     "source_id": 799
+    }
+   ]
+  },
+  {
+   "field": "minority_profit",
+   "metric": {
+    "name": "少数股东损益",
+    "unit": "亿元"
+   },
+   "formula": "少数股东损益",
+   "balance": false,
+   "values": []
+  },
+  {
+   "field": "da",
+   "metric": {
+    "name": "折旧摊销",
+    "unit": "亿元"
+   },
+   "formula": null,
+   "balance": false,
+   "values": [
+    {
+     "year": 2014,
+     "value": 7.54,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 810
+    },
+    {
+     "year": 2015,
+     "value": 7.47,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 810
+    },
+    {
+     "year": 2016,
+     "value": 8.95,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 809
+    },
+    {
+     "year": 2017,
+     "value": 9.93,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 809
+    },
+    {
+     "year": 2018,
+     "value": 11.51,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 810
+    },
+    {
+     "year": 2019,
+     "value": 14.53,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 810
+    },
+    {
+     "year": 2020,
+     "value": 14.35,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 800
+    },
+    {
+     "year": 2021,
+     "value": 17.69,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 799
+    },
+    {
+     "year": 2022,
+     "value": 21.09,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 798
+    },
+    {
+     "year": 2023,
+     "value": 21.81,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 797
+    },
+    {
+     "year": 2024,
+     "value": 23.86,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 796
+    },
+    {
+     "year": 2025,
+     "value": 24.98,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 795
+    }
+   ]
+  },
+  {
+   "field": "finance_cost",
+   "metric": {
+    "name": "财务费用",
+    "unit": "亿元"
+   },
+   "formula": "财务费用",
+   "balance": false,
+   "values": []
+  },
+  {
+   "field": "invest_income",
+   "metric": {
+    "name": "投资收益",
+    "unit": "亿元"
+   },
+   "formula": "投资收益",
+   "balance": false,
+   "values": []
+  },
+  {
+   "field": "equity_income",
+   "metric": {
+    "name": "权益法投资收益",
+    "unit": "亿元"
+   },
+   "formula": "对联营企业和合营企业的投资收益",
+   "balance": false,
+   "values": []
+  },
+  {
+   "field": "cfo",
+   "metric": {
+    "name": "经营活动现金流量净额",
+    "unit": "亿元"
+   },
+   "formula": "经营活动产生的现金流量净额",
+   "balance": false,
+   "values": [
+    {
+     "year": 2017,
+     "value": 37.67,
+     "summary": "历史年度原值（报表算出 38.5320，差异为追溯调整或口径不同）；口径：合并口径",
+     "source_id": 809
+    },
+    {
+     "year": 2021,
+     "value": 49.29,
+     "summary": "历史年度原值（报表算出 48.9846，差异为追溯调整或口径不同）；口径：合并口径",
+     "source_id": 799
+    }
+   ]
+  },
+  {
+   "field": "capex",
+   "metric": {
+    "name": "资本开支",
+    "unit": "亿元"
+   },
+   "formula": "购建固定资产、无形资产和其他长期资产所支付的现金",
+   "balance": false,
+   "values": [
+    {
+     "year": 2021,
+     "value": 72.49,
+     "summary": "历史年度原值（报表算出 72.1812，差异为追溯调整或口径不同）；口径：合并口径",
+     "source_id": 799
+    }
+   ]
+  },
+  {
+   "field": "investee_cash_div",
+   "metric": {
+    "name": "收到投资分红",
+    "unit": "亿元"
+   },
+   "formula": "取得投资收益收到的现金",
+   "balance": false,
+   "values": []
+  },
+  {
+   "field": "net_borrowing",
+   "metric": {
+    "name": "净借款",
+    "unit": "亿元"
+   },
+   "formula": "取得借款收到的现金 − 偿还债务支付的现金",
+   "balance": false,
+   "values": [
+    {
+     "year": 2022,
+     "value": 24.9,
+     "summary": "历史年度原值（报表算出 24.9063，差异为追溯调整或口径不同）；口径：合并口径",
+     "source_id": 798
+    }
+   ]
+  },
+  {
+   "field": "interest_debt",
+   "metric": {
+    "name": "带息负债",
+    "unit": "亿元"
+   },
+   "formula": "短期借款 + 一年内到期的非流动负债 + 长期借款 + 应付债券 + 租赁负债",
+   "balance": true,
+   "values": [
+    {
+     "year": 2014,
+     "value": 72.67,
+     "summary": "历史年度原值（报表算出 72.6399，差异为追溯调整或口径不同）；口径：合并口径",
+     "source_id": 810
+    },
+    {
+     "year": 2017,
+     "value": 99.76,
+     "summary": "历史年度原值（报表算出 99.6267，差异为追溯调整或口径不同）；口径：合并口径",
+     "source_id": 809
+    },
+    {
+     "year": 2020,
+     "value": 132.19,
+     "summary": "历史年度原值（报表算出 132.1197，差异为追溯调整或口径不同）；口径：合并口径",
+     "source_id": 800
+    }
+   ]
+  },
+  {
+   "field": "cash",
+   "metric": {
+    "name": "货币资金",
+    "unit": "亿元"
+   },
+   "formula": "货币资金",
+   "balance": true,
+   "values": []
+  },
+  {
+   "field": "equity_parent",
+   "metric": {
+    "name": "归母净资产",
+    "unit": "亿元"
+   },
+   "formula": "归属于母公司股东权益合计",
+   "balance": true,
+   "values": [
+    {
+     "year": 2021,
+     "value": 187.33,
+     "summary": "历史年度原值（报表算出 187.0550，差异为追溯调整或口径不同）；口径：合并口径",
+     "source_id": 799
+    },
+    {
+     "year": 2022,
+     "value": 230.84,
+     "summary": "历史年度原值（报表算出 230.8499，差异为追溯调整或口径不同）；口径：合并口径",
+     "source_id": 798
+    }
+   ]
+  },
+  {
+   "field": "dividend_total",
+   "metric": {
+    "name": "现金分红总额",
+    "unit": "亿元"
+   },
+   "formula": null,
+   "balance": false,
+   "values": [
+    {
+     "year": 2014,
+     "value": 1.27,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 810
+    },
+    {
+     "year": 2015,
+     "value": 1.27,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 810
+    },
+    {
+     "year": 2016,
+     "value": 1.27,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 809
+    },
+    {
+     "year": 2017,
+     "value": 2.59,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 809
+    },
+    {
+     "year": 2018,
+     "value": 2.59,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 810
+    },
+    {
+     "year": 2019,
+     "value": 2.59,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 810
+    },
+    {
+     "year": 2020,
+     "value": 2.62,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 800
+    },
+    {
+     "year": 2021,
+     "value": 5.37,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 799
+    },
+    {
+     "year": 2022,
+     "value": 5.59,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 798
+    },
+    {
+     "year": 2023,
+     "value": 8.38,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 797
+    },
+    {
+     "year": 2024,
+     "value": 8.38,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 796
+    },
+    {
+     "year": 2025,
+     "value": 8.38,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 795
+    }
+   ]
+  },
+  {
+   "field": "dps",
+   "metric": {
+    "name": "每股股息",
+    "unit": "元"
+   },
+   "formula": null,
+   "balance": false,
+   "values": [
+    {
+     "year": 2014,
+     "value": 0.05,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 810
+    },
+    {
+     "year": 2015,
+     "value": 0.05,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 810
+    },
+    {
+     "year": 2016,
+     "value": 0.05,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 809
+    },
+    {
+     "year": 2017,
+     "value": 0.1,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 809
+    },
+    {
+     "year": 2018,
+     "value": 0.1,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 810
+    },
+    {
+     "year": 2019,
+     "value": 0.1,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 810
+    },
+    {
+     "year": 2020,
+     "value": 0.1,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 800
+    },
+    {
+     "year": 2021,
+     "value": 0.2,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 799
+    },
+    {
+     "year": 2022,
+     "value": 0.2,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 798
+    },
+    {
+     "year": 2023,
+     "value": 0.3,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 797
+    },
+    {
+     "year": 2024,
+     "value": 0.3,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 796
+    },
+    {
+     "year": 2025,
+     "value": 0.3,
+     "summary": "历史年度原值；口径：合并口径",
+     "source_id": 795
+    }
+   ]
+  }
+ ],
+ "assets": [],
+ "new_stmt": []
+}

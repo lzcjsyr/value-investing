@@ -1,0 +1,162 @@
+{
+  "data": {
+    "fields": [
+      {
+        "name": "id",
+        "rawType": "BIGINT",
+        "field": "id",
+        "type": "bigInt",
+        "possibleTypes": [
+          "bigInt",
+          "snowflakeId",
+          "unixTimestamp",
+          "sort"
+        ]
+      },
+      {
+        "name": "code",
+        "rawType": "TEXT",
+        "field": "code",
+        "type": "text"
+      },
+      {
+        "name": "title",
+        "rawType": "TEXT",
+        "field": "title",
+        "type": "text"
+      },
+      {
+        "name": "purpose",
+        "rawType": "TEXT",
+        "field": "purpose",
+        "type": "text"
+      },
+      {
+        "name": "fetch_method",
+        "rawType": "TEXT",
+        "field": "fetch_method",
+        "type": "text"
+      },
+      {
+        "name": "preferred_source",
+        "rawType": "TEXT",
+        "field": "preferred_source",
+        "type": "text"
+      },
+      {
+        "name": "frequency",
+        "rawType": "TEXT",
+        "field": "frequency",
+        "type": "text"
+      },
+      {
+        "name": "compare",
+        "rawType": "TEXT",
+        "field": "compare",
+        "type": "text"
+      },
+      {
+        "name": "baseline",
+        "rawType": "DOUBLE PRECISION",
+        "field": "baseline",
+        "type": "float"
+      },
+      {
+        "name": "lower",
+        "rawType": "DOUBLE PRECISION",
+        "field": "lower",
+        "type": "float"
+      },
+      {
+        "name": "upper",
+        "rawType": "DOUBLE PRECISION",
+        "field": "upper",
+        "type": "float"
+      },
+      {
+        "name": "trigger",
+        "rawType": "TEXT",
+        "field": "trigger",
+        "type": "text"
+      },
+      {
+        "name": "action",
+        "rawType": "TEXT",
+        "field": "action",
+        "type": "text"
+      },
+      {
+        "name": "company_id",
+        "rawType": "BIGINT",
+        "field": "company_id",
+        "type": "bigInt",
+        "possibleTypes": [
+          "bigInt",
+          "snowflakeId",
+          "unixTimestamp",
+          "sort"
+        ]
+      },
+      {
+        "name": "metric_id",
+        "rawType": "BIGINT",
+        "field": "metric_id",
+        "type": "bigInt",
+        "possibleTypes": [
+          "bigInt",
+          "snowflakeId",
+          "unixTimestamp",
+          "sort"
+        ]
+      },
+      {
+        "name": "state",
+        "rawType": "TEXT",
+        "field": "state",
+        "type": "text"
+      },
+      {
+        "name": "latest_value",
+        "rawType": "DOUBLE PRECISION",
+        "field": "latest_value",
+        "type": "float"
+      },
+      {
+        "name": "latest_period",
+        "rawType": "TEXT",
+        "field": "latest_period",
+        "type": "text"
+      },
+      {
+        "name": "latest_date",
+        "rawType": "DATE",
+        "field": "latest_date",
+        "type": "dateOnly"
+      },
+      {
+        "name": "vs_baseline",
+        "rawType": "DOUBLE PRECISION",
+        "field": "vs_baseline",
+        "type": "float"
+      },
+      {
+        "name": "next_due",
+        "rawType": "DATE",
+        "field": "next_due",
+        "type": "dateOnly"
+      },
+      {
+        "name": "updated_at",
+        "rawType": "TIMESTAMP WITH TIME ZONE",
+        "field": "updated_at",
+        "type": "datetimeTz",
+        "possibleTypes": [
+          "datetimeTz",
+          "date"
+        ]
+      }
+    ],
+    "unsupportedFields": [],
+    "sources": []
+  }
+}

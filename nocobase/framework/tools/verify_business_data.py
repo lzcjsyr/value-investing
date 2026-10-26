@@ -5,7 +5,7 @@ import subprocess
 import sys
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 import build_pages as bp
-from data_domains import business_scope, financial_supplement_scope, STATEMENT_DUPLICATES, category
+from data_domains import business_scope, financial_supplement_scope, category
 
 OUT=bp.ROOT/'checks'/'business_data_20261026'
 CODES={'600900.SH','002078.SZ','601668.SH','01698.HK','01810.HK'}
@@ -48,7 +48,7 @@ if __name__=='__main__':
             data=rows_for(f)
             for r in data:
                 assert r['metric']['category'] in ('经营','水文','商品'),r
-                assert r['metric']['name'] not in STATEMENT_DUPLICATES,r
+                assert r['metric']['source_kind']!='报表计算',r
             found+=data
         names={r['metric']['name'] for r in found}
         if co['code']=='601668.SH':assert {'新签合同总额','地产合约销售额','房屋建筑新开工面积'}<=names
@@ -61,7 +61,7 @@ if __name__=='__main__':
             f=table['stepParams']['tableSettings']['dataScope']['filter']
             assert f==financial_supplement_scope(co)
             supplemental+=rows_for(f)
-        assert all(r['metric']['category']=='财务' and r['metric']['name'] not in STATEMENT_DUPLICATES for r in supplemental)
+        assert all(r['metric']['category']=='财务' and r['metric']['source_kind']!='报表计算' for r in supplemental)
         result.append({'company':co['name'],'business_observations':len(found),'business_names':sorted(names),'supplemental_financial_observations':len(supplemental)})
         print(co['name'],'业务',len(found),'财务补充',len(supplemental),flush=True)
     sql="""SELECT json_build_object('metrics',(SELECT json_agg(x ORDER BY id) FROM vi_metric_base x),

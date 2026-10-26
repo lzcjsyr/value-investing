@@ -10,7 +10,7 @@ import build_finstmt as bf
 import build_overview as bo
 import align_companies as aligned
 import spec
-from data_domains import category, STATEMENT_DUPLICATES
+from data_domains import category
 
 OUT = bp.ROOT / 'checks' / 'business_data_20261026'
 COMPANIES = {'600900.SH','002078.SZ','601668.SH','01698.HK','01810.HK'}
@@ -45,7 +45,7 @@ def configure_categories():
 def aiot_operating_data():
     co = next(c for c in bp.companies() if c['code']=='01810.HK')
     fact = next(f for f in records('vi_fact') if f['company_id']==co['id'] and f['title'].startswith('AIoT 连接设备'))
-    assert fact['verify_status']=='已核验' and fact['as_of']=='2026-06-30' and fact['value']==11.608
+    assert fact['verify_status']=='已核验' and fact['as_of']=='2026-06-30'   # 2026-10-26 起事实不再存数值
     source = next(s for s in records('vi_source') if s['id']==fact['source_id'])
     metrics = records('vi_metric')
     for suffix,name,unit,value,yoy in [
@@ -64,7 +64,7 @@ def aiot_operating_data():
         if not existing:
             bp.nb_json('resource','create','--resource','vi_observation','--values',json.dumps({
                 'metric_id':metric['id'],'obs_date':'2026-06-30','period':'2026Q2','value':value,'yoy':yoy,
-                'impact':'待判断','summary':fact['statement'],'status':'无需入模','doc_id':fact['source_id'],
+                'basis':'时点','summary':fact['statement'],'doc_id':fact['source_id'],
                 'source':source['url'],'note':'期末连接/持有数量；设备数量不含手机和平板，以原公告口径为准。'},ensure_ascii=False))
         print('业务指标',code,flush=True)
 
@@ -81,7 +81,7 @@ def deploy(co, metrics):
     bp.nb_json('resource','update','--resource','desktopRoutes','--filter-by-tk',str(bp.state()['pages'][f'observation@{co["code"]}']['routeId']),
         '--values',json.dumps({'title':'业务数据'},ensure_ascii=False))
     bp.order_tabs(f'observation@{co["code"]}',['定期经营数据','高频业务数据'])
-    has_supplement = any(m['company_id']==co['id'] and m['category']=='财务' and m['name'] not in STATEMENT_DUPLICATES and m['obs_count']>0 for m in metrics)
+    has_supplement = any(m['company_id']==co['id'] and m['category']=='财务' and m['source_kind']!='报表计算' and m['obs_count']>0 for m in metrics)
     body = bf.page_body(co,gid,has_supplement)
     body.update(version='1',mode='replace',target={'pageSchemaUid':bp.state()['pages'][f'finstmt@{co["code"]}']['pageSchemaUid']})
     bo.apply_page(f'finstmt_{co["code"]}',body)

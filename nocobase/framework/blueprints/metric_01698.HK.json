@@ -1,0 +1,585 @@
+{
+ "version": "1",
+ "mode": "create",
+ "navigation": {
+  "group": {
+   "routeId": 393523143770112
+  },
+  "item": {
+   "title": "指标",
+   "icon": "TableOutlined"
+  }
+ },
+ "page": {
+  "title": "指标",
+  "documentTitle": "腾讯音乐 · 指标",
+  "enableTabs": true
+ },
+ "defaults": {
+  "collections": {
+   "vi_metric": {
+    "popups": {
+     "view": {
+      "name": "指标·详情",
+      "description": "查看一条「指标」记录"
+     },
+     "addNew": {
+      "name": "指标·新增",
+      "description": "新增一条「指标」记录"
+     },
+     "edit": {
+      "name": "指标·编辑",
+      "description": "编辑一条「指标」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "name",
+       "unit",
+       "category",
+       "source_kind",
+       "basis",
+       "formula",
+       "source_name",
+       "frequency",
+       "valid_min"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "valid_max",
+       "notes"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "自动计算（只读）（1/2）",
+      "fields": [
+       "obs_count",
+       "latest_value",
+       "latest_period",
+       "latest_date",
+       "state",
+       "next_due",
+       "tracked_by",
+       "tracked_codes",
+       "scope",
+       "used_by"
+      ]
+     },
+     {
+      "title": "自动计算（只读）（2/2）",
+      "fields": [
+       "used_by_codes"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_company": {
+    "popups": {
+     "view": {
+      "name": "公司·详情",
+      "description": "查看一条「公司」记录"
+     },
+     "addNew": {
+      "name": "公司·新增",
+      "description": "新增一条「公司」记录"
+     },
+     "edit": {
+      "name": "公司·编辑",
+      "description": "编辑一条「公司」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "name",
+       "exchange",
+       "industry",
+       "currency",
+       "volume_label",
+       "volume_unit",
+       "price_label",
+       "price_unit",
+       "is_default"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "profile",
+       "notes"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "price_metric",
+       "price_fx_metric"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "latest_price",
+       "latest_price_date",
+       "latest_price_raw",
+       "latest_fx",
+       "macro_used"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "tabs": [
+  {
+   "title": "全部",
+   "blocks": [
+    {
+     "key": "all",
+     "type": "table",
+     "collection": "vi_metric",
+     "fields": [
+      {
+       "field": "name",
+       "settings": {
+        "width": 280
+       }
+      },
+      {
+       "field": "category",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "unit",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "basis",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "latest_value",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "latest_period",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "state",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "tracked_by",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "source_kind",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "formula",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "source_name",
+       "settings": {
+        "width": 200
+       }
+      }
+     ],
+     "settings": {
+      "title": "",
+      "description": "一家公司要看的每一个数（经营、财务、行情与环境），一个指标一行：从哪来、最新值、是否到期、被哪些假设或风险盯着；被【公司】【重要事实】【风险分析】【假设依据】【数据】【估值模型】【采集配置】【质量自检】引用。",
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "category",
+        "direction": "asc"
+       },
+       {
+        "field": "name",
+        "direction": "asc"
+       }
+      ],
+      "dataScope": {
+       "logic": "$or",
+       "items": [
+        {
+         "path": "company_id",
+         "operator": "$eq",
+         "value": 11
+        },
+        {
+         "path": "used_by_codes",
+         "operator": "$includes",
+         "value": ",01698.HK,"
+        }
+       ]
+      },
+      "density": "middle"
+     },
+     "actions": [
+      "filter",
+      "refresh",
+      {
+       "type": "addNew",
+       "popup": {
+        "title": "新增 · 指标",
+        "blocks": [
+         {
+          "type": "createForm",
+          "resource": {
+           "collectionName": "vi_metric"
+          },
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "name",
+             "unit",
+             "category",
+             "source_kind",
+             "basis",
+             "formula",
+             "source_name",
+             "frequency",
+             "valid_min"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "valid_max",
+             "notes"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "bulkDelete"
+     ],
+     "recordActions": [
+      "view",
+      {
+       "type": "edit",
+       "popup": {
+        "title": "编辑 · 指标",
+        "blocks": [
+         {
+          "type": "editForm",
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "name",
+             "unit",
+             "category",
+             "source_kind",
+             "basis",
+             "formula",
+             "source_name",
+             "frequency",
+             "valid_min"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "valid_max",
+             "notes"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "delete"
+     ]
+    }
+   ]
+  },
+  {
+   "title": "重点跟踪",
+   "blocks": [
+    {
+     "key": "tracked",
+     "type": "table",
+     "collection": "vi_metric",
+     "fields": [
+      {
+       "field": "name",
+       "settings": {
+        "width": 280
+       }
+      },
+      {
+       "field": "category",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "unit",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "basis",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "latest_value",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "latest_period",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "state",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "tracked_by",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "source_kind",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "formula",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "source_name",
+       "settings": {
+        "width": 200
+       }
+      }
+     ],
+     "settings": {
+      "title": "",
+      "description": "假设依据的“跟踪指标”、风险的“预警指标”关联到的指标：最新值、是否到期。要盯新的数，在假设依据或风险里关联指标；为什么盯写在指标说明。",
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "category",
+        "direction": "asc"
+       },
+       {
+        "field": "name",
+        "direction": "asc"
+       }
+      ],
+      "dataScope": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "tracked_codes",
+         "operator": "$includes",
+         "value": ",01698.HK,"
+        }
+       ]
+      },
+      "density": "middle"
+     },
+     "actions": [
+      "filter",
+      "refresh",
+      {
+       "type": "addNew",
+       "popup": {
+        "title": "新增 · 指标",
+        "blocks": [
+         {
+          "type": "createForm",
+          "resource": {
+           "collectionName": "vi_metric"
+          },
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "name",
+             "unit",
+             "category",
+             "source_kind",
+             "basis",
+             "formula",
+             "source_name",
+             "frequency",
+             "valid_min"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "valid_max",
+             "notes"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "bulkDelete"
+     ],
+     "recordActions": [
+      "view",
+      {
+       "type": "edit",
+       "popup": {
+        "title": "编辑 · 指标",
+        "blocks": [
+         {
+          "type": "editForm",
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "name",
+             "unit",
+             "category",
+             "source_kind",
+             "basis",
+             "formula",
+             "source_name",
+             "frequency",
+             "valid_min"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "valid_max",
+             "notes"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "delete"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,112 @@
+[
+ {
+  "company": "600900.SH",
+  "active_fields": [
+   "code",
+   "company",
+   "compare",
+   "fact_as_of",
+   "fact_date",
+   "fact_note",
+   "fetch_method",
+   "frequency",
+   "judgments",
+   "latest_fact",
+   "metric",
+   "preferred_source",
+   "purpose",
+   "state",
+   "theses",
+   "title"
+  ],
+  "legacy_hidden": true
+ },
+ {
+  "company": "002078.SZ",
+  "active_fields": [
+   "code",
+   "company",
+   "compare",
+   "fact_as_of",
+   "fact_date",
+   "fact_note",
+   "fetch_method",
+   "frequency",
+   "judgments",
+   "latest_fact",
+   "metric",
+   "preferred_source",
+   "purpose",
+   "state",
+   "theses",
+   "title"
+  ],
+  "legacy_hidden": true
+ },
+ {
+  "company": "601668.SH",
+  "active_fields": [
+   "code",
+   "company",
+   "compare",
+   "fact_as_of",
+   "fact_date",
+   "fact_note",
+   "fetch_method",
+   "frequency",
+   "judgments",
+   "latest_fact",
+   "metric",
+   "preferred_source",
+   "purpose",
+   "state",
+   "theses",
+   "title"
+  ],
+  "legacy_hidden": true
+ },
+ {
+  "company": "01698.HK",
+  "active_fields": [
+   "code",
+   "company",
+   "compare",
+   "fact_as_of",
+   "fact_date",
+   "fact_note",
+   "fetch_method",
+   "frequency",
+   "judgments",
+   "latest_fact",
+   "metric",
+   "preferred_source",
+   "purpose",
+   "state",
+   "theses",
+   "title"
+  ],
+  "legacy_hidden": true
+ },
+ {
+  "company": "01810.HK",
+  "active_fields": [
+   "code",
+   "company",
+   "compare",
+   "fact_as_of",
+   "fact_date",
+   "fact_note",
+   "fetch_method",
+   "frequency",
+   "judgments",
+   "latest_fact",
+   "metric",
+   "preferred_source",
+   "purpose",
+   "state",
+   "theses",
+   "title"
+  ],
+  "legacy_hidden": true
+ }
+]

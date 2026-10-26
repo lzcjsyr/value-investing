@@ -1,15 +1,6 @@
 {
  "version": "1",
- "mode": "create",
- "navigation": {
-  "group": {
-   "routeId": 393441258897408
-  },
-  "item": {
-   "title": "历史年度",
-   "icon": "TableOutlined"
-  }
- },
+ "mode": "replace",
  "page": {
   "title": "历史年度",
   "documentTitle": "长江电力 · 历史年度"
@@ -33,41 +24,11 @@
     },
     "fieldGroups": [
      {
-      "title": "基本信息（1/3）",
+      "title": "基本信息",
       "fields": [
        "year",
        "scope_note",
-       "volume",
-       "revenue",
-       "pretax_profit",
-       "income_tax",
-       "np_parent",
-       "minority_profit",
-       "da",
-       "finance_cost"
-      ]
-     },
-     {
-      "title": "基本信息（2/3）",
-      "fields": [
-       "invest_income",
-       "equity_income",
-       "cfo",
-       "capex",
-       "investee_cash_div",
-       "net_borrowing",
-       "interest_debt",
-       "cash",
-       "dividend_total",
-       "dps"
-      ]
-     },
-     {
-      "title": "基本信息（3/3）",
-      "fields": [
-       "note",
-       "cost_of_sales",
-       "equity_parent"
+       "note"
       ]
      },
      {
@@ -78,7 +39,37 @@
       ]
      },
      {
-      "title": "自动计算（只读）（1/2）",
+      "title": "自动计算（只读）（1/4）",
+      "fields": [
+       "volume",
+       "revenue",
+       "cost_of_sales",
+       "pretax_profit",
+       "income_tax",
+       "np_parent",
+       "minority_profit",
+       "da",
+       "finance_cost",
+       "invest_income"
+      ]
+     },
+     {
+      "title": "自动计算（只读）（2/4）",
+      "fields": [
+       "equity_income",
+       "cfo",
+       "capex",
+       "investee_cash_div",
+       "net_borrowing",
+       "interest_debt",
+       "cash",
+       "equity_parent",
+       "dividend_total",
+       "dps"
+      ]
+     },
+     {
+      "title": "自动计算（只读）（3/4）",
       "fields": [
        "price",
        "payout",
@@ -93,7 +84,7 @@
       ]
      },
      {
-      "title": "自动计算（只读）（2/2）",
+      "title": "自动计算（只读）（4/4）",
       "fields": [
        "finance_cost_yoy",
        "gross_margin",
@@ -231,25 +222,100 @@
      "type": "table",
      "collection": "vi_fin_history",
      "fields": [
-      "year",
-      "scope_note",
-      "volume",
-      "price",
-      "revenue",
-      "gross_margin",
-      "np_parent",
-      "roe",
-      "payout",
-      "dps",
-      "finance_cost",
-      "cfo",
-      "capex",
-      "fcf",
-      "net_debt"
+      {
+       "field": "year",
+       "settings": {
+        "width": 110
+       }
+      },
+      {
+       "field": "scope_note",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "volume",
+       "settings": {
+        "width": 220
+       }
+      },
+      {
+       "field": "price",
+       "settings": {
+        "width": 220
+       }
+      },
+      {
+       "field": "revenue",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "gross_margin",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "np_parent",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "roe",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "payout",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "dps",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "finance_cost",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "cfo",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "capex",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "fcf",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "net_debt",
+       "settings": {
+        "width": 150
+       }
+      }
      ],
      "settings": {
       "title": "",
-      "description": "财务模型的历史一侧：每年的关键财务和经营数字，和逐年假设同一套列；引用【来源文档】；被【竞争壁垒】【核心论点】引用。",
+      "description": "财务模型的历史一侧：每年的关键财务和经营数字，和逐年假设同一套列；数值全部来自指标；引用【来源文档】；被【竞争壁垒】【核心论点】引用。",
       "pageSize": 50,
       "sorting": [
        {
@@ -266,7 +332,8 @@
          "value": 1
         }
        ]
-      }
+      },
+      "density": "middle"
      },
      "actions": [
       "filter",
@@ -281,57 +348,17 @@
           "resource": {
            "collectionName": "vi_fin_history"
           },
-          "fieldGroups": [
+          "fields": [
+           "year",
+           "scope_note",
+           "note",
            {
-            "title": "基本信息（1/3）",
-            "fields": [
-             "year",
-             "scope_note",
-             "volume",
-             "revenue",
-             "cost_of_sales",
-             "pretax_profit",
-             "income_tax",
-             "np_parent",
-             "minority_profit",
-             "da"
-            ]
+            "field": "company",
+            "titleField": "name"
            },
            {
-            "title": "基本信息（2/3）",
-            "fields": [
-             "finance_cost",
-             "invest_income",
-             "equity_income",
-             "cfo",
-             "capex",
-             "investee_cash_div",
-             "net_borrowing",
-             "interest_debt",
-             "cash",
-             "equity_parent"
-            ]
-           },
-           {
-            "title": "基本信息（3/3）",
-            "fields": [
-             "dividend_total",
-             "dps",
-             "note"
-            ]
-           },
-           {
-            "title": "关联",
-            "fields": [
-             {
-              "field": "company",
-              "titleField": "name"
-             },
-             {
-              "field": "source",
-              "titleField": "title"
-             }
-            ]
+            "field": "source",
+            "titleField": "title"
            }
           ],
           "actions": [
@@ -352,57 +379,17 @@
         "blocks": [
          {
           "type": "editForm",
-          "fieldGroups": [
+          "fields": [
+           "year",
+           "scope_note",
+           "note",
            {
-            "title": "基本信息（1/3）",
-            "fields": [
-             "year",
-             "scope_note",
-             "volume",
-             "revenue",
-             "cost_of_sales",
-             "pretax_profit",
-             "income_tax",
-             "np_parent",
-             "minority_profit",
-             "da"
-            ]
+            "field": "company",
+            "titleField": "name"
            },
            {
-            "title": "基本信息（2/3）",
-            "fields": [
-             "finance_cost",
-             "invest_income",
-             "equity_income",
-             "cfo",
-             "capex",
-             "investee_cash_div",
-             "net_borrowing",
-             "interest_debt",
-             "cash",
-             "equity_parent"
-            ]
-           },
-           {
-            "title": "基本信息（3/3）",
-            "fields": [
-             "dividend_total",
-             "dps",
-             "note"
-            ]
-           },
-           {
-            "title": "关联",
-            "fields": [
-             {
-              "field": "company",
-              "titleField": "name"
-             },
-             {
-              "field": "source",
-              "titleField": "title"
-             }
-            ]
+            "field": "source",
+            "titleField": "title"
            }
           ],
           "actions": [
@@ -417,5 +404,8 @@
     }
    ]
   }
- ]
+ ],
+ "target": {
+  "pageSchemaUid": "6zi4goe1ad7"
+ }
 }

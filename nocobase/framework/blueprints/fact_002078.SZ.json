@@ -29,8 +29,6 @@
        "title",
        "category",
        "statement",
-       "value",
-       "unit",
        "period",
        "as_of",
        "verify_status",
@@ -41,8 +39,8 @@
       "title": "关联",
       "fields": [
        "company",
-       "source",
-       "metric"
+       "metric",
+       "source"
       ]
      },
      {
@@ -51,23 +49,7 @@
        "updated_at"
       ]
      }
-    ],
-    "formBehaviorDescriptionReview": {
-     "fields": {
-      "title": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "value": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "period": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      }
-     }
-    }
+    ]
    },
    "vi_company": {
     "popups": {
@@ -130,55 +112,7 @@
        "updated_at"
       ]
      }
-    ],
-    "formBehaviorDescriptionReview": {
-     "fields": {
-      "code": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "currency": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "volume_label": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "volume_unit": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "price_label": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "price_unit": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "is_default": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "latest_price": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "latest_price_raw": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "latest_fx": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "macro_used": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      }
-     }
-    }
+    ]
    },
    "vi_metric": {
     "popups": {
@@ -203,18 +137,18 @@
        "name",
        "unit",
        "category",
+       "source_kind",
+       "basis",
        "source_name",
        "frequency",
        "valid_min",
-       "valid_max",
-       "notes",
-       "source_kind"
+       "valid_max"
       ]
      },
      {
       "title": "基本信息（2/2）",
       "fields": [
-       "basis"
+       "notes"
       ]
      },
      {
@@ -240,43 +174,7 @@
        "updated_at"
       ]
      }
-    ],
-    "formBehaviorDescriptionReview": {
-     "fields": {
-      "code": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "unit": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "valid_min": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "scope": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "used_by": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "used_by_codes": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "source_kind": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "basis": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      }
-     }
-    }
+    ]
    },
    "vi_source": {
     "popups": {
@@ -353,15 +251,30 @@
        }
       },
       {
-       "field": "value",
+       "field": "metric",
+       "titleField": "name",
+       "popup": {
+        "title": "指标",
+        "blocks": [
+         {
+          "type": "details",
+          "resource": {
+           "binding": "currentRecord",
+           "collectionName": "vi_metric"
+          },
+          "fields": [
+           "name",
+           "code",
+           "unit",
+           "category",
+           "source_kind",
+           "basis"
+          ]
+         }
+        ]
+       },
        "settings": {
-        "width": 150
-       }
-      },
-      {
-       "field": "unit",
-       "settings": {
-        "width": 200
+        "width": 280
        }
       },
       {
@@ -400,7 +313,7 @@
      ],
      "settings": {
       "title": "",
-      "description": "用来支撑分析的单条可核验事实；引用【来源文档】【指标】；被【商业模式拆解】【产业链与五力】【竞争对手】【竞争壁垒】【核心论点】【风险分析】【假设依据】【分部估值项】【经营分部估值】【逐年假设】引用。",
+      "description": "用文字记录的单条可核验事实；数字在数据里；引用【来源文档】【指标】；被【商业模式拆解】【产业链与五力】【竞争对手】【竞争壁垒】【核心论点】【风险分析】【假设依据】【资产估值与调整】【经营分部估值】【逐年假设】引用。",
       "pageSize": 50,
       "sorting": [
        {
@@ -433,37 +346,25 @@
           "resource": {
            "collectionName": "vi_fact"
           },
-          "fieldGroups": [
+          "fields": [
+           "title",
+           "category",
+           "statement",
+           "period",
+           "as_of",
+           "verify_status",
+           "notes",
            {
-            "title": "基本信息",
-            "fields": [
-             "title",
-             "category",
-             "statement",
-             "value",
-             "unit",
-             "period",
-             "as_of",
-             "verify_status",
-             "notes"
-            ]
+            "field": "company",
+            "titleField": "name"
            },
            {
-            "title": "关联",
-            "fields": [
-             {
-              "field": "company",
-              "titleField": "name"
-             },
-             {
-              "field": "metric",
-              "titleField": "name"
-             },
-             {
-              "field": "source",
-              "titleField": "title"
-             }
-            ]
+            "field": "metric",
+            "titleField": "name"
+           },
+           {
+            "field": "source",
+            "titleField": "title"
            }
           ],
           "actions": [
@@ -484,37 +385,25 @@
         "blocks": [
          {
           "type": "editForm",
-          "fieldGroups": [
+          "fields": [
+           "title",
+           "category",
+           "statement",
+           "period",
+           "as_of",
+           "verify_status",
+           "notes",
            {
-            "title": "基本信息",
-            "fields": [
-             "title",
-             "category",
-             "statement",
-             "value",
-             "unit",
-             "period",
-             "as_of",
-             "verify_status",
-             "notes"
-            ]
+            "field": "company",
+            "titleField": "name"
            },
            {
-            "title": "关联",
-            "fields": [
-             {
-              "field": "company",
-              "titleField": "name"
-             },
-             {
-              "field": "metric",
-              "titleField": "name"
-             },
-             {
-              "field": "source",
-              "titleField": "title"
-             }
-            ]
+            "field": "metric",
+            "titleField": "name"
+           },
+           {
+            "field": "source",
+            "titleField": "title"
            }
           ],
           "actions": [

@@ -17,13 +17,14 @@ STATUS_COLOR = {'成立': 'green', '观察': 'gold', '存疑': 'orange', '证伪
                 '待核验': 'orange', '建议值待核验': 'gold', '关键': 'red', '当前': 'green', '归档': 'default',
                 '重大': 'red', '重要': 'orange', '一般': 'default', '高': 'red', '中': 'gold', '低': 'default',
                 '利好': 'red', '中性': 'default', '利空': 'green', '待判断': 'gold',
-                '已发生': 'red', '已部分发生': 'orange', '监控中': 'blue', '已缓解': 'green', '已解除': 'default', '未计入估值': 'orange'}
+                '已发生': 'red', '已部分发生': 'orange', '监控中': 'blue', '已缓解': 'green', '已解除': 'default', '未计入估值': 'orange',
+                '已触发': 'red', '待更新': 'orange', '正常': 'green', '无数据': 'default', '事件': 'default'}
 # 多对多关联的反向字段（在目标表上也能看到）
 REVERSE = {('judgment', 'facts'): ('judgments', '相关假设依据'), ('judgment', 'theses'): ('judgments', '相关假设依据'),
            ('moat', 'theses'): ('moats', '相关壁垒'), ('thesis', 'facts'): ('theses', '相关论点'),
            ('value_chain', 'competitors'): ('value_chains', '产业链环节'),
            ('company', 'macro_metrics'): ('subscribers', '订阅的公司'),
-           ('risk', 'theses'): ('risks', '相关风险'), ('risk', 'judgments'): ('risks', '相关风险'), ('risk', 'watches'): ('risks', '对应风险')}
+           ('risk', 'theses'): ('risks', '相关风险'), ('risk', 'judgments'): ('risks', '相关风险')}
 
 
 def nb(*args, body=None):
@@ -97,8 +98,10 @@ def ensure_reverse(t, f):
                                 'foreignKey': f"{f['target']}_id", 'otherKey': f"{t['code']}_id"})
 
 
-def register_relations():
+def register_relations(codes=None):
     for t in spec.TABLES:
+        if codes and t['code'] not in codes:
+            continue
         coll = f"vi_{t['code']}"
         have = existing_fields(coll)
         for f in t['fields']:
@@ -120,9 +123,11 @@ def register_relations():
             nb('fields', 'apply', body=body)
 
 
-def mark_relation_source():
+def mark_relation_source(codes=None):
     """关联字段延迟加载：source 指向本集合的标题字段（普通字段，选项只有 uiSchema）。改完需重启 app。"""
     for t in spec.TABLES:
+        if codes and t['code'] not in codes:
+            continue
         sql = (f"UPDATE fields SET options = (options::jsonb || jsonb_build_object('source', 'vi_{t['code']}.{t['title_field']}'))::json "
                f"WHERE \"collectionName\" = 'vi_{t['code']}' AND type IN ('belongsTo', 'belongsToMany')")
         subprocess.run([str(ROOT / 'psql.sh'), '-c', sql], check=True, capture_output=True)

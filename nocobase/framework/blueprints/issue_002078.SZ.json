@@ -1,25 +1,34 @@
 {
  "version": "1",
- "mode": "replace",
+ "mode": "create",
+ "navigation": {
+  "group": {
+   "routeId": 393441619607552
+  },
+  "item": {
+   "title": "待办清单",
+   "icon": "TableOutlined"
+  }
+ },
  "page": {
-  "title": "问题清单",
-  "documentTitle": "太阳纸业 · 问题清单"
+  "title": "待办清单",
+  "documentTitle": "太阳纸业 · 待办清单"
  },
  "defaults": {
   "collections": {
    "vi_issue": {
     "popups": {
      "view": {
-      "name": "问题清单·详情",
-      "description": "查看一条「问题清单」记录"
+      "name": "待办清单·详情",
+      "description": "查看一条「待办清单」记录"
      },
      "addNew": {
-      "name": "问题清单·新增",
-      "description": "新增一条「问题清单」记录"
+      "name": "待办清单·新增",
+      "description": "新增一条「待办清单」记录"
      },
      "edit": {
-      "name": "问题清单·编辑",
-      "description": "编辑一条「问题清单」记录"
+      "name": "待办清单·编辑",
+      "description": "编辑一条「待办清单」记录"
      }
     }
    },
@@ -84,107 +93,29 @@
        "updated_at"
       ]
      }
-    ],
-    "formBehaviorDescriptionReview": {
-     "fields": {
-      "code": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "currency": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "volume_label": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "volume_unit": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "price_label": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "price_unit": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "is_default": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "latest_price": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "latest_price_raw": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "latest_fx": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "macro_used": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      }
-     }
-    }
+    ]
    }
   }
  },
  "tabs": [
   {
-   "title": "问题清单",
+   "title": "待办清单",
    "blocks": [
     {
      "key": "main",
      "type": "table",
      "collection": "vi_issue",
      "fields": [
-      {
-       "field": "code",
-       "settings": {
-        "width": 100
-       }
-      },
-      {
-       "field": "title",
-       "settings": {
-        "width": 280
-       }
-      },
-      {
-       "field": "severity",
-       "settings": {
-        "width": 140
-       }
-      },
-      {
-       "field": "status",
-       "settings": {
-        "width": 140
-       }
-      },
-      {
-       "field": "impact",
-       "settings": {
-        "width": 200
-       }
-      },
-      {
-       "field": "progress",
-       "settings": {
-        "width": 360
-       }
-      }
+      "code",
+      "title",
+      "severity",
+      "status",
+      "impact",
+      "progress"
      ],
      "settings": {
       "title": "",
-      "description": "还没核实的事项和模型缺口。",
+      "description": "做完即关的研究与工程待办：数据源、核验、模型缺口、待定的策略选择；不放对公司的判断。",
       "pageSize": 50,
       "sorting": [
        {
@@ -201,8 +132,7 @@
          "value": 2
         }
        ]
-      },
-      "density": "middle"
+      }
      },
      "actions": [
       "filter",
@@ -210,7 +140,7 @@
       {
        "type": "addNew",
        "popup": {
-        "title": "新增 · 问题清单",
+        "title": "新增 · 待办清单",
         "blocks": [
          {
           "type": "createForm",
@@ -244,7 +174,7 @@
       {
        "type": "edit",
        "popup": {
-        "title": "编辑 · 问题清单",
+        "title": "编辑 · 待办清单",
         "blocks": [
          {
           "type": "editForm",
@@ -273,8 +203,5 @@
     }
    ]
   }
- ],
- "target": {
-  "pageSchemaUid": "7tu7kl2kaqs"
- }
+ ]
 }

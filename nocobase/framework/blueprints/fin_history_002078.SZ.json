@@ -24,41 +24,11 @@
     },
     "fieldGroups": [
      {
-      "title": "基本信息（1/3）",
+      "title": "基本信息",
       "fields": [
        "year",
        "scope_note",
-       "volume",
-       "revenue",
-       "pretax_profit",
-       "income_tax",
-       "np_parent",
-       "minority_profit",
-       "da",
-       "finance_cost"
-      ]
-     },
-     {
-      "title": "基本信息（2/3）",
-      "fields": [
-       "invest_income",
-       "equity_income",
-       "cfo",
-       "capex",
-       "investee_cash_div",
-       "net_borrowing",
-       "interest_debt",
-       "cash",
-       "dividend_total",
-       "dps"
-      ]
-     },
-     {
-      "title": "基本信息（3/3）",
-      "fields": [
-       "note",
-       "cost_of_sales",
-       "equity_parent"
+       "note"
       ]
      },
      {
@@ -69,7 +39,37 @@
       ]
      },
      {
-      "title": "自动计算（只读）（1/2）",
+      "title": "自动计算（只读）（1/4）",
+      "fields": [
+       "volume",
+       "revenue",
+       "cost_of_sales",
+       "pretax_profit",
+       "income_tax",
+       "np_parent",
+       "minority_profit",
+       "da",
+       "finance_cost",
+       "invest_income"
+      ]
+     },
+     {
+      "title": "自动计算（只读）（2/4）",
+      "fields": [
+       "equity_income",
+       "cfo",
+       "capex",
+       "investee_cash_div",
+       "net_borrowing",
+       "interest_debt",
+       "cash",
+       "equity_parent",
+       "dividend_total",
+       "dps"
+      ]
+     },
+     {
+      "title": "自动计算（只读）（3/4）",
       "fields": [
        "price",
        "payout",
@@ -84,7 +84,7 @@
       ]
      },
      {
-      "title": "自动计算（只读）（2/2）",
+      "title": "自动计算（只读）（4/4）",
       "fields": [
        "finance_cost_yoy",
        "gross_margin",
@@ -101,95 +101,7 @@
        "updated_at"
       ]
      }
-    ],
-    "formBehaviorDescriptionReview": {
-     "fields": {
-      "scope_note": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "volume": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "da": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "equity_income": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "capex": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "investee_cash_div": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "net_borrowing": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "dividend_total": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "dps": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "payout": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "tax_rate": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "minority_share": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "burden": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "cost_of_sales": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "equity_parent": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "gross_margin": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "roe": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "cfo_to_np": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "capex_to_cfo": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "net_debt": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "net_debt_to_ebitda": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      }
-     }
-    }
+    ]
    },
    "vi_company": {
     "popups": {
@@ -252,55 +164,7 @@
        "updated_at"
       ]
      }
-    ],
-    "formBehaviorDescriptionReview": {
-     "fields": {
-      "code": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "currency": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "volume_label": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "volume_unit": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "price_label": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "price_unit": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "is_default": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "latest_price": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "latest_price_raw": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "latest_fx": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      },
-      "macro_used": {
-       "decision": "noUiBehavior",
-       "reasonCode": "no-ui-behavior"
-      }
-     }
-    }
+    ]
    },
    "vi_source": {
     "popups": {
@@ -453,7 +317,7 @@
      ],
      "settings": {
       "title": "",
-      "description": "财务模型的历史一侧：每年的关键财务和经营数字，和逐年假设同一套列；引用【来源文档】；被【竞争壁垒】【核心论点】引用。",
+      "description": "财务模型的历史一侧：每年的关键财务和经营数字，和逐年假设同一套列；数值全部来自指标；引用【来源文档】；被【竞争壁垒】【核心论点】引用。",
       "pageSize": 50,
       "sorting": [
        {
@@ -486,57 +350,17 @@
           "resource": {
            "collectionName": "vi_fin_history"
           },
-          "fieldGroups": [
+          "fields": [
+           "year",
+           "scope_note",
+           "note",
            {
-            "title": "基本信息（1/3）",
-            "fields": [
-             "year",
-             "scope_note",
-             "volume",
-             "revenue",
-             "cost_of_sales",
-             "pretax_profit",
-             "income_tax",
-             "np_parent",
-             "minority_profit",
-             "da"
-            ]
+            "field": "company",
+            "titleField": "name"
            },
            {
-            "title": "基本信息（2/3）",
-            "fields": [
-             "finance_cost",
-             "invest_income",
-             "equity_income",
-             "cfo",
-             "capex",
-             "investee_cash_div",
-             "net_borrowing",
-             "interest_debt",
-             "cash",
-             "equity_parent"
-            ]
-           },
-           {
-            "title": "基本信息（3/3）",
-            "fields": [
-             "dividend_total",
-             "dps",
-             "note"
-            ]
-           },
-           {
-            "title": "关联",
-            "fields": [
-             {
-              "field": "company",
-              "titleField": "name"
-             },
-             {
-              "field": "source",
-              "titleField": "title"
-             }
-            ]
+            "field": "source",
+            "titleField": "title"
            }
           ],
           "actions": [
@@ -557,57 +381,17 @@
         "blocks": [
          {
           "type": "editForm",
-          "fieldGroups": [
+          "fields": [
+           "year",
+           "scope_note",
+           "note",
            {
-            "title": "基本信息（1/3）",
-            "fields": [
-             "year",
-             "scope_note",
-             "volume",
-             "revenue",
-             "cost_of_sales",
-             "pretax_profit",
-             "income_tax",
-             "np_parent",
-             "minority_profit",
-             "da"
-            ]
+            "field": "company",
+            "titleField": "name"
            },
            {
-            "title": "基本信息（2/3）",
-            "fields": [
-             "finance_cost",
-             "invest_income",
-             "equity_income",
-             "cfo",
-             "capex",
-             "investee_cash_div",
-             "net_borrowing",
-             "interest_debt",
-             "cash",
-             "equity_parent"
-            ]
-           },
-           {
-            "title": "基本信息（3/3）",
-            "fields": [
-             "dividend_total",
-             "dps",
-             "note"
-            ]
-           },
-           {
-            "title": "关联",
-            "fields": [
-             {
-              "field": "company",
-              "titleField": "name"
-             },
-             {
-              "field": "source",
-              "titleField": "title"
-             }
-            ]
+            "field": "source",
+            "titleField": "title"
            }
           ],
           "actions": [
