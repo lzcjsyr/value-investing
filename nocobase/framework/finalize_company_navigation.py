@@ -24,7 +24,7 @@ if __name__ == '__main__':
     company_index = {co['name']: i+1 for i, co in enumerate(a.bp.companies())}
     target_names = {co['name'] for co in a.bp.companies() if co['code'] in a.TARGETS}
     sub_order = {g: [title for _, title in pages] for g, _, pages in a.bp.COMPANY_MENU}
-    sub_order['数据底稿'] = ['数据', '财务数据', '事实摘录', '来源文档']
+    sub_order['数据底稿'] = ['业务数据', '财务数据', '重要事实', '来源文档']
     sub_order['预测与估值'] = ['历史年度', '财务模型', '估值'] + [title for title in sub_order['预测与估值'] if title != '历史年度'] + [a.bp.DRAFTS]
     sub_order[a.bp.DRAFTS] = sub_order['预测与估值']
     changes = defaultdict(list)
@@ -38,7 +38,7 @@ if __name__ == '__main__':
             [a.chain.MAP_TAB, a.chain.EDIT_TAB, a.chain.COMP_TAB] if key == 'chainmap' else \
             ['财务模型', '逐年假设（编辑）'] if key == 'assume' else \
             ['回报与门槛', '分部估值', '经营分部（编辑）', '资产项目（编辑）'] if key == 'val' else \
-            ['公司披露', '自动采集'] if key == 'observation' else [tab['title'] for tab in tabs]
+            ['定期经营数据', '高频业务数据'] if key == 'observation' else [tab['title'] for tab in tabs]
         ordered = sorted(tabs, key=lambda tab: expected.index(tab['title']) if tab['title'] in expected else 99)
         for i, tab in enumerate(ordered, 1): set_sort(tab, i)
         tab_details.append({'routeId': page['id'], 'key': key, 'titles': [tab['title'] for tab in ordered]})

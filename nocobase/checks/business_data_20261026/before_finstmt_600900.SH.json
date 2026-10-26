@@ -1,0 +1,355 @@
+{
+ "target": {
+  "locator": {
+   "pageSchemaUid": "n0b7h2uthi6"
+  },
+  "uid": "85jx2lwp4dn",
+  "kind": "page"
+ },
+ "tree": {
+  "parentId": "n0b7h2uthi6",
+  "subKey": "page",
+  "subType": "object",
+  "use": "RootPageModel",
+  "props": {
+   "routeId": 394029525041152,
+   "title": "财务数据",
+   "enableTabs": false,
+   "displayTitle": true,
+   "icon": "TableOutlined",
+   "enableHeader": null
+  },
+  "stepParams": {
+   "pageSettings": {
+    "general": {
+     "title": "财务数据",
+     "displayTitle": true,
+     "enableTabs": false,
+     "documentTitle": "长江电力 · 财务数据",
+     "icon": "TableOutlined",
+     "enableHeader": null
+    }
+   }
+  },
+  "parent": "n0b7h2uthi6",
+  "uid": "85jx2lwp4dn",
+  "subModels": {
+   "tabs": [
+    {
+     "uid": "06670qonboz",
+     "use": "RootPageTabModel",
+     "props": {
+      "route": {
+       "createdAt": "2026-10-25T07:05:18.362Z",
+       "updatedAt": "2026-10-25T07:06:46.700Z",
+       "id": 394029525041153,
+       "parentId": 394029525041152,
+       "title": "财务数据",
+       "tooltip": null,
+       "icon": null,
+       "schemaUid": "06670qonboz",
+       "menuSchemaUid": null,
+       "tabSchemaName": "nsoo7rb2v0h",
+       "type": "tabs",
+       "options": {
+        "flowRegistry": {}
+       },
+       "sort": 100,
+       "hideInMenu": null,
+       "enableTabs": null,
+       "enableHeader": null,
+       "displayTitle": null,
+       "hidden": true,
+       "createdById": null,
+       "updatedById": 1,
+       "children": []
+      },
+      "title": "财务数据",
+      "icon": null
+     },
+     "decoratorProps": {},
+     "flowRegistry": {},
+     "stepParams": {
+      "pageTabSettings": {
+       "tab": {
+        "title": "财务数据",
+        "icon": null
+       }
+      }
+     },
+     "subModels": {
+      "grid": {
+       "parentId": "06670qonboz",
+       "subKey": "grid",
+       "subType": "object",
+       "use": "BlockGridModel",
+       "props": {
+        "rows": {
+         "row1": [
+          [
+           "o7l007zd1hx"
+          ]
+         ]
+        },
+        "sizes": {
+         "row1": [
+          24
+         ]
+        },
+        "rowOrder": [
+         "row1"
+        ]
+       },
+       "stepParams": {
+        "gridSettings": {
+         "grid": {
+          "rows": {
+           "row1": [
+            [
+             "o7l007zd1hx"
+            ]
+           ]
+          },
+          "sizes": {
+           "row1": [
+            24
+           ]
+          },
+          "rowOrder": [
+           "row1"
+          ]
+         }
+        }
+       },
+       "uid": "d39l5ucp7fm",
+       "subModels": {
+        "items": [
+         {
+          "parentId": "d39l5ucp7fm",
+          "subKey": "items",
+          "subType": "array",
+          "use": "JSBlockModel",
+          "props": {},
+          "decoratorProps": {},
+          "stepParams": {
+           "jsSettings": {
+            "runJs": {
+             "version": "v2",
+             "code": "\n  const React = ctx.libs.React;\n  const { Table, Segmented, Select, Space, Typography } = ctx.libs.antd;\n  const { Text } = Typography;\n  const COMPANY = '600900.SH';\n  const ROLE = \"公司的季度三大报表原值。\";          // 表的一句话定位（spec.role_line）\n  const STMTS = ['资产负债表', '利润表', '现金流量表'];\n  const BOLD = /(合计|总计|小计|毛利|净利润|净资产|净增加额|现金净额|溢利|利润总额|营业利润|营业总收入|营业总成本|总资产|总负债|总权益|经营业务现金净额|经营活动产生的现金流量净额|期初现金|期末现金)$/;\n  const get = async (url, params) => (await ctx.request({ url, params }))?.data?.data;\n  const listOf = async (name, params = {}) => (await get(`${name}:list`, { pageSize: 2000, ...params })) || [];\n  const fetchAll = async (filter) => {\n    const rows = [];\n    for (let page = 1; ; page += 1) {\n      const batch = await listOf('vi_fin_stmt', { filter: JSON.stringify(filter), sort: 'period_end', page, pageSize: 2000 });\n      rows.push(...batch);\n      if (batch.length < 2000) break;\n    }\n    return rows;\n  };\n  const cos = await listOf('vi_company', { filter: JSON.stringify({ code: { $eq: COMPANY } }) });\n  if (!cos.length) {\n    ctx.render(<Text type=\"danger\">未找到公司 {COMPANY}</Text>);\n    return;\n  }\n  const coId = cos[0].id;\n  const [bsRows, isRows, cfRows] = await Promise.all(STMTS.map((s) => fetchAll({ company_id: { $eq: coId }, stmt: { $eq: s } })));\n  const ROWS = { '资产负债表': bsRows, '利润表': isRows, '现金流量表': cfRows };\n\n  const round6 = (v) => Math.round(v * 1e6) / 1e6;\n  const fmt = (v) => {\n    if (v === null || v === undefined) return '';\n    const d = Math.abs(v) >= 1 ? 2 : 4;\n    return v.toLocaleString('zh-CN', { minimumFractionDigits: d, maximumFractionDigits: d });\n  };\n  // 矩阵：行＝科目（按行次），列＝报告期（新→旧）。single＝单季：本年相邻报告期累计之差；Q1 即累计，中间期缺失则留空。\n  const matrix = (rows, single) => {\n    const perDate = {}, seqOf = {}, cum = {};\n    for (const r of rows) {\n      perDate[r.period] = r.period_end;\n      if (!(r.item in seqOf) || r.seq < seqOf[r.item]) seqOf[r.item] = r.seq;\n      cum[`${r.item}|${r.period}`] = r.amount;\n    }\n    const periods = Object.keys(perDate).sort((a, b) => (perDate[a] < perDate[b] ? 1 : -1));\n    const items = Object.keys(seqOf).sort((a, b) => seqOf[a] - seqOf[b]);\n    const prevOf = (p) => {\n      const y = p.slice(0, 4), q = Number(p.slice(5));\n      return q > 1 ? `${y}Q${q - 1}` : null;\n    };\n    const value = (item, p) => {\n      const v = cum[`${item}|${p}`];\n      if (v === undefined) return null;\n      if (!single) return v;\n      const pp = prevOf(p);\n      if (!pp) return v;\n      const base = cum[`${item}|${pp}`];\n      return base === undefined ? null : round6(v - base);\n    };\n    return { periods, items, perDate, value };\n  };\n\n  const Page = () => {\n    const [stmt, setStmt] = React.useState(STMTS[0]);\n    const [single, setSingle] = React.useState(false);\n    const [win, setWin] = React.useState(12);\n    const isFlow = stmt !== '资产负债表';\n    const on = single && isFlow;\n    const m = matrix(ROWS[stmt], on);\n    const shown = m.periods.slice(0, win > 0 ? win : undefined);\n    const columns = [\n      { title: '科目', dataIndex: 'item', fixed: 'left', width: 230,\n        render: (v) => <span style={{ fontWeight: BOLD.test(v) ? 600 : 400 }}>{v}</span> },\n      ...shown.map((p) => ({\n        title: (<div style={{ textAlign: 'center', lineHeight: 1.3 }}>\n          <div>{p}</div>\n          <div style={{ fontSize: 11, color: '#999' }}>{m.perDate[p]}{m.perDate[p].slice(5) === '12-31' ? ' 年报' : ''}</div>\n        </div>),\n        dataIndex: p, align: 'right', width: 118,\n        render: (v) => fmt(v),\n      })),\n    ];\n    const dataSource = m.items.map((item) => {\n      const row = { key: item, item };\n      for (const p of shown) row[p] = m.value(item, p);\n      return row;\n    });\n    return (\n      <div>\n        <div style={{ marginBottom: 10 }}><Text type=\"secondary\">{ROLE}</Text></div>\n        <Space wrap style={{ marginBottom: 10 }}>\n          <Segmented value={stmt} onChange={setStmt} options={STMTS} />\n          <Segmented value={on ? '单季' : '累计'} onChange={(v) => setSingle(v === '单季')} options={isFlow ? ['累计', '单季'] : ['累计']} />\n          <Select value={win} onChange={setWin} style={{ width: 108 }}\n            options={[4, 8, 12, 20].map((n) => ({ label: `近${n}期`, value: n })).concat([{ label: '全部', value: 0 }])} />\n          <Text type=\"secondary\">金额单位：亿元。利润表/现金流量表为年初至报告期末累计；「单季」＝本年相邻报告期累计之差（Q1 即累计）。空白＝该期未披露。</Text>\n        </Space>\n        <Table columns={columns} dataSource={dataSource} pagination={false} bordered size=\"small\" scroll={{ x: 'max-content' }} />\n        <Text type=\"secondary\" style={{ fontSize: 12 }}>\n          数据源：akshare（A 股＝新浪财报，港股＝东方财富港股报表）；取数、检验与口径见 framework/tools/fin_stmt.py，表代码 fin_stmt。\n        </Text>\n      </div>\n    );\n  };\n  ctx.render(<Page />);\n"
+            }
+           }
+          },
+          "uid": "o7l007zd1hx",
+          "parent": "d39l5ucp7fm",
+          "sortIndex": 1,
+          "popup": {
+           "mode": "local"
+          }
+         }
+        ]
+       },
+       "parent": "06670qonboz",
+       "sortIndex": 1,
+       "popup": {
+        "mode": "local"
+       }
+      }
+     },
+     "popup": {
+      "mode": "local"
+     }
+    }
+   ]
+  },
+  "popup": {
+   "mode": "local"
+  }
+ },
+ "nodeMap": {
+  "85jx2lwp4dn": {
+   "uid": "85jx2lwp4dn",
+   "use": "RootPageModel",
+   "props": {
+    "routeId": 394029525041152,
+    "title": "财务数据",
+    "enableTabs": false,
+    "displayTitle": true,
+    "icon": "TableOutlined",
+    "enableHeader": null
+   },
+   "stepParams": {
+    "pageSettings": {
+     "general": {
+      "title": "财务数据",
+      "displayTitle": true,
+      "enableTabs": false,
+      "documentTitle": "长江电力 · 财务数据",
+      "icon": "TableOutlined",
+      "enableHeader": null
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "06670qonboz": {
+   "uid": "06670qonboz",
+   "use": "RootPageTabModel",
+   "props": {
+    "route": {
+     "createdAt": "2026-10-25T07:05:18.362Z",
+     "updatedAt": "2026-10-25T07:06:46.700Z",
+     "id": 394029525041153,
+     "parentId": 394029525041152,
+     "title": "财务数据",
+     "tooltip": null,
+     "icon": null,
+     "schemaUid": "06670qonboz",
+     "menuSchemaUid": null,
+     "tabSchemaName": "nsoo7rb2v0h",
+     "type": "tabs",
+     "options": {
+      "flowRegistry": {}
+     },
+     "sort": 100,
+     "hideInMenu": null,
+     "enableTabs": null,
+     "enableHeader": null,
+     "displayTitle": null,
+     "hidden": true,
+     "createdById": null,
+     "updatedById": 1,
+     "children": []
+    },
+    "title": "财务数据",
+    "icon": null
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "pageTabSettings": {
+     "tab": {
+      "title": "财务数据",
+      "icon": null
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "d39l5ucp7fm": {
+   "uid": "d39l5ucp7fm",
+   "use": "BlockGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "o7l007zd1hx"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "o7l007zd1hx"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "o7l007zd1hx": {
+   "uid": "o7l007zd1hx",
+   "use": "JSBlockModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "jsSettings": {
+     "runJs": {
+      "version": "v2",
+      "code": "\n  const React = ctx.libs.React;\n  const { Table, Segmented, Select, Space, Typography } = ctx.libs.antd;\n  const { Text } = Typography;\n  const COMPANY = '600900.SH';\n  const ROLE = \"公司的季度三大报表原值。\";          // 表的一句话定位（spec.role_line）\n  const STMTS = ['资产负债表', '利润表', '现金流量表'];\n  const BOLD = /(合计|总计|小计|毛利|净利润|净资产|净增加额|现金净额|溢利|利润总额|营业利润|营业总收入|营业总成本|总资产|总负债|总权益|经营业务现金净额|经营活动产生的现金流量净额|期初现金|期末现金)$/;\n  const get = async (url, params) => (await ctx.request({ url, params }))?.data?.data;\n  const listOf = async (name, params = {}) => (await get(`${name}:list`, { pageSize: 2000, ...params })) || [];\n  const fetchAll = async (filter) => {\n    const rows = [];\n    for (let page = 1; ; page += 1) {\n      const batch = await listOf('vi_fin_stmt', { filter: JSON.stringify(filter), sort: 'period_end', page, pageSize: 2000 });\n      rows.push(...batch);\n      if (batch.length < 2000) break;\n    }\n    return rows;\n  };\n  const cos = await listOf('vi_company', { filter: JSON.stringify({ code: { $eq: COMPANY } }) });\n  if (!cos.length) {\n    ctx.render(<Text type=\"danger\">未找到公司 {COMPANY}</Text>);\n    return;\n  }\n  const coId = cos[0].id;\n  const [bsRows, isRows, cfRows] = await Promise.all(STMTS.map((s) => fetchAll({ company_id: { $eq: coId }, stmt: { $eq: s } })));\n  const ROWS = { '资产负债表': bsRows, '利润表': isRows, '现金流量表': cfRows };\n\n  const round6 = (v) => Math.round(v * 1e6) / 1e6;\n  const fmt = (v) => {\n    if (v === null || v === undefined) return '';\n    const d = Math.abs(v) >= 1 ? 2 : 4;\n    return v.toLocaleString('zh-CN', { minimumFractionDigits: d, maximumFractionDigits: d });\n  };\n  // 矩阵：行＝科目（按行次），列＝报告期（新→旧）。single＝单季：本年相邻报告期累计之差；Q1 即累计，中间期缺失则留空。\n  const matrix = (rows, single) => {\n    const perDate = {}, seqOf = {}, cum = {};\n    for (const r of rows) {\n      perDate[r.period] = r.period_end;\n      if (!(r.item in seqOf) || r.seq < seqOf[r.item]) seqOf[r.item] = r.seq;\n      cum[`${r.item}|${r.period}`] = r.amount;\n    }\n    const periods = Object.keys(perDate).sort((a, b) => (perDate[a] < perDate[b] ? 1 : -1));\n    const items = Object.keys(seqOf).sort((a, b) => seqOf[a] - seqOf[b]);\n    const prevOf = (p) => {\n      const y = p.slice(0, 4), q = Number(p.slice(5));\n      return q > 1 ? `${y}Q${q - 1}` : null;\n    };\n    const value = (item, p) => {\n      const v = cum[`${item}|${p}`];\n      if (v === undefined) return null;\n      if (!single) return v;\n      const pp = prevOf(p);\n      if (!pp) return v;\n      const base = cum[`${item}|${pp}`];\n      return base === undefined ? null : round6(v - base);\n    };\n    return { periods, items, perDate, value };\n  };\n\n  const Page = () => {\n    const [stmt, setStmt] = React.useState(STMTS[0]);\n    const [single, setSingle] = React.useState(false);\n    const [win, setWin] = React.useState(12);\n    const isFlow = stmt !== '资产负债表';\n    const on = single && isFlow;\n    const m = matrix(ROWS[stmt], on);\n    const shown = m.periods.slice(0, win > 0 ? win : undefined);\n    const columns = [\n      { title: '科目', dataIndex: 'item', fixed: 'left', width: 230,\n        render: (v) => <span style={{ fontWeight: BOLD.test(v) ? 600 : 400 }}>{v}</span> },\n      ...shown.map((p) => ({\n        title: (<div style={{ textAlign: 'center', lineHeight: 1.3 }}>\n          <div>{p}</div>\n          <div style={{ fontSize: 11, color: '#999' }}>{m.perDate[p]}{m.perDate[p].slice(5) === '12-31' ? ' 年报' : ''}</div>\n        </div>),\n        dataIndex: p, align: 'right', width: 118,\n        render: (v) => fmt(v),\n      })),\n    ];\n    const dataSource = m.items.map((item) => {\n      const row = { key: item, item };\n      for (const p of shown) row[p] = m.value(item, p);\n      return row;\n    });\n    return (\n      <div>\n        <div style={{ marginBottom: 10 }}><Text type=\"secondary\">{ROLE}</Text></div>\n        <Space wrap style={{ marginBottom: 10 }}>\n          <Segmented value={stmt} onChange={setStmt} options={STMTS} />\n          <Segmented value={on ? '单季' : '累计'} onChange={(v) => setSingle(v === '单季')} options={isFlow ? ['累计', '单季'] : ['累计']} />\n          <Select value={win} onChange={setWin} style={{ width: 108 }}\n            options={[4, 8, 12, 20].map((n) => ({ label: `近${n}期`, value: n })).concat([{ label: '全部', value: 0 }])} />\n          <Text type=\"secondary\">金额单位：亿元。利润表/现金流量表为年初至报告期末累计；「单季」＝本年相邻报告期累计之差（Q1 即累计）。空白＝该期未披露。</Text>\n        </Space>\n        <Table columns={columns} dataSource={dataSource} pagination={false} bordered size=\"small\" scroll={{ x: 'max-content' }} />\n        <Text type=\"secondary\" style={{ fontSize: 12 }}>\n          数据源：akshare（A 股＝新浪财报，港股＝东方财富港股报表）；取数、检验与口径见 framework/tools/fin_stmt.py，表代码 fin_stmt。\n        </Text>\n      </div>\n    );\n  };\n  ctx.render(<Page />);\n"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  }
+ },
+ "pageRoute": {
+  "createdAt": "2026-10-25T07:05:18.318Z",
+  "updatedAt": "2026-10-25T07:06:45.139Z",
+  "id": 394029525041152,
+  "parentId": 393441179205632,
+  "title": "财务数据",
+  "tooltip": null,
+  "icon": "TableOutlined",
+  "schemaUid": "n0b7h2uthi6",
+  "menuSchemaUid": "roxoqeng47b",
+  "tabSchemaName": null,
+  "type": "flowPage",
+  "options": {
+   "flowSurfaceMenuBindable": true
+  },
+  "sort": 2,
+  "hideInMenu": false,
+  "enableTabs": false,
+  "enableHeader": null,
+  "displayTitle": true,
+  "hidden": null,
+  "createdById": null,
+  "updatedById": 1,
+  "children": [
+   {
+    "createdAt": "2026-10-25T07:05:18.362Z",
+    "updatedAt": "2026-10-25T07:06:46.700Z",
+    "id": 394029525041153,
+    "parentId": 394029525041152,
+    "title": "财务数据",
+    "tooltip": null,
+    "icon": null,
+    "schemaUid": "06670qonboz",
+    "menuSchemaUid": null,
+    "tabSchemaName": "nsoo7rb2v0h",
+    "type": "tabs",
+    "options": {
+     "flowRegistry": {}
+    },
+    "sort": 100,
+    "hideInMenu": null,
+    "enableTabs": null,
+    "enableHeader": null,
+    "displayTitle": null,
+    "hidden": true,
+    "createdById": null,
+    "updatedById": 1
+   }
+  ]
+ }
+}

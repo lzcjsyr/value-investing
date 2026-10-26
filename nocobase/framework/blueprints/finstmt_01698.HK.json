@@ -1,30 +1,20 @@
 {
- "version": "1",
- "mode": "create",
- "navigation": {
-  "group": {
-   "routeId": 393523143770112
-  },
-  "item": {
-   "title": "财务数据",
-   "icon": "TableOutlined"
-  }
- },
  "page": {
   "title": "财务数据",
-  "documentTitle": "腾讯音乐 · 财务数据"
+  "documentTitle": "腾讯音乐 · 财务数据",
+  "enableTabs": true
  },
  "assets": {
   "scripts": {
    "finstmt": {
     "version": "v2",
-    "code": "\n  const React = ctx.libs.React;\n  const { Table, Segmented, Select, Space, Typography } = ctx.libs.antd;\n  const { Text } = Typography;\n  const COMPANY = '01698.HK';\n  const STMTS = ['资产负债表', '利润表', '现金流量表'];\n  const BOLD = /(合计|总计|小计|毛利|净利润|净资产|净增加额|现金净额|溢利|利润总额|营业利润|营业总收入|营业总成本|总资产|总负债|总权益|经营业务现金净额|经营活动产生的现金流量净额|期初现金|期末现金)$/;\n  const get = async (url, params) => (await ctx.request({ url, params }))?.data?.data;\n  const listOf = async (name, params = {}) => (await get(`${name}:list`, { pageSize: 2000, ...params })) || [];\n  const fetchAll = async (filter) => {\n    const rows = [];\n    for (let page = 1; ; page += 1) {\n      const batch = await listOf('vi_fin_stmt', { filter: JSON.stringify(filter), sort: 'period_end', page, pageSize: 2000 });\n      rows.push(...batch);\n      if (batch.length < 2000) break;\n    }\n    return rows;\n  };\n  const cos = await listOf('vi_company', { filter: JSON.stringify({ code: { $eq: COMPANY } }) });\n  if (!cos.length) {\n    ctx.render(<Text type=\"danger\">未找到公司 {COMPANY}</Text>);\n    return;\n  }\n  const coId = cos[0].id;\n  const [bsRows, isRows, cfRows] = await Promise.all(STMTS.map((s) => fetchAll({ company_id: { $eq: coId }, stmt: { $eq: s } })));\n  const ROWS = { '资产负债表': bsRows, '利润表': isRows, '现金流量表': cfRows };\n\n  const round6 = (v) => Math.round(v * 1e6) / 1e6;\n  const fmt = (v) => {\n    if (v === null || v === undefined) return '';\n    const d = Math.abs(v) >= 1 ? 2 : 4;\n    return v.toLocaleString('zh-CN', { minimumFractionDigits: d, maximumFractionDigits: d });\n  };\n  // 矩阵：行＝科目（按行次），列＝报告期（新→旧）。single＝单季：本年相邻报告期累计之差；Q1 即累计，中间期缺失则留空。\n  const matrix = (rows, single) => {\n    const perDate = {}, seqOf = {}, cum = {};\n    for (const r of rows) {\n      perDate[r.period] = r.period_end;\n      if (!(r.item in seqOf) || r.seq < seqOf[r.item]) seqOf[r.item] = r.seq;\n      cum[`${r.item}|${r.period}`] = r.amount;\n    }\n    const periods = Object.keys(perDate).sort((a, b) => (perDate[a] < perDate[b] ? 1 : -1));\n    const items = Object.keys(seqOf).sort((a, b) => seqOf[a] - seqOf[b]);\n    const prevOf = (p) => {\n      const y = p.slice(0, 4), q = Number(p.slice(5));\n      return q > 1 ? `${y}Q${q - 1}` : null;\n    };\n    const value = (item, p) => {\n      const v = cum[`${item}|${p}`];\n      if (v === undefined) return null;\n      if (!single) return v;\n      const pp = prevOf(p);\n      if (!pp) return v;\n      const base = cum[`${item}|${pp}`];\n      return base === undefined ? null : round6(v - base);\n    };\n    return { periods, items, perDate, value };\n  };\n\n  const Page = () => {\n    const [stmt, setStmt] = React.useState(STMTS[0]);\n    const [single, setSingle] = React.useState(false);\n    const [win, setWin] = React.useState(12);\n    const isFlow = stmt !== '资产负债表';\n    const on = single && isFlow;\n    const m = matrix(ROWS[stmt], on);\n    const shown = m.periods.slice(0, win > 0 ? win : undefined);\n    const columns = [\n      { title: '科目', dataIndex: 'item', fixed: 'left', width: 230,\n        render: (v) => <span style={{ fontWeight: BOLD.test(v) ? 600 : 400 }}>{v}</span> },\n      ...shown.map((p) => ({\n        title: (<div style={{ textAlign: 'center', lineHeight: 1.3 }}>\n          <div>{p}</div>\n          <div style={{ fontSize: 11, color: '#999' }}>{m.perDate[p]}{m.perDate[p].slice(5) === '12-31' ? ' 年报' : ''}</div>\n        </div>),\n        dataIndex: p, align: 'right', width: 118,\n        render: (v) => fmt(v),\n      })),\n    ];\n    const dataSource = m.items.map((item) => {\n      const row = { key: item, item };\n      for (const p of shown) row[p] = m.value(item, p);\n      return row;\n    });\n    return (\n      <div>\n        <Space wrap style={{ marginBottom: 10 }}>\n          <Segmented value={stmt} onChange={setStmt} options={STMTS} />\n          <Segmented value={on ? '单季' : '累计'} onChange={(v) => setSingle(v === '单季')} options={isFlow ? ['累计', '单季'] : ['累计']} />\n          <Select value={win} onChange={setWin} style={{ width: 108 }}\n            options={[4, 8, 12, 20].map((n) => ({ label: `近${n}期`, value: n })).concat([{ label: '全部', value: 0 }])} />\n          <Text type=\"secondary\">金额单位：亿元。利润表/现金流量表为年初至报告期末累计；「单季」＝本年相邻报告期累计之差（Q1 即累计）。空白＝该期未披露。</Text>\n        </Space>\n        <Table columns={columns} dataSource={dataSource} pagination={false} bordered size=\"small\" scroll={{ x: 'max-content' }} />\n        <Text type=\"secondary\" style={{ fontSize: 12 }}>\n          数据源：akshare（A 股＝新浪财报，港股＝东方财富港股报表）；取数、检验与口径见 framework/tools/fin_stmt.py，表代码 fin_stmt。\n        </Text>\n      </div>\n    );\n  };\n  ctx.render(<Page />);\n"
+    "code": "\n  const React = ctx.libs.React;\n  const { Table, Segmented, Select, Space, Typography } = ctx.libs.antd;\n  const { Text } = Typography;\n  const COMPANY = '01698.HK';\n  const ROLE = \"公司的季度三大报表原值。\";          // 表的一句话定位（spec.role_line）\n  const STMTS = ['资产负债表', '利润表', '现金流量表'];\n  const BOLD = /(合计|总计|小计|毛利|净利润|净资产|净增加额|现金净额|溢利|利润总额|营业利润|营业总收入|营业总成本|总资产|总负债|总权益|经营业务现金净额|经营活动产生的现金流量净额|期初现金|期末现金)$/;\n  const get = async (url, params) => (await ctx.request({ url, params }))?.data?.data;\n  const listOf = async (name, params = {}) => (await get(`${name}:list`, { pageSize: 2000, ...params })) || [];\n  const fetchAll = async (filter) => {\n    const rows = [];\n    for (let page = 1; ; page += 1) {\n      const batch = await listOf('vi_fin_stmt', { filter: JSON.stringify(filter), sort: 'period_end', page, pageSize: 2000 });\n      rows.push(...batch);\n      if (batch.length < 2000) break;\n    }\n    return rows;\n  };\n  const cos = await listOf('vi_company', { filter: JSON.stringify({ code: { $eq: COMPANY } }) });\n  if (!cos.length) {\n    ctx.render(<Text type=\"danger\">未找到公司 {COMPANY}</Text>);\n    return;\n  }\n  const coId = cos[0].id;\n  const [bsRows, isRows, cfRows] = await Promise.all(STMTS.map((s) => fetchAll({ company_id: { $eq: coId }, stmt: { $eq: s } })));\n  const ROWS = { '资产负债表': bsRows, '利润表': isRows, '现金流量表': cfRows };\n\n  const round6 = (v) => Math.round(v * 1e6) / 1e6;\n  const fmt = (v) => {\n    if (v === null || v === undefined) return '';\n    const d = Math.abs(v) >= 1 ? 2 : 4;\n    return v.toLocaleString('zh-CN', { minimumFractionDigits: d, maximumFractionDigits: d });\n  };\n  // 矩阵：行＝科目（按行次），列＝报告期（新→旧）。single＝单季：本年相邻报告期累计之差；Q1 即累计，中间期缺失则留空。\n  const matrix = (rows, single) => {\n    const perDate = {}, seqOf = {}, cum = {};\n    for (const r of rows) {\n      perDate[r.period] = r.period_end;\n      if (!(r.item in seqOf) || r.seq < seqOf[r.item]) seqOf[r.item] = r.seq;\n      cum[`${r.item}|${r.period}`] = r.amount;\n    }\n    const periods = Object.keys(perDate).sort((a, b) => (perDate[a] < perDate[b] ? 1 : -1));\n    const items = Object.keys(seqOf).sort((a, b) => seqOf[a] - seqOf[b]);\n    const prevOf = (p) => {\n      const y = p.slice(0, 4), q = Number(p.slice(5));\n      return q > 1 ? `${y}Q${q - 1}` : null;\n    };\n    const value = (item, p) => {\n      const v = cum[`${item}|${p}`];\n      if (v === undefined) return null;\n      if (!single) return v;\n      const pp = prevOf(p);\n      if (!pp) return v;\n      const base = cum[`${item}|${pp}`];\n      return base === undefined ? null : round6(v - base);\n    };\n    return { periods, items, perDate, value };\n  };\n\n  const Page = () => {\n    const [stmt, setStmt] = React.useState(STMTS[0]);\n    const [single, setSingle] = React.useState(false);\n    const [win, setWin] = React.useState(12);\n    const isFlow = stmt !== '资产负债表';\n    const on = single && isFlow;\n    const m = matrix(ROWS[stmt], on);\n    const shown = m.periods.slice(0, win > 0 ? win : undefined);\n    const columns = [\n      { title: '科目', dataIndex: 'item', fixed: 'left', width: 230,\n        render: (v) => <span style={{ fontWeight: BOLD.test(v) ? 600 : 400 }}>{v}</span> },\n      ...shown.map((p) => ({\n        title: (<div style={{ textAlign: 'center', lineHeight: 1.3 }}>\n          <div>{p}</div>\n          <div style={{ fontSize: 11, color: '#999' }}>{m.perDate[p]}{m.perDate[p].slice(5) === '12-31' ? ' 年报' : ''}</div>\n        </div>),\n        dataIndex: p, align: 'right', width: 118,\n        render: (v) => fmt(v),\n      })),\n    ];\n    const dataSource = m.items.map((item) => {\n      const row = { key: item, item };\n      for (const p of shown) row[p] = m.value(item, p);\n      return row;\n    });\n    return (\n      <div>\n        <div style={{ marginBottom: 10 }}><Text type=\"secondary\">{ROLE}</Text></div>\n        <Space wrap style={{ marginBottom: 10 }}>\n          <Segmented value={stmt} onChange={setStmt} options={STMTS} />\n          <Segmented value={on ? '单季' : '累计'} onChange={(v) => setSingle(v === '单季')} options={isFlow ? ['累计', '单季'] : ['累计']} />\n          <Select value={win} onChange={setWin} style={{ width: 108 }}\n            options={[4, 8, 12, 20].map((n) => ({ label: `近${n}期`, value: n })).concat([{ label: '全部', value: 0 }])} />\n          <Text type=\"secondary\">金额单位：亿元。利润表/现金流量表为年初至报告期末累计；「单季」＝本年相邻报告期累计之差（Q1 即累计）。空白＝该期未披露。</Text>\n        </Space>\n        <Table columns={columns} dataSource={dataSource} pagination={false} bordered size=\"small\" scroll={{ x: 'max-content' }} />\n        <Text type=\"secondary\" style={{ fontSize: 12 }}>\n          数据源：akshare（A 股＝新浪财报，港股＝东方财富港股报表）；取数、检验与口径见 framework/tools/fin_stmt.py，表代码 fin_stmt。\n        </Text>\n      </div>\n    );\n  };\n  ctx.render(<Page />);\n"
    }
   }
  },
  "tabs": [
   {
-   "title": "财务数据",
+   "title": "财务报表",
    "blocks": [
     {
      "key": "finstmt",
@@ -32,6 +22,607 @@
      "script": "finstmt"
     }
    ]
+  },
+  {
+   "title": "分部与财务补充",
+   "blocks": [
+    {
+     "key": "main",
+     "type": "table",
+     "collection": "vi_observation",
+     "fields": [
+      {
+       "field": "metric",
+       "titleField": "name",
+       "popup": {
+        "title": "指标",
+        "blocks": [
+         {
+          "type": "details",
+          "resource": {
+           "binding": "currentRecord",
+           "collectionName": "vi_metric"
+          },
+          "fields": [
+           "name",
+           "code",
+           "unit",
+           "category",
+           "source_kind",
+           "basis"
+          ]
+         }
+        ]
+       },
+       "settings": {
+        "width": 280
+       }
+      },
+      {
+       "field": "period",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "basis",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "value",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "unit",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "yoy",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "summary",
+       "settings": {
+        "width": 360
+       }
+      },
+      {
+       "field": "doc",
+       "titleField": "title",
+       "popup": {
+        "title": "来源文档",
+        "blocks": [
+         {
+          "type": "details",
+          "resource": {
+           "binding": "currentRecord",
+           "collectionName": "vi_source"
+          },
+          "fields": [
+           "title",
+           "source_type",
+           "publisher",
+           "publish_date",
+           "url",
+           "reliability"
+          ]
+         }
+        ]
+       },
+       "settings": {
+        "width": 200
+       }
+      }
+     ],
+     "settings": {
+      "title": "",
+      "description": "分部收入、分部利润率、现金口径及调整后利润等财务补充；三大报表已有的集团收入、归母利润、期间利润和研发费用不重复列示。合同额、销量、用户和设备数见「业务数据」。",
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "obs_date",
+        "direction": "desc"
+       }
+      ],
+      "dataScope": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "metric.company_id",
+         "operator": "$eq",
+         "value": 11
+        },
+        {
+         "path": "metric.category",
+         "operator": "$eq",
+         "value": "财务"
+        },
+        {
+         "path": "metric.name",
+         "operator": "$ne",
+         "value": "归母净利润"
+        },
+        {
+         "path": "metric.name",
+         "operator": "$ne",
+         "value": "期间利润（国际财务报告准则）"
+        },
+        {
+         "path": "metric.name",
+         "operator": "$ne",
+         "value": "研发开支"
+        },
+        {
+         "path": "metric.name",
+         "operator": "$ne",
+         "value": "营业收入"
+        }
+       ]
+      },
+      "density": "middle"
+     },
+     "actions": [
+      "filter",
+      "refresh",
+      {
+       "type": "addNew",
+       "popup": {
+        "title": "新增 · 分部与财务补充",
+        "blocks": [
+         {
+          "type": "createForm",
+          "resource": {
+           "collectionName": "vi_observation"
+          },
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "obs_date",
+             "period",
+             "value",
+             "yoy",
+             "impact",
+             "assessment",
+             "summary",
+             "status",
+             "collected_at",
+             "source"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "note"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "metric",
+              "titleField": "name"
+             },
+             {
+              "field": "doc",
+              "titleField": "title"
+             },
+             {
+              "field": "raw_capture",
+              "titleField": "run_label"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "bulkDelete"
+     ],
+     "recordActions": [
+      "view",
+      {
+       "type": "edit",
+       "popup": {
+        "title": "编辑 · 分部与财务补充",
+        "blocks": [
+         {
+          "type": "editForm",
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "obs_date",
+             "period",
+             "value",
+             "yoy",
+             "impact",
+             "assessment",
+             "summary",
+             "status",
+             "collected_at",
+             "source"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "note"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "metric",
+              "titleField": "name"
+             },
+             {
+              "field": "doc",
+              "titleField": "title"
+             },
+             {
+              "field": "raw_capture",
+              "titleField": "run_label"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "delete"
+     ]
+    }
+   ]
   }
- ]
+ ],
+ "defaults": {
+  "collections": {
+   "vi_observation": {
+    "popups": {
+     "view": {
+      "name": "数据·详情",
+      "description": "查看一条「数据」记录"
+     },
+     "addNew": {
+      "name": "数据·新增",
+      "description": "新增一条「数据」记录"
+     },
+     "edit": {
+      "name": "数据·编辑",
+      "description": "编辑一条「数据」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "obs_date",
+       "value",
+       "collected_at",
+       "source",
+       "note",
+       "period",
+       "yoy",
+       "impact",
+       "assessment",
+       "summary"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "status"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "metric",
+       "raw_capture",
+       "doc"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "is_current",
+       "is_valid",
+       "unit",
+       "basis",
+       "source_kind"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "is_current": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "is_valid": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "period": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "impact": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "assessment": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "summary": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "basis": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "source_kind": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
+   },
+   "vi_metric": {
+    "popups": {
+     "view": {
+      "name": "指标·详情",
+      "description": "查看一条「指标」记录"
+     },
+     "addNew": {
+      "name": "指标·新增",
+      "description": "新增一条「指标」记录"
+     },
+     "edit": {
+      "name": "指标·编辑",
+      "description": "编辑一条「指标」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "name",
+       "unit",
+       "category",
+       "source_name",
+       "frequency",
+       "valid_min",
+       "valid_max",
+       "notes",
+       "source_kind"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "basis"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "obs_count",
+       "latest_value",
+       "latest_date",
+       "scope",
+       "used_by",
+       "used_by_codes"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "category": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "valid_min": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "scope": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "used_by": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "used_by_codes": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "source_kind": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "basis": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
+   },
+   "vi_source": {
+    "popups": {
+     "view": {
+      "name": "来源文档·详情",
+      "description": "查看一条「来源文档」记录"
+     },
+     "addNew": {
+      "name": "来源文档·新增",
+      "description": "新增一条「来源文档」记录"
+     },
+     "edit": {
+      "name": "来源文档·编辑",
+      "description": "编辑一条「来源文档」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息",
+      "fields": [
+       "title",
+       "source_type",
+       "publisher",
+       "publish_date",
+       "url",
+       "reliability",
+       "verify_status",
+       "retrieved_on",
+       "summary",
+       "limitations"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_raw_capture": {
+    "popups": {
+     "view": {
+      "name": "原始采集记录·详情",
+      "description": "查看一条「原始采集记录」记录"
+     },
+     "addNew": {
+      "name": "原始采集记录·新增",
+      "description": "新增一条「原始采集记录」记录"
+     },
+     "edit": {
+      "name": "原始采集记录·编辑",
+      "description": "编辑一条「原始采集记录」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息",
+      "fields": [
+       "run_label",
+       "collected_at",
+       "status",
+       "raw_response",
+       "fetch_result"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "collector",
+       "run"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "parsed_date",
+       "parsed_value",
+       "is_valid",
+       "already_exists",
+       "decision",
+       "fetch_ok",
+       "fetch_note"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "is_valid": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "fetch_result": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "fetch_ok": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "fetch_note": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
+   }
+  }
+ },
+ "version": "1",
+ "mode": "replace",
+ "target": {
+  "pageSchemaUid": "e75y11y2zmm"
+ }
 }

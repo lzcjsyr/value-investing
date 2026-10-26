@@ -239,6 +239,7 @@ python3 build_pages.py                               # 框架与后台＋每家�
 python3 build_overview.py && python3 build_finmodel.py   # 每家公司的驾驶舱、财务模型；三篇说明
 python3 register.py --describe                       # 字段说明（必须在页面生成之后）
 python3 -c "import build_pages as b; b.sort_menu()"  # 菜单排序
+python3 struct_doc.py --apply                        # 「数据结构」页：按线上菜单列出每页用到的后台 table
 # 最后在「设置 → 工作流」启用 ④（按钮才生效）；①②③ 按需启用
 ```
 
@@ -262,6 +263,7 @@ python3 -c "import build_pages as b; b.sort_menu()"  # 菜单排序
 | 在公司菜单里新增的记录没出现 | 页面按“公司”过滤，表单里没选公司 | 新增时“公司”选这家公司（估值模型下的表选对应模型） |
 | 迁移改名、加列后，详情弹窗里新字段排在最后（论点页的自动检查跑到正方立论前面） | NocoBase 按字段的 sort 排序，新列默认排最后 | `register.reorder_fields('<表代码>')` 按 spec 顺序重排，再 `build_pages.rebuild('<表代码>')`、`sort_menu()` |
 | 表格页改了字段但详情弹窗没变 | 弹窗模板按集合复用，多家公司共用 | `build_pages.rebuild('<表代码>')` 会删掉所有公司的同名页面、删模板、再重建 |
+| 编辑表单的关联下拉里混进别家公司的记录 | 弹窗模板五家共用，下拉默认列全表 | `python3 scope_selects.py`：按表单里选的公司（或所选模型/指标的公司）过滤，指标另加宏观；`build_pages.py` 和 `rebuild()` 末尾自动执行 |
 | 没有 Wind 时取不到 10 年以上的完整报表 | Wind 积分不足，岗底斯结构化接口只覆盖近三年 | 东方财富 F10 接口（`emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/{lrb,zcfzb,xjllb}AjaxNew`，带 Referer）一次最多 5 个报告期，可取 2013 年以来全部科目；分红用 `datacenter.eastmoney.com` 的 RPT_SHAREBONUS_DET |
 | `nb` 命令返回 401“Your session has expired” | CLI 保存的登录令牌过期（register.py、build_*.py 都会失败） | `nb env auth local` 重新登录（本机默认管理员账号）；想不过期可在「设置 → API 密钥」建密钥后用 `-a token` |
 | 港股或美股公司的估值和股价对不上 | 记账币种是人民币，股价是港元/美元 | 公司表填“股价汇率指标”（`tencent_fx` 采集）；港股报价日期是 `2026/10/22 16:08:42`，`tencent_quote` 已改为只取数字 |
@@ -424,3 +426,20 @@ python3 -c "import build_pages as b; b.sort_menu()"  # 菜单排序
 - **事实摘录**：加「数字引自（指标）」。按期重复的数字以「数据」为准；现有 172 条带数值的事实里，同一公司、同一期间、数值一致的只有 10 条，已关联（`sql/migrations/2026-10-25f_fact_metric_links.sql`），文字和数值未改。
 - **在线升级顺序**：`2026-10-25d_obs_columns.sql` → `02_calc.sql` → `2026-10-25e_move_period_data.sql`（核对不一致会整体回滚）→ `03_ui.sql` → `register.py` → 重启 app → `register.py --describe`；删掉 `vi_period_data` 集合和五个经营数据页，`build_pages.rebuild('observation')`、`rebuild('fin_history')`、宏观数据页重建。
 - **验证**：先在库副本上演练（自动检查 95 项、驾驶舱 24 张图结果与迁移前逐行一致）；再在空库里按 01→02→03→宏观→五家种子从零重建，公司披露的 549 行（数值、口径、期间、指标代码、经营影响与解读）与线上迁移结果完全一致。重建时发现上面的步骤漏了“宏观数据先灌”，已补。
+
+### 业务驱动与财务结果分开（2026-10-26 上午，五家公司）
+
+公司观察页统一叫“业务数据”，按指标类别过滤：公司披露/年报/手工业务在“定期经营数据”，自动采集的经营/水文/商品在“高频业务数据”。财务类指标移入“财务数据 / 分部与财务补充”，完整三表已有的集团收入、归母利润、期间利润、研发费用不重复展示。原存储和图表引用保留。`vi_put_disclosed` 新建指标时调用 `vi_disclosed_category`，防止重跑种子后又把财务归为经营。执行脚本 `reorganize_business_data.py`，迁移 `sql/migrations/2026-10-26_business_data_domains.sql`，验收目录 `../checks/business_data_20261026/`。
+
+
+### 2026-10-26：五家公司页面命名
+
+业务数据页的“公司披露”标签改为“定期经营数据”，另一标签为“高频业务数据”；“事实摘录”页面改为“重要事实”。仅改显示名称，数据、页面地址与表格布局保留。生成器与现有页面同步。
+
+### 2026-10-26：关联下拉只列本公司
+
+编辑、新增表单里的关联下拉（关联指标、依据事实、假设依据、核心论点、来源文档等 32 个字段，314 处）加了数据范围：只列表单里所选公司的记录；指标类下拉另加宏观指标；按模型归属的表（逐年假设、分部估值、单参数试验）读所选模型的公司，情景只列所选模型的情景。没选公司时，指标只列宏观，其余下拉为空。弹窗模板五家共用，所以范围用表单变量（`{{ctx.formValues.company.id}}`），不写死公司。flow-surfaces 不开放字段级数据范围，`scope_selects.py` 走 `flowModels:save`，规则由 spec 推出，可重复执行。
+
+### 2026-10-26：「数据结构」页改为自动生成
+
+「框架与后台 / 数据结构」按前端菜单列出每个页面用到哪些后台 table：主表（原生表格增删改的）、页面还读取（图表、看板、JS、关联列；视图写成〔〕）、弹窗与下拉。后面是视图与报表读哪些表、每张 table 的反查（行数、主表页面、被多少页面读取、自动计算列读取），以及由 spec 生成的关系图。全部从线上读：desktopRoutes → flowModels（含弹窗模板）→ 视图依赖（information_schema.view_table_usage）。`struct_doc.py --apply` 原地更新页面，`build_overview.py` 新建说明页时也调用它；原来手写的 STRUCTURE 删除。

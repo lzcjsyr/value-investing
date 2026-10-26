@@ -1,0 +1,6739 @@
+{
+ "target": {
+  "locator": {
+   "pageSchemaUid": "2veokjca71l"
+  },
+  "uid": "9sqqd3r5rz6",
+  "kind": "page"
+ },
+ "tree": {
+  "parentId": "2veokjca71l",
+  "subKey": "page",
+  "subType": "object",
+  "use": "RootPageModel",
+  "props": {
+   "routeId": 394093129039872,
+   "title": "数据",
+   "enableTabs": true,
+   "displayTitle": true,
+   "icon": "TableOutlined",
+   "enableHeader": null
+  },
+  "stepParams": {
+   "pageSettings": {
+    "general": {
+     "title": "数据",
+     "displayTitle": true,
+     "enableTabs": true,
+     "documentTitle": "长江电力 · 数据",
+     "icon": "TableOutlined",
+     "enableHeader": null
+    }
+   }
+  },
+  "parent": "2veokjca71l",
+  "uid": "9sqqd3r5rz6",
+  "subModels": {
+   "tabs": [
+    {
+     "uid": "obgfd9obmmh",
+     "use": "RootPageTabModel",
+     "props": {
+      "route": {
+       "createdAt": "2026-10-25T15:30:47.471Z",
+       "updatedAt": "2026-10-25T15:36:35.958Z",
+       "id": 394093129039873,
+       "parentId": 394093129039872,
+       "title": "公司披露",
+       "tooltip": null,
+       "icon": null,
+       "schemaUid": "obgfd9obmmh",
+       "menuSchemaUid": null,
+       "tabSchemaName": "pvh6pdc1e6g",
+       "type": "tabs",
+       "options": {
+        "flowRegistry": {}
+       },
+       "sort": 100,
+       "hideInMenu": null,
+       "enableTabs": null,
+       "enableHeader": null,
+       "displayTitle": null,
+       "hidden": false,
+       "createdById": null,
+       "updatedById": 1,
+       "children": []
+      },
+      "title": "公司披露",
+      "icon": null
+     },
+     "decoratorProps": {},
+     "flowRegistry": {},
+     "stepParams": {
+      "pageTabSettings": {
+       "tab": {
+        "title": "公司披露",
+        "icon": null
+       }
+      }
+     },
+     "subModels": {
+      "grid": {
+       "parentId": "obgfd9obmmh",
+       "subKey": "grid",
+       "subType": "object",
+       "use": "BlockGridModel",
+       "props": {
+        "rows": {
+         "row1": [
+          [
+           "thths302qb1"
+          ]
+         ]
+        },
+        "sizes": {
+         "row1": [
+          24
+         ]
+        },
+        "rowOrder": [
+         "row1"
+        ]
+       },
+       "stepParams": {
+        "gridSettings": {
+         "grid": {
+          "rows": {
+           "row1": [
+            [
+             "thths302qb1"
+            ]
+           ]
+          },
+          "sizes": {
+           "row1": [
+            24
+           ]
+          },
+          "rowOrder": [
+           "row1"
+          ]
+         }
+        }
+       },
+       "uid": "ti3lhiw5iev",
+       "subModels": {
+        "items": [
+         {
+          "parentId": "ti3lhiw5iev",
+          "subKey": "items",
+          "subType": "array",
+          "use": "TableBlockModel",
+          "props": {},
+          "decoratorProps": {},
+          "stepParams": {
+           "resourceSettings": {
+            "init": {
+             "dataSourceKey": "main",
+             "collectionName": "vi_observation"
+            }
+           },
+           "cardSettings": {
+            "titleDescription": {
+             "description": "每个指标每一期的数值，以及对它的理解（经营影响、经营解读）；引用【来源文档】【指标】【原始采集记录】；被【自动检查】引用。"
+            }
+           },
+           "tableSettings": {
+            "pageSize": {
+             "pageSize": 50
+            },
+            "defaultSorting": {
+             "sort": [
+              {
+               "field": "obs_date",
+               "direction": "desc"
+              }
+             ]
+            },
+            "dataScope": {
+             "filter": {
+              "logic": "$and",
+              "items": [
+               {
+                "path": "metric.company_id",
+                "operator": "$eq",
+                "value": 1
+               },
+               {
+                "path": "metric.source_kind",
+                "operator": "$eq",
+                "value": "公司披露"
+               }
+              ]
+             }
+            }
+           }
+          },
+          "uid": "thths302qb1",
+          "subModels": {
+           "columns": [
+            {
+             "use": "TableActionsColumnModel",
+             "props": {},
+             "decoratorProps": {},
+             "stepParams": {
+              "tableColumnSettings": {
+               "title": {
+                "title": "{{t(\"Actions\")}}"
+               }
+              }
+             },
+             "flowRegistry": {},
+             "subKey": "columns",
+             "subType": "array",
+             "uid": "3vre5vkvhcj",
+             "subModels": {
+              "actions": [
+               {
+                "parentId": "3vre5vkvhcj",
+                "subKey": "actions",
+                "subType": "array",
+                "use": "ViewActionModel",
+                "props": {
+                 "type": "link",
+                 "title": "{{t(\"View\")}}",
+                 "icon": null
+                },
+                "decoratorProps": {},
+                "stepParams": {
+                 "buttonSettings": {
+                  "general": {
+                   "title": "{{t(\"View\")}}",
+                   "icon": null,
+                   "type": "link",
+                   "iconOnly": false
+                  }
+                 },
+                 "popupSettings": {
+                  "openView": {
+                   "mode": "drawer",
+                   "size": "medium",
+                   "pageModelClass": "ChildPageModel",
+                   "dataSourceKey": "main",
+                   "collectionName": "vi_observation",
+                   "title": "{{t(\"Details\")}}"
+                  }
+                 }
+                },
+                "flowRegistry": {},
+                "uid": "f3mlz3v58cn",
+                "parent": "3vre5vkvhcj",
+                "sortIndex": 1,
+                "popup": {
+                 "template": {
+                  "uid": "fhz3xa6xz6f",
+                  "mode": "reference"
+                 }
+                }
+               },
+               {
+                "parentId": "3vre5vkvhcj",
+                "subKey": "actions",
+                "subType": "array",
+                "use": "EditActionModel",
+                "props": {
+                 "title": "{{t(\"Edit\")}}",
+                 "icon": null,
+                 "type": "link"
+                },
+                "decoratorProps": {},
+                "stepParams": {
+                 "buttonSettings": {
+                  "general": {
+                   "title": "{{t(\"Edit\")}}",
+                   "icon": null,
+                   "type": "link",
+                   "iconOnly": false
+                  }
+                 },
+                 "popupSettings": {
+                  "openView": {
+                   "mode": "drawer",
+                   "size": "medium",
+                   "pageModelClass": "ChildPageModel",
+                   "dataSourceKey": "main",
+                   "collectionName": "vi_observation",
+                   "title": "编辑 · 数据"
+                  }
+                 }
+                },
+                "flowRegistry": {},
+                "uid": "rojlfcpr1rq",
+                "parent": "3vre5vkvhcj",
+                "sortIndex": 2,
+                "popup": {
+                 "template": {
+                  "uid": "iyht28t5ld1",
+                  "mode": "reference"
+                 }
+                }
+               },
+               {
+                "parentId": "3vre5vkvhcj",
+                "subKey": "actions",
+                "subType": "array",
+                "use": "DeleteActionModel",
+                "props": {
+                 "type": "link",
+                 "title": "{{t(\"Delete\")}}",
+                 "icon": null
+                },
+                "decoratorProps": {},
+                "stepParams": {
+                 "buttonSettings": {
+                  "general": {
+                   "title": "{{t(\"Delete\")}}",
+                   "icon": null,
+                   "type": "link",
+                   "iconOnly": false
+                  }
+                 },
+                 "deleteSettings": {
+                  "confirm": {
+                   "enable": true,
+                   "title": "{{t(\"Delete record\")}}",
+                   "content": "{{t(\"Are you sure you want to delete it?\")}}"
+                  }
+                 }
+                },
+                "flowRegistry": {},
+                "uid": "zutx8h5z86d",
+                "parent": "3vre5vkvhcj",
+                "sortIndex": 3,
+                "popup": {
+                 "mode": "local"
+                }
+               }
+              ]
+             },
+             "parent": "thths302qb1",
+             "parentId": "thths302qb1",
+             "sortIndex": 1,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "thths302qb1",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {
+              "titleField": "name"
+             },
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "fieldPath": "metric"
+               }
+              },
+              "tableColumnSettings": {
+               "fieldNames": {
+                "label": "name"
+               }
+              }
+             },
+             "uid": "8mvhq6xy9q4",
+             "subModels": {
+              "field": {
+               "use": "DisplayTextFieldModel",
+               "props": {
+                "titleField": "name",
+                "clickToOpen": true
+               },
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_observation",
+                  "fieldPath": "metric"
+                 }
+                },
+                "displayFieldSettings": {
+                 "clickToOpen": {
+                  "clickToOpen": true
+                 }
+                },
+                "popupSettings": {
+                 "openView": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_metric",
+                  "mode": "drawer",
+                  "size": "medium",
+                  "pageModelClass": "ChildPageModel",
+                  "associationName": "vi_observation.metric",
+                  "title": "指标"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "95bzys55odq",
+               "subModels": {
+                "page": {
+                 "parentId": "95bzys55odq",
+                 "subKey": "page",
+                 "subType": "object",
+                 "use": "ChildPageModel",
+                 "props": {
+                  "displayTitle": false,
+                  "enableTabs": true
+                 },
+                 "stepParams": {
+                  "pageSettings": {
+                   "general": {
+                    "displayTitle": false,
+                    "enableTabs": true
+                   }
+                  }
+                 },
+                 "uid": "ep2o2mgi9c9",
+                 "subModels": {
+                  "tabs": [
+                   {
+                    "use": "ChildPageTabModel",
+                    "props": {
+                     "title": "{{t(\"Details\")}}"
+                    },
+                    "stepParams": {
+                     "pageTabSettings": {
+                      "tab": {
+                       "title": "{{t(\"Details\")}}"
+                      }
+                     }
+                    },
+                    "subKey": "tabs",
+                    "subType": "array",
+                    "uid": "gzn1xb3jei4",
+                    "subModels": {
+                     "grid": {
+                      "use": "BlockGridModel",
+                      "subKey": "grid",
+                      "subType": "object",
+                      "props": {
+                       "rows": {
+                        "row1": [
+                         [
+                          "iab70tq2tag"
+                         ]
+                        ]
+                       },
+                       "sizes": {
+                        "row1": [
+                         24
+                        ]
+                       },
+                       "rowOrder": [
+                        "row1"
+                       ]
+                      },
+                      "stepParams": {
+                       "gridSettings": {
+                        "grid": {
+                         "rows": {
+                          "row1": [
+                           [
+                            "iab70tq2tag"
+                           ]
+                          ]
+                         },
+                         "sizes": {
+                          "row1": [
+                           24
+                          ]
+                         },
+                         "rowOrder": [
+                          "row1"
+                         ]
+                        }
+                       }
+                      },
+                      "uid": "0nhswprn3ua",
+                      "subModels": {
+                       "items": [
+                        {
+                         "parentId": "0nhswprn3ua",
+                         "subKey": "items",
+                         "subType": "array",
+                         "use": "DetailsBlockModel",
+                         "props": {},
+                         "decoratorProps": {},
+                         "stepParams": {
+                          "resourceSettings": {
+                           "init": {
+                            "dataSourceKey": "main",
+                            "collectionName": "vi_metric",
+                            "filterByTk": "{{ctx.record.id}}",
+                            "associationName": "vi_observation.metric",
+                            "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+                           }
+                          }
+                         },
+                         "uid": "iab70tq2tag",
+                         "subModels": {
+                          "grid": {
+                           "use": "DetailsGridModel",
+                           "subKey": "grid",
+                           "subType": "object",
+                           "stepParams": {
+                            "gridSettings": {
+                             "grid": {
+                              "rows": {
+                               "row1": [
+                                [
+                                 "6w8ksnwpi6a"
+                                ],
+                                [
+                                 "c0293n647je"
+                                ]
+                               ],
+                               "row2": [
+                                [
+                                 "lybtaofu2kl"
+                                ],
+                                [
+                                 "nhd138hodkm"
+                                ]
+                               ],
+                               "row3": [
+                                [
+                                 "bronbf3s1dr"
+                                ],
+                                [
+                                 "gxrbad39gui"
+                                ]
+                               ]
+                              },
+                              "sizes": {
+                               "row1": [
+                                12,
+                                12
+                               ],
+                               "row2": [
+                                12,
+                                12
+                               ],
+                               "row3": [
+                                12,
+                                12
+                               ]
+                              },
+                              "rowOrder": [
+                               "row1",
+                               "row2",
+                               "row3"
+                              ]
+                             }
+                            }
+                           },
+                           "props": {
+                            "rows": {
+                             "row1": [
+                              [
+                               "6w8ksnwpi6a"
+                              ],
+                              [
+                               "c0293n647je"
+                              ]
+                             ],
+                             "row2": [
+                              [
+                               "lybtaofu2kl"
+                              ],
+                              [
+                               "nhd138hodkm"
+                              ]
+                             ],
+                             "row3": [
+                              [
+                               "bronbf3s1dr"
+                              ],
+                              [
+                               "gxrbad39gui"
+                              ]
+                             ]
+                            },
+                            "sizes": {
+                             "row1": [
+                              12,
+                              12
+                             ],
+                             "row2": [
+                              12,
+                              12
+                             ],
+                             "row3": [
+                              12,
+                              12
+                             ]
+                            },
+                            "rowOrder": [
+                             "row1",
+                             "row2",
+                             "row3"
+                            ]
+                           },
+                           "uid": "s60w6mfnbyh",
+                           "subModels": {
+                            "items": [
+                             {
+                              "parentId": "s60w6mfnbyh",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_metric",
+                                 "fieldPath": "name"
+                                }
+                               }
+                              },
+                              "uid": "6w8ksnwpi6a",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_metric",
+                                   "fieldPath": "name"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "kt4uv5bto26",
+                                "parent": "6w8ksnwpi6a",
+                                "parentId": "6w8ksnwpi6a",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "s60w6mfnbyh",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "s60w6mfnbyh",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_metric",
+                                 "fieldPath": "code"
+                                }
+                               }
+                              },
+                              "uid": "c0293n647je",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_metric",
+                                   "fieldPath": "code"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "9aap5t00h8f",
+                                "parent": "c0293n647je",
+                                "parentId": "c0293n647je",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "s60w6mfnbyh",
+                              "sortIndex": 2,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "s60w6mfnbyh",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_metric",
+                                 "fieldPath": "unit"
+                                }
+                               }
+                              },
+                              "uid": "lybtaofu2kl",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_metric",
+                                   "fieldPath": "unit"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "annz5gf75kl",
+                                "parent": "lybtaofu2kl",
+                                "parentId": "lybtaofu2kl",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "s60w6mfnbyh",
+                              "sortIndex": 3,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "s60w6mfnbyh",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_metric",
+                                 "fieldPath": "category"
+                                }
+                               }
+                              },
+                              "uid": "nhd138hodkm",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_metric",
+                                   "fieldPath": "category"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "mb3k2sz3g6i",
+                                "parent": "nhd138hodkm",
+                                "parentId": "nhd138hodkm",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "s60w6mfnbyh",
+                              "sortIndex": 4,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "s60w6mfnbyh",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_metric",
+                                 "fieldPath": "source_kind"
+                                }
+                               }
+                              },
+                              "uid": "bronbf3s1dr",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_metric",
+                                   "fieldPath": "source_kind"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "6im4vifbpyd",
+                                "parent": "bronbf3s1dr",
+                                "parentId": "bronbf3s1dr",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "s60w6mfnbyh",
+                              "sortIndex": 5,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "s60w6mfnbyh",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_metric",
+                                 "fieldPath": "basis"
+                                }
+                               }
+                              },
+                              "uid": "gxrbad39gui",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_metric",
+                                   "fieldPath": "basis"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "htroy7rrnvi",
+                                "parent": "gxrbad39gui",
+                                "parentId": "gxrbad39gui",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "s60w6mfnbyh",
+                              "sortIndex": 6,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            ]
+                           },
+                           "parent": "iab70tq2tag",
+                           "parentId": "iab70tq2tag",
+                           "sortIndex": 1,
+                           "popup": {
+                            "mode": "local"
+                           }
+                          },
+                          "actions": [
+                           {
+                            "parentId": "iab70tq2tag",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "EditActionModel",
+                            "props": {
+                             "title": "{{t(\"Edit\")}}",
+                             "icon": "EditOutlined",
+                             "type": "default"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                             "buttonSettings": {
+                              "general": {
+                               "title": "{{t(\"Edit\")}}",
+                               "icon": "EditOutlined",
+                               "type": "default"
+                              }
+                             },
+                             "popupSettings": {
+                              "openView": {
+                               "mode": "drawer",
+                               "size": "medium",
+                               "pageModelClass": "ChildPageModel",
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_metric",
+                               "associationName": "vi_observation.metric",
+                               "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+                               "title": "指标·编辑"
+                              }
+                             }
+                            },
+                            "flowRegistry": {},
+                            "uid": "884z6f382cj",
+                            "parent": "iab70tq2tag",
+                            "sortIndex": 1,
+                            "popup": {
+                             "template": {
+                              "uid": "kqed9gm59e6",
+                              "mode": "reference"
+                             }
+                            }
+                           }
+                          ]
+                         },
+                         "parent": "0nhswprn3ua",
+                         "sortIndex": 1,
+                         "popup": {
+                          "mode": "local"
+                         }
+                        }
+                       ]
+                      },
+                      "parent": "gzn1xb3jei4",
+                      "parentId": "gzn1xb3jei4",
+                      "sortIndex": 1,
+                      "popup": {
+                       "mode": "local"
+                      }
+                     }
+                    },
+                    "parent": "ep2o2mgi9c9",
+                    "parentId": "ep2o2mgi9c9",
+                    "sortIndex": 1,
+                    "popup": {
+                     "mode": "local"
+                    }
+                   }
+                  ]
+                 },
+                 "parent": "95bzys55odq",
+                 "sortIndex": 1,
+                 "popup": {
+                  "mode": "local"
+                 }
+                }
+               },
+               "parent": "8mvhq6xy9q4",
+               "parentId": "8mvhq6xy9q4",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local",
+                "pageUid": "ep2o2mgi9c9",
+                "tabUid": "gzn1xb3jei4",
+                "gridUid": "0nhswprn3ua"
+               }
+              }
+             },
+             "parent": "thths302qb1",
+             "sortIndex": 2,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "thths302qb1",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {},
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "fieldPath": "period"
+               }
+              }
+             },
+             "uid": "8ew2cjp873v",
+             "subModels": {
+              "field": {
+               "use": "DisplayTextFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_observation",
+                  "fieldPath": "period"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "la4xql737kj",
+               "parent": "8ew2cjp873v",
+               "parentId": "8ew2cjp873v",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "thths302qb1",
+             "sortIndex": 3,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "thths302qb1",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {},
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "fieldPath": "value"
+               }
+              }
+             },
+             "uid": "fd36j5ulrx8",
+             "subModels": {
+              "field": {
+               "use": "DisplayNumberFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_observation",
+                  "fieldPath": "value"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "ymwyu50z3sv",
+               "parent": "fd36j5ulrx8",
+               "parentId": "fd36j5ulrx8",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "thths302qb1",
+             "sortIndex": 4,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "thths302qb1",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {},
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "fieldPath": "unit"
+               }
+              }
+             },
+             "uid": "hkukmzk6299",
+             "subModels": {
+              "field": {
+               "use": "DisplayTextFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_observation",
+                  "fieldPath": "unit"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "moghe17l6bn",
+               "parent": "hkukmzk6299",
+               "parentId": "hkukmzk6299",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "thths302qb1",
+             "sortIndex": 5,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "thths302qb1",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {},
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "fieldPath": "yoy"
+               }
+              }
+             },
+             "uid": "wg19kbmi72p",
+             "subModels": {
+              "field": {
+               "use": "DisplayPercentFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_observation",
+                  "fieldPath": "yoy"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "xbxb7vvjbrt",
+               "parent": "wg19kbmi72p",
+               "parentId": "wg19kbmi72p",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "thths302qb1",
+             "sortIndex": 6,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "thths302qb1",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {},
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "fieldPath": "impact"
+               }
+              }
+             },
+             "uid": "5fhzh17hozw",
+             "subModels": {
+              "field": {
+               "use": "DisplayEnumFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_observation",
+                  "fieldPath": "impact"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "fg53xq9x6i1",
+               "parent": "5fhzh17hozw",
+               "parentId": "5fhzh17hozw",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "thths302qb1",
+             "sortIndex": 7,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "thths302qb1",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {},
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "fieldPath": "assessment"
+               }
+              }
+             },
+             "uid": "pf0ggr9ech1",
+             "subModels": {
+              "field": {
+               "use": "DisplayTextFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_observation",
+                  "fieldPath": "assessment"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "cp7j1vvektj",
+               "parent": "pf0ggr9ech1",
+               "parentId": "pf0ggr9ech1",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "thths302qb1",
+             "sortIndex": 8,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "thths302qb1",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {},
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "fieldPath": "summary"
+               }
+              }
+             },
+             "uid": "1hzmgvv58hm",
+             "subModels": {
+              "field": {
+               "use": "DisplayTextFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_observation",
+                  "fieldPath": "summary"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "q24phpyxam1",
+               "parent": "1hzmgvv58hm",
+               "parentId": "1hzmgvv58hm",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "thths302qb1",
+             "sortIndex": 9,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "thths302qb1",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {},
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "fieldPath": "status"
+               }
+              }
+             },
+             "uid": "zgy52t7baum",
+             "subModels": {
+              "field": {
+               "use": "DisplayEnumFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_observation",
+                  "fieldPath": "status"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "6jiu7a5xrkt",
+               "parent": "zgy52t7baum",
+               "parentId": "zgy52t7baum",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "thths302qb1",
+             "sortIndex": 10,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "thths302qb1",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {
+              "titleField": "title"
+             },
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "fieldPath": "doc"
+               }
+              },
+              "tableColumnSettings": {
+               "fieldNames": {
+                "label": "title"
+               }
+              }
+             },
+             "uid": "jciaxr7v31d",
+             "subModels": {
+              "field": {
+               "use": "DisplayTextFieldModel",
+               "props": {
+                "titleField": "title",
+                "clickToOpen": true
+               },
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_observation",
+                  "fieldPath": "doc"
+                 }
+                },
+                "displayFieldSettings": {
+                 "clickToOpen": {
+                  "clickToOpen": true
+                 }
+                },
+                "popupSettings": {
+                 "openView": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_source",
+                  "mode": "drawer",
+                  "size": "medium",
+                  "pageModelClass": "ChildPageModel",
+                  "associationName": "vi_observation.doc",
+                  "title": "来源文档"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "7pr3rmqaaa7",
+               "subModels": {
+                "page": {
+                 "parentId": "7pr3rmqaaa7",
+                 "subKey": "page",
+                 "subType": "object",
+                 "use": "ChildPageModel",
+                 "props": {
+                  "displayTitle": false,
+                  "enableTabs": true
+                 },
+                 "stepParams": {
+                  "pageSettings": {
+                   "general": {
+                    "displayTitle": false,
+                    "enableTabs": true
+                   }
+                  }
+                 },
+                 "uid": "blyybuap8kd",
+                 "subModels": {
+                  "tabs": [
+                   {
+                    "use": "ChildPageTabModel",
+                    "props": {
+                     "title": "{{t(\"Details\")}}"
+                    },
+                    "stepParams": {
+                     "pageTabSettings": {
+                      "tab": {
+                       "title": "{{t(\"Details\")}}"
+                      }
+                     }
+                    },
+                    "subKey": "tabs",
+                    "subType": "array",
+                    "uid": "cx8cu0a4ta9",
+                    "subModels": {
+                     "grid": {
+                      "use": "BlockGridModel",
+                      "subKey": "grid",
+                      "subType": "object",
+                      "props": {
+                       "rows": {
+                        "row1": [
+                         [
+                          "grpwto6m2zk"
+                         ]
+                        ]
+                       },
+                       "sizes": {
+                        "row1": [
+                         24
+                        ]
+                       },
+                       "rowOrder": [
+                        "row1"
+                       ]
+                      },
+                      "stepParams": {
+                       "gridSettings": {
+                        "grid": {
+                         "rows": {
+                          "row1": [
+                           [
+                            "grpwto6m2zk"
+                           ]
+                          ]
+                         },
+                         "sizes": {
+                          "row1": [
+                           24
+                          ]
+                         },
+                         "rowOrder": [
+                          "row1"
+                         ]
+                        }
+                       }
+                      },
+                      "uid": "7ts33czci6z",
+                      "subModels": {
+                       "items": [
+                        {
+                         "parentId": "7ts33czci6z",
+                         "subKey": "items",
+                         "subType": "array",
+                         "use": "DetailsBlockModel",
+                         "props": {},
+                         "decoratorProps": {},
+                         "stepParams": {
+                          "resourceSettings": {
+                           "init": {
+                            "dataSourceKey": "main",
+                            "collectionName": "vi_source",
+                            "filterByTk": "{{ctx.record.id}}",
+                            "associationName": "vi_observation.doc",
+                            "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+                           }
+                          }
+                         },
+                         "uid": "grpwto6m2zk",
+                         "subModels": {
+                          "grid": {
+                           "use": "DetailsGridModel",
+                           "subKey": "grid",
+                           "subType": "object",
+                           "stepParams": {
+                            "gridSettings": {
+                             "grid": {
+                              "rows": {
+                               "row1": [
+                                [
+                                 "ds5l3j03icp"
+                                ],
+                                [
+                                 "402rbnbjn8g"
+                                ]
+                               ],
+                               "row2": [
+                                [
+                                 "thikx6lzjot"
+                                ],
+                                [
+                                 "yc4comnz8t3"
+                                ]
+                               ],
+                               "row3": [
+                                [
+                                 "6qplrbxzctn"
+                                ],
+                                [
+                                 "3wb8ta0mg71"
+                                ]
+                               ]
+                              },
+                              "sizes": {
+                               "row1": [
+                                12,
+                                12
+                               ],
+                               "row2": [
+                                12,
+                                12
+                               ],
+                               "row3": [
+                                12,
+                                12
+                               ]
+                              },
+                              "rowOrder": [
+                               "row1",
+                               "row2",
+                               "row3"
+                              ]
+                             }
+                            }
+                           },
+                           "props": {
+                            "rows": {
+                             "row1": [
+                              [
+                               "ds5l3j03icp"
+                              ],
+                              [
+                               "402rbnbjn8g"
+                              ]
+                             ],
+                             "row2": [
+                              [
+                               "thikx6lzjot"
+                              ],
+                              [
+                               "yc4comnz8t3"
+                              ]
+                             ],
+                             "row3": [
+                              [
+                               "6qplrbxzctn"
+                              ],
+                              [
+                               "3wb8ta0mg71"
+                              ]
+                             ]
+                            },
+                            "sizes": {
+                             "row1": [
+                              12,
+                              12
+                             ],
+                             "row2": [
+                              12,
+                              12
+                             ],
+                             "row3": [
+                              12,
+                              12
+                             ]
+                            },
+                            "rowOrder": [
+                             "row1",
+                             "row2",
+                             "row3"
+                            ]
+                           },
+                           "uid": "0t2sqfg3nnp",
+                           "subModels": {
+                            "items": [
+                             {
+                              "parentId": "0t2sqfg3nnp",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_source",
+                                 "fieldPath": "title"
+                                }
+                               }
+                              },
+                              "uid": "ds5l3j03icp",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_source",
+                                   "fieldPath": "title"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "dhcjrlgrmms",
+                                "parent": "ds5l3j03icp",
+                                "parentId": "ds5l3j03icp",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "0t2sqfg3nnp",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "0t2sqfg3nnp",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_source",
+                                 "fieldPath": "source_type"
+                                }
+                               }
+                              },
+                              "uid": "402rbnbjn8g",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_source",
+                                   "fieldPath": "source_type"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "ih49wgfa0f3",
+                                "parent": "402rbnbjn8g",
+                                "parentId": "402rbnbjn8g",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "0t2sqfg3nnp",
+                              "sortIndex": 2,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "0t2sqfg3nnp",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_source",
+                                 "fieldPath": "publisher"
+                                }
+                               }
+                              },
+                              "uid": "thikx6lzjot",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_source",
+                                   "fieldPath": "publisher"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "bfkgxt0k8cz",
+                                "parent": "thikx6lzjot",
+                                "parentId": "thikx6lzjot",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "0t2sqfg3nnp",
+                              "sortIndex": 3,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "0t2sqfg3nnp",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_source",
+                                 "fieldPath": "publish_date"
+                                }
+                               }
+                              },
+                              "uid": "yc4comnz8t3",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_source",
+                                   "fieldPath": "publish_date"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "lv8i59nhcda",
+                                "parent": "yc4comnz8t3",
+                                "parentId": "yc4comnz8t3",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "0t2sqfg3nnp",
+                              "sortIndex": 4,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "0t2sqfg3nnp",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_source",
+                                 "fieldPath": "url"
+                                }
+                               }
+                              },
+                              "uid": "6qplrbxzctn",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayURLFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_source",
+                                   "fieldPath": "url"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "0qyl8290ban",
+                                "parent": "6qplrbxzctn",
+                                "parentId": "6qplrbxzctn",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "0t2sqfg3nnp",
+                              "sortIndex": 5,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "0t2sqfg3nnp",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_source",
+                                 "fieldPath": "reliability"
+                                }
+                               }
+                              },
+                              "uid": "3wb8ta0mg71",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_source",
+                                   "fieldPath": "reliability"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "c6dslb8n01n",
+                                "parent": "3wb8ta0mg71",
+                                "parentId": "3wb8ta0mg71",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "0t2sqfg3nnp",
+                              "sortIndex": 6,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            ]
+                           },
+                           "parent": "grpwto6m2zk",
+                           "parentId": "grpwto6m2zk",
+                           "sortIndex": 1,
+                           "popup": {
+                            "mode": "local"
+                           }
+                          },
+                          "actions": [
+                           {
+                            "parentId": "grpwto6m2zk",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "EditActionModel",
+                            "props": {
+                             "title": "{{t(\"Edit\")}}",
+                             "icon": "EditOutlined",
+                             "type": "default"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                             "buttonSettings": {
+                              "general": {
+                               "title": "{{t(\"Edit\")}}",
+                               "icon": "EditOutlined",
+                               "type": "default"
+                              }
+                             },
+                             "popupSettings": {
+                              "openView": {
+                               "mode": "drawer",
+                               "size": "medium",
+                               "pageModelClass": "ChildPageModel",
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_source",
+                               "associationName": "vi_observation.doc",
+                               "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+                               "title": "来源文档·编辑"
+                              }
+                             }
+                            },
+                            "flowRegistry": {},
+                            "uid": "g5aic3k2vku",
+                            "parent": "grpwto6m2zk",
+                            "sortIndex": 1,
+                            "popup": {
+                             "template": {
+                              "uid": "3uyy34lrdt8",
+                              "mode": "reference"
+                             }
+                            }
+                           }
+                          ]
+                         },
+                         "parent": "7ts33czci6z",
+                         "sortIndex": 1,
+                         "popup": {
+                          "mode": "local"
+                         }
+                        }
+                       ]
+                      },
+                      "parent": "cx8cu0a4ta9",
+                      "parentId": "cx8cu0a4ta9",
+                      "sortIndex": 1,
+                      "popup": {
+                       "mode": "local"
+                      }
+                     }
+                    },
+                    "parent": "blyybuap8kd",
+                    "parentId": "blyybuap8kd",
+                    "sortIndex": 1,
+                    "popup": {
+                     "mode": "local"
+                    }
+                   }
+                  ]
+                 },
+                 "parent": "7pr3rmqaaa7",
+                 "sortIndex": 1,
+                 "popup": {
+                  "mode": "local"
+                 }
+                }
+               },
+               "parent": "jciaxr7v31d",
+               "parentId": "jciaxr7v31d",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local",
+                "pageUid": "blyybuap8kd",
+                "tabUid": "cx8cu0a4ta9",
+                "gridUid": "7ts33czci6z"
+               }
+              }
+             },
+             "parent": "thths302qb1",
+             "sortIndex": 11,
+             "popup": {
+              "mode": "local"
+             }
+            }
+           ],
+           "actions": [
+            {
+             "parentId": "thths302qb1",
+             "subKey": "actions",
+             "subType": "array",
+             "use": "FilterActionModel",
+             "props": {
+              "title": "{{t(\"Filter\")}}",
+              "icon": "FilterOutlined",
+              "defaultFilterValue": {
+               "logic": "$and",
+               "items": [
+                {
+                 "path": "status",
+                 "operator": "$eq"
+                },
+                {
+                 "path": "note",
+                 "operator": "$includes"
+                },
+                {
+                 "path": "source",
+                 "operator": "$includes"
+                },
+                {
+                 "path": "period",
+                 "operator": "$includes"
+                }
+               ]
+              },
+              "filterValue": {
+               "logic": "$and",
+               "items": [
+                {
+                 "path": "status",
+                 "operator": "$eq"
+                },
+                {
+                 "path": "note",
+                 "operator": "$includes"
+                },
+                {
+                 "path": "source",
+                 "operator": "$includes"
+                },
+                {
+                 "path": "period",
+                 "operator": "$includes"
+                }
+               ]
+              }
+             },
+             "decoratorProps": {},
+             "stepParams": {
+              "buttonSettings": {
+               "general": {
+                "title": "{{t(\"Filter\")}}",
+                "icon": "FilterOutlined"
+               }
+              },
+              "filterSettings": {
+               "defaultFilter": {
+                "defaultFilter": {
+                 "logic": "$and",
+                 "items": [
+                  {
+                   "path": "status",
+                   "operator": "$eq"
+                  },
+                  {
+                   "path": "note",
+                   "operator": "$includes"
+                  },
+                  {
+                   "path": "source",
+                   "operator": "$includes"
+                  },
+                  {
+                   "path": "period",
+                   "operator": "$includes"
+                  }
+                 ]
+                }
+               }
+              }
+             },
+             "flowRegistry": {},
+             "uid": "dokvo4cbm06",
+             "parent": "thths302qb1",
+             "sortIndex": 1,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "thths302qb1",
+             "subKey": "actions",
+             "subType": "array",
+             "use": "RefreshActionModel",
+             "props": {
+              "title": "{{t(\"Refresh\")}}",
+              "icon": "ReloadOutlined"
+             },
+             "decoratorProps": {},
+             "stepParams": {
+              "buttonSettings": {
+               "general": {
+                "title": "{{t(\"Refresh\")}}",
+                "icon": "ReloadOutlined"
+               }
+              }
+             },
+             "flowRegistry": {},
+             "uid": "18wqisnsvdp",
+             "parent": "thths302qb1",
+             "sortIndex": 2,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "thths302qb1",
+             "subKey": "actions",
+             "subType": "array",
+             "use": "BulkDeleteActionModel",
+             "props": {
+              "title": "",
+              "tooltip": "{{t(\"Delete\")}}",
+              "icon": "DeleteOutlined",
+              "iconOnly": true,
+              "position": "right"
+             },
+             "decoratorProps": {},
+             "stepParams": {
+              "buttonSettings": {
+               "general": {
+                "title": "",
+                "tooltip": "{{t(\"Delete\")}}",
+                "icon": "DeleteOutlined",
+                "iconOnly": true
+               }
+              },
+              "deleteSettings": {
+               "confirm": {
+                "enable": true,
+                "title": "{{t(\"Delete record\")}}",
+                "content": "{{t(\"Are you sure you want to delete it?\")}}"
+               }
+              }
+             },
+             "flowRegistry": {},
+             "uid": "e37ukvcz53v",
+             "parent": "thths302qb1",
+             "sortIndex": 3,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "thths302qb1",
+             "subKey": "actions",
+             "subType": "array",
+             "use": "AddNewActionModel",
+             "props": {
+              "type": "primary",
+              "title": "{{t(\"Add new\")}}",
+              "icon": "PlusOutlined"
+             },
+             "decoratorProps": {},
+             "stepParams": {
+              "buttonSettings": {
+               "general": {
+                "title": "{{t(\"Add new\")}}",
+                "icon": "PlusOutlined",
+                "type": "primary"
+               }
+              },
+              "popupSettings": {
+               "openView": {
+                "mode": "drawer",
+                "size": "medium",
+                "pageModelClass": "ChildPageModel",
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "title": "{{t(\"Add new\")}}"
+               }
+              }
+             },
+             "flowRegistry": {},
+             "uid": "tp7n1kl2g76",
+             "parent": "thths302qb1",
+             "sortIndex": 4,
+             "popup": {
+              "template": {
+               "uid": "4tsf8dnh8q3",
+               "mode": "reference"
+              }
+             }
+            }
+           ]
+          },
+          "parent": "ti3lhiw5iev",
+          "sortIndex": 1,
+          "popup": {
+           "mode": "local"
+          }
+         }
+        ]
+       },
+       "parent": "obgfd9obmmh",
+       "sortIndex": 1,
+       "popup": {
+        "mode": "local"
+       }
+      }
+     },
+     "popup": {
+      "mode": "local"
+     }
+    },
+    {
+     "uid": "ha7lsdd4m5s",
+     "use": "RootPageTabModel",
+     "props": {
+      "route": {
+       "createdAt": "2026-10-25T15:30:51.508Z",
+       "updatedAt": "2026-10-25T15:36:37.055Z",
+       "id": 394093137428480,
+       "parentId": 394093129039872,
+       "title": "自动采集",
+       "tooltip": null,
+       "icon": null,
+       "schemaUid": "ha7lsdd4m5s",
+       "menuSchemaUid": null,
+       "tabSchemaName": "自动采集",
+       "type": "tabs",
+       "options": {
+        "flowRegistry": {}
+       },
+       "sort": 100,
+       "hideInMenu": null,
+       "enableTabs": null,
+       "enableHeader": null,
+       "displayTitle": null,
+       "hidden": false,
+       "createdById": null,
+       "updatedById": 1,
+       "children": []
+      },
+      "title": "自动采集",
+      "icon": null
+     },
+     "decoratorProps": {},
+     "flowRegistry": {},
+     "stepParams": {
+      "pageTabSettings": {
+       "tab": {
+        "title": "自动采集",
+        "icon": null
+       }
+      }
+     },
+     "subModels": {
+      "grid": {
+       "parentId": "ha7lsdd4m5s",
+       "subKey": "grid",
+       "subType": "object",
+       "use": "BlockGridModel",
+       "props": {
+        "rows": {
+         "row1": [
+          [
+           "ehih391zbr1"
+          ]
+         ]
+        },
+        "sizes": {
+         "row1": [
+          24
+         ]
+        },
+        "rowOrder": [
+         "row1"
+        ]
+       },
+       "stepParams": {
+        "gridSettings": {
+         "grid": {
+          "rows": {
+           "row1": [
+            [
+             "ehih391zbr1"
+            ]
+           ]
+          },
+          "sizes": {
+           "row1": [
+            24
+           ]
+          },
+          "rowOrder": [
+           "row1"
+          ]
+         }
+        }
+       },
+       "uid": "1n0suqlo9cu",
+       "subModels": {
+        "items": [
+         {
+          "parentId": "1n0suqlo9cu",
+          "subKey": "items",
+          "subType": "array",
+          "use": "TableBlockModel",
+          "props": {},
+          "decoratorProps": {},
+          "stepParams": {
+           "resourceSettings": {
+            "init": {
+             "dataSourceKey": "main",
+             "collectionName": "vi_observation"
+            }
+           },
+           "cardSettings": {
+            "titleDescription": {
+             "description": "每个指标每一期的数值，以及对它的理解（经营影响、经营解读）；引用【来源文档】【指标】【原始采集记录】；被【自动检查】引用。"
+            }
+           },
+           "tableSettings": {
+            "pageSize": {
+             "pageSize": 50
+            },
+            "defaultSorting": {
+             "sort": [
+              {
+               "field": "obs_date",
+               "direction": "desc"
+              }
+             ]
+            },
+            "dataScope": {
+             "filter": {
+              "logic": "$and",
+              "items": [
+               {
+                "path": "metric.source_kind",
+                "operator": "$ne",
+                "value": "公司披露"
+               },
+               {
+                "logic": "$or",
+                "items": [
+                 {
+                  "path": "metric.company_id",
+                  "operator": "$eq",
+                  "value": 1
+                 },
+                 {
+                  "path": "metric.used_by_codes",
+                  "operator": "$includes",
+                  "value": ",600900.SH,"
+                 }
+                ]
+               }
+              ]
+             }
+            }
+           }
+          },
+          "uid": "ehih391zbr1",
+          "subModels": {
+           "columns": [
+            {
+             "use": "TableActionsColumnModel",
+             "props": {},
+             "decoratorProps": {},
+             "stepParams": {
+              "tableColumnSettings": {
+               "title": {
+                "title": "{{t(\"Actions\")}}"
+               }
+              }
+             },
+             "flowRegistry": {},
+             "subKey": "columns",
+             "subType": "array",
+             "uid": "9sl7zu56wel",
+             "subModels": {
+              "actions": [
+               {
+                "parentId": "9sl7zu56wel",
+                "subKey": "actions",
+                "subType": "array",
+                "use": "ViewActionModel",
+                "props": {
+                 "type": "link",
+                 "title": "{{t(\"View\")}}",
+                 "icon": null
+                },
+                "decoratorProps": {},
+                "stepParams": {
+                 "buttonSettings": {
+                  "general": {
+                   "title": "{{t(\"View\")}}",
+                   "icon": null,
+                   "type": "link",
+                   "iconOnly": false
+                  }
+                 },
+                 "popupSettings": {
+                  "openView": {
+                   "mode": "drawer",
+                   "size": "medium",
+                   "pageModelClass": "ChildPageModel",
+                   "dataSourceKey": "main",
+                   "collectionName": "vi_observation",
+                   "title": "{{t(\"Details\")}}"
+                  }
+                 }
+                },
+                "flowRegistry": {},
+                "uid": "l3ho9eju05j",
+                "parent": "9sl7zu56wel",
+                "sortIndex": 1,
+                "popup": {
+                 "template": {
+                  "uid": "fhz3xa6xz6f",
+                  "mode": "reference"
+                 }
+                }
+               },
+               {
+                "parentId": "9sl7zu56wel",
+                "subKey": "actions",
+                "subType": "array",
+                "use": "EditActionModel",
+                "props": {
+                 "title": "{{t(\"Edit\")}}",
+                 "icon": null,
+                 "type": "link"
+                },
+                "decoratorProps": {},
+                "stepParams": {
+                 "buttonSettings": {
+                  "general": {
+                   "title": "{{t(\"Edit\")}}",
+                   "icon": null,
+                   "type": "link",
+                   "iconOnly": false
+                  }
+                 },
+                 "popupSettings": {
+                  "openView": {
+                   "mode": "drawer",
+                   "size": "medium",
+                   "pageModelClass": "ChildPageModel",
+                   "dataSourceKey": "main",
+                   "collectionName": "vi_observation",
+                   "title": "{{t(\"Edit\")}}"
+                  }
+                 }
+                },
+                "flowRegistry": {},
+                "uid": "vymo7pu2ka6",
+                "parent": "9sl7zu56wel",
+                "sortIndex": 2,
+                "popup": {
+                 "template": {
+                  "uid": "iyht28t5ld1",
+                  "mode": "reference"
+                 }
+                }
+               },
+               {
+                "parentId": "9sl7zu56wel",
+                "subKey": "actions",
+                "subType": "array",
+                "use": "DeleteActionModel",
+                "props": {
+                 "type": "link",
+                 "title": "{{t(\"Delete\")}}",
+                 "icon": null
+                },
+                "decoratorProps": {},
+                "stepParams": {
+                 "buttonSettings": {
+                  "general": {
+                   "title": "{{t(\"Delete\")}}",
+                   "icon": null,
+                   "type": "link",
+                   "iconOnly": false
+                  }
+                 },
+                 "deleteSettings": {
+                  "confirm": {
+                   "enable": true,
+                   "title": "{{t(\"Delete record\")}}",
+                   "content": "{{t(\"Are you sure you want to delete it?\")}}"
+                  }
+                 }
+                },
+                "flowRegistry": {},
+                "uid": "13bj1oo7mjs",
+                "parent": "9sl7zu56wel",
+                "sortIndex": 3,
+                "popup": {
+                 "mode": "local"
+                }
+               }
+              ]
+             },
+             "parent": "ehih391zbr1",
+             "parentId": "ehih391zbr1",
+             "sortIndex": 1,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "ehih391zbr1",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {
+              "titleField": "name"
+             },
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "fieldPath": "metric"
+               }
+              },
+              "tableColumnSettings": {
+               "fieldNames": {
+                "label": "name"
+               }
+              }
+             },
+             "uid": "kxacm0oyvph",
+             "subModels": {
+              "field": {
+               "use": "DisplayTextFieldModel",
+               "props": {
+                "titleField": "name",
+                "clickToOpen": true
+               },
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_observation",
+                  "fieldPath": "metric"
+                 }
+                },
+                "displayFieldSettings": {
+                 "clickToOpen": {
+                  "clickToOpen": true
+                 }
+                },
+                "popupSettings": {
+                 "openView": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_metric",
+                  "mode": "drawer",
+                  "size": "medium",
+                  "pageModelClass": "ChildPageModel",
+                  "associationName": "vi_observation.metric",
+                  "title": "指标"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "yr48whuiz4c",
+               "subModels": {
+                "page": {
+                 "parentId": "yr48whuiz4c",
+                 "subKey": "page",
+                 "subType": "object",
+                 "use": "ChildPageModel",
+                 "props": {
+                  "displayTitle": false,
+                  "enableTabs": true
+                 },
+                 "stepParams": {
+                  "pageSettings": {
+                   "general": {
+                    "displayTitle": false,
+                    "enableTabs": true
+                   }
+                  }
+                 },
+                 "uid": "784qvy6typr",
+                 "subModels": {
+                  "tabs": [
+                   {
+                    "use": "ChildPageTabModel",
+                    "props": {
+                     "title": "{{t(\"Details\")}}"
+                    },
+                    "stepParams": {
+                     "pageTabSettings": {
+                      "tab": {
+                       "title": "{{t(\"Details\")}}"
+                      }
+                     }
+                    },
+                    "subKey": "tabs",
+                    "subType": "array",
+                    "uid": "bfooetumpt1",
+                    "subModels": {
+                     "grid": {
+                      "use": "BlockGridModel",
+                      "subKey": "grid",
+                      "subType": "object",
+                      "props": {
+                       "rows": {
+                        "row1": [
+                         [
+                          "k24ci1bq5en"
+                         ]
+                        ]
+                       },
+                       "sizes": {
+                        "row1": [
+                         24
+                        ]
+                       },
+                       "rowOrder": [
+                        "row1"
+                       ]
+                      },
+                      "stepParams": {
+                       "gridSettings": {
+                        "grid": {
+                         "rows": {
+                          "row1": [
+                           [
+                            "k24ci1bq5en"
+                           ]
+                          ]
+                         },
+                         "sizes": {
+                          "row1": [
+                           24
+                          ]
+                         },
+                         "rowOrder": [
+                          "row1"
+                         ]
+                        }
+                       }
+                      },
+                      "uid": "udrpzk1prlp",
+                      "subModels": {
+                       "items": [
+                        {
+                         "parentId": "udrpzk1prlp",
+                         "subKey": "items",
+                         "subType": "array",
+                         "use": "DetailsBlockModel",
+                         "props": {},
+                         "decoratorProps": {},
+                         "stepParams": {
+                          "resourceSettings": {
+                           "init": {
+                            "dataSourceKey": "main",
+                            "collectionName": "vi_metric",
+                            "filterByTk": "{{ctx.record.id}}",
+                            "associationName": "vi_observation.metric",
+                            "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+                           }
+                          }
+                         },
+                         "uid": "k24ci1bq5en",
+                         "subModels": {
+                          "grid": {
+                           "use": "DetailsGridModel",
+                           "subKey": "grid",
+                           "subType": "object",
+                           "stepParams": {
+                            "gridSettings": {
+                             "grid": {
+                              "rows": {
+                               "row1": [
+                                [
+                                 "4b33q852dph"
+                                ],
+                                [
+                                 "pux8jiod3rx"
+                                ]
+                               ],
+                               "row2": [
+                                [
+                                 "mkhp6w54c59"
+                                ],
+                                [
+                                 "hosdzsxgso2"
+                                ]
+                               ],
+                               "row3": [
+                                [
+                                 "ftfzfjapqxk"
+                                ],
+                                [
+                                 "0xx2r3k5xke"
+                                ]
+                               ]
+                              },
+                              "sizes": {
+                               "row1": [
+                                12,
+                                12
+                               ],
+                               "row2": [
+                                12,
+                                12
+                               ],
+                               "row3": [
+                                12,
+                                12
+                               ]
+                              },
+                              "rowOrder": [
+                               "row1",
+                               "row2",
+                               "row3"
+                              ]
+                             }
+                            }
+                           },
+                           "props": {
+                            "rows": {
+                             "row1": [
+                              [
+                               "4b33q852dph"
+                              ],
+                              [
+                               "pux8jiod3rx"
+                              ]
+                             ],
+                             "row2": [
+                              [
+                               "mkhp6w54c59"
+                              ],
+                              [
+                               "hosdzsxgso2"
+                              ]
+                             ],
+                             "row3": [
+                              [
+                               "ftfzfjapqxk"
+                              ],
+                              [
+                               "0xx2r3k5xke"
+                              ]
+                             ]
+                            },
+                            "sizes": {
+                             "row1": [
+                              12,
+                              12
+                             ],
+                             "row2": [
+                              12,
+                              12
+                             ],
+                             "row3": [
+                              12,
+                              12
+                             ]
+                            },
+                            "rowOrder": [
+                             "row1",
+                             "row2",
+                             "row3"
+                            ]
+                           },
+                           "uid": "4afyprt4pt7",
+                           "subModels": {
+                            "items": [
+                             {
+                              "parentId": "4afyprt4pt7",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_metric",
+                                 "fieldPath": "name"
+                                }
+                               }
+                              },
+                              "uid": "4b33q852dph",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_metric",
+                                   "fieldPath": "name"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "km9eidu4r4r",
+                                "parent": "4b33q852dph",
+                                "parentId": "4b33q852dph",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "4afyprt4pt7",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "4afyprt4pt7",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_metric",
+                                 "fieldPath": "code"
+                                }
+                               }
+                              },
+                              "uid": "pux8jiod3rx",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_metric",
+                                   "fieldPath": "code"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "68huq9gczgv",
+                                "parent": "pux8jiod3rx",
+                                "parentId": "pux8jiod3rx",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "4afyprt4pt7",
+                              "sortIndex": 2,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "4afyprt4pt7",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_metric",
+                                 "fieldPath": "unit"
+                                }
+                               }
+                              },
+                              "uid": "mkhp6w54c59",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_metric",
+                                   "fieldPath": "unit"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "ce88kt4m21x",
+                                "parent": "mkhp6w54c59",
+                                "parentId": "mkhp6w54c59",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "4afyprt4pt7",
+                              "sortIndex": 3,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "4afyprt4pt7",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_metric",
+                                 "fieldPath": "category"
+                                }
+                               }
+                              },
+                              "uid": "hosdzsxgso2",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_metric",
+                                   "fieldPath": "category"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "l1ceaq50dwf",
+                                "parent": "hosdzsxgso2",
+                                "parentId": "hosdzsxgso2",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "4afyprt4pt7",
+                              "sortIndex": 4,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "4afyprt4pt7",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_metric",
+                                 "fieldPath": "source_kind"
+                                }
+                               }
+                              },
+                              "uid": "ftfzfjapqxk",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_metric",
+                                   "fieldPath": "source_kind"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "j728cx2v2zq",
+                                "parent": "ftfzfjapqxk",
+                                "parentId": "ftfzfjapqxk",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "4afyprt4pt7",
+                              "sortIndex": 5,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "4afyprt4pt7",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_metric",
+                                 "fieldPath": "basis"
+                                }
+                               }
+                              },
+                              "uid": "0xx2r3k5xke",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_metric",
+                                   "fieldPath": "basis"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "71rppmeimyb",
+                                "parent": "0xx2r3k5xke",
+                                "parentId": "0xx2r3k5xke",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "4afyprt4pt7",
+                              "sortIndex": 6,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            ]
+                           },
+                           "parent": "k24ci1bq5en",
+                           "parentId": "k24ci1bq5en",
+                           "sortIndex": 1,
+                           "popup": {
+                            "mode": "local"
+                           }
+                          },
+                          "actions": [
+                           {
+                            "parentId": "k24ci1bq5en",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "EditActionModel",
+                            "props": {
+                             "title": "{{t(\"Edit\")}}",
+                             "icon": "EditOutlined",
+                             "type": "default"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                             "buttonSettings": {
+                              "general": {
+                               "title": "{{t(\"Edit\")}}",
+                               "icon": "EditOutlined",
+                               "type": "default"
+                              }
+                             },
+                             "popupSettings": {
+                              "openView": {
+                               "mode": "drawer",
+                               "size": "medium",
+                               "pageModelClass": "ChildPageModel",
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_metric",
+                               "associationName": "vi_observation.metric",
+                               "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+                               "title": "指标·编辑"
+                              }
+                             }
+                            },
+                            "flowRegistry": {},
+                            "uid": "l87grj6na6m",
+                            "parent": "k24ci1bq5en",
+                            "sortIndex": 1,
+                            "popup": {
+                             "template": {
+                              "uid": "kqed9gm59e6",
+                              "mode": "reference"
+                             }
+                            }
+                           }
+                          ]
+                         },
+                         "parent": "udrpzk1prlp",
+                         "sortIndex": 1,
+                         "popup": {
+                          "mode": "local"
+                         }
+                        }
+                       ]
+                      },
+                      "parent": "bfooetumpt1",
+                      "parentId": "bfooetumpt1",
+                      "sortIndex": 1,
+                      "popup": {
+                       "mode": "local"
+                      }
+                     }
+                    },
+                    "parent": "784qvy6typr",
+                    "parentId": "784qvy6typr",
+                    "sortIndex": 1,
+                    "popup": {
+                     "mode": "local"
+                    }
+                   }
+                  ]
+                 },
+                 "parent": "yr48whuiz4c",
+                 "sortIndex": 1,
+                 "popup": {
+                  "mode": "local"
+                 }
+                }
+               },
+               "parent": "kxacm0oyvph",
+               "parentId": "kxacm0oyvph",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local",
+                "pageUid": "784qvy6typr",
+                "tabUid": "bfooetumpt1",
+                "gridUid": "udrpzk1prlp"
+               }
+              }
+             },
+             "parent": "ehih391zbr1",
+             "sortIndex": 2,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "ehih391zbr1",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {},
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "fieldPath": "obs_date"
+               }
+              }
+             },
+             "uid": "f14905tpurs",
+             "subModels": {
+              "field": {
+               "use": "DisplayTextFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_observation",
+                  "fieldPath": "obs_date"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "vgbm52qc4i3",
+               "parent": "f14905tpurs",
+               "parentId": "f14905tpurs",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "ehih391zbr1",
+             "sortIndex": 3,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "ehih391zbr1",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {},
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "fieldPath": "value"
+               }
+              }
+             },
+             "uid": "y37j871g7yi",
+             "subModels": {
+              "field": {
+               "use": "DisplayNumberFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_observation",
+                  "fieldPath": "value"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "p1xf9v26huf",
+               "parent": "y37j871g7yi",
+               "parentId": "y37j871g7yi",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "ehih391zbr1",
+             "sortIndex": 4,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "ehih391zbr1",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {},
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "fieldPath": "unit"
+               }
+              }
+             },
+             "uid": "8rg62lpti4o",
+             "subModels": {
+              "field": {
+               "use": "DisplayTextFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_observation",
+                  "fieldPath": "unit"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "xfumogizs2d",
+               "parent": "8rg62lpti4o",
+               "parentId": "8rg62lpti4o",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "ehih391zbr1",
+             "sortIndex": 5,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "ehih391zbr1",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {},
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "fieldPath": "is_current"
+               }
+              }
+             },
+             "uid": "ohmkb9ei4xl",
+             "subModels": {
+              "field": {
+               "use": "DisplayCheckboxFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_observation",
+                  "fieldPath": "is_current"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "4j0iz53mwmh",
+               "parent": "ohmkb9ei4xl",
+               "parentId": "ohmkb9ei4xl",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "ehih391zbr1",
+             "sortIndex": 6,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "ehih391zbr1",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {},
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "fieldPath": "is_valid"
+               }
+              }
+             },
+             "uid": "443s7s3fwra",
+             "subModels": {
+              "field": {
+               "use": "DisplayCheckboxFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_observation",
+                  "fieldPath": "is_valid"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "q3179jwubey",
+               "parent": "443s7s3fwra",
+               "parentId": "443s7s3fwra",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "ehih391zbr1",
+             "sortIndex": 7,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "ehih391zbr1",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {},
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "fieldPath": "collected_at"
+               }
+              }
+             },
+             "uid": "pfepal4sksr",
+             "subModels": {
+              "field": {
+               "use": "DisplayDateTimeFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_observation",
+                  "fieldPath": "collected_at"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "9fxsy28iy35",
+               "parent": "pfepal4sksr",
+               "parentId": "pfepal4sksr",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "ehih391zbr1",
+             "sortIndex": 8,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "ehih391zbr1",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {},
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "fieldPath": "source"
+               }
+              }
+             },
+             "uid": "wvogez4195k",
+             "subModels": {
+              "field": {
+               "use": "DisplayTextFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_observation",
+                  "fieldPath": "source"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "yqnbo4asvvl",
+               "parent": "wvogez4195k",
+               "parentId": "wvogez4195k",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "ehih391zbr1",
+             "sortIndex": 9,
+             "popup": {
+              "mode": "local"
+             }
+            }
+           ],
+           "actions": [
+            {
+             "parentId": "ehih391zbr1",
+             "subKey": "actions",
+             "subType": "array",
+             "use": "FilterActionModel",
+             "props": {
+              "title": "{{t(\"Filter\")}}",
+              "icon": "FilterOutlined",
+              "defaultFilterValue": {
+               "logic": "$and",
+               "items": [
+                {
+                 "path": "status",
+                 "operator": "$eq"
+                },
+                {
+                 "path": "note",
+                 "operator": "$includes"
+                },
+                {
+                 "path": "source",
+                 "operator": "$includes"
+                },
+                {
+                 "path": "period",
+                 "operator": "$includes"
+                }
+               ]
+              },
+              "filterValue": {
+               "logic": "$and",
+               "items": [
+                {
+                 "path": "status",
+                 "operator": "$eq"
+                },
+                {
+                 "path": "note",
+                 "operator": "$includes"
+                },
+                {
+                 "path": "source",
+                 "operator": "$includes"
+                },
+                {
+                 "path": "period",
+                 "operator": "$includes"
+                }
+               ]
+              }
+             },
+             "decoratorProps": {},
+             "stepParams": {
+              "buttonSettings": {
+               "general": {
+                "title": "{{t(\"Filter\")}}",
+                "icon": "FilterOutlined"
+               }
+              },
+              "filterSettings": {
+               "defaultFilter": {
+                "defaultFilter": {
+                 "logic": "$and",
+                 "items": [
+                  {
+                   "path": "status",
+                   "operator": "$eq"
+                  },
+                  {
+                   "path": "note",
+                   "operator": "$includes"
+                  },
+                  {
+                   "path": "source",
+                   "operator": "$includes"
+                  },
+                  {
+                   "path": "period",
+                   "operator": "$includes"
+                  }
+                 ]
+                }
+               }
+              }
+             },
+             "flowRegistry": {},
+             "uid": "y5tr3b6tsxz",
+             "parent": "ehih391zbr1",
+             "sortIndex": 1,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "ehih391zbr1",
+             "subKey": "actions",
+             "subType": "array",
+             "use": "RefreshActionModel",
+             "props": {
+              "title": "{{t(\"Refresh\")}}",
+              "icon": "ReloadOutlined"
+             },
+             "decoratorProps": {},
+             "stepParams": {
+              "buttonSettings": {
+               "general": {
+                "title": "{{t(\"Refresh\")}}",
+                "icon": "ReloadOutlined"
+               }
+              }
+             },
+             "flowRegistry": {},
+             "uid": "js88epcccu8",
+             "parent": "ehih391zbr1",
+             "sortIndex": 2,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "ehih391zbr1",
+             "subKey": "actions",
+             "subType": "array",
+             "use": "BulkDeleteActionModel",
+             "props": {
+              "title": "",
+              "tooltip": "{{t(\"Delete\")}}",
+              "icon": "DeleteOutlined",
+              "iconOnly": true,
+              "position": "right"
+             },
+             "decoratorProps": {},
+             "stepParams": {
+              "buttonSettings": {
+               "general": {
+                "title": "",
+                "tooltip": "{{t(\"Delete\")}}",
+                "icon": "DeleteOutlined",
+                "iconOnly": true
+               }
+              },
+              "deleteSettings": {
+               "confirm": {
+                "enable": true,
+                "title": "{{t(\"Delete record\")}}",
+                "content": "{{t(\"Are you sure you want to delete it?\")}}"
+               }
+              }
+             },
+             "flowRegistry": {},
+             "uid": "simtrak1w90",
+             "parent": "ehih391zbr1",
+             "sortIndex": 3,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "ehih391zbr1",
+             "subKey": "actions",
+             "subType": "array",
+             "use": "AddNewActionModel",
+             "props": {
+              "type": "primary",
+              "title": "{{t(\"Add new\")}}",
+              "icon": "PlusOutlined"
+             },
+             "decoratorProps": {},
+             "stepParams": {
+              "buttonSettings": {
+               "general": {
+                "title": "{{t(\"Add new\")}}",
+                "icon": "PlusOutlined",
+                "type": "primary"
+               }
+              },
+              "popupSettings": {
+               "openView": {
+                "mode": "drawer",
+                "size": "medium",
+                "pageModelClass": "ChildPageModel",
+                "dataSourceKey": "main",
+                "collectionName": "vi_observation",
+                "title": "{{t(\"Add new\")}}"
+               }
+              }
+             },
+             "flowRegistry": {},
+             "uid": "e30n30uz40o",
+             "parent": "ehih391zbr1",
+             "sortIndex": 4,
+             "popup": {
+              "template": {
+               "uid": "4tsf8dnh8q3",
+               "mode": "reference"
+              }
+             }
+            }
+           ]
+          },
+          "parent": "1n0suqlo9cu",
+          "sortIndex": 1,
+          "popup": {
+           "mode": "local"
+          }
+         }
+        ]
+       },
+       "parent": "ha7lsdd4m5s",
+       "sortIndex": 1,
+       "popup": {
+        "mode": "local"
+       }
+      }
+     },
+     "popup": {
+      "mode": "local"
+     }
+    }
+   ]
+  },
+  "popup": {
+   "mode": "local"
+  }
+ },
+ "nodeMap": {
+  "9sqqd3r5rz6": {
+   "uid": "9sqqd3r5rz6",
+   "use": "RootPageModel",
+   "props": {
+    "routeId": 394093129039872,
+    "title": "数据",
+    "enableTabs": true,
+    "displayTitle": true,
+    "icon": "TableOutlined",
+    "enableHeader": null
+   },
+   "stepParams": {
+    "pageSettings": {
+     "general": {
+      "title": "数据",
+      "displayTitle": true,
+      "enableTabs": true,
+      "documentTitle": "长江电力 · 数据",
+      "icon": "TableOutlined",
+      "enableHeader": null
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "obgfd9obmmh": {
+   "uid": "obgfd9obmmh",
+   "use": "RootPageTabModel",
+   "props": {
+    "route": {
+     "createdAt": "2026-10-25T15:30:47.471Z",
+     "updatedAt": "2026-10-25T15:36:35.958Z",
+     "id": 394093129039873,
+     "parentId": 394093129039872,
+     "title": "公司披露",
+     "tooltip": null,
+     "icon": null,
+     "schemaUid": "obgfd9obmmh",
+     "menuSchemaUid": null,
+     "tabSchemaName": "pvh6pdc1e6g",
+     "type": "tabs",
+     "options": {
+      "flowRegistry": {}
+     },
+     "sort": 100,
+     "hideInMenu": null,
+     "enableTabs": null,
+     "enableHeader": null,
+     "displayTitle": null,
+     "hidden": false,
+     "createdById": null,
+     "updatedById": 1,
+     "children": []
+    },
+    "title": "公司披露",
+    "icon": null
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "pageTabSettings": {
+     "tab": {
+      "title": "公司披露",
+      "icon": null
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ti3lhiw5iev": {
+   "uid": "ti3lhiw5iev",
+   "use": "BlockGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "thths302qb1"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "thths302qb1"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "thths302qb1": {
+   "uid": "thths302qb1",
+   "use": "TableBlockModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "resourceSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation"
+     }
+    },
+    "cardSettings": {
+     "titleDescription": {
+      "description": "每个指标每一期的数值，以及对它的理解（经营影响、经营解读）；引用【来源文档】【指标】【原始采集记录】；被【自动检查】引用。"
+     }
+    },
+    "tableSettings": {
+     "pageSize": {
+      "pageSize": 50
+     },
+     "defaultSorting": {
+      "sort": [
+       {
+        "field": "obs_date",
+        "direction": "desc"
+       }
+      ]
+     },
+     "dataScope": {
+      "filter": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "metric.company_id",
+         "operator": "$eq",
+         "value": 1
+        },
+        {
+         "path": "metric.source_kind",
+         "operator": "$eq",
+         "value": "公司披露"
+        }
+       ]
+      }
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "3vre5vkvhcj": {
+   "uid": "3vre5vkvhcj",
+   "use": "TableActionsColumnModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "tableColumnSettings": {
+     "title": {
+      "title": "{{t(\"Actions\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "f3mlz3v58cn": {
+   "uid": "f3mlz3v58cn",
+   "use": "ViewActionModel",
+   "props": {
+    "type": "link",
+    "title": "{{t(\"View\")}}",
+    "icon": null
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"View\")}}",
+      "icon": null,
+      "type": "link",
+      "iconOnly": false
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "title": "{{t(\"Details\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "template": {
+     "uid": "fhz3xa6xz6f",
+     "mode": "reference"
+    }
+   }
+  },
+  "rojlfcpr1rq": {
+   "uid": "rojlfcpr1rq",
+   "use": "EditActionModel",
+   "props": {
+    "title": "{{t(\"Edit\")}}",
+    "icon": null,
+    "type": "link"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Edit\")}}",
+      "icon": null,
+      "type": "link",
+      "iconOnly": false
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "title": "编辑 · 数据"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "template": {
+     "uid": "iyht28t5ld1",
+     "mode": "reference"
+    }
+   }
+  },
+  "zutx8h5z86d": {
+   "uid": "zutx8h5z86d",
+   "use": "DeleteActionModel",
+   "props": {
+    "type": "link",
+    "title": "{{t(\"Delete\")}}",
+    "icon": null
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Delete\")}}",
+      "icon": null,
+      "type": "link",
+      "iconOnly": false
+     }
+    },
+    "deleteSettings": {
+     "confirm": {
+      "enable": true,
+      "title": "{{t(\"Delete record\")}}",
+      "content": "{{t(\"Are you sure you want to delete it?\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "8mvhq6xy9q4": {
+   "uid": "8mvhq6xy9q4",
+   "use": "TableColumnModel",
+   "props": {
+    "titleField": "name"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "metric"
+     }
+    },
+    "tableColumnSettings": {
+     "fieldNames": {
+      "label": "name"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "95bzys55odq": {
+   "uid": "95bzys55odq",
+   "use": "DisplayTextFieldModel",
+   "props": {
+    "titleField": "name",
+    "clickToOpen": true
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "metric"
+     }
+    },
+    "displayFieldSettings": {
+     "clickToOpen": {
+      "clickToOpen": true
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "associationName": "vi_observation.metric",
+      "title": "指标"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local",
+    "pageUid": "ep2o2mgi9c9",
+    "tabUid": "gzn1xb3jei4",
+    "gridUid": "0nhswprn3ua"
+   }
+  },
+  "ep2o2mgi9c9": {
+   "uid": "ep2o2mgi9c9",
+   "use": "ChildPageModel",
+   "props": {
+    "displayTitle": false,
+    "enableTabs": true
+   },
+   "stepParams": {
+    "pageSettings": {
+     "general": {
+      "displayTitle": false,
+      "enableTabs": true
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "gzn1xb3jei4": {
+   "uid": "gzn1xb3jei4",
+   "use": "ChildPageTabModel",
+   "props": {
+    "title": "{{t(\"Details\")}}"
+   },
+   "stepParams": {
+    "pageTabSettings": {
+     "tab": {
+      "title": "{{t(\"Details\")}}"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "0nhswprn3ua": {
+   "uid": "0nhswprn3ua",
+   "use": "BlockGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "iab70tq2tag"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "iab70tq2tag"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "iab70tq2tag": {
+   "uid": "iab70tq2tag",
+   "use": "DetailsBlockModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "resourceSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "filterByTk": "{{ctx.record.id}}",
+      "associationName": "vi_observation.metric",
+      "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "s60w6mfnbyh": {
+   "uid": "s60w6mfnbyh",
+   "use": "DetailsGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "6w8ksnwpi6a"
+      ],
+      [
+       "c0293n647je"
+      ]
+     ],
+     "row2": [
+      [
+       "lybtaofu2kl"
+      ],
+      [
+       "nhd138hodkm"
+      ]
+     ],
+     "row3": [
+      [
+       "bronbf3s1dr"
+      ],
+      [
+       "gxrbad39gui"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      12,
+      12
+     ],
+     "row2": [
+      12,
+      12
+     ],
+     "row3": [
+      12,
+      12
+     ]
+    },
+    "rowOrder": [
+     "row1",
+     "row2",
+     "row3"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "6w8ksnwpi6a"
+        ],
+        [
+         "c0293n647je"
+        ]
+       ],
+       "row2": [
+        [
+         "lybtaofu2kl"
+        ],
+        [
+         "nhd138hodkm"
+        ]
+       ],
+       "row3": [
+        [
+         "bronbf3s1dr"
+        ],
+        [
+         "gxrbad39gui"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        12,
+        12
+       ],
+       "row2": [
+        12,
+        12
+       ],
+       "row3": [
+        12,
+        12
+       ]
+      },
+      "rowOrder": [
+       "row1",
+       "row2",
+       "row3"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "6w8ksnwpi6a": {
+   "uid": "6w8ksnwpi6a",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "name"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "kt4uv5bto26": {
+   "uid": "kt4uv5bto26",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "name"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "c0293n647je": {
+   "uid": "c0293n647je",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "code"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "9aap5t00h8f": {
+   "uid": "9aap5t00h8f",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "code"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "lybtaofu2kl": {
+   "uid": "lybtaofu2kl",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "unit"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "annz5gf75kl": {
+   "uid": "annz5gf75kl",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "unit"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "nhd138hodkm": {
+   "uid": "nhd138hodkm",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "category"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "mb3k2sz3g6i": {
+   "uid": "mb3k2sz3g6i",
+   "use": "DisplayEnumFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "category"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "bronbf3s1dr": {
+   "uid": "bronbf3s1dr",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "source_kind"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "6im4vifbpyd": {
+   "uid": "6im4vifbpyd",
+   "use": "DisplayEnumFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "source_kind"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "gxrbad39gui": {
+   "uid": "gxrbad39gui",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "basis"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "htroy7rrnvi": {
+   "uid": "htroy7rrnvi",
+   "use": "DisplayEnumFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "basis"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "884z6f382cj": {
+   "uid": "884z6f382cj",
+   "use": "EditActionModel",
+   "props": {
+    "title": "{{t(\"Edit\")}}",
+    "icon": "EditOutlined",
+    "type": "default"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Edit\")}}",
+      "icon": "EditOutlined",
+      "type": "default"
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "associationName": "vi_observation.metric",
+      "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+      "title": "指标·编辑"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "template": {
+     "uid": "kqed9gm59e6",
+     "mode": "reference"
+    }
+   }
+  },
+  "8ew2cjp873v": {
+   "uid": "8ew2cjp873v",
+   "use": "TableColumnModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "period"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "la4xql737kj": {
+   "uid": "la4xql737kj",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "period"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "fd36j5ulrx8": {
+   "uid": "fd36j5ulrx8",
+   "use": "TableColumnModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "value"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ymwyu50z3sv": {
+   "uid": "ymwyu50z3sv",
+   "use": "DisplayNumberFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "value"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "hkukmzk6299": {
+   "uid": "hkukmzk6299",
+   "use": "TableColumnModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "unit"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "moghe17l6bn": {
+   "uid": "moghe17l6bn",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "unit"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "wg19kbmi72p": {
+   "uid": "wg19kbmi72p",
+   "use": "TableColumnModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "yoy"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "xbxb7vvjbrt": {
+   "uid": "xbxb7vvjbrt",
+   "use": "DisplayPercentFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "yoy"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "5fhzh17hozw": {
+   "uid": "5fhzh17hozw",
+   "use": "TableColumnModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "impact"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "fg53xq9x6i1": {
+   "uid": "fg53xq9x6i1",
+   "use": "DisplayEnumFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "impact"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "pf0ggr9ech1": {
+   "uid": "pf0ggr9ech1",
+   "use": "TableColumnModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "assessment"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "cp7j1vvektj": {
+   "uid": "cp7j1vvektj",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "assessment"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "1hzmgvv58hm": {
+   "uid": "1hzmgvv58hm",
+   "use": "TableColumnModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "summary"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "q24phpyxam1": {
+   "uid": "q24phpyxam1",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "summary"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "zgy52t7baum": {
+   "uid": "zgy52t7baum",
+   "use": "TableColumnModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "status"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "6jiu7a5xrkt": {
+   "uid": "6jiu7a5xrkt",
+   "use": "DisplayEnumFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "status"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "jciaxr7v31d": {
+   "uid": "jciaxr7v31d",
+   "use": "TableColumnModel",
+   "props": {
+    "titleField": "title"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "doc"
+     }
+    },
+    "tableColumnSettings": {
+     "fieldNames": {
+      "label": "title"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "7pr3rmqaaa7": {
+   "uid": "7pr3rmqaaa7",
+   "use": "DisplayTextFieldModel",
+   "props": {
+    "titleField": "title",
+    "clickToOpen": true
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "doc"
+     }
+    },
+    "displayFieldSettings": {
+     "clickToOpen": {
+      "clickToOpen": true
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "associationName": "vi_observation.doc",
+      "title": "来源文档"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local",
+    "pageUid": "blyybuap8kd",
+    "tabUid": "cx8cu0a4ta9",
+    "gridUid": "7ts33czci6z"
+   }
+  },
+  "blyybuap8kd": {
+   "uid": "blyybuap8kd",
+   "use": "ChildPageModel",
+   "props": {
+    "displayTitle": false,
+    "enableTabs": true
+   },
+   "stepParams": {
+    "pageSettings": {
+     "general": {
+      "displayTitle": false,
+      "enableTabs": true
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "cx8cu0a4ta9": {
+   "uid": "cx8cu0a4ta9",
+   "use": "ChildPageTabModel",
+   "props": {
+    "title": "{{t(\"Details\")}}"
+   },
+   "stepParams": {
+    "pageTabSettings": {
+     "tab": {
+      "title": "{{t(\"Details\")}}"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "7ts33czci6z": {
+   "uid": "7ts33czci6z",
+   "use": "BlockGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "grpwto6m2zk"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "grpwto6m2zk"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "grpwto6m2zk": {
+   "uid": "grpwto6m2zk",
+   "use": "DetailsBlockModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "resourceSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "filterByTk": "{{ctx.record.id}}",
+      "associationName": "vi_observation.doc",
+      "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "0t2sqfg3nnp": {
+   "uid": "0t2sqfg3nnp",
+   "use": "DetailsGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "ds5l3j03icp"
+      ],
+      [
+       "402rbnbjn8g"
+      ]
+     ],
+     "row2": [
+      [
+       "thikx6lzjot"
+      ],
+      [
+       "yc4comnz8t3"
+      ]
+     ],
+     "row3": [
+      [
+       "6qplrbxzctn"
+      ],
+      [
+       "3wb8ta0mg71"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      12,
+      12
+     ],
+     "row2": [
+      12,
+      12
+     ],
+     "row3": [
+      12,
+      12
+     ]
+    },
+    "rowOrder": [
+     "row1",
+     "row2",
+     "row3"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "ds5l3j03icp"
+        ],
+        [
+         "402rbnbjn8g"
+        ]
+       ],
+       "row2": [
+        [
+         "thikx6lzjot"
+        ],
+        [
+         "yc4comnz8t3"
+        ]
+       ],
+       "row3": [
+        [
+         "6qplrbxzctn"
+        ],
+        [
+         "3wb8ta0mg71"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        12,
+        12
+       ],
+       "row2": [
+        12,
+        12
+       ],
+       "row3": [
+        12,
+        12
+       ]
+      },
+      "rowOrder": [
+       "row1",
+       "row2",
+       "row3"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ds5l3j03icp": {
+   "uid": "ds5l3j03icp",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "title"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "dhcjrlgrmms": {
+   "uid": "dhcjrlgrmms",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "title"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "402rbnbjn8g": {
+   "uid": "402rbnbjn8g",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "source_type"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ih49wgfa0f3": {
+   "uid": "ih49wgfa0f3",
+   "use": "DisplayEnumFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "source_type"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "thikx6lzjot": {
+   "uid": "thikx6lzjot",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "publisher"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "bfkgxt0k8cz": {
+   "uid": "bfkgxt0k8cz",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "publisher"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "yc4comnz8t3": {
+   "uid": "yc4comnz8t3",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "publish_date"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "lv8i59nhcda": {
+   "uid": "lv8i59nhcda",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "publish_date"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "6qplrbxzctn": {
+   "uid": "6qplrbxzctn",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "url"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "0qyl8290ban": {
+   "uid": "0qyl8290ban",
+   "use": "DisplayURLFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "url"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "3wb8ta0mg71": {
+   "uid": "3wb8ta0mg71",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "reliability"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "c6dslb8n01n": {
+   "uid": "c6dslb8n01n",
+   "use": "DisplayEnumFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "reliability"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "g5aic3k2vku": {
+   "uid": "g5aic3k2vku",
+   "use": "EditActionModel",
+   "props": {
+    "title": "{{t(\"Edit\")}}",
+    "icon": "EditOutlined",
+    "type": "default"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Edit\")}}",
+      "icon": "EditOutlined",
+      "type": "default"
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "associationName": "vi_observation.doc",
+      "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+      "title": "来源文档·编辑"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "template": {
+     "uid": "3uyy34lrdt8",
+     "mode": "reference"
+    }
+   }
+  },
+  "dokvo4cbm06": {
+   "uid": "dokvo4cbm06",
+   "use": "FilterActionModel",
+   "props": {
+    "title": "{{t(\"Filter\")}}",
+    "icon": "FilterOutlined",
+    "defaultFilterValue": {
+     "logic": "$and",
+     "items": [
+      {
+       "path": "status",
+       "operator": "$eq"
+      },
+      {
+       "path": "note",
+       "operator": "$includes"
+      },
+      {
+       "path": "source",
+       "operator": "$includes"
+      },
+      {
+       "path": "period",
+       "operator": "$includes"
+      }
+     ]
+    },
+    "filterValue": {
+     "logic": "$and",
+     "items": [
+      {
+       "path": "status",
+       "operator": "$eq"
+      },
+      {
+       "path": "note",
+       "operator": "$includes"
+      },
+      {
+       "path": "source",
+       "operator": "$includes"
+      },
+      {
+       "path": "period",
+       "operator": "$includes"
+      }
+     ]
+    }
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Filter\")}}",
+      "icon": "FilterOutlined"
+     }
+    },
+    "filterSettings": {
+     "defaultFilter": {
+      "defaultFilter": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "status",
+         "operator": "$eq"
+        },
+        {
+         "path": "note",
+         "operator": "$includes"
+        },
+        {
+         "path": "source",
+         "operator": "$includes"
+        },
+        {
+         "path": "period",
+         "operator": "$includes"
+        }
+       ]
+      }
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "18wqisnsvdp": {
+   "uid": "18wqisnsvdp",
+   "use": "RefreshActionModel",
+   "props": {
+    "title": "{{t(\"Refresh\")}}",
+    "icon": "ReloadOutlined"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Refresh\")}}",
+      "icon": "ReloadOutlined"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "e37ukvcz53v": {
+   "uid": "e37ukvcz53v",
+   "use": "BulkDeleteActionModel",
+   "props": {
+    "title": "",
+    "tooltip": "{{t(\"Delete\")}}",
+    "icon": "DeleteOutlined",
+    "iconOnly": true,
+    "position": "right"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "",
+      "tooltip": "{{t(\"Delete\")}}",
+      "icon": "DeleteOutlined",
+      "iconOnly": true
+     }
+    },
+    "deleteSettings": {
+     "confirm": {
+      "enable": true,
+      "title": "{{t(\"Delete record\")}}",
+      "content": "{{t(\"Are you sure you want to delete it?\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "tp7n1kl2g76": {
+   "uid": "tp7n1kl2g76",
+   "use": "AddNewActionModel",
+   "props": {
+    "type": "primary",
+    "title": "{{t(\"Add new\")}}",
+    "icon": "PlusOutlined"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Add new\")}}",
+      "icon": "PlusOutlined",
+      "type": "primary"
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "title": "{{t(\"Add new\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "template": {
+     "uid": "4tsf8dnh8q3",
+     "mode": "reference"
+    }
+   }
+  },
+  "ha7lsdd4m5s": {
+   "uid": "ha7lsdd4m5s",
+   "use": "RootPageTabModel",
+   "props": {
+    "route": {
+     "createdAt": "2026-10-25T15:30:51.508Z",
+     "updatedAt": "2026-10-25T15:36:37.055Z",
+     "id": 394093137428480,
+     "parentId": 394093129039872,
+     "title": "自动采集",
+     "tooltip": null,
+     "icon": null,
+     "schemaUid": "ha7lsdd4m5s",
+     "menuSchemaUid": null,
+     "tabSchemaName": "自动采集",
+     "type": "tabs",
+     "options": {
+      "flowRegistry": {}
+     },
+     "sort": 100,
+     "hideInMenu": null,
+     "enableTabs": null,
+     "enableHeader": null,
+     "displayTitle": null,
+     "hidden": false,
+     "createdById": null,
+     "updatedById": 1,
+     "children": []
+    },
+    "title": "自动采集",
+    "icon": null
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "pageTabSettings": {
+     "tab": {
+      "title": "自动采集",
+      "icon": null
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "1n0suqlo9cu": {
+   "uid": "1n0suqlo9cu",
+   "use": "BlockGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "ehih391zbr1"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "ehih391zbr1"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ehih391zbr1": {
+   "uid": "ehih391zbr1",
+   "use": "TableBlockModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "resourceSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation"
+     }
+    },
+    "cardSettings": {
+     "titleDescription": {
+      "description": "每个指标每一期的数值，以及对它的理解（经营影响、经营解读）；引用【来源文档】【指标】【原始采集记录】；被【自动检查】引用。"
+     }
+    },
+    "tableSettings": {
+     "pageSize": {
+      "pageSize": 50
+     },
+     "defaultSorting": {
+      "sort": [
+       {
+        "field": "obs_date",
+        "direction": "desc"
+       }
+      ]
+     },
+     "dataScope": {
+      "filter": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "metric.source_kind",
+         "operator": "$ne",
+         "value": "公司披露"
+        },
+        {
+         "logic": "$or",
+         "items": [
+          {
+           "path": "metric.company_id",
+           "operator": "$eq",
+           "value": 1
+          },
+          {
+           "path": "metric.used_by_codes",
+           "operator": "$includes",
+           "value": ",600900.SH,"
+          }
+         ]
+        }
+       ]
+      }
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "9sl7zu56wel": {
+   "uid": "9sl7zu56wel",
+   "use": "TableActionsColumnModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "tableColumnSettings": {
+     "title": {
+      "title": "{{t(\"Actions\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "l3ho9eju05j": {
+   "uid": "l3ho9eju05j",
+   "use": "ViewActionModel",
+   "props": {
+    "type": "link",
+    "title": "{{t(\"View\")}}",
+    "icon": null
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"View\")}}",
+      "icon": null,
+      "type": "link",
+      "iconOnly": false
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "title": "{{t(\"Details\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "template": {
+     "uid": "fhz3xa6xz6f",
+     "mode": "reference"
+    }
+   }
+  },
+  "vymo7pu2ka6": {
+   "uid": "vymo7pu2ka6",
+   "use": "EditActionModel",
+   "props": {
+    "title": "{{t(\"Edit\")}}",
+    "icon": null,
+    "type": "link"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Edit\")}}",
+      "icon": null,
+      "type": "link",
+      "iconOnly": false
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "title": "{{t(\"Edit\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "template": {
+     "uid": "iyht28t5ld1",
+     "mode": "reference"
+    }
+   }
+  },
+  "13bj1oo7mjs": {
+   "uid": "13bj1oo7mjs",
+   "use": "DeleteActionModel",
+   "props": {
+    "type": "link",
+    "title": "{{t(\"Delete\")}}",
+    "icon": null
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Delete\")}}",
+      "icon": null,
+      "type": "link",
+      "iconOnly": false
+     }
+    },
+    "deleteSettings": {
+     "confirm": {
+      "enable": true,
+      "title": "{{t(\"Delete record\")}}",
+      "content": "{{t(\"Are you sure you want to delete it?\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "kxacm0oyvph": {
+   "uid": "kxacm0oyvph",
+   "use": "TableColumnModel",
+   "props": {
+    "titleField": "name"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "metric"
+     }
+    },
+    "tableColumnSettings": {
+     "fieldNames": {
+      "label": "name"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "yr48whuiz4c": {
+   "uid": "yr48whuiz4c",
+   "use": "DisplayTextFieldModel",
+   "props": {
+    "titleField": "name",
+    "clickToOpen": true
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "metric"
+     }
+    },
+    "displayFieldSettings": {
+     "clickToOpen": {
+      "clickToOpen": true
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "associationName": "vi_observation.metric",
+      "title": "指标"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local",
+    "pageUid": "784qvy6typr",
+    "tabUid": "bfooetumpt1",
+    "gridUid": "udrpzk1prlp"
+   }
+  },
+  "784qvy6typr": {
+   "uid": "784qvy6typr",
+   "use": "ChildPageModel",
+   "props": {
+    "displayTitle": false,
+    "enableTabs": true
+   },
+   "stepParams": {
+    "pageSettings": {
+     "general": {
+      "displayTitle": false,
+      "enableTabs": true
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "bfooetumpt1": {
+   "uid": "bfooetumpt1",
+   "use": "ChildPageTabModel",
+   "props": {
+    "title": "{{t(\"Details\")}}"
+   },
+   "stepParams": {
+    "pageTabSettings": {
+     "tab": {
+      "title": "{{t(\"Details\")}}"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "udrpzk1prlp": {
+   "uid": "udrpzk1prlp",
+   "use": "BlockGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "k24ci1bq5en"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "k24ci1bq5en"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "k24ci1bq5en": {
+   "uid": "k24ci1bq5en",
+   "use": "DetailsBlockModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "resourceSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "filterByTk": "{{ctx.record.id}}",
+      "associationName": "vi_observation.metric",
+      "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "4afyprt4pt7": {
+   "uid": "4afyprt4pt7",
+   "use": "DetailsGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "4b33q852dph"
+      ],
+      [
+       "pux8jiod3rx"
+      ]
+     ],
+     "row2": [
+      [
+       "mkhp6w54c59"
+      ],
+      [
+       "hosdzsxgso2"
+      ]
+     ],
+     "row3": [
+      [
+       "ftfzfjapqxk"
+      ],
+      [
+       "0xx2r3k5xke"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      12,
+      12
+     ],
+     "row2": [
+      12,
+      12
+     ],
+     "row3": [
+      12,
+      12
+     ]
+    },
+    "rowOrder": [
+     "row1",
+     "row2",
+     "row3"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "4b33q852dph"
+        ],
+        [
+         "pux8jiod3rx"
+        ]
+       ],
+       "row2": [
+        [
+         "mkhp6w54c59"
+        ],
+        [
+         "hosdzsxgso2"
+        ]
+       ],
+       "row3": [
+        [
+         "ftfzfjapqxk"
+        ],
+        [
+         "0xx2r3k5xke"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        12,
+        12
+       ],
+       "row2": [
+        12,
+        12
+       ],
+       "row3": [
+        12,
+        12
+       ]
+      },
+      "rowOrder": [
+       "row1",
+       "row2",
+       "row3"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "4b33q852dph": {
+   "uid": "4b33q852dph",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "name"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "km9eidu4r4r": {
+   "uid": "km9eidu4r4r",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "name"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "pux8jiod3rx": {
+   "uid": "pux8jiod3rx",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "code"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "68huq9gczgv": {
+   "uid": "68huq9gczgv",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "code"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "mkhp6w54c59": {
+   "uid": "mkhp6w54c59",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "unit"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ce88kt4m21x": {
+   "uid": "ce88kt4m21x",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "unit"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "hosdzsxgso2": {
+   "uid": "hosdzsxgso2",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "category"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "l1ceaq50dwf": {
+   "uid": "l1ceaq50dwf",
+   "use": "DisplayEnumFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "category"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ftfzfjapqxk": {
+   "uid": "ftfzfjapqxk",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "source_kind"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "j728cx2v2zq": {
+   "uid": "j728cx2v2zq",
+   "use": "DisplayEnumFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "source_kind"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "0xx2r3k5xke": {
+   "uid": "0xx2r3k5xke",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "basis"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "71rppmeimyb": {
+   "uid": "71rppmeimyb",
+   "use": "DisplayEnumFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "fieldPath": "basis"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "l87grj6na6m": {
+   "uid": "l87grj6na6m",
+   "use": "EditActionModel",
+   "props": {
+    "title": "{{t(\"Edit\")}}",
+    "icon": "EditOutlined",
+    "type": "default"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Edit\")}}",
+      "icon": "EditOutlined",
+      "type": "default"
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "dataSourceKey": "main",
+      "collectionName": "vi_metric",
+      "associationName": "vi_observation.metric",
+      "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+      "title": "指标·编辑"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "template": {
+     "uid": "kqed9gm59e6",
+     "mode": "reference"
+    }
+   }
+  },
+  "f14905tpurs": {
+   "uid": "f14905tpurs",
+   "use": "TableColumnModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "obs_date"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "vgbm52qc4i3": {
+   "uid": "vgbm52qc4i3",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "obs_date"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "y37j871g7yi": {
+   "uid": "y37j871g7yi",
+   "use": "TableColumnModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "value"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "p1xf9v26huf": {
+   "uid": "p1xf9v26huf",
+   "use": "DisplayNumberFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "value"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "8rg62lpti4o": {
+   "uid": "8rg62lpti4o",
+   "use": "TableColumnModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "unit"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "xfumogizs2d": {
+   "uid": "xfumogizs2d",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "unit"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ohmkb9ei4xl": {
+   "uid": "ohmkb9ei4xl",
+   "use": "TableColumnModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "is_current"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "4j0iz53mwmh": {
+   "uid": "4j0iz53mwmh",
+   "use": "DisplayCheckboxFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "is_current"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "443s7s3fwra": {
+   "uid": "443s7s3fwra",
+   "use": "TableColumnModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "is_valid"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "q3179jwubey": {
+   "uid": "q3179jwubey",
+   "use": "DisplayCheckboxFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "is_valid"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "pfepal4sksr": {
+   "uid": "pfepal4sksr",
+   "use": "TableColumnModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "collected_at"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "9fxsy28iy35": {
+   "uid": "9fxsy28iy35",
+   "use": "DisplayDateTimeFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "collected_at"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "wvogez4195k": {
+   "uid": "wvogez4195k",
+   "use": "TableColumnModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "source"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "yqnbo4asvvl": {
+   "uid": "yqnbo4asvvl",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "fieldPath": "source"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "y5tr3b6tsxz": {
+   "uid": "y5tr3b6tsxz",
+   "use": "FilterActionModel",
+   "props": {
+    "title": "{{t(\"Filter\")}}",
+    "icon": "FilterOutlined",
+    "defaultFilterValue": {
+     "logic": "$and",
+     "items": [
+      {
+       "path": "status",
+       "operator": "$eq"
+      },
+      {
+       "path": "note",
+       "operator": "$includes"
+      },
+      {
+       "path": "source",
+       "operator": "$includes"
+      },
+      {
+       "path": "period",
+       "operator": "$includes"
+      }
+     ]
+    },
+    "filterValue": {
+     "logic": "$and",
+     "items": [
+      {
+       "path": "status",
+       "operator": "$eq"
+      },
+      {
+       "path": "note",
+       "operator": "$includes"
+      },
+      {
+       "path": "source",
+       "operator": "$includes"
+      },
+      {
+       "path": "period",
+       "operator": "$includes"
+      }
+     ]
+    }
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Filter\")}}",
+      "icon": "FilterOutlined"
+     }
+    },
+    "filterSettings": {
+     "defaultFilter": {
+      "defaultFilter": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "status",
+         "operator": "$eq"
+        },
+        {
+         "path": "note",
+         "operator": "$includes"
+        },
+        {
+         "path": "source",
+         "operator": "$includes"
+        },
+        {
+         "path": "period",
+         "operator": "$includes"
+        }
+       ]
+      }
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "js88epcccu8": {
+   "uid": "js88epcccu8",
+   "use": "RefreshActionModel",
+   "props": {
+    "title": "{{t(\"Refresh\")}}",
+    "icon": "ReloadOutlined"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Refresh\")}}",
+      "icon": "ReloadOutlined"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "simtrak1w90": {
+   "uid": "simtrak1w90",
+   "use": "BulkDeleteActionModel",
+   "props": {
+    "title": "",
+    "tooltip": "{{t(\"Delete\")}}",
+    "icon": "DeleteOutlined",
+    "iconOnly": true,
+    "position": "right"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "",
+      "tooltip": "{{t(\"Delete\")}}",
+      "icon": "DeleteOutlined",
+      "iconOnly": true
+     }
+    },
+    "deleteSettings": {
+     "confirm": {
+      "enable": true,
+      "title": "{{t(\"Delete record\")}}",
+      "content": "{{t(\"Are you sure you want to delete it?\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "e30n30uz40o": {
+   "uid": "e30n30uz40o",
+   "use": "AddNewActionModel",
+   "props": {
+    "type": "primary",
+    "title": "{{t(\"Add new\")}}",
+    "icon": "PlusOutlined"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Add new\")}}",
+      "icon": "PlusOutlined",
+      "type": "primary"
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "dataSourceKey": "main",
+      "collectionName": "vi_observation",
+      "title": "{{t(\"Add new\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "template": {
+     "uid": "4tsf8dnh8q3",
+     "mode": "reference"
+    }
+   }
+  }
+ },
+ "pageRoute": {
+  "createdAt": "2026-10-25T15:30:47.432Z",
+  "updatedAt": "2026-10-25T15:36:34.861Z",
+  "id": 394093129039872,
+  "parentId": 393441179205632,
+  "title": "数据",
+  "tooltip": null,
+  "icon": "TableOutlined",
+  "schemaUid": "2veokjca71l",
+  "menuSchemaUid": "aj5h23v4knw",
+  "tabSchemaName": null,
+  "type": "flowPage",
+  "options": {
+   "flowSurfaceMenuBindable": true
+  },
+  "sort": 1,
+  "hideInMenu": false,
+  "enableTabs": true,
+  "enableHeader": null,
+  "displayTitle": true,
+  "hidden": null,
+  "createdById": null,
+  "updatedById": 1,
+  "children": [
+   {
+    "createdAt": "2026-10-25T15:30:47.471Z",
+    "updatedAt": "2026-10-25T15:36:35.958Z",
+    "id": 394093129039873,
+    "parentId": 394093129039872,
+    "title": "公司披露",
+    "tooltip": null,
+    "icon": null,
+    "schemaUid": "obgfd9obmmh",
+    "menuSchemaUid": null,
+    "tabSchemaName": "pvh6pdc1e6g",
+    "type": "tabs",
+    "options": {
+     "flowRegistry": {}
+    },
+    "sort": 100,
+    "hideInMenu": null,
+    "enableTabs": null,
+    "enableHeader": null,
+    "displayTitle": null,
+    "hidden": false,
+    "createdById": null,
+    "updatedById": 1
+   },
+   {
+    "createdAt": "2026-10-25T15:30:51.508Z",
+    "updatedAt": "2026-10-25T15:36:37.055Z",
+    "id": 394093137428480,
+    "parentId": 394093129039872,
+    "title": "自动采集",
+    "tooltip": null,
+    "icon": null,
+    "schemaUid": "ha7lsdd4m5s",
+    "menuSchemaUid": null,
+    "tabSchemaName": "自动采集",
+    "type": "tabs",
+    "options": {
+     "flowRegistry": {}
+    },
+    "sort": 100,
+    "hideInMenu": null,
+    "enableTabs": null,
+    "enableHeader": null,
+    "displayTitle": null,
+    "hidden": false,
+    "createdById": null,
+    "updatedById": 1
+   }
+  ]
+ }
+}

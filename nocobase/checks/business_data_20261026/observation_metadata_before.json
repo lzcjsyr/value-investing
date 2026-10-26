@@ -1,0 +1,535 @@
+{
+  "data": {
+    "key": "mz1sqinmyu1",
+    "name": "vi_observation",
+    "title": "数据",
+    "inherit": false,
+    "hidden": false,
+    "description": "每个指标每一期的数值，以及对它的理解（经营影响、经营解读）；引用【来源文档】【指标】【原始采集记录】；被【自动检查】引用。一行＝某个指标在某一期的一个数：自动采集的按天（股价、利率、水位），公司披露的按期（发电量、销量、新签合同额）。同一指标同一日期多次采集时取最后一次为“当前版本”；超出合理范围的为无效。公司披露的数据写期间、同比、来源文档，以及经营影响、经营解读和披露摘要。",
+    "fields": [
+      {
+        "key": "z5ch86l3i7c",
+        "name": "id",
+        "type": "bigInt",
+        "interface": "id",
+        "description": null,
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "ID",
+          "x-component": "InputNumber",
+          "x-read-pretty": true
+        },
+        "primaryKey": true,
+        "allowNull": false,
+        "autoIncrement": true
+      },
+      {
+        "key": "4c82k1fo0ta",
+        "name": "obs_date",
+        "type": "dateOnly",
+        "interface": "dateOnly",
+        "description": "自动采集为采集到的日期；公司披露为期末日期",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "观察日期",
+          "x-component": "DatePicker",
+          "x-component-props": {
+            "dateOnly": true,
+            "showTime": false
+          }
+        }
+      },
+      {
+        "key": "qrgmq2xalzz",
+        "name": "doc_id",
+        "type": "bigInt",
+        "interface": "integer",
+        "description": "",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "来源文档（ID）",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "1"
+          },
+          "x-validator": "integer"
+        },
+        "isForeignKey": true
+      },
+      {
+        "key": "rvqhque6b93",
+        "name": "value",
+        "type": "double",
+        "interface": "number",
+        "description": "",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "数值",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.0001"
+          }
+        }
+      },
+      {
+        "key": "mhvumcl1o1a",
+        "name": "collected_at",
+        "type": "date",
+        "interface": "datetime",
+        "description": "",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "采集时间",
+          "x-component": "DatePicker",
+          "x-component-props": {
+            "showTime": true,
+            "utc": true
+          }
+        }
+      },
+      {
+        "key": "sv4r8emtc4p",
+        "name": "source",
+        "type": "text",
+        "interface": "textarea",
+        "description": "",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "采集地址",
+          "x-component": "Input.TextArea"
+        }
+      },
+      {
+        "key": "wood42chmgh",
+        "name": "note",
+        "type": "text",
+        "interface": "textarea",
+        "description": "",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "使用边界",
+          "x-component": "Input.TextArea"
+        }
+      },
+      {
+        "key": "j91wwvi0qop",
+        "name": "metric_id",
+        "type": "bigInt",
+        "interface": "integer",
+        "description": "",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "指标（ID）",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "1"
+          },
+          "x-validator": "integer"
+        },
+        "isForeignKey": true
+      },
+      {
+        "key": "x9z4m7shs1z",
+        "name": "raw_capture_id",
+        "type": "bigInt",
+        "interface": "integer",
+        "description": "",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "原始采集记录（ID）",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "1"
+          },
+          "x-validator": "integer"
+        },
+        "isForeignKey": true
+      },
+      {
+        "key": "tjvnnxlc0v4",
+        "name": "is_current",
+        "type": "boolean",
+        "interface": "checkbox",
+        "description": "同指标同日期最后一次采集",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "boolean",
+          "title": "当前版本",
+          "x-component": "Checkbox"
+        }
+      },
+      {
+        "key": "hve8l0t8sd6",
+        "name": "is_valid",
+        "type": "boolean",
+        "interface": "checkbox",
+        "description": "有数值且在指标合理范围内",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "boolean",
+          "title": "有效",
+          "x-component": "Checkbox"
+        }
+      },
+      {
+        "key": "z2skvp6h8fv",
+        "name": "updated_at",
+        "type": "date",
+        "interface": "datetime",
+        "description": "",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "最后修改",
+          "x-component": "DatePicker",
+          "x-component-props": {
+            "showTime": true,
+            "utc": true
+          }
+        }
+      },
+      {
+        "key": "2yw912hhnnu",
+        "name": "metric",
+        "type": "belongsTo",
+        "interface": "m2o",
+        "description": null,
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "source": "vi_observation.obs_date",
+        "target": "vi_metric",
+        "uiSchema": {
+          "type": "object",
+          "title": "指标",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "multiple": false,
+            "fieldNames": {
+              "label": "name",
+              "value": "id"
+            }
+          }
+        },
+        "targetKey": "id",
+        "foreignKey": "metric_id"
+      },
+      {
+        "key": "yydgp8yfq9z",
+        "name": "raw_capture",
+        "type": "belongsTo",
+        "interface": "m2o",
+        "description": null,
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "source": "vi_observation.obs_date",
+        "target": "vi_raw_capture",
+        "uiSchema": {
+          "type": "object",
+          "title": "原始采集记录",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "multiple": false,
+            "fieldNames": {
+              "label": "run_label",
+              "value": "id"
+            }
+          }
+        },
+        "targetKey": "id",
+        "foreignKey": "raw_capture_id"
+      },
+      {
+        "key": "phj4nfdx7em",
+        "name": "period",
+        "type": "string",
+        "interface": "input",
+        "description": "公司披露的数据填，如 2026Q3、2026H1、2025",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "期间",
+          "x-component": "Input"
+        }
+      },
+      {
+        "key": "z1524anyfem",
+        "name": "yoy",
+        "type": "float",
+        "interface": "percent",
+        "description": "",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "同比",
+          "x-component": "Percent",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.01",
+            "addonAfter": "%"
+          }
+        }
+      },
+      {
+        "key": "2rrr6syt159",
+        "name": "impact",
+        "type": "string",
+        "interface": "select",
+        "description": "结合比较基准与经营解读，判断这项数据对公司经营的影响。中性表示已有依据支持影响有限；待判断表示依据不足。",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "enum": [
+          {
+            "value": "利好",
+            "label": "利好",
+            "color": "red"
+          },
+          {
+            "value": "中性",
+            "label": "中性",
+            "color": "default"
+          },
+          {
+            "value": "利空",
+            "label": "利空",
+            "color": "green"
+          },
+          {
+            "value": "待判断",
+            "label": "待判断",
+            "color": "gold"
+          }
+        ],
+        "uiSchema": {
+          "type": "string",
+          "title": "经营影响",
+          "x-component": "Select",
+          "enum": [
+            {
+              "value": "利好",
+              "label": "利好",
+              "color": "red"
+            },
+            {
+              "value": "中性",
+              "label": "中性",
+              "color": "default"
+            },
+            {
+              "value": "利空",
+              "label": "利空",
+              "color": "green"
+            },
+            {
+              "value": "待判断",
+              "label": "待判断",
+              "color": "gold"
+            }
+          ]
+        }
+      },
+      {
+        "key": "x21m3iucbsv",
+        "name": "assessment",
+        "type": "text",
+        "interface": "textarea",
+        "description": "结合公司业务说明比较基准、变化原因及对利润或模型假设的影响；缺少依据时留空。",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "经营解读",
+          "x-component": "Input.TextArea"
+        }
+      },
+      {
+        "key": "yi0x0mzts22",
+        "name": "summary",
+        "type": "text",
+        "interface": "textarea",
+        "description": "记录披露事实、统计范围、单季或累计口径、管理层披露摘要与推算过程；研究判断写在经营解读。",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "披露摘要与口径",
+          "x-component": "Input.TextArea"
+        }
+      },
+      {
+        "key": "q4az30w7vgv",
+        "name": "status",
+        "type": "string",
+        "interface": "select",
+        "description": "",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "enum": [
+          {
+            "value": "已入模",
+            "label": "已入模",
+            "color": "blue"
+          },
+          {
+            "value": "待处理",
+            "label": "待处理",
+            "color": "orange"
+          },
+          {
+            "value": "无需入模",
+            "label": "无需入模",
+            "color": "orange"
+          }
+        ],
+        "uiSchema": {
+          "type": "string",
+          "title": "处理状态",
+          "x-component": "Select",
+          "enum": [
+            {
+              "value": "已入模",
+              "label": "已入模",
+              "color": "blue"
+            },
+            {
+              "value": "待处理",
+              "label": "待处理",
+              "color": "orange"
+            },
+            {
+              "value": "无需入模",
+              "label": "无需入模",
+              "color": "orange"
+            }
+          ]
+        }
+      },
+      {
+        "key": "xqhzubs1nqn",
+        "name": "unit",
+        "type": "string",
+        "interface": "input",
+        "description": "指标的单位",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "单位",
+          "x-component": "Input"
+        }
+      },
+      {
+        "key": "s9h8t7fl6bg",
+        "name": "basis",
+        "type": "string",
+        "interface": "input",
+        "description": "指标的口径",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "口径",
+          "x-component": "Input"
+        }
+      },
+      {
+        "key": "xpua0oe8ay7",
+        "name": "source_kind",
+        "type": "string",
+        "interface": "input",
+        "description": "指标的来源方式",
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "来源方式",
+          "x-component": "Input"
+        }
+      },
+      {
+        "key": "gilv73vfhnf",
+        "name": "doc",
+        "type": "belongsTo",
+        "interface": "m2o",
+        "description": null,
+        "collectionName": "vi_observation",
+        "parentKey": null,
+        "reverseKey": null,
+        "source": "vi_observation.obs_date",
+        "target": "vi_source",
+        "uiSchema": {
+          "type": "object",
+          "title": "来源文档",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "multiple": false,
+            "fieldNames": {
+              "label": "title",
+              "value": "id"
+            }
+          }
+        },
+        "targetKey": "id",
+        "foreignKey": "doc_id"
+      }
+    ],
+    "template": "view",
+    "view": true,
+    "schema": "public",
+    "writableView": true,
+    "filterTargetKey": "id",
+    "titleField": "obs_date",
+    "sortable": false,
+    "viewName": "vi_observation",
+    "unavailableActions": []
+  }
+}

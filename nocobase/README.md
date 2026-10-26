@@ -65,3 +65,9 @@ docker compose stop       # 停止
 系统完整加密包保存在仓库 Releases，恢复说明和备份工具保存在仓库主页。运行 `python3 ../nocobase-value-investing-backup/backup.py create --upload` 可导出、隔离恢复验证、加密并上传一份新快照。
 
 解密密钥单独保存在 `~/.config/nocobase-github-backup/backup-key.txt`，需另存密码管理器或离线介质，不随备份上传。
+
+## 业务数据与财务数据分域（2026-10-26）
+
+五家公司「数据底稿 / 数据」改为「业务数据」：只展示量、价、合同、面积、用户、设备数与水文/商品环境。收入、利润、毛利率、现金、借款及分部财务按指标类别“财务”统一归到财务数据；三大报表已有的集团收入、归母利润、期间利润及研发费用不在财务补充重复展示。股价、利率、汇率保留在驾驶舱与宏观数据。原指标/观察 ID 保留，驾驶舱和模型引用不变。
+
+维护入口：`framework/reorganize_business_data.py`（五家公司）；分类规则在 `framework/data_domains.py`，新披露写入分类在 `sql/02_calc.sql` 的 `vi_disclosed_category`。小米 AIoT 按官方连接设备口径，不冒充月活设备。验收见 `checks/business_data_20261026/`。

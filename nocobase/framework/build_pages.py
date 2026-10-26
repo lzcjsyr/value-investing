@@ -26,9 +26,9 @@ COMPANY_MENU = [  # (二级分组, 图标, [(code, 页面标题)])
     ('预测与估值', 'CalculatorOutlined', [('fin_history', '历史年度'), ('judgment', '假设依据'), ('valuation', '估值结论'), ('sotp', '分部加总估值'), ('sotp_segment', '经营分部估值'), ('sotp_item', '分部估值项'), ('model', '估值模型'), ('scenario', '情景'), ('forecast', '逐年假设'),
                                    ('projection', '预测计算'), ('balance', '资产与资本'), ('sensitivity', '敏感性：折现率×永续增长'),
                                    ('trial', '单参数试验')]),
-    # 数据底稿：只放事实。数据＝指标＋数值（公司披露的经营数据和自动采集的行情、利率、水位都在这里，按来源方式分标签）；
-    # 财务数据是季度完整三大报表的定制页（build_finstmt.py，表代码 fin_stmt），不在此生成表格页；事实摘录从来源文档里摘出
-    ('数据底稿', 'DatabaseOutlined', [('observation', '数据'), ('fact', '事实摘录'), ('source', '来源文档')]),
+    # 数据底稿：业务数据＝定期经营指标与高频业务环境，财务结果另列；
+    # 财务数据是季度完整三大报表的定制页（build_finstmt.py，表代码 fin_stmt），不在此生成表格页；重要事实从来源文档里摘出
+    ('数据底稿', 'DatabaseOutlined', [('observation', '业务数据'), ('fact', '重要事实'), ('source', '来源文档')]),
     ('跟踪', 'RadarChartOutlined', [('check', '自动检查'), ('issue', '问题清单'), ('watch', '跟踪事项'), ('change_log', '变更日志')]),
 ]
 # 宏观数据：独立项目（顶层菜单），利率、汇率、商品等不属于任何公司的指标，各公司按需使用（估值参数、跟踪事项、订阅）
@@ -102,7 +102,7 @@ COLUMNS = {
     'sensitivity': ['label', 'r', 'g', 'value_today', 'value_base_date'],
     'check': ['code', 'name', 'result', 'detail'],
 }
-# 公司数据页“公司披露”标签的列（自动采集标签用 COLUMNS['observation']）
+# 公司数据页“定期经营数据”标签的列（自动采集标签用 COLUMNS['observation']）
 DISCLOSED_COLUMNS = ['metric', 'period', 'value', 'unit', 'yoy', 'impact', 'assessment', 'summary', 'status', 'doc']
 SORT = {'observation': [('obs_date', 'desc')], 'raw_capture': [('collected_at', 'desc')], 'collect_run': [('id', 'desc')], 'change_log': [('change_date', 'desc')],
         'fin_history': [('year', 'asc')], 'fit_score': [('sort', 'asc')], 'forecast': [('year', 'asc')],
@@ -208,13 +208,16 @@ def blueprint(code, page_title, group_route, company=None, scope=None, prefix=No
     nav = {'group': {'routeId': group_route}, 'item': {'title': page_title, 'icon': 'TableOutlined' if not report else 'FundOutlined'}}
     prefix = prefix or (company['name'] if company else '价值投资框架')
     tabs = [{'title': page_title, 'blocks': [block]}]
-    if company and code == 'observation' and not scope:    # 公司的数据页：公司披露 ｜ 自动采集（含用到的宏观数据）
-        auto = {'logic': '$and', 'items': [{'path': 'metric.source_kind', 'operator': '$ne', 'value': '公司披露'}, settings['dataScope']]}
-        disclosed = {'logic': '$and', 'items': [{'path': 'metric.company_id', 'operator': '$eq', 'value': company['id']},
-                                                {'path': 'metric.source_kind', 'operator': '$eq', 'value': '公司披露'}]}
+    if company and code == 'observation' and not scope:    # 公司的业务页：定期经营数据 ｜ 高频业务数据
+        from data_domains import business_scope, business_description
+        auto = business_scope(company, automatic=True)
+        disclosed = business_scope(company)
         dcols = [rel_popup(rels[c]) if c in rels else c for c in DISCLOSED_COLUMNS]
-        tabs = [{'title': '公司披露', 'blocks': [dict(block, key='disclosed', fields=dcols, settings=dict(settings, dataScope=disclosed))]},
-                {'title': '自动采集', 'blocks': [dict(block, key='auto', settings=dict(settings, dataScope=auto))]}]
+        tabs = [{'title': '定期经营数据', 'blocks': [dict(block, key='disclosed', fields=dcols, settings=dict(settings, dataScope=disclosed))]},
+                {'title': '高频业务数据', 'blocks': [dict(block, key='auto', settings=dict(settings, dataScope=auto))]}]
+        for tab in tabs:
+            for entry in tab['blocks']:
+                entry['settings']['description'] = business_description(automatic=entry['key'] == 'auto')
     return {'version': '1', 'mode': 'create', 'navigation': nav,
             'page': {'title': page_title, 'documentTitle': f'{prefix} · {page_title}', **({'enableTabs': True} if len(tabs) > 1 else {})},
             'defaults': defaults, 'tabs': tabs}
@@ -517,6 +520,8 @@ def rebuild(code, company_code=None):
             if c == code:
                 ok &= build(c, title, ensure_group(st, f'{SHARED}/{SHARED_SUB[0]}', SHARED_SUB[0], SHARED_SUB[1], parent=shared_root(st)))
     register.describe(involved)
+    import scope_selects
+    scope_selects.main()                          # 新模板里的关联下拉补上“只列这家公司”的数据范围
     return ok
 
 
@@ -541,7 +546,7 @@ def sort_menu(company_codes=None):
     sub_order = {g: [t for _, t in pages] for g, _, pages in COMPANY_MENU} | {SHARED_SUB[0]: [t for _, t in SHARED_SUB[2]]}
     # 可视化页不在 COMPANY_MENU 里：财务数据（build_finstmt.py，季度三大报表）在数据底稿里跟在数据后面；
     # 财务模型（build_finmodel.py）在预测与估值表格页前；定制估值页（build_valuation.py）在最前，模型底稿子组在最后
-    sub_order['数据底稿'] = ['数据', '财务数据'] + [t for t in sub_order['数据底稿'] if t not in ('数据', '财务数据')]
+    sub_order['数据底稿'] = ['业务数据', '财务数据'] + [t for t in sub_order['数据底稿'] if t not in ('业务数据', '财务数据')]
     sub_order['预测与估值'] = ['历史年度', '财务模型', '估值'] + [t for t in sub_order['预测与估值'] if t != '历史年度'] + [DRAFTS]
     sub_order[DRAFTS] = sub_order['预测与估值']
     for g in current_routes:
@@ -588,3 +593,5 @@ if __name__ == '__main__':
     for co in companies():
         if (not want or co['code'] in want) and not build_company(co):
             sys.exit(1)
+    import scope_selects
+    scope_selects.main()

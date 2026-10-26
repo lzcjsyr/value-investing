@@ -1,0 +1,595 @@
+{
+  "data": {
+    "key": "6yqistlodo4",
+    "name": "vi_metric",
+    "title": "指标",
+    "inherit": false,
+    "hidden": false,
+    "description": "每条数字序列的定义：自动采集的行情、利率、水文，以及公司定期披露的经营数字；被【公司】【事实摘录】【数据】【估值模型】【跟踪事项】【采集配置】【自动检查】引用。一条数字序列的定义，数值在「数据」里。来源方式区分自动采集、公司披露、年报和手工整理；所属公司为空的是宏观数据（利率、汇率、商品等），归“宏观数据”项目所有，各公司按需使用；只和一家公司有关的（股价、水位、发电量、销量）挂在这家公司下。同一含义不同口径（单季、累计）分成不同指标，不拼接。",
+    "fields": [
+      {
+        "key": "5rwdpiwmwqz",
+        "name": "id",
+        "type": "bigInt",
+        "interface": "id",
+        "description": null,
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "ID",
+          "x-component": "InputNumber",
+          "x-read-pretty": true
+        },
+        "primaryKey": true,
+        "allowNull": false,
+        "autoIncrement": true
+      },
+      {
+        "key": "qnvnt6e1b63",
+        "name": "code",
+        "type": "string",
+        "interface": "input",
+        "description": "稳定的英文代码，如 600900.SH.PRICE",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "指标代码",
+          "x-component": "Input"
+        }
+      },
+      {
+        "key": "fl97pohlzeu",
+        "name": "name",
+        "type": "string",
+        "interface": "input",
+        "description": "",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "指标名称",
+          "x-component": "Input"
+        }
+      },
+      {
+        "key": "285xpqdlhvl",
+        "name": "unit",
+        "type": "string",
+        "interface": "input",
+        "description": "利率类直接存百分数值，如 1.65 表示 1.65%",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "单位",
+          "x-component": "Input"
+        }
+      },
+      {
+        "key": "ljn3vak2krt",
+        "name": "category",
+        "type": "string",
+        "interface": "select",
+        "description": "",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "enum": [
+          {
+            "value": "行情",
+            "label": "行情",
+            "color": "blue"
+          },
+          {
+            "value": "利率",
+            "label": "利率",
+            "color": "green"
+          },
+          {
+            "value": "汇率",
+            "label": "汇率",
+            "color": "orange"
+          },
+          {
+            "value": "商品",
+            "label": "商品",
+            "color": "purple"
+          },
+          {
+            "value": "宏观",
+            "label": "宏观",
+            "color": "cyan"
+          },
+          {
+            "value": "水文",
+            "label": "水文",
+            "color": "gold"
+          },
+          {
+            "value": "经营",
+            "label": "经营",
+            "color": "magenta"
+          },
+          {
+            "value": "其他",
+            "label": "其他",
+            "color": "geekblue"
+          }
+        ],
+        "uiSchema": {
+          "type": "string",
+          "title": "类别",
+          "x-component": "Select",
+          "enum": [
+            {
+              "value": "行情",
+              "label": "行情",
+              "color": "blue"
+            },
+            {
+              "value": "利率",
+              "label": "利率",
+              "color": "green"
+            },
+            {
+              "value": "汇率",
+              "label": "汇率",
+              "color": "orange"
+            },
+            {
+              "value": "商品",
+              "label": "商品",
+              "color": "purple"
+            },
+            {
+              "value": "宏观",
+              "label": "宏观",
+              "color": "cyan"
+            },
+            {
+              "value": "水文",
+              "label": "水文",
+              "color": "gold"
+            },
+            {
+              "value": "经营",
+              "label": "经营",
+              "color": "magenta"
+            },
+            {
+              "value": "其他",
+              "label": "其他",
+              "color": "geekblue"
+            }
+          ]
+        }
+      },
+      {
+        "key": "6avzcf3vrqd",
+        "name": "source_name",
+        "type": "string",
+        "interface": "input",
+        "description": "",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "数据来源",
+          "x-component": "Input"
+        }
+      },
+      {
+        "key": "ctnopq0rkat",
+        "name": "frequency",
+        "type": "string",
+        "interface": "input",
+        "description": "",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "频率",
+          "x-component": "Input"
+        }
+      },
+      {
+        "key": "nclpfhyjoxu",
+        "name": "valid_min",
+        "type": "double",
+        "interface": "number",
+        "description": "超出范围的观察标记为无效，不参与计算",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "合理下限",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.0001"
+          }
+        }
+      },
+      {
+        "key": "fp9rkwoe3ke",
+        "name": "valid_max",
+        "type": "double",
+        "interface": "number",
+        "description": "",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "合理上限",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.0001"
+          }
+        }
+      },
+      {
+        "key": "3uco8u5arsd",
+        "name": "notes",
+        "type": "text",
+        "interface": "textarea",
+        "description": "",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "说明",
+          "x-component": "Input.TextArea"
+        }
+      },
+      {
+        "key": "xyiuy0pi5yr",
+        "name": "company_id",
+        "type": "bigInt",
+        "interface": "integer",
+        "description": "",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "所属公司（ID）",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "1"
+          },
+          "x-validator": "integer"
+        },
+        "isForeignKey": true
+      },
+      {
+        "key": "jkfhkibohzi",
+        "name": "obs_count",
+        "type": "bigInt",
+        "interface": "integer",
+        "description": "",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "观察条数",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "1"
+          },
+          "x-validator": "integer"
+        }
+      },
+      {
+        "key": "2mfz85b9bhf",
+        "name": "latest_value",
+        "type": "double",
+        "interface": "number",
+        "description": "",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "最新有效值",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.0001"
+          }
+        }
+      },
+      {
+        "key": "0luqceh9294",
+        "name": "latest_date",
+        "type": "dateOnly",
+        "interface": "dateOnly",
+        "description": "",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "最新日期",
+          "x-component": "DatePicker",
+          "x-component-props": {
+            "dateOnly": true,
+            "showTime": false
+          }
+        }
+      },
+      {
+        "key": "o24sfngxrw8",
+        "name": "scope",
+        "type": "string",
+        "interface": "input",
+        "description": "宏观（所属公司为空）或公司",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "归属",
+          "x-component": "Input"
+        }
+      },
+      {
+        "key": "t5oy25nkwpm",
+        "name": "used_by",
+        "type": "text",
+        "interface": "textarea",
+        "description": "哪些公司用到这个指标、做什么用（自有、股价、汇率折算、无风险利率、跟踪事项、订阅）",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "使用公司",
+          "x-component": "Input.TextArea"
+        }
+      },
+      {
+        "key": "kp84rmxfu08",
+        "name": "used_by_codes",
+        "type": "string",
+        "interface": "input",
+        "description": "筛选用：如 ,600900.SH,002078.SZ,",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "使用公司代码",
+          "x-component": "Input"
+        }
+      },
+      {
+        "key": "f1iq7d8e9av",
+        "name": "updated_at",
+        "type": "date",
+        "interface": "datetime",
+        "description": "",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "最后修改",
+          "x-component": "DatePicker",
+          "x-component-props": {
+            "showTime": true,
+            "utc": true
+          }
+        }
+      },
+      {
+        "key": "huh2lwbnq3d",
+        "name": "company",
+        "type": "belongsTo",
+        "interface": "m2o",
+        "description": null,
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "source": "vi_metric.name",
+        "target": "vi_company",
+        "uiSchema": {
+          "type": "object",
+          "title": "所属公司",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "multiple": false,
+            "fieldNames": {
+              "label": "name",
+              "value": "id"
+            }
+          }
+        },
+        "targetKey": "id",
+        "foreignKey": "company_id"
+      },
+      {
+        "key": "85oz7c3h3i0",
+        "name": "subscribers",
+        "type": "belongsToMany",
+        "interface": "m2m",
+        "description": null,
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": "v8jz9hsjlo8",
+        "source": "vi_metric.name",
+        "target": "vi_company",
+        "through": "vi_lnk_company_macro_metrics",
+        "otherKey": "company_id",
+        "uiSchema": {
+          "type": "array",
+          "title": "订阅的公司",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "multiple": true,
+            "fieldNames": {
+              "label": "id",
+              "value": "id"
+            }
+          }
+        },
+        "sourceKey": "id",
+        "targetKey": "id",
+        "foreignKey": "metric_id"
+      },
+      {
+        "key": "1csb3wlomlz",
+        "name": "source_kind",
+        "type": "string",
+        "interface": "select",
+        "description": "数据页按它分标签：公司披露的在“公司披露”，其余在“自动采集”",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "enum": [
+          {
+            "value": "自动采集",
+            "label": "自动采集",
+            "color": "blue"
+          },
+          {
+            "value": "公司披露",
+            "label": "公司披露",
+            "color": "green"
+          },
+          {
+            "value": "年报",
+            "label": "年报",
+            "color": "orange"
+          },
+          {
+            "value": "手工整理",
+            "label": "手工整理",
+            "color": "purple"
+          }
+        ],
+        "uiSchema": {
+          "type": "string",
+          "title": "来源方式",
+          "x-component": "Select",
+          "enum": [
+            {
+              "value": "自动采集",
+              "label": "自动采集",
+              "color": "blue"
+            },
+            {
+              "value": "公司披露",
+              "label": "公司披露",
+              "color": "green"
+            },
+            {
+              "value": "年报",
+              "label": "年报",
+              "color": "orange"
+            },
+            {
+              "value": "手工整理",
+              "label": "手工整理",
+              "color": "purple"
+            }
+          ]
+        },
+        "defaultValue": "自动采集"
+      },
+      {
+        "key": "horagpaj21f",
+        "name": "basis",
+        "type": "string",
+        "interface": "select",
+        "description": "时点＝某一天的值（股价、利率、水位）；其余为期间数",
+        "collectionName": "vi_metric",
+        "parentKey": null,
+        "reverseKey": null,
+        "enum": [
+          {
+            "value": "时点",
+            "label": "时点",
+            "color": "blue"
+          },
+          {
+            "value": "单季",
+            "label": "单季",
+            "color": "green"
+          },
+          {
+            "value": "半年累计",
+            "label": "半年累计",
+            "color": "orange"
+          },
+          {
+            "value": "前三季度累计",
+            "label": "前三季度累计",
+            "color": "purple"
+          },
+          {
+            "value": "全年",
+            "label": "全年",
+            "color": "cyan"
+          }
+        ],
+        "uiSchema": {
+          "type": "string",
+          "title": "口径",
+          "x-component": "Select",
+          "enum": [
+            {
+              "value": "时点",
+              "label": "时点",
+              "color": "blue"
+            },
+            {
+              "value": "单季",
+              "label": "单季",
+              "color": "green"
+            },
+            {
+              "value": "半年累计",
+              "label": "半年累计",
+              "color": "orange"
+            },
+            {
+              "value": "前三季度累计",
+              "label": "前三季度累计",
+              "color": "purple"
+            },
+            {
+              "value": "全年",
+              "label": "全年",
+              "color": "cyan"
+            }
+          ]
+        },
+        "defaultValue": "时点"
+      }
+    ],
+    "template": "view",
+    "view": true,
+    "schema": "public",
+    "writableView": true,
+    "filterTargetKey": "id",
+    "titleField": "name",
+    "sortable": false,
+    "viewName": "vi_metric",
+    "unavailableActions": []
+  }
+}

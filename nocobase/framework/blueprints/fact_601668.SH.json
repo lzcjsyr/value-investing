@@ -2,24 +2,24 @@
  "version": "1",
  "mode": "replace",
  "page": {
-  "title": "事实摘录",
-  "documentTitle": "中国建筑 · 事实摘录"
+  "title": "重要事实",
+  "documentTitle": "中国建筑 · 重要事实"
  },
  "defaults": {
   "collections": {
    "vi_fact": {
     "popups": {
      "view": {
-      "name": "事实摘录·详情",
-      "description": "查看一条「事实摘录」记录"
+      "name": "重要事实·详情",
+      "description": "查看一条「重要事实」记录"
      },
      "addNew": {
-      "name": "事实摘录·新增",
-      "description": "新增一条「事实摘录」记录"
+      "name": "重要事实·新增",
+      "description": "新增一条「重要事实」记录"
      },
      "edit": {
-      "name": "事实摘录·编辑",
-      "description": "编辑一条「事实摘录」记录"
+      "name": "重要事实·编辑",
+      "description": "编辑一条「重要事实」记录"
      }
     },
     "fieldGroups": [
@@ -327,7 +327,7 @@
  },
  "tabs": [
   {
-   "title": "事实摘录",
+   "title": "重要事实",
    "blocks": [
     {
      "key": "main",
@@ -426,7 +426,7 @@
       {
        "type": "addNew",
        "popup": {
-        "title": "新增 · 事实摘录",
+        "title": "新增 · 重要事实",
         "blocks": [
          {
           "type": "createForm",
@@ -480,7 +480,7 @@
       {
        "type": "edit",
        "popup": {
-        "title": "编辑 · 事实摘录",
+        "title": "编辑 · 重要事实",
         "blocks": [
          {
           "type": "editForm",

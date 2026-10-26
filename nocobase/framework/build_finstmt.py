@@ -136,15 +136,44 @@ def update(co):
     print(co['name'], TITLE, '脚本已更新')
 
 
+def page_body(co, gid, has_supplement=False):
+    """财务三表＋不重复的分部/补充口径；经营驱动在业务数据。"""
+    body = {
+        'page': {'title': TITLE, 'documentTitle': f"{co['name']} · {TITLE}"},
+        'assets': {'scripts': {KEY: {'version': 'v2', 'code': script(co)}}},
+        'tabs': [{'title': '财务报表', 'blocks': [{'key': KEY, 'type': 'jsBlock', 'script': KEY}]}]}
+    if has_supplement:
+        import build_pages as bp
+        from align_companies import aligned_blueprint
+        from data_domains import financial_supplement_scope
+        b = aligned_blueprint('observation', '分部与财务补充', gid, co, scope=financial_supplement_scope(co))
+        block = b['tabs'][0]['blocks'][0]
+        meta = {f['name']: f for f in bp.live_fields('vi_observation')}
+        rels = {f['name']: f for f in bp.T['observation']['fields'] if f['kind'] in ('m2o','m2m')}
+        from page_style import column_settings
+        fields = ['metric','period','basis','value','unit','yoy','summary','doc']
+        block['fields'] = [dict(bp.rel_popup(rels[f]) if f in rels else {'field': f}, settings=column_settings(meta[f])) for f in fields]
+        block['settings']['description'] = '分部收入、分部利润率、现金口径及调整后利润等财务补充；三大报表已有的集团收入、归母利润、期间利润和研发费用不重复列示。合同额、销量、用户和设备数见「业务数据」。'
+        body['defaults'] = b['defaults']
+        body['tabs'].append({'title': '分部与财务补充', 'blocks': [block]})
+        body['page']['enableTabs'] = True
+    return body
+
+
+def has_financial_supplement(co):
+    from data_domains import STATEMENT_DUPLICATES
+    conditions = [{'company_id': {'$eq': co['id']}}, {'category': {'$eq': '财务'}}]
+    conditions += [{'name': {'$ne': name}} for name in sorted(STATEMENT_DUPLICATES)]
+    return bool(nb_json('resource','list','--resource','vi_metric','--filter',json.dumps({'$and': conditions}), '--page-size','1')['data'])
+
+
 def create(co):
     st = state()
     gid = ensure_group(st, f"{co['name']}/数据底稿", '数据底稿', 'DatabaseOutlined', parent=company_root(st, co))
     apply_page(f"{KEY}_{co['code']}", {
         'version': '1', 'mode': 'create',
         'navigation': {'group': {'routeId': gid}, 'item': {'title': TITLE, 'icon': ICON}},
-        'page': {'title': TITLE, 'documentTitle': f"{co['name']} · {TITLE}"},
-        'assets': {'scripts': {KEY: {'version': 'v2', 'code': script(co)}}},
-        'tabs': [{'title': TITLE, 'blocks': [{'key': KEY, 'type': 'jsBlock', 'script': KEY}]}]})
+        **page_body(co, gid, has_supplement=has_financial_supplement(co))})
     record(f"{KEY}@{co['code']}", gid, TITLE)
 
 

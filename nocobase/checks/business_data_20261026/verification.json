@@ -1,0 +1,69 @@
+{
+  "companies": [
+    {
+      "company": "长江电力",
+      "business_observations": 69,
+      "business_names": [
+        "三峡水库入库流量（Wind）",
+        "三峡水库水位",
+        "三峡水库水位（Wind）",
+        "发电量",
+        "向家坝水库入库流量（Wind）"
+      ],
+      "supplemental_financial_observations": 0
+    },
+    {
+      "company": "太阳纸业",
+      "business_observations": 1217,
+      "business_names": [
+        "浆纸销量（管理层口径）",
+        "纸浆期货收盘价（Wind 活跃合约）",
+        "纸浆期货最新价（新浪 SP0 连续）"
+      ],
+      "supplemental_financial_observations": 10
+    },
+    {
+      "company": "中国建筑",
+      "business_observations": 6,
+      "business_names": [
+        "地产合约销售额",
+        "建筑业务新签合同额",
+        "房屋建筑新开工面积",
+        "新签合同总额"
+      ],
+      "supplemental_financial_observations": 37
+    },
+    {
+      "company": "腾讯音乐",
+      "business_observations": 25,
+      "business_names": [
+        "单个付费用户月均收入（ARPPU）",
+        "在线音乐付费用户",
+        "在线音乐月活跃用户",
+        "竞品月活：汽水音乐"
+      ],
+      "supplemental_financial_observations": 72
+    },
+    {
+      "company": "小米集团",
+      "business_observations": 60,
+      "business_names": [
+        "AIoT平台连接设备数（不含手机和平板）",
+        "全球月活跃用户",
+        "全球月活跃用户（12 月）",
+        "拥有五件及以上AIoT设备的用户数",
+        "智能手机ASP",
+        "智能手机出货量",
+        "汽车ASP",
+        "汽车交付量"
+      ],
+      "supplemental_financial_observations": 243
+    }
+  ],
+  "financial_records_unchanged": 36512,
+  "all_existing_observations_unchanged": 3147,
+  "models_unchanged": true,
+  "forecasts_unchanged": true,
+  "new_business_observations": 2,
+  "passed": true
+}

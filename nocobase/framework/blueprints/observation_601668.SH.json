@@ -2,8 +2,8 @@
  "version": "1",
  "mode": "replace",
  "page": {
-  "title": "数据",
-  "documentTitle": "中国建筑 · 数据",
+  "title": "业务数据",
+  "documentTitle": "中国建筑 · 业务数据",
   "enableTabs": true
  },
  "defaults": {
@@ -182,6 +182,10 @@
        "decision": "noUiBehavior",
        "reasonCode": "no-ui-behavior"
       },
+      "category": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
       "valid_min": {
        "decision": "noUiBehavior",
        "reasonCode": "no-ui-behavior"
@@ -331,7 +335,7 @@
  },
  "tabs": [
   {
-   "title": "公司披露",
+   "title": "定期经营数据",
    "blocks": [
     {
      "key": "disclosed",
@@ -443,7 +447,7 @@
      ],
      "settings": {
       "title": "",
-      "description": "每个指标每一期的数值，以及对它的理解（经营影响、经营解读）；引用【来源文档】【指标】【原始采集记录】；被【自动检查】引用。",
+      "description": "按期披露的量、价、订单、面积、用户与设备等经营指标及解读；引用【指标】【来源文档】；被【驾驶舱】【自动检查】引用；【重要事实】【跟踪事项】通过关联【指标】间接引用本序列。收入、利润、毛利率、现金与负债见【财务数据】。",
       "pageSize": 50,
       "sorting": [
        {
@@ -460,9 +464,18 @@
          "value": 7
         },
         {
-         "path": "metric.source_kind",
+         "path": "metric.category",
          "operator": "$eq",
-         "value": "公司披露"
+         "value": "经营"
+        },
+        {
+         "path": "metric.source_kind",
+         "operator": "$in",
+         "value": [
+          "公司披露",
+          "年报",
+          "手工整理"
+         ]
         }
        ]
       },
@@ -474,7 +487,7 @@
       {
        "type": "addNew",
        "popup": {
-        "title": "新增 · 数据",
+        "title": "新增 · 业务数据",
         "blocks": [
          {
           "type": "createForm",
@@ -535,7 +548,7 @@
       {
        "type": "edit",
        "popup": {
-        "title": "编辑 · 数据",
+        "title": "编辑 · 业务数据",
         "blocks": [
          {
           "type": "editForm",
@@ -592,7 +605,7 @@
    ]
   },
   {
-   "title": "自动采集",
+   "title": "高频业务数据",
    "blocks": [
     {
      "key": "auto",
@@ -671,7 +684,7 @@
      ],
      "settings": {
       "title": "",
-      "description": "每个指标每一期的数值，以及对它的理解（经营影响、经营解读）；引用【来源文档】【指标】【原始采集记录】；被【自动检查】引用。",
+      "description": "自动采集的水位、来水、纸浆价格等高频经营环境数据；引用【指标】【原始采集记录】，保留采集地址；被【驾驶舱】【自动检查】引用；【重要事实】【跟踪事项】通过关联【指标】间接引用本序列。股价见【驾驶舱】，利率与汇率见【宏观数据】。",
       "pageSize": 50,
       "sorting": [
        {
@@ -684,8 +697,17 @@
        "items": [
         {
          "path": "metric.source_kind",
-         "operator": "$ne",
-         "value": "公司披露"
+         "operator": "$eq",
+         "value": "自动采集"
+        },
+        {
+         "path": "metric.category",
+         "operator": "$in",
+         "value": [
+          "经营",
+          "水文",
+          "商品"
+         ]
         },
         {
          "logic": "$or",
@@ -712,7 +734,7 @@
       {
        "type": "addNew",
        "popup": {
-        "title": "新增 · 数据",
+        "title": "新增 · 业务数据",
         "blocks": [
          {
           "type": "createForm",
@@ -773,7 +795,7 @@
       {
        "type": "edit",
        "popup": {
-        "title": "编辑 · 数据",
+        "title": "编辑 · 业务数据",
         "blocks": [
          {
           "type": "editForm",

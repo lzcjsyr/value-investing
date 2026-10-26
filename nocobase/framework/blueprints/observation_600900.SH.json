@@ -1,18 +1,9 @@
 {
  "version": "1",
- "mode": "create",
- "navigation": {
-  "group": {
-   "routeId": 393441179205632
-  },
-  "item": {
-   "title": "数据",
-   "icon": "TableOutlined"
-  }
- },
+ "mode": "replace",
  "page": {
-  "title": "数据",
-  "documentTitle": "长江电力 · 数据",
+  "title": "业务数据",
+  "documentTitle": "长江电力 · 业务数据",
   "enableTabs": true
  },
  "defaults": {
@@ -78,7 +69,47 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "is_current": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "is_valid": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "period": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "impact": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "assessment": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "summary": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "basis": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "source_kind": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    },
    "vi_metric": {
     "popups": {
@@ -140,7 +171,47 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "category": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "valid_min": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "scope": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "used_by": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "used_by_codes": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "source_kind": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "basis": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    },
    "vi_source": {
     "popups": {
@@ -238,13 +309,33 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "is_valid": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "fetch_result": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "fetch_ok": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "fetch_note": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    }
   }
  },
  "tabs": [
   {
-   "title": "公司披露",
+   "title": "定期经营数据",
    "blocks": [
     {
      "key": "disclosed",
@@ -273,16 +364,59 @@
           ]
          }
         ]
+       },
+       "settings": {
+        "width": 280
        }
       },
-      "period",
-      "value",
-      "unit",
-      "yoy",
-      "impact",
-      "assessment",
-      "summary",
-      "status",
+      {
+       "field": "period",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "value",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "unit",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "yoy",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "impact",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "assessment",
+       "settings": {
+        "width": 360
+       }
+      },
+      {
+       "field": "summary",
+       "settings": {
+        "width": 360
+       }
+      },
+      {
+       "field": "status",
+       "settings": {
+        "width": 140
+       }
+      },
       {
        "field": "doc",
        "titleField": "title",
@@ -305,12 +439,15 @@
           ]
          }
         ]
+       },
+       "settings": {
+        "width": 200
        }
       }
      ],
      "settings": {
       "title": "",
-      "description": "每个指标每一期的数值，以及对它的理解（经营影响、经营解读）；引用【来源文档】【指标】【原始采集记录】；被【自动检查】引用。",
+      "description": "按期披露的量、价、订单、面积、用户与设备等经营指标及解读；引用【指标】【来源文档】；被【驾驶舱】【自动检查】引用；【重要事实】【跟踪事项】通过关联【指标】间接引用本序列。收入、利润、毛利率、现金与负债见【财务数据】。",
       "pageSize": 50,
       "sorting": [
        {
@@ -327,12 +464,22 @@
          "value": 1
         },
         {
-         "path": "metric.source_kind",
+         "path": "metric.category",
          "operator": "$eq",
-         "value": "公司披露"
+         "value": "经营"
+        },
+        {
+         "path": "metric.source_kind",
+         "operator": "$in",
+         "value": [
+          "公司披露",
+          "年报",
+          "手工整理"
+         ]
         }
        ]
-      }
+      },
+      "density": "middle"
      },
      "actions": [
       "filter",
@@ -340,7 +487,7 @@
       {
        "type": "addNew",
        "popup": {
-        "title": "新增 · 数据",
+        "title": "新增 · 业务数据",
         "blocks": [
          {
           "type": "createForm",
@@ -401,7 +548,7 @@
       {
        "type": "edit",
        "popup": {
-        "title": "编辑 · 数据",
+        "title": "编辑 · 业务数据",
         "blocks": [
          {
           "type": "editForm",
@@ -458,7 +605,7 @@
    ]
   },
   {
-   "title": "自动采集",
+   "title": "高频业务数据",
    "blocks": [
     {
      "key": "auto",
@@ -487,19 +634,57 @@
           ]
          }
         ]
+       },
+       "settings": {
+        "width": 280
        }
       },
-      "obs_date",
-      "value",
-      "unit",
-      "is_current",
-      "is_valid",
-      "collected_at",
-      "source"
+      {
+       "field": "obs_date",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "value",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "unit",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "is_current",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "is_valid",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "collected_at",
+       "settings": {
+        "width": 170
+       }
+      },
+      {
+       "field": "source",
+       "settings": {
+        "width": 360
+       }
+      }
      ],
      "settings": {
       "title": "",
-      "description": "每个指标每一期的数值，以及对它的理解（经营影响、经营解读）；引用【来源文档】【指标】【原始采集记录】；被【自动检查】引用。",
+      "description": "自动采集的水位、来水、纸浆价格等高频经营环境数据；引用【指标】【原始采集记录】，保留采集地址；被【驾驶舱】【自动检查】引用；【重要事实】【跟踪事项】通过关联【指标】间接引用本序列。股价见【驾驶舱】，利率与汇率见【宏观数据】。",
       "pageSize": 50,
       "sorting": [
        {
@@ -512,8 +697,17 @@
        "items": [
         {
          "path": "metric.source_kind",
-         "operator": "$ne",
-         "value": "公司披露"
+         "operator": "$eq",
+         "value": "自动采集"
+        },
+        {
+         "path": "metric.category",
+         "operator": "$in",
+         "value": [
+          "经营",
+          "水文",
+          "商品"
+         ]
         },
         {
          "logic": "$or",
@@ -531,7 +725,8 @@
          ]
         }
        ]
-      }
+      },
+      "density": "middle"
      },
      "actions": [
       "filter",
@@ -539,7 +734,7 @@
       {
        "type": "addNew",
        "popup": {
-        "title": "新增 · 数据",
+        "title": "新增 · 业务数据",
         "blocks": [
          {
           "type": "createForm",
@@ -600,7 +795,7 @@
       {
        "type": "edit",
        "popup": {
-        "title": "编辑 · 数据",
+        "title": "编辑 · 业务数据",
         "blocks": [
          {
           "type": "editForm",
@@ -656,5 +851,8 @@
     }
    ]
   }
- ]
+ ],
+ "target": {
+  "pageSchemaUid": "2veokjca71l"
+ }
 }
