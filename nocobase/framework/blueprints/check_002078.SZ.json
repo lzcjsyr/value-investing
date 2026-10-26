@@ -1,15 +1,6 @@
 {
  "version": "1",
- "mode": "create",
- "navigation": {
-  "group": {
-   "routeId": 393441619607552
-  },
-  "item": {
-   "title": "自动检查",
-   "icon": "FundOutlined"
-  }
- },
+ "mode": "replace",
  "page": {
   "title": "自动检查",
   "documentTitle": "太阳纸业 · 自动检查"
@@ -43,12 +34,34 @@
      "type": "table",
      "collection": "vi_check",
      "fields": [
-      "code",
-      "name",
-      "result",
-      "detail"
+      {
+       "field": "code",
+       "settings": {
+        "width": 100
+       }
+      },
+      {
+       "field": "name",
+       "settings": {
+        "width": 280
+       }
+      },
+      {
+       "field": "result",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "detail",
+       "settings": {
+        "width": 360
+       }
+      }
      ],
      "settings": {
+      "title": "",
+      "description": "系统自动算出的模型和数据检查结果；引用【竞争壁垒】【核心论点】【风险分析】【价投适配度】【指标】【数据】【估值模型】【情景】【经营分部估值】【逐年假设】【采集配置】【估值结论】【分部加总估值】。",
       "pageSize": 50,
       "sorting": [
        {
@@ -65,7 +78,8 @@
          "value": 2
         }
        ]
-      }
+      },
+      "density": "middle"
      },
      "actions": [
       "filter",
@@ -77,5 +91,8 @@
     }
    ]
   }
- ]
+ ],
+ "target": {
+  "pageSchemaUid": "zs2sm40y7pb"
+ }
 }

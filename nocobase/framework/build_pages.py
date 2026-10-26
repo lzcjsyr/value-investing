@@ -1,10 +1,11 @@
-"""生成 NocoBase 页面：每家公司一个顶层菜单（商业模式/数据底稿/预测与估值/跟踪），共用页面在“框架与后台”。
+"""生成 NocoBase 页面：每家公司一个顶层菜单（商业模式/预测与估值/数据底稿/跟踪），共用页面在“框架与后台”。
 
 表格默认只显示关键列（COLUMNS）；新增/编辑表单只含输入字段与关联；详情弹窗显示全部字段并分组；
 只读报表（预测计算、估值结论、敏感性、自动检查）没有新增/编辑/删除。
 用法：python3 build_pages.py [公司代码 ...]；已建页面记录在 pages_state.json（键：表代码@公司代码），重复执行会跳过。
 """
 import json, subprocess, sys, pathlib, secrets, string
+from contextlib import contextmanager
 import spec
 
 HERE = pathlib.Path(__file__).resolve().parent
@@ -19,31 +20,39 @@ REPORT_CODES = {r['code'] for r in spec.REPORTS}
 COMPANY_MENU = [  # (二级分组, 图标, [(code, 页面标题)])
     # 商业模式：纯分析（每个观点只写一处）
     ('商业模式', 'SafetyOutlined', [('biz_model', '商业模式拆解'), ('value_chain', '产业链与五力'), ('competitor', '竞争对手'),
-                                   ('moat', '竞争壁垒'), ('thesis', '核心论点'), ('risk', '风险分析'), ('fit_score', '价投适配度')]),
-    # 数据底稿：来源与事实。经营数据在财务数据上面（经营决定财务）；高频数据自动采集；事实摘录从来源文档里摘出
-    ('数据底稿', 'DatabaseOutlined', [('period_data', '经营数据'), ('fin_history', '财务数据'), ('observation', '高频数据'),
-                                     ('fact', '事实摘录'), ('source', '来源文档')]),
+                                   ('moat', '竞争壁垒'), ('risk', '风险分析'), ('fit_score', '价投适配度'), ('thesis', '核心论点')]),
     # 预测与估值：财务模型（可视化总览）在最前；表格页先看假设依据（每个参数为什么这么设），再看结论与模型
-    ('预测与估值', 'CalculatorOutlined', [('judgment', '假设依据'), ('valuation', '估值结论'), ('sotp', '分部加总估值'), ('sotp_segment', '经营分部估值'), ('sotp_item', '分部估值项'), ('model', '估值模型'), ('scenario', '情景'), ('forecast', '逐年假设'),
+    # 历史年度是财务模型的历史一侧（与逐年假设同一套列），放在组内最前；有定制估值页的公司也不收进模型底稿
+    ('预测与估值', 'CalculatorOutlined', [('fin_history', '历史年度'), ('judgment', '假设依据'), ('valuation', '估值结论'), ('sotp', '分部加总估值'), ('sotp_segment', '经营分部估值'), ('sotp_item', '分部估值项'), ('model', '估值模型'), ('scenario', '情景'), ('forecast', '逐年假设'),
                                    ('projection', '预测计算'), ('balance', '资产与资本'), ('sensitivity', '敏感性：折现率×永续增长'),
                                    ('trial', '单参数试验')]),
+    # 数据底稿：只放事实。数据＝指标＋数值（公司披露的经营数据和自动采集的行情、利率、水位都在这里，按来源方式分标签）；
+    # 财务数据是季度完整三大报表的定制页（build_finstmt.py，表代码 fin_stmt），不在此生成表格页；事实摘录从来源文档里摘出
+    ('数据底稿', 'DatabaseOutlined', [('observation', '数据'), ('fact', '事实摘录'), ('source', '来源文档')]),
     ('跟踪', 'RadarChartOutlined', [('check', '自动检查'), ('issue', '问题清单'), ('watch', '跟踪事项'), ('change_log', '变更日志')]),
 ]
 # 宏观数据：独立项目（顶层菜单），利率、汇率、商品等不属于任何公司的指标，各公司按需使用（估值参数、跟踪事项、订阅）
 MACRO = ('宏观数据', 'GlobalOutlined', [('metric', '指标'), ('observation', '高频数据'), ('collector', '采集配置')])
 MACRO_SCOPE = {'metric': 'scope', 'observation': 'metric.scope', 'collector': 'metric.scope'}   # 归属＝宏观
 REPLACED_BY_CHAINMAP = ('value_chain', 'competitor')   # 有可视化产业链页面（build_chainmap.py）的公司不再单独生成这两个表格页
+# 有定制估值页（build_valuation.py：财务模型 → 估值）的公司：“预测与估值”组只放这两页，
+# 录入用的表格页收进组内的“模型底稿”子组；skip 里的页面不生成：用不到的估值方法、已被定制页取代的只读报表与财务模型
+DRAFTS = '模型底稿'
+REPLACED_BY_CUSTOM = ('finmodel', 'valuation', 'projection', 'balance', 'sensitivity', 'trial')
+CUSTOM_VALUATION = {'600900.SH': {'skip': ('sotp', 'sotp_segment', 'sotp_item') + REPLACED_BY_CUSTOM}}
+for _code in ('002078.SZ', '601668.SH', '01698.HK', '01810.HK'):
+    CUSTOM_VALUATION[_code] = {'skip': ('sotp', 'sotp_segment', 'sotp_item', 'forecast') + REPLACED_BY_CUSTOM}
 SHARED = '框架与后台'
 SHARED_MENU = [('company', '公司'), ('metric', '指标')]                      # 直接放在“框架与后台”下
 SHARED_SUB = ('采集', 'CloudDownloadOutlined',
-              [('collector', '采集配置'), ('collect_run', '采集运行'), ('raw_capture', '原始采集记录'), ('observation', '高频数据（全部指标）')])
+              [('collector', '采集配置'), ('collect_run', '采集运行'), ('raw_capture', '原始采集记录'), ('observation', '数据（全部指标）')])
 COMPANY_ICON = {'600900.SH': 'ThunderboltOutlined', '002078.SZ': 'FileTextOutlined', '601668.SH': 'BuildOutlined',
                 '01698.HK': 'SoundOutlined', '01810.HK': 'MobileOutlined'}
 # 每张表按哪个字段过滤到“这家公司”（关联路径的末端都是整数字段，用 $eq）
 SCOPE = {'thesis': 'company_id', 'fact': 'company_id', 'source': 'company_id', 'judgment': 'company_id',
          'biz_model': 'company_id', 'value_chain': 'company_id', 'competitor': 'company_id', 'moat': 'company_id',
          'fit_score': 'company_id', 'risk': 'company_id', 'sotp_item': 'model.company_id', 'sotp_segment': 'model.company_id', 'sotp': 'company_id',
-         'fin_history': 'company_id', 'period_data': 'company_id', 'observation': 'metric.company_id',
+         'fin_history': 'company_id', 'observation': 'metric.company_id',
          'model': 'company_id', 'scenario': 'model.company_id', 'forecast': 'model.company_id', 'trial': 'model.company_id',
          'watch': 'company_id', 'issue': 'company_id', 'change_log': 'company_id',
          'projection': 'company_id', 'balance': 'company_id', 'valuation': 'company_id', 'sensitivity': 'company_id', 'check': 'company_id'}
@@ -69,9 +78,8 @@ COLUMNS = {
              'implied_growth_value', 'weighted_value', 'ddm_value', 'conclusion'],
     'fin_history': ['year', 'scope_note', 'volume', 'price', 'revenue', 'gross_margin', 'np_parent', 'roe', 'payout', 'dps',
                     'finance_cost', 'cfo', 'capex', 'fcf', 'net_debt'],
-    'period_data': ['period', 'period_kind', 'line_item', 'impact', 'value', 'unit', 'yoy', 'assessment', 'summary'],
     'metric': ['code', 'name', 'unit', 'category', 'scope', 'used_by', 'latest_value', 'latest_date', 'obs_count', 'source_name'],
-    'observation': ['metric', 'obs_date', 'value', 'is_current', 'is_valid', 'collected_at', 'source'],
+    'observation': ['metric', 'obs_date', 'value', 'unit', 'is_current', 'is_valid', 'collected_at', 'source'],
     'model': ['name', 'status', 'primary_method', 'required_return', 'base_year', 'terminal_year', 'shares', 'rf', 'erp', 'base_discount_rate',
               'sotp_year', 'valuation_date'],
     'scenario': ['name', 'is_base', 'probability', 'volume_factor', 'price_factor', 'cost_factor', 'eff_discount_rate', 'terminal_growth', 'ronic',
@@ -94,8 +102,10 @@ COLUMNS = {
     'sensitivity': ['label', 'r', 'g', 'value_today', 'value_base_date'],
     'check': ['code', 'name', 'result', 'detail'],
 }
+# 公司数据页“公司披露”标签的列（自动采集标签用 COLUMNS['observation']）
+DISCLOSED_COLUMNS = ['metric', 'period', 'value', 'unit', 'yoy', 'impact', 'assessment', 'summary', 'status', 'doc']
 SORT = {'observation': [('obs_date', 'desc')], 'raw_capture': [('collected_at', 'desc')], 'collect_run': [('id', 'desc')], 'change_log': [('change_date', 'desc')],
-        'fin_history': [('year', 'asc')], 'fit_score': [('sort', 'asc')], 'forecast': [('year', 'asc')], 'period_data': [('period_end', 'asc')],
+        'fin_history': [('year', 'asc')], 'fit_score': [('sort', 'asc')], 'forecast': [('year', 'asc')],
         'projection': [('id', 'asc')], 'sotp': [('id', 'asc')], 'sotp_item': [('code', 'asc'), ('id', 'asc')], 'sotp_segment': [('code', 'asc'), ('id', 'asc')], 'risk': [('code', 'asc')], 'balance': [('id', 'asc')], 'valuation': [('id', 'asc')], 'sensitivity': [('id', 'asc')], 'check': [('id', 'asc')]}
 
 
@@ -174,7 +184,8 @@ def blueprint(code, page_title, group_route, company=None, scope=None, prefix=No
         fg = default_groups(c[3:])
         if fg:
             defaults['collections'][c]['fieldGroups'] = fg
-    settings = {'pageSize': 50, 'sorting': [{'field': f, 'direction': d} for f, d in SORT.get(code, [('id', 'asc')])]}
+    # 区块说明栏写这张表的一句话定位（spec.role_line），录入前就能看到；标题留空（默认的“基础表 · …”没有信息）
+    settings = {'title': '', 'description': spec.role_line(t), 'pageSize': 50, 'sorting': [{'field': f, 'direction': d} for f, d in SORT.get(code, [('id', 'asc')])]}
     if scope:
         settings['dataScope'] = scope
     elif company and code == 'observation':      # 公司的高频数据＝自己的指标＋用到的宏观数据（vi_company_metric）
@@ -196,9 +207,17 @@ def blueprint(code, page_title, group_route, company=None, scope=None, prefix=No
             {'type': 'editForm', **form, 'actions': ['submit']}]}}, 'delete']
     nav = {'group': {'routeId': group_route}, 'item': {'title': page_title, 'icon': 'TableOutlined' if not report else 'FundOutlined'}}
     prefix = prefix or (company['name'] if company else '价值投资框架')
+    tabs = [{'title': page_title, 'blocks': [block]}]
+    if company and code == 'observation' and not scope:    # 公司的数据页：公司披露 ｜ 自动采集（含用到的宏观数据）
+        auto = {'logic': '$and', 'items': [{'path': 'metric.source_kind', 'operator': '$ne', 'value': '公司披露'}, settings['dataScope']]}
+        disclosed = {'logic': '$and', 'items': [{'path': 'metric.company_id', 'operator': '$eq', 'value': company['id']},
+                                                {'path': 'metric.source_kind', 'operator': '$eq', 'value': '公司披露'}]}
+        dcols = [rel_popup(rels[c]) if c in rels else c for c in DISCLOSED_COLUMNS]
+        tabs = [{'title': '公司披露', 'blocks': [dict(block, key='disclosed', fields=dcols, settings=dict(settings, dataScope=disclosed))]},
+                {'title': '自动采集', 'blocks': [dict(block, key='auto', settings=dict(settings, dataScope=auto))]}]
     return {'version': '1', 'mode': 'create', 'navigation': nav,
-            'page': {'title': page_title, 'documentTitle': f'{prefix} · {page_title}'},
-            'defaults': defaults, 'tabs': [{'title': page_title, 'blocks': [block]}]}
+            'page': {'title': page_title, 'documentTitle': f'{prefix} · {page_title}', **({'enableTabs': True} if len(tabs) > 1 else {})},
+            'defaults': defaults, 'tabs': tabs}
 
 
 def apply(body, name):
@@ -300,15 +319,33 @@ def company_root(st, co):
     return ensure_group(st, co['name'], co['name'], COMPANY_ICON.get(co['code'], 'BankOutlined'))
 
 
+def valuation_group(st, co):
+    """“预测与估值”的表格页放在哪个分组：有定制估值页的公司放进组内的“模型底稿”子组。"""
+    gid = ensure_group(st, f"{co['name']}/预测与估值", '预测与估值', 'CalculatorOutlined', parent=company_root(st, co))
+    if co['code'] in CUSTOM_VALUATION:
+        gid = ensure_group(st, f"{co['name']}/预测与估值/{DRAFTS}", DRAFTS, 'FolderOutlined', parent=gid)
+    return gid
+
+
+def page_group(st, co, sub, icon, code=None):
+    if sub == '预测与估值' and code != 'fin_history':     # 历史年度不收进模型底稿
+        return valuation_group(st, co)
+    return ensure_group(st, f"{co['name']}/{sub}", sub, icon, parent=company_root(st, co))
+
+
+def skipped(code, co):
+    if code in REPLACED_BY_CHAINMAP and f"chainmap@{co['code']}" in state()['pages']:
+        return True                               # 已由 build_chainmap.py 的“产业链与五力”页面取代
+    return code in CUSTOM_VALUATION.get(co['code'], {}).get('skip', ())
+
+
 def build_company(co):
     st = state()
-    root = company_root(st, co)
     for sub, icon, pages in COMPANY_MENU:
-        gid = ensure_group(st, f"{co['name']}/{sub}", sub, icon, parent=root)
         for code, title in pages:
-            if code in REPLACED_BY_CHAINMAP and f"chainmap@{co['code']}" in state()['pages']:
-                continue                          # 已由 build_chainmap.py 的“产业链与五力”页面取代
-            if not build(code, title, gid, co):
+            if skipped(code, co):
+                continue
+            if not build(code, title, page_group(st, co, sub, icon, code), co):
                 return False
     return True
 
@@ -358,6 +395,56 @@ def page_tree(key):
     p = subprocess.run(['nb', 'api', 'flow-surfaces', 'get', '--page-schema-uid', uid, '-j'],
                        capture_output=True, text=True, cwd=ROOT, check=True)
     return json.loads(p.stdout)['data']
+
+
+@contextmanager
+def no_field_desc(codes):
+    """UI 生成器会把字段说明当作表单行为指令：生成页面时先清空这些表（及其关联表）的字段说明，结束后写回。"""
+    import register
+    involved = set(codes) | {f['target'] for c in codes for f in T[c]['fields'] if f['kind'] in ('m2o', 'm2m')}
+    register.describe(involved, clear=True)
+    try:
+        yield
+    finally:
+        register.describe(involved)
+
+
+def order_tabs(key, titles):
+    """按 titles 的顺序排页面里的标签：apply-blueprint replace 之后，几个标签的 sort 可能相同，先后不定。"""
+    rid = state()['pages'][key]['routeId']
+    def find(nodes):
+        for n in nodes:
+            if n['id'] == rid:
+                return n
+            hit = find(n.get('children') or [])
+            if hit:
+                return hit
+    uid = {c['title']: c['schemaUid'] for c in find(routes()).get('children') or []}
+    for a, b in zip(titles, titles[1:]):
+        nb_json('flow-surfaces', 'move-tab', '--source-uid', uid[b], '--target-uid', uid[a], '--position', 'after')
+
+
+def describe_pages():
+    """已建页面重写区块说明（spec.role_line）：改了表的定位或关联之后执行。新页面由 blueprint() 直接带上。"""
+    for key in state()['pages']:
+        t = T.get(key.split('@')[0])
+        if not t:
+            continue
+        uid = next(b['uid'] for b in blocks(page_tree(key)['tree']) if b.get('use') == 'TableBlockModel')
+        nb_json('flow-surfaces', 'configure', '--target', json.dumps({'uid': uid}),
+                '--changes', json.dumps({'title': '', 'description': spec.role_line(t)}, ensure_ascii=False))
+        print(key, '说明 OK')
+
+
+def blocks(x):
+    if isinstance(x, dict):
+        if x.get('use', '').endswith('BlockModel'):
+            yield x
+        for v in x.values():
+            yield from blocks(v)
+    elif isinstance(x, list):
+        for v in x:
+            yield from blocks(v)
 
 
 def strip_write_actions(key):
@@ -420,8 +507,8 @@ def rebuild(code, company_code=None):
     for co in cos:
         for sub, icon, pages in COMPANY_MENU:
             for c, title in pages:
-                if c == code:
-                    ok &= build(c, title, ensure_group(st, f"{co['name']}/{sub}", sub, icon, parent=company_root(st, co)), co)
+                if c == code and not skipped(c, co):
+                    ok &= build(c, title, page_group(st, co, sub, icon, c), co)
     if not company_code:
         for c, title in SHARED_MENU:
             if c == code:
@@ -437,30 +524,64 @@ COMPANY_TOP = ['驾驶舱'] + [g for g, _, _ in COMPANY_MENU]
 SHARED_ORDER = ['使用说明', '数据结构', '模型公式'] + [t for _, t in SHARED_MENU] + [SHARED_SUB[0]]
 
 
-def sort_menu():
-    """顶层：各公司（按公司 id），最后是“框架与后台”；公司内：驾驶舱、商业模式、数据底稿、预测与估值、跟踪，分组内按菜单定义（预测与估值组内财务模型在最前）。"""
+def sort_menu(company_codes=None):
+    """顶层：各公司（按公司 id），最后是“框架与后台”；公司内：驾驶舱、商业模式、预测与估值、数据底稿、跟踪，分组内按菜单定义（预测与估值组内财务模型在最前）。"""
+    current_routes = routes()
+    current_sort = {}
+    def index_sorts(nodes):
+        for n in nodes:
+            current_sort[n['id']] = n.get('sort')
+            index_sorts(n.get('children') or [])
+    index_sorts(current_routes)
     def upd(rid, sort):
+        if current_sort.get(rid) == sort:
+            return
         nb_json('resource', 'update', '--resource', 'desktopRoutes', '--filter-by-tk', str(rid), '--values', json.dumps({'sort': sort}))
     names = [c['name'] for c in companies()]
     sub_order = {g: [t for _, t in pages] for g, _, pages in COMPANY_MENU} | {SHARED_SUB[0]: [t for _, t in SHARED_SUB[2]]}
-    sub_order['预测与估值'] = ['财务模型'] + sub_order['预测与估值']   # 可视化页不在 COMPANY_MENU 里，由 build_finmodel.py 生成
-    for g in routes():
+    # 可视化页不在 COMPANY_MENU 里：财务数据（build_finstmt.py，季度三大报表）在数据底稿里跟在数据后面；
+    # 财务模型（build_finmodel.py）在预测与估值表格页前；定制估值页（build_valuation.py）在最前，模型底稿子组在最后
+    sub_order['数据底稿'] = ['数据', '财务数据'] + [t for t in sub_order['数据底稿'] if t not in ('数据', '财务数据')]
+    sub_order['预测与估值'] = ['历史年度', '财务模型', '估值'] + [t for t in sub_order['预测与估值'] if t != '历史年度'] + [DRAFTS]
+    sub_order[DRAFTS] = sub_order['预测与估值']
+    for g in current_routes:
         top = g['title']
+        if company_codes is not None and top not in [c['name'] for c in companies() if c['code'] in company_codes]:
+            continue
         gi = names.index(top) + 1 if top in names else (80 if top == MACRO[0] else 90 if top == SHARED else 99)
         upd(g['id'], gi * 1000)
         order = COMPANY_TOP if top in names else SHARED_ORDER if top == SHARED else [t for _, t in MACRO[2]] if top == MACRO[0] else []
         for c in g.get('children') or []:
             k = order.index(c['title']) if c['title'] in order else 99
             upd(c['id'], gi * 1000 + (k + 1) * 10)
+            if c.get('type') != 'group':
+                continue                       # 页面下的是标签，不属于菜单排序
             inner = sub_order.get(c['title'], []) if c.get('type') == 'group' else []
             for cc in c.get('children') or []:
                 kk = inner.index(cc['title']) if cc['title'] in inner else 99
                 upd(cc['id'], kk + 1)
+                if cc.get('type') != 'group':
+                    continue                   # 保留可视化 → 编辑的标签顺序
+                deeper = sub_order.get(cc['title'], []) if cc.get('type') == 'group' else []
+                for ccc in cc.get('children') or []:
+                    upd(ccc['id'], (deeper.index(ccc['title']) if ccc['title'] in deeper else 99) + 1)
+    # 菜单行尾的“?”帮助图标来自 tooltip 的自动样板文案（“基础数据表｜…”之类），在窄侧边栏里会被裁掉半截；
+    # 统一清掉保持排版干净（页面类型说明在使用说明页里）。新建页面会重新带上，重跑 sort_menu 即可。
+    def strip_tooltip(nodes):
+        for n in nodes:
+            if n.get('tooltip'):
+                nb_json('resource', 'update', '--resource', 'desktopRoutes', '--filter-by-tk', str(n['id']),
+                        '--values', json.dumps({'tooltip': None}))
+            strip_tooltip(n.get('children') or [])
+    strip_tooltip([r for r in routes() if company_codes is None or r['title'] in [c['name'] for c in companies() if c['code'] in company_codes]])
 
 
 if __name__ == '__main__':
     # python3 build_pages.py                 共用页面＋所有公司
     # python3 build_pages.py 002078.SZ       只建这家公司的页面（新公司加入后执行）
+    # python3 build_pages.py --describe      已建页面重写区块说明（表的一句话定位，spec.role_line）
+    if '--describe' in sys.argv:
+        describe_pages(); sys.exit()
     want = set(sys.argv[1:])
     if not want and not (build_shared() and build_macro()):
         sys.exit(1)

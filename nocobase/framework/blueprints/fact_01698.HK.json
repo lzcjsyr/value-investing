@@ -1,34 +1,25 @@
 {
  "version": "1",
- "mode": "create",
- "navigation": {
-  "group": {
-   "routeId": 393657369755648
-  },
-  "item": {
-   "title": "事实卡",
-   "icon": "TableOutlined"
-  }
- },
+ "mode": "replace",
  "page": {
-  "title": "事实卡",
-  "documentTitle": "腾讯音乐 · 事实卡"
+  "title": "事实摘录",
+  "documentTitle": "腾讯音乐 · 事实摘录"
  },
  "defaults": {
   "collections": {
    "vi_fact": {
     "popups": {
      "view": {
-      "name": "事实卡·详情",
-      "description": "查看一条「事实卡」记录"
+      "name": "事实摘录·详情",
+      "description": "查看一条「事实摘录」记录"
      },
      "addNew": {
-      "name": "事实卡·新增",
-      "description": "新增一条「事实卡」记录"
+      "name": "事实摘录·新增",
+      "description": "新增一条「事实摘录」记录"
      },
      "edit": {
-      "name": "事实卡·编辑",
-      "description": "编辑一条「事实卡」记录"
+      "name": "事实摘录·编辑",
+      "description": "编辑一条「事实摘录」记录"
      }
     },
     "fieldGroups": [
@@ -50,7 +41,8 @@
       "title": "关联",
       "fields": [
        "company",
-       "source"
+       "source",
+       "metric"
       ]
      },
      {
@@ -59,7 +51,23 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "title": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "value": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "period": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    },
    "vi_company": {
     "popups": {
@@ -112,7 +120,8 @@
        "latest_price",
        "latest_price_date",
        "latest_price_raw",
-       "latest_fx"
+       "latest_fx",
+       "macro_used"
       ]
      },
      {
@@ -121,7 +130,153 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "currency": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "volume_label": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "volume_unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "price_label": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "price_unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "is_default": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_price": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_price_raw": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_fx": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "macro_used": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
+   },
+   "vi_metric": {
+    "popups": {
+     "view": {
+      "name": "指标·详情",
+      "description": "查看一条「指标」记录"
+     },
+     "addNew": {
+      "name": "指标·新增",
+      "description": "新增一条「指标」记录"
+     },
+     "edit": {
+      "name": "指标·编辑",
+      "description": "编辑一条「指标」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "name",
+       "unit",
+       "category",
+       "source_name",
+       "frequency",
+       "valid_min",
+       "valid_max",
+       "notes",
+       "source_kind"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "basis"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "obs_count",
+       "latest_value",
+       "latest_date",
+       "scope",
+       "used_by",
+       "used_by_codes"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "valid_min": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "scope": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "used_by": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "used_by_codes": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "source_kind": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "basis": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    },
    "vi_source": {
     "popups": {
@@ -172,19 +327,49 @@
  },
  "tabs": [
   {
-   "title": "事实卡",
+   "title": "事实摘录",
    "blocks": [
     {
      "key": "main",
      "type": "table",
      "collection": "vi_fact",
      "fields": [
-      "title",
-      "category",
-      "period",
-      "value",
-      "unit",
-      "verify_status",
+      {
+       "field": "title",
+       "settings": {
+        "width": 280
+       }
+      },
+      {
+       "field": "category",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "period",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "value",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "unit",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "verify_status",
+       "settings": {
+        "width": 140
+       }
+      },
       {
        "field": "source",
        "titleField": "title",
@@ -207,10 +392,15 @@
           ]
          }
         ]
+       },
+       "settings": {
+        "width": 200
        }
       }
      ],
      "settings": {
+      "title": "",
+      "description": "用来支撑分析的单条可核验事实；引用【来源文档】【指标】；被【商业模式拆解】【产业链与五力】【竞争对手】【竞争壁垒】【核心论点】【风险分析】【假设依据】【分部估值项】【经营分部估值】【逐年假设】引用。",
       "pageSize": 50,
       "sorting": [
        {
@@ -227,7 +417,8 @@
          "value": 11
         }
        ]
-      }
+      },
+      "density": "middle"
      },
      "actions": [
       "filter",
@@ -235,7 +426,7 @@
       {
        "type": "addNew",
        "popup": {
-        "title": "新增 · 事实卡",
+        "title": "新增 · 事实摘录",
         "blocks": [
          {
           "type": "createForm",
@@ -265,6 +456,10 @@
               "titleField": "name"
              },
              {
+              "field": "metric",
+              "titleField": "name"
+             },
+             {
               "field": "source",
               "titleField": "title"
              }
@@ -285,7 +480,7 @@
       {
        "type": "edit",
        "popup": {
-        "title": "编辑 · 事实卡",
+        "title": "编辑 · 事实摘录",
         "blocks": [
          {
           "type": "editForm",
@@ -312,6 +507,10 @@
               "titleField": "name"
              },
              {
+              "field": "metric",
+              "titleField": "name"
+             },
+             {
               "field": "source",
               "titleField": "title"
              }
@@ -330,5 +529,8 @@
     }
    ]
   }
- ]
+ ],
+ "target": {
+  "pageSchemaUid": "yrdxconk433"
+ }
 }

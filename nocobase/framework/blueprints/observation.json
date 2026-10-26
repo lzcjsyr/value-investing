@@ -6,31 +6,78 @@
    "routeId": 393441097416704
   },
   "item": {
-   "title": "高频数据（全部指标）",
+   "title": "数据（全部指标）",
    "icon": "TableOutlined"
   }
  },
  "page": {
-  "title": "高频数据（全部指标）",
-  "documentTitle": "价值投资框架 · 高频数据（全部指标）"
+  "title": "数据（全部指标）",
+  "documentTitle": "价值投资框架 · 数据（全部指标）"
  },
  "defaults": {
   "collections": {
    "vi_observation": {
     "popups": {
      "view": {
-      "name": "高频数据·详情",
-      "description": "查看一条「高频数据」记录"
+      "name": "数据·详情",
+      "description": "查看一条「数据」记录"
      },
      "addNew": {
-      "name": "高频数据·新增",
-      "description": "新增一条「高频数据」记录"
+      "name": "数据·新增",
+      "description": "新增一条「数据」记录"
      },
      "edit": {
-      "name": "高频数据·编辑",
-      "description": "编辑一条「高频数据」记录"
+      "name": "数据·编辑",
+      "description": "编辑一条「数据」记录"
      }
-    }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "obs_date",
+       "value",
+       "collected_at",
+       "source",
+       "note",
+       "period",
+       "yoy",
+       "impact",
+       "assessment",
+       "summary"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "status"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "metric",
+       "raw_capture",
+       "doc"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "is_current",
+       "is_valid",
+       "unit",
+       "basis",
+       "source_kind"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
    },
    "vi_metric": {
     "popups": {
@@ -49,7 +96,7 @@
     },
     "fieldGroups": [
      {
-      "title": "基本信息",
+      "title": "基本信息（1/2）",
       "fields": [
        "code",
        "name",
@@ -59,7 +106,14 @@
        "frequency",
        "valid_min",
        "valid_max",
-       "notes"
+       "notes",
+       "source_kind"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "basis"
       ]
      },
      {
@@ -77,6 +131,51 @@
        "scope",
        "used_by",
        "used_by_codes"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_source": {
+    "popups": {
+     "view": {
+      "name": "来源文档·详情",
+      "description": "查看一条「来源文档」记录"
+     },
+     "addNew": {
+      "name": "来源文档·新增",
+      "description": "新增一条「来源文档」记录"
+     },
+     "edit": {
+      "name": "来源文档·编辑",
+      "description": "编辑一条「来源文档」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息",
+      "fields": [
+       "title",
+       "source_type",
+       "publisher",
+       "publish_date",
+       "url",
+       "reliability",
+       "verify_status",
+       "retrieved_on",
+       "summary",
+       "limitations"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
       ]
      },
      {
@@ -144,7 +243,7 @@
  },
  "tabs": [
   {
-   "title": "高频数据（全部指标）",
+   "title": "数据（全部指标）",
    "blocks": [
     {
      "key": "main",
@@ -168,8 +267,8 @@
            "code",
            "unit",
            "category",
-           "source_name",
-           "frequency"
+           "source_kind",
+           "basis"
           ]
          }
         ]
@@ -177,12 +276,15 @@
       },
       "obs_date",
       "value",
+      "unit",
       "is_current",
       "is_valid",
       "collected_at",
       "source"
      ],
      "settings": {
+      "title": "",
+      "description": "每个指标每一期的数值，以及对它的理解（经营影响、经营解读）；引用【来源文档】【指标】【原始采集记录】；被【自动检查】引用。",
       "pageSize": 50,
       "sorting": [
        {
@@ -197,26 +299,51 @@
       {
        "type": "addNew",
        "popup": {
-        "title": "新增 · 高频数据（全部指标）",
+        "title": "新增 · 数据（全部指标）",
         "blocks": [
          {
           "type": "createForm",
           "resource": {
            "collectionName": "vi_observation"
           },
-          "fields": [
-           "obs_date",
-           "value",
-           "collected_at",
-           "source",
-           "note",
+          "fieldGroups": [
            {
-            "field": "metric",
-            "titleField": "name"
+            "title": "基本信息（1/2）",
+            "fields": [
+             "obs_date",
+             "period",
+             "value",
+             "yoy",
+             "impact",
+             "assessment",
+             "summary",
+             "status",
+             "collected_at",
+             "source"
+            ]
            },
            {
-            "field": "raw_capture",
-            "titleField": "run_label"
+            "title": "基本信息（2/2）",
+            "fields": [
+             "note"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "metric",
+              "titleField": "name"
+             },
+             {
+              "field": "doc",
+              "titleField": "title"
+             },
+             {
+              "field": "raw_capture",
+              "titleField": "run_label"
+             }
+            ]
            }
           ],
           "actions": [
@@ -233,23 +360,48 @@
       {
        "type": "edit",
        "popup": {
-        "title": "编辑 · 高频数据（全部指标）",
+        "title": "编辑 · 数据（全部指标）",
         "blocks": [
          {
           "type": "editForm",
-          "fields": [
-           "obs_date",
-           "value",
-           "collected_at",
-           "source",
-           "note",
+          "fieldGroups": [
            {
-            "field": "metric",
-            "titleField": "name"
+            "title": "基本信息（1/2）",
+            "fields": [
+             "obs_date",
+             "period",
+             "value",
+             "yoy",
+             "impact",
+             "assessment",
+             "summary",
+             "status",
+             "collected_at",
+             "source"
+            ]
            },
            {
-            "field": "raw_capture",
-            "titleField": "run_label"
+            "title": "基本信息（2/2）",
+            "fields": [
+             "note"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "metric",
+              "titleField": "name"
+             },
+             {
+              "field": "doc",
+              "titleField": "title"
+             },
+             {
+              "field": "raw_capture",
+              "titleField": "run_label"
+             }
+            ]
            }
           ],
           "actions": [

@@ -5,7 +5,7 @@
   python3 build_finmodel.py --rebuild    # 删除后重建所有公司的页面（改了下面的 JS 之后用）
 """
 import sys
-from build_pages import state, companies, company_root, destroy_page, ensure_group
+from build_pages import state, companies, destroy_page, valuation_group, CUSTOM_VALUATION
 from build_overview import apply_page, record
 
 TITLE, KEY = '财务模型', 'finmodel'
@@ -473,8 +473,8 @@ try {
 
 def create(co):
     st = state()
-    # 财务模型是财务引擎的可视化，属于“预测与估值”组，且排在组内第一页（sort_menu）
-    gid = ensure_group(st, f"{co['name']}/预测与估值", '预测与估值', 'CalculatorOutlined', parent=company_root(st, co))
+    # 财务模型是财务引擎的可视化，属于“预测与估值”组（有定制估值页的公司放进组内“模型底稿”），排在表格页前（sort_menu）
+    gid = valuation_group(st, co)
     key = f"{KEY}@{co['code']}"
     apply_page(f"{KEY}_{co['code']}", {
         'version': '1', 'mode': 'create',
@@ -487,6 +487,8 @@ def create(co):
 
 if __name__ == '__main__':
     for co in companies():
+        if KEY in CUSTOM_VALUATION.get(co['code'], {}).get('skip', ()):
+            continue                              # 定制估值页（build_valuation.py）已取代
         key = f"{KEY}@{co['code']}"
         if '--rebuild' in sys.argv:
             destroy_page(key)

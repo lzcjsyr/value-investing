@@ -1,0 +1,421 @@
+{
+ "version": "1",
+ "mode": "replace",
+ "target": {
+  "pageSchemaUid": "b5jxjekofs2"
+ },
+ "page": {
+  "title": "估值模型",
+  "documentTitle": "长江电力 · 估值模型",
+  "enableTabs": true
+ },
+ "defaults": {
+  "collections": {
+   "vi_model": {
+    "popups": {
+     "view": {
+      "name": "估值模型·详情",
+      "description": "查看一条「估值模型」记录"
+     },
+     "addNew": {
+      "name": "估值模型·新增",
+      "description": "新增一条「估值模型」记录"
+     },
+     "edit": {
+      "name": "估值模型·编辑",
+      "description": "编辑一条「估值模型」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/3）",
+      "fields": [
+       "name",
+       "status",
+       "method",
+       "base_year",
+       "terminal_year",
+       "shares",
+       "rf",
+       "rf_date",
+       "erp",
+       "opening_debt"
+      ]
+     },
+     {
+      "title": "基本信息（2/3）",
+      "fields": [
+       "margin_low",
+       "margin_high",
+       "notes",
+       "required_return",
+       "opening_op_assets",
+       "opening_lt_invest",
+       "opening_equity",
+       "opening_minority",
+       "primary_method",
+       "sotp_year"
+      ]
+     },
+     {
+      "title": "基本信息（3/3）",
+      "fields": [
+       "sotp_core_adj",
+       "sotp_as_of"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company",
+       "rf_metric"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "base_discount_rate",
+       "valuation_date",
+       "years_elapsed",
+       "latest_rf",
+       "latest_rf_date"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_company": {
+    "popups": {
+     "view": {
+      "name": "公司·详情",
+      "description": "查看一条「公司」记录"
+     },
+     "addNew": {
+      "name": "公司·新增",
+      "description": "新增一条「公司」记录"
+     },
+     "edit": {
+      "name": "公司·编辑",
+      "description": "编辑一条「公司」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "name",
+       "exchange",
+       "industry",
+       "currency",
+       "volume_label",
+       "volume_unit",
+       "price_label",
+       "price_unit",
+       "is_default"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "profile",
+       "notes"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "price_metric",
+       "price_fx_metric"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "latest_price",
+       "latest_price_date",
+       "latest_price_raw",
+       "latest_fx",
+       "macro_used"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_metric": {
+    "popups": {
+     "view": {
+      "name": "指标·详情",
+      "description": "查看一条「指标」记录"
+     },
+     "addNew": {
+      "name": "指标·新增",
+      "description": "新增一条「指标」记录"
+     },
+     "edit": {
+      "name": "指标·编辑",
+      "description": "编辑一条「指标」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息",
+      "fields": [
+       "code",
+       "name",
+       "unit",
+       "category",
+       "source_name",
+       "frequency",
+       "valid_min",
+       "valid_max",
+       "notes"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "obs_count",
+       "latest_value",
+       "latest_date",
+       "scope",
+       "used_by",
+       "used_by_codes"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "assets": {
+  "scripts": {
+   "view": {
+    "version": "v2",
+    "code": "const COMPANY = '600900.SH';   // 由 build_bizviews.py 写入：只看这家公司\nconst EDIT_TAB = '明细（编辑）';\nconst { React } = ctx.libs;\nconst { useState, useRef } = React;\nconst { Tooltip, Alert, Empty, theme } = ctx.libs.antd;\n\nasync function listRows(name, filter, appends, pageSize = 500) {\n  const resource = ctx.makeResource('MultiRecordResource');\n  resource.setResourceName(name);\n  resource.setPageSize?.(pageSize);\n  if (filter) resource.setFilter?.(filter);\n  if (appends) resource.setAppends?.(appends);\n  await resource.refresh();\n  return resource.getData() || [];\n}\n\n// 布局按页面实际可用宽度切换（不是窗口宽度）\nfunction useWidth(ref) {\n  const [w, setW] = useState(0);\n  React.useLayoutEffect(() => {\n    const el = ref.current;\n    if (!el) return undefined;\n    setW(el.getBoundingClientRect().width);\n    const RO = typeof window !== 'undefined' ? window.ResizeObserver : undefined;\n    if (!RO) return undefined;\n    const ro = new RO((es) => setW(es[0].contentRect.width));\n    ro.observe(el);\n    return () => ro.disconnect();\n  }, []);\n  return w;\n}\n\nconst usable = (s) => s !== null && s !== undefined && String(s).trim() !== '' && s !== '—';\nconst codeNum = (c) => Number(String(c || '').replace(/\\D/g, '')) || 0;\nconst byCode = (a, b) => codeNum(a.code) - codeNum(b.code) || String(a.code).localeCompare(String(b.code));\nconst head = (s) => String(s || '').split(/[：:]/)[0];\nconst short = (s, n = 16) => { const x = head(String(s || '').replace(/^伪壁垒[：:]\\s*/, '')).replace(/（[^）]*）/g, '').trim(); return x.length > n ? x.slice(0, n) + '…' : x; };\nconst clamp = (n) => ({ overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: n, WebkitBoxOrient: 'vertical', wordBreak: 'break-all' });\nconst REF_KIND = { V: '产业链', M: '壁垒', T: '论点', B: '商业模式', J: '假设依据', R: '风险', K: '跟踪事项', W: '跟踪事项' };\nconst REF_RE = /(?<![A-Za-z0-9-])(V\\d{1,2}|M\\d{1,2}|T\\d{1,2}|B\\d{1,2}|R\\d{1,2}|K\\d{1,2}|W\\d{1,2}|J-[A-Z0-9]+)(?![0-9])/g;\n\n// 设计约定：颜色只出现在圆点、色条这类标记上（表示状态），文字一律用正文色；\n// 字号三级：结论 22、卡片标题 15—16、正文 14；灰字只用于编号和辅助说明。\nfunction useUI() {\n  const { token: t } = theme.useToken();\n  const orange = t.orange6 || '#d46b08';\n  return {\n    t,\n    status: { 成立: t.colorSuccess, 观察: t.colorWarning, 存疑: orange, 证伪: t.colorError },\n    verdict: { 真实壁垒: t.colorSuccess, 局部优势: t.colorPrimary, 待验证: t.colorWarning, 伪壁垒: t.colorTextQuaternary },\n    level: { 重大: t.colorError, 重要: orange, 一般: t.colorTextQuaternary },\n    fs: {\n      h1: { fontSize: 22, fontWeight: 600, lineHeight: 1.45, color: t.colorTextHeading, margin: 0 },\n      h2: { fontSize: 20, fontWeight: 600, lineHeight: 1.45, color: t.colorTextHeading, margin: 0 },\n      title: { fontSize: 15, fontWeight: 600, lineHeight: 1.5, color: t.colorText },\n      body: { fontSize: 14, lineHeight: 1.75, color: t.colorText },\n      meta: { fontSize: 13, lineHeight: 1.6, color: t.colorTextSecondary },\n      code: { fontSize: 12, color: t.colorTextTertiary, fontVariantNumeric: 'tabular-nums', letterSpacing: 0.3 },\n    },\n  };\n}\n\nfunction Dot({ color, size = 8 }) {\n  const { t } = useUI();\n  return <span style={{ width: size, height: size, borderRadius: '50%', flex: 'none', display: 'inline-block', background: color || t.colorBorder }} />;\n}\n\n// 状态：色点＋文字（文字用正文色，不靠颜色单独表意）\nfunction Status({ label, color, size = 13, strong }) {\n  const { t } = useUI();\n  return (\n    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: size, color: t.colorText, fontWeight: strong ? 600 : 400, whiteSpace: 'nowrap' }}>\n      <Dot color={color} />{label}\n    </span>\n  );\n}\n\nfunction Tag({ children }) {\n  const { t } = useUI();\n  return <span style={{ fontSize: 12, lineHeight: '20px', padding: '0 7px', borderRadius: 4, background: t.colorFillTertiary, color: t.colorTextSecondary, whiteSpace: 'nowrap' }}>{children}</span>;\n}\n\nfunction Flag({ children }) {\n  const { t } = useUI();\n  return <span style={{ fontSize: 12, lineHeight: '20px', padding: '0 7px', borderRadius: 4, background: t.colorWarningBg, color: t.colorWarningText, whiteSpace: 'nowrap' }}>⚠ {children}</span>;\n}\n\n// 正文里的编号（V/M/T/B/R/K/J-）：悬停看标题\nfunction RefText({ text, refs }) {\n  const { t } = useUI();\n  if (!usable(text)) return null;\n  const parts = String(text).split(REF_RE);\n  return (\n    <>\n      {parts.map((p, i) => {\n        if (i % 2 === 0) return <React.Fragment key={i}>{p}</React.Fragment>;\n        const kind = p.startsWith('J-') ? 'J' : p[0];\n        const title = refs[p];\n        return (\n          <Tooltip key={i} title={title ? `${REF_KIND[kind]} ${p}：${title}` : `${REF_KIND[kind]} ${p}`}>\n            <span style={{ color: t.colorPrimary, cursor: 'help', borderBottom: `1px dashed ${t.colorPrimaryBorder}` }}>{p}</span>\n          </Tooltip>\n        );\n      })}\n    </>\n  );\n}\n\nfunction Label({ children }) {\n  const { t } = useUI();\n  return <div style={{ fontSize: 13, fontWeight: 600, color: t.colorTextHeading, marginBottom: 6 }}>{children}</div>;\n}\n\n// 详情里的一段：tone＝plain / pro（正方或证据，绿条）/ con（反方或反证，橙条）/ key（结论，浅底）\nfunction Section({ label, text, refs, tone = 'plain', children }) {\n  const { t, fs } = useUI();\n  if (!children && !usable(text)) return null;\n  const box = {\n    plain: {},\n    pro: { borderLeft: `3px solid ${t.colorSuccess}`, paddingLeft: 14 },\n    con: { borderLeft: `3px solid ${t.colorWarning}`, paddingLeft: 14 },\n    key: { background: t.colorFillQuaternary, borderRadius: 10, padding: '12px 16px' },\n  }[tone];\n  return (\n    <div style={box}>\n      <Label>{label}</Label>\n      {children || <p style={{ ...fs.body, fontSize: 14.5, lineHeight: 1.8, margin: 0, whiteSpace: 'pre-wrap' }}><RefText text={text} refs={refs} /></p>}\n    </div>\n  );\n}\n\nfunction Attrs({ items }) {\n  const { t } = useUI();\n  const xs = items.filter((x) => x);\n  return (\n    <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Math.min(xs.length, 4)}, minmax(0,1fr))`, gap: 16, padding: '14px 0',\n                  borderTop: `1px solid ${t.colorSplit}`, borderBottom: `1px solid ${t.colorSplit}` }}>\n      {xs.map(([k, v]) => (\n        <div key={k} style={{ minWidth: 0 }}>\n          <div style={{ fontSize: 12, color: t.colorTextSecondary, marginBottom: 4 }}>{k}</div>\n          <div style={{ fontSize: 15, fontWeight: 600, color: t.colorText }}>{v || '—'}</div>\n        </div>\n      ))}\n    </div>\n  );\n}\n\n// 关联到的记录：编号＋标题（＋状态）\nfunction LinkList({ label, items }) {\n  const { t, fs } = useUI();\n  if (!items || !items.length) return null;\n  return (\n    <div>\n      <Label>{label}</Label>\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>\n        {items.map((x, i) => (\n          <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'baseline' }}>\n            {x.code ? <span style={{ ...fs.code, flex: 'none', minWidth: 30 }}>{x.code}</span> : null}\n            <span style={{ ...fs.body, flex: 1, minWidth: 0 }}>{x.title}</span>\n            {x.tag ? <Status label={x.tag} color={x.color} /> : null}\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}\n\nfunction Facts({ facts }) {\n  const { fs } = useUI();\n  if (!facts || !facts.length) return null;\n  return (\n    <div>\n      <Label>依据事实</Label>\n      {facts.map((f) => (\n        <div key={f.id} style={{ ...fs.meta, paddingLeft: 14, position: 'relative' }}>\n          <span style={{ position: 'absolute', left: 2 }}>·</span>{f.title}\n        </div>\n      ))}\n    </div>\n  );\n}\n\n// 一排大数字：色点＋名称，数字是视觉重点\nfunction Stats({ items }) {\n  const { t } = useUI();\n  return (\n    <div style={{ display: 'flex', flexWrap: 'wrap', rowGap: 12 }}>\n      {items.map((x, i) => (\n        <div key={x.label} style={{ paddingRight: 28, marginRight: 28, borderRight: i < items.length - 1 ? `1px solid ${t.colorSplit}` : 'none', opacity: x.value ? 1 : 0.45 }}>\n          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: t.colorTextSecondary }}>{x.color ? <Dot color={x.color} /> : null}{x.label}</div>\n          <div style={{ fontSize: 28, fontWeight: 600, lineHeight: 1.25, color: t.colorTextHeading, fontVariantNumeric: 'tabular-nums' }}>\n            {x.value}<span style={{ fontSize: 14, fontWeight: 400, color: t.colorTextSecondary, marginLeft: 4 }}>{x.unit || ''}</span>\n          </div>\n        </div>\n      ))}\n    </div>\n  );\n}\n\n// 需要处理的事项，集中在一处（不在卡片里到处标橙色）\nfunction Notice({ items }) {\n  const { t, fs } = useUI();\n  if (!items || !items.length) return null;\n  return (\n    <div style={{ background: t.colorWarningBg, border: `1px solid ${t.colorWarningBorder}`, borderRadius: 10, padding: '12px 16px' }}>\n      <div style={{ ...fs.title, fontSize: 14, marginBottom: 4 }}>⚠ 需要处理</div>\n      {items.map((x, i) => <div key={i} style={{ ...fs.body, fontSize: 13.5, lineHeight: 1.7 }}>{x}</div>)}\n    </div>\n  );\n}\n\n// 卡片：白底细边；选中＝主色描边；muted＝弱化（例如伪壁垒）\nfunction Card({ selected, onClick, children, style, accent, muted }) {\n  const { t } = useUI();\n  const base = selected ? t.colorPrimary : t.colorBorderSecondary;\n  return (\n    <div onClick={onClick}\n         onMouseEnter={(e) => { if (!selected) e.currentTarget.style.borderColor = t.colorPrimaryBorderHover || t.colorPrimaryBorder; }}\n         onMouseLeave={(e) => { if (!selected) e.currentTarget.style.borderColor = base; }}\n         style={{ background: muted ? t.colorFillQuaternary : t.colorBgContainer, cursor: 'pointer', borderRadius: 12, minWidth: 0,\n                  border: `1px solid ${base}`, boxShadow: selected ? `0 0 0 3px ${t.colorPrimaryBg}` : '0 1px 2px rgba(0,0,0,0.03)',\n                  borderLeft: accent ? `4px solid ${accent}` : `1px solid ${base}`, transition: 'border-color .15s, box-shadow .15s', ...style }}>\n      {children}\n    </div>\n  );\n}\n\nfunction DetailHead({ meta, title, children }) {\n  const { fs } = useUI();\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>\n      <div style={fs.meta}>{meta}</div>\n      <h2 style={fs.h2}>{title}</h2>\n      {children}\n    </div>\n  );\n}\n\n// 页面骨架：小标题 → 一句话结论 → 大数字 → 需要处理 → 图（左）＋详情（右；不够宽时在图下方，选中后滚过去）\nfunction Shell({ eyebrow, headline, hint, stats, notice, main, detail, sel, detailWidth = 420, minSide = 1200 }) {\n  const { t, fs } = useUI();\n  const rootRef = useRef(null);\n  const detailRef = useRef(null);\n  const first = useRef(true);\n  const W = useWidth(rootRef);\n  const side = W >= minSide;\n  React.useEffect(() => {\n    if (first.current) { first.current = false; return; }\n    if (!side) detailRef.current?.scrollIntoView?.({ behavior: 'smooth', block: 'start' });\n  }, [sel]);\n  return (\n    <div ref={rootRef} style={{ maxWidth: 1480, margin: '0 auto', padding: '8px 8px 16px' }}>\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 24 }}>\n        <div style={{ ...fs.meta, fontWeight: 500 }}>{eyebrow}</div>\n        <h1 style={fs.h1}>{headline}</h1>\n        <div style={fs.meta}>{hint}　修改请切到“{EDIT_TAB}”标签。</div>\n      </div>\n      {stats || notice ? (\n        <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginBottom: 28 }}>{stats}{notice}</div>\n      ) : null}\n      <div style={{ display: 'grid', gridTemplateColumns: side ? `minmax(0,1fr) ${detailWidth}px` : '1fr', gap: side ? 36 : 28, alignItems: 'start' }}>\n        <div style={{ minWidth: 0 }}>{typeof main === 'function' ? main(W - (side ? detailWidth + 36 : 0)) : main}</div>\n        <div ref={detailRef} style={side ? { position: 'sticky', top: 12, borderLeft: `1px solid ${t.colorSplit}`, paddingLeft: 32 }\n                                         : { borderTop: `1px solid ${t.colorSplit}`, paddingTop: 28, maxWidth: 760 }}>\n          {detail}\n        </div>\n      </div>\n    </div>\n  );\n}\n\n// 所有编号 → 标题（正文里的引用悬停用）\nasync function loadRefs(scope) {\n  const [chain, moats, theses, biz, judgments, risks, watches] = await Promise.all([\n    listRows('vi_value_chain', scope), listRows('vi_moat', scope), listRows('vi_thesis', scope), listRows('vi_biz_model', scope),\n    listRows('vi_judgment', scope), listRows('vi_risk', scope), listRows('vi_watch', scope),\n  ]);\n  const refs = {};\n  chain.forEach((r) => { refs[r.code] = r.participant; });\n  moats.forEach((r) => { refs[r.code] = `${r.title}（${r.verdict || ''}）`; });\n  theses.forEach((r) => { refs[r.code] = `${r.title}${r.status ? '（' + r.status + '）' : ''}`; });\n  biz.forEach((r) => { refs[r.code] = `${r.element}：${r.title}`; });\n  judgments.forEach((r) => { refs[r.code] = r.title; });\n  risks.forEach((r) => { refs[r.code] = r.title; });\n  watches.forEach((r) => { refs[r.code] = r.title; });\n  return refs;\n}\n\nasync function boot(what, fn) {\n  try {\n    const cos = await listRows('vi_company', { code: { $eq: COMPANY } });\n    const company = cos[0];\n    if (!company) { ctx.render(<Alert type=\"info\" showIcon message={`公司表里没有代码为 ${COMPANY} 的公司`} />); return; }\n    await fn(company, { company_id: { $eq: company.id } });\n  } catch (error) {\n    ctx.render(<Alert type=\"error\" showIcon message={`${what}读取失败`} description={String(error?.message || error)} />);\n  }\n}\n\n// 模型参数：门槛与预测区间、折现率构成、期初资产负债、门槛依据；侧栏是模型说明\nconst pct = (v, d = 1) => (v === null || v === undefined || v === '' ? '—' : `${(Number(v) * 100).toFixed(d)}%`);\nconst num = (v, d = 2) => (v === null || v === undefined || v === '' ? '—' : Number(v).toLocaleString('zh-CN', { minimumFractionDigits: d, maximumFractionDigits: d }));\n\nfunction RateBar({ m }) {\n  const { t, fs } = useUI();\n  const rf = Number(m.rf || 0), erp = Number(m.erp || 0), req = Number(m.required_return || 0);\n  const max = Math.max(rf + erp, req) * 1.15 || 0.1;\n  const w = (v) => `${(v / max) * 100}%`;\n  return (\n    <div>\n      <div style={{ position: 'relative', height: 30, background: t.colorFillQuaternary, borderRadius: 8, overflow: 'visible' }}>\n        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: w(rf), background: t.colorPrimary, borderRadius: '8px 0 0 8px' }} />\n        <div style={{ position: 'absolute', left: w(rf), top: 0, bottom: 0, width: w(erp), background: t.colorPrimaryBorder, borderRadius: '0 8px 8px 0', borderLeft: `2px solid ${t.colorBgContainer}` }} />\n        {req ? <div style={{ position: 'absolute', left: w(req), top: -6, bottom: -6, borderLeft: `2px dashed ${t.colorText}` }} /> : null}\n      </div>\n      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 18, marginTop: 10 }}>\n        <Status label={`无风险利率 ${pct(rf, 2)}`} color={t.colorPrimary} />\n        <Status label={`风险溢价 ${pct(erp, 2)}`} color={t.colorPrimaryBorder} />\n        <span style={{ fontSize: 13, color: t.colorText }}>＝ 基准折现率 <b>{pct(m.base_discount_rate, 2)}</b></span>\n        {req ? <span style={{ fontSize: 13, color: t.colorText }}>┆ 门槛（要求收益率）<b>{pct(req)}</b></span> : null}\n      </div>\n      {m.latest_rf !== null && m.latest_rf !== undefined ? (\n        <div style={{ ...fs.meta, marginTop: 6 }}>无风险利率最新观察 {num(m.latest_rf, 2)}%（{m.latest_rf_date}）；模型里用的是 {m.rf_date || '—'} 的 {pct(rf, 2)}。</div>\n      ) : null}\n    </div>\n  );\n}\n\nfunction Balance({ m }) {\n  const { t, fs } = useUI();\n  const items = [['经营性长期资产', m.opening_op_assets, t.colorPrimary], ['长期股权投资', m.opening_lt_invest, t.colorPrimary],\n                 ['带息负债', m.opening_debt, '#eb6834'], ['归母权益', m.opening_equity, t.colorTextSecondary], ['少数股东权益', m.opening_minority, t.colorTextSecondary]]\n    .filter((x) => x[1] !== null && x[1] !== undefined);\n  if (!items.length) return null;\n  const max = Math.max(...items.map((x) => Number(x[1])));\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>\n      {items.map(([k, v, c]) => (\n        <div key={k} style={{ display: 'grid', gridTemplateColumns: '120px 1fr 96px', alignItems: 'center', gap: 12 }}>\n          <span style={{ fontSize: 13.5, color: t.colorText }}>{k}</span>\n          <div style={{ height: 10, background: t.colorFillQuaternary, borderRadius: 5 }}>\n            <div style={{ width: `${(Number(v) / max) * 100}%`, height: '100%', background: c, borderRadius: 5 }} />\n          </div>\n          <span style={{ fontSize: 14, fontWeight: 600, color: t.colorText, textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{num(v, 0)}<span style={{ ...fs.code, marginLeft: 3 }}>亿</span></span>\n        </div>\n      ))}\n    </div>\n  );\n}\n\nboot('估值模型', async (company, scope) => {\n  const [models, judgments, refs] = await Promise.all([listRows('vi_model', scope), listRows('vi_judgment', scope), loadRefs(scope)]);\n  models.sort((a, b) => (a.status === '当前' ? -1 : 0) - (b.status === '当前' ? -1 : 0) || a.id - b.id);\n  function Page() {\n    const { t, fs } = useUI();\n    const [sel, setSel] = useState(models[0]?.id);\n    if (!models.length) return <Empty description={`${company.name}还没有估值模型（切到“${EDIT_TAB}”标签新增）`} />;\n    const m = models.find((x) => x.id === sel) || models[0];\n    const hurdleJ = judgments.filter((j) => /要求收益率|门槛/.test(`${j.parameter || ''}${j.title || ''}`)).sort(byCode);\n    const headline = usable(m.method) ? String(m.method).split(/[；;。]/)[0] : m.name;\n    const span = m.base_year && m.terminal_year ? `${m.base_year} → ${m.terminal_year}` : '—';\n    const main = (\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>\n        {models.length > 1 ? (\n          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>\n            {models.map((x) => (\n              <Card key={x.id} selected={x.id === m.id} onClick={() => setSel(x.id)} style={{ padding: '8px 14px' }}>\n                <span style={{ fontSize: 14, color: t.colorText }}>{x.name}</span> <span style={fs.code}>{x.status || ''}</span>\n              </Card>\n            ))}\n          </div>\n        ) : null}\n        <div><Label>折现率构成（虚线是门槛）</Label><RateBar m={m} /></div>\n        <div><Label>期初资产负债（{m.base_year} 年末，亿元）</Label><Balance m={m} /></div>\n        <LinkList label=\"门槛的依据（假设依据）\" items={hurdleJ.map((j) => ({ code: j.code, title: j.title, tag: j.status }))} />\n        <Attrs items={[['主估值方法', m.primary_method || '—'], ['安全边际', m.margin_low !== null && m.margin_low !== undefined ? `${pct(m.margin_low, 0)} / ${pct(m.margin_high, 0)}` : '—'],\n                       ['分部加总核心年', m.sotp_year || '—'], ['状态', m.status || '—']]} />\n      </div>\n    );\n    return (\n      <Shell eyebrow={`${company.name} · 估值模型`} headline={headline} hint={`${m.name}。方法、门槛和期初数都在这里；逐年数字见“逐年假设”，情景见“情景”。`}\n             stats={<Stats items={[{ label: '门槛（要求收益率）', value: pct(m.required_return) }, { label: '预测区间', value: span },\n                                   { label: '股本', value: num(m.shares), unit: '亿股' }, { label: '估值日', value: m.valuation_date || '—' }]} />}\n             main={main} sel={sel} detailWidth={460}\n             detail={<div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>\n               <DetailHead meta=\"模型说明\" title={m.name} />\n               <Section label=\"方法\" text={m.method} refs={refs} tone=\"key\" />\n               <Section label=\"说明与来源\" text={m.notes} refs={refs} />\n             </div>} />\n    );\n  }\n  ctx.render(<Page />);\n});\n"
+   }
+  }
+ },
+ "tabs": [
+  {
+   "title": "模型参数",
+   "blocks": [
+    {
+     "key": "view",
+     "type": "jsBlock",
+     "script": "view"
+    }
+   ]
+  },
+  {
+   "title": "明细（编辑）",
+   "blocks": [
+    {
+     "key": "main",
+     "type": "table",
+     "collection": "vi_model",
+     "fields": [
+      "name",
+      "status",
+      "primary_method",
+      "required_return",
+      "base_year",
+      "terminal_year",
+      "shares",
+      "rf",
+      "erp",
+      "base_discount_rate",
+      "sotp_year",
+      "valuation_date"
+     ],
+     "settings": {
+      "title": "",
+      "description": "一家公司一版估值的基本参数；引用【指标】；被【情景】【分部估值项】【经营分部估值】【逐年假设】【单参数试验】【预测计算】【资产与资本】【估值结论】【分部加总估值】【敏感性：折现率×永续增长】【自动检查】引用。",
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "id",
+        "direction": "asc"
+       }
+      ],
+      "dataScope": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "company_id",
+         "operator": "$eq",
+         "value": 1
+        }
+       ]
+      }
+     },
+     "actions": [
+      "filter",
+      "refresh",
+      {
+       "type": "addNew",
+       "popup": {
+        "title": "新增 · 估值模型",
+        "blocks": [
+         {
+          "type": "createForm",
+          "resource": {
+           "collectionName": "vi_model"
+          },
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/3）",
+            "fields": [
+             "name",
+             "status",
+             "method",
+             "base_year",
+             "terminal_year",
+             "shares",
+             "rf",
+             "rf_date",
+             "erp",
+             "opening_debt"
+            ]
+           },
+           {
+            "title": "基本信息（2/3）",
+            "fields": [
+             "opening_op_assets",
+             "opening_lt_invest",
+             "opening_equity",
+             "opening_minority",
+             "required_return",
+             "margin_low",
+             "margin_high",
+             "notes",
+             "primary_method",
+             "sotp_year"
+            ]
+           },
+           {
+            "title": "基本信息（3/3）",
+            "fields": [
+             "sotp_core_adj",
+             "sotp_as_of"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             },
+             {
+              "field": "rf_metric",
+              "titleField": "name"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "bulkDelete"
+     ],
+     "recordActions": [
+      "view",
+      {
+       "type": "edit",
+       "popup": {
+        "title": "编辑 · 估值模型",
+        "blocks": [
+         {
+          "type": "editForm",
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/3）",
+            "fields": [
+             "name",
+             "status",
+             "method",
+             "base_year",
+             "terminal_year",
+             "shares",
+             "rf",
+             "rf_date",
+             "erp",
+             "opening_debt"
+            ]
+           },
+           {
+            "title": "基本信息（2/3）",
+            "fields": [
+             "opening_op_assets",
+             "opening_lt_invest",
+             "opening_equity",
+             "opening_minority",
+             "required_return",
+             "margin_low",
+             "margin_high",
+             "notes",
+             "primary_method",
+             "sotp_year"
+            ]
+           },
+           {
+            "title": "基本信息（3/3）",
+            "fields": [
+             "sotp_core_adj",
+             "sotp_as_of"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             },
+             {
+              "field": "rf_metric",
+              "titleField": "name"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "delete"
+     ]
+    }
+   ]
+  }
+ ]
+}

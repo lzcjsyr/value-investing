@@ -1,21 +1,21 @@
-"""“<公司> / 商业模式 / 产业链与五力”：一个页面两个标签。
+"""“<公司> / 商业模式 / 产业链与五力”：一个页面三个标签。
   · 五力图：经典五力布局（本公司与同业居中，上游、下游、潜在进入者、替代品的力量指向中心），点任一环节看分析；
-    下方常驻原生的“竞争对手”表格（与原竞争对手页相同的列与查看/编辑/新增/删除），用“关系”区分同业、进入者、替代品。
-  · 明细（编辑）：产业链环节的原生表格，在这里新增和修改 V1、V2……
+  · 产业链（编辑）：产业链环节的原生表格，在这里新增和修改 V1、V2……（V1 固定是本公司环节）；
+  · 竞争对手（编辑）：原生的竞争对手表格（与原竞争对手页相同的列与查看/编辑/新增/删除），用“关系”区分同业、进入者、替代品。
 数据全部来自 vi_value_chain、vi_competitor 等表，页面本身不存内容。建好后删除这家公司单独的“产业链与五力”表格页和“竞争对手”页
 （数据不受影响）；build_pages.py 对已有本页面的公司不再生成这两个表格页。
 
   python3 build_chainmap.py 600900.SH              # 给这家公司建页面（已建的跳过）
-  python3 build_chainmap.py 600900.SH --rebuild    # 删除后重建（改了下面的 JS 之后用）
+  python3 build_chainmap.py 600900.SH --replace    # 原地改写已建的页面（改了下面的 JS 或标签之后用，地址不变）
+  python3 build_chainmap.py 600900.SH --rebuild    # 删除后重建（地址会变）
 """
 import json, sys
-import subprocess
 import build_pages as bp
-from build_pages import state, companies, destroy_page, nb_json, ensure_group, company_root, routes, COMPANY_MENU, page_tree, ROOT
+from build_pages import state, companies, destroy_page, nb_json, ensure_group, company_root, routes, COMPANY_MENU
 from build_overview import apply_page, record
 
 TITLE, KEY = '产业链与五力', 'chainmap'
-MAP_TAB, EDIT_TAB = '五力图', '明细（编辑）'
+MAP_TAB, EDIT_TAB, COMP_TAB = '五力图', '产业链（编辑）', '竞争对手（编辑）'
 REPLACES = ('value_chain', 'competitor')      # 本页面取代的两个表格页（build_pages.py 据此跳过）
 
 JS = r"""const COMPANY = '__COMPANY__';   // 由 build_chainmap.py 写入：只看这家公司的产业链
@@ -350,7 +350,7 @@ function Detail({ n, refs, onSelect }) {
       {comps.length ? (
         <div style={{ fontSize: 13, color: token.colorTextSecondary }}>
           {label('相关对手')}
-          {comps.map((c) => c.name).join('、')}<span style={{ color: token.colorTextTertiary }}>（共 {comps.length} 家，见下方竞争对手表）</span>
+          {comps.map((c) => c.name).join('、')}<span style={{ color: token.colorTextTertiary }}>（共 {comps.length} 家，详见“__COMP__”标签）</span>
         </div>
       ) : null}
       {facts.length ? (
@@ -446,9 +446,6 @@ try {
               <Detail n={node} refs={refs} onSelect={setSel} />
             </div>
           </div>
-          <div style={{ marginTop: 28, paddingTop: 14, borderTop: `1px solid ${token.colorSplit}`, fontSize: 13, color: token.colorTextSecondary }}>
-            ↓ 下方是这家公司的全部竞争对手，按“关系”区分同业对标、潜在进入者、替代品等；可直接查看、编辑、新增。
-          </div>
         </div>
       );
     }
@@ -487,82 +484,40 @@ def sort_group(gid):
 
 
 def js_code(co):
-    return JS.replace('__COMPANY__', co['code']).replace('__TABLE__', EDIT_TAB)
+    return JS.replace('__COMPANY__', co['code']).replace('__TABLE__', EDIT_TAB).replace('__COMP__', COMP_TAB)
 
 
-def find_uid(tree, use):
-    if isinstance(tree, dict):
-        if tree.get('use') == use:
-            return tree.get('uid')
-        for v in tree.values():
-            hit = find_uid(v, use)
-            if hit:
-                return hit
-    elif isinstance(tree, list):
-        for v in tree:
-            hit = find_uid(v, use)
-            if hit:
-                return hit
-    return None
+def body(co, gid):
+    """三个标签各一个区块；两张原生表格复用 build_pages.blueprint：与原来的表格页完全相同的列、弹窗与新增/编辑表单。"""
+    comp = bp.blueprint('competitor', '竞争对手', gid, co)
+    chain = bp.blueprint('value_chain', TITLE, gid, co)
+    return {
+        'page': {'title': TITLE, 'documentTitle': f"{co['name']} · {TITLE}", 'enableTabs': True},
+        'defaults': {'collections': comp['defaults']['collections'] | chain['defaults']['collections']},
+        'assets': {'scripts': {KEY: {'version': 'v2', 'code': js_code(co)}}},
+        'tabs': [{'title': MAP_TAB, 'blocks': [{'type': 'jsBlock', 'script': KEY}]},
+                 {'title': EDIT_TAB, 'blocks': [dict(chain['tabs'][0]['blocks'][0], key='chain')]},
+                 {'title': COMP_TAB, 'blocks': [dict(comp['tabs'][0]['blocks'][0], key='competitors')]}]}
 
 
 def create(co):
     gid = group_id(co)
-    # 两张原生表格复用 build_pages.blueprint：与原来的表格页完全相同的列、弹窗与新增/编辑表单
-    comp = bp.blueprint('competitor', '竞争对手', gid, co)
-    chain = bp.blueprint('value_chain', TITLE, gid, co)
-    table = dict(comp['tabs'][0]['blocks'][0], key='competitors', title='竞争对手')
-    detail = dict(chain['tabs'][0]['blocks'][0], key='chain')
-    defaults = {'collections': comp['defaults']['collections'] | chain['defaults']['collections']}
-    apply_page(f"{KEY}_{co['code']}", {
-        'version': '1', 'mode': 'create',
-        'navigation': {'group': {'routeId': gid}, 'item': {'title': TITLE, 'icon': 'ApartmentOutlined'}},
-        'page': {'title': TITLE, 'documentTitle': f"{co['name']} · {TITLE}"},
-        'defaults': defaults,
-        'assets': {'scripts': {KEY: {'version': 'v2', 'code': js_code(co)}}},
-        # 蓝图不允许“一行一个区块”，先并排建好，再用 set-layout 改成同一列上下叠放（图在上、表在下，都占满宽度）
-        'tabs': [{'title': MAP_TAB, 'layout': {'rows': [[{'key': KEY, 'span': 12}, {'key': 'competitors', 'span': 12}]]},
-                  'blocks': [{'key': KEY, 'type': 'jsBlock', 'script': KEY}, table]},
-                 {'title': EDIT_TAB, 'blocks': [detail]}]})
-    key = f"{KEY}@{co['code']}"
-    record(key, gid, TITLE)
+    apply_page(f"{KEY}_{co['code']}", {'version': '1', 'mode': 'create',
+                                       'navigation': {'group': {'routeId': gid}, 'item': {'title': TITLE, 'icon': 'ApartmentOutlined'}},
+                                       **body(co, gid)})
+    record(f"{KEY}@{co['code']}", gid, TITLE)
     drop_replaced_pages(co)
     sort_group(gid)
-    # 第二步：改成同一列上下叠放
-    tree = page_tree(key)['tree']
-    js_uid = find_uid(tree, 'JSBlockModel')
-    grid_uid, siblings = parent_grid(tree, js_uid)
-    table_uid = next(i['uid'] for i in siblings if i.get('use') == 'TableBlockModel')   # 第一个标签里与 JS 同列的竞争对手表
-    flow('set-layout', 'layout', {'target': {'uid': grid_uid}, 'rows': {'row1': [[js_uid, table_uid]]}, 'sizes': {'row1': [24]}}, co)
-    print('五力图在上、竞争对手表在下')
 
 
-def flow(action, tag, body, co):
-    path = bp.HERE / 'blueprints' / f"{KEY}_{co['code']}_{tag}.json"
-    path.write_text(json.dumps(body, ensure_ascii=False, indent=1))
-    r = subprocess.run(['nb', 'api', 'flow-surfaces', action, '--body-file', str(path), '-j'], capture_output=True, text=True, cwd=ROOT)
-    if r.returncode:
-        print(action, (r.stdout + r.stderr)[-1500:]); sys.exit(1)
+def replace(co):
+    """原地改写已建的页面：标签按顺序覆盖，多出来的追加、少了的删掉；页面地址不变。"""
+    uid = state()['pages'][f"{KEY}@{co['code']}"]['pageSchemaUid']
+    with bp.no_field_desc(REPLACES):
+        apply_page(f"{KEY}_{co['code']}", {'version': '1', 'mode': 'replace', 'target': {'pageSchemaUid': uid}, **body(co, group_id(co))})
+    bp.order_tabs(f"{KEY}@{co['code']}", [MAP_TAB, EDIT_TAB, COMP_TAB])
+    print(co['name'], TITLE, '：', ' ｜ '.join([MAP_TAB, EDIT_TAB, COMP_TAB]))
 
-
-def parent_grid(tree, child_uid):
-    """包含某个区块的网格（tab 下的 BlockGridModel）及其全部区块。"""
-    def walk(x):
-        if isinstance(x, dict):
-            items = (x.get('subModels') or {}).get('items')
-            if isinstance(items, list) and any(isinstance(i, dict) and i.get('uid') == child_uid for i in items):
-                return x.get('uid'), items
-            for v in x.values():
-                hit = walk(v)
-                if hit:
-                    return hit
-        elif isinstance(x, list):
-            for v in x:
-                hit = walk(v)
-                if hit:
-                    return hit
-        return None
-    return walk(tree)
 
 if __name__ == '__main__':
     want = {a for a in sys.argv[1:] if not a.startswith('--')}
@@ -570,6 +525,8 @@ if __name__ == '__main__':
         if co['code'] not in want:
             continue
         key = f"{KEY}@{co['code']}"
+        if '--replace' in sys.argv and key in state()['pages']:
+            replace(co); continue
         if '--rebuild' in sys.argv:
             destroy_page(key)
         if key not in state()['pages']:

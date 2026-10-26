@@ -1,0 +1,304 @@
+{
+  "data": {
+    "target": {
+      "target": {
+        "uid": "yqqo8i4ffx3"
+      },
+      "uid": "yqqo8i4ffx3",
+      "kind": "node",
+      "node": {
+        "parentId": "0kyhd43894t",
+        "subKey": "columns",
+        "subType": "array",
+        "use": "TableColumnModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "vi_moat",
+              "fieldPath": "debate_count"
+            }
+          },
+          "__flowSurfaceMeta": {
+            "declaredKey": "竞争壁垒.main.debate_count"
+          }
+        },
+        "uid": "yqqo8i4ffx3",
+        "subModels": {
+          "field": {
+            "use": "DisplayNumberFieldModel",
+            "props": {},
+            "stepParams": {
+              "fieldSettings": {
+                "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_moat",
+                  "fieldPath": "debate_count"
+                }
+              },
+              "__flowSurfaceMeta": {
+                "declaredKey": "竞争壁垒.main.debate_count.field"
+              }
+            },
+            "subKey": "field",
+            "subType": "object",
+            "uid": "mcc2gtdxh5w",
+            "parent": "yqqo8i4ffx3",
+            "parentId": "yqqo8i4ffx3",
+            "sortIndex": 1
+          }
+        },
+        "parent": "0kyhd43894t"
+      },
+      "route": null,
+      "pageRoute": null,
+      "tabRoute": null
+    },
+    "scenario": {
+      "surfaceKind": "node"
+    },
+    "selectedSections": [
+      "node"
+    ],
+    "node": {
+      "editableDomains": [
+        "props",
+        "stepParams",
+        "flowRegistry"
+      ],
+      "configureOptions": {
+        "label": {
+          "type": "string",
+          "description": "Column title alias. It maps to title under table.",
+          "example": "Nickname"
+        },
+        "title": {
+          "type": "string",
+          "description": "Column title",
+          "example": "Nickname"
+        },
+        "tooltip": {
+          "type": "string",
+          "description": "Tooltip"
+        },
+        "width": {
+          "type": "number",
+          "description": "Column width",
+          "example": 240
+        },
+        "fixed": {
+          "type": "string",
+          "description": "Fixed position",
+          "example": "left"
+        },
+        "sorter": {
+          "type": "boolean",
+          "description": "Whether sortable",
+          "example": true
+        },
+        "fieldPath": {
+          "type": "string",
+          "description": "Field path",
+          "example": "nickname"
+        },
+        "associationPathName": {
+          "type": "string",
+          "description": "Association path",
+          "example": "roles"
+        },
+        "editable": {
+          "type": "boolean",
+          "description": "Whether editable",
+          "example": false
+        },
+        "dataIndex": {
+          "type": "string",
+          "description": "Data index"
+        },
+        "titleField": {
+          "type": "string",
+          "description": "Association display title field",
+          "example": "title"
+        },
+        "fieldType": {
+          "type": "string",
+          "description": "Public relation field presentation type",
+          "enum": [],
+          "example": "popupSubTable"
+        },
+        "fields": {
+          "type": "array",
+          "description": "Relation target fields",
+          "example": [
+            "title",
+            "name"
+          ]
+        },
+        "openMode": {
+          "type": "string",
+          "description": "Popup open mode",
+          "example": "drawer"
+        },
+        "popupSize": {
+          "type": "string",
+          "description": "Popup size",
+          "example": "medium"
+        },
+        "pageSize": {
+          "type": "number",
+          "description": "Page size",
+          "example": 10
+        },
+        "showIndex": {
+          "type": "boolean",
+          "description": "Whether to show index",
+          "example": true
+        },
+        "clickToOpen": {
+          "type": "boolean",
+          "description": "Whether clicking can open details",
+          "example": true
+        },
+        "openView": {
+          "type": "object",
+          "description": "Popup or drawer open configuration",
+          "example": {
+            "dataSourceKey": "main",
+            "collectionName": "roles",
+            "mode": "drawer"
+          }
+        },
+        "code": {
+          "type": "string",
+          "description": "JS code",
+          "example": "return value?.toUpperCase?.() || value;"
+        },
+        "version": {
+          "type": "string",
+          "description": "JS code version",
+          "example": "v2"
+        }
+      },
+      "relation": {
+        "fieldTypes": [],
+        "current": {},
+        "defaults": {},
+        "candidates": [],
+        "configureOptions": {
+          "label": {
+            "type": "string",
+            "description": "Column title alias. It maps to title under table.",
+            "example": "Nickname"
+          },
+          "title": {
+            "type": "string",
+            "description": "Column title",
+            "example": "Nickname"
+          },
+          "tooltip": {
+            "type": "string",
+            "description": "Tooltip"
+          },
+          "width": {
+            "type": "number",
+            "description": "Column width",
+            "example": 240
+          },
+          "fixed": {
+            "type": "string",
+            "description": "Fixed position",
+            "example": "left"
+          },
+          "sorter": {
+            "type": "boolean",
+            "description": "Whether sortable",
+            "example": true
+          },
+          "fieldPath": {
+            "type": "string",
+            "description": "Field path",
+            "example": "nickname"
+          },
+          "associationPathName": {
+            "type": "string",
+            "description": "Association path",
+            "example": "roles"
+          },
+          "editable": {
+            "type": "boolean",
+            "description": "Whether editable",
+            "example": false
+          },
+          "dataIndex": {
+            "type": "string",
+            "description": "Data index"
+          },
+          "titleField": {
+            "type": "string",
+            "description": "Association display title field",
+            "example": "title"
+          },
+          "fieldType": {
+            "type": "string",
+            "description": "Public relation field presentation type",
+            "enum": [],
+            "example": "popupSubTable"
+          },
+          "fields": {
+            "type": "array",
+            "description": "Relation target fields",
+            "example": [
+              "title",
+              "name"
+            ]
+          },
+          "openMode": {
+            "type": "string",
+            "description": "Popup open mode",
+            "example": "drawer"
+          },
+          "popupSize": {
+            "type": "string",
+            "description": "Popup size",
+            "example": "medium"
+          },
+          "pageSize": {
+            "type": "number",
+            "description": "Page size",
+            "example": 10
+          },
+          "showIndex": {
+            "type": "boolean",
+            "description": "Whether to show index",
+            "example": true
+          },
+          "clickToOpen": {
+            "type": "boolean",
+            "description": "Whether clicking can open details",
+            "example": true
+          },
+          "openView": {
+            "type": "object",
+            "description": "Popup or drawer open configuration",
+            "example": {
+              "dataSourceKey": "main",
+              "collectionName": "roles",
+              "mode": "drawer"
+            }
+          },
+          "code": {
+            "type": "string",
+            "description": "JS code",
+            "example": "return value?.toUpperCase?.() || value;"
+          },
+          "version": {
+            "type": "string",
+            "description": "JS code version",
+            "example": "v2"
+          }
+        }
+      }
+    }
+  }
+}

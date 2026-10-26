@@ -1,34 +1,25 @@
 {
  "version": "1",
- "mode": "create",
- "navigation": {
-  "group": {
-   "routeId": 393657447350272
-  },
-  "item": {
-   "title": "参数判断",
-   "icon": "TableOutlined"
-  }
- },
+ "mode": "replace",
  "page": {
-  "title": "参数判断",
-  "documentTitle": "小米集团 · 参数判断"
+  "title": "假设依据",
+  "documentTitle": "小米集团 · 假设依据"
  },
  "defaults": {
   "collections": {
    "vi_judgment": {
     "popups": {
      "view": {
-      "name": "参数判断·详情",
-      "description": "查看一条「参数判断」记录"
+      "name": "假设依据·详情",
+      "description": "查看一条「假设依据」记录"
      },
      "addNew": {
-      "name": "参数判断·新增",
-      "description": "新增一条「参数判断」记录"
+      "name": "假设依据·新增",
+      "description": "新增一条「假设依据」记录"
      },
      "edit": {
-      "name": "参数判断·编辑",
-      "description": "编辑一条「参数判断」记录"
+      "name": "假设依据·编辑",
+      "description": "编辑一条「假设依据」记录"
      }
     },
     "fieldGroups": [
@@ -65,7 +56,23 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "fact_layer": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "transmission": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    },
    "vi_company": {
     "popups": {
@@ -118,7 +125,8 @@
        "latest_price",
        "latest_price_date",
        "latest_price_raw",
-       "latest_fx"
+       "latest_fx",
+       "macro_used"
       ]
      },
      {
@@ -127,21 +135,69 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "currency": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "volume_label": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "volume_unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "price_label": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "price_unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "is_default": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_price": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_price_raw": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_fx": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "macro_used": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    },
    "vi_fact": {
     "popups": {
      "view": {
-      "name": "事实卡·详情",
-      "description": "查看一条「事实卡」记录"
+      "name": "事实摘录·详情",
+      "description": "查看一条「事实摘录」记录"
      },
      "addNew": {
-      "name": "事实卡·新增",
-      "description": "新增一条「事实卡」记录"
+      "name": "事实摘录·新增",
+      "description": "新增一条「事实摘录」记录"
      },
      "edit": {
-      "name": "事实卡·编辑",
-      "description": "编辑一条「事实卡」记录"
+      "name": "事实摘录·编辑",
+      "description": "编辑一条「事实摘录」记录"
      }
     },
     "fieldGroups": [
@@ -163,7 +219,8 @@
       "title": "关联",
       "fields": [
        "company",
-       "source"
+       "source",
+       "metric"
       ]
      },
      {
@@ -172,21 +229,37 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "title": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "value": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "period": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    },
    "vi_thesis": {
     "popups": {
      "view": {
-      "name": "论点与辩论·详情",
-      "description": "查看一条「论点与辩论」记录"
+      "name": "核心论点·详情",
+      "description": "查看一条「核心论点」记录"
      },
      "addNew": {
-      "name": "论点与辩论·新增",
-      "description": "新增一条「论点与辩论」记录"
+      "name": "核心论点·新增",
+      "description": "新增一条「核心论点」记录"
      },
      "edit": {
-      "name": "论点与辩论·编辑",
-      "description": "编辑一条「论点与辩论」记录"
+      "name": "核心论点·编辑",
+      "description": "编辑一条「核心论点」记录"
      }
     },
     "fieldGroups": [
@@ -197,26 +270,26 @@
        "title",
        "category",
        "status",
-       "check_metric",
-       "check_op",
-       "check_threshold",
-       "check_years",
        "confidence",
-       "bull_case"
+       "bull_case",
+       "bear_case",
+       "bull_rebuttal",
+       "bear_rebuttal",
+       "verdict"
       ]
      },
      {
       "title": "基本信息（2/2）",
       "fields": [
-       "bear_case",
-       "bull_rebuttal",
-       "bear_rebuttal",
-       "verdict",
        "decisive_evidence",
        "mind_changer",
        "model_impact",
        "external_view",
-       "debated_on"
+       "debated_on",
+       "check_metric",
+       "check_op",
+       "check_threshold",
+       "check_years"
       ]
      },
      {
@@ -230,7 +303,8 @@
       "fields": [
        "check_latest_year",
        "check_latest_value",
-       "check_result"
+       "check_result",
+       "judgment_status"
       ]
      },
      {
@@ -239,28 +313,112 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "title": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "category": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "status": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "bull_case": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "bear_case": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "decisive_evidence": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "mind_changer": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "model_impact": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "external_view": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "check_metric": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "check_threshold": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "check_years": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "check_result": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "judgment_status": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    }
   }
  },
  "tabs": [
   {
-   "title": "参数判断",
+   "title": "假设依据",
    "blocks": [
     {
      "key": "main",
      "type": "table",
      "collection": "vi_judgment",
      "fields": [
-      "code",
-      "title",
-      "parameter",
-      "status",
+      {
+       "field": "code",
+       "settings": {
+        "width": 100
+       }
+      },
+      {
+       "field": "title",
+       "settings": {
+        "width": 280
+       }
+      },
+      {
+       "field": "parameter",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "status",
+       "settings": {
+        "width": 140
+       }
+      },
       {
        "field": "theses",
        "titleField": "title",
        "popup": {
-        "title": "论点与辩论",
+        "title": "核心论点",
         "blocks": [
          {
           "type": "details",
@@ -278,13 +436,16 @@
           ]
          }
         ]
+       },
+       "settings": {
+        "width": 200
        }
       },
       {
        "field": "facts",
        "titleField": "title",
        "popup": {
-        "title": "事实卡",
+        "title": "事实摘录",
         "blocks": [
          {
           "type": "details",
@@ -302,10 +463,15 @@
           ]
          }
         ]
+       },
+       "settings": {
+        "width": 200
        }
       }
      ],
      "settings": {
+      "title": "",
+      "description": "每个估值参数为什么这样设；引用【事实摘录】【核心论点】；被【风险分析】【逐年假设】【单参数试验】【跟踪事项】引用。",
       "pageSize": 50,
       "sorting": [
        {
@@ -322,7 +488,8 @@
          "value": 21
         }
        ]
-      }
+      },
+      "density": "middle"
      },
      "actions": [
       "filter",
@@ -330,7 +497,7 @@
       {
        "type": "addNew",
        "popup": {
-        "title": "新增 · 参数判断",
+        "title": "新增 · 假设依据",
         "blocks": [
          {
           "type": "createForm",
@@ -391,7 +558,7 @@
       {
        "type": "edit",
        "popup": {
-        "title": "编辑 · 参数判断",
+        "title": "编辑 · 假设依据",
         "blocks": [
          {
           "type": "editForm",
@@ -447,5 +614,8 @@
     }
    ]
   }
- ]
+ ],
+ "target": {
+  "pageSchemaUid": "j3k85eaw2nw"
+ }
 }

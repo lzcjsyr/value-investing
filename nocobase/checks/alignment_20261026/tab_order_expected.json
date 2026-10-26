@@ -1,0 +1,637 @@
+[
+  {
+    "routeId": 393693719691264,
+    "key": "dashboard",
+    "titles": [
+      "驾驶舱"
+    ]
+  },
+  {
+    "routeId": 393657216663552,
+    "key": "biz_model",
+    "titles": [
+      "画布",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 393657225052160,
+    "key": "chainmap",
+    "titles": [
+      "五力图",
+      "产业链（编辑）",
+      "竞争对手（编辑）"
+    ]
+  },
+  {
+    "routeId": 393850186039296,
+    "key": "moat",
+    "titles": [
+      "壁垒图",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 394097944100864,
+    "key": "risk",
+    "titles": [
+      "风险矩阵",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 393657256509440,
+    "key": "fit_score",
+    "titles": [
+      "评分",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 393850529972224,
+    "key": "thesis",
+    "titles": [
+      "论点图",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 394093600899072,
+    "key": "fin_history",
+    "titles": [
+      "历史年度"
+    ]
+  },
+  {
+    "routeId": 394099225460736,
+    "key": "assume",
+    "titles": [
+      "财务模型",
+      "逐年假设（编辑）"
+    ]
+  },
+  {
+    "routeId": 394098726338560,
+    "key": "val",
+    "titles": [
+      "回报与门槛"
+    ]
+  },
+  {
+    "routeId": 393657264898048,
+    "key": "judgment",
+    "titles": [
+      "假设依据"
+    ]
+  },
+  {
+    "routeId": 393534521671680,
+    "key": "model",
+    "titles": [
+      "模型参数",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 393571546955776,
+    "key": "scenario",
+    "titles": [
+      "情景对比",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 394093145817088,
+    "key": "observation",
+    "titles": [
+      "公司披露",
+      "自动采集"
+    ]
+  },
+  {
+    "routeId": 394029535526912,
+    "key": "finstmt",
+    "titles": [
+      "财务数据"
+    ]
+  },
+  {
+    "routeId": 393657275383808,
+    "key": "fact",
+    "titles": [
+      "事实摘录"
+    ]
+  },
+  {
+    "routeId": 393657283772416,
+    "key": "source",
+    "titles": [
+      "来源文档"
+    ]
+  },
+  {
+    "routeId": 393441621704704,
+    "key": "check",
+    "titles": [
+      "自动检查"
+    ]
+  },
+  {
+    "routeId": 393441640579072,
+    "key": "issue",
+    "titles": [
+      "问题清单"
+    ]
+  },
+  {
+    "routeId": 393441646870528,
+    "key": "watch",
+    "titles": [
+      "跟踪事项"
+    ]
+  },
+  {
+    "routeId": 393441657356288,
+    "key": "change_log",
+    "titles": [
+      "变更日志"
+    ]
+  },
+  {
+    "routeId": 393693759537152,
+    "key": "dashboard",
+    "titles": [
+      "驾驶舱"
+    ]
+  },
+  {
+    "routeId": 393657294258176,
+    "key": "biz_model",
+    "titles": [
+      "画布",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 393657300549632,
+    "key": "chainmap",
+    "titles": [
+      "五力图",
+      "产业链（编辑）",
+      "竞争对手（编辑）"
+    ]
+  },
+  {
+    "routeId": 393850194427904,
+    "key": "moat",
+    "titles": [
+      "壁垒图",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 394099735068672,
+    "key": "risk",
+    "titles": [
+      "风险矩阵",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 393657332006912,
+    "key": "fit_score",
+    "titles": [
+      "评分",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 393850538360832,
+    "key": "thesis",
+    "titles": [
+      "论点图",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 394093609287680,
+    "key": "fin_history",
+    "titles": [
+      "历史年度"
+    ]
+  },
+  {
+    "routeId": 393515621810176,
+    "key": "assume",
+    "titles": [
+      "财务模型",
+      "逐年假设（编辑）"
+    ]
+  },
+  {
+    "routeId": 394099936395264,
+    "key": "val",
+    "titles": [
+      "回报与门槛"
+    ]
+  },
+  {
+    "routeId": 393657340395520,
+    "key": "judgment",
+    "titles": [
+      "假设依据"
+    ]
+  },
+  {
+    "routeId": 393534530060288,
+    "key": "model",
+    "titles": [
+      "模型参数",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 393571555344384,
+    "key": "scenario",
+    "titles": [
+      "情景对比",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 394093160497152,
+    "key": "observation",
+    "titles": [
+      "公司披露",
+      "自动采集"
+    ]
+  },
+  {
+    "routeId": 394029541818368,
+    "key": "finstmt",
+    "titles": [
+      "财务数据"
+    ]
+  },
+  {
+    "routeId": 393657352978432,
+    "key": "fact",
+    "titles": [
+      "事实摘录"
+    ]
+  },
+  {
+    "routeId": 393657361367040,
+    "key": "source",
+    "titles": [
+      "来源文档"
+    ]
+  },
+  {
+    "routeId": 393515521146880,
+    "key": "check",
+    "titles": [
+      "自动检查"
+    ]
+  },
+  {
+    "routeId": 393515540021248,
+    "key": "issue",
+    "titles": [
+      "问题清单"
+    ]
+  },
+  {
+    "routeId": 393515550507008,
+    "key": "watch",
+    "titles": [
+      "跟踪事项"
+    ]
+  },
+  {
+    "routeId": 393515558895616,
+    "key": "change_log",
+    "titles": [
+      "变更日志"
+    ]
+  },
+  {
+    "routeId": 393693795188736,
+    "key": "dashboard",
+    "titles": [
+      "驾驶舱"
+    ]
+  },
+  {
+    "routeId": 393657371852800,
+    "key": "biz_model",
+    "titles": [
+      "画布",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 393657378144256,
+    "key": "chainmap",
+    "titles": [
+      "五力图",
+      "产业链（编辑）",
+      "竞争对手（编辑）"
+    ]
+  },
+  {
+    "routeId": 393850200719360,
+    "key": "moat",
+    "titles": [
+      "壁垒图",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 394100250968064,
+    "key": "risk",
+    "titles": [
+      "风险矩阵",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 393657409601536,
+    "key": "fit_score",
+    "titles": [
+      "评分",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 393850544652288,
+    "key": "thesis",
+    "titles": [
+      "论点图",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 394093619773440,
+    "key": "fin_history",
+    "titles": [
+      "历史年度"
+    ]
+  },
+  {
+    "routeId": 393524955709440,
+    "key": "assume",
+    "titles": [
+      "财务模型",
+      "逐年假设（编辑）"
+    ]
+  },
+  {
+    "routeId": 394100443906048,
+    "key": "val",
+    "titles": [
+      "分部估值",
+      "资产项目（编辑）"
+    ]
+  },
+  {
+    "routeId": 393657417990144,
+    "key": "judgment",
+    "titles": [
+      "假设依据"
+    ]
+  },
+  {
+    "routeId": 393534536351744,
+    "key": "model",
+    "titles": [
+      "模型参数",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 393571561635840,
+    "key": "scenario",
+    "titles": [
+      "情景对比",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 394093175177216,
+    "key": "observation",
+    "titles": [
+      "公司披露",
+      "自动采集"
+    ]
+  },
+  {
+    "routeId": 394029550206976,
+    "key": "finstmt",
+    "titles": [
+      "财务数据"
+    ]
+  },
+  {
+    "routeId": 393657428475904,
+    "key": "fact",
+    "titles": [
+      "事实摘录"
+    ]
+  },
+  {
+    "routeId": 393657438961664,
+    "key": "source",
+    "titles": [
+      "来源文档"
+    ]
+  },
+  {
+    "routeId": 393524704051200,
+    "key": "check",
+    "titles": [
+      "自动检查"
+    ]
+  },
+  {
+    "routeId": 393524722925568,
+    "key": "issue",
+    "titles": [
+      "问题清单"
+    ]
+  },
+  {
+    "routeId": 393524733411328,
+    "key": "watch",
+    "titles": [
+      "跟踪事项"
+    ]
+  },
+  {
+    "routeId": 393524743897088,
+    "key": "change_log",
+    "titles": [
+      "变更日志"
+    ]
+  },
+  {
+    "routeId": 393693824548864,
+    "key": "dashboard",
+    "titles": [
+      "驾驶舱"
+    ]
+  },
+  {
+    "routeId": 393657449447424,
+    "key": "biz_model",
+    "titles": [
+      "画布",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 393657455738880,
+    "key": "chainmap",
+    "titles": [
+      "五力图",
+      "产业链（编辑）",
+      "竞争对手（编辑）"
+    ]
+  },
+  {
+    "routeId": 393850209107968,
+    "key": "moat",
+    "titles": [
+      "壁垒图",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 394100775256064,
+    "key": "risk",
+    "titles": [
+      "风险矩阵",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 393657487196160,
+    "key": "fit_score",
+    "titles": [
+      "评分",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 393850550943744,
+    "key": "thesis",
+    "titles": [
+      "论点图",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 394093628162048,
+    "key": "fin_history",
+    "titles": [
+      "历史年度"
+    ]
+  },
+  {
+    "routeId": 393571721019392,
+    "key": "assume",
+    "titles": [
+      "财务模型",
+      "逐年假设（编辑）"
+    ]
+  },
+  {
+    "routeId": 394100953513984,
+    "key": "val",
+    "titles": [
+      "分部估值",
+      "经营分部（编辑）",
+      "资产项目（编辑）"
+    ]
+  },
+  {
+    "routeId": 393657497681920,
+    "key": "judgment",
+    "titles": [
+      "假设依据"
+    ]
+  },
+  {
+    "routeId": 393571033153536,
+    "key": "model",
+    "titles": [
+      "模型参数",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 393571570024448,
+    "key": "scenario",
+    "titles": [
+      "情景对比",
+      "明细（编辑）"
+    ]
+  },
+  {
+    "routeId": 394093187760128,
+    "key": "observation",
+    "titles": [
+      "公司披露",
+      "自动采集"
+    ]
+  },
+  {
+    "routeId": 394029558595584,
+    "key": "finstmt",
+    "titles": [
+      "财务数据"
+    ]
+  },
+  {
+    "routeId": 393657508167680,
+    "key": "fact",
+    "titles": [
+      "事实摘录"
+    ]
+  },
+  {
+    "routeId": 393657516556288,
+    "key": "source",
+    "titles": [
+      "来源文档"
+    ]
+  },
+  {
+    "routeId": 393571138011136,
+    "key": "check",
+    "titles": [
+      "自动检查"
+    ]
+  },
+  {
+    "routeId": 393571158982656,
+    "key": "issue",
+    "titles": [
+      "问题清单"
+    ]
+  },
+  {
+    "routeId": 393571167371264,
+    "key": "watch",
+    "titles": [
+      "跟踪事项"
+    ]
+  },
+  {
+    "routeId": 393571177857024,
+    "key": "change_log",
+    "titles": [
+      "变更日志"
+    ]
+  }
+]

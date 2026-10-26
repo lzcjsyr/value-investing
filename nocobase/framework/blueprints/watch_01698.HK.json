@@ -1,15 +1,6 @@
 {
  "version": "1",
- "mode": "create",
- "navigation": {
-  "group": {
-   "routeId": 393524699856896
-  },
-  "item": {
-   "title": "跟踪事项",
-   "icon": "TableOutlined"
-  }
- },
+ "mode": "replace",
  "page": {
   "title": "跟踪事项",
   "documentTitle": "腾讯音乐 · 跟踪事项"
@@ -64,7 +55,15 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "nature": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    },
    "vi_company": {
     "popups": {
@@ -117,7 +116,8 @@
        "latest_price",
        "latest_price_date",
        "latest_price_raw",
-       "latest_fx"
+       "latest_fx",
+       "macro_used"
       ]
      },
      {
@@ -126,7 +126,55 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "currency": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "volume_label": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "volume_unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "price_label": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "price_unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "is_default": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_price": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_price_raw": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_fx": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "macro_used": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    },
    "vi_metric": {
     "popups": {
@@ -145,7 +193,7 @@
     },
     "fieldGroups": [
      {
-      "title": "基本信息",
+      "title": "基本信息（1/2）",
       "fields": [
        "code",
        "name",
@@ -155,7 +203,14 @@
        "frequency",
        "valid_min",
        "valid_max",
-       "notes"
+       "notes",
+       "source_kind"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "basis"
       ]
      },
      {
@@ -169,7 +224,10 @@
       "fields": [
        "obs_count",
        "latest_value",
-       "latest_date"
+       "latest_date",
+       "scope",
+       "used_by",
+       "used_by_codes"
       ]
      },
      {
@@ -178,21 +236,57 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "valid_min": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "scope": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "used_by": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "used_by_codes": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "source_kind": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "basis": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    },
    "vi_judgment": {
     "popups": {
      "view": {
-      "name": "判断·详情",
-      "description": "查看一条「判断」记录"
+      "name": "假设依据·详情",
+      "description": "查看一条「假设依据」记录"
      },
      "addNew": {
-      "name": "判断·新增",
-      "description": "新增一条「判断」记录"
+      "name": "假设依据·新增",
+      "description": "新增一条「假设依据」记录"
      },
      "edit": {
-      "name": "判断·编辑",
-      "description": "编辑一条「判断」记录"
+      "name": "假设依据·编辑",
+      "description": "编辑一条「假设依据」记录"
      }
     },
     "fieldGroups": [
@@ -229,7 +323,23 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "fact_layer": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "transmission": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    }
   }
  },
@@ -242,8 +352,18 @@
      "type": "table",
      "collection": "vi_watch",
      "fields": [
-      "code",
-      "title",
+      {
+       "field": "code",
+       "settings": {
+        "width": 100
+       }
+      },
+      {
+       "field": "title",
+       "settings": {
+        "width": 280
+       }
+      },
       {
        "field": "metric",
        "titleField": "name",
@@ -261,19 +381,44 @@
            "code",
            "unit",
            "category",
-           "source_name",
-           "frequency"
+           "source_kind",
+           "basis"
           ]
          }
         ]
+       },
+       "settings": {
+        "width": 280
        }
       },
-      "latest_value",
-      "latest_date",
-      "frequency",
-      "trigger"
+      {
+       "field": "latest_value",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "latest_date",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "frequency",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "trigger",
+       "settings": {
+        "width": 360
+       }
+      }
      ],
      "settings": {
+      "title": "",
+      "description": "要定期盯的指标，以及到什么程度要复核；引用【假设依据】【指标】；被【风险分析】引用。",
       "pageSize": 50,
       "sorting": [
        {
@@ -290,7 +435,8 @@
          "value": 11
         }
        ]
-      }
+      },
+      "density": "middle"
      },
      "actions": [
       "filter",
@@ -377,5 +523,8 @@
     }
    ]
   }
- ]
+ ],
+ "target": {
+  "pageSchemaUid": "qywtkvvw8s2"
+ }
 }

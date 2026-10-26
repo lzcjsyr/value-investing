@@ -1,34 +1,25 @@
 {
  "version": "1",
- "mode": "create",
- "navigation": {
-  "group": {
-   "routeId": 393515361763328
-  },
-  "item": {
-   "title": "财务数据",
-   "icon": "TableOutlined"
-  }
- },
+ "mode": "replace",
  "page": {
-  "title": "财务数据",
-  "documentTitle": "中国建筑 · 财务数据"
+  "title": "历史年度",
+  "documentTitle": "中国建筑 · 历史年度"
  },
  "defaults": {
   "collections": {
    "vi_fin_history": {
     "popups": {
      "view": {
-      "name": "财务数据·详情",
-      "description": "查看一条「财务数据」记录"
+      "name": "历史年度·详情",
+      "description": "查看一条「历史年度」记录"
      },
      "addNew": {
-      "name": "财务数据·新增",
-      "description": "新增一条「财务数据」记录"
+      "name": "历史年度·新增",
+      "description": "新增一条「历史年度」记录"
      },
      "edit": {
-      "name": "财务数据·编辑",
-      "description": "编辑一条「财务数据」记录"
+      "name": "历史年度·编辑",
+      "description": "编辑一条「历史年度」记录"
      }
     },
     "fieldGroups": [
@@ -110,7 +101,95 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "scope_note": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "volume": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "da": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "equity_income": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "capex": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "investee_cash_div": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "net_borrowing": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "dividend_total": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "dps": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "payout": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "tax_rate": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "minority_share": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "burden": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "cost_of_sales": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "equity_parent": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "gross_margin": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "roe": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "cfo_to_np": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "capex_to_cfo": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "net_debt": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "net_debt_to_ebitda": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    },
    "vi_company": {
     "popups": {
@@ -153,14 +232,18 @@
      {
       "title": "关联",
       "fields": [
-       "price_metric"
+       "price_metric",
+       "price_fx_metric"
       ]
      },
      {
       "title": "自动计算（只读）",
       "fields": [
        "latest_price",
-       "latest_price_date"
+       "latest_price_date",
+       "latest_price_raw",
+       "latest_fx",
+       "macro_used"
       ]
      },
      {
@@ -169,7 +252,55 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "currency": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "volume_label": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "volume_unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "price_label": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "price_unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "is_default": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_price": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_price_raw": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_fx": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "macro_used": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    },
    "vi_source": {
     "popups": {
@@ -220,30 +351,109 @@
  },
  "tabs": [
   {
-   "title": "财务数据",
+   "title": "历史年度",
    "blocks": [
     {
      "key": "main",
      "type": "table",
      "collection": "vi_fin_history",
      "fields": [
-      "year",
-      "scope_note",
-      "volume",
-      "price",
-      "revenue",
-      "gross_margin",
-      "np_parent",
-      "roe",
-      "payout",
-      "dps",
-      "finance_cost",
-      "cfo",
-      "capex",
-      "fcf",
-      "net_debt"
+      {
+       "field": "year",
+       "settings": {
+        "width": 110
+       }
+      },
+      {
+       "field": "scope_note",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "volume",
+       "settings": {
+        "width": 220
+       },
+       "label": "新签合同（亿元）"
+      },
+      {
+       "field": "price",
+       "settings": {
+        "width": 220
+       },
+       "label": "收入转化率"
+      },
+      {
+       "field": "revenue",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "gross_margin",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "np_parent",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "roe",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "payout",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "dps",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "finance_cost",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "cfo",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "capex",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "fcf",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "net_debt",
+       "settings": {
+        "width": 150
+       }
+      }
      ],
      "settings": {
+      "title": "",
+      "description": "财务模型的历史一侧：每年的关键财务和经营数字，和逐年假设同一套列；引用【来源文档】；被【竞争壁垒】【核心论点】引用。",
       "pageSize": 50,
       "sorting": [
        {
@@ -260,7 +470,8 @@
          "value": 7
         }
        ]
-      }
+      },
+      "density": "middle"
      },
      "actions": [
       "filter",
@@ -268,7 +479,7 @@
       {
        "type": "addNew",
        "popup": {
-        "title": "新增 · 财务数据",
+        "title": "新增 · 历史年度",
         "blocks": [
          {
           "type": "createForm",
@@ -342,7 +553,7 @@
       {
        "type": "edit",
        "popup": {
-        "title": "编辑 · 财务数据",
+        "title": "编辑 · 历史年度",
         "blocks": [
          {
           "type": "editForm",
@@ -411,5 +622,8 @@
     }
    ]
   }
- ]
+ ],
+ "target": {
+  "pageSchemaUid": "pja6mx1xuae"
+ }
 }

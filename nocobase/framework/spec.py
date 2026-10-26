@@ -1,7 +1,7 @@
 """价值投资研究框架（vi_）：数据结构唯一定义。
 
 一家公司 = 公司 + 商业模式（商业模式画布 9 项/产业链/竞争对手/竞争壁垒/核心论点/风险分析/适配度）
-          + 数据底稿（经营数据/财务数据/高频数据/事实摘录/来源文档）+ 估值（假设依据/参数/情景/逐年假设）+ 跟踪。
+          + 数据底稿（数据[指标＋数值]/财务数据[季度三大报表]/事实摘录/来源文档）+ 估值（历史年度/假设依据/参数/情景/逐年假设）+ 跟踪。
 所有表都带 company_id，同一套表、公式、页面可以同时研究多家公司。
 
 字段类型：
@@ -31,12 +31,12 @@ COMPANY = R('company', '公司', 'm2o', 'company', '这条记录属于哪家公�
 # 商业模式画布（Osterwalder）9 项，按阅读顺序
 CANVAS = ['客户细分', '价值主张', '渠道通路', '客户关系', '收入来源', '核心资源', '关键业务', '重要合作', '成本结构']
 
-# 自动检查（论点与竞争壁垒共用）：从历史财务（年度）取指标，最近连续 N 年满足条件即“已触发”
+# 自动检查（论点与竞争壁垒共用）：从历史年度取指标，最近连续 N 年满足条件即“已触发”
 CHECK_METRICS = ['业务量', '单价', '营业收入', '归母净利润', '派息率', '财务费用',
                  '业务量同比', '单价同比', '营业收入同比', '财务费用同比',
                  '毛利率', 'ROE', '经营现金流÷归母净利润', '资本开支÷经营现金流', '净负债', '净负债÷EBITDA']
 CHECK_FIELDS = [
-    S('check_metric', '自动检查·指标', CHECK_METRICS, '从历史财务（年度）取值；留空表示不做自动检查'),
+    S('check_metric', '自动检查·指标', CHECK_METRICS, '从历史年度取值；留空表示不做自动检查'),
     S('check_op', '自动检查·条件', ['<', '<=', '>', '>=']),
     F('check_threshold', '自动检查·阈值', 'num', '比率类填小数：-0.03 表示 -3%', p=4),
     F('check_years', '自动检查·连续年数', 'int', '最近连续几年都满足条件才算触发'),
@@ -50,6 +50,7 @@ CHECK_CALC = [
 TABLES = [
     # ------------------------------------------------------------------ 0 公司
     dict(code='company', title='公司', group='0 总览', title_field='name',
+         role='研究的公司，以及它的业务量和单价怎么定义。',
          desc='研究对象。业务量/单价的名称和单位在这里定义，估值模型统一用“业务量×单价＝收入”。',
          fields=[
              F('code', '证券代码', 'text', '如 600900.SH'),
@@ -83,6 +84,7 @@ TABLES = [
     # 每个观点只写一处：描述性的内容放商业模式、产业链、竞争对手、竞争壁垒；有争议、决定价值的判断放核心论点；
     # 落到估值参数的放假设依据。其他地方按编号引用，不重复论证。
     dict(code='source', title='来源文档', group='2 数据底稿', title_field='title',
+         role='所有数据和事实的出处。',
          desc='原始出处：年报、公告、数据库取数、官网。一份文档可以支撑多条事实摘录。',
          fields=[
              R('company', '公司', 'm2o', 'company', '留空表示通用来源（如方法论、宏观数据）'),
@@ -99,15 +101,18 @@ TABLES = [
          ]),
 
     dict(code='fact', title='事实摘录', group='2 数据底稿', title_field='title',
-         desc='从来源文档里摘出的一条可核验事实（尽量带数值、期间和单位）。事实只记录“是什么”，解释放到论点或假设依据里。',
+         role='用来支撑分析的单条可核验事实。',
+         desc='从来源文档里摘出的一条可核验事实（尽量带期间和单位）。事实只记录“是什么”，解释放到论点或假设依据里。'
+              '按期重复的数字（发电量、销量、新签合同额等）以「数据」为准：选“数字引自”的指标并写所属期间，不再另抄一份；一次性的数字照常写在数值里。',
          fields=[
              COMPANY,
              F('title', '事实', 'text', '一句话标题'),
              S('category', '类别', ['经营', '财务', '资本开支', '分红', '债务', '政策', '治理', '水文', '估值方法', '其他']),
              F('statement', '事实陈述', 'long'),
-             F('value', '数值', 'num', p=4),
+             F('value', '数值', 'num', p=4, desc='一次性的数字；按期重复的数字改用“数字引自”'),
              F('unit', '单位', 'text'),
              F('period', '所属期间', 'text', '如 2025、2026Q3'),
+             R('metric', '数字引自（指标）', 'm2o', 'metric', '按期重复的数字：选对应的指标，期间写在“所属期间”，数值以「数据」为准'),
              F('as_of', '截至日期', 'date'),
              S('verify_status', '核验状态', ['已核验', '待核验', '建议值待核验']),
              R('source', '来源文档', 'm2o', 'source'),
@@ -115,6 +120,7 @@ TABLES = [
          ]),
 
     dict(code='biz_model', title='商业模式拆解', group='1 商业模式', title_field='title',
+         role='用商业模式画布 9 项讲清公司怎么赚钱。',
          desc='商业模式画布 9 项，每家公司一项一行（B1—B9 按画布顺序）。投资者关心的内容放进画布：盈利公式的收入一侧、收入结构、单价、增长与周期写在“收入来源”；'
               '盈利公式的成本一侧、成本构成、单位利润、资本需求与现金循环写在“成本结构”。只写事实与机制；有争议、决定价值的判断写在核心论点里。',
          fields=[
@@ -131,10 +137,11 @@ TABLES = [
          ]),
 
     dict(code='value_chain', title='产业链与五力', group='1 商业模式', title_field='participant',
+         role='产业链上下游各方对公司的议价力强弱。',
          desc='上下游各环节是谁、拿走多少利润、对公司的议价力强弱；每行同时标注属于波特五力中的哪一种力量。同业、替代品、潜在进入者这几行只评估力量强弱，具体对手的规模与打法写在竞争对手表，并在“相关对手”里关联。',
          fields=[
              COMPANY,
-             F('code', '编号', 'text', '如 V1'),
+             F('code', '编号', 'text', 'V1 固定是本公司环节，其余各方从 V2 起编'),
              S('position', '环节', ['上游供给', '本公司环节', '下游客户', '渠道与流量', '互补方', '替代品', '潜在进入者', '同业竞争', '监管']),
              F('participant', '参与者', 'text'),
              F('role', '提供或购买什么', 'long'),
@@ -150,6 +157,7 @@ TABLES = [
          ]),
 
     dict(code='competitor', title='竞争对手', group='1 商业模式', title_field='name',
+         role='具体竞争对手的规模、打法和威胁。',
          desc='直接对手、替代品、潜在进入者与海外对标。关键数字写明截至日期；第三方估算在来源里注明。',
          fields=[
              COMPANY,
@@ -175,7 +183,8 @@ TABLES = [
          ]),
 
     dict(code='moat', title='竞争壁垒', group='1 商业模式', title_field='title',
-         desc='每一项候选壁垒：机制、财务体现、证据、反证、复制难度；看起来像壁垒其实不是的（伪壁垒）也要列出。壁垒能不能持续，在核心论点里正反论证并关联到这里。可设自动检查，读取历史财务。',
+         role='公司有哪些护城河，各靠什么机制成立。',
+         desc='每一项候选壁垒：机制、财务体现、证据、反证、复制难度；看起来像壁垒其实不是的（伪壁垒）也要列出。壁垒能不能持续，在核心论点里正反论证并关联到这里。可设自动检查，读取历史年度。',
          fields=[
              COMPANY,
              F('code', '编号', 'text', '如 M1'),
@@ -201,8 +210,9 @@ TABLES = [
          ]),
 
     dict(code='thesis', title='核心论点', group='1 商业模式', title_field='title',
+         role='决定公司价值的关键判断，每条正反辩论后下结论。',
          desc='决定价值的几个关键判断，每条都正反论证：正方立论、反方立论、互相反驳，再给裁决、把握、改判条件和对模型的影响。'
-              '壁垒能否持续的论点关联到竞争壁垒（伪壁垒以外每项壁垒至少一条辩论过的论点）；能量化的改判条件设自动检查，读取历史财务。',
+              '壁垒能否持续的论点关联到竞争壁垒（伪壁垒以外每项壁垒至少一条辩论过的论点）；能量化的改判条件设自动检查，读取历史年度。',
          fields=[
              COMPANY,
              F('code', '编号', 'text', '如 T1'),
@@ -228,6 +238,7 @@ TABLES = [
          ]),
 
     dict(code='risk', title='风险分析', group='1 商业模式', title_field='title',
+         role='可能让这笔投资亏钱的事件。',
          desc='会让这笔投资亏钱的不利事件：传导路径、可能性×冲击（自动定级）、量化影响、缓冲因素、在估值里怎么处理、预警信号与触发后应对。'
               '风险是论点失败或外部冲击的“事件”，论证本身仍在核心论点里，这里只关联会被削弱的论点；落到参数的关联假设依据，盯什么关联跟踪事项。',
          fields=[
@@ -242,7 +253,7 @@ TABLES = [
              S('trend', '趋势', ['上升', '稳定', '下降']),
              F('impact_estimate', '影响测算', 'long', '能量化的写数：对利润、现金或每股价值的影响（可引用单参数试验、情景）'),
              F('mitigants', '缓冲因素', 'long', '什么能限制损失'),
-             S('treatment', '估值处理', ['已计入基准情景', '已计入悲观情景', '体现在折现率', '未计入估值'],
+             S('treatment', '估值处理', ['已计入基准情景', '已计入悲观情景', '体现在折现率或门槛', '未计入估值'],
                '这项风险在估值里怎么体现；未计入的要在影响测算里说明为什么'),
              F('early_warning', '预警信号', 'long', '看什么、到什么程度算预警；已建跟踪事项的在“预警跟踪事项”里关联'),
              F('response', '触发后应对', 'long', '复核哪条论点或假设依据、要不要改参数（研究预警，不是交易指令）'),
@@ -258,6 +269,7 @@ TABLES = [
          ]),
 
     dict(code='fit_score', title='价投适配度', group='1 商业模式', title_field='dimension',
+         role='按八个维度打分，看公司适不适合价值投资。',
          desc='长坡、厚雪、慢变、护城河、再投资、财务质量、治理配置、可估值性，各 0—5 分。总分 32—40 适合复利框架，22—31 可研究，21 以下通常不符合价值投资标准。',
          fields=[
              COMPANY,
@@ -270,6 +282,7 @@ TABLES = [
          ]),
 
     dict(code='judgment', title='假设依据', group='3 估值', title_field='title',
+         role='每个估值参数为什么这样设。',
          desc='事实 → 判断 → 参数：解释事实和论点如何影响哪个估值参数、改参数的门槛、什么情况下不改。论证本身写在核心论点里，这里只写到参数的传导。',
          fields=[
              COMPANY,
@@ -290,11 +303,29 @@ TABLES = [
 
 
     # ------------------------------------------------------------------ 2 数据
-    dict(code='fin_history', title='财务数据', group='2 数据底稿', title_field='year',
-         desc='年报口径的历史数据。空白＝尚未取得，不是 0。派生指标（单价、派息率、同比等）自动计算。',
+    dict(code='fin_stmt', title='财务数据', group='2 数据底稿', title_field='period',
+         role='公司的季度三大报表原值。',
+         desc='季度完整三大报表（资产负债表、利润表、现金流量表），一行＝公司×报表×报告期×科目，金额为报表原值折亿元。'
+              '合并报表科目以这里为准，由 tools/fin_stmt.py 取数检验后入库，不手录'
+              '（A 股来自新浪财报、港股来自东方财富港股报表，都经 akshare）。'
+              '空白科目＝该期未披露。资产负债表是时点余额；利润表/现金流量表是年初至报告期末的累计数。',
          fields=[
-             COMPANY,
-             F('year', '年度', 'year'),
+            COMPANY,
+            F('period', '报告期', 'text', '如 2025Q3；Q4 即年报口径'),
+            F('period_end', '期末日期', 'date'),
+            S('stmt', '报表', ['资产负债表', '利润表', '现金流量表']),
+            F('item', '科目', 'text', '报表科目中文原名'),
+            F('seq', '行次', 'int', '科目在报表内的顺序'),
+            F('amount', '金额（亿元）', 'num', '报表原值÷1e8，累计口径', p=4),
+         ]),
+    dict(code='fin_history', title='历史年度', group='3 估值', title_field='year',
+         role='财务模型的历史一侧：每年的关键财务和经营数字，和逐年假设同一套列。',
+         desc='一年一行，是财务模型的历史实际（逐年假设是预测）。报表项按当年年报披露口径录入，与「财务数据」自动对账（tools/fin_stmt.py check），'
+              '重组追溯等口径差写在口径说明；业务量、分红、每股股息、带息负债、折旧摊销等报表外或需定口径的项目只录在这里。'
+              '空白＝尚未取得，不是 0。派生指标（单价、派息率、同比、ROE 等）自动计算，论点与竞争壁垒的自动检查读这里。',
+         fields=[
+            COMPANY,
+            F('year', '年度', 'year'),
              F('scope_note', '口径说明', 'text', '并表范围变化等，如“四站口径”“六站全口径”'),
              F('volume', '业务量', 'num', '单位见公司表（长江电力＝发电量，亿千瓦时）', p=2),
              F('revenue', '营业收入（亿元）', 'num', p=2),
@@ -339,32 +370,18 @@ TABLES = [
              F('net_debt_to_ebitda', '净负债÷EBITDA', 'num', 'EBITDA 近似＝利润总额＋财务费用＋折旧摊销', p=2),
          ]),
 
-    dict(code='period_data', title='经营数据', group='2 数据底稿', title_field='period',
-         desc='公司定期披露的经营指标，如销量、订单、用户数、交付量与发电量。区分单季、累计和期末口径；经营解读记录研究判断，披露摘要保留事实与统计口径。',
-         fields=[
-             COMPANY,
-             F('period', '期间', 'text', '如 2026Q3、2026H1'),
-             F('period_end', '期末日期', 'date'),
-             S('period_kind', '口径', ['单季', '半年累计', '前三季度累计', '全年']),
-             F('line_item', '项目', 'text', '如销量、新签合同额、付费用户、汽车交付量、发电量'),
-             F('value', '数值', 'num', p=2),
-             F('unit', '单位', 'text'),
-             F('yoy', '同比', 'pct', ui=PCT2),
-             S('impact', '经营影响', ['利好', '中性', '利空', '待判断'], '结合比较基准与经营解读，判断这项数据对公司经营的影响。中性表示已有依据支持影响有限；待判断表示依据不足。', default='待判断'),
-             F('assessment', '经营解读', 'long', '结合公司业务说明比较基准、变化原因及对利润或模型假设的影响；缺少依据时留空。'),
-             F('summary', '披露摘要与口径', 'long', '记录披露事实、统计范围、单季或累计口径、管理层披露摘要与推算过程；研究判断写在经营解读。'),
-             S('status', '处理状态', ['已入模', '待处理', '无需入模']),
-             R('source', '来源文档', 'm2o', 'source'),
-         ]),
-
     dict(code='metric', title='指标', group='2 数据底稿', title_field='name',
-         desc='高频数据指标的定义。所属公司为空的是宏观数据（利率、汇率、商品等），归“宏观数据”项目所有，各公司按需使用；'
-              '只和一家公司有关的（股价、水位）挂在这家公司下。同一含义不同口径的数据分成不同指标，不拼接。',
+         role='每条数字序列的定义：自动采集的行情、利率、水文，以及公司定期披露的经营数字。',
+         desc='一条数字序列的定义，数值在「数据」里。来源方式区分自动采集、公司披露、年报和手工整理；'
+              '所属公司为空的是宏观数据（利率、汇率、商品等），归“宏观数据”项目所有，各公司按需使用；'
+              '只和一家公司有关的（股价、水位、发电量、销量）挂在这家公司下。同一含义不同口径（单季、累计）分成不同指标，不拼接。',
          fields=[
              F('code', '指标代码', 'text', '稳定的英文代码，如 600900.SH.PRICE'),
              F('name', '指标名称', 'text'),
              F('unit', '单位', 'text', '利率类直接存百分数值，如 1.65 表示 1.65%'),
              S('category', '类别', ['行情', '利率', '汇率', '商品', '宏观', '水文', '经营', '其他']),
+             S('source_kind', '来源方式', ['自动采集', '公司披露', '年报', '手工整理'], '数据页按它分标签：公司披露的在“公司披露”，其余在“自动采集”', default='自动采集'),
+             S('basis', '口径', ['时点', '单季', '半年累计', '前三季度累计', '全年'], '时点＝某一天的值（股价、利率、水位）；其余为期间数', default='时点'),
              R('company', '所属公司', 'm2o', 'company', '留空＝宏观数据：不属于任何公司，各公司按需使用'),
              F('source_name', '数据来源', 'text'),
              F('frequency', '频率', 'text'),
@@ -381,24 +398,38 @@ TABLES = [
              F('used_by_codes', '使用公司代码', 'text', '筛选用：如 ,600900.SH,002078.SZ,'),
          ]),
 
-    dict(code='observation', title='高频数据', group='2 数据底稿', title_field='obs_date',
-         desc='每个指标每天的观察值。同一天多次采集时取最后一次为“当前版本”；超出合理范围的为无效。',
+    dict(code='observation', title='数据', group='2 数据底稿', title_field='obs_date',
+         role='每个指标每一期的数值，以及对它的理解（经营影响、经营解读）。',
+         desc='一行＝某个指标在某一期的一个数：自动采集的按天（股价、利率、水位），公司披露的按期（发电量、销量、新签合同额）。'
+              '同一指标同一日期多次采集时取最后一次为“当前版本”；超出合理范围的为无效。'
+              '公司披露的数据写期间、同比、来源文档，以及经营影响、经营解读和披露摘要。',
          fields=[
              R('metric', '指标', 'm2o', 'metric'),
-             F('obs_date', '观察日期', 'date'),
+             F('obs_date', '观察日期', 'date', '自动采集为采集到的日期；公司披露为期末日期'),
+             F('period', '期间', 'text', '公司披露的数据填，如 2026Q3、2026H1、2025'),
              F('value', '数值', 'num', p=4),
+             F('yoy', '同比', 'pct', ui=PCT2),
+             S('impact', '经营影响', ['利好', '中性', '利空', '待判断'], '结合比较基准与经营解读，判断这项数据对公司经营的影响。中性表示已有依据支持影响有限；待判断表示依据不足。'),
+             F('assessment', '经营解读', 'long', '结合公司业务说明比较基准、变化原因及对利润或模型假设的影响；缺少依据时留空。'),
+             F('summary', '披露摘要与口径', 'long', '记录披露事实、统计范围、单季或累计口径、管理层披露摘要与推算过程；研究判断写在经营解读。'),
+             S('status', '处理状态', ['已入模', '待处理', '无需入模']),
+             R('doc', '来源文档', 'm2o', 'source', '公司披露的数据关联来源文档'),
              F('collected_at', '采集时间', 'ts'),
-             F('source', '来源', 'long'),
+             F('source', '采集地址', 'long'),
              R('raw_capture', '原始采集记录', 'm2o', 'raw_capture', '自动采集写入的观察会关联原始响应'),
              F('note', '使用边界', 'long'),
          ],
          calc=[
+             F('unit', '单位', 'text', '指标的单位'),
+             F('basis', '口径', 'text', '指标的口径'),
+             F('source_kind', '来源方式', 'text', '指标的来源方式'),
              F('is_current', '当前版本', 'bool', '同指标同日期最后一次采集'),
              F('is_valid', '有效', 'bool', '有数值且在指标合理范围内'),
          ]),
 
     # ------------------------------------------------------------------ 3 估值
     dict(code='model', title='估值模型', group='3 估值', title_field='name',
+         role='一家公司一版估值的基本参数。',
          desc='一家公司的一版估值模型：基准年、终值年、股本、折现率构成、期初负债与安全边际。',
          fields=[
              COMPANY,
@@ -408,7 +439,7 @@ TABLES = [
              F('base_year', '基准年', 'year', '估值基准日＝该年 12 月 31 日；预测从下一年开始'),
              F('terminal_year', '终值年', 'year', '明确预测期最后一年，之后按永续增长'),
              F('shares', '股本（亿股）', 'num', p=4),
-             F('rf', '无风险利率', 'pct', '长期参数；高频数据不会自动覆盖', ui=PCT2),
+             F('rf', '无风险利率', 'pct', '长期参数；自动采集的数据不会自动覆盖', ui=PCT2),
              F('rf_date', '无风险利率日期', 'date'),
              R('rf_metric', '无风险利率参考指标', 'm2o', 'metric', '用于对照最新观察值'),
              F('erp', '风险溢价', 'pct', ui=PCT2),
@@ -435,6 +466,7 @@ TABLES = [
          ]),
 
     dict(code='scenario', title='情景', group='3 估值', title_field='name',
+         role='各情景对逐年假设的整体调整。',
          desc='情景＝对逐年假设的整体调整：业务量、单价、付现成本乘以系数，折现率与永续增长按情景设置。',
          fields=[
              R('model', '估值模型', 'm2o', 'model'),
@@ -457,6 +489,7 @@ TABLES = [
          ]),
 
     dict(code='sotp_item', title='分部估值项', group='3 估值', title_field='name',
+         role='分部加总里经营业务以外的加减项（现金、负债、对外投资等）。',
          desc='分部加总估值里核心业务以外的部分：现金、带息负债、经营所需现金、资金汇出成本、对外投资、少数股东权益。'
               '一行一项；适用情景留空＝所有情景，某个情景另有同编号的一行时以那一行为准。',
          fields=[
@@ -477,6 +510,7 @@ TABLES = [
          ]),
 
     dict(code='sotp_segment', title='经营分部估值', group='3 估值', title_field='name',
+         role='分部加总里每个经营业务的估值。',
          desc='分部加总里的经营业务，按发展阶段各用一种方法：成熟或周期业务用“盈利×倍数”（正常化盈利）；成长业务用“稳态折现”'
               '（稳态年盈利×退出倍数折回今天，加上到稳态前的期间现金流）；投入期业务用“承诺投入”（只计已承诺的成本，回报不计入）。'
               '一行一个分部；适用情景留空＝所有情景，同编号可按情景另写一行。',
@@ -520,6 +554,7 @@ TABLES = [
          ]),
 
     dict(code='forecast', title='逐年假设', group='3 估值', title_field='year',
+         role='基准情景下每年的经营与现金假设。',
          desc='基准情景下每年的经营与现金假设。每格都显式填写（没有“留空继承”）；利息由债务滚动自动计算。',
          fields=[
              R('model', '估值模型', 'm2o', 'model'),
@@ -557,6 +592,7 @@ TABLES = [
          ]),
 
     dict(code='trial', title='单参数试验', group='3 估值', title_field='name',
+         role='只改一个参数，看每股价值变多少。',
          desc='在基准情景上只改一个参数，看每股价值变化多少。不改正式假设。',
          fields=[
              R('model', '估值模型', 'm2o', 'model'),
@@ -581,6 +617,7 @@ TABLES = [
 
     # ------------------------------------------------------------------ 4 跟踪
     dict(code='watch', title='跟踪事项', group='4 跟踪', title_field='title',
+         role='要定期盯的指标，以及到什么程度要复核。',
          desc='需要定期看什么、什么情况触发复核、触发后做什么。关联指标的会自动显示最新观察。',
          fields=[
              COMPANY,
@@ -600,6 +637,7 @@ TABLES = [
          ]),
 
     dict(code='issue', title='问题清单', group='4 跟踪', title_field='title',
+         role='还没核实的事项和模型缺口。',
          desc='人工维护的待核验事项与模型缺口。自动能判断的检查在“自动检查”。',
          fields=[
              COMPANY,
@@ -613,6 +651,7 @@ TABLES = [
          ]),
 
     dict(code='change_log', title='变更日志', group='4 跟踪', title_field='title',
+         role='每次改假设或数据的记录。',
          desc='每次修改假设或数据：旧值、新值、理由、依据、验证。',
          fields=[
              COMPANY,
@@ -628,6 +667,7 @@ TABLES = [
 
     # ------------------------------------------------------------------ 5 后台
     dict(code='collector', title='采集配置', group='5 后台', title_field='name',
+         role='自动采集从哪里取数、写进哪个指标。',
          desc='自动采集的数据源：地址、解析器与参数、写入哪个指标。新增股票或水文站只需加一行配置。',
          fields=[
              F('name', '名称', 'text'),
@@ -651,6 +691,7 @@ TABLES = [
          ]),
 
     dict(code='collect_run', title='采集运行', group='5 后台', title_field='label',
+         role='每次手动触发采集的记录和结果。',
          desc='每按一次“立即采集”新增一行，触发“④ 手动采集”工作流跑完 采集→入库→自检；有公司时只采这家公司和通用指标，结果按本次的原始记录自动统计。',
          fields=[
              F('label', '运行', 'text', '例如：手动｜2026-10-21 23:50'),
@@ -670,6 +711,7 @@ TABLES = [
              F('summary', '结果', 'text'),
          ]),
     dict(code='raw_capture', title='原始采集记录', group='5 后台', title_field='run_label',
+         role='每次采集拿到的原始响应。',
          desc='每次采集保存完整原始响应；解析、校验、去重全部由 SQL 视图完成，可追溯。',
          fields=[
              R('collector', '采集配置', 'm2o', 'collector'),
@@ -694,6 +736,7 @@ TABLES = [
 # 只读计算视图（没有输入表）
 REPORTS = [
     dict(code='projection', title='预测计算', group='3 估值', title_field='year',
+         role='按假设算出的逐年利润、股息和现金。',
          desc='情景×年度的利润、股息与现金。全部由公式计算，不能修改。',
          fields=[
              F('model_id', '模型ID', 'int'), F('company_id', '公司ID', 'int'),
@@ -716,6 +759,7 @@ REPORTS = [
              F('debt_close', '期末带息负债（亿元）', 'num', p=2),
          ]),
     dict(code='balance', title='资产与资本', group='3 估值', title_field='year',
+         role='按假设算出的逐年资产、负债和权益。',
          desc='资产侧单独滚动：经营性长期资产、长期股权投资、带息负债、权益逐年推算，平衡项＝其他净资产（现金＋营运资本−其他负债）。',
          groups=[('识别', ['scenario_name', 'year', 'company_name', 'model_name', 'model_id', 'company_id']),
                  ('资产', ['op_assets_open', 'capex_total', 'depreciation', 'op_assets_close', 'lt_invest_close', 'other_net_assets', 'other_net_change']),
@@ -743,6 +787,7 @@ REPORTS = [
              F('debt_to_ebitda', '带息负债÷EBITDA', 'num', 'EBITDA＝利润总额＋利息＋折旧', p=2),
          ]),
     dict(code='valuation', title='估值结论', group='3 估值', title_field='scenario_name',
+         role='每个情景的估值结论。',
          desc='每个情景一行：股息贴现价值（基准日与今天）、现金支持价值、终值占比、关注价与市场价对照。研究结论，不是交易指令。',
          fields=[
              F('model_id', '模型ID', 'int'), F('company_id', '公司ID', 'int'),
@@ -769,6 +814,7 @@ REPORTS = [
              F('conclusion', '结论说明', 'long'),
          ]),
     dict(code='sotp', title='分部加总估值', group='3 估值', title_field='scenario_name',
+         role='每个情景的分部加总估值结论。',
          desc='每个情景一行：核心业务盈利 × 合理倍数 ＋ 经营分部价值 ＋ 可用净现金 ＋ 对外投资（折后）− 少数股东权益与其他。'
               '另给出市场隐含的核心倍数或成长业务价值、概率加权价值，并与股息贴现价值对照。',
          groups=[('识别', ['scenario_name', 'is_base', 'company_name', 'model_name', 'model_id', 'company_id', 'core_year', 'as_of']),
@@ -822,6 +868,7 @@ REPORTS = [
              F('conclusion', '结论说明', 'long'),
          ]),
     dict(code='sensitivity', title='敏感性：折现率×永续增长', group='3 估值', title_field='label',
+         role='折现率和永续增长率变化时，每股价值怎么变。',
          desc='基准情景的股息路径不变，只改折现率和永续增长率。',
          fields=[
              F('model_id', '模型ID', 'int'), F('company_id', '公司ID', 'int'),
@@ -832,6 +879,7 @@ REPORTS = [
              F('value_today', '每股价值·今天（元）', 'num', p=2),
          ]),
     dict(code='check', title='自动检查', group='4 跟踪', title_field='name',
+         role='系统自动算出的模型和数据检查结果。',
          desc='系统自动判断的模型与数据质量检查，每次打开实时计算。',
          fields=[
              F('model_id', '模型ID', 'int'), F('company_id', '公司ID', 'int'),
@@ -842,9 +890,10 @@ REPORTS = [
 
 # 业务唯一约束（防止同一年两行假设、同一代码两家公司等逻辑错误）
 UNIQUE = {
-    'company': ['code'], 'metric': ['code'], 'fin_history': ['company_id', 'year'],
+    'company': ['code'], 'metric': ['code'], 'fin_stmt': ['company_id', 'stmt', 'period_end', 'item'],
+    'fin_history': ['company_id', 'year'],
     'forecast': ['model_id', 'year'], 'scenario': ['model_id', 'name'],
-    'period_data': ['company_id', 'period', 'line_item'], 'thesis': ['company_id', 'code'],
+    'thesis': ['company_id', 'code'],
     'judgment': ['company_id', 'code'], 'biz_model': ['company_id', 'code'], 'value_chain': ['company_id', 'code'],
     'competitor': ['company_id', 'name'], 'moat': ['company_id', 'code'],
     'fit_score': ['company_id', 'dimension'], 'risk': ['company_id', 'code'],
@@ -854,6 +903,49 @@ PG_TYPE = {'text': 'text', 'long': 'text', 'num': 'double precision', 'pct': 'do
            'year': 'integer', 'date': 'date', 'ts': 'timestamptz', 'url': 'text', 'bool': 'boolean', 'select': 'text'}
 NB_INTERFACE = {'text': 'input', 'long': 'textarea', 'num': 'number', 'pct': 'percent', 'int': 'integer',
                 'year': 'integer', 'date': 'dateOnly', 'ts': 'datetime', 'url': 'url', 'bool': 'checkbox', 'select': 'select'}
+
+
+# 公式读取的表（外键之外），对照 sql/02_calc.sql；外键关系从 fields 自动取，不写在这里
+READS = {
+    'thesis': ['fin_history'], 'moat': ['fin_history'],          # 自动检查（vi_check_eval → vi_fin_metric）
+    'projection': ['model', 'scenario', 'forecast'],
+    'balance': ['model', 'forecast', 'projection'],
+    'valuation': ['model', 'scenario', 'projection'],
+    'sensitivity': ['model', 'projection', 'valuation'],
+    'trial': ['forecast', 'projection', 'valuation'],
+    'sotp': ['model', 'scenario', 'sotp_item', 'sotp_segment', 'projection', 'valuation'],
+    'check': ['thesis', 'moat', 'risk', 'fit_score', 'metric', 'observation', 'model', 'scenario', 'forecast',
+              'sotp_segment', 'valuation', 'sotp', 'collector'],
+}
+
+
+def refs():
+    """表之间的引用：外键（m2o/m2m，公司除外，各表都按公司归属）＋公式读取（READS）。返回 {表: [它引用的表]}，按表定义顺序。"""
+    order = [t['code'] for t in TABLES + REPORTS]
+    out = {c: set(READS.get(c, ())) for c in order}
+    for t in TABLES + REPORTS:
+        out[t['code']] |= {f['target'] for f in t['fields'] if f['kind'] in ('m2o', 'm2m') and f['target'] != 'company'}
+    return {c: sorted(out[c] - {c}, key=order.index) for c in order}
+
+
+def role_line(t):
+    """一句话定位：这张表是什么；引用【谁】；被【谁】引用。页面区块说明栏显示这句。"""
+    r, titles = refs(), {x['code']: x['title'] for x in TABLES + REPORTS}
+    by = [c for c in r if t['code'] in r[c]]
+    mark = lambda cs: ''.join(f'【{titles[c]}】' for c in cs)
+    line = t['role'].rstrip('。')
+    if r[t['code']]:
+        line += '；引用' + mark(r[t['code']])
+    if t['code'] == 'company':
+        line += '；各表都按公司归属'
+    elif by:
+        line += '；被' + mark(by) + '引用'
+    return line + '。'
+
+
+def purpose(t):
+    """数据库注释与集合描述：一句话定位（role_line）＋详细说明（desc）。"""
+    return role_line(t) + t['desc']
 
 
 def all_tables():

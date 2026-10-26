@@ -74,7 +74,7 @@ def collection_body(t, report=False, describe=False):
         fields += [{'name': 'updated_at', 'title': '最后修改', 'interface': 'datetime', 'description': ''}]
     return {
         'name': f"vi_{t['code']}", 'title': t['title'], 'template': 'view', 'viewName': f"vi_{t['code']}",
-        'description': t['desc'],
+        'description': spec.purpose(t),
         'settings': {'writableView': not report, 'filterTargetKey': 'id', 'schema': 'public',
                      'titleField': t['title_field'], 'sortable': False},
         'fields': fields,

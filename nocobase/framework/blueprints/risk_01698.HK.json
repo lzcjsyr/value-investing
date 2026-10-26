@@ -1,0 +1,796 @@
+{
+ "version": "1",
+ "mode": "create",
+ "navigation": {
+  "group": {
+   "routeId": 393657369755648
+  },
+  "item": {
+   "title": "风险分析",
+   "icon": "TableOutlined"
+  }
+ },
+ "page": {
+  "title": "风险分析",
+  "documentTitle": "腾讯音乐 · 风险分析"
+ },
+ "defaults": {
+  "collections": {
+   "vi_risk": {
+    "popups": {
+     "view": {
+      "name": "风险分析·详情",
+      "description": "查看一条「风险分析」记录"
+     },
+     "addNew": {
+      "name": "风险分析·新增",
+      "description": "新增一条「风险分析」记录"
+     },
+     "edit": {
+      "name": "风险分析·编辑",
+      "description": "编辑一条「风险分析」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "title",
+       "category",
+       "mechanism",
+       "probability",
+       "impact",
+       "horizon",
+       "trend",
+       "impact_estimate",
+       "mitigants"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "treatment",
+       "early_warning",
+       "response",
+       "status"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "level",
+       "thesis_verdicts"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "title": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "mechanism": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "probability": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "impact": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "impact_estimate": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "mitigants": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "treatment": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "early_warning": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "response": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "level": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "thesis_verdicts": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
+   },
+   "vi_company": {
+    "popups": {
+     "view": {
+      "name": "公司·详情",
+      "description": "查看一条「公司」记录"
+     },
+     "addNew": {
+      "name": "公司·新增",
+      "description": "新增一条「公司」记录"
+     },
+     "edit": {
+      "name": "公司·编辑",
+      "description": "编辑一条「公司」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "name",
+       "exchange",
+       "industry",
+       "currency",
+       "volume_label",
+       "volume_unit",
+       "price_label",
+       "price_unit",
+       "is_default"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "profile",
+       "notes"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "price_metric",
+       "price_fx_metric"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "latest_price",
+       "latest_price_date",
+       "latest_price_raw",
+       "latest_fx",
+       "macro_used"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "currency": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "volume_label": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "volume_unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "price_label": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "price_unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "is_default": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_price": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_price_raw": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_fx": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "macro_used": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
+   },
+   "vi_thesis": {
+    "popups": {
+     "view": {
+      "name": "核心论点·详情",
+      "description": "查看一条「核心论点」记录"
+     },
+     "addNew": {
+      "name": "核心论点·新增",
+      "description": "新增一条「核心论点」记录"
+     },
+     "edit": {
+      "name": "核心论点·编辑",
+      "description": "编辑一条「核心论点」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "title",
+       "category",
+       "status",
+       "confidence",
+       "bull_case",
+       "bear_case",
+       "bull_rebuttal",
+       "bear_rebuttal",
+       "verdict"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "decisive_evidence",
+       "mind_changer",
+       "model_impact",
+       "external_view",
+       "debated_on",
+       "check_metric",
+       "check_op",
+       "check_threshold",
+       "check_years"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "check_latest_year",
+       "check_latest_value",
+       "check_result",
+       "judgment_status"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "title": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "category": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "status": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "bull_case": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "bear_case": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "decisive_evidence": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "mind_changer": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "model_impact": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "external_view": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "check_metric": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "check_threshold": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "check_years": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "check_result": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "judgment_status": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
+   },
+   "vi_judgment": {
+    "popups": {
+     "view": {
+      "name": "假设依据·详情",
+      "description": "查看一条「假设依据」记录"
+     },
+     "addNew": {
+      "name": "假设依据·新增",
+      "description": "新增一条「假设依据」记录"
+     },
+     "edit": {
+      "name": "假设依据·编辑",
+      "description": "编辑一条「假设依据」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "title",
+       "fact_layer",
+       "judgment",
+       "transmission",
+       "parameter",
+       "affected_years",
+       "change_threshold",
+       "no_change_condition",
+       "counter_evidence"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "status"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "fact_layer": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "transmission": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
+   },
+   "vi_watch": {
+    "popups": {
+     "view": {
+      "name": "跟踪事项·详情",
+      "description": "查看一条「跟踪事项」记录"
+     },
+     "addNew": {
+      "name": "跟踪事项·新增",
+      "description": "新增一条「跟踪事项」记录"
+     },
+     "edit": {
+      "name": "跟踪事项·编辑",
+      "description": "编辑一条「跟踪事项」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息",
+      "fields": [
+       "code",
+       "title",
+       "frequency",
+       "preferred_source",
+       "trigger",
+       "action",
+       "nature"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company",
+       "metric"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "latest_value",
+       "latest_date"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "nature": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
+   },
+   "vi_fact": {
+    "popups": {
+     "view": {
+      "name": "事实摘录·详情",
+      "description": "查看一条「事实摘录」记录"
+     },
+     "addNew": {
+      "name": "事实摘录·新增",
+      "description": "新增一条「事实摘录」记录"
+     },
+     "edit": {
+      "name": "事实摘录·编辑",
+      "description": "编辑一条「事实摘录」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息",
+      "fields": [
+       "title",
+       "category",
+       "statement",
+       "value",
+       "unit",
+       "period",
+       "as_of",
+       "verify_status",
+       "notes"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company",
+       "source",
+       "metric"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "title": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "value": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "period": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
+   }
+  }
+ },
+ "tabs": [
+  {
+   "title": "风险分析",
+   "blocks": [
+    {
+     "key": "main",
+     "type": "table",
+     "collection": "vi_risk",
+     "fields": [
+      {
+       "field": "code",
+       "settings": {
+        "width": 100
+       }
+      },
+      {
+       "field": "title",
+       "settings": {
+        "width": 280
+       }
+      },
+      {
+       "field": "category",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "probability",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "impact",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "level",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "treatment",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "status",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "thesis_verdicts",
+       "settings": {
+        "width": 200
+       }
+      }
+     ],
+     "settings": {
+      "title": "",
+      "description": "可能让这笔投资亏钱的事件；引用【事实摘录】【核心论点】【假设依据】【跟踪事项】；被【自动检查】引用。",
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "code",
+        "direction": "asc"
+       }
+      ],
+      "dataScope": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "company_id",
+         "operator": "$eq",
+         "value": 11
+        }
+       ]
+      },
+      "density": "middle"
+     },
+     "actions": [
+      "filter",
+      "refresh",
+      {
+       "type": "addNew",
+       "popup": {
+        "title": "新增 · 风险分析",
+        "blocks": [
+         {
+          "type": "createForm",
+          "resource": {
+           "collectionName": "vi_risk"
+          },
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "title",
+             "category",
+             "mechanism",
+             "probability",
+             "impact",
+             "horizon",
+             "trend",
+             "impact_estimate",
+             "mitigants"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "treatment",
+             "early_warning",
+             "response",
+             "status"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             },
+             {
+              "field": "theses",
+              "titleField": "title"
+             },
+             {
+              "field": "judgments",
+              "titleField": "title"
+             },
+             {
+              "field": "watches",
+              "titleField": "title"
+             },
+             {
+              "field": "facts",
+              "titleField": "title"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "bulkDelete"
+     ],
+     "recordActions": [
+      "view",
+      {
+       "type": "edit",
+       "popup": {
+        "title": "编辑 · 风险分析",
+        "blocks": [
+         {
+          "type": "editForm",
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "title",
+             "category",
+             "mechanism",
+             "probability",
+             "impact",
+             "horizon",
+             "trend",
+             "impact_estimate",
+             "mitigants"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "treatment",
+             "early_warning",
+             "response",
+             "status"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             },
+             {
+              "field": "theses",
+              "titleField": "title"
+             },
+             {
+              "field": "judgments",
+              "titleField": "title"
+             },
+             {
+              "field": "watches",
+              "titleField": "title"
+             },
+             {
+              "field": "facts",
+              "titleField": "title"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "delete"
+     ]
+    }
+   ]
+  }
+ ]
+}

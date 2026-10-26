@@ -3,32 +3,32 @@
  "mode": "create",
  "navigation": {
   "group": {
-   "routeId": 393441179205632
+   "routeId": 393441258897408
   },
   "item": {
-   "title": "财务数据",
+   "title": "历史年度",
    "icon": "TableOutlined"
   }
  },
  "page": {
-  "title": "财务数据",
-  "documentTitle": "长江电力 · 财务数据"
+  "title": "历史年度",
+  "documentTitle": "长江电力 · 历史年度"
  },
  "defaults": {
   "collections": {
    "vi_fin_history": {
     "popups": {
      "view": {
-      "name": "财务数据·详情",
-      "description": "查看一条「财务数据」记录"
+      "name": "历史年度·详情",
+      "description": "查看一条「历史年度」记录"
      },
      "addNew": {
-      "name": "财务数据·新增",
-      "description": "新增一条「财务数据」记录"
+      "name": "历史年度·新增",
+      "description": "新增一条「历史年度」记录"
      },
      "edit": {
-      "name": "财务数据·编辑",
-      "description": "编辑一条「财务数据」记录"
+      "name": "历史年度·编辑",
+      "description": "编辑一条「历史年度」记录"
      }
     },
     "fieldGroups": [
@@ -153,14 +153,18 @@
      {
       "title": "关联",
       "fields": [
-       "price_metric"
+       "price_metric",
+       "price_fx_metric"
       ]
      },
      {
       "title": "自动计算（只读）",
       "fields": [
        "latest_price",
-       "latest_price_date"
+       "latest_price_date",
+       "latest_price_raw",
+       "latest_fx",
+       "macro_used"
       ]
      },
      {
@@ -220,7 +224,7 @@
  },
  "tabs": [
   {
-   "title": "财务数据",
+   "title": "历史年度",
    "blocks": [
     {
      "key": "main",
@@ -244,6 +248,8 @@
       "net_debt"
      ],
      "settings": {
+      "title": "",
+      "description": "财务模型的历史一侧：每年的关键财务和经营数字，和逐年假设同一套列；引用【来源文档】；被【竞争壁垒】【核心论点】引用。",
       "pageSize": 50,
       "sorting": [
        {
@@ -268,7 +274,7 @@
       {
        "type": "addNew",
        "popup": {
-        "title": "新增 · 财务数据",
+        "title": "新增 · 历史年度",
         "blocks": [
          {
           "type": "createForm",
@@ -342,7 +348,7 @@
       {
        "type": "edit",
        "popup": {
-        "title": "编辑 · 财务数据",
+        "title": "编辑 · 历史年度",
         "blocks": [
          {
           "type": "editForm",

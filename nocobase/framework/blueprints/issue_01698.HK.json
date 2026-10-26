@@ -1,15 +1,6 @@
 {
  "version": "1",
- "mode": "create",
- "navigation": {
-  "group": {
-   "routeId": 393524699856896
-  },
-  "item": {
-   "title": "问题清单",
-   "icon": "TableOutlined"
-  }
- },
+ "mode": "replace",
  "page": {
   "title": "问题清单",
   "documentTitle": "腾讯音乐 · 问题清单"
@@ -83,7 +74,8 @@
        "latest_price",
        "latest_price_date",
        "latest_price_raw",
-       "latest_fx"
+       "latest_fx",
+       "macro_used"
       ]
      },
      {
@@ -92,7 +84,55 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "currency": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "volume_label": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "volume_unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "price_label": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "price_unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "is_default": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_price": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_price_raw": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_fx": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "macro_used": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    }
   }
  },
@@ -105,14 +145,46 @@
      "type": "table",
      "collection": "vi_issue",
      "fields": [
-      "code",
-      "title",
-      "severity",
-      "status",
-      "impact",
-      "progress"
+      {
+       "field": "code",
+       "settings": {
+        "width": 100
+       }
+      },
+      {
+       "field": "title",
+       "settings": {
+        "width": 280
+       }
+      },
+      {
+       "field": "severity",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "status",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "impact",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "progress",
+       "settings": {
+        "width": 360
+       }
+      }
      ],
      "settings": {
+      "title": "",
+      "description": "还没核实的事项和模型缺口。",
       "pageSize": 50,
       "sorting": [
        {
@@ -129,7 +201,8 @@
          "value": 11
         }
        ]
-      }
+      },
+      "density": "middle"
      },
      "actions": [
       "filter",
@@ -200,5 +273,8 @@
     }
    ]
   }
- ]
+ ],
+ "target": {
+  "pageSchemaUid": "8hb7w6gwwdr"
+ }
 }

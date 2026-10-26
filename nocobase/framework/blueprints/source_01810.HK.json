@@ -1,15 +1,6 @@
 {
  "version": "1",
- "mode": "create",
- "navigation": {
-  "group": {
-   "routeId": 393657447350272
-  },
-  "item": {
-   "title": "来源文档",
-   "icon": "TableOutlined"
-  }
- },
+ "mode": "replace",
  "page": {
   "title": "来源文档",
   "documentTitle": "小米集团 · 来源文档"
@@ -112,7 +103,8 @@
        "latest_price",
        "latest_price_date",
        "latest_price_raw",
-       "latest_fx"
+       "latest_fx",
+       "macro_used"
       ]
      },
      {
@@ -121,7 +113,55 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "currency": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "volume_label": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "volume_unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "price_label": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "price_unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "is_default": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_price": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_price_raw": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_fx": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "macro_used": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    }
   }
  },
@@ -134,14 +174,46 @@
      "type": "table",
      "collection": "vi_source",
      "fields": [
-      "title",
-      "source_type",
-      "publish_date",
-      "reliability",
-      "verify_status",
-      "url"
+      {
+       "field": "title",
+       "settings": {
+        "width": 280
+       }
+      },
+      {
+       "field": "source_type",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "publish_date",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "reliability",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "verify_status",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "url",
+       "settings": {
+        "width": 200
+       }
+      }
      ],
      "settings": {
+      "title": "",
+      "description": "所有数据和事实的出处；被【事实摘录】【竞争对手】【历史年度】【数据】引用。",
       "pageSize": 50,
       "sorting": [
        {
@@ -158,7 +230,8 @@
          "value": 21
         }
        ]
-      }
+      },
+      "density": "middle"
      },
      "actions": [
       "filter",
@@ -255,5 +328,8 @@
     }
    ]
   }
- ]
+ ],
+ "target": {
+  "pageSchemaUid": "uoe2xtvktqe"
+ }
 }

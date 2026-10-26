@@ -5,7 +5,7 @@ BEGIN;
 
 DROP VIEW IF EXISTS vi_check, vi_sotp, vi_sotp_segment_calc, vi_sotp_segment_val, vi_sotp_item_calc, vi_moat_calc, vi_risk_calc, vi_sensitivity, vi_valuation, vi_valuation_cf, vi_balance, vi_projection, vi_collect_run_calc, vi_trial_calc,
   vi_forecast_calc, vi_scenario_calc, vi_model_calc, vi_watch_calc, vi_thesis_calc, vi_fin_metric,
-  vi_fin_history_calc, vi_collector_calc, vi_raw_capture_calc, vi_observation_calc, vi_obs_current,
+  vi_fin_history_calc, vi_collector_calc, vi_raw_capture_calc, vi_observation_calc, vi_obs_current, vi_disclosed,
   vi_metric_calc, vi_company_calc, vi_company_metric CASCADE;
 
 ---------------------------------------------------------------------------
@@ -81,7 +81,7 @@ END $$;
 -- 高频数据
 ---------------------------------------------------------------------------
 CREATE VIEW vi_observation_calc AS
-SELECT o.id,
+SELECT o.id, m.unit, m.basis, m.source_kind,
        o.id = (SELECT o2.id FROM vi_observation_base o2
                 WHERE o2.metric_id = o.metric_id AND o2.obs_date = o.obs_date
                 ORDER BY o2.collected_at DESC NULLS LAST, o2.id DESC LIMIT 1) AS is_current,
@@ -95,6 +95,39 @@ CREATE VIEW vi_obs_current AS
 SELECT o.metric_id, o.obs_date, o.value, o.id
 FROM vi_observation_base o JOIN vi_observation_calc c USING (id)
 WHERE c.is_current AND c.is_valid;
+
+-- 公司披露的数据：指标＋数据里来源方式＝公司披露的部分，按“期间 × 项目 × 口径”展开（驾驶舱图表、核对脚本读这里）
+CREATE VIEW vi_disclosed AS
+SELECT o.id, m.company_id, o.period, o.obs_date AS period_end, m.basis AS period_kind, m.name AS line_item, o.value, m.unit, o.yoy,
+       o.impact, o.assessment, o.summary, o.status, o.doc_id AS source_id, m.id AS metric_id, m.code AS metric_code
+FROM vi_observation_base o JOIN vi_metric_base m ON m.id = o.metric_id
+WHERE m.source_kind = '公司披露';
+
+-- 写入一条公司披露的数据：按 公司×项目×口径×单位 找指标，没有就新建（代码＝公司代码.D001 起顺序编号）；
+-- 同一指标同一期间已有的数据先删掉再写，可重复执行。种子脚本和迁移都用它，规则只写一处。
+CREATE OR REPLACE FUNCTION vi_put_disclosed(p_company bigint, p_item text, p_basis text, p_unit text, p_period text, p_end date,
+                                            p_value double precision, p_yoy double precision, p_impact text, p_assessment text,
+                                            p_summary text, p_status text, p_doc bigint) RETURNS bigint LANGUAGE plpgsql AS $$
+DECLARE mid bigint; ccode text; n int; oid bigint;
+BEGIN
+  SELECT id INTO mid FROM vi_metric_base
+   WHERE company_id = p_company AND source_kind = '公司披露' AND name = p_item AND basis IS NOT DISTINCT FROM p_basis
+     AND unit IS NOT DISTINCT FROM p_unit
+   ORDER BY id LIMIT 1;
+  IF mid IS NULL THEN
+    SELECT code INTO ccode FROM vi_company_base WHERE id = p_company;
+    SELECT coalesce(max(substring(code FROM '\.D(\d+)$')::int), 0) + 1 INTO n FROM vi_metric_base WHERE code LIKE ccode || '.D%';
+    INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency)
+    VALUES (ccode || '.D' || lpad(n::text, 3, '0'), p_item, p_unit, '经营', '公司披露', p_basis, p_company, '公司披露',
+            CASE p_basis WHEN '单季' THEN '季' WHEN '半年累计' THEN '半年' WHEN '前三季度累计' THEN '年' WHEN '全年' THEN '年' END)
+    RETURNING id INTO mid;
+  END IF;
+  DELETE FROM vi_observation_base WHERE metric_id = mid AND period IS NOT DISTINCT FROM p_period;
+  INSERT INTO vi_observation_base (metric_id, obs_date, period, value, yoy, impact, assessment, summary, status, doc_id, collected_at)
+  VALUES (mid, p_end, p_period, p_value, p_yoy, p_impact, p_assessment, p_summary, p_status, p_doc, now())
+  RETURNING id INTO oid;
+  RETURN oid;
+END $$;
 
 -- 每家公司用到哪些指标、做什么用（唯一来源，不另存）：自有指标、股价、股价汇率、估值模型的无风险利率、跟踪事项、订阅的宏观数据。
 -- 指标的“使用公司”、公司的“用到的宏观数据”、一键采集的范围都从这里读。
@@ -297,7 +330,7 @@ RETURNING b.id::bigint, c.health::text
 $fn$;
 
 ---------------------------------------------------------------------------
--- 历史财务派生指标 & 论点自动证伪检查（同比只在口径相同的相邻年份之间计算，并表/重组年份为空）
+-- 年度关键项派生指标 & 论点自动证伪检查（同比只在口径相同的相邻年份之间计算，并表/重组年份为空）
 ---------------------------------------------------------------------------
 CREATE VIEW vi_fin_history_calc AS
 WITH b AS (

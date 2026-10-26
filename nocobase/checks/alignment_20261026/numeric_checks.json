@@ -1,0 +1,62 @@
+[
+  {
+    "company": "002078.SZ",
+    "rendered_stats": [
+      {
+        "title": "悲观情景 · 隐含年化回报",
+        "value": "5.96%"
+      },
+      {
+        "title": "基准情景 · 隐含年化回报",
+        "value": "9.63%"
+      },
+      {
+        "title": "乐观情景 · 隐含年化回报",
+        "value": "11.74%"
+      },
+      {
+        "title": "10 年国债（2026-10-23）",
+        "value": "1.64%"
+      }
+    ],
+    "database_base_irr": 0.09625161277109384
+  },
+  {
+    "company": "601668.SH",
+    "rendered_stats": [
+      {
+        "title": "悲观情景 · 隐含年化回报",
+        "value": "6.32%"
+      },
+      {
+        "title": "基准情景 · 隐含年化回报",
+        "value": "8.92%"
+      },
+      {
+        "title": "乐观情景 · 隐含年化回报",
+        "value": "10.84%"
+      },
+      {
+        "title": "10 年国债（2026-10-23）",
+        "value": "1.64%"
+      }
+    ],
+    "database_base_irr": 0.08922908670144489
+  },
+  {
+    "company": "01698.HK",
+    "quote_currency": "HKD",
+    "price": 33.7,
+    "fx": 0.8507,
+    "base_value_hkd": 57.715556960805955,
+    "shown": "57.72"
+  },
+  {
+    "company": "01810.HK",
+    "quote_currency": "HKD",
+    "price": 26.8,
+    "fx": 0.8507,
+    "base_value_hkd": 33.61209405364208,
+    "shown": "33.61"
+  }
+]

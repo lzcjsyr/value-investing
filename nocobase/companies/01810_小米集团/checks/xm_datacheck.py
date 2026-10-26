@@ -62,7 +62,7 @@ for y, pct in ((2020, 14.9), (2021, 17.7), (2022, 17.0)):
     pr, pg, ir, ig, nr, ng, orv, og = S.LINE_HIST[y]
     check('A 分业务年度', f'{y} 集团毛利率＝公告正文 {pct}%', round((pg + ig + ng + og) / (pr + ir + nr + orv) * 100, 1), pct, tol=0.001)
 # 数据库里的年度分业务行＝种子按原始数据重算
-db = {(r[0], r[1]): float(r[2]) for r in sql("SELECT d.period, d.line_item, d.value FROM vi_period_data_base d JOIN vi_company_base c ON c.id = d.company_id "
+db = {(r[0], r[1]): float(r[2]) for r in sql("SELECT d.period, d.line_item, d.value FROM vi_disclosed d JOIN vi_company_base c ON c.id = d.company_id "
                                              "WHERE c.code = '01810.HK' AND d.period_kind = '全年'")}
 for per, item, val, unit, src, summ in S.line_annual():
     check('A 分业务年度', f'数据库 {per} {item}', db.get((per, item)), val, tol=0.005)

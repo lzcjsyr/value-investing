@@ -36,7 +36,7 @@ BEGIN NEW.updated_at := now(); RETURN NEW; END $$;''']
         cols += [f"{f['name']}_id bigint" for f in spec.m2o_fields(t)]
         cols += ['created_at timestamptz NOT NULL DEFAULT now()', 'updated_at timestamptz NOT NULL DEFAULT now()']
         out.append(f'CREATE TABLE {base} (\n  ' + ',\n  '.join(cols) + '\n);')
-        out.append(f"COMMENT ON TABLE {base} IS {lit(t['title'] + '：' + t['desc'])};")
+        out.append(f"COMMENT ON TABLE {base} IS {lit(t['title'] + '：' + spec.purpose(t))};")
         for f in spec.scalar_fields(t):
             out.append(f"COMMENT ON COLUMN {base}.{f['name']} IS {lit(col_comment(f))};")
         for f in spec.m2o_fields(t):

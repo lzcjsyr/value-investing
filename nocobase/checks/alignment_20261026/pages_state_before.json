@@ -1,0 +1,635 @@
+{
+  "groups": {
+    "框架与后台": 393441095319552,
+    "框架与后台/采集": 393441097416704,
+    "长江电力": 393441126776832,
+    "长江电力/数据底稿": 393441179205632,
+    "长江电力/跟踪": 393441395212288,
+    "太阳纸业": 393441447641088,
+    "太阳纸业/数据底稿": 393441485389824,
+    "太阳纸业/跟踪": 393441619607552,
+    "中国建筑": 393515315625984,
+    "中国建筑/数据底稿": 393515361763328,
+    "中国建筑/跟踪": 393515516952576,
+    "腾讯音乐": 393523095535616,
+    "腾讯音乐/数据底稿": 393523143770112,
+    "腾讯音乐/跟踪": 393524699856896,
+    "小米集团": 393570819244032,
+    "小米集团/数据底稿": 393570928295936,
+    "小米集团/跟踪": 393571131719680,
+    "长江电力/商业模式": 393656988073984,
+    "太阳纸业/商业模式": 393657214566400,
+    "中国建筑/商业模式": 393657292161024,
+    "腾讯音乐/商业模式": 393657369755648,
+    "小米集团/商业模式": 393657447350272,
+    "宏观数据": 393818928709632,
+    "长江电力/预测与估值": 393441258897408,
+    "太阳纸业/预测与估值": 393441512652800,
+    "中国建筑/预测与估值": 393515397414912,
+    "腾讯音乐/预测与估值": 393523187810304,
+    "小米集团/预测与估值": 393570966044672,
+    "长江电力/预测与估值/模型底稿": 394007866048512
+  },
+  "pages": {
+    "collector": {
+      "routeId": 393358443610112,
+      "pageSchemaUid": "zxnniws5yji"
+    },
+    "collect_run": {
+      "routeId": 393434692714496,
+      "pageSchemaUid": "l2gbrdcj7yr"
+    },
+    "raw_capture": {
+      "routeId": 393434782892032,
+      "pageSchemaUid": "4nmb82itnzo"
+    },
+    "check@600900.SH": {
+      "routeId": 393441399406592,
+      "pageSchemaUid": "yeslwvjeigp"
+    },
+    "issue@600900.SH": {
+      "routeId": 393441420378112,
+      "pageSchemaUid": "5hf8thzw6x7"
+    },
+    "watch@600900.SH": {
+      "routeId": 393441430863872,
+      "pageSchemaUid": "683h3i9mmog"
+    },
+    "change_log@600900.SH": {
+      "routeId": 393441441349632,
+      "pageSchemaUid": "7n2vi7amcyx"
+    },
+    "check@002078.SZ": {
+      "routeId": 393441621704704,
+      "pageSchemaUid": "zs2sm40y7pb"
+    },
+    "issue@002078.SZ": {
+      "routeId": 393441640579072,
+      "pageSchemaUid": "7tu7kl2kaqs"
+    },
+    "watch@002078.SZ": {
+      "routeId": 393441646870528,
+      "pageSchemaUid": "2lgm6vqx15f"
+    },
+    "change_log@002078.SZ": {
+      "routeId": 393441657356288,
+      "pageSchemaUid": "ugyrar8dbej"
+    },
+    "finmodel@002078.SZ": {
+      "routeId": 393441823031296,
+      "pageSchemaUid": "j4mkbx8wwhj"
+    },
+    "forecast@600900.SH": {
+      "routeId": 393441309229056,
+      "pageSchemaUid": "27oazkqfedu"
+    },
+    "valuation@002078.SZ": {
+      "routeId": 393441514749952,
+      "pageSchemaUid": "f0ibt8ahrjy"
+    },
+    "forecast@002078.SZ": {
+      "routeId": 393441548304384,
+      "pageSchemaUid": "v2cyzcr2cj4"
+    },
+    "projection@002078.SZ": {
+      "routeId": 393441554595840,
+      "pageSchemaUid": "6xcngfy8inp"
+    },
+    "balance@002078.SZ": {
+      "routeId": 393441573470208,
+      "pageSchemaUid": "c2vntq0dxm3"
+    },
+    "sensitivity@002078.SZ": {
+      "routeId": 393441594441728,
+      "pageSchemaUid": "hjrybeibzu8"
+    },
+    "trial@002078.SZ": {
+      "routeId": 393441611218944,
+      "pageSchemaUid": "zeenp5s7rnw"
+    },
+    "valuation@601668.SH": {
+      "routeId": 393515401609216,
+      "pageSchemaUid": "hed151dzg7g"
+    },
+    "forecast@601668.SH": {
+      "routeId": 393515439357952,
+      "pageSchemaUid": "bow0zjxareh"
+    },
+    "projection@601668.SH": {
+      "routeId": 393515449843712,
+      "pageSchemaUid": "fc6hhy35rvl"
+    },
+    "balance@601668.SH": {
+      "routeId": 393515468718080,
+      "pageSchemaUid": "mlqeget43ya"
+    },
+    "sensitivity@601668.SH": {
+      "routeId": 393515489689600,
+      "pageSchemaUid": "tjetllvt57l"
+    },
+    "trial@601668.SH": {
+      "routeId": 393515510661120,
+      "pageSchemaUid": "ofz50ouom1o"
+    },
+    "check@601668.SH": {
+      "routeId": 393515521146880,
+      "pageSchemaUid": "4v4cnnnlu8r"
+    },
+    "issue@601668.SH": {
+      "routeId": 393515540021248,
+      "pageSchemaUid": "5sg0pxa0kwy"
+    },
+    "watch@601668.SH": {
+      "routeId": 393515550507008,
+      "pageSchemaUid": "7iv4wgxr82e"
+    },
+    "change_log@601668.SH": {
+      "routeId": 393515558895616,
+      "pageSchemaUid": "6jcp70i4yji"
+    },
+    "finmodel@601668.SH": {
+      "routeId": 393515621810176,
+      "pageSchemaUid": "kceq40648pz"
+    },
+    "valuation@01698.HK": {
+      "routeId": 393523194101760,
+      "pageSchemaUid": "sutmj7dnddl"
+    },
+    "forecast@01698.HK": {
+      "routeId": 393524509016064,
+      "pageSchemaUid": "xlgklp60n22"
+    },
+    "projection@01698.HK": {
+      "routeId": 393524525793280,
+      "pageSchemaUid": "t0v8hxhhyys"
+    },
+    "balance@01698.HK": {
+      "routeId": 393524634845184,
+      "pageSchemaUid": "b9j23m5if2t"
+    },
+    "sensitivity@01698.HK": {
+      "routeId": 393524666302464,
+      "pageSchemaUid": "eahonmjv9b9"
+    },
+    "trial@01698.HK": {
+      "routeId": 393524691468288,
+      "pageSchemaUid": "5b60636sjxa"
+    },
+    "check@01698.HK": {
+      "routeId": 393524704051200,
+      "pageSchemaUid": "4cu0ofhqbi8"
+    },
+    "issue@01698.HK": {
+      "routeId": 393524722925568,
+      "pageSchemaUid": "8hb7w6gwwdr"
+    },
+    "watch@01698.HK": {
+      "routeId": 393524733411328,
+      "pageSchemaUid": "qywtkvvw8s2"
+    },
+    "change_log@01698.HK": {
+      "routeId": 393524743897088,
+      "pageSchemaUid": "ls6hb9ad4d9"
+    },
+    "finmodel@01698.HK": {
+      "routeId": 393524955709440,
+      "pageSchemaUid": "nnwfqisapqj"
+    },
+    "sotp_item@002078.SZ": {
+      "routeId": 393534324539392,
+      "pageSchemaUid": "p7y86mdn4wv"
+    },
+    "sotp_item@601668.SH": {
+      "routeId": 393534353899520,
+      "pageSchemaUid": "9x4rhpltvbc"
+    },
+    "sotp_item@01698.HK": {
+      "routeId": 393534381162496,
+      "pageSchemaUid": "wcsgzc21h41"
+    },
+    "model@600900.SH": {
+      "routeId": 393534500700160,
+      "pageSchemaUid": "b5jxjekofs2"
+    },
+    "model@002078.SZ": {
+      "routeId": 393534521671680,
+      "pageSchemaUid": "iy2hvi1ihag"
+    },
+    "model@601668.SH": {
+      "routeId": 393534530060288,
+      "pageSchemaUid": "magico4683l"
+    },
+    "model@01698.HK": {
+      "routeId": 393534536351744,
+      "pageSchemaUid": "q6x37gwoo54"
+    },
+    "valuation@01810.HK": {
+      "routeId": 393570970238976,
+      "pageSchemaUid": "pr5cxy9dpj6"
+    },
+    "sotp_item@01810.HK": {
+      "routeId": 393571022667776,
+      "pageSchemaUid": "2qkwkw33cek"
+    },
+    "model@01810.HK": {
+      "routeId": 393571033153536,
+      "pageSchemaUid": "4y1ghm7cg7t"
+    },
+    "forecast@01810.HK": {
+      "routeId": 393571052027904,
+      "pageSchemaUid": "l62dbqbvpw5"
+    },
+    "projection@01810.HK": {
+      "routeId": 393571062513664,
+      "pageSchemaUid": "9qc44nldpli"
+    },
+    "balance@01810.HK": {
+      "routeId": 393571083485184,
+      "pageSchemaUid": "g93k6fs2n3g"
+    },
+    "sensitivity@01810.HK": {
+      "routeId": 393571104456704,
+      "pageSchemaUid": "upl9x5vi2tj"
+    },
+    "trial@01810.HK": {
+      "routeId": 393571125428224,
+      "pageSchemaUid": "0rmcfkj5zp2"
+    },
+    "check@01810.HK": {
+      "routeId": 393571138011136,
+      "pageSchemaUid": "xxu3jyqq44j"
+    },
+    "issue@01810.HK": {
+      "routeId": 393571158982656,
+      "pageSchemaUid": "udhnp9nwwmw"
+    },
+    "watch@01810.HK": {
+      "routeId": 393571167371264,
+      "pageSchemaUid": "6xhan5tretv"
+    },
+    "change_log@01810.HK": {
+      "routeId": 393571177857024,
+      "pageSchemaUid": "yg9la0ze3pk"
+    },
+    "scenario@600900.SH": {
+      "routeId": 393571534372864,
+      "pageSchemaUid": "njet4keqaio"
+    },
+    "scenario@002078.SZ": {
+      "routeId": 393571546955776,
+      "pageSchemaUid": "eddt2lu6yv7"
+    },
+    "scenario@601668.SH": {
+      "routeId": 393571555344384,
+      "pageSchemaUid": "nlfg8maxbiw"
+    },
+    "scenario@01698.HK": {
+      "routeId": 393571561635840,
+      "pageSchemaUid": "ia75ze4d2lt"
+    },
+    "scenario@01810.HK": {
+      "routeId": 393571570024448,
+      "pageSchemaUid": "sxkvn324zl9"
+    },
+    "finmodel@01810.HK": {
+      "routeId": 393571721019392,
+      "pageSchemaUid": "is3int6s1n6"
+    },
+    "sotp_segment@002078.SZ": {
+      "routeId": 393632929415168,
+      "pageSchemaUid": "bs0jmtlynmn"
+    },
+    "sotp_segment@601668.SH": {
+      "routeId": 393632941998080,
+      "pageSchemaUid": "or8tpj8rp15"
+    },
+    "sotp_segment@01698.HK": {
+      "routeId": 393632950386688,
+      "pageSchemaUid": "6u4ompmdyyy"
+    },
+    "sotp_segment@01810.HK": {
+      "routeId": 393632960872448,
+      "pageSchemaUid": "kauhhgg1e4y"
+    },
+    "sotp@002078.SZ": {
+      "routeId": 393633197850624,
+      "pageSchemaUid": "jamxxkt2yr3"
+    },
+    "sotp@601668.SH": {
+      "routeId": 393633216724992,
+      "pageSchemaUid": "r0377rdd71y"
+    },
+    "sotp@01698.HK": {
+      "routeId": 393633235599360,
+      "pageSchemaUid": "kagdcnqx2g1"
+    },
+    "sotp@01810.HK": {
+      "routeId": 393633254473728,
+      "pageSchemaUid": "q3cvut3q3zy"
+    },
+    "biz_model@600900.SH": {
+      "routeId": 393656996462592,
+      "pageSchemaUid": "n6cb72j4fxj"
+    },
+    "fit_score@600900.SH": {
+      "routeId": 393657134874624,
+      "pageSchemaUid": "xqfha2n0tru"
+    },
+    "judgment@600900.SH": {
+      "routeId": 393657151651840,
+      "pageSchemaUid": "zy5j1sggleb"
+    },
+    "fact@600900.SH": {
+      "routeId": 393657181011968,
+      "pageSchemaUid": "ioiw4turzjv"
+    },
+    "source@600900.SH": {
+      "routeId": 393657201983488,
+      "pageSchemaUid": "i6lhvn6v5dm"
+    },
+    "biz_model@002078.SZ": {
+      "routeId": 393657216663552,
+      "pageSchemaUid": "71qj8sp2ji4"
+    },
+    "value_chain@002078.SZ": {
+      "routeId": 393657225052160,
+      "pageSchemaUid": "z6rj69mo2q5"
+    },
+    "competitor@002078.SZ": {
+      "routeId": 393657231343616,
+      "pageSchemaUid": "0x43rnaatm1"
+    },
+    "fit_score@002078.SZ": {
+      "routeId": 393657256509440,
+      "pageSchemaUid": "h2o39ic9c7s"
+    },
+    "judgment@002078.SZ": {
+      "routeId": 393657264898048,
+      "pageSchemaUid": "cmyw6iferha"
+    },
+    "fact@002078.SZ": {
+      "routeId": 393657275383808,
+      "pageSchemaUid": "6fn89c4c595"
+    },
+    "source@002078.SZ": {
+      "routeId": 393657283772416,
+      "pageSchemaUid": "4owssnalcws"
+    },
+    "biz_model@601668.SH": {
+      "routeId": 393657294258176,
+      "pageSchemaUid": "5fxlvxm8edp"
+    },
+    "value_chain@601668.SH": {
+      "routeId": 393657300549632,
+      "pageSchemaUid": "93hyi0fv9rr"
+    },
+    "competitor@601668.SH": {
+      "routeId": 393657308938240,
+      "pageSchemaUid": "kr5zc0n7cqs"
+    },
+    "fit_score@601668.SH": {
+      "routeId": 393657332006912,
+      "pageSchemaUid": "53ovly9ke7l"
+    },
+    "judgment@601668.SH": {
+      "routeId": 393657340395520,
+      "pageSchemaUid": "ibawbnxkz8t"
+    },
+    "fact@601668.SH": {
+      "routeId": 393657352978432,
+      "pageSchemaUid": "3iiq85q35cy"
+    },
+    "source@601668.SH": {
+      "routeId": 393657361367040,
+      "pageSchemaUid": "5sjzms2v4tu"
+    },
+    "biz_model@01698.HK": {
+      "routeId": 393657371852800,
+      "pageSchemaUid": "8f09spe9mh8"
+    },
+    "value_chain@01698.HK": {
+      "routeId": 393657378144256,
+      "pageSchemaUid": "lnhyoqyc2f5"
+    },
+    "competitor@01698.HK": {
+      "routeId": 393657386532864,
+      "pageSchemaUid": "d9uw0euf3na"
+    },
+    "fit_score@01698.HK": {
+      "routeId": 393657409601536,
+      "pageSchemaUid": "9fw94bv8w8y"
+    },
+    "judgment@01698.HK": {
+      "routeId": 393657417990144,
+      "pageSchemaUid": "82hxbudxolj"
+    },
+    "fact@01698.HK": {
+      "routeId": 393657428475904,
+      "pageSchemaUid": "yrdxconk433"
+    },
+    "source@01698.HK": {
+      "routeId": 393657438961664,
+      "pageSchemaUid": "rop381dggv2"
+    },
+    "biz_model@01810.HK": {
+      "routeId": 393657449447424,
+      "pageSchemaUid": "7huo06w2xp0"
+    },
+    "value_chain@01810.HK": {
+      "routeId": 393657455738880,
+      "pageSchemaUid": "9bs71o36lbi"
+    },
+    "competitor@01810.HK": {
+      "routeId": 393657464127488,
+      "pageSchemaUid": "skxqvpvyd8r"
+    },
+    "fit_score@01810.HK": {
+      "routeId": 393657487196160,
+      "pageSchemaUid": "rev3sw8hndr"
+    },
+    "judgment@01810.HK": {
+      "routeId": 393657497681920,
+      "pageSchemaUid": "j3k85eaw2nw"
+    },
+    "fact@01810.HK": {
+      "routeId": 393657508167680,
+      "pageSchemaUid": "jc07xaq5ccg"
+    },
+    "source@01810.HK": {
+      "routeId": 393657516556288,
+      "pageSchemaUid": "uoe2xtvktqe"
+    },
+    "dashboard@002078.SZ": {
+      "routeId": 393693719691264,
+      "pageSchemaUid": "avp4c1gkm4k"
+    },
+    "dashboard@601668.SH": {
+      "routeId": 393693759537152,
+      "pageSchemaUid": "b67iad4p38r"
+    },
+    "dashboard@01698.HK": {
+      "routeId": 393693795188736,
+      "pageSchemaUid": "q7dkk2q0gzc"
+    },
+    "dashboard@01810.HK": {
+      "routeId": 393693824548864,
+      "pageSchemaUid": "16rpqdqad0m"
+    },
+    "chainmap@600900.SH": {
+      "routeId": 393798560514048,
+      "pageSchemaUid": "i9r038m23ia"
+    },
+    "metric": {
+      "routeId": 393818739965952,
+      "pageSchemaUid": "patpbug4kmq"
+    },
+    "company": {
+      "routeId": 393818874183680,
+      "pageSchemaUid": "6ro3vmfo9o1"
+    },
+    "metric@macro": {
+      "routeId": 393818930806784,
+      "pageSchemaUid": "ujvwu8gqecp"
+    },
+    "collector@macro": {
+      "routeId": 393819056635904,
+      "pageSchemaUid": "wpknziqekcb"
+    },
+    "risk@600900.SH": {
+      "routeId": 393849911312384,
+      "pageSchemaUid": "w2d8w96z0fj"
+    },
+    "moat@600900.SH": {
+      "routeId": 393850160873472,
+      "pageSchemaUid": "eiabbix1ieb"
+    },
+    "moat@002078.SZ": {
+      "routeId": 393850186039296,
+      "pageSchemaUid": "hk2vmtnijdu"
+    },
+    "moat@601668.SH": {
+      "routeId": 393850194427904,
+      "pageSchemaUid": "qozj7maztxz"
+    },
+    "moat@01698.HK": {
+      "routeId": 393850200719360,
+      "pageSchemaUid": "t7585fmvnj3"
+    },
+    "moat@01810.HK": {
+      "routeId": 393850209107968,
+      "pageSchemaUid": "peu960rjvpm"
+    },
+    "thesis@600900.SH": {
+      "routeId": 393850506903552,
+      "pageSchemaUid": "w1ihvdkqq8l"
+    },
+    "thesis@002078.SZ": {
+      "routeId": 393850529972224,
+      "pageSchemaUid": "gbetw7qnlt8"
+    },
+    "thesis@601668.SH": {
+      "routeId": 393850538360832,
+      "pageSchemaUid": "fwram3s6z0w"
+    },
+    "thesis@01698.HK": {
+      "routeId": 393850544652288,
+      "pageSchemaUid": "iyut3rwi5im"
+    },
+    "thesis@01810.HK": {
+      "routeId": 393850550943744,
+      "pageSchemaUid": "9qrhfm3nwjl"
+    },
+    "assume@600900.SH": {
+      "routeId": 394012060352512,
+      "pageSchemaUid": "53v604rosxv"
+    },
+    "val@600900.SH": {
+      "routeId": 394012070838272,
+      "pageSchemaUid": "8zlkrvhqkth"
+    },
+    "dashboard@600900.SH": {
+      "routeId": 394012966322176,
+      "pageSchemaUid": "n853jlsnk76"
+    },
+    "finstmt@600900.SH": {
+      "routeId": 394029525041152,
+      "pageSchemaUid": "n0b7h2uthi6"
+    },
+    "finstmt@002078.SZ": {
+      "routeId": 394029535526912,
+      "pageSchemaUid": "pb5pp9xofkj"
+    },
+    "finstmt@601668.SH": {
+      "routeId": 394029541818368,
+      "pageSchemaUid": "c6kvnf1h9dd"
+    },
+    "finstmt@01698.HK": {
+      "routeId": 394029550206976,
+      "pageSchemaUid": "e75y11y2zmm"
+    },
+    "finstmt@01810.HK": {
+      "routeId": 394029558595584,
+      "pageSchemaUid": "5afwnthnnab"
+    },
+    "doc_guide": {
+      "routeId": 394036621803520,
+      "pageSchemaUid": "g5bofyannjt"
+    },
+    "doc_structure": {
+      "routeId": 394036630192128,
+      "pageSchemaUid": "czqmmyk6vg3"
+    },
+    "doc_formulas": {
+      "routeId": 394036638580736,
+      "pageSchemaUid": "mkkx6jbs1za"
+    },
+    "observation@600900.SH": {
+      "routeId": 394093129039872,
+      "pageSchemaUid": "2veokjca71l"
+    },
+    "observation@002078.SZ": {
+      "routeId": 394093145817088,
+      "pageSchemaUid": "v33vgakx72u"
+    },
+    "observation@601668.SH": {
+      "routeId": 394093160497152,
+      "pageSchemaUid": "i3fphwpkudq"
+    },
+    "observation@01698.HK": {
+      "routeId": 394093175177216,
+      "pageSchemaUid": "2660zxpxjdt"
+    },
+    "observation@01810.HK": {
+      "routeId": 394093187760128,
+      "pageSchemaUid": "bcyrxgiuem8"
+    },
+    "observation": {
+      "routeId": 394093202440192,
+      "pageSchemaUid": "fec6snzpitf"
+    },
+    "observation@macro": {
+      "routeId": 394093349240832,
+      "pageSchemaUid": "l53crbbiima"
+    },
+    "fin_history@600900.SH": {
+      "routeId": 394093542178816,
+      "pageSchemaUid": "6zi4goe1ad7"
+    },
+    "fin_history@002078.SZ": {
+      "routeId": 394093600899072,
+      "pageSchemaUid": "6sawkoas6mv"
+    },
+    "fin_history@601668.SH": {
+      "routeId": 394093609287680,
+      "pageSchemaUid": "pja6mx1xuae"
+    },
+    "fin_history@01698.HK": {
+      "routeId": 394093619773440,
+      "pageSchemaUid": "6qzdmnyd1zr"
+    },
+    "fin_history@01810.HK": {
+      "routeId": 394093628162048,
+      "pageSchemaUid": "yxzymk9w4l2"
+    }
+  }
+}

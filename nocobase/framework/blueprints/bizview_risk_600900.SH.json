@@ -1,0 +1,558 @@
+{
+ "version": "1",
+ "mode": "replace",
+ "target": {
+  "pageSchemaUid": "w2d8w96z0fj"
+ },
+ "page": {
+  "title": "风险分析",
+  "documentTitle": "长江电力 · 风险分析",
+  "enableTabs": true
+ },
+ "defaults": {
+  "collections": {
+   "vi_risk": {
+    "popups": {
+     "view": {
+      "name": "风险分析·详情",
+      "description": "查看一条「风险分析」记录"
+     },
+     "addNew": {
+      "name": "风险分析·新增",
+      "description": "新增一条「风险分析」记录"
+     },
+     "edit": {
+      "name": "风险分析·编辑",
+      "description": "编辑一条「风险分析」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "title",
+       "category",
+       "mechanism",
+       "probability",
+       "impact",
+       "horizon",
+       "trend",
+       "impact_estimate",
+       "mitigants"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "treatment",
+       "early_warning",
+       "response",
+       "status"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "level",
+       "thesis_verdicts"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_company": {
+    "popups": {
+     "view": {
+      "name": "公司·详情",
+      "description": "查看一条「公司」记录"
+     },
+     "addNew": {
+      "name": "公司·新增",
+      "description": "新增一条「公司」记录"
+     },
+     "edit": {
+      "name": "公司·编辑",
+      "description": "编辑一条「公司」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "name",
+       "exchange",
+       "industry",
+       "currency",
+       "volume_label",
+       "volume_unit",
+       "price_label",
+       "price_unit",
+       "is_default"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "profile",
+       "notes"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "price_metric",
+       "price_fx_metric"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "latest_price",
+       "latest_price_date",
+       "latest_price_raw",
+       "latest_fx",
+       "macro_used"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_thesis": {
+    "popups": {
+     "view": {
+      "name": "核心论点·详情",
+      "description": "查看一条「核心论点」记录"
+     },
+     "addNew": {
+      "name": "核心论点·新增",
+      "description": "新增一条「核心论点」记录"
+     },
+     "edit": {
+      "name": "核心论点·编辑",
+      "description": "编辑一条「核心论点」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "title",
+       "category",
+       "status",
+       "confidence",
+       "bull_case",
+       "bear_case",
+       "bull_rebuttal",
+       "bear_rebuttal",
+       "verdict"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "decisive_evidence",
+       "mind_changer",
+       "model_impact",
+       "external_view",
+       "debated_on",
+       "check_metric",
+       "check_op",
+       "check_threshold",
+       "check_years"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "check_latest_year",
+       "check_latest_value",
+       "check_result",
+       "judgment_status"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_judgment": {
+    "popups": {
+     "view": {
+      "name": "假设依据·详情",
+      "description": "查看一条「假设依据」记录"
+     },
+     "addNew": {
+      "name": "假设依据·新增",
+      "description": "新增一条「假设依据」记录"
+     },
+     "edit": {
+      "name": "假设依据·编辑",
+      "description": "编辑一条「假设依据」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息（1/2）",
+      "fields": [
+       "code",
+       "title",
+       "fact_layer",
+       "judgment",
+       "transmission",
+       "parameter",
+       "affected_years",
+       "change_threshold",
+       "no_change_condition",
+       "counter_evidence"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "status"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_watch": {
+    "popups": {
+     "view": {
+      "name": "跟踪事项·详情",
+      "description": "查看一条「跟踪事项」记录"
+     },
+     "addNew": {
+      "name": "跟踪事项·新增",
+      "description": "新增一条「跟踪事项」记录"
+     },
+     "edit": {
+      "name": "跟踪事项·编辑",
+      "description": "编辑一条「跟踪事项」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息",
+      "fields": [
+       "code",
+       "title",
+       "frequency",
+       "preferred_source",
+       "trigger",
+       "action",
+       "nature"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company",
+       "metric"
+      ]
+     },
+     {
+      "title": "自动计算（只读）",
+      "fields": [
+       "latest_value",
+       "latest_date"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   },
+   "vi_fact": {
+    "popups": {
+     "view": {
+      "name": "事实摘录·详情",
+      "description": "查看一条「事实摘录」记录"
+     },
+     "addNew": {
+      "name": "事实摘录·新增",
+      "description": "新增一条「事实摘录」记录"
+     },
+     "edit": {
+      "name": "事实摘录·编辑",
+      "description": "编辑一条「事实摘录」记录"
+     }
+    },
+    "fieldGroups": [
+     {
+      "title": "基本信息",
+      "fields": [
+       "title",
+       "category",
+       "statement",
+       "value",
+       "unit",
+       "period",
+       "as_of",
+       "verify_status",
+       "notes"
+      ]
+     },
+     {
+      "title": "关联",
+      "fields": [
+       "company",
+       "source"
+      ]
+     },
+     {
+      "title": "系统",
+      "fields": [
+       "updated_at"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "assets": {
+  "scripts": {
+   "view": {
+    "version": "v2",
+    "code": "const COMPANY = '600900.SH';   // 由 build_bizviews.py 写入：只看这家公司\nconst EDIT_TAB = '明细（编辑）';\nconst { React } = ctx.libs;\nconst { useState, useRef } = React;\nconst { Tooltip, Alert, Empty, theme } = ctx.libs.antd;\n\nasync function listRows(name, filter, appends, pageSize = 500) {\n  const resource = ctx.makeResource('MultiRecordResource');\n  resource.setResourceName(name);\n  resource.setPageSize?.(pageSize);\n  if (filter) resource.setFilter?.(filter);\n  if (appends) resource.setAppends?.(appends);\n  await resource.refresh();\n  return resource.getData() || [];\n}\n\n// 布局按页面实际可用宽度切换（不是窗口宽度）\nfunction useWidth(ref) {\n  const [w, setW] = useState(0);\n  React.useLayoutEffect(() => {\n    const el = ref.current;\n    if (!el) return undefined;\n    setW(el.getBoundingClientRect().width);\n    const RO = typeof window !== 'undefined' ? window.ResizeObserver : undefined;\n    if (!RO) return undefined;\n    const ro = new RO((es) => setW(es[0].contentRect.width));\n    ro.observe(el);\n    return () => ro.disconnect();\n  }, []);\n  return w;\n}\n\nconst usable = (s) => s !== null && s !== undefined && String(s).trim() !== '' && s !== '—';\nconst codeNum = (c) => Number(String(c || '').replace(/\\D/g, '')) || 0;\nconst byCode = (a, b) => codeNum(a.code) - codeNum(b.code) || String(a.code).localeCompare(String(b.code));\nconst head = (s) => String(s || '').split(/[：:]/)[0];\nconst short = (s, n = 16) => { const x = head(String(s || '').replace(/^伪壁垒[：:]\\s*/, '')).replace(/（[^）]*）/g, '').trim(); return x.length > n ? x.slice(0, n) + '…' : x; };\nconst clamp = (n) => ({ overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: n, WebkitBoxOrient: 'vertical', wordBreak: 'break-all' });\nconst REF_KIND = { V: '产业链', M: '壁垒', T: '论点', B: '商业模式', J: '假设依据', R: '风险', K: '跟踪事项', W: '跟踪事项' };\nconst REF_RE = /(?<![A-Za-z0-9-])(V\\d{1,2}|M\\d{1,2}|T\\d{1,2}|B\\d{1,2}|R\\d{1,2}|K\\d{1,2}|W\\d{1,2}|J-[A-Z0-9]+)(?![0-9])/g;\n\n// 设计约定：颜色只出现在圆点、色条这类标记上（表示状态），文字一律用正文色；\n// 字号三级：结论 22、卡片标题 15—16、正文 14；灰字只用于编号和辅助说明。\nfunction useUI() {\n  const { token: t } = theme.useToken();\n  const orange = t.orange6 || '#d46b08';\n  return {\n    t,\n    status: { 成立: t.colorSuccess, 观察: t.colorWarning, 存疑: orange, 证伪: t.colorError },\n    verdict: { 真实壁垒: t.colorSuccess, 局部优势: t.colorPrimary, 待验证: t.colorWarning, 伪壁垒: t.colorTextQuaternary },\n    level: { 重大: t.colorError, 重要: orange, 一般: t.colorTextQuaternary },\n    fs: {\n      h1: { fontSize: 22, fontWeight: 600, lineHeight: 1.45, color: t.colorTextHeading, margin: 0 },\n      h2: { fontSize: 20, fontWeight: 600, lineHeight: 1.45, color: t.colorTextHeading, margin: 0 },\n      title: { fontSize: 15, fontWeight: 600, lineHeight: 1.5, color: t.colorText },\n      body: { fontSize: 14, lineHeight: 1.75, color: t.colorText },\n      meta: { fontSize: 13, lineHeight: 1.6, color: t.colorTextSecondary },\n      code: { fontSize: 12, color: t.colorTextTertiary, fontVariantNumeric: 'tabular-nums', letterSpacing: 0.3 },\n    },\n  };\n}\n\nfunction Dot({ color, size = 8 }) {\n  const { t } = useUI();\n  return <span style={{ width: size, height: size, borderRadius: '50%', flex: 'none', display: 'inline-block', background: color || t.colorBorder }} />;\n}\n\n// 状态：色点＋文字（文字用正文色，不靠颜色单独表意）\nfunction Status({ label, color, size = 13, strong }) {\n  const { t } = useUI();\n  return (\n    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: size, color: t.colorText, fontWeight: strong ? 600 : 400, whiteSpace: 'nowrap' }}>\n      <Dot color={color} />{label}\n    </span>\n  );\n}\n\nfunction Tag({ children }) {\n  const { t } = useUI();\n  return <span style={{ fontSize: 12, lineHeight: '20px', padding: '0 7px', borderRadius: 4, background: t.colorFillTertiary, color: t.colorTextSecondary, whiteSpace: 'nowrap' }}>{children}</span>;\n}\n\nfunction Flag({ children }) {\n  const { t } = useUI();\n  return <span style={{ fontSize: 12, lineHeight: '20px', padding: '0 7px', borderRadius: 4, background: t.colorWarningBg, color: t.colorWarningText, whiteSpace: 'nowrap' }}>⚠ {children}</span>;\n}\n\n// 正文里的编号（V/M/T/B/R/K/J-）：悬停看标题\nfunction RefText({ text, refs }) {\n  const { t } = useUI();\n  if (!usable(text)) return null;\n  const parts = String(text).split(REF_RE);\n  return (\n    <>\n      {parts.map((p, i) => {\n        if (i % 2 === 0) return <React.Fragment key={i}>{p}</React.Fragment>;\n        const kind = p.startsWith('J-') ? 'J' : p[0];\n        const title = refs[p];\n        return (\n          <Tooltip key={i} title={title ? `${REF_KIND[kind]} ${p}：${title}` : `${REF_KIND[kind]} ${p}`}>\n            <span style={{ color: t.colorPrimary, cursor: 'help', borderBottom: `1px dashed ${t.colorPrimaryBorder}` }}>{p}</span>\n          </Tooltip>\n        );\n      })}\n    </>\n  );\n}\n\nfunction Label({ children }) {\n  const { t } = useUI();\n  return <div style={{ fontSize: 13, fontWeight: 600, color: t.colorTextHeading, marginBottom: 6 }}>{children}</div>;\n}\n\n// 详情里的一段：tone＝plain / pro（正方或证据，绿条）/ con（反方或反证，橙条）/ key（结论，浅底）\nfunction Section({ label, text, refs, tone = 'plain', children }) {\n  const { t, fs } = useUI();\n  if (!children && !usable(text)) return null;\n  const box = {\n    plain: {},\n    pro: { borderLeft: `3px solid ${t.colorSuccess}`, paddingLeft: 14 },\n    con: { borderLeft: `3px solid ${t.colorWarning}`, paddingLeft: 14 },\n    key: { background: t.colorFillQuaternary, borderRadius: 10, padding: '12px 16px' },\n  }[tone];\n  return (\n    <div style={box}>\n      <Label>{label}</Label>\n      {children || <p style={{ ...fs.body, fontSize: 14.5, lineHeight: 1.8, margin: 0, whiteSpace: 'pre-wrap' }}><RefText text={text} refs={refs} /></p>}\n    </div>\n  );\n}\n\nfunction Attrs({ items }) {\n  const { t } = useUI();\n  const xs = items.filter((x) => x);\n  return (\n    <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Math.min(xs.length, 4)}, minmax(0,1fr))`, gap: 16, padding: '14px 0',\n                  borderTop: `1px solid ${t.colorSplit}`, borderBottom: `1px solid ${t.colorSplit}` }}>\n      {xs.map(([k, v]) => (\n        <div key={k} style={{ minWidth: 0 }}>\n          <div style={{ fontSize: 12, color: t.colorTextSecondary, marginBottom: 4 }}>{k}</div>\n          <div style={{ fontSize: 15, fontWeight: 600, color: t.colorText }}>{v || '—'}</div>\n        </div>\n      ))}\n    </div>\n  );\n}\n\n// 关联到的记录：编号＋标题（＋状态）\nfunction LinkList({ label, items }) {\n  const { t, fs } = useUI();\n  if (!items || !items.length) return null;\n  return (\n    <div>\n      <Label>{label}</Label>\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>\n        {items.map((x, i) => (\n          <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'baseline' }}>\n            {x.code ? <span style={{ ...fs.code, flex: 'none', minWidth: 30 }}>{x.code}</span> : null}\n            <span style={{ ...fs.body, flex: 1, minWidth: 0 }}>{x.title}</span>\n            {x.tag ? <Status label={x.tag} color={x.color} /> : null}\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}\n\nfunction Facts({ facts }) {\n  const { fs } = useUI();\n  if (!facts || !facts.length) return null;\n  return (\n    <div>\n      <Label>依据事实</Label>\n      {facts.map((f) => (\n        <div key={f.id} style={{ ...fs.meta, paddingLeft: 14, position: 'relative' }}>\n          <span style={{ position: 'absolute', left: 2 }}>·</span>{f.title}\n        </div>\n      ))}\n    </div>\n  );\n}\n\n// 一排大数字：色点＋名称，数字是视觉重点\nfunction Stats({ items }) {\n  const { t } = useUI();\n  return (\n    <div style={{ display: 'flex', flexWrap: 'wrap', rowGap: 12 }}>\n      {items.map((x, i) => (\n        <div key={x.label} style={{ paddingRight: 28, marginRight: 28, borderRight: i < items.length - 1 ? `1px solid ${t.colorSplit}` : 'none', opacity: x.value ? 1 : 0.45 }}>\n          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: t.colorTextSecondary }}>{x.color ? <Dot color={x.color} /> : null}{x.label}</div>\n          <div style={{ fontSize: 28, fontWeight: 600, lineHeight: 1.25, color: t.colorTextHeading, fontVariantNumeric: 'tabular-nums' }}>\n            {x.value}<span style={{ fontSize: 14, fontWeight: 400, color: t.colorTextSecondary, marginLeft: 4 }}>{x.unit || ''}</span>\n          </div>\n        </div>\n      ))}\n    </div>\n  );\n}\n\n// 需要处理的事项，集中在一处（不在卡片里到处标橙色）\nfunction Notice({ items }) {\n  const { t, fs } = useUI();\n  if (!items || !items.length) return null;\n  return (\n    <div style={{ background: t.colorWarningBg, border: `1px solid ${t.colorWarningBorder}`, borderRadius: 10, padding: '12px 16px' }}>\n      <div style={{ ...fs.title, fontSize: 14, marginBottom: 4 }}>⚠ 需要处理</div>\n      {items.map((x, i) => <div key={i} style={{ ...fs.body, fontSize: 13.5, lineHeight: 1.7 }}>{x}</div>)}\n    </div>\n  );\n}\n\n// 卡片：白底细边；选中＝主色描边；muted＝弱化（例如伪壁垒）\nfunction Card({ selected, onClick, children, style, accent, muted }) {\n  const { t } = useUI();\n  const base = selected ? t.colorPrimary : t.colorBorderSecondary;\n  return (\n    <div onClick={onClick}\n         onMouseEnter={(e) => { if (!selected) e.currentTarget.style.borderColor = t.colorPrimaryBorderHover || t.colorPrimaryBorder; }}\n         onMouseLeave={(e) => { if (!selected) e.currentTarget.style.borderColor = base; }}\n         style={{ background: muted ? t.colorFillQuaternary : t.colorBgContainer, cursor: 'pointer', borderRadius: 12, minWidth: 0,\n                  border: `1px solid ${base}`, boxShadow: selected ? `0 0 0 3px ${t.colorPrimaryBg}` : '0 1px 2px rgba(0,0,0,0.03)',\n                  borderLeft: accent ? `4px solid ${accent}` : `1px solid ${base}`, transition: 'border-color .15s, box-shadow .15s', ...style }}>\n      {children}\n    </div>\n  );\n}\n\nfunction DetailHead({ meta, title, children }) {\n  const { fs } = useUI();\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>\n      <div style={fs.meta}>{meta}</div>\n      <h2 style={fs.h2}>{title}</h2>\n      {children}\n    </div>\n  );\n}\n\n// 页面骨架：小标题 → 一句话结论 → 大数字 → 需要处理 → 图（左）＋详情（右；不够宽时在图下方，选中后滚过去）\nfunction Shell({ eyebrow, headline, hint, stats, notice, main, detail, sel, detailWidth = 420, minSide = 1200 }) {\n  const { t, fs } = useUI();\n  const rootRef = useRef(null);\n  const detailRef = useRef(null);\n  const first = useRef(true);\n  const W = useWidth(rootRef);\n  const side = W >= minSide;\n  React.useEffect(() => {\n    if (first.current) { first.current = false; return; }\n    if (!side) detailRef.current?.scrollIntoView?.({ behavior: 'smooth', block: 'start' });\n  }, [sel]);\n  return (\n    <div ref={rootRef} style={{ maxWidth: 1480, margin: '0 auto', padding: '8px 8px 16px' }}>\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 24 }}>\n        <div style={{ ...fs.meta, fontWeight: 500 }}>{eyebrow}</div>\n        <h1 style={fs.h1}>{headline}</h1>\n        <div style={fs.meta}>{hint}　修改请切到“{EDIT_TAB}”标签。</div>\n      </div>\n      {stats || notice ? (\n        <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginBottom: 28 }}>{stats}{notice}</div>\n      ) : null}\n      <div style={{ display: 'grid', gridTemplateColumns: side ? `minmax(0,1fr) ${detailWidth}px` : '1fr', gap: side ? 36 : 28, alignItems: 'start' }}>\n        <div style={{ minWidth: 0 }}>{typeof main === 'function' ? main(W - (side ? detailWidth + 36 : 0)) : main}</div>\n        <div ref={detailRef} style={side ? { position: 'sticky', top: 12, borderLeft: `1px solid ${t.colorSplit}`, paddingLeft: 32 }\n                                         : { borderTop: `1px solid ${t.colorSplit}`, paddingTop: 28, maxWidth: 760 }}>\n          {detail}\n        </div>\n      </div>\n    </div>\n  );\n}\n\n// 所有编号 → 标题（正文里的引用悬停用）\nasync function loadRefs(scope) {\n  const [chain, moats, theses, biz, judgments, risks, watches] = await Promise.all([\n    listRows('vi_value_chain', scope), listRows('vi_moat', scope), listRows('vi_thesis', scope), listRows('vi_biz_model', scope),\n    listRows('vi_judgment', scope), listRows('vi_risk', scope), listRows('vi_watch', scope),\n  ]);\n  const refs = {};\n  chain.forEach((r) => { refs[r.code] = r.participant; });\n  moats.forEach((r) => { refs[r.code] = `${r.title}（${r.verdict || ''}）`; });\n  theses.forEach((r) => { refs[r.code] = `${r.title}${r.status ? '（' + r.status + '）' : ''}`; });\n  biz.forEach((r) => { refs[r.code] = `${r.element}：${r.title}`; });\n  judgments.forEach((r) => { refs[r.code] = r.title; });\n  risks.forEach((r) => { refs[r.code] = r.title; });\n  watches.forEach((r) => { refs[r.code] = r.title; });\n  return refs;\n}\n\nasync function boot(what, fn) {\n  try {\n    const cos = await listRows('vi_company', { code: { $eq: COMPANY } });\n    const company = cos[0];\n    if (!company) { ctx.render(<Alert type=\"info\" showIcon message={`公司表里没有代码为 ${COMPANY} 的公司`} />); return; }\n    await fn(company, { company_id: { $eq: company.id } });\n  } catch (error) {\n    ctx.render(<Alert type=\"error\" showIcon message={`${what}读取失败`} description={String(error?.message || error)} />);\n  }\n}\n\n// 风险分析：可能性（纵）×冲击（横）矩阵；格子底色＝风险等级（乘积 6—9 重大，3—4 重要，1—2 一般）\nconst LV = { 高: 3, 中: 2, 低: 1 };\nconst score = (r) => (LV[r.probability] || 0) * (LV[r.impact] || 0);\n\nfunction Chip({ r, selected, onSelect }) {\n  const { t, fs, level } = useUI();\n  const arrow = r.trend === '上升' ? ['↑', t.colorError] : r.trend === '下降' ? ['↓', t.colorSuccess] : null;\n  return (\n    <Tooltip title={r.title} mouseEnterDelay={0.3}>\n      <div onClick={() => onSelect(r.code)}\n           style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '8px 10px', borderRadius: 8, cursor: 'pointer', background: t.colorBgContainer,\n                    border: `1px solid ${selected ? t.colorPrimary : t.colorBorderSecondary}`, boxShadow: selected ? `0 0 0 3px ${t.colorPrimaryBg}` : '0 1px 2px rgba(0,0,0,0.04)' }}>\n        <Dot color={level[r.level]} />\n        <span style={{ ...fs.code, flex: 'none' }}>{r.code}</span>\n        <span style={{ flex: 1, minWidth: 0, fontSize: 14, lineHeight: 1.45, color: t.colorText, ...clamp(2) }}>{head(r.title)}</span>\n        {arrow ? <span style={{ color: arrow[1], fontSize: 13, fontWeight: 700 }}>{arrow[0]}</span> : null}\n      </div>\n    </Tooltip>\n  );\n}\n\nfunction Matrix({ rows, sel, onSelect, compact }) {\n  const { t } = useUI();\n  const bg = (s) => (s >= 6 ? t.colorErrorBg : s >= 3 ? t.colorWarningBg : t.colorFillQuaternary);\n  const axis = { fontSize: 13, color: t.colorTextSecondary, display: 'flex', alignItems: 'center', justifyContent: 'center' };\n  const cell = (p, i) => {\n    const xs = rows.filter((r) => LV[r.probability] === p && LV[r.impact] === i);\n    return (\n      <div key={`${p}${i}`} style={{ background: bg(p * i), borderRadius: 10, padding: 10, minHeight: compact ? 64 : 120, display: 'flex', flexDirection: 'column', gap: 8, minWidth: 0 }}>\n        {xs.map((r) => <Chip key={r.code} r={r} selected={r.code === sel} onSelect={onSelect} />)}\n      </div>\n    );\n  };\n  return (\n    <div style={{ display: 'grid', gridTemplateColumns: '44px repeat(3, minmax(0,1fr))', gridTemplateRows: 'repeat(3, auto) 30px', gap: 8 }}>\n      {[3, 2, 1].map((p) => (\n        <React.Fragment key={p}>\n          <div style={{ ...axis, flexDirection: 'column', gap: 2 }}><span style={{ fontWeight: 600, color: t.colorText }}>{['', '低', '中', '高'][p]}</span><span style={{ fontSize: 12 }}>可能性</span></div>\n          {[1, 2, 3].map((i) => cell(p, i))}\n        </React.Fragment>\n      ))}\n      <div />\n      {[1, 2, 3].map((i) => <div key={i} style={axis}><span style={{ fontWeight: 600, color: t.colorText, marginRight: 4 }}>{['', '低', '中', '高'][i]}</span>冲击</div>)}\n    </div>\n  );\n}\n\nfunction Detail({ r, refs }) {\n  const { status, level } = useUI();\n  if (!r) return <Empty description=\"点击矩阵里的风险查看详情\" />;\n  const ts = (r.theses || []).slice().sort(byCode);\n  const js = (r.judgments || []).slice().sort(byCode);\n  const ws = (r.watches || []).slice().sort(byCode);\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>\n      <DetailHead meta={`${r.code}${r.category ? ' · ' + r.category : ''}${r.status ? ' · ' + r.status : ''}`} title={r.title} />\n      <Attrs items={[['等级', <Status label={r.level || '未评'} color={level[r.level]} size={15} strong />], ['可能性', r.probability], ['冲击', r.impact], ['时间窗口', r.horizon]]} />\n      <Section label=\"估值里怎么处理\" text={r.treatment} refs={refs} tone=\"key\" />\n      <Section label=\"传导路径\" text={r.mechanism} refs={refs} />\n      <Section label=\"影响测算\" text={r.impact_estimate} refs={refs} />\n      <Section label=\"缓冲因素\" text={r.mitigants} refs={refs} tone=\"pro\" />\n      <Section label=\"预警信号\" text={r.early_warning} refs={refs} tone=\"con\" />\n      <Section label=\"触发后应对\" text={r.response} refs={refs} />\n      <LinkList label=\"会削弱的论点\" items={ts.map((x) => ({ code: x.code, title: x.title, tag: x.status || '未裁决', color: status[x.status] }))} />\n      <LinkList label=\"估值对应的假设依据\" items={js.map((j) => ({ code: j.code, title: `${j.title}${j.parameter ? '　→ ' + j.parameter : ''}` }))} />\n      <LinkList label=\"预警跟踪事项\" items={ws.map((w) => ({ code: w.code, title: `${w.title}${w.trigger ? '：' + w.trigger : ''}` }))} />\n      <Facts facts={r.facts} />\n    </div>\n  );\n}\n\nboot('风险分析', async (company, scope) => {\n  const [rows, refs] = await Promise.all([listRows('vi_risk', scope, ['theses', 'judgments', 'watches', 'facts']), loadRefs(scope)]);\n  rows.sort(byCode);\n  function Page() {\n    const { t, fs, level } = useUI();\n    const ranked = rows.slice().sort((a, b) => score(b) - score(a) || byCode(a, b));\n    const [sel, setSel] = useState(ranked[0]?.code);\n    if (!rows.length) return <Empty description={`${company.name}还没有填写风险（切到“${EDIT_TAB}”标签新增）`} />;\n    const top = ranked[0];\n    const rated = rows.filter((r) => score(r));\n    const unrated = rows.filter((r) => !score(r));\n    const notIn = rows.filter((r) => r.treatment === '未计入估值');\n    const headline = `最大的风险：${top.code} ${short(top.title, 20)}`;\n    const todo = notIn.map((r) => `${r.code} ${short(r.title, 24)}：还没有计入估值`)\n      .concat(unrated.map((r) => `${r.code} ${short(r.title, 24)}：还没评可能性或冲击`));\n    const main = (w) => (\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>\n        <Matrix rows={rated} sel={sel} onSelect={setSel} compact={w < 640} />\n        {unrated.length ? (\n          <div>\n            <Label>还没评可能性或冲击</Label>\n            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>{unrated.map((r) => <Chip key={r.code} r={r} selected={r.code === sel} onSelect={setSel} />)}</div>\n          </div>\n        ) : null}\n        <div style={fs.meta}>底色越红，风险越大（可能性×冲击：6—9 重大，3—4 重要，1—2 一般）；↑↓ 是趋势。</div>\n      </div>\n    );\n    return (\n      <Shell eyebrow={`${company.name} · 风险分析`} headline={headline}\n             hint={`${top.level || ''}风险，${top.treatment || '估值处理未填'}。右上角是可能性高、冲击大的风险；点风险看传导路径和对应的论点、跟踪事项。`}\n             stats={<Stats items={[...['重大', '重要', '一般'].map((l) => ({ label: l, value: rows.filter((r) => r.level === l).length, unit: '项', color: level[l] })),\n                                   { label: '未计入估值', value: notIn.length, unit: '项' }]} />}\n             notice={<Notice items={todo} />} main={main} sel={sel} detail={<Detail r={rows.find((r) => r.code === sel)} refs={refs} />} />\n    );\n  }\n  ctx.render(<Page />);\n});\n"
+   }
+  }
+ },
+ "tabs": [
+  {
+   "title": "风险矩阵",
+   "blocks": [
+    {
+     "key": "view",
+     "type": "jsBlock",
+     "script": "view"
+    }
+   ]
+  },
+  {
+   "title": "明细（编辑）",
+   "blocks": [
+    {
+     "key": "main",
+     "type": "table",
+     "collection": "vi_risk",
+     "fields": [
+      "code",
+      "title",
+      "category",
+      "probability",
+      "impact",
+      "level",
+      "treatment",
+      "status",
+      "thesis_verdicts"
+     ],
+     "settings": {
+      "title": "",
+      "description": "可能让这笔投资亏钱的事件；引用【事实摘录】【核心论点】【假设依据】【跟踪事项】；被【自动检查】引用。",
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "code",
+        "direction": "asc"
+       }
+      ],
+      "dataScope": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "company_id",
+         "operator": "$eq",
+         "value": 1
+        }
+       ]
+      }
+     },
+     "actions": [
+      "filter",
+      "refresh",
+      {
+       "type": "addNew",
+       "popup": {
+        "title": "新增 · 风险分析",
+        "blocks": [
+         {
+          "type": "createForm",
+          "resource": {
+           "collectionName": "vi_risk"
+          },
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "title",
+             "category",
+             "mechanism",
+             "probability",
+             "impact",
+             "horizon",
+             "trend",
+             "impact_estimate",
+             "mitigants"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "treatment",
+             "early_warning",
+             "response",
+             "status"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             },
+             {
+              "field": "theses",
+              "titleField": "title"
+             },
+             {
+              "field": "judgments",
+              "titleField": "title"
+             },
+             {
+              "field": "watches",
+              "titleField": "title"
+             },
+             {
+              "field": "facts",
+              "titleField": "title"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "bulkDelete"
+     ],
+     "recordActions": [
+      "view",
+      {
+       "type": "edit",
+       "popup": {
+        "title": "编辑 · 风险分析",
+        "blocks": [
+         {
+          "type": "editForm",
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "title",
+             "category",
+             "mechanism",
+             "probability",
+             "impact",
+             "horizon",
+             "trend",
+             "impact_estimate",
+             "mitigants"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "treatment",
+             "early_warning",
+             "response",
+             "status"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             },
+             {
+              "field": "theses",
+              "titleField": "title"
+             },
+             {
+              "field": "judgments",
+              "titleField": "title"
+             },
+             {
+              "field": "watches",
+              "titleField": "title"
+             },
+             {
+              "field": "facts",
+              "titleField": "title"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "delete"
+     ]
+    }
+   ]
+  }
+ ]
+}
