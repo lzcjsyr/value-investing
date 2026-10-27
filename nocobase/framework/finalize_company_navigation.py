@@ -24,8 +24,8 @@ if __name__ == '__main__':
     company_index = {co['name']: i+1 for i, co in enumerate(a.bp.companies())}
     target_names = {co['name'] for co in a.bp.companies() if co['code'] in a.TARGETS}
     sub_order = {g: [title for _, title in pages] for g, _, pages in a.bp.COMPANY_MENU}
-    sub_order['数据底稿'] = ['指标', '业务数据', '财务数据', '重要事实', '来源文档']
-    sub_order['预测与估值'] = ['历史年度', '财务模型', '估值'] + [title for title in sub_order['预测与估值'] if title != '历史年度'] + [a.bp.DRAFTS]
+    sub_order['数据底稿'] = ['业务数据', '财务数据', '重要事实', '来源文档']
+    sub_order['预测与估值'] = ['重点指标', '财务模型', '估值'] + [title for title in sub_order['预测与估值'] if title != '重点指标'] + [a.bp.DRAFTS]
     sub_order[a.bp.DRAFTS] = sub_order['预测与估值']
     changes = defaultdict(list)
     tab_details = []

@@ -115,7 +115,6 @@ UPDATE vi_collector_base SET metric_id = {lit(metric(mcode))}, url = {lit(url)},
   max_lag_days = {lag}, notes = {lit(notes)} WHERE name = {lit(name)};""")
 
 
-
 KLINE_TITLE = '太阳纸业收盘价：腾讯 K 线收盘价（不复权）（2025—2026 年历史数据）'
 KLINE_DOC = f"(SELECT id FROM vi_source_base WHERE company_id = {CO} AND title = {lit(KLINE_TITLE)})"
 
@@ -158,7 +157,6 @@ DELETE FROM vi_judgment_base WHERE company_id = {CO};
 DELETE FROM vi_fact_base WHERE company_id = {CO};
 DELETE FROM vi_thesis_base WHERE company_id = {CO};
 DELETE FROM vi_observation_base WHERE metric_id IN (SELECT id FROM vi_metric_base WHERE company_id = {CO} AND source_kind = '公司披露');
-DELETE FROM vi_fin_history_base WHERE company_id = {CO};
 DELETE FROM vi_source_base WHERE company_id = {CO};""")
 
 
@@ -789,54 +787,7 @@ SELECT x.id, y.id, now(), now() FROM (VALUES {', '.join(f'({lit(p)}, {lit(q)})' 
 JOIN vi_{table}_base x ON x.company_id = {CO} AND x.{key} = v.k1 JOIN vi_{target}_base y ON y.company_id = {CO} AND y.{tkey} = v.k2;""")
 
 
-# ================================================================ 历史财务（亿元；Wind 2026-10-22 取数，年报交叉核对）
-# 年: 营收, 营业成本, 利润总额, 所得税, 归母净利, 少数股东损益, 折旧摊销, 财务费用, 投资收益, 权益法收益, 经营现金流, 资本开支,
-#     收到投资分红, 取得借款, 偿还债务, 带息负债, 货币资金, 归母净资产, 分红总额, 每股股息, 销量（纸＋外销浆，万吨）
-HIST = {
-    2014: (104.58, 83.61, 6.83, 1.36, 4.69, 0.78, 7.54, 5.39, -0.56, -0.56, 26.08, 19.47, None, 89.96, 95.51, 72.67, 14.30, 54.21, 1.27, 0.05, None),
-    2015: (108.25, 82.93, 10.40, 2.85, 6.67, 0.88, 7.47, 5.90, -1.36, -1.31, 6.85, 26.27, None, 102.98, 94.73, 86.69, 15.28, 69.86, 1.27, 0.05, None),
-    2016: (144.55, 112.87, 14.68, 3.10, 10.57, 1.01, 8.95, 5.50, 0.21, 0.18, 28.16, 16.73, 0.08, 69.69, 87.00, 80.32, 10.43, 79.63, 1.27, 0.05, 307),
-    2017: (188.94, 139.76, 29.31, 6.81, 20.24, 2.26, 9.93, 5.71, 0.02, 0.14, 37.67, 39.80, 0.10, 120.23, 110.48, 99.76, 24.37, 103.25, 2.59, 0.10, 360),
-    2018: (217.68, 166.63, 27.20, 4.77, 22.38, 0.05, 11.51, 7.20, 0.06, 0.21, 44.78, 30.35, 0.00, 137.29, 140.40, 97.12, 19.71, 125.73, 2.59, 0.10, None),
-    2019: (227.63, 176.31, 25.94, 3.96, 21.78, 0.19, 14.53, 5.73, 0.22, 0.22, 46.86, 40.91, 0.14, 197.95, 196.72, 124.94, 25.35, 145.91, 2.59, 0.10, 471),
-    2020: (215.89, 173.92, 23.78, 4.10, 19.53, 0.15, 14.35, 5.33, 0.17, 0.27, 66.16, 63.09, 0.04, 135.98, 135.47, 132.19, 29.70, 161.12, 2.62, 0.10, 477),
-    2021: (319.97, 264.38, 33.79, 4.12, 29.57, 0.10, 17.69, 5.65, 0.43, 0.29, 49.29, 72.49, 0.07, 135.88, 97.50, 161.85, 34.68, 187.33, 5.37, 0.20, 630),
-    2022: (397.67, 337.35, 30.68, 2.51, 28.09, 0.08, 21.09, 8.34, 0.22, 0.22, 38.24, 47.12, 0.08, 147.09, 122.19, 171.28, 23.86, 230.84, 5.59, 0.20, 741),
-    2023: (395.44, 332.61, 33.20, 2.19, 30.86, 0.15, 21.81, 7.60, 0.21, 0.21, 66.18, 47.74, 0.01, 162.76, 167.17, 169.34, 24.95, 260.51, 8.38, 0.30, 812),
-    2024: (407.27, 342.05, 35.82, 4.71, 31.01, 0.10, 23.86, 7.16, 0.34, 0.33, 85.00, 55.81, 0.09, 129.32, 133.12, 164.35, 32.34, 286.14, 8.38, 0.30, 897),
-    2025: (391.92, 330.83, 38.28, 5.80, 32.51, -0.02, 24.98, 4.80, 0.28, 0.28, 49.56, 79.29, 0.08, 261.70, 223.06, 199.67, 21.97, 305.02, 8.38, 0.30, 929),
-}
-HIST_SOURCE = {2017: '太阳纸业 2017 年年度报告（产销量片段）', 2016: '太阳纸业 2017 年年度报告（产销量片段）', 2025: '太阳纸业 2025 年年度报告', 2024: '太阳纸业 2024 年年度报告', 2023: '太阳纸业 2023 年年度报告',
-               2022: '太阳纸业 2022 年年度报告', 2021: '太阳纸业 2021 年年度报告', 2020: '太阳纸业 2020 年年度报告'}
-HIST_NOTE = {
-    2015: '处置联营企业股权损失约 1.46 亿元（非经常），投资收益为负。',
-    2017: '少数股东损益 2.26 亿元（当年非全资子公司盈利较多）。',
-    2019: '销量取自 2020 年年报（2019 年对比列）。',
-    2021: '广西北海基地投产，营收 +48%。',
-    2023: '广西太阳项目投产、南宁项目下半年投产；有效税率 6.6%（老挝等免税）。',
-    2025: '模型基准年。南宁 100 万吨包装纸等项目下半年投产；每股股息＝中期 0.10＋年度 0.20。',
-}
-
-
-def fin_history():
-    out = []
-    for y, h in sorted(HIST.items()):
-        (rev, cos, pbt, tax, npar, mino, da, fc, inv, eqi, cfo, capex, invdiv, bin_, bout, debt, cash, eq, div, dps, vol) = h
-        note = ['财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。']
-        if y in (2014, 2015, 2018):
-            note.append('销量待补：岗底斯知识库未收录该年产销量表，Wind 积分不足（2026-10-22）。')
-        if y in (2016, 2017):
-            note.append('销量取自 2017 年年报产销量表（岗底斯知识库原文片段）：2017 年纸 279、浆 81 万吨；2016 年纸 230、浆 77 万吨。')
-        if y in HIST_NOTE:
-            note.append(HIST_NOTE[y])
-        out.append(dict(company_id=Raw(CO), year=y, scope_note='合并口径', volume=vol, revenue=rev, cost_of_sales=cos, pretax_profit=pbt,
-                        income_tax=tax, np_parent=npar, minority_profit=mino, da=da, finance_cost=fc, invest_income=inv, equity_income=eqi,
-                        cfo=cfo, capex=capex, investee_cash_div=invdiv, net_borrowing=round(bin_ - bout, 2), interest_debt=debt, cash=cash,
-                        equity_parent=eq, dividend_total=div, dps=dps,
-                        source_id=src(HIST_SOURCE[y]) if y in HIST_SOURCE else src('Wind：太阳纸业 2014—2025 年财务数据'),
-                        note='；'.join(note)))
-    # 2026-10-26 起历史年度的数值来自指标（报表公式＋data/data_layer.json 的录入值），这里只写口径说明、来源和备注；上面算出的数只作对照，不入库
-    ins('fin_history', [{k: r[k] for k in data_layer_seed.HISTORY_KEYS if k in r} for r in out])
+# 历史年度表已取消（2026-10-26）：年度数值来自指标（报表公式＋data/data_layer.json），年度备注在 data_layer.json 的 year_notes
 
 
 # ================================================================ 定期经营数据（单季，亿元；岗底斯利润表单季）
@@ -1011,7 +962,7 @@ if __name__ == '__main__':
     OUT.append(f"UPDATE vi_observation_base SET doc_id = {KLINE_DOC} WHERE doc_id IS NULL AND raw_capture_id IS NULL "
                f"AND metric_id = (SELECT price_metric_id FROM vi_company_base WHERE code = '{CODE}');")
     sources(); facts(); theses(); judgments(); business()
-    fin_history(); period_data(); model(); tracking()
+    period_data(); model(); tracking()
     OUT.extend(data_layer_seed.fin_stmt_statements(CO, HERE / 'data' / 'fin_stmt.json'))   # 三大报表原值（报表计算指标读它）
     OUT.extend(data_layer_seed.statements(CO, HERE / 'data' / 'data_layer.json'))   # 关注与数据底稿补充，放最后
     OUT.append('COMMIT;')

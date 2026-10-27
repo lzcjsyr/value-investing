@@ -13,6 +13,12 @@
 """
 
 PCT2 = {'step': '0.01'}   # 百分比显示两位小数
+# 指标的“模型字段”：财务模型历史一侧的列（库里存英文代码，界面显示中文）
+MODEL_FIELD_LABELS = {'volume': '业务量', 'revenue': '营业收入', 'cost_of_sales': '营业成本', 'pretax_profit': '利润总额', 'income_tax': '所得税',
+                      'np_parent': '归母净利润', 'minority_profit': '少数股东损益', 'da': '折旧摊销', 'finance_cost': '财务费用',
+                      'invest_income': '投资收益', 'equity_income': '权益法投资收益', 'cfo': '经营现金流', 'capex': '资本开支',
+                      'investee_cash_div': '收到投资分红', 'net_borrowing': '净借款', 'interest_debt': '带息负债', 'cash': '货币资金',
+                      'equity_parent': '归母净资产', 'dividend_total': '现金分红总额', 'dps': '每股股息'}
 PCT1 = {'step': '0.1'}
 
 
@@ -69,6 +75,7 @@ TABLES = [
              R('macro_metrics', '订阅的宏观数据', 'm2m', 'metric',
                '除估值参数（无风险利率、股价汇率）和假设依据、风险关联的跟踪指标外，这家公司还要看的宏观数据；只能选宏观指标（所属公司为空）'),
              F('is_default', '驾驶舱默认展示', 'bool', '已不再使用：每家公司在自己的菜单下都有驾驶舱'),
+             F('scope_breaks', '口径变化年份', 'text', '并表范围或披露口径变化的年份（如 2016、2023），历史年度里这些年与上一年不算同比'),
              F('profile', '公司简介', 'long'),
              F('notes', '备注', 'long'),
          ],
@@ -104,7 +111,7 @@ TABLES = [
     dict(code='fact', title='重要事实', group='2 数据底稿', title_field='title',
          role='用文字记录的单条可核验事实；数字在数据里。',
          desc='从来源文档里摘出的一条可核验事实，只用文字写“是什么”，解释放到论点或假设依据里。'
-              '本表不存数：按期重复的数字（发电量、销量、收入等）在「数据」或「财务数据」里，这里关联“相关指标”并写所属期间；'
+              '本表不存数：按期重复的数字（发电量、销量、收入等）在「数据」或「财务数据」里，看趋势到「预测与估值 / 重点指标」；'
               '一次性的数字（股本、产能、对价等）直接写在事实陈述里。',
          fields=[
              COMPANY,
@@ -112,7 +119,6 @@ TABLES = [
              S('category', '类别', ['经营', '财务', '资本开支', '分红', '债务', '政策', '治理', '水文', '估值方法', '其他']),
              F('statement', '事实陈述', 'long'),
              F('period', '所属期间', 'text', '如 2025、2026Q3'),
-             R('metric', '相关指标', 'm2o', 'metric', '事实里的数字是某个指标某一期的值时关联它，数值以「数据」为准'),
              F('as_of', '截至日期', 'date'),
              S('verify_status', '核验状态', ['已核验', '待核验', '建议值待核验']),
              R('source', '来源文档', 'm2o', 'source'),
@@ -328,58 +334,6 @@ TABLES = [
             F('seq', '行次', 'int', '科目在报表内的顺序'),
             F('amount', '金额（亿元）', 'num', '报表原值÷1e8，累计口径', p=4),
          ]),
-    dict(code='fin_history', title='历史年度', group='3 估值', title_field='year',
-         role='财务模型的历史一侧：每年的关键财务和经营数字，和逐年假设同一套列；数值全部来自指标。',
-         desc='一年一行，是财务模型的历史实际。每列的数来自对应指标（指标的“模型字段”）：报表科目按公式从财务数据算，'
-              '追溯调整的年份在「数据」里录调整值；业务量、分红等是披露指标。本表只填口径说明、来源和备注；'
-              '单价、派息率、同比、ROE 等自动计算，自动检查读这里。',
-         fields=[
-            COMPANY,
-            F('year', '年度', 'year'),
-             F('scope_note', '口径说明', 'text', '并表范围变化等，如“四站口径”“六站全口径”'),
-             R('source', '主要来源', 'm2o', 'source'),
-             F('note', '备注', 'long'),
-         ],
-         calc=[
-             F('volume', '业务量', 'num', '单位见公司表（长江电力＝发电量，亿千瓦时）', p=2),
-             F('revenue', '营业收入（亿元）', 'num', p=2),
-             F('cost_of_sales', '营业成本（亿元）', 'num', '用于毛利率；含折旧等制造成本', p=2),
-             F('pretax_profit', '利润总额（亿元）', 'num', p=2),
-             F('income_tax', '所得税（亿元）', 'num', p=2),
-             F('np_parent', '归母净利润（亿元）', 'num', p=2),
-             F('minority_profit', '少数股东损益（亿元）', 'num', p=2),
-             F('da', '折旧摊销（亿元）', 'num', '含使用权资产折旧（2019 年起）', p=2),
-             F('finance_cost', '财务费用（亿元）', 'num', p=2),
-             F('invest_income', '投资收益（亿元）', 'num', p=2),
-             F('equity_income', '权益法投资收益（亿元）', 'num', '对联营合营企业的投资收益，非当期现金', p=2),
-             F('cfo', '经营活动现金流（亿元）', 'num', p=2),
-             F('capex', '资本开支（亿元）', 'num', '购建固定资产、无形资产和其他长期资产支付的现金', p=2),
-             F('investee_cash_div', '收到投资分红（亿元）', 'num', '取得投资收益收到的现金', p=2),
-             F('net_borrowing', '净借款（亿元）', 'num', '取得借款−偿还债务；负数＝净还债', p=2),
-             F('interest_debt', '带息负债（期末，亿元）', 'num', p=2),
-             F('cash', '货币资金（期末，亿元）', 'num', p=2),
-             F('equity_parent', '归母净资产（期末，亿元）', 'num', '用于 ROE 与市净率', p=2),
-             F('dividend_total', '现金分红总额（亿元）', 'num', '归属该年度的分红（含中期）', p=2),
-             F('dps', '每股股息（元）', 'num', '归属该年度，含中期分红', p=4),
-             F('price', '单价（收入÷业务量）', 'num', p=4),
-             F('payout', '派息率', 'pct', '现金分红总额÷归母净利润', ui=PCT1),
-             F('tax_rate', '所得税率', 'pct', '所得税÷利润总额', ui=PCT2),
-             F('minority_share', '少数股东占比', 'pct', '少数股东损益÷净利润', ui=PCT2),
-             F('burden', '综合负担率', 'pct', '1−归母净利润÷利润总额', ui=PCT2),
-             F('fcf', '经营现金流−资本开支（亿元）', 'num', p=2),
-             F('volume_yoy', '业务量同比', 'pct', ui=PCT1),
-             F('price_yoy', '单价同比', 'pct', ui=PCT1),
-             F('revenue_yoy', '营业收入同比', 'pct', ui=PCT1),
-             F('np_yoy', '归母净利润同比', 'pct', ui=PCT1),
-             F('finance_cost_yoy', '财务费用同比', 'pct', ui=PCT1),
-             F('gross_margin', '毛利率', 'pct', '1−营业成本÷营业收入', ui=PCT1),
-             F('roe', 'ROE', 'pct', '归母净利润÷平均归母净资产（上年末与本年末）', ui=PCT1),
-             F('cfo_to_np', '经营现金流÷归母净利润', 'num', '利润的现金含量；长期低于 1 要警惕', p=2),
-             F('capex_to_cfo', '资本开支÷经营现金流', 'num', '大于 1＝经营现金流不够投资，需要借钱或少分红', p=2),
-             F('net_debt', '净负债（亿元）', 'num', '带息负债−货币资金', p=2),
-             F('net_debt_to_ebitda', '净负债÷EBITDA', 'num', 'EBITDA 近似＝利润总额＋财务费用＋折旧摊销', p=2),
-         ]),
-
     dict(code='metric', title='指标', group='2 数据底稿', title_field='name',
          role='一家公司要看的每一个数（经营、财务、行情与环境），一个指标一行：从哪来、最新值、是否到期、被哪些假设或风险盯着。',
          desc='一个指标一行；每期的数在「数据」里，口径（单季、累计、全年、时点）记在每期数据上。'
@@ -392,7 +346,8 @@ TABLES = [
              S('category', '类别', ['行情', '利率', '汇率', '商品', '宏观', '水文', '经营', '财务', '其他'], '业务驱动选经营，收入/利润/现金及分部财务选财务；合同额、合约销售额仍是业务。'),
              S('source_kind', '来源方式', ['自动采集', '公司披露', '年报', '手工整理', '报表计算'], '报表计算＝按“报表公式”从三大报表实时算出，不在「数据」里存数', default='自动采集'),
              S('basis', '主口径', ['时点', '单季', '半年累计', '前三季度累计', '全年', '年初至今累计', '滚动四季度'], '最新值、重点跟踪按这个口径取；每期数据自己的口径记在「数据」上', default='时点'),
-             S('model_field', '模型字段', ['volume', 'revenue', 'cost_of_sales', 'pretax_profit', 'income_tax', 'np_parent', 'minority_profit', 'da', 'finance_cost', 'invest_income', 'equity_income', 'cfo', 'capex', 'investee_cash_div', 'net_borrowing', 'interest_debt', 'cash', 'equity_parent', 'dividend_total', 'dps'], '这个指标是「历史年度」的哪一列（每家公司每列一个指标）；为空＝不进历史年度'),
+             S('model_field', '模型字段', ['volume', 'revenue', 'cost_of_sales', 'pretax_profit', 'income_tax', 'np_parent', 'minority_profit', 'da', 'finance_cost', 'invest_income', 'equity_income', 'cfo', 'capex', 'investee_cash_div', 'net_borrowing', 'interest_debt', 'cash', 'equity_parent', 'dividend_total', 'dps'], '这个指标是财务模型历史一侧的哪一列（每家公司每列一个指标）；有模型字段的指标列在「预测与估值 / 重点指标」',
+               labels=MODEL_FIELD_LABELS),
              F('formula', '报表公式', 'text', '报表计算的指标填：科目相加减，如“应收账款 + 合同资产”；比率用“÷”，如“（营业收入 − 营业成本）÷ 营业收入”（结果为 %）。科目名与三大报表一致'),
              R('company', '所属公司', 'm2o', 'company', '留空＝宏观数据：不属于任何公司，各公司按需使用'),
              F('source_name', '数据来源', 'text', '必填：这条序列从哪里来（公告名称、报表科目、网址或采集源）；每期的来源文档关联在“数据”上'),
@@ -410,6 +365,7 @@ TABLES = [
              F('next_due', '下次应更新', 'date'),
              F('tracked_by', '重点跟踪', 'text', '关联它的假设依据与风险编号（宏观指标前面写公司名）；为空＝没有被重点跟踪'),
              F('tracked_codes', '跟踪公司代码', 'text', '筛选用：如 ,600900.SH,'),
+             F('model_order', '模型字段顺序', 'int', '按财务模型列的顺序排序用'),
              F('scope', '归属', 'text', '宏观（所属公司为空）或公司'),
              F('used_by', '使用公司', 'long', '哪些公司用到这个指标、做什么用（自有、股价、汇率折算、无风险利率、重点跟踪、订阅）'),
              F('used_by_codes', '使用公司代码', 'text', '筛选用：如 ,600900.SH,002078.SZ,'),
@@ -737,6 +693,58 @@ TABLES = [
 
 # 只读计算视图（没有输入表）
 REPORTS = [
+    dict(code='fin_history', title='历史年度', group='3 估值', title_field='year',
+         role='财务模型的历史一侧：按年排好的关键财务与经营数字（只读，数值来自指标）。',
+         desc='不存数的只读视图：模型字段指标的年度值透视成“年份 × 字段”（期间数取全年、余额取年末，业务量换算成公司表的单位），'
+              '年份为有数据的最近 12 年；跨“口径变化年份”不算同比。财务模型页、自动检查、驾驶舱图表读这里。',
+         fields=[
+             F('company_id', '公司ID', 'int'), F('year', '年度', 'year'),
+             F('volume', '业务量', 'num', '单位见公司表（长江电力＝发电量，亿千瓦时）', p=2),
+             F('revenue', '营业收入（亿元）', 'num', p=2),
+             F('cost_of_sales', '营业成本（亿元）', 'num', '用于毛利率；含折旧等制造成本', p=2),
+             F('pretax_profit', '利润总额（亿元）', 'num', p=2),
+             F('income_tax', '所得税（亿元）', 'num', p=2),
+             F('np_parent', '归母净利润（亿元）', 'num', p=2),
+             F('minority_profit', '少数股东损益（亿元）', 'num', p=2),
+             F('da', '折旧摊销（亿元）', 'num', '含使用权资产折旧（2019 年起）', p=2),
+             F('finance_cost', '财务费用（亿元）', 'num', p=2),
+             F('invest_income', '投资收益（亿元）', 'num', p=2),
+             F('equity_income', '权益法投资收益（亿元）', 'num', '对联营合营企业的投资收益，非当期现金', p=2),
+             F('cfo', '经营活动现金流（亿元）', 'num', p=2),
+             F('capex', '资本开支（亿元）', 'num', '购建固定资产、无形资产和其他长期资产支付的现金', p=2),
+             F('investee_cash_div', '收到投资分红（亿元）', 'num', '取得投资收益收到的现金', p=2),
+             F('net_borrowing', '净借款（亿元）', 'num', '取得借款−偿还债务；负数＝净还债', p=2),
+             F('interest_debt', '带息负债（期末，亿元）', 'num', p=2),
+             F('cash', '货币资金（期末，亿元）', 'num', p=2),
+             F('equity_parent', '归母净资产（期末，亿元）', 'num', '用于 ROE 与市净率', p=2),
+             F('dividend_total', '现金分红总额（亿元）', 'num', '归属该年度的分红（含中期）', p=2),
+             F('dps', '每股股息（元）', 'num', '归属该年度，含中期分红', p=4),
+             F('price', '单价（收入÷业务量）', 'num', p=4),
+             F('payout', '派息率', 'pct', '现金分红总额÷归母净利润', ui=PCT1),
+             F('tax_rate', '所得税率', 'pct', '所得税÷利润总额', ui=PCT2),
+             F('minority_share', '少数股东占比', 'pct', '少数股东损益÷净利润', ui=PCT2),
+             F('burden', '综合负担率', 'pct', '1−归母净利润÷利润总额', ui=PCT2),
+             F('fcf', '经营现金流−资本开支（亿元）', 'num', p=2),
+             F('volume_yoy', '业务量同比', 'pct', ui=PCT1),
+             F('price_yoy', '单价同比', 'pct', ui=PCT1),
+             F('revenue_yoy', '营业收入同比', 'pct', ui=PCT1),
+             F('np_yoy', '归母净利润同比', 'pct', ui=PCT1),
+             F('finance_cost_yoy', '财务费用同比', 'pct', ui=PCT1),
+             F('gross_margin', '毛利率', 'pct', '1−营业成本÷营业收入', ui=PCT1),
+             F('roe', 'ROE', 'pct', '归母净利润÷平均归母净资产（上年末与本年末）', ui=PCT1),
+             F('cfo_to_np', '经营现金流÷归母净利润', 'num', '利润的现金含量；长期低于 1 要警惕', p=2),
+             F('capex_to_cfo', '资本开支÷经营现金流', 'num', '大于 1＝经营现金流不够投资，需要借钱或少分红', p=2),
+             F('net_debt', '净负债（亿元）', 'num', '带息负债−货币资金', p=2),
+             F('net_debt_to_ebitda', '净负债÷EBITDA', 'num', 'EBITDA 近似＝利润总额＋财务费用＋折旧摊销', p=2),
+         ]),
+    dict(code='metric_value', title='指标数值', group='2 数据底稿', title_field='period',
+         role='每个指标每期每口径的数（录入的＋报表算的），指标详情的趋势图读这里。',
+         desc='只读视图：「数据」里存的当前有效值，加上报表计算指标从三大报表实时算出的值；“取值”标明来源。',
+         fields=[
+             F('metric_id', '指标ID', 'int'), F('company_id', '公司ID', 'int'), F('period', '期间', 'text'), F('basis', '口径', 'text'),
+             F('obs_date', '日期', 'date'), F('value', '数值', 'num', p=4), F('yoy', '同比', 'pct', ui=PCT2), F('unit', '单位', 'text'),
+             F('origin', '取值', 'text', '录入或报表计算'), F('summary', '说明', 'long'), F('doc_id', '来源文档ID', 'int'), F('doc_title', '来源文档', 'text'),
+         ]),
     dict(code='projection', title='预测计算', group='3 估值', title_field='year',
          role='按假设算出的逐年利润、股息和现金。',
          desc='情景×年度的利润、股息与现金。全部由公式计算，不能修改。',
@@ -905,7 +913,6 @@ REPORTS = [
 # 业务唯一约束（防止同一年两行假设、同一代码两家公司等逻辑错误）
 UNIQUE = {
     'company': ['code'], 'metric': ['code'], 'fin_stmt': ['company_id', 'stmt', 'period_end', 'item'],
-    'fin_history': ['company_id', 'year'],
     'forecast': ['model_id', 'year'], 'scenario': ['model_id', 'name'],
     'thesis': ['company_id', 'code'],
     'judgment': ['company_id', 'code'], 'business': ['company_id', 'code'],
@@ -923,6 +930,7 @@ NB_INTERFACE = {'text': 'input', 'long': 'textarea', 'num': 'number', 'pct': 'pe
 # 公式读取的表（外键之外），对照 sql/02_calc.sql；外键关系从 fields 自动取，不写在这里
 READS = {
     'thesis': ['fin_history'], 'moat': ['fin_history'],          # 自动检查（vi_check_eval → vi_fin_metric）
+    'fin_history': ['metric', 'observation', 'fin_stmt'], 'metric_value': ['metric', 'observation', 'fin_stmt', 'source'],
     'projection': ['model', 'scenario', 'forecast'],
     'balance': ['model', 'forecast', 'projection'],
     'valuation': ['model', 'scenario', 'projection'],

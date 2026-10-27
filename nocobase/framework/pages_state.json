@@ -347,26 +347,6 @@
    "routeId": 394093349240832,
    "pageSchemaUid": "l53crbbiima"
   },
-  "fin_history@600900.SH": {
-   "routeId": 394093542178816,
-   "pageSchemaUid": "6zi4goe1ad7"
-  },
-  "fin_history@002078.SZ": {
-   "routeId": 394093600899072,
-   "pageSchemaUid": "6sawkoas6mv"
-  },
-  "fin_history@601668.SH": {
-   "routeId": 394093609287680,
-   "pageSchemaUid": "pja6mx1xuae"
-  },
-  "fin_history@01698.HK": {
-   "routeId": 394093619773440,
-   "pageSchemaUid": "6qzdmnyd1zr"
-  },
-  "fin_history@01810.HK": {
-   "routeId": 394093628162048,
-   "pageSchemaUid": "yxzymk9w4l2"
-  },
   "risk@002078.SZ": {
    "routeId": 394097944100864,
    "pageSchemaUid": "b012n4xl82c"
@@ -471,37 +451,37 @@
    "routeId": 394203938160640,
    "pageSchemaUid": "y54r45tif1g"
   },
-  "metric@600900.SH": {
-   "routeId": 394242680422400,
-   "pageSchemaUid": "fhpvayq7fez"
+  "key_metric@600900.SH": {
+   "routeId": 394270986469376,
+   "pageSchemaUid": "geqtmbie3p0"
   },
-  "metric@002078.SZ": {
-   "routeId": 394242745434112,
-   "pageSchemaUid": "ke1xrh678v1"
+  "key_metric@002078.SZ": {
+   "routeId": 394271022120960,
+   "pageSchemaUid": "r369qrhkdgb"
   },
-  "metric@601668.SH": {
-   "routeId": 394242802057216,
-   "pageSchemaUid": "eifh75xy5xw"
+  "key_metric@601668.SH": {
+   "routeId": 394271053578240,
+   "pageSchemaUid": "oqudjnxbjpu"
   },
-  "metric@01698.HK": {
-   "routeId": 394242875457536,
-   "pageSchemaUid": "k087d6z6aqb"
+  "key_metric@01698.HK": {
+   "routeId": 394271085035520,
+   "pageSchemaUid": "g4lh63153e8"
   },
-  "metric@01810.HK": {
-   "routeId": 394242976120832,
-   "pageSchemaUid": "hirlb8scuv2"
+  "key_metric@01810.HK": {
+   "routeId": 394271116492800,
+   "pageSchemaUid": "94s5avwutfn"
   },
   "doc_guide": {
-   "routeId": 394252138774528,
-   "pageSchemaUid": "lelck3ag7rm"
+   "routeId": 394344615378944,
+   "pageSchemaUid": "qcpe6tyv618"
   },
   "doc_structure": {
-   "routeId": 394252149260288,
-   "pageSchemaUid": "v3gtbdl9n21"
+   "routeId": 394344625864704,
+   "pageSchemaUid": "esut1o9lk5p"
   },
   "doc_formulas": {
-   "routeId": 394252153454592,
-   "pageSchemaUid": "9fnpd3la1cx"
+   "routeId": 394344632156160,
+   "pageSchemaUid": "vefbnyb41dr"
   }
  }
 }

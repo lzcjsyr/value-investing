@@ -17,6 +17,7 @@ CREATE TABLE vi_company_base (
   price_label text,
   price_unit text,
   is_default boolean,
+  scope_breaks text,
   profile text,
   notes text,
   price_metric_id bigint,
@@ -47,6 +48,8 @@ COMMENT ON COLUMN vi_company_base.price_unit IS '单价单位：如 元/千瓦�
 
 COMMENT ON COLUMN vi_company_base.is_default IS '驾驶舱默认展示：已不再使用：每家公司在自己的菜单下都有驾驶舱';
 
+COMMENT ON COLUMN vi_company_base.scope_breaks IS '口径变化年份：并表范围或披露口径变化的年份（如 2016、2023），历史年度里这些年与上一年不算同比';
+
 COMMENT ON COLUMN vi_company_base.profile IS '公司简介';
 
 COMMENT ON COLUMN vi_company_base.notes IS '备注';
@@ -74,7 +77,7 @@ CREATE TABLE vi_source_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_source_base IS '来源文档：所有数据和事实的出处；被【重要事实】【竞争对手】【历史年度】【数据】引用。原始出处：年报、公告、数据库取数、官网。重要事实、每期数据都关联它；一份文档可以支撑多条事实和数据。';
+COMMENT ON TABLE vi_source_base IS '来源文档：所有数据和事实的出处；被【重要事实】【竞争对手】【数据】【指标数值】引用。原始出处：年报、公告、数据库取数、官网。重要事实、每期数据都关联它；一份文档可以支撑多条事实和数据。';
 
 COMMENT ON COLUMN vi_source_base.title IS '标题';
 
@@ -110,13 +113,12 @@ CREATE TABLE vi_fact_base (
   verify_status text,
   notes text,
   company_id bigint,
-  metric_id bigint,
   source_id bigint,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_fact_base IS '重要事实：用文字记录的单条可核验事实；数字在数据里；引用【来源文档】【指标】；被【商业模式拆解】【产业链与五力】【竞争对手】【竞争壁垒】【核心论点】【风险分析】【假设依据】【资产估值与调整】【经营分部估值】【逐年假设】引用。从来源文档里摘出的一条可核验事实，只用文字写“是什么”，解释放到论点或假设依据里。本表不存数：按期重复的数字（发电量、销量、收入等）在「数据」或「财务数据」里，这里关联“相关指标”并写所属期间；一次性的数字（股本、产能、对价等）直接写在事实陈述里。';
+COMMENT ON TABLE vi_fact_base IS '重要事实：用文字记录的单条可核验事实；数字在数据里；引用【来源文档】；被【商业模式拆解】【产业链与五力】【竞争对手】【竞争壁垒】【核心论点】【风险分析】【假设依据】【资产估值与调整】【经营分部估值】【逐年假设】引用。从来源文档里摘出的一条可核验事实，只用文字写“是什么”，解释放到论点或假设依据里。本表不存数：按期重复的数字（发电量、销量、收入等）在「数据」或「财务数据」里，看趋势到「预测与估值 / 重点指标」；一次性的数字（股本、产能、对价等）直接写在事实陈述里。';
 
 COMMENT ON COLUMN vi_fact_base.title IS '事实：一句话标题';
 
@@ -133,8 +135,6 @@ COMMENT ON COLUMN vi_fact_base.verify_status IS '核验状态（可选：已核�
 COMMENT ON COLUMN vi_fact_base.notes IS '备注';
 
 COMMENT ON COLUMN vi_fact_base.company_id IS '公司（关联 公司）';
-
-COMMENT ON COLUMN vi_fact_base.metric_id IS '相关指标（关联 指标）';
 
 COMMENT ON COLUMN vi_fact_base.source_id IS '来源文档（关联 来源文档）';
 
@@ -588,7 +588,7 @@ CREATE TABLE vi_fin_stmt_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_fin_stmt_base IS '财务数据：公司的季度三大报表原值。季度完整三大报表（资产负债表、利润表、现金流量表），一行＝公司×报表×报告期×科目，金额为报表原值折亿元。合并报表科目以这里为准，由 tools/fin_stmt.py 取数检验后入库，不手录（A 股来自新浪财报、港股来自东方财富港股报表，都经 akshare）。空白科目＝该期未披露。资产负债表是时点余额；利润表/现金流量表是年初至报告期末的累计数。';
+COMMENT ON TABLE vi_fin_stmt_base IS '财务数据：公司的季度三大报表原值；被【历史年度】【指标数值】引用。季度完整三大报表（资产负债表、利润表、现金流量表），一行＝公司×报表×报告期×科目，金额为报表原值折亿元。合并报表科目以这里为准，由 tools/fin_stmt.py 取数检验后入库，不手录（A 股来自新浪财报、港股来自东方财富港股报表，都经 akshare）。空白科目＝该期未披露。资产负债表是时点余额；利润表/现金流量表是年初至报告期末的累计数。';
 
 COMMENT ON COLUMN vi_fin_stmt_base.period IS '报告期：如 2025Q3；Q4 即年报口径';
 
@@ -605,31 +605,6 @@ COMMENT ON COLUMN vi_fin_stmt_base.amount IS '金额（亿元）：报表原值�
 COMMENT ON COLUMN vi_fin_stmt_base.company_id IS '公司（关联 公司）';
 
 CREATE TRIGGER vi_fin_stmt_base_touch BEFORE UPDATE ON vi_fin_stmt_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
-
-CREATE TABLE vi_fin_history_base (
-  id bigserial PRIMARY KEY,
-  year integer,
-  scope_note text,
-  note text,
-  company_id bigint,
-  source_id bigint,
-  created_at timestamptz NOT NULL DEFAULT now(),
-  updated_at timestamptz NOT NULL DEFAULT now()
-);
-
-COMMENT ON TABLE vi_fin_history_base IS '历史年度：财务模型的历史一侧：每年的关键财务和经营数字，和逐年假设同一套列；数值全部来自指标；引用【来源文档】；被【竞争壁垒】【核心论点】引用。一年一行，是财务模型的历史实际。每列的数来自对应指标（指标的“模型字段”）：报表科目按公式从财务数据算，追溯调整的年份在「数据」里录调整值；业务量、分红等是披露指标。本表只填口径说明、来源和备注；单价、派息率、同比、ROE 等自动计算，自动检查读这里。';
-
-COMMENT ON COLUMN vi_fin_history_base.year IS '年度';
-
-COMMENT ON COLUMN vi_fin_history_base.scope_note IS '口径说明：并表范围变化等，如“四站口径”“六站全口径”';
-
-COMMENT ON COLUMN vi_fin_history_base.note IS '备注';
-
-COMMENT ON COLUMN vi_fin_history_base.company_id IS '公司（关联 公司）';
-
-COMMENT ON COLUMN vi_fin_history_base.source_id IS '主要来源（关联 来源文档）';
-
-CREATE TRIGGER vi_fin_history_base_touch BEFORE UPDATE ON vi_fin_history_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
 
 CREATE TABLE vi_metric_base (
   id bigserial PRIMARY KEY,
@@ -651,7 +626,7 @@ CREATE TABLE vi_metric_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_metric_base IS '指标：一家公司要看的每一个数（经营、财务、行情与环境），一个指标一行：从哪来、最新值、是否到期、被哪些假设或风险盯着；被【公司】【重要事实】【风险分析】【假设依据】【数据】【估值模型】【资产估值与调整】【采集配置】【质量自检】引用。一个指标一行；每期的数在「数据」里，口径（单季、累计、全年、时点）记在每期数据上。来源方式：自动采集、公司披露／年报／手工整理（在「数据」里录）、报表计算（按“报表公式”从三大报表实时算，不另存；报表里有的科目只能这样取）。所属公司为空的是宏观数据。';
+COMMENT ON TABLE vi_metric_base IS '指标：一家公司要看的每一个数（经营、财务、行情与环境），一个指标一行：从哪来、最新值、是否到期、被哪些假设或风险盯着；被【公司】【风险分析】【假设依据】【数据】【估值模型】【资产估值与调整】【采集配置】【历史年度】【指标数值】【质量自检】引用。一个指标一行；每期的数在「数据」里，口径（单季、累计、全年、时点）记在每期数据上。来源方式：自动采集、公司披露／年报／手工整理（在「数据」里录）、报表计算（按“报表公式”从三大报表实时算，不另存；报表里有的科目只能这样取）。所属公司为空的是宏观数据。';
 
 COMMENT ON COLUMN vi_metric_base.code IS '指标代码：稳定的英文代码，如 600900.SH.PRICE';
 
@@ -665,7 +640,7 @@ COMMENT ON COLUMN vi_metric_base.source_kind IS '来源方式：报表计算＝�
 
 COMMENT ON COLUMN vi_metric_base.basis IS '主口径：最新值、重点跟踪按这个口径取；每期数据自己的口径记在「数据」上（可选：时点、单季、半年累计、前三季度累计、全年、年初至今累计、滚动四季度）';
 
-COMMENT ON COLUMN vi_metric_base.model_field IS '模型字段：这个指标是「历史年度」的哪一列（每家公司每列一个指标）；为空＝不进历史年度（可选：volume、revenue、cost_of_sales、pretax_profit、income_tax、np_parent、minority_profit、da、finance_cost、invest_income、equity_income、cfo、capex、investee_cash_div、net_borrowing、interest_debt、cash、equity_parent、dividend_total、dps）';
+COMMENT ON COLUMN vi_metric_base.model_field IS '模型字段：这个指标是财务模型历史一侧的哪一列（每家公司每列一个指标）；有模型字段的指标列在「预测与估值 / 重点指标」（可选：volume、revenue、cost_of_sales、pretax_profit、income_tax、np_parent、minority_profit、da、finance_cost、invest_income、equity_income、cfo、capex、investee_cash_div、net_borrowing、interest_debt、cash、equity_parent、dividend_total、dps）';
 
 COMMENT ON COLUMN vi_metric_base.formula IS '报表公式：报表计算的指标填：科目相加减，如“应收账款 + 合同资产”；比率用“÷”，如“（营业收入 − 营业成本）÷ 营业收入”（结果为 %）。科目名与三大报表一致';
 
@@ -699,7 +674,7 @@ CREATE TABLE vi_observation_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_observation_base IS '数据：每个指标每一期的数：期间、口径、数值、同比、来源文档和说明；引用【来源文档】【指标】【原始采集记录】；被【质量自检】引用。一行＝某个指标在某一期、某个口径下的一个数：自动采集的按天（股价、利率、水位），公司披露的按期（发电量、销量、新签合同额）。同一指标、同一口径、同一日期多次采集时取最后一次为“当前版本”；超出合理范围的为无效。报表计算的指标不在这里存数。出处只记一处：公司披露和历史补数关联“来源文档”，自动采集关联“原始采集记录”（只做解析与范围校验，不是财务核验，不自动改估值假设）。';
+COMMENT ON TABLE vi_observation_base IS '数据：每个指标每一期的数：期间、口径、数值、同比、来源文档和说明；引用【来源文档】【指标】【原始采集记录】；被【历史年度】【指标数值】【质量自检】引用。一行＝某个指标在某一期、某个口径下的一个数：自动采集的按天（股价、利率、水位），公司披露的按期（发电量、销量、新签合同额）。同一指标、同一口径、同一日期多次采集时取最后一次为“当前版本”；超出合理范围的为无效。报表计算的指标不在这里存数。出处只记一处：公司披露和历史补数关联“来源文档”，自动采集关联“原始采集记录”（只做解析与范围校验，不是财务核验，不自动改估值假设）。';
 
 COMMENT ON COLUMN vi_observation_base.obs_date IS '观察日期：自动采集为采集到的日期；公司披露为期末日期';
 
@@ -1284,10 +1259,6 @@ ALTER TABLE vi_fact_base ADD FOREIGN KEY (company_id) REFERENCES vi_company_base
 
 CREATE INDEX ON vi_fact_base (company_id);
 
-ALTER TABLE vi_fact_base ADD FOREIGN KEY (metric_id) REFERENCES vi_metric_base(id) ON DELETE SET NULL;
-
-CREATE INDEX ON vi_fact_base (metric_id);
-
 ALTER TABLE vi_fact_base ADD FOREIGN KEY (source_id) REFERENCES vi_source_base(id) ON DELETE SET NULL;
 
 CREATE INDEX ON vi_fact_base (source_id);
@@ -1339,14 +1310,6 @@ CREATE INDEX ON vi_judgment_base (company_id);
 ALTER TABLE vi_fin_stmt_base ADD FOREIGN KEY (company_id) REFERENCES vi_company_base(id) ON DELETE SET NULL;
 
 CREATE INDEX ON vi_fin_stmt_base (company_id);
-
-ALTER TABLE vi_fin_history_base ADD FOREIGN KEY (company_id) REFERENCES vi_company_base(id) ON DELETE SET NULL;
-
-CREATE INDEX ON vi_fin_history_base (company_id);
-
-ALTER TABLE vi_fin_history_base ADD FOREIGN KEY (source_id) REFERENCES vi_source_base(id) ON DELETE SET NULL;
-
-CREATE INDEX ON vi_fin_history_base (source_id);
 
 ALTER TABLE vi_metric_base ADD FOREIGN KEY (company_id) REFERENCES vi_company_base(id) ON DELETE SET NULL;
 
@@ -1441,8 +1404,6 @@ ALTER TABLE vi_company_base ADD CONSTRAINT vi_company_uniq UNIQUE (code);
 ALTER TABLE vi_metric_base ADD CONSTRAINT vi_metric_uniq UNIQUE (code);
 
 ALTER TABLE vi_fin_stmt_base ADD CONSTRAINT vi_fin_stmt_uniq UNIQUE (company_id, stmt, period_end, item);
-
-ALTER TABLE vi_fin_history_base ADD CONSTRAINT vi_fin_history_uniq UNIQUE (company_id, year);
 
 ALTER TABLE vi_forecast_base ADD CONSTRAINT vi_forecast_uniq UNIQUE (model_id, year);
 

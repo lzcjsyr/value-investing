@@ -41,7 +41,6 @@ DELETE FROM vi_judgment_base WHERE company_id = (SELECT id FROM vi_company_base 
 DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ');
 DELETE FROM vi_thesis_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ');
 DELETE FROM vi_observation_base WHERE metric_id IN (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND source_kind = '公司披露');
-DELETE FROM vi_fin_history_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ');
 DELETE FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ');
 
 INSERT INTO vi_source_base (company_id, title, source_type, url, reliability, verify_status, summary, limitations) SELECT (SELECT id FROM vi_company_base WHERE code = '002078.SZ'), '太阳纸业收盘价：腾讯 K 线收盘价（不复权）（2025—2026 年历史数据）', '数据库取数', 'https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz002078,day（不复权日线）', '三级·第三方数据', '待核验', '历史日线收盘价', '历史补数：腾讯 K 线收盘价（不复权）' WHERE NOT EXISTS (SELECT 1 FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '太阳纸业收盘价：腾讯 K 线收盘价（不复权）（2025—2026 年历史数据）');
@@ -471,20 +470,6 @@ INSERT INTO vi_fit_score_base (company_id, dimension, score, rationale, counter,
 INSERT INTO vi_lnk_fit_score_theses (fit_score_id, thesis_id, "createdAt", "updatedAt")
 SELECT x.id, y.id, now(), now() FROM (VALUES ('长坡', 'T2'), ('厚雪', 'T1'), ('慢变', 'T1'), ('慢变', 'T2'), ('护城河', 'T1'), ('再投资', 'T5'), ('再投资', 'T3'), ('财务质量', 'T6'), ('财务质量', 'T7'), ('治理配置', 'T4'), ('可估值性', 'T3'), ('可估值性', 'T4')) v(k1, k2)
 JOIN vi_fit_score_base x ON x.company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND x.dimension = v.k1 JOIN vi_thesis_base y ON y.company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND y.code = v.k2;
-
-INSERT INTO vi_fin_history_base (company_id, year, scope_note, source_id, note) VALUES
-((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), 2014, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = 'Wind：太阳纸业 2014—2025 年财务数据' LIMIT 1), '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。；销量待补：岗底斯知识库未收录该年产销量表，Wind 积分不足（2026-10-22）。'),
-((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), 2015, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = 'Wind：太阳纸业 2014—2025 年财务数据' LIMIT 1), '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。；销量待补：岗底斯知识库未收录该年产销量表，Wind 积分不足（2026-10-22）。；处置联营企业股权损失约 1.46 亿元（非经常），投资收益为负。'),
-((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), 2016, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '太阳纸业 2017 年年度报告（产销量片段）' LIMIT 1), '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。；销量取自 2017 年年报产销量表（岗底斯知识库原文片段）：2017 年纸 279、浆 81 万吨；2016 年纸 230、浆 77 万吨。'),
-((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), 2017, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '太阳纸业 2017 年年度报告（产销量片段）' LIMIT 1), '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。；销量取自 2017 年年报产销量表（岗底斯知识库原文片段）：2017 年纸 279、浆 81 万吨；2016 年纸 230、浆 77 万吨。；少数股东损益 2.26 亿元（当年非全资子公司盈利较多）。'),
-((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), 2018, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = 'Wind：太阳纸业 2014—2025 年财务数据' LIMIT 1), '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。；销量待补：岗底斯知识库未收录该年产销量表，Wind 积分不足（2026-10-22）。'),
-((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), 2019, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = 'Wind：太阳纸业 2014—2025 年财务数据' LIMIT 1), '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。；销量取自 2020 年年报（2019 年对比列）。'),
-((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), 2020, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '太阳纸业 2020 年年度报告' LIMIT 1), '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。'),
-((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), 2021, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '太阳纸业 2021 年年度报告' LIMIT 1), '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。；广西北海基地投产，营收 +48%。'),
-((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), 2022, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '太阳纸业 2022 年年度报告' LIMIT 1), '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。'),
-((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), 2023, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '太阳纸业 2023 年年度报告' LIMIT 1), '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。；广西太阳项目投产、南宁项目下半年投产；有效税率 6.6%（老挝等免税）。'),
-((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), 2024, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '太阳纸业 2024 年年度报告' LIMIT 1), '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。'),
-((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), 2025, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '太阳纸业 2025 年年度报告' LIMIT 1), '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。；模型基准年。南宁 100 万吨包装纸等项目下半年投产；每股股息＝中期 0.10＋年度 0.20。');
 
 SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), '营业收入', '单季', '亿元', '2024Q1', '2024-03-31', 101.85, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = 'Wind：太阳纸业 2014—2025 年财务数据' LIMIT 1));
 
@@ -10175,6 +10160,54 @@ INSERT INTO vi_fin_stmt_base (company_id, period, period_end, stmt, item, seq, a
 
 SELECT vi_merge_company_metrics((SELECT id FROM vi_company_base WHERE code = '002078.SZ'));
 
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '2014 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), '2014 年度数据口径与说明', '财务', '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。；销量待补：岗底斯知识库未收录该年产销量表，Wind 积分不足（2026-10-22）。', '2014', '2014-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = 'Wind：太阳纸业 2014—2025 年财务数据' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '2015 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), '2015 年度数据口径与说明', '财务', '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。；销量待补：岗底斯知识库未收录该年产销量表，Wind 积分不足（2026-10-22）。；处置联营企业股权损失约 1.46 亿元（非经常），投资收益为负。', '2015', '2015-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = 'Wind：太阳纸业 2014—2025 年财务数据' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '2016 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), '2016 年度数据口径与说明', '财务', '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。；销量取自 2017 年年报产销量表（岗底斯知识库原文片段）：2017 年纸 279、浆 81 万吨；2016 年纸 230、浆 77 万吨。', '2016', '2016-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '太阳纸业 2017 年年度报告（产销量片段）' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '2017 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), '2017 年度数据口径与说明', '财务', '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。；销量取自 2017 年年报产销量表（岗底斯知识库原文片段）：2017 年纸 279、浆 81 万吨；2016 年纸 230、浆 77 万吨。；少数股东损益 2.26 亿元（当年非全资子公司盈利较多）。', '2017', '2017-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '太阳纸业 2017 年年度报告（产销量片段）' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '2018 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), '2018 年度数据口径与说明', '财务', '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。；销量待补：岗底斯知识库未收录该年产销量表，Wind 积分不足（2026-10-22）。', '2018', '2018-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = 'Wind：太阳纸业 2014—2025 年财务数据' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '2019 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), '2019 年度数据口径与说明', '财务', '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。；销量取自 2020 年年报（2019 年对比列）。', '2019', '2019-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = 'Wind：太阳纸业 2014—2025 年财务数据' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '2020 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), '2020 年度数据口径与说明', '财务', '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。', '2020', '2020-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '太阳纸业 2020 年年度报告' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '2021 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), '2021 年度数据口径与说明', '财务', '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。；广西北海基地投产，营收 +48%。', '2021', '2021-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '太阳纸业 2021 年年度报告' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '2022 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), '2022 年度数据口径与说明', '财务', '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。', '2022', '2022-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '太阳纸业 2022 年年度报告' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '2023 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), '2023 年度数据口径与说明', '财务', '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。；广西太阳项目投产、南宁项目下半年投产；有效税率 6.6%（老挝等免税）。', '2023', '2023-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '太阳纸业 2023 年年度报告' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '2024 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), '2024 年度数据口径与说明', '财务', '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。', '2024', '2024-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '太阳纸业 2024 年年度报告' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '2025 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), '2025 年度数据口径与说明', '财务', '财务数据：Wind（2026-10-22）；销量：年报“产销量”表，纸制品＋浆（浆不含内部消耗）。；模型基准年。南宁 100 万吨包装纸等项目下半年投产；每股股息＝中期 0.10＋年度 0.20。', '2025', '2025-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '太阳纸业 2025 年年度报告' ORDER BY id LIMIT 1));
+
 UPDATE vi_metric_base SET source_name = '季报、半年报分产品毛利率' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND name = '毛利率' AND unit IS NOT DISTINCT FROM '%' ORDER BY id LIMIT 1);
 
 SELECT vi_metric_to_stmt((SELECT id FROM vi_company_base WHERE code = '002078.SZ'), '毛利率', '%', '（营业收入 − 营业成本）÷ 营业收入', '单季');
@@ -10217,9 +10250,9 @@ UPDATE vi_risk_base SET early_warning = '分红政策（2027—2029 年规划）
 持续跟踪：股权激励考核完成情况（年；来源：年报）
 持续跟踪：关联交易（年；来源：年报关联交易章节）' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND code = 'R4';
 
-UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND name = '浆纸销量（管理层口径）' AND unit IS NOT DISTINCT FROM '万吨' ORDER BY id LIMIT 1), notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '2026 年上半年分产品销量（管理层口径）';
+UPDATE vi_fact_base SET notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '2026 年上半年分产品销量（管理层口径）';
 
-UPDATE vi_fact_base SET metric_id = NULL, notes = '原“数值”字段：-5 亿元（2019—2025），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '2019—2025 年经营现金流≈资本开支';
+UPDATE vi_fact_base SET notes = '原“数值”字段：-5 亿元（2019—2025），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') AND title = '2019—2025 年经营现金流≈资本开支';
 
 INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
 SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),

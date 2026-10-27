@@ -7,10 +7,13 @@ data_layer.json 记录 2026-10-26 几次重构的结果，由 framework/migrate_
   metric_updates    指标的跟踪用途（说明）、数据来源、频率
   judgment_metrics  假设依据 → 跟踪指标        risk_metrics  风险 → 预警指标
   text              研究正文的改写（原跟踪事项编号换成名称、补写的“持续跟踪：…”），整段覆盖
-  facts             重要事实的相关指标与备注
+  facts             重要事实的备注
   new_stmt          资产项目要引用、数据里还没有的报表计算指标
   history           历史年度每列对应的指标（报表公式或披露）与需要录入的年份值（追溯调整值、报表外的数；值为空＝该年明确不取报表值）
   assets            资产估值与调整：引用指标的项目（按编号＋情景）
+  merge_metrics     同一序列被拆成两个指标的：并入保留的那个（按系数换算单位）后删除
+  year_notes        原历史年度的年度备注，写成重要事实（“<年> 年度数据口径与说明”）
+  company           公司表补充字段（如口径变化年份）
 报表原值（data/fin_stmt.json）由 fin_stmt_statements() 写入，放在最前。
 指标按 名称＋单位＋归属（公司或宏观）定位（一个指标一行，口径记在每期数据上）。放在种子最后执行（指标、假设依据、事实都写完之后）。
 """
@@ -25,9 +28,6 @@ def metric(co, m):
     owner = 'company_id IS NULL' if m.get('macro') else f'company_id = {co}'
     return (f"(SELECT id FROM vi_metric_base WHERE {owner} AND name = {lit(m['name'])} "
             f"AND unit IS NOT DISTINCT FROM {lit(m.get('unit'))} ORDER BY id LIMIT 1)")
-
-
-HISTORY_KEYS = ('company_id', 'year', 'scope_note', 'source_id', 'note')   # 历史年度只存这些，数值来自指标
 
 
 def fin_stmt_statements(co, path):
@@ -49,6 +49,19 @@ SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\\.D(
        {lit(m['name'])}, {lit(m['unit'])}, {lit(m['category'])}, {lit(m['source_kind'])}, {lit(m['basis'])}, c.id, {lit(m['source_name'])}, {lit(m['frequency'])}
 FROM vi_company_base c WHERE c.id = {co} AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = {lit(m['name'])});""")
     out.append(f'SELECT vi_merge_company_metrics({co});')
+    for g in d.get('merge_metrics', []):
+        frm, into = metric(co, g['from']), metric(co, g['into'])
+        out.append(f"UPDATE vi_observation_base SET metric_id = {into}, value = value * {g['factor']} WHERE metric_id = {frm} AND {into} IS NOT NULL;")
+        out.append(f"DELETE FROM vi_metric_base WHERE id = {frm} AND {into} IS NOT NULL;")
+    if d.get('company'):
+        sets = ', '.join(f'{k} = {lit(v)}' for k, v in d['company'].items())
+        out.append(f"UPDATE vi_company_base SET {sets} WHERE id = {co};")
+    for n in d.get('year_notes', []):
+        title = f"{n['year']} 年度数据口径与说明"
+        src = f"(SELECT id FROM vi_source_base WHERE company_id = {co} AND title = {lit(n['source'])} ORDER BY id LIMIT 1)" if n.get('source') else 'NULL'
+        out.append(f"DELETE FROM vi_fact_base WHERE company_id = {co} AND title = {lit(title)};")
+        out.append(f"INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES "
+                   f"({co}, {lit(title)}, '财务', {lit(n['statement'])}, '{n['year']}', '{n['year']}-12-31', '待核验', {src});")
     for m in d.get('metric_updates', []):          # 先于报表计算：报表计算会把数据来源改写为报表公式
         sets = ', '.join(f'{k} = {lit(m[k])}' for k in ('notes', 'source_name', 'frequency') if k in m)
         out.append(f"UPDATE vi_metric_base SET {sets} WHERE id = {metric(co, m)};")
@@ -65,9 +78,8 @@ FROM vi_company_base c WHERE c.id = {co} AND NOT EXISTS (SELECT 1 FROM vi_metric
                        f"WHERE x.company_id = {co} AND x.code = {lit(code)} AND {metric(co, m)} IS NOT NULL ON CONFLICT DO NOTHING;")
     for t, code, col, text in d.get('text', []):
         out.append(f"UPDATE vi_{t}_base SET {col} = {lit(text)} WHERE company_id = {co} AND code = {lit(code)};")
-    for title, m, notes in d.get('facts', []):
-        sets = [f"metric_id = {metric(co, m) if m else 'NULL'}", f'notes = {lit(notes)}']
-        out.append(f"UPDATE vi_fact_base SET {', '.join(sets)} WHERE company_id = {co} AND title = {lit(title)};")
+    for title, _metric, notes in d.get('facts', []):        # 第二项是已取消的“相关指标”（2026-10-27），不再写入
+        out.append(f"UPDATE vi_fact_base SET notes = {lit(notes)} WHERE company_id = {co} AND title = {lit(title)};")
     for m in d.get('new_stmt', []):
         out.append(new_metric(co, m['name'], m['unit'], '财务', '报表计算', '时点', '季', m['formula']))
     for e in d.get('history', []):

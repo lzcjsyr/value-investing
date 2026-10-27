@@ -103,7 +103,6 @@ UPDATE vi_collector_base SET metric_id = {metric('601668.SH.PRICE').sql}, url = 
   max_lag_days = 7, notes = {lit(notes)} WHERE name = {lit(name)};""")
 
 
-
 KLINE_TITLE = '中国建筑收盘价：腾讯 K 线收盘价（不复权）（2025—2026 年历史数据）'
 KLINE_DOC = f"(SELECT id FROM vi_source_base WHERE company_id = {CO} AND title = {lit(KLINE_TITLE)})"
 
@@ -143,7 +142,6 @@ DELETE FROM vi_judgment_base WHERE company_id = {CO};
 DELETE FROM vi_fact_base WHERE company_id = {CO};
 DELETE FROM vi_thesis_base WHERE company_id = {CO};
 DELETE FROM vi_observation_base WHERE metric_id IN (SELECT id FROM vi_metric_base WHERE company_id = {CO} AND source_kind = '公司披露');
-DELETE FROM vi_fin_history_base WHERE company_id = {CO};
 DELETE FROM vi_source_base WHERE company_id = {CO};""")
 
 
@@ -859,54 +857,7 @@ def yi(r, *keys):
     return None if all(v is None for v in vals) else round(sum(v or 0 for v in vals) / 1e8, 2)
 
 
-# 新签合同总额（亿元）：年报“主要经营数据”；2019 年按 2020 年数据反推，2021 年只有年报致辞的取整数
-VOLUME = {2017: 24535, 2018: 26271, 2019: 28687, 2020: 32008, 2021: 35300, 2022: 39031, 2023: 43241, 2024: 45027, 2025: 45458}
-# 每股股息（元，含税，归属该年度）与登记日总股本（亿股）：东方财富分红数据
-DIV = {2014: (0.172, 300.0), 2015: (0.200, 300.0), 2016: (0.215, 300.0), 2017: (0.215, 299.894), 2018: (0.168, 419.813),
-       2019: (0.185, 419.651), 2020: (0.2147, 419.482), 2021: (0.250, 419.409), 2022: (0.2527, 419.344), 2023: (0.27145, 416.200),
-       2024: (0.2715, 413.204), 2025: (0.2718, 413.204)}
-HIST_SOURCE = {2025: '中国建筑 2025 年年度报告', 2024: '中国建筑 2025 年年度报告', 2023: '中国建筑 2023 年年度报告', 2022: '中国建筑 2023 年年度报告'}
-HIST_NOTE = {
-    2016: '经营现金流 1,070 亿元为历史最高（地产预售回款）。',
-    2017: '2017 年度 10 转 4 派 2.15 元：每股股息为转增前口径（2014—2017 年同），分红总额按转增前股本 299.89 亿股。',
-    2018: '执行新收入准则，开始单列合同资产；资产减值 104.7 亿元。',
-    2019: '新签合同总额 28,687 亿元为推算值：建筑新签 24,863 亿元＋地产合约销售约 3,824 亿元（2020 年 4,287 亿元÷1.121）；与 2020 年“3.2 万亿元、+11.6%”一致。',
-    2020: '新签合同总额＝建筑 27,721＋地产 4,287 亿元。',
-    2021: '新签合同总额取年报致辞“3.53 万亿元（+10.3%）”的取整数，精确值待核验。',
-    2022: '利润总额下降（减值 135.5 亿元、地产毛利下降），少数股东损益由 263 亿元降到 183 亿元。',
-    2024: '减值 200.9 亿元；营业收入首次下降（−3.5%）。',
-    2025: '模型基准年。减值 258.7 亿元；收入 −4.8%、归母 −15.4%；每股股息 0.2718 元。',
-}
-
-
-def fin_history():
-    L, X, Z = em('income'), em('cashflow'), em('balance')
-    out = []
-    for y in range(2014, 2026):
-        d = f'{y}-12-31'
-        l, x, z = L[d], X[d], Z[d]
-        dps, sh = DIV[y]
-        nb = (x.get('RECEIVE_LOAN_CASH') or 0) + (x.get('ISSUE_BOND') or 0) - (x.get('PAY_DEBT_CASH') or 0)
-        note = ['财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。']
-        if y < 2017:
-            note.append('新签合同总额未取得（2014—2016 年）。')
-        if y in HIST_NOTE:
-            note.append(HIST_NOTE[y])
-        out.append(dict(company_id=Raw(CO), year=y, scope_note='合并口径', volume=VOLUME.get(y),
-                        revenue=yi(l, 'TOTAL_OPERATE_INCOME'), cost_of_sales=yi(l, 'OPERATE_COST'), pretax_profit=yi(l, 'TOTAL_PROFIT'),
-                        income_tax=yi(l, 'INCOME_TAX'), np_parent=yi(l, 'PARENT_NETPROFIT'), minority_profit=yi(l, 'MINORITY_INTEREST'),
-                        da=yi(x, 'FA_IR_DEPR', 'IR_DEPR', 'IA_AMORTIZE', 'LPE_AMORTIZE', 'USERIGHT_ASSET_AMORTIZE'),
-                        finance_cost=yi(l, 'FINANCE_EXPENSE'), invest_income=yi(l, 'INVEST_INCOME'), equity_income=yi(l, 'INVEST_JOINT_INCOME'),
-                        cfo=yi(x, 'NETCASH_OPERATE'), capex=yi(x, 'CONSTRUCT_LONG_ASSET'), investee_cash_div=yi(x, 'RECEIVE_INVEST_INCOME'),
-                        net_borrowing=round(nb / 1e8, 2),
-                        interest_debt=yi(z, 'SHORT_LOAN', 'NONCURRENT_LIAB_1YEAR', 'LONG_LOAN', 'BOND_PAYABLE', 'LEASE_LIAB'),
-                        cash=yi(z, 'MONETARYFUNDS'),
-                        equity_parent=round(((z.get('TOTAL_PARENT_EQUITY') or 0) - (z.get('OTHER_EQUITY_TOOL') or 0)) / 1e8, 2),
-                        dividend_total=round(dps * sh, 2), dps=dps,
-                        source_id=src(HIST_SOURCE.get(y, '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表')),
-                        note='；'.join(note)))
-    # 2026-10-26 起历史年度的数值来自指标（报表公式＋data/data_layer.json 的录入值），这里只写口径说明、来源和备注；上面算出的数只作对照，不入库
-    ins('fin_history', [{k: r[k] for k in data_layer_seed.HISTORY_KEYS if k in r} for r in out])
+# 历史年度表已取消（2026-10-26）：年度数值来自指标（报表公式＋data/data_layer.json），年度备注在 data_layer.json 的 year_notes
 
 
 # ================================================================ 定期经营数据
@@ -1106,7 +1057,7 @@ if __name__ == '__main__':
     OUT.append(f"UPDATE vi_observation_base SET doc_id = {KLINE_DOC} WHERE doc_id IS NULL AND raw_capture_id IS NULL "
                f"AND metric_id = (SELECT price_metric_id FROM vi_company_base WHERE code = '{CODE}');")
     sources(); facts(); theses(); judgments(); business()
-    fin_history(); period_data(); model(); tracking()
+    period_data(); model(); tracking()
     OUT.extend(data_layer_seed.fin_stmt_statements(CO, HERE / 'data' / 'fin_stmt.json'))   # 三大报表原值（报表计算指标读它）
     OUT.extend(data_layer_seed.statements(CO, HERE / 'data' / 'data_layer.json'))   # 关注与数据底稿补充，放最后
     OUT.append('COMMIT;')

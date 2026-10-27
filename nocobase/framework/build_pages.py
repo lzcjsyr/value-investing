@@ -22,14 +22,14 @@ COMPANY_MENU = [  # (二级分组, 图标, [(code, 页面标题)])
     ('商业模式', 'SafetyOutlined', [('biz_model', '商业模式拆解'), ('value_chain', '产业链与五力'), ('competitor', '竞争对手'),
                                    ('moat', '竞争壁垒'), ('risk', '风险分析'), ('fit_score', '价投适配度'), ('thesis', '核心论点')]),
     # 预测与估值：财务模型（可视化总览）在最前；表格页先看假设依据（每个参数为什么这么设），再看结论与模型
-    # 历史年度是财务模型的历史一侧（与逐年假设同一套列），放在组内最前；有定制估值页的公司也不收进模型底稿
-    ('预测与估值', 'CalculatorOutlined', [('fin_history', '历史年度'), ('judgment', '假设依据'), ('valuation', '估值结论'), ('sotp', '分部加总估值'), ('sotp_segment', '经营分部估值'), ('sotp_item', '资产估值与调整'), ('model', '估值模型'), ('scenario', '情景'), ('forecast', '逐年假设'),
+    # 重点指标＝财务模型和判断依赖的数（模型字段指标、假设依据与风险的跟踪指标），点开看趋势；放在组内最前，有定制估值页的公司也不收进模型底稿
+    ('预测与估值', 'CalculatorOutlined', [('key_metric', '重点指标'), ('judgment', '假设依据'), ('valuation', '估值结论'), ('sotp', '分部加总估值'), ('sotp_segment', '经营分部估值'), ('sotp_item', '资产估值与调整'), ('model', '估值模型'), ('scenario', '情景'), ('forecast', '逐年假设'),
                                    ('projection', '预测计算'), ('balance', '资产与资本'), ('sensitivity', '敏感性：折现率×永续增长'),
                                    ('trial', '单参数试验')]),
     # 数据底稿：业务数据＝定期经营指标与高频业务环境，财务结果另列；
-    # 四样东西：数（指标目录在最前，“重点跟踪”是它的一个标签；业务数据；财务数据是季度三大报表的定制页 build_finstmt.py，不在此生成）、
-    # 话（重要事实）、出处（来源文档，垫底）
-    ('数据底稿', 'DatabaseOutlined', [('metric', '指标'), ('observation', '业务数据'), ('fact', '重要事实'), ('source', '来源文档')]),
+    # 原始材料：业务数据（每期数值）、财务数据（季度三大报表的定制页 build_finstmt.py，不在此生成）、重要事实（文字）、来源文档（出处，垫底）。
+    # 指标目录不在这里：在「预测与估值 / 重点指标」（模型数据｜跟踪指标｜其他指标）
+    ('数据底稿', 'DatabaseOutlined', [('observation', '业务数据'), ('fact', '重要事实'), ('source', '来源文档')]),
     # 研究维护：维护这套研究本身（模型与数据检查、待办、改动记录），不是对公司的分析
     ('研究维护', 'ToolOutlined', [('check', '质量自检'), ('issue', '待办清单'), ('change_log', '变更日志')]),
 ]
@@ -54,7 +54,7 @@ COMPANY_ICON = {'600900.SH': 'ThunderboltOutlined', '002078.SZ': 'FileTextOutlin
 SCOPE = {'thesis': 'company_id', 'fact': 'company_id', 'source': 'company_id', 'judgment': 'company_id',
          'business': 'company_id', 'biz_model': 'company_id', 'value_chain': 'company_id', 'competitor': 'company_id', 'moat': 'company_id',
          'fit_score': 'company_id', 'risk': 'company_id', 'sotp_item': 'model.company_id', 'sotp_segment': 'model.company_id', 'sotp': 'company_id',
-         'fin_history': 'company_id', 'observation': 'metric.company_id',
+         'observation': 'metric.company_id',
          'model': 'company_id', 'scenario': 'model.company_id', 'forecast': 'model.company_id', 'trial': 'model.company_id',
          'issue': 'company_id', 'change_log': 'company_id',
          'projection': 'company_id', 'balance': 'company_id', 'valuation': 'company_id', 'sensitivity': 'company_id', 'check': 'company_id'}
@@ -63,7 +63,7 @@ COLUMNS = {
     'company': ['code', 'name', 'industry', 'volume_label', 'volume_unit', 'price_label', 'latest_price', 'latest_price_raw', 'latest_fx', 'latest_price_date'],
     'thesis': ['code', 'title', 'category', 'status', 'confidence', 'verdict', 'mind_changer', 'check_result', 'debated_on'],
     'source': ['title', 'source_type', 'publish_date', 'reliability', 'verify_status', 'url'],
-    'fact': ['title', 'category', 'period', 'metric', 'verify_status', 'source'],
+    'fact': ['title', 'category', 'period', 'verify_status', 'source'],
     'judgment': ['code', 'title', 'parameter', 'status', 'theses', 'facts'],
     'business': ['code', 'name', 'boundary', 'cost_allocation', 'asset_boundary'],
     'biz_model': ['business', 'code', 'element', 'title', 'metric', 'trend'],
@@ -79,8 +79,7 @@ COLUMNS = {
     'sotp': ['scenario_name', 'probability', 'core_earnings', 'multiple', 'core_value', 'segments_value', 'usable_net_cash', 'investments', 'minority_other',
              'value_per_share', 'value_per_share_quote', 'market_price', 'price_vs_value', 'implied_core_multiple', 'implied_mature_multiple',
              'implied_growth_value', 'weighted_value', 'ddm_value', 'conclusion'],
-    'fin_history': ['year', 'scope_note', 'volume', 'price', 'revenue', 'gross_margin', 'np_parent', 'roe', 'payout', 'dps',
-                    'finance_cost', 'cfo', 'capex', 'fcf', 'net_debt'],
+    'key_metric': ['name', 'model_field', 'tracked_by', 'latest_value', 'unit', 'latest_period', 'state', 'source_kind', 'notes'],
     'metric': ['name', 'category', 'unit', 'basis', 'latest_value', 'latest_period', 'state', 'tracked_by', 'source_kind', 'formula', 'source_name'],
     'observation': ['metric', 'obs_date', 'value', 'unit', 'is_current', 'is_valid', 'collected_at', 'doc', 'raw_capture'],
     'model': ['name', 'status', 'primary_method', 'required_return', 'base_year', 'terminal_year', 'shares', 'rf', 'erp', 'base_discount_rate',
@@ -107,7 +106,7 @@ COLUMNS = {
 # 公司数据页“定期经营数据”标签的列（自动采集标签用 COLUMNS['observation']）
 DISCLOSED_COLUMNS = ['metric', 'period', 'basis', 'value', 'unit', 'yoy', 'summary', 'doc']
 SORT = {'observation': [('obs_date', 'desc')], 'raw_capture': [('collected_at', 'desc')], 'collect_run': [('id', 'desc')], 'change_log': [('change_date', 'desc')],
-        'fin_history': [('year', 'asc')], 'fit_score': [('sort', 'asc')], 'forecast': [('year', 'asc')],
+        'key_metric': [('model_order', 'asc'), ('name', 'asc')], 'fit_score': [('sort', 'asc')], 'forecast': [('year', 'asc')],
         'projection': [('id', 'asc')], 'sotp': [('id', 'asc')], 'sotp_item': [('code', 'asc'), ('id', 'asc')], 'sotp_segment': [('code', 'asc'), ('id', 'asc')], 'risk': [('code', 'asc')], 'metric': [('category', 'asc'), ('name', 'asc')], 'balance': [('id', 'asc')], 'valuation': [('id', 'asc')], 'sensitivity': [('id', 'asc')], 'check': [('id', 'asc')]}
 
 
@@ -173,8 +172,9 @@ def default_groups(code):
 
 def blueprint(code, page_title, group_route, company=None, scope=None, prefix=None):
     """一个表格页面。company＝{'id','code','name'} 时只显示这家公司的记录（区块数据范围）。"""
-    t = T[code]
-    coll = f'vi_{code}'
+    src = 'metric' if code == 'key_metric' else code          # 重点指标是指标表的一个视角
+    t = T[src]
+    coll = f'vi_{src}'
     report = code in REPORT_CODES
     rels = {f['name']: f for f in t['fields'] if f['kind'] in ('m2o', 'm2m')}
     cols = [rel_popup(rels[c]) if c in rels else c for c in COLUMNS[code]]
@@ -195,7 +195,7 @@ def blueprint(code, page_title, group_route, company=None, scope=None, prefix=No
         settings['dataScope'] = {'logic': '$or', 'items': [
             {'path': 'metric.company_id', 'operator': '$eq', 'value': company['id']},
             {'path': 'metric.used_by_codes', 'operator': '$includes', 'value': f",{company['code']},"}]}
-    elif company and code == 'metric':           # 公司的指标＝自己的指标＋用到的宏观指标
+    elif company and code in ('metric', 'key_metric'):   # 公司的指标＝自己的指标＋用到的宏观指标
         settings['dataScope'] = {'logic': '$or', 'items': [
             {'path': 'company_id', 'operator': '$eq', 'value': company['id']},
             {'path': 'used_by_codes', 'operator': '$includes', 'value': f",{company['code']},"}]}
@@ -212,14 +212,28 @@ def blueprint(code, page_title, group_route, company=None, scope=None, prefix=No
             {'type': 'createForm', 'resource': {'collectionName': coll}, **form, 'actions': ['submit']}]}}, 'bulkDelete']
         block['recordActions'] = ['view', {'type': 'edit', 'popup': {'title': f'编辑 · {page_title}', 'blocks': [
             {'type': 'editForm', **form, 'actions': ['submit']}]}}, 'delete']
+    assets = None
+    if src == 'metric':                          # 点开指标：趋势、逐期数据、录入一期（metric_detail.py）
+        import metric_detail
+        block['recordActions'][0] = metric_detail.view_action(page_title)
+        assets = metric_detail.ASSETS
     nav = {'group': {'routeId': group_route}, 'item': {'title': page_title, 'icon': 'TableOutlined' if not report else 'FundOutlined'}}
     prefix = prefix or (company['name'] if company else '价值投资框架')
     tabs = [{'title': page_title, 'blocks': [block]}]
-    if company and code == 'metric' and not scope:         # 指标：全部 ｜ 重点跟踪（被这家公司的假设依据、风险关联的）
+    if company and code == 'key_metric':         # 重点指标：模型数据 ｜ 跟踪指标 ｜ 其他指标（这家公司的全部指标都在这一页）
+        own = {'path': 'company_id', 'operator': '$eq', 'value': company['id']}
+        used = {'logic': '$or', 'items': [own, {'path': 'used_by_codes', 'operator': '$includes', 'value': f",{company['code']},"}]}
+        rest = {'logic': '$and', 'items': [used, {'path': 'model_field', 'operator': '$empty', 'value': True},
+                {'logic': '$or', 'items': [{'path': 'tracked_codes', 'operator': '$empty', 'value': True},
+                                           {'path': 'tracked_codes', 'operator': '$notIncludes', 'value': f",{company['code']},"}]}]}
+        model = {'logic': '$and', 'items': [own, {'path': 'model_field', 'operator': '$notEmpty', 'value': True}]}
         tracked = {'logic': '$and', 'items': [{'path': 'tracked_codes', 'operator': '$includes', 'value': f",{company['code']},"}]}
-        tabs = [{'title': '全部', 'blocks': [dict(block, key='all')]},
-                {'title': '重点跟踪', 'blocks': [dict(block, key='tracked', settings=dict(settings, dataScope=tracked,
-                    description='假设依据的“跟踪指标”、风险的“预警指标”关联到的指标：最新值、是否到期。要盯新的数，在假设依据或风险里关联指标；为什么盯写在指标说明。'))]}]
+        tabs = [{'title': '模型数据', 'blocks': [dict(block, key='model', settings=dict(settings, dataScope=model,
+                    description='财务模型历史一侧用到的数（收入、成本、利润、现金、负债、分红、业务量等），按年汇总给财务模型和自动检查。点开看趋势与逐期数据。'))]},
+                {'title': '跟踪指标', 'blocks': [dict(block, key='tracked', settings=dict(settings, dataScope=tracked,
+                    description='假设依据的“跟踪指标”、风险的“预警指标”关联到的指标：最新值、是否到期。要盯新的数，在假设依据或风险里关联指标；为什么盯写在指标说明。'))]},
+                {'title': '其他指标', 'blocks': [dict(block, key='rest', settings=dict(settings, dataScope=rest,
+                    description='没有进模型、也没有被假设依据或风险盯着的指标：分部数据、行情与用到的宏观数据等。新建指标点“添加”；被关联或设了模型字段后会出现在前两个标签。'))]}]
     if company and code == 'observation' and not scope:    # 公司的业务页：定期经营数据 ｜ 高频业务数据
         from data_domains import business_scope, business_description
         auto = business_scope(company, automatic=True)
@@ -232,7 +246,7 @@ def blueprint(code, page_title, group_route, company=None, scope=None, prefix=No
                 entry['settings']['description'] = business_description(automatic=entry['key'] == 'auto')
     return {'version': '1', 'mode': 'create', 'navigation': nav,
             'page': {'title': page_title, 'documentTitle': f'{prefix} · {page_title}', **({'enableTabs': True} if len(tabs) > 1 else {})},
-            'defaults': defaults, 'tabs': tabs}
+            'defaults': defaults, 'tabs': tabs, **({'assets': assets} if assets else {})}
 
 
 def apply(body, name):
@@ -343,7 +357,7 @@ def valuation_group(st, co):
 
 
 def page_group(st, co, sub, icon, code=None):
-    if sub == '预测与估值' and code != 'fin_history':     # 历史年度不收进模型底稿
+    if sub == '预测与估值' and code != 'key_metric':     # 重点指标不收进模型底稿
         return valuation_group(st, co)
     return ensure_group(st, f"{co['name']}/{sub}", sub, icon, parent=company_root(st, co))
 
@@ -558,8 +572,8 @@ def sort_menu(company_codes=None):
     sub_order = {g: [t for _, t in pages] for g, _, pages in COMPANY_MENU} | {SHARED_SUB[0]: [t for _, t in SHARED_SUB[2]]}
     # 可视化页不在 COMPANY_MENU 里：财务数据（build_finstmt.py，季度三大报表）在数据底稿里跟在数据后面；
     # 财务模型（build_finmodel.py）在预测与估值表格页前；定制估值页（build_valuation.py）在最前，模型底稿子组在最后
-    sub_order['数据底稿'] = ['指标', '业务数据', '财务数据'] + [t for t in sub_order['数据底稿'] if t not in ('指标', '业务数据', '财务数据')]
-    sub_order['预测与估值'] = ['历史年度', '财务模型', '估值'] + [t for t in sub_order['预测与估值'] if t != '历史年度'] + [DRAFTS]
+    sub_order['数据底稿'] = ['业务数据', '财务数据'] + [t for t in sub_order['数据底稿'] if t not in ('业务数据', '财务数据')]
+    sub_order['预测与估值'] = ['重点指标', '财务模型', '估值'] + [t for t in sub_order['预测与估值'] if t != '重点指标'] + [DRAFTS]
     sub_order[DRAFTS] = sub_order['预测与估值']
     for g in current_routes:
         top = g['title']

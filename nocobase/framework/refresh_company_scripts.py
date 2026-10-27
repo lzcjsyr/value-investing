@@ -29,7 +29,7 @@ if __name__ == '__main__':
                              '--changes', json.dumps({'version': 'v2', 'code': script}, ensure_ascii=False))
             results.append({'company': co['code'], 'page': key, 'scripts': len(scripts)})
             print('REFRESH', co['code'], key, flush=True)
-        for key in ('assume', 'fin_history'):
+        for key in ('assume',):
             tree = a.bp.page_tree(a.bp.page_key(key, co))
             def walk(value):
                 if isinstance(value, dict):

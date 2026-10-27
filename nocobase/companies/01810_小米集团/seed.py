@@ -112,7 +112,6 @@ UPDATE vi_collector_base SET metric_id = {metric(PRICE_METRIC).sql}, url = {lit(
   max_lag_days = 7, notes = {lit(notes)} WHERE name = {lit(name)};""")
 
 
-
 KLINE_TITLE = '小米集团港股收盘价：腾讯 K 线收盘价（港元，不复权）（2025—2026 年历史数据）'
 KLINE_DOC = f"(SELECT id FROM vi_source_base WHERE company_id = {CO} AND title = {lit(KLINE_TITLE)})"
 
@@ -158,7 +157,6 @@ DELETE FROM vi_judgment_base WHERE company_id = {CO};
 DELETE FROM vi_fact_base WHERE company_id = {CO};
 DELETE FROM vi_thesis_base WHERE company_id = {CO};
 DELETE FROM vi_observation_base WHERE metric_id IN (SELECT id FROM vi_metric_base WHERE company_id = {CO} AND source_kind = '公司披露');
-DELETE FROM vi_fin_history_base WHERE company_id = {CO};
 DELETE FROM vi_source_base WHERE company_id = {CO};""")
 
 
@@ -1066,39 +1064,9 @@ def yi(r, *keys, sign=1):
 
 # 全球月活（12 月，亿人）：全年业绩公告；2018 年由 2019 年数与同比倒算
 VOLUME = {2018: 2.421, 2019: 3.096, 2020: 3.963, 2021: 5.089, 2022: 5.821, 2023: 6.412, 2024: 7.023, 2025: 7.541}
-EQUITY_INCOME = {2024: 2.77, 2025: 3.26}       # 分佔按權益法入賬之投資淨利潤（全年业绩公告）
-HIST_NOTE = {
-    2018: '7 月上市；利润含可转换可赎回优先股公允价值变动约 125 亿元、上市相关一次性股权激励约 100 亿元。',
-    2019: '智能手机出货与月活口径见定期经营数据。',
-    2020: '12 月配售 10 亿股（每股 23.70 港元）；发行 6 亿美元 2030 年票据与 8.55 亿美元 2027 年可换股债券。',
-    2021: '宣布造车（3 月）；7 月发行 8 亿美元 2031 年票据与 4 亿美元 2051 年绿色债券；出货 1.903 亿台（高点）。',
-    2022: '行业萧条：收入 −14.7%，出货 −20.9%；智能电动汽车等创新业务费用 31 亿元。',
-    2023: '创新业务费用 67 亿元；毛利率升到 21.2%。',
-    2024: '汽车 4 月开始交付，全年 136,854 辆；汽车及 AI 分部经营亏损约 71.5 亿元。',
-    2025: '模型基准年。3 月配售 8 亿股（每股 53.25 港元）；汽车交付 411,082 辆、分部经营收益 9 亿元；归母含投资公允价值收益 133.1 亿元；回购 61.7 亿元。',
-}
 
 
-def fin_history():
-    L, X, Z = em('income'), em('cashflow'), em('balance')
-    out = []
-    for y in range(2018, 2026):
-        l, x, z = L[y], X[y], Z[y]
-        note = ['财务数据：东方财富港股格式（国际财务报告准则）；“分红总额”为当年回购金额（小米不派现金股息）；“投资收益”＝投资公允价值变动＋其他收益净额；'
-                '货币资金＝现金及等价物＋定期存款＋受限制现金（不含短期投资与理财，公司口径的“现金储备”更大）；带息负债＝短期借款＋长期借款（含可换股债券，不含租赁）。']
-        if y in HIST_NOTE:
-            note.append(HIST_NOTE[y])
-        nb = round(((x.get('新增借款') or 0) - (x.get('偿还借款') or 0) + (x.get('发行债券') or 0)) / 1e8, 2)
-        out.append(dict(company_id=Raw(CO), year=y, scope_note='合并口径', volume=VOLUME.get(y),
-                        revenue=yi(l, '营业额'), cost_of_sales=yi(l, '销售成本'), pretax_profit=yi(l, '除税前溢利'), income_tax=yi(l, '税项'),
-                        np_parent=yi(l, '股东应占溢利'), minority_profit=yi(l, '少数股东损益'), da=yi(x, '加:折旧及摊销'),
-                        finance_cost=yi(l, '融资成本'), invest_income=yi(l, '重估盈余', '其他收益'), equity_income=EQUITY_INCOME.get(y),
-                        cfo=yi(x, '经营业务现金净额'), capex=yi(x, '购建固定资产'), investee_cash_div=yi(x, '已收股息(投资)'), net_borrowing=nb,
-                        interest_debt=yi(z, '短期贷款', '长期贷款'), cash=yi(z, '现金及等价物', '短期存款', '中长期存款', '受限制存款及现金'),
-                        equity_parent=yi(z, '股东权益'), dividend_total=yi(x, '回购股份') or 0.0, dps=0.0,
-                        source_id=src(S_FY25 if y >= 2024 else S_EM), note='；'.join(note)))
-    # 2026-10-26 起历史年度的数值来自指标（报表公式＋data/data_layer.json 的录入值），这里只写口径说明、来源和备注；上面算出的数只作对照，不入库
-    ins('fin_history', [{k: r[k] for k in data_layer_seed.HISTORY_KEYS if k in r} for r in out])
+# 历史年度表已取消（2026-10-26）：年度数值来自指标（报表公式＋data/data_layer.json），年度备注在 data_layer.json 的 year_notes
 
 
 # ================================================================ 定期经营数据
@@ -1627,7 +1595,7 @@ if __name__ == '__main__':
     OUT.append(f"UPDATE vi_observation_base SET doc_id = {KLINE_DOC} WHERE doc_id IS NULL AND raw_capture_id IS NULL "
                f"AND metric_id = (SELECT price_metric_id FROM vi_company_base WHERE code = '{CODE}');")
     sources(); facts(); theses(); judgments(); business()
-    fin_history(); period_data(); model(); tracking()
+    period_data(); model(); tracking()
     OUT.extend(data_layer_seed.fin_stmt_statements(CO, HERE / 'data' / 'fin_stmt.json'))   # 三大报表原值（报表计算指标读它）
     OUT.extend(data_layer_seed.statements(CO, HERE / 'data' / 'data_layer.json'))   # 关注与数据底稿补充，放最后
     from business_bridge import sql as business_bridge_sql

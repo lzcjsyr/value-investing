@@ -16,6 +16,7 @@ SELECT b.id,
        b.price_label,
        b.price_unit,
        b.is_default,
+       b.scope_breaks,
        b.profile,
        b.notes,
        b.price_metric_id,
@@ -33,10 +34,10 @@ COMMENT ON VIEW vi_company IS '公司（界面视图：输入列＋自动计算�
 CREATE OR REPLACE FUNCTION vi_company_dml() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_company_base (code, name, exchange, industry, currency, volume_label, volume_unit, price_label, price_unit, is_default, profile, notes, price_metric_id, price_fx_metric_id) VALUES (NEW.code, NEW.name, NEW.exchange, NEW.industry, NEW.currency, NEW.volume_label, NEW.volume_unit, NEW.price_label, NEW.price_unit, NEW.is_default, NEW.profile, NEW.notes, NEW.price_metric_id, NEW.price_fx_metric_id) RETURNING id INTO NEW.id;
+    INSERT INTO vi_company_base (code, name, exchange, industry, currency, volume_label, volume_unit, price_label, price_unit, is_default, scope_breaks, profile, notes, price_metric_id, price_fx_metric_id) VALUES (NEW.code, NEW.name, NEW.exchange, NEW.industry, NEW.currency, NEW.volume_label, NEW.volume_unit, NEW.price_label, NEW.price_unit, NEW.is_default, NEW.scope_breaks, NEW.profile, NEW.notes, NEW.price_metric_id, NEW.price_fx_metric_id) RETURNING id INTO NEW.id;
     RETURN NEW;
   ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_company_base SET code = NEW.code, name = NEW.name, exchange = NEW.exchange, industry = NEW.industry, currency = NEW.currency, volume_label = NEW.volume_label, volume_unit = NEW.volume_unit, price_label = NEW.price_label, price_unit = NEW.price_unit, is_default = NEW.is_default, profile = NEW.profile, notes = NEW.notes, price_metric_id = NEW.price_metric_id, price_fx_metric_id = NEW.price_fx_metric_id WHERE id = OLD.id;
+    UPDATE vi_company_base SET code = NEW.code, name = NEW.name, exchange = NEW.exchange, industry = NEW.industry, currency = NEW.currency, volume_label = NEW.volume_label, volume_unit = NEW.volume_unit, price_label = NEW.price_label, price_unit = NEW.price_unit, is_default = NEW.is_default, scope_breaks = NEW.scope_breaks, profile = NEW.profile, notes = NEW.notes, price_metric_id = NEW.price_metric_id, price_fx_metric_id = NEW.price_fx_metric_id WHERE id = OLD.id;
     RETURN NEW;
   ELSE
     DELETE FROM vi_company_base WHERE id = OLD.id;
@@ -94,7 +95,6 @@ SELECT b.id,
        b.verify_status,
        b.notes,
        b.company_id,
-       b.metric_id,
        b.source_id,
        b.updated_at
 FROM vi_fact_base b;
@@ -104,10 +104,10 @@ COMMENT ON VIEW vi_fact IS '重要事实（界面视图：输入列＋自动计�
 CREATE OR REPLACE FUNCTION vi_fact_dml() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_fact_base (title, category, statement, period, as_of, verify_status, notes, company_id, metric_id, source_id) VALUES (NEW.title, NEW.category, NEW.statement, NEW.period, NEW.as_of, NEW.verify_status, NEW.notes, NEW.company_id, NEW.metric_id, NEW.source_id) RETURNING id INTO NEW.id;
+    INSERT INTO vi_fact_base (title, category, statement, period, as_of, verify_status, notes, company_id, source_id) VALUES (NEW.title, NEW.category, NEW.statement, NEW.period, NEW.as_of, NEW.verify_status, NEW.notes, NEW.company_id, NEW.source_id) RETURNING id INTO NEW.id;
     RETURN NEW;
   ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_fact_base SET title = NEW.title, category = NEW.category, statement = NEW.statement, period = NEW.period, as_of = NEW.as_of, verify_status = NEW.verify_status, notes = NEW.notes, company_id = NEW.company_id, metric_id = NEW.metric_id, source_id = NEW.source_id WHERE id = OLD.id;
+    UPDATE vi_fact_base SET title = NEW.title, category = NEW.category, statement = NEW.statement, period = NEW.period, as_of = NEW.as_of, verify_status = NEW.verify_status, notes = NEW.notes, company_id = NEW.company_id, source_id = NEW.source_id WHERE id = OLD.id;
     RETURN NEW;
   ELSE
     DELETE FROM vi_fact_base WHERE id = OLD.id;
@@ -500,73 +500,6 @@ END $$;
 
 CREATE TRIGGER vi_fin_stmt_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_fin_stmt FOR EACH ROW EXECUTE FUNCTION vi_fin_stmt_dml();
 
-DROP VIEW IF EXISTS vi_fin_history CASCADE;
-
-CREATE VIEW vi_fin_history AS
-SELECT b.id,
-       b.year,
-       b.scope_note,
-       b.note,
-       b.company_id,
-       b.source_id,
-       c.volume,
-       c.revenue,
-       c.cost_of_sales,
-       c.pretax_profit,
-       c.income_tax,
-       c.np_parent,
-       c.minority_profit,
-       c.da,
-       c.finance_cost,
-       c.invest_income,
-       c.equity_income,
-       c.cfo,
-       c.capex,
-       c.investee_cash_div,
-       c.net_borrowing,
-       c.interest_debt,
-       c.cash,
-       c.equity_parent,
-       c.dividend_total,
-       c.dps,
-       c.price,
-       c.payout,
-       c.tax_rate,
-       c.minority_share,
-       c.burden,
-       c.fcf,
-       c.volume_yoy,
-       c.price_yoy,
-       c.revenue_yoy,
-       c.np_yoy,
-       c.finance_cost_yoy,
-       c.gross_margin,
-       c.roe,
-       c.cfo_to_np,
-       c.capex_to_cfo,
-       c.net_debt,
-       c.net_debt_to_ebitda,
-       b.updated_at
-FROM vi_fin_history_base b LEFT JOIN vi_fin_history_calc c ON c.id = b.id;
-
-COMMENT ON VIEW vi_fin_history IS '历史年度（界面视图：输入列＋自动计算列）';
-
-CREATE OR REPLACE FUNCTION vi_fin_history_dml() RETURNS trigger LANGUAGE plpgsql AS $$
-BEGIN
-  IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_fin_history_base (year, scope_note, note, company_id, source_id) VALUES (NEW.year, NEW.scope_note, NEW.note, NEW.company_id, NEW.source_id) RETURNING id INTO NEW.id;
-    RETURN NEW;
-  ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_fin_history_base SET year = NEW.year, scope_note = NEW.scope_note, note = NEW.note, company_id = NEW.company_id, source_id = NEW.source_id WHERE id = OLD.id;
-    RETURN NEW;
-  ELSE
-    DELETE FROM vi_fin_history_base WHERE id = OLD.id;
-    RETURN OLD;
-  END IF;
-END $$;
-
-CREATE TRIGGER vi_fin_history_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_fin_history FOR EACH ROW EXECUTE FUNCTION vi_fin_history_dml();
-
 DROP VIEW IF EXISTS vi_metric CASCADE;
 
 CREATE VIEW vi_metric AS
@@ -593,6 +526,7 @@ SELECT b.id,
        c.next_due,
        c.tracked_by,
        c.tracked_codes,
+       c.model_order,
        c.scope,
        c.used_by,
        c.used_by_codes,

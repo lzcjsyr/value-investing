@@ -57,7 +57,7 @@ def field_def(f, describe=False):
     if ui:
         d['uiSchema'] = ui
     if f['kind'] == 'select':
-        d['enum'] = [{'value': o, 'label': o, 'color': STATUS_COLOR.get(o, COLORS[i % len(COLORS)])}
+        d['enum'] = [{'value': o, 'label': (f.get('labels') or {}).get(o, o), 'color': STATUS_COLOR.get(o, COLORS[i % len(COLORS)])}
                      for i, o in enumerate(f['options'])]
     if 'default' in f:
         d['defaultValue'] = f['default']

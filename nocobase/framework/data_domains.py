@@ -17,7 +17,7 @@ OPERATING_NAMES = {
 
 
 def business_description(automatic=False):
-    downstream = ('被【驾驶舱】【自动检查】【重点跟踪】引用；【重要事实】通过“相关指标”引用本序列。')
+    downstream = ('被【驾驶舱】【自动检查】【重点指标】引用。')
     if automatic:
         return ('自动采集的水位、来水、纸浆价格等高频经营环境数据；'
                 '引用【指标】【原始采集记录】，保留采集地址；' + downstream +

@@ -9,6 +9,8 @@ cd "$(dirname "$0")"
 mkdir -p backups db
 tmp="db/.latest.sql.tmp"
 docker compose exec -T postgres pg_dump -U nocobase -d nocobase --clean --if-exists > "$tmp"
+# 两个计算缓存（报表计算、历史年度）之间隔着视图依赖，pg_dump 排不出刷新顺序；恢复时按正确顺序重新填充
+printf '\nSET search_path = public;\nREFRESH MATERIALIZED VIEW vi_stmt_cache;\nREFRESH MATERIALIZED VIEW vi_fin_history_cache;\n' >> "$tmp"
 mv "$tmp" db/latest.sql
 f="backups/nocobase_$(date +%Y%m%d_%H%M%S).sql.gz"
 gzip -c db/latest.sql > "$f"

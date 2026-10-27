@@ -112,7 +112,6 @@ UPDATE vi_collector_base SET metric_id = {metric(m).sql}, url = {lit(url)}, pars
   max_lag_days = 7, notes = {lit(notes)} WHERE name = {lit(name)};""")
 
 
-
 KLINE_TITLE = '腾讯音乐港股收盘价：腾讯 K 线收盘价（港元，不复权）（2025—2026 年历史数据）'
 KLINE_DOC = f"(SELECT id FROM vi_source_base WHERE company_id = {CO} AND title = {lit(KLINE_TITLE)})"
 
@@ -158,7 +157,6 @@ DELETE FROM vi_judgment_base WHERE company_id = {CO};
 DELETE FROM vi_fact_base WHERE company_id = {CO};
 DELETE FROM vi_thesis_base WHERE company_id = {CO};
 DELETE FROM vi_observation_base WHERE metric_id IN (SELECT id FROM vi_metric_base WHERE company_id = {CO} AND source_kind = '公司披露');
-DELETE FROM vi_fin_history_base WHERE company_id = {CO};
 DELETE FROM vi_source_base WHERE company_id = {CO};""")
 
 
@@ -960,72 +958,7 @@ SELECT x.id, y.id, now(), now() FROM (VALUES {', '.join(f'({lit(p)}, {lit(q)})' 
 JOIN vi_{table}_base x ON x.company_id = {CO} AND x.{key} = v.k1 JOIN vi_{target}_base y ON y.company_id = {CO} AND y.{tkey} = v.k2;""")
 
 
-# ================================================================ 历史财务（亿元；东方财富港股/美股格式原始报表，业绩公告交叉核对）
-def em(kind, name, key):
-    out = {}
-    for r in json.loads((DATA / f'eastmoney_{kind}_{name}.json').read_text()):
-        if r['AMOUNT'] == r['AMOUNT']:                                  # 跳过空值（NaN）
-            out.setdefault(int(r['REPORT_DATE'][:4]), {})[r[key]] = r['AMOUNT']
-    return out
-
-
-def yi(r, *keys, sign=1):
-    vals = [r.get(k) for k in keys]
-    return None if all(v is None for v in vals) else round(sign * sum(v or 0 for v in vals) / 1e8, 2)
-
-
-# 第四季度在线音乐付费用户（亿人）：业绩公告；2019—2020 年未取得
-VOLUME = {2021: 0.762, 2022: 0.885, 2023: 1.067, 2024: 1.210, 2025: 1.274}
-# 股东回报（亿元）：归属该年度的现金股息（按实际派发的人民币金额；2025 年度按 3.68 亿美元×6.85 估算）＋当年回购（现金流量表）
-DIV_CASH = {2023: 15.76, 2024: 20.35, 2025: 25.21}
-BUYBACK = {2020: 1.34, 2021: 34.79, 2022: 31.27, 2023: 12.49, 2024: 19.25, 2025: 3.90}
-DPS = {2023: 0.50, 2024: 0.65, 2025: 0.82}           # 元/股：每股 0.07、0.09、0.12 美元按派发时汇率约 7.10、7.20、6.85 折算
-HIST_NOTE = {
-    2017: '美股格式报表（东方财富）；腾讯音乐 2018 年 12 月在纽交所上市。',
-    2018: '美股格式报表（东方财富）；纽交所上市募资约 77 亿元。',
-    2020: '发行 8 亿美元票据（54.0 亿元）；开始回购。',
-    2021: '市场监管总局责令解除独家版权（2021 年 7 月）；回购 34.8 亿元。',
-    2022: '收入下降 9.3%；在港交所以介绍方式上市（2022 年 9 月）。',
-    2023: '首次宣派年度现金股息（每股 0.07 美元）；毛利率升到 35.3%。',
-    2024: '订阅收入 +25.9%；毛利率 42.3%。',
-    2025: '模型基准年。归母净利含 UMG 实物分派带来的视同处置收益 23.7 亿元（剔除后约 86.9 亿元，股东回报率约 33%）；偿还 3 亿美元票据。',
-}
-
-
-def fin_history():
-    L, X, Z = em('hk', 'income', 'STD_ITEM_NAME'), em('hk', 'cashflow', 'STD_ITEM_NAME'), em('hk', 'balance', 'STD_ITEM_NAME')
-    UL, UX, UZ = em('us', 'income', 'ITEM_NAME'), em('us', 'cashflow', 'ITEM_NAME'), em('us', 'balance', 'ITEM_NAME')
-    out = []
-    for y in range(2017, 2026):
-        div_total = round(DIV_CASH.get(y, 0) + BUYBACK.get(y, 0), 2)
-        note = ['财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；'
-                '带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。']
-        if y in HIST_NOTE:
-            note.append(HIST_NOTE[y])
-        if y < 2021:
-            note.append('付费用户（第四季度）未取得。')
-        if y >= 2019:
-            l, x, z = L[y], X[y], Z[y]
-            row = dict(revenue=yi(l, '营业额'), cost_of_sales=yi(l, '营运支出'), pretax_profit=yi(l, '除税前溢利'), income_tax=yi(l, '税项'),
-                       np_parent=yi(l, '股东应占溢利'), minority_profit=yi(l, '少数股东损益'), da=yi(x, '加:折旧及摊销'),
-                       finance_cost=yi(l, '融资成本'), invest_income=yi(l, '其他收入', '其他收益'), equity_income=yi(l, '应占联营公司溢利'),
-                       cfo=yi(x, '经营业务现金净额'), capex=yi(x, '购建固定资产', '购建无形资产及其他资产'), investee_cash_div=yi(x, '已收股息(投资)'),
-                       net_borrowing=round(((x.get('发行债券') or 0) - (x.get('赎回债券') or 0)) / 1e8, 2),
-                       interest_debt=yi(z, '应付票据(非流动)', '应付票据', '融资租赁负债(流动)', '融资租赁负债(非流动)', '短期贷款', '长期贷款'),
-                       cash=yi(z, '现金及等价物', '短期存款', '中长期存款'), equity_parent=yi(z, '股东权益'))
-        else:
-            l, x, z = UL[y], UX[y], UZ[y]
-            row = dict(revenue=yi(l, '营业收入'), cost_of_sales=yi(l, '营业成本'), pretax_profit=yi(l, '持续经营税前利润'), income_tax=yi(l, '所得税'),
-                       np_parent=yi(l, '归属于母公司股东净利润'), minority_profit=yi(l, '少数股东损益'), da=yi(x, '折旧及摊销'),
-                       finance_cost=yi(l, '融资收入(支出)', sign=-1), invest_income=yi(l, '其他收益'), equity_income=yi(l, '权益性投资损益'),
-                       cfo=yi(x, '经营活动产生的现金流量净额'), capex=yi(x, '购买固定资产', '购建无形资产及其他资产', sign=-1), investee_cash_div=None,
-                       net_borrowing=0.0, interest_debt=0.0, cash=yi(z, '现金及现金等价物', '存款(流动)', '存款(非流动)'),
-                       equity_parent=yi(z, '归属于母公司股东权益'))
-        out.append(dict(company_id=Raw(CO), year=y, scope_note='合并口径', volume=VOLUME.get(y), **row,
-                        dividend_total=div_total, dps=DPS.get(y, 0.0),
-                        source_id=src(S_Q425 if y >= 2024 else S_EM), note='；'.join(note)))
-    # 2026-10-26 起历史年度的数值来自指标（报表公式＋data/data_layer.json 的录入值），这里只写口径说明、来源和备注；上面算出的数只作对照，不入库
-    ins('fin_history', [{k: r[k] for k in data_layer_seed.HISTORY_KEYS if k in r} for r in out])
+# 历史年度表已取消（2026-10-26）：年度数值来自指标（报表公式＋data/data_layer.json），年度备注在 data_layer.json 的 year_notes
 
 
 # ================================================================ 定期经营数据
@@ -1298,7 +1231,7 @@ if __name__ == '__main__':
     OUT.append(f"UPDATE vi_observation_base SET doc_id = {KLINE_DOC} WHERE doc_id IS NULL AND raw_capture_id IS NULL "
                f"AND metric_id = (SELECT price_metric_id FROM vi_company_base WHERE code = '{CODE}');")
     sources(); facts(); theses(); judgments(); business()
-    fin_history(); period_data(); model(); tracking()
+    period_data(); model(); tracking()
     OUT.extend(data_layer_seed.fin_stmt_statements(CO, HERE / 'data' / 'fin_stmt.json'))   # 三大报表原值（报表计算指标读它）
     OUT.extend(data_layer_seed.statements(CO, HERE / 'data' / 'data_layer.json'))   # 关注与数据底稿补充，放最后
     OUT.append('COMMIT;')

@@ -42,7 +42,6 @@ DELETE FROM vi_judgment_base WHERE company_id = (SELECT id FROM vi_company_base 
 DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
 DELETE FROM vi_thesis_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
 DELETE FROM vi_observation_base WHERE metric_id IN (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND source_kind = '公司披露');
-DELETE FROM vi_fin_history_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
 DELETE FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK');
 
 INSERT INTO vi_source_base (company_id, title, source_type, url, reliability, verify_status, summary, limitations) SELECT (SELECT id FROM vi_company_base WHERE code = '01698.HK'), '腾讯音乐港股收盘价：腾讯 K 线收盘价（港元，不复权）（2025—2026 年历史数据）', '数据库取数', 'https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk01698,day（不复权日线）', '三级·第三方数据', '待核验', '历史日线收盘价', '历史补数：腾讯 K 线收盘价（港元，不复权）' WHERE NOT EXISTS (SELECT 1 FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '腾讯音乐港股收盘价：腾讯 K 线收盘价（港元，不复权）（2025—2026 年历史数据）');
@@ -490,17 +489,6 @@ INSERT INTO vi_fit_score_base (company_id, dimension, score, rationale, counter,
 INSERT INTO vi_lnk_fit_score_theses (fit_score_id, thesis_id, "createdAt", "updatedAt")
 SELECT x.id, y.id, now(), now() FROM (VALUES ('长坡', 'T3'), ('厚雪', 'T1'), ('慢变', 'T1'), ('慢变', 'T3'), ('护城河', 'T1'), ('护城河', 'T2'), ('护城河', 'T4'), ('再投资', 'T4'), ('财务质量', 'T6'), ('财务质量', 'T7'), ('治理配置', 'T5'), ('可估值性', 'T3'), ('可估值性', 'T5')) v(k1, k2)
 JOIN vi_fit_score_base x ON x.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND x.dimension = v.k1 JOIN vi_thesis_base y ON y.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND y.code = v.k2;
-
-INSERT INTO vi_fin_history_base (company_id, year, scope_note, source_id, note) VALUES
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2017, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；美股格式报表（东方财富）；腾讯音乐 2018 年 12 月在纽交所上市。；付费用户（第四季度）未取得。'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2018, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；美股格式报表（东方财富）；纽交所上市募资约 77 亿元。；付费用户（第四季度）未取得。'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2019, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；付费用户（第四季度）未取得。'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2020, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；发行 8 亿美元票据（54.0 亿元）；开始回购。；付费用户（第四季度）未取得。'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2021, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；市场监管总局责令解除独家版权（2021 年 7 月）；回购 34.8 亿元。'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2022, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；收入下降 9.3%；在港交所以介绍方式上市（2022 年 9 月）。'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2023, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；首次宣派年度现金股息（每股 0.07 美元）；毛利率升到 35.3%。'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2024, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；订阅收入 +25.9%；毛利率 42.3%。'),
-((SELECT id FROM vi_company_base WHERE code = '01698.HK'), 2025, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' LIMIT 1), '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；模型基准年。归母净利含 UMG 实物分派带来的视同处置收益 23.7 亿元（剔除后约 86.9 亿元，股东回报率约 33%）；偿还 3 亿美元票据。');
 
 SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '营业收入', '单季', '亿元', '2024Q1', '2024-03-31', 67.68, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第一至第三季度未经审计财务业绩公告' LIMIT 1));
 
@@ -2742,6 +2730,42 @@ INSERT INTO vi_fin_stmt_base (company_id, period, period_end, stmt, item, seq, a
 
 SELECT vi_merge_company_metrics((SELECT id FROM vi_company_base WHERE code = '01698.HK'));
 
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2017 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2017 年度数据口径与说明', '财务', '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；美股格式报表（东方财富）；腾讯音乐 2018 年 12 月在纽交所上市。；付费用户（第四季度）未取得。', '2017', '2017-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2018 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2018 年度数据口径与说明', '财务', '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；美股格式报表（东方财富）；纽交所上市募资约 77 亿元。；付费用户（第四季度）未取得。', '2018', '2018-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2019 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2019 年度数据口径与说明', '财务', '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；付费用户（第四季度）未取得。', '2019', '2019-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2020 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2020 年度数据口径与说明', '财务', '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；发行 8 亿美元票据（54.0 亿元）；开始回购。；付费用户（第四季度）未取得。', '2020', '2020-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2021 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2021 年度数据口径与说明', '财务', '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；市场监管总局责令解除独家版权（2021 年 7 月）；回购 34.8 亿元。', '2021', '2021-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2022 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2022 年度数据口径与说明', '财务', '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；收入下降 9.3%；在港交所以介绍方式上市（2022 年 9 月）。', '2022', '2022-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2023 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2023 年度数据口径与说明', '财务', '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；首次宣派年度现金股息（每股 0.07 美元）；毛利率升到 35.3%。', '2023', '2023-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '东方财富港股/美股格式三大报表（akshare 取数）' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2024 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2024 年度数据口径与说明', '财务', '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；订阅收入 +25.9%；毛利率 42.3%。', '2024', '2024-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '2025 年度数据口径与说明', '财务', '财务数据：东方财富（国际财务报告准则）；“分红总额”为股东回报＝归属该年度的现金股息＋当年回购；货币资金为现金、现金等价物与定期存款（公司口径）；带息负债＝应付票据＋租赁负债＋借款；投资收益栏＝利息收入＋其他收益净额。；模型基准年。归母净利含 UMG 实物分派带来的视同处置收益 23.7 亿元（剔除后约 86.9 亿元，股东回报率约 33%）；偿还 3 亿美元票据。', '2025', '2025-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '2025 年第四季度及全年未经审计财务业绩公告' ORDER BY id LIMIT 1));
+
 UPDATE vi_metric_base SET notes = '跟踪用途：看剔除喜马拉雅后的同比', source_name = '季度业绩公告、业绩会' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '会员（订阅）收入' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
 
 UPDATE vi_metric_base SET source_name = '季度业绩公告' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '毛利率' AND unit IS NOT DISTINCT FROM '%' ORDER BY id LIMIT 1);
@@ -2831,13 +2855,13 @@ UPDATE vi_risk_base SET early_warning = '港元兑人民币：一个月内变动
 对外持股市值（Spotify、UMG）：金融资产较上季变动超过 20%
 持续跟踪：对外持股市值（Spotify、UMG）（季；来源：资产负债表的金融资产；Spotify、UMG 股价）' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND code = 'R5';
 
-UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1), notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '付费用户 1.274 亿、ARPPU 11.9 元，月活连续下滑';
+UPDATE vi_fact_base SET notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '付费用户 1.274 亿、ARPPU 11.9 元，月活连续下滑';
 
-UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '回购金额' AND unit IS NOT DISTINCT FROM '亿美元' ORDER BY id LIMIT 1), notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '回购与分红：2026 年二季度回购 4 亿美元，新一轮在准备';
+UPDATE vi_fact_base SET notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '回购与分红：2026 年二季度回购 4 亿美元，新一轮在准备';
 
-UPDATE vi_fact_base SET metric_id = NULL, notes = '原“数值”字段：20 百万人（2025Q4），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '管理层：竞争冲击轻度用户，超级会员稳定';
+UPDATE vi_fact_base SET notes = '原“数值”字段：20 百万人（2025Q4），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '管理层：竞争冲击轻度用户，超级会员稳定';
 
-UPDATE vi_fact_base SET metric_id = NULL, notes = '原“数值”字段：0.25 比率（2025Q2），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '自制音乐播放份额约 20%—30%，已超过三大唱片';
+UPDATE vi_fact_base SET notes = '原“数值”字段：0.25 比率（2025Q2），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '自制音乐播放份额约 20%—30%，已超过三大唱片';
 
 INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
 SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
@@ -2851,30 +2875,30 @@ FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code =
 
 INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
 SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
-       '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）', '亿人', '经营', '年报', '全年', c.id, '年报', '年', NULL
-FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人');
+       '在线音乐付费用户', '百万人', '经营', '年报', '全年', c.id, '年报', '年', NULL
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人');
 
-UPDATE vi_metric_base SET model_field = 'volume' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1);
+UPDATE vi_metric_base SET model_field = 'volume' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1);
 
-DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2021';
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2021';
 
-INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1), '2021-12-31', '2021', '全年', 0.762, '历史年度原值；口径：合并口径', now());
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1), '2021-12-31', '2021', '全年', 76.2, '历史年度原值；口径：合并口径', now());
 
-DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2022';
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2022';
 
-INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1), '2022-12-31', '2022', '全年', 0.885, '历史年度原值；口径：合并口径', now());
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1), '2022-12-31', '2022', '全年', 88.5, '历史年度原值；口径：合并口径', now());
 
-DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2023';
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2023';
 
-INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1), '2023-12-31', '2023', '全年', 1.067, '历史年度原值；口径：合并口径', now());
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1), '2023-12-31', '2023', '全年', 106.7, '历史年度原值；口径：合并口径', now());
 
-DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2024';
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2024';
 
-INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1), '2024-12-31', '2024', '全年', 1.21, '历史年度原值；口径：合并口径', now());
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1), '2024-12-31', '2024', '全年', 121.0, '历史年度原值；口径：合并口径', now());
 
-DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2025';
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2025';
 
-INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户（第四季度，2026 年起为年末音乐服务付费用户）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1), '2025-12-31', '2025', '全年', 1.274, '历史年度原值；口径：合并口径', now());
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '在线音乐付费用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1), '2025-12-31', '2025', '全年', 127.4, '历史年度原值；口径：合并口径', now());
 
 INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
 SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),

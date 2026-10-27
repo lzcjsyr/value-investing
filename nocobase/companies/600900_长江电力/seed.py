@@ -1,7 +1,7 @@
 """长江电力（600900.SH）→ 价值投资框架（vi_）的种子数据。
 
 本项目独立运行，不依赖任何外部系统的数据（2026-10-24 起不再读取旧系统归档）：
-  · data/base.json：指标、公司、来源文档、事实摘录、假设依据、历史年度、经营数据（写进“指标＋数据”）、采集配置、估值模型、情景、逐年假设、
+  · data/base.json：指标、公司、来源文档、事实摘录、假设依据、经营数据（写进“指标＋数据”）、采集配置、估值模型、情景、逐年假设、
     单参数试验、待办清单、变更日志，以及它们之间的关联。字段与 vi_ 表一致，可以直接编辑。
   · data/observations.json：高频数据（长江电力股价、国债收益率、三峡水位与流量）；data/raw_capture.json：对应的原始采集记录。
   · analysis.py：商业模式分析（核心论点、商业模式拆解、产业链、竞争对手、壁垒、适配度），按业务键写入。
@@ -60,7 +60,7 @@ def link(table, pairs):
 
 
 # 写入顺序按外键依赖：指标 → 公司 → 来源 → 事实 → 假设依据 → 历史数据 → 采集 → 模型 → 待办与变更日志
-ORDER = ['metric', 'company', 'source', 'fact', 'judgment', 'fin_history', 'collector',
+ORDER = ['metric', 'company', 'source', 'fact', 'judgment', 'collector',
          'model', 'scenario', 'forecast', 'trial', 'issue', 'change_log']
 
 
@@ -82,10 +82,7 @@ def base():
             ins('observation', json.loads((DATA / 'observations.json').read_text()))
             ins('model', data['model'])
             continue
-        rows = data[t]
-        if t == 'fin_history':                 # 历史年度只存口径说明、来源和备注，数值来自指标
-            rows = [{k: r[k] for k in data_layer_seed.HISTORY_KEYS + ('id',) if k in r} for r in rows]
-        ins(t, rows)
+        ins(t, data[t])
     for table, pairs in data['links'].items():
         link(table, pairs)
 

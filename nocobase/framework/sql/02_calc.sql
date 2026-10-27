@@ -4,9 +4,10 @@
 BEGIN;
 
 DROP MATERIALIZED VIEW IF EXISTS vi_fin_history_cache, vi_stmt_cache CASCADE;
+DROP VIEW IF EXISTS vi_metric_value CASCADE;
 DROP VIEW IF EXISTS vi_check, vi_sotp, vi_sotp_segment_calc, vi_sotp_segment_val, vi_sotp_item_calc, vi_moat_calc, vi_risk_calc, vi_sensitivity, vi_valuation, vi_valuation_cf, vi_balance, vi_projection, vi_collect_run_calc, vi_trial_calc,
   vi_forecast_calc, vi_scenario_calc, vi_model_calc, vi_series, vi_thesis_calc, vi_fin_metric,
-  vi_fin_history_calc, vi_collector_calc, vi_raw_capture_calc, vi_observation_calc, vi_obs_current, vi_disclosed,
+  vi_fin_history, vi_fin_history_calc, vi_collector_calc, vi_raw_capture_calc, vi_observation_calc, vi_obs_current, vi_disclosed,
   vi_metric_calc, vi_company_calc, vi_company_metric CASCADE;
 
 ---------------------------------------------------------------------------
@@ -109,7 +110,7 @@ WHERE o.value IS NOT NULL AND o.value >= coalesce(m.valid_min, '-infinity'::floa
 -- 同比＝本期÷上年同期−1（上年同期不为正时不算；比率不算同比）。
 CREATE OR REPLACE FUNCTION vi_stmt_series(p_company bigint, p_formula text)
 RETURNS TABLE (basis text, period text, period_end date, value double precision, yoy double precision)
-LANGUAGE sql STABLE AS $fn$
+LANGUAGE sql STABLE SET search_path = public AS $fn$   -- 固定查找路径：pg_dump 恢复时会清空 search_path
 WITH s AS (
   SELECT ord::int AS side, btrim(regexp_replace(btrim(x), '^（(.*)）$', '\1')) AS expr
   FROM unnest(string_to_array(p_formula, '÷')) WITH ORDINALITY u(x, ord)
@@ -213,6 +214,17 @@ FROM vi_series x JOIN vi_metric_base m ON m.id = x.metric_id
 LEFT JOIN vi_observation_base o ON o.id = x.observation_id
 WHERE m.company_id IS NOT NULL AND m.source_kind <> '自动采集';
 
+-- 指标数值（只读，给页面读）：每个指标每期每口径一行；“取值”标明是录入的还是报表算的
+CREATE VIEW vi_metric_value AS
+SELECT CASE WHEN x.observation_id IS NOT NULL THEN x.observation_id
+            ELSE -(x.metric_id * 1000000 + abs(hashtext(x.basis || '|' || x.period)) % 1000000) END AS id,
+       x.metric_id, m.company_id, x.period, x.basis, x.obs_date, x.value, x.yoy, m.unit,
+       CASE WHEN x.observation_id IS NULL THEN '报表计算' ELSE '录入' END AS origin,
+       o.summary, o.doc_id, d.title AS doc_title
+FROM vi_series x JOIN vi_metric_base m ON m.id = x.metric_id
+LEFT JOIN vi_observation_base o ON o.id = x.observation_id
+LEFT JOIN vi_source_base d ON d.id = o.doc_id;
+
 -- 写入一条公司披露的数据：按 公司×项目×口径×单位 找指标，没有就新建（代码＝公司代码.D001 起顺序编号）；
 -- 同一指标同一期间已有的数据先删掉再写，可重复执行。种子脚本和迁移都用它，规则只写一处。
 -- 业务驱动与财务结果分域；合同额/合约销售额和 ARPPU 是业务，不能仅按金额单位判断。
@@ -272,7 +284,6 @@ BEGIN
     keep := g.ids[1];
     FOREACH d IN ARRAY g.ids[2:] LOOP
       UPDATE vi_observation_base SET metric_id = keep WHERE metric_id = d;
-      UPDATE vi_fact_base SET metric_id = keep WHERE metric_id = d;
       UPDATE vi_collector_base SET metric_id = keep WHERE metric_id = d;
       UPDATE vi_company_base SET price_metric_id = keep WHERE price_metric_id = d;
       UPDATE vi_company_base SET price_fx_metric_id = keep WHERE price_fx_metric_id = d;
@@ -309,7 +320,8 @@ SELECT m.id,
        CASE WHEN m.company_id IS NULL THEN '宏观' ELSE '公司' END AS scope,
        u.used_by, u.used_by_codes,
        CASE WHEN l.obs_date IS NULL THEN '未记录' WHEN d.due < vi_today() THEN '待更新' ELSE '已更新' END AS state,
-       d.due AS next_due, t.tracked_by, t.tracked_codes
+       d.due AS next_due, t.tracked_by, t.tracked_codes,
+       array_position(ARRAY['volume', 'revenue', 'cost_of_sales', 'pretax_profit', 'income_tax', 'np_parent', 'minority_profit', 'da', 'finance_cost', 'invest_income', 'equity_income', 'cfo', 'capex', 'investee_cash_div', 'net_borrowing', 'interest_debt', 'cash', 'equity_parent', 'dividend_total', 'dps'], m.model_field) AS model_order
 FROM vi_metric_base m
 LEFT JOIN LATERAL (SELECT value, period, obs_date FROM vi_series x WHERE x.metric_id = m.id
                    ORDER BY (x.basis IS NOT DISTINCT FROM m.basis) DESC, obs_date DESC LIMIT 1) l ON true
@@ -505,16 +517,27 @@ $fn$;
 -- 年度关键项派生指标 & 论点自动证伪检查（同比只在口径相同的相邻年份之间计算，并表/重组年份为空）
 ---------------------------------------------------------------------------
 -- 历史年度：数值全部来自指标（指标的“模型字段”说明它是哪一列）。期间数取“全年”，余额取四季度“时点”；本表只存口径说明与来源
--- 历史年度数值缓存：由数据库自动维护（报表、模型字段指标的数据、历史年度的年份或口径变化时刷新），自动检查和图表都读它
+-- 单位换算：模型字段要的单位与指标的单位不同时（如业务量要“亿人”、指标存“百万人”）
+CREATE OR REPLACE FUNCTION vi_unit_factor(p_from text, p_to text) RETURNS double precision LANGUAGE sql IMMUTABLE AS $$
+SELECT CASE WHEN p_from IS NOT DISTINCT FROM p_to OR p_to IS NULL THEN 1
+            WHEN p_from = '百万人' AND p_to = '亿人' THEN 0.01 WHEN p_from = '亿人' AND p_to = '百万人' THEN 100
+            WHEN p_from = '百万台' AND p_to = '亿台' THEN 0.01 WHEN p_from = '亿台' AND p_to = '百万台' THEN 100
+            WHEN p_from = '辆' AND p_to = '万辆' THEN 0.0001 WHEN p_from = '万辆' AND p_to = '辆' THEN 10000
+            WHEN p_from = '万吨' AND p_to = '亿吨' THEN 0.0001 ELSE 1 END
+$$;
+
+-- 历史年度（只读，不存数）：模型字段指标的年度值透视成“年份 × 字段”，给财务模型、自动检查和图表用。
+-- 期间数取“全年”，余额取四季度“时点”；业务量换算成公司表的业务量单位；年份＝有数据的年度里最近 12 年。
 CREATE MATERIALIZED VIEW vi_fin_history_cache AS
 WITH a AS (
-  SELECT m.company_id, m.model_field, x.value,
+  SELECT m.company_id, m.model_field,
+         x.value * vi_unit_factor(m.unit, CASE WHEN m.model_field = 'volume' THEN c.volume_unit ELSE m.unit END) AS value,
          CASE WHEN x.basis = '全年' AND x.period ~ '^\d{4}$' THEN x.period::int
               WHEN x.basis = '时点' AND x.period ~ '^\d{4}Q4$' THEN left(x.period, 4)::int END AS year
-  FROM vi_metric_base m JOIN vi_series x ON x.metric_id = m.id
-  WHERE m.model_field IS NOT NULL AND m.company_id IS NOT NULL
-)
-SELECT h.id, h.company_id, h.year, h.scope_note,
+  FROM vi_metric_base m JOIN vi_company_base c ON c.id = m.company_id JOIN vi_series x ON x.metric_id = m.id
+  WHERE m.model_field IS NOT NULL
+), p AS (
+  SELECT a.company_id, a.year,
          max(a.value) FILTER (WHERE a.model_field = 'volume') AS volume,
          max(a.value) FILTER (WHERE a.model_field = 'revenue') AS revenue,
          max(a.value) FILTER (WHERE a.model_field = 'cost_of_sales') AS cost_of_sales,
@@ -535,12 +558,17 @@ SELECT h.id, h.company_id, h.year, h.scope_note,
          max(a.value) FILTER (WHERE a.model_field = 'equity_parent') AS equity_parent,
          max(a.value) FILTER (WHERE a.model_field = 'dividend_total') AS dividend_total,
          max(a.value) FILTER (WHERE a.model_field = 'dps') AS dps
-  FROM vi_fin_history_base h LEFT JOIN a ON a.company_id = h.company_id AND a.year = h.year
-  GROUP BY h.id, h.company_id, h.year, h.scope_note;
+  FROM a WHERE a.year IS NOT NULL
+  GROUP BY a.company_id, a.year
+), k AS (
+  SELECT p.*, max(year) FILTER (WHERE revenue IS NOT NULL) OVER (PARTITION BY company_id) AS last_year FROM p
+)
+SELECT company_id * 10000 + year AS id, company_id, year, volume, revenue, cost_of_sales, pretax_profit, income_tax, np_parent, minority_profit, da, finance_cost, invest_income, equity_income, cfo, capex, investee_cash_div, net_borrowing, interest_debt, cash, equity_parent, dividend_total, dps
+FROM k WHERE year BETWEEN last_year - 11 AND last_year;
 CREATE UNIQUE INDEX ON vi_fin_history_cache (id);
 CREATE INDEX ON vi_fin_history_cache (company_id, year);
 
--- 刷新时机：历史年度的年份或口径说明变了；模型字段改了；模型字段指标的数据变了（只看这次改到的行，其他数据不触发）
+-- 刷新时机：模型字段改了；模型字段指标的数据变了（只看这次改到的行，其他数据不触发）
 CREATE OR REPLACE FUNCTION vi_refresh_fin_history() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_TABLE_NAME = 'vi_observation_base' THEN       -- 每种操作只引用它自己有的转换表（INSERT 只有 nt，DELETE 只有 ot）
@@ -568,31 +596,32 @@ CREATE TRIGGER vi_metric_hist AFTER UPDATE ON vi_metric_base FOR EACH ROW WHEN (
 DROP TRIGGER IF EXISTS vi_metric_hist_del ON vi_metric_base;
 CREATE TRIGGER vi_metric_hist_del AFTER DELETE ON vi_metric_base FOR EACH ROW WHEN (OLD.model_field IS NOT NULL)
   EXECUTE FUNCTION vi_refresh_fin_history();
-DROP TRIGGER IF EXISTS vi_fin_history_refresh ON vi_fin_history_base;
-CREATE TRIGGER vi_fin_history_refresh AFTER INSERT OR UPDATE OR DELETE ON vi_fin_history_base FOR EACH STATEMENT EXECUTE FUNCTION vi_refresh_fin_history();
 
-CREATE VIEW vi_fin_history_calc AS
-WITH v AS (SELECT * FROM vi_fin_history_cache), b AS (
+CREATE VIEW vi_fin_history AS
+WITH v AS (
+  SELECT h.*, h.year = ANY (coalesce(array_remove(regexp_split_to_array(c.scope_breaks, '[^0-9]+'), '')::int[], '{}')) AS scope_break
+  FROM vi_fin_history_cache h JOIN vi_company_base c ON c.id = h.company_id
+), b AS (
   SELECT v.*,
          revenue / NULLIF(volume, 0) AS price_,
-         lag(year) OVER w AS py, lag(scope_note) OVER w AS p_scope, lag(volume) OVER w AS p_volume, lag(revenue) OVER w AS p_revenue,
+         lag(year) OVER w AS py, lag(volume) OVER w AS p_volume, lag(revenue) OVER w AS p_revenue,
          lag(revenue / NULLIF(volume, 0)) OVER w AS p_price, lag(np_parent) OVER w AS p_np,
          lag(finance_cost) OVER w AS p_fc, lag(equity_parent) OVER w AS p_equity
   FROM v
   WINDOW w AS (PARTITION BY company_id ORDER BY year)
 )
-SELECT id, volume, revenue, cost_of_sales, pretax_profit, income_tax, np_parent, minority_profit, da, finance_cost, invest_income, equity_income, cfo, capex, investee_cash_div, net_borrowing, interest_debt, cash, equity_parent, dividend_total, dps,
+SELECT id, company_id, year, volume, revenue, cost_of_sales, pretax_profit, income_tax, np_parent, minority_profit, da, finance_cost, invest_income, equity_income, cfo, capex, investee_cash_div, net_borrowing, interest_debt, cash, equity_parent, dividend_total, dps,
        price_ AS price,
        dividend_total / NULLIF(np_parent, 0) AS payout,
        income_tax / NULLIF(pretax_profit, 0) AS tax_rate,
        minority_profit / NULLIF(pretax_profit - income_tax, 0) AS minority_share,
        1 - np_parent / NULLIF(pretax_profit, 0) AS burden,
        cfo - capex AS fcf,
-       CASE WHEN py = year - 1 AND p_scope IS NOT DISTINCT FROM scope_note THEN volume / NULLIF(p_volume, 0) - 1 END AS volume_yoy,
-       CASE WHEN py = year - 1 AND p_scope IS NOT DISTINCT FROM scope_note THEN price_ / NULLIF(p_price, 0) - 1 END AS price_yoy,
-       CASE WHEN py = year - 1 AND p_scope IS NOT DISTINCT FROM scope_note THEN revenue / NULLIF(p_revenue, 0) - 1 END AS revenue_yoy,
-       CASE WHEN py = year - 1 AND p_scope IS NOT DISTINCT FROM scope_note THEN np_parent / NULLIF(p_np, 0) - 1 END AS np_yoy,
-       CASE WHEN py = year - 1 AND p_scope IS NOT DISTINCT FROM scope_note THEN finance_cost / NULLIF(p_fc, 0) - 1 END AS finance_cost_yoy,
+       CASE WHEN py = year - 1 AND NOT scope_break THEN volume / NULLIF(p_volume, 0) - 1 END AS volume_yoy,
+       CASE WHEN py = year - 1 AND NOT scope_break THEN price_ / NULLIF(p_price, 0) - 1 END AS price_yoy,
+       CASE WHEN py = year - 1 AND NOT scope_break THEN revenue / NULLIF(p_revenue, 0) - 1 END AS revenue_yoy,
+       CASE WHEN py = year - 1 AND NOT scope_break THEN np_parent / NULLIF(p_np, 0) - 1 END AS np_yoy,
+       CASE WHEN py = year - 1 AND NOT scope_break THEN finance_cost / NULLIF(p_fc, 0) - 1 END AS finance_cost_yoy,
        1 - cost_of_sales / NULLIF(revenue, 0) AS gross_margin,
        CASE WHEN py = year - 1 THEN np_parent / NULLIF((equity_parent + p_equity) / 2, 0) END AS roe,
        cfo / NULLIF(np_parent, 0) AS cfo_to_np,
@@ -603,8 +632,8 @@ FROM b;
 
 -- 长表：公司×年度×指标名（论点检查按中文指标名取值）
 CREATE VIEW vi_fin_metric AS
-SELECT h.company_id, h.year, x.metric, x.value
-FROM vi_fin_history_base h JOIN vi_fin_history_calc c USING (id)
+SELECT c.company_id, c.year, x.metric, x.value
+FROM vi_fin_history c
 CROSS JOIN LATERAL (VALUES
   ('业务量', c.volume), ('单价', c.price), ('营业收入', c.revenue), ('归母净利润', c.np_parent),
   ('派息率', c.payout), ('财务费用', c.finance_cost), ('业务量同比', c.volume_yoy),

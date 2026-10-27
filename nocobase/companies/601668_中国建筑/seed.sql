@@ -38,7 +38,6 @@ DELETE FROM vi_judgment_base WHERE company_id = (SELECT id FROM vi_company_base 
 DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH');
 DELETE FROM vi_thesis_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH');
 DELETE FROM vi_observation_base WHERE metric_id IN (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND source_kind = '公司披露');
-DELETE FROM vi_fin_history_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH');
 DELETE FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH');
 
 INSERT INTO vi_source_base (company_id, title, source_type, url, reliability, verify_status, summary, limitations) SELECT (SELECT id FROM vi_company_base WHERE code = '601668.SH'), '中国建筑收盘价：腾讯 K 线收盘价（不复权）（2025—2026 年历史数据）', '数据库取数', 'https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh601668,day（不复权日线）', '三级·第三方数据', '待核验', '历史日线收盘价', '历史补数：腾讯 K 线收盘价（不复权）' WHERE NOT EXISTS (SELECT 1 FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑收盘价：腾讯 K 线收盘价（不复权）（2025—2026 年历史数据）');
@@ -475,20 +474,6 @@ INSERT INTO vi_fit_score_base (company_id, dimension, score, rationale, counter,
 INSERT INTO vi_lnk_fit_score_theses (fit_score_id, thesis_id, "createdAt", "updatedAt")
 SELECT x.id, y.id, now(), now() FROM (VALUES ('长坡', 'T2'), ('长坡', 'T1'), ('厚雪', 'T3'), ('厚雪', 'T7'), ('慢变', 'T1'), ('护城河', 'T1'), ('护城河', 'T7'), ('再投资', 'T7'), ('再投资', 'T4'), ('财务质量', 'T4'), ('财务质量', 'T8'), ('治理配置', 'T6'), ('可估值性', 'T8'), ('可估值性', 'T4')) v(k1, k2)
 JOIN vi_fit_score_base x ON x.company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND x.dimension = v.k1 JOIN vi_thesis_base y ON y.company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND y.code = v.k2;
-
-INSERT INTO vi_fin_history_base (company_id, year, scope_note, source_id, note) VALUES
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 2014, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' LIMIT 1), '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；新签合同总额未取得（2014—2016 年）。'),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 2015, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' LIMIT 1), '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；新签合同总额未取得（2014—2016 年）。'),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 2016, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' LIMIT 1), '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；新签合同总额未取得（2014—2016 年）。；经营现金流 1,070 亿元为历史最高（地产预售回款）。'),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 2017, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' LIMIT 1), '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；2017 年度 10 转 4 派 2.15 元：每股股息为转增前口径（2014—2017 年同），分红总额按转增前股本 299.89 亿股。'),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 2018, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' LIMIT 1), '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；执行新收入准则，开始单列合同资产；资产减值 104.7 亿元。'),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 2019, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' LIMIT 1), '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；新签合同总额 28,687 亿元为推算值：建筑新签 24,863 亿元＋地产合约销售约 3,824 亿元（2020 年 4,287 亿元÷1.121）；与 2020 年“3.2 万亿元、+11.6%”一致。'),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 2020, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' LIMIT 1), '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；新签合同总额＝建筑 27,721＋地产 4,287 亿元。'),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 2021, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' LIMIT 1), '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；新签合同总额取年报致辞“3.53 万亿元（+10.3%）”的取整数，精确值待核验。'),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 2022, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2023 年年度报告' LIMIT 1), '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；利润总额下降（减值 135.5 亿元、地产毛利下降），少数股东损益由 263 亿元降到 183 亿元。'),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 2023, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2023 年年度报告' LIMIT 1), '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。'),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 2024, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2025 年年度报告' LIMIT 1), '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；减值 200.9 亿元；营业收入首次下降（−3.5%）。'),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 2025, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2025 年年度报告' LIMIT 1), '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；模型基准年。减值 258.7 亿元；收入 −4.8%、归母 −15.4%；每股股息 0.2718 元。');
 
 SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '营业收入', '单季', '亿元', '2024Q1', '2024-03-31', 5493.19, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' LIMIT 1));
 
@@ -11496,6 +11481,54 @@ INSERT INTO vi_fin_stmt_base (company_id, period, period_end, stmt, item, seq, a
 
 SELECT vi_merge_company_metrics((SELECT id FROM vi_company_base WHERE code = '601668.SH'));
 
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '2014 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2014 年度数据口径与说明', '财务', '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；新签合同总额未取得（2014—2016 年）。', '2014', '2014-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '2015 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2015 年度数据口径与说明', '财务', '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；新签合同总额未取得（2014—2016 年）。', '2015', '2015-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '2016 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2016 年度数据口径与说明', '财务', '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；新签合同总额未取得（2014—2016 年）。；经营现金流 1,070 亿元为历史最高（地产预售回款）。', '2016', '2016-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '2017 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2017 年度数据口径与说明', '财务', '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；2017 年度 10 转 4 派 2.15 元：每股股息为转增前口径（2014—2017 年同），分红总额按转增前股本 299.89 亿股。', '2017', '2017-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '2018 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2018 年度数据口径与说明', '财务', '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；执行新收入准则，开始单列合同资产；资产减值 104.7 亿元。', '2018', '2018-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '2019 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2019 年度数据口径与说明', '财务', '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；新签合同总额 28,687 亿元为推算值：建筑新签 24,863 亿元＋地产合约销售约 3,824 亿元（2020 年 4,287 亿元÷1.121）；与 2020 年“3.2 万亿元、+11.6%”一致。', '2019', '2019-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '2020 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2020 年度数据口径与说明', '财务', '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；新签合同总额＝建筑 27,721＋地产 4,287 亿元。', '2020', '2020-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '2021 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2021 年度数据口径与说明', '财务', '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；新签合同总额取年报致辞“3.53 万亿元（+10.3%）”的取整数，精确值待核验。', '2021', '2021-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '2022 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2022 年度数据口径与说明', '财务', '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；利润总额下降（减值 135.5 亿元、地产毛利下降），少数股东损益由 263 亿元降到 183 亿元。', '2022', '2022-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2023 年年度报告' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '2023 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2023 年度数据口径与说明', '财务', '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。', '2023', '2023-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2023 年年度报告' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '2024 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2024 年度数据口径与说明', '财务', '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；减值 200.9 亿元；营业收入首次下降（−3.5%）。', '2024', '2024-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2025 年年度报告' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '2025 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025 年度数据口径与说明', '财务', '财务数据：东方财富 F10（2026-10-22）；归母净资产为普通股口径（已扣除母公司永续债与优先股等其他权益工具）；带息负债＝短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债。；模型基准年。减值 258.7 亿元；收入 −4.8%、归母 −15.4%；每股股息 0.2718 元。', '2025', '2025-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2025 年年度报告' ORDER BY id LIMIT 1));
+
 UPDATE vi_metric_base SET notes = '跟踪用途：T3：施工毛利率在升、地产在降，综合约 10%。J-M 的核心利润率以此为基础；T3 的自动检查是年度毛利率连续两年低于 9%；验证论点：T3、T9' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '毛利率' AND unit IS NOT DISTINCT FROM '%' ORDER BY id LIMIT 1);
 
 UPDATE vi_metric_base SET notes = '跟踪用途：看同比；T8：减值 2026 年见顶。管理层说全年不超过 2025 年（258.7 亿元）；J-IMP 按 2026 年约 235 亿元（同比约 −9%）；验证论点：T8' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '资产及信用减值损失' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1);
@@ -11639,13 +11672,13 @@ UPDATE vi_risk_base SET early_warning = 'PPP 相关长期资产·期末同比：
 
 UPDATE vi_thesis_base SET mind_changer = '改判为成立：2026 年减值低于 230 亿元，且 2027 年继续回落。改判为存疑：2026 年减值超过 258.7 亿元，或单年地产存货减值超过 50 亿元，或地产业务毛利率低于 12%。不设自动检查（历史财务没有减值字段），看重点跟踪的资产及信用减值损失（累计同比）和地产业务毛利率。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND code = 'T8';
 
-UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '资产及信用减值损失' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '减值：2025 年 258.7 亿元，2026 年上半年 100.4 亿元';
+UPDATE vi_fact_base SET notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '减值：2025 年 258.7 亿元，2026 年上半年 100.4 亿元';
 
-UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '应收账款＋合同资产' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '应收账款＋合同资产 10,045 亿元，两年增长 70%';
+UPDATE vi_fact_base SET notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '应收账款＋合同资产 10,045 亿元，两年增长 70%';
 
-UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '每股现金分红' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1), notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '分红：每股 0.2718 元、派息率 28.7%，2026 年度保持平稳';
+UPDATE vi_fact_base SET notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '分红：每股 0.2718 元、派息率 28.7%，2026 年度保持平稳';
 
-UPDATE vi_fact_base SET metric_id = NULL, notes = '原“数值”字段：21000 亿元（2026），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '2026 年目标与管理层体感';
+UPDATE vi_fact_base SET notes = '原“数值”字段：21000 亿元（2026），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '2026 年目标与管理层体感';
 
 INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
 SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),

@@ -42,7 +42,6 @@ DELETE FROM vi_judgment_base WHERE company_id = (SELECT id FROM vi_company_base 
 DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK');
 DELETE FROM vi_thesis_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK');
 DELETE FROM vi_observation_base WHERE metric_id IN (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND source_kind = '公司披露');
-DELETE FROM vi_fin_history_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK');
 DELETE FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK');
 
 INSERT INTO vi_source_base (company_id, title, source_type, url, reliability, verify_status, summary, limitations) SELECT (SELECT id FROM vi_company_base WHERE code = '01810.HK'), '小米集团港股收盘价：腾讯 K 线收盘价（港元，不复权）（2025—2026 年历史数据）', '数据库取数', 'https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk01810,day（不复权日线）', '三级·第三方数据', '待核验', '历史日线收盘价', '历史补数：腾讯 K 线收盘价（港元，不复权）' WHERE NOT EXISTS (SELECT 1 FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '小米集团港股收盘价：腾讯 K 线收盘价（港元，不复权）（2025—2026 年历史数据）');
@@ -529,16 +528,6 @@ INSERT INTO vi_fit_score_base (company_id, dimension, score, rationale, counter,
 INSERT INTO vi_lnk_fit_score_theses (fit_score_id, thesis_id, "createdAt", "updatedAt")
 SELECT x.id, y.id, now(), now() FROM (VALUES ('长坡', 'T3'), ('厚雪', 'T1'), ('厚雪', 'T2'), ('慢变', 'T2'), ('慢变', 'T4'), ('护城河', 'T1'), ('再投资', 'T3'), ('再投资', 'T4'), ('财务质量', 'T5'), ('财务质量', 'T6'), ('财务质量', 'T7'), ('治理配置', 'T8'), ('治理配置', 'T4'), ('可估值性', 'T2'), ('可估值性', 'T3'), ('可估值性', 'T4'), ('可估值性', 'T9')) v(k1, k2)
 JOIN vi_fit_score_base x ON x.company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND x.dimension = v.k1 JOIN vi_thesis_base y ON y.company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND y.code = v.k2;
-
-INSERT INTO vi_fin_history_base (company_id, year, scope_note, source_id, note) VALUES
-((SELECT id FROM vi_company_base WHERE code = '01810.HK'), 2018, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '东方财富港股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富港股格式（国际财务报告准则）；“分红总额”为当年回购金额（小米不派现金股息）；“投资收益”＝投资公允价值变动＋其他收益净额；货币资金＝现金及等价物＋定期存款＋受限制现金（不含短期投资与理财，公司口径的“现金储备”更大）；带息负债＝短期借款＋长期借款（含可换股债券，不含租赁）。；7 月上市；利润含可转换可赎回优先股公允价值变动约 125 亿元、上市相关一次性股权激励约 100 亿元。'),
-((SELECT id FROM vi_company_base WHERE code = '01810.HK'), 2019, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '东方财富港股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富港股格式（国际财务报告准则）；“分红总额”为当年回购金额（小米不派现金股息）；“投资收益”＝投资公允价值变动＋其他收益净额；货币资金＝现金及等价物＋定期存款＋受限制现金（不含短期投资与理财，公司口径的“现金储备”更大）；带息负债＝短期借款＋长期借款（含可换股债券，不含租赁）。；智能手机出货与月活口径见定期经营数据。'),
-((SELECT id FROM vi_company_base WHERE code = '01810.HK'), 2020, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '东方财富港股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富港股格式（国际财务报告准则）；“分红总额”为当年回购金额（小米不派现金股息）；“投资收益”＝投资公允价值变动＋其他收益净额；货币资金＝现金及等价物＋定期存款＋受限制现金（不含短期投资与理财，公司口径的“现金储备”更大）；带息负债＝短期借款＋长期借款（含可换股债券，不含租赁）。；12 月配售 10 亿股（每股 23.70 港元）；发行 6 亿美元 2030 年票据与 8.55 亿美元 2027 年可换股债券。'),
-((SELECT id FROM vi_company_base WHERE code = '01810.HK'), 2021, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '东方财富港股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富港股格式（国际财务报告准则）；“分红总额”为当年回购金额（小米不派现金股息）；“投资收益”＝投资公允价值变动＋其他收益净额；货币资金＝现金及等价物＋定期存款＋受限制现金（不含短期投资与理财，公司口径的“现金储备”更大）；带息负债＝短期借款＋长期借款（含可换股债券，不含租赁）。；宣布造车（3 月）；7 月发行 8 亿美元 2031 年票据与 4 亿美元 2051 年绿色债券；出货 1.903 亿台（高点）。'),
-((SELECT id FROM vi_company_base WHERE code = '01810.HK'), 2022, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '东方财富港股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富港股格式（国际财务报告准则）；“分红总额”为当年回购金额（小米不派现金股息）；“投资收益”＝投资公允价值变动＋其他收益净额；货币资金＝现金及等价物＋定期存款＋受限制现金（不含短期投资与理财，公司口径的“现金储备”更大）；带息负债＝短期借款＋长期借款（含可换股债券，不含租赁）。；行业萧条：收入 −14.7%，出货 −20.9%；智能电动汽车等创新业务费用 31 亿元。'),
-((SELECT id FROM vi_company_base WHERE code = '01810.HK'), 2023, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '东方财富港股格式三大报表（akshare 取数）' LIMIT 1), '财务数据：东方财富港股格式（国际财务报告准则）；“分红总额”为当年回购金额（小米不派现金股息）；“投资收益”＝投资公允价值变动＋其他收益净额；货币资金＝现金及等价物＋定期存款＋受限制现金（不含短期投资与理财，公司口径的“现金储备”更大）；带息负债＝短期借款＋长期借款（含可换股债券，不含租赁）。；创新业务费用 67 亿元；毛利率升到 21.2%。'),
-((SELECT id FROM vi_company_base WHERE code = '01810.HK'), 2024, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年全年业绩公告（2026-03-24）' LIMIT 1), '财务数据：东方财富港股格式（国际财务报告准则）；“分红总额”为当年回购金额（小米不派现金股息）；“投资收益”＝投资公允价值变动＋其他收益净额；货币资金＝现金及等价物＋定期存款＋受限制现金（不含短期投资与理财，公司口径的“现金储备”更大）；带息负债＝短期借款＋长期借款（含可换股债券，不含租赁）。；汽车 4 月开始交付，全年 136,854 辆；汽车及 AI 分部经营亏损约 71.5 亿元。'),
-((SELECT id FROM vi_company_base WHERE code = '01810.HK'), 2025, '合并口径', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年全年业绩公告（2026-03-24）' LIMIT 1), '财务数据：东方财富港股格式（国际财务报告准则）；“分红总额”为当年回购金额（小米不派现金股息）；“投资收益”＝投资公允价值变动＋其他收益净额；货币资金＝现金及等价物＋定期存款＋受限制现金（不含短期投资与理财，公司口径的“现金储备”更大）；带息负债＝短期借款＋长期借款（含可换股债券，不含租赁）。；模型基准年。3 月配售 8 亿股（每股 53.25 港元）；汽车交付 411,082 辆、分部经营收益 9 亿元；归母含投资公允价值收益 133.1 亿元；回购 61.7 亿元。');
 
 INSERT INTO vi_metric_base (code,name,unit,category,source_kind,basis,company_id,source_name,frequency,valid_min) VALUES ('01810.HK.OP.AIOT_DEVICES','AIoT平台连接设备数（不含手机和平板）','百万台','经营','公司披露','时点',(SELECT id FROM vi_company_base WHERE code = '01810.HK'),'2026 年第二季度及中期业绩公告（2026-08-18）','季',0) ON CONFLICT (code) DO UPDATE SET category='经营',source_kind='公司披露',basis='时点';
 
@@ -4875,6 +4864,42 @@ INSERT INTO vi_fin_stmt_base (company_id, period, period_end, stmt, item, seq, a
 
 SELECT vi_merge_company_metrics((SELECT id FROM vi_company_base WHERE code = '01810.HK'));
 
+UPDATE vi_observation_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1), value = value * 1 WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（12 月）' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) IS NOT NULL;
+
+DELETE FROM vi_metric_base WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（12 月）' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) AND (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) IS NOT NULL;
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2018 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '2018 年度数据口径与说明', '财务', '财务数据：东方财富港股格式（国际财务报告准则）；“分红总额”为当年回购金额（小米不派现金股息）；“投资收益”＝投资公允价值变动＋其他收益净额；货币资金＝现金及等价物＋定期存款＋受限制现金（不含短期投资与理财，公司口径的“现金储备”更大）；带息负债＝短期借款＋长期借款（含可换股债券，不含租赁）。；7 月上市；利润含可转换可赎回优先股公允价值变动约 125 亿元、上市相关一次性股权激励约 100 亿元。', '2018', '2018-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '东方财富港股格式三大报表（akshare 取数）' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2019 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '2019 年度数据口径与说明', '财务', '财务数据：东方财富港股格式（国际财务报告准则）；“分红总额”为当年回购金额（小米不派现金股息）；“投资收益”＝投资公允价值变动＋其他收益净额；货币资金＝现金及等价物＋定期存款＋受限制现金（不含短期投资与理财，公司口径的“现金储备”更大）；带息负债＝短期借款＋长期借款（含可换股债券，不含租赁）。；智能手机出货与月活口径见定期经营数据。', '2019', '2019-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '东方财富港股格式三大报表（akshare 取数）' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2020 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '2020 年度数据口径与说明', '财务', '财务数据：东方财富港股格式（国际财务报告准则）；“分红总额”为当年回购金额（小米不派现金股息）；“投资收益”＝投资公允价值变动＋其他收益净额；货币资金＝现金及等价物＋定期存款＋受限制现金（不含短期投资与理财，公司口径的“现金储备”更大）；带息负债＝短期借款＋长期借款（含可换股债券，不含租赁）。；12 月配售 10 亿股（每股 23.70 港元）；发行 6 亿美元 2030 年票据与 8.55 亿美元 2027 年可换股债券。', '2020', '2020-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '东方财富港股格式三大报表（akshare 取数）' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2021 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '2021 年度数据口径与说明', '财务', '财务数据：东方财富港股格式（国际财务报告准则）；“分红总额”为当年回购金额（小米不派现金股息）；“投资收益”＝投资公允价值变动＋其他收益净额；货币资金＝现金及等价物＋定期存款＋受限制现金（不含短期投资与理财，公司口径的“现金储备”更大）；带息负债＝短期借款＋长期借款（含可换股债券，不含租赁）。；宣布造车（3 月）；7 月发行 8 亿美元 2031 年票据与 4 亿美元 2051 年绿色债券；出货 1.903 亿台（高点）。', '2021', '2021-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '东方财富港股格式三大报表（akshare 取数）' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2022 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '2022 年度数据口径与说明', '财务', '财务数据：东方财富港股格式（国际财务报告准则）；“分红总额”为当年回购金额（小米不派现金股息）；“投资收益”＝投资公允价值变动＋其他收益净额；货币资金＝现金及等价物＋定期存款＋受限制现金（不含短期投资与理财，公司口径的“现金储备”更大）；带息负债＝短期借款＋长期借款（含可换股债券，不含租赁）。；行业萧条：收入 −14.7%，出货 −20.9%；智能电动汽车等创新业务费用 31 亿元。', '2022', '2022-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '东方财富港股格式三大报表（akshare 取数）' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2023 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '2023 年度数据口径与说明', '财务', '财务数据：东方财富港股格式（国际财务报告准则）；“分红总额”为当年回购金额（小米不派现金股息）；“投资收益”＝投资公允价值变动＋其他收益净额；货币资金＝现金及等价物＋定期存款＋受限制现金（不含短期投资与理财，公司口径的“现金储备”更大）；带息负债＝短期借款＋长期借款（含可换股债券，不含租赁）。；创新业务费用 67 亿元；毛利率升到 21.2%。', '2023', '2023-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '东方财富港股格式三大报表（akshare 取数）' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2024 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '2024 年度数据口径与说明', '财务', '财务数据：东方财富港股格式（国际财务报告准则）；“分红总额”为当年回购金额（小米不派现金股息）；“投资收益”＝投资公允价值变动＋其他收益净额；货币资金＝现金及等价物＋定期存款＋受限制现金（不含短期投资与理财，公司口径的“现金储备”更大）；带息负债＝短期借款＋长期借款（含可换股债券，不含租赁）。；汽车 4 月开始交付，全年 136,854 辆；汽车及 AI 分部经营亏损约 71.5 亿元。', '2024', '2024-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年全年业绩公告（2026-03-24）' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES ((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '2025 年度数据口径与说明', '财务', '财务数据：东方财富港股格式（国际财务报告准则）；“分红总额”为当年回购金额（小米不派现金股息）；“投资收益”＝投资公允价值变动＋其他收益净额；货币资金＝现金及等价物＋定期存款＋受限制现金（不含短期投资与理财，公司口径的“现金储备”更大）；带息负债＝短期借款＋长期借款（含可换股债券，不含租赁）。；模型基准年。3 月配售 8 亿股（每股 53.25 港元）；汽车交付 411,082 辆、分部经营收益 9 亿元；归母含投资公允价值收益 133.1 亿元；回购 61.7 亿元。', '2025', '2025-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年全年业绩公告（2026-03-24）' ORDER BY id LIMIT 1));
+
 UPDATE vi_metric_base SET source_name = '季度业绩公告' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '智能手机毛利率' AND unit IS NOT DISTINCT FROM '%' ORDER BY id LIMIT 1);
 
 UPDATE vi_metric_base SET source_name = '季度业绩公告：分项毛利、集团费用、汽车分部经营开支' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = 'IoT毛利率' AND unit IS NOT DISTINCT FROM '%' ORDER BY id LIMIT 1);
@@ -5028,38 +5053,38 @@ UPDATE vi_risk_base SET early_warning = '回购执行与股本：回购暂停，
 现金储备、借款、投资者负债：现金储备低于 2,000 亿元或借款超过 500 亿元
 印度诉讼：判决或和解' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND code = 'R5';
 
-UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '生态经营利润（推算）' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '生态经营利润按季：2025 年 104.6、92.1、60.4、21.4 亿元，2026 年 60.6、48.5 亿元';
+UPDATE vi_fact_base SET notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '生态经营利润按季：2025 年 104.6、92.1、60.4、21.4 亿元，2026 年 60.6、48.5 亿元';
 
-UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '营业收入' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2026 年二季度收入 1,089.2 亿元（−6.1%），经调整净利润 62.2 亿元（−42.6%）';
+UPDATE vi_fact_base SET notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2026 年二季度收入 1,089.2 亿元（−6.1%），经调整净利润 62.2 亿元（−42.6%）';
 
-UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '智能手机毛利率' AND unit IS NOT DISTINCT FROM '%' ORDER BY id LIMIT 1), notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年手机收入 1,864.4 亿元、毛利率 10.9%、出货 1.652 亿台；四季度毛利率 8.3%';
+UPDATE vi_fact_base SET notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年手机收入 1,864.4 亿元、毛利率 10.9%、出货 1.652 亿台；四季度毛利率 8.3%';
 
-UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = 'IoT与生活消费产品收入' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2026 年二季度 IoT 与生活消费产品收入 312.8 亿元（−19.2%），国补退坡';
+UPDATE vi_fact_base SET notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2026 年二季度 IoT 与生活消费产品收入 312.8 亿元（−19.2%），国补退坡';
 
-UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = 'IoT与生活消费产品收入' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年 IoT 收入 1,232.0 亿元（+18.3%）、毛利率 23.1%；大家电 +23.1%';
+UPDATE vi_fact_base SET notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年 IoT 收入 1,232.0 亿元（+18.3%）、毛利率 23.1%；大家电 +23.1%';
 
-UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '互联网服务收入' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), notes = '互联网服务含广告、游戏、金融科技等。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '互联网服务：2025 年 374.4 亿元（+9.7%）、毛利率 76.5%；2026 年二季度 90.4 亿元（−0.6%）';
+UPDATE vi_fact_base SET notes = '互联网服务含广告、游戏、金融科技等。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '互联网服务：2025 年 374.4 亿元（+9.7%）、毛利率 76.5%；2026 年二季度 90.4 亿元（−0.6%）';
 
-UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（12 月）' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1), notes = '2018 年由 2019 年数与同比倒算。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '全球月活（12 月）2018—2025 年：2.42 亿 → 7.54 亿';
+UPDATE vi_fact_base SET notes = '2018 年由 2019 年数与同比倒算。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '全球月活（12 月）2018—2025 年：2.42 亿 → 7.54 亿';
 
-UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '智能手机出货量' AND unit IS NOT DISTINCT FROM '百万台' ORDER BY id LIMIT 1), notes = '2018、2019 年未取得。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '手机出货 2020—2025 年：1.464、1.903、1.505、1.456、1.685、1.652 亿台';
+UPDATE vi_fact_base SET notes = '2018、2019 年未取得。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '手机出货 2020—2025 年：1.464、1.903、1.505、1.456、1.685、1.652 亿台';
 
-UPDATE vi_fact_base SET metric_id = NULL, notes = '原“数值”字段：-26 亿元（2026Q2），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2026 年二季度汽车及 AI 分部：收入 249.0 亿元、交付 104,199 辆、ASP 22.93 万元、毛利率 19.2%、经营亏损 26 亿元';
+UPDATE vi_fact_base SET notes = '原“数值”字段：-26 亿元（2026Q2），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2026 年二季度汽车及 AI 分部：收入 249.0 亿元、交付 104,199 辆、ASP 22.93 万元、毛利率 19.2%、经营亏损 26 亿元';
 
-UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '汽车及AI分部经营损益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), notes = '原“数值”字段：-31 亿元（2026Q1），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2026 年一季度汽车及 AI 分部经营亏损 31 亿元，交付 80,856 辆';
+UPDATE vi_fact_base SET notes = '原“数值”字段：-31 亿元（2026Q1），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2026 年一季度汽车及 AI 分部经营亏损 31 亿元，交付 80,856 辆';
 
-UPDATE vi_fact_base SET metric_id = NULL, notes = '专家口径。
+UPDATE vi_fact_base SET notes = '专家口径。
 原“数值”字段：47 万辆（2026E），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '专家预计 2026 年交付 46—48.5 万辆，55 万目标难以完成';
 
-UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '智能手机出货量' AND unit IS NOT DISTINCT FROM '百万台' ORDER BY id LIMIT 1), notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2026 年二季度全球：三星 6,050 万、苹果 5,510 万、小米 3,120 万部（−26%）';
+UPDATE vi_fact_base SET notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2026 年二季度全球：三星 6,050 万、苹果 5,510 万、小米 3,120 万部（−26%）';
 
-UPDATE vi_fact_base SET metric_id = NULL, notes = '原“数值”字段：101.16 亿元（2026-06-30），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2026-06-30 租赁负债 50.4 亿元、购买无形资产应付款 50.7 亿元';
+UPDATE vi_fact_base SET notes = '原“数值”字段：101.16 亿元（2026-06-30），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2026-06-30 租赁负债 50.4 亿元、购买无形资产应付款 50.7 亿元';
 
-UPDATE vi_fact_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '回购（港元）' AND unit IS NOT DISTINCT FROM '亿港元' ORDER BY id LIMIT 1), notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年回购 63 亿港元（1.526 亿股）；2026 年 1 月首次公告自动回购计划';
+UPDATE vi_fact_base SET notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年回购 63 亿港元（1.526 亿股）；2026 年 1 月首次公告自动回购计划';
 
-UPDATE vi_fact_base SET metric_id = NULL, notes = '原“数值”字段：68.95 亿元（2026H1），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2026 年上半年资本开支 68.9 亿元：手机×AIoT 30.2、汽车及 AI 38.3';
+UPDATE vi_fact_base SET notes = '原“数值”字段：68.95 亿元（2026H1），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2026 年上半年资本开支 68.9 亿元：手机×AIoT 30.2、汽车及 AI 38.3';
 
-UPDATE vi_fact_base SET metric_id = NULL, notes = '卖方估值没有扣除 AI 投入的长期成本，也没有扣除股权激励。
+UPDATE vi_fact_base SET notes = '卖方估值没有扣除 AI 投入的长期成本，也没有扣除股权激励。
 原“数值”字段：9300 亿元（2026-08），为正文数字的推算或合计' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '申万宏源（2026-08）：主业 334 亿元×25 倍＋汽车及 AI 0.7 倍市销率，目标市值 9,000 亿元以上';
 
 INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
@@ -5069,42 +5094,42 @@ FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code =
 
 INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
 SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),
-       '全球月活跃用户（年末，含手机与平板）', '亿人', '经营', '年报', '全年', c.id, '年报', '年', NULL
-FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '全球月活跃用户（年末，含手机与平板）' AND unit IS NOT DISTINCT FROM '亿人');
+       '全球月活跃用户', '百万人', '经营', '年报', '全年', c.id, '年报', '年', NULL
+FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人');
 
-UPDATE vi_metric_base SET model_field = 'volume' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（年末，含手机与平板）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1);
+UPDATE vi_metric_base SET model_field = 'volume' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1);
 
-DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（年末，含手机与平板）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2018';
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2018';
 
-INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（年末，含手机与平板）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1), '2018-12-31', '2018', '全年', 2.421, '历史年度原值；口径：合并口径', now());
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1), '2018-12-31', '2018', '全年', 242.1, '历史年度原值；口径：合并口径', now());
 
-DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（年末，含手机与平板）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2019';
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2019';
 
-INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（年末，含手机与平板）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1), '2019-12-31', '2019', '全年', 3.096, '历史年度原值；口径：合并口径', now());
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1), '2019-12-31', '2019', '全年', 309.6, '历史年度原值；口径：合并口径', now());
 
-DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（年末，含手机与平板）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2020';
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2020';
 
-INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（年末，含手机与平板）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1), '2020-12-31', '2020', '全年', 3.963, '历史年度原值；口径：合并口径', now());
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1), '2020-12-31', '2020', '全年', 396.3, '历史年度原值；口径：合并口径', now());
 
-DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（年末，含手机与平板）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2021';
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2021';
 
-INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（年末，含手机与平板）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1), '2021-12-31', '2021', '全年', 5.089, '历史年度原值；口径：合并口径', now());
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1), '2021-12-31', '2021', '全年', 508.9, '历史年度原值；口径：合并口径', now());
 
-DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（年末，含手机与平板）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2022';
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2022';
 
-INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（年末，含手机与平板）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1), '2022-12-31', '2022', '全年', 5.821, '历史年度原值；口径：合并口径', now());
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1), '2022-12-31', '2022', '全年', 582.1, '历史年度原值；口径：合并口径', now());
 
-DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（年末，含手机与平板）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2023';
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2023';
 
-INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（年末，含手机与平板）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1), '2023-12-31', '2023', '全年', 6.412, '历史年度原值；口径：合并口径', now());
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1), '2023-12-31', '2023', '全年', 641.2, '历史年度原值；口径：合并口径', now());
 
-DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（年末，含手机与平板）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2024';
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2024';
 
-INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（年末，含手机与平板）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1), '2024-12-31', '2024', '全年', 7.023, '历史年度原值；口径：合并口径', now());
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1), '2024-12-31', '2024', '全年', 702.3, '历史年度原值；口径：合并口径', now());
 
-DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（年末，含手机与平板）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2025';
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2025';
 
-INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户（年末，含手机与平板）' AND unit IS NOT DISTINCT FROM '亿人' ORDER BY id LIMIT 1), '2025-12-31', '2025', '全年', 7.541, '历史年度原值；口径：合并口径', now());
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '全球月活跃用户' AND unit IS NOT DISTINCT FROM '百万人' ORDER BY id LIMIT 1), '2025-12-31', '2025', '全年', 754.1, '历史年度原值；口径：合并口径', now());
 
 INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, formula)
 SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.D%'), 0) + 1)::text, 3, '0'),

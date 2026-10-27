@@ -7,8 +7,8 @@ INSERT INTO vi_metric_base (id, code, name, unit, category, source_name, frequen
 (6, 'SX.INFLOW.WIND', '三峡水库入库流量（Wind）', '立方米/秒', '水文', 'Wind Z3791116（来源长江水文网），2026-08/09 手工备份', '日', 0, 120000, '历史上出现过负值（已标为无效、原值保留待核验）。上下游流量不能相加。', NULL),
 (7, 'XJB.INFLOW.WIND', '向家坝水库入库流量（Wind）', '立方米/秒', '水文', 'Wind K4903912（来源长江水文网），2026-08/09 手工备份', '日', 0, 60000, '同上；Wind 仍在更新但存在负值，暂未接入自动采集。', NULL);
 
-INSERT INTO vi_company_base (id, code, name, exchange, industry, currency, volume_label, volume_unit, price_label, price_unit, is_default, profile, notes, price_metric_id, price_fx_metric_id) VALUES
-(1, '600900.SH', '长江电力', '上海证券交易所', '水电', '人民币', '发电量（境内六座梯级电站）', '亿千瓦时', '综合电价（营业收入÷发电量）', '元/千瓦时', TRUE, '长江干流六座梯级电站（乌东德、白鹤滩、溪洛渡、向家坝、三峡、葛洲坝），装机 7179.5 万千瓦，全球最大水电。资产不可复制，大坝寿命以百年计，经营近乎永续。收入＝发电量×电价，两者都长期可测：来水围绕均值波动、六库联调平滑；电价以管制为主。成本大头是折旧（非现金）和财务费用（随还债退坡）。2026—2030 年承诺每年现金分红不低于归母净利润的 70%。本质类似“永续债＋温和递增票息”。', '主要风险：极端枯水、电价市场化折价、低回报资本配置（抽蓄约 800 万千瓦在建、葛洲坝扩能约 266 亿）、利率上行。', 1, NULL);
+INSERT INTO vi_company_base (id, code, name, exchange, industry, currency, volume_label, volume_unit, price_label, price_unit, is_default, profile, notes, price_metric_id, price_fx_metric_id, scope_breaks) VALUES
+(1, '600900.SH', '长江电力', '上海证券交易所', '水电', '人民币', '发电量（境内六座梯级电站）', '亿千瓦时', '综合电价（营业收入÷发电量）', '元/千瓦时', TRUE, '长江干流六座梯级电站（乌东德、白鹤滩、溪洛渡、向家坝、三峡、葛洲坝），装机 7179.5 万千瓦，全球最大水电。资产不可复制，大坝寿命以百年计，经营近乎永续。收入＝发电量×电价，两者都长期可测：来水围绕均值波动、六库联调平滑；电价以管制为主。成本大头是折旧（非现金）和财务费用（随还债退坡）。2026—2030 年承诺每年现金分红不低于归母净利润的 70%。本质类似“永续债＋温和递增票息”。', '主要风险：极端枯水、电价市场化折价、低回报资本配置（抽蓄约 800 万千瓦在建、葛洲坝扩能约 266 亿）、利率上行。', 1, NULL, '2016、2023');
 
 UPDATE vi_metric_base SET company_id = 1 WHERE id = 1;
 
@@ -72,20 +72,6 @@ INSERT INTO vi_judgment_base (id, code, title, fact_layer, judgment, transmissio
 (7, 'J-R', '要求回报率', '国债收益率观察值需日期与来源；中债 10 年收益率趋势、长期通胀与风险溢价。', '要求回报率由无风险参考、风险补偿与机会成本共同决定：折现率＝10 年国债＋3.5% 风险溢价。当前国债收益率处历史低位，利率上行是这类“类债资产”最大的估值风险；无风险利率取高频数据里的中债 10 年期国债到期收益率（建模时 1.69%，2026-08-31），加风险溢价后按 0.1 个百分点四舍五入（5.19% → 5.2%）。', 'r上升→现金折现下降；不改变经营现金流。r 每升 0.5 个百分点，基准价值约 −2.8 元（27.28 → 24.46 元，见敏感性表）。', '估值模型·无风险利率、风险溢价；情景·折现率', '估值全期限', '记录名义人民币口径与期限，独立做利率压力', '单日波动不自动覆盖长期要求回报；利率风险用敏感性表展示，不机械改长期折现率。', '低利率未必长期持续，风险溢价不能机械固定', '研究规则', 1),
 (8, 'J-TV', '终值与永续增长', '终期盈利、资本更新与增长条件', '永续增长必须有留存与回报支撑；基准永续增长 1%：按稳定现金流建模。', '终值=规范化下一年分配/(r-g)；r必须大于g', '情景·永续增长率', '2036及以后', '更新资本、负债与分配可持续；同时报告终值占比', '仅以国债低利率或大坝寿命支持高终值', '资产寿命/气候/监管结构变化；终值占比高', '研究规则', 1),
 (9, 'J-CB2026', '2026—2035 年现金桥接建议值', '2023—2025 年合并报表：资本开支 122/144/185 亿；净借款 +295（并购融资）/−152/−95 亿；收到投资分红 21.5/25.5/26.4 亿；权益法收益 42.3/43.6/46.2 亿；营运资本释放 92.9/10.8/12.1 亿。', '维持资本 55 亿起、年增 2%（四站时期 2017—2021 年均资本开支约 31 亿，按装机 7179.5/4549.5 放大约 49 亿，再计通胀与设备老化）；扩张资本 2026—2027 年 130 亿、2028 年 110、2029 年 90、2030 年 60、之后 30（2025 年资本开支 184.88 减维持约 55）；净借款 2026—2030 年 −120 亿/年、之后 −100（2024—2025 年均 −124）；非现金收益扣除 46、收到投资分红 26（2025 年实际）；其他现金调整 0（资产减值 15.05 为一次性）；营运资本增加 0（近两年的释放不外推）；最低现金补充 0（年末货币资金 45.86 亿，不额外留存）。', '所有者收益＝归母净利＋归属折旧−非现金收益＋投资分红＋其他调整−营运资本增加−维持资本；FCFE＝所有者收益−扩张资本＋净借款；现金支持股息＝min(计划股息, FCFE−最低现金补充)。', '逐年假设·现金桥接 7 项与净借款', '2026—2035，全部情景', '公司披露维持/扩张资本拆分、项目预算与支付进度、债务计划后替换。', '只有规划装机、没有预算与进度；或单季现金流波动。', '扩张项目投产后的新增收益没有进入收入假设，现金支持价值偏保守；若公司放慢还债，股息缺口可由借款弥补。', '已形成建议', 1);
-
-INSERT INTO vi_fin_history_base (company_id, year, scope_note, source_id, note, id) VALUES
-(1, 2014, '重组前（三峡、葛洲坝）', 14, '重组前口径（三峡+葛洲坝）；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补；2014—2015 年营业成本待补。', 1),
-(1, 2015, '重组前（三峡、葛洲坝）', 14, '双档派息（重组前/新股东）；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；当年双档派息（重组前股东/新股东），每股股息不填，见分红总额。；归母净资产不填：2017 年报列示的 2015 年末 1207.66 亿元为川云公司并表后的追溯调整数，与本行重组前口径不一致；2014—2015 年营业成本待补。', 2),
-(1, 2016, '四站（三峡、葛洲坝、溪洛渡、向家坝）', 14, '溪洛渡/向家坝注入后首年；双档派息；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；当年双档派息（重组前股东/新股东），每股股息不填，见分红总额。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补。', 3),
-(1, 2017, '四站（三峡、葛洲坝、溪洛渡、向家坝）', 14, '四站口径；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补。', 4),
-(1, 2018, '四站（三峡、葛洲坝、溪洛渡、向家坝）', 14, '四站口径；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补；2018 年营业成本按评级报告毛利率 62.89% 推算。', 5),
-(1, 2019, '四站（三峡、葛洲坝、溪洛渡、向家坝）', 14, '四站口径（来水偏枯）；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补。', 6),
-(1, 2020, '四站（三峡、葛洲坝、溪洛渡、向家坝）', 14, '四站口径；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补。', 7),
-(1, 2021, '四站（三峡、葛洲坝、溪洛渡、向家坝）', 14, '四站口径（乌东德/白鹤滩2023年初并表）；数据为当年披露口径；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补。', 8),
-(1, 2022, '四站（三峡、葛洲坝、溪洛渡、向家坝）', 14, '四站口径，特枯年；六站运营口径发电量1855.80亿千瓦时（发电量公告）；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补。', 9),
-(1, 2023, '六站全口径（新增乌东德、白鹤滩）', 1, '乌白并表首年（六站全口径）；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）；2023—2025 年利润总额、所得税、少数股东、权益法收益、投资分红、净借款、货币资金取自岗底斯。', 10),
-(1, 2024, '六站全口径（新增乌东德、白鹤滩）', 1, '来水偏丰；发电量+7.11%；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）；2023—2025 年利润总额、所得税、少数股东、权益法收益、投资分红、净借款、货币资金取自岗底斯。；带息负债 2994.54 为旧表口径；Wind 口径为 2974.63。', 11),
-(1, 2025, '六站全口径（新增乌东德、白鹤滩）', 1, '模型基期年；总发电量3097.35亿千瓦时；六站电量首破3000亿；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）；2023—2025 年利润总额、所得税、少数股东、权益法收益、投资分红、净借款、货币资金取自岗底斯。；带息负债取 Wind 口径（含租赁负债，不含其他流动负债）。', 12);
 
 INSERT INTO vi_collector_base (id, name, url, parser, parser_param, enabled, max_lag_days, last_selfcheck, selfcheck_result, notes, metric_id) VALUES
 (1, '长江电力股价（腾讯行情）', 'https://qt.gtimg.cn/q=sh600900', 'tencent_quote', 'sh600900', TRUE, 7, '2026-10-23T12:58:37.399579+08:00', '正常；未通知', '返回 GBK 编码，名称会乱码但不影响按“~”分段解析。', 1),
@@ -11934,6 +11920,56 @@ SELECT c.code || '.D' || lpad((coalesce((SELECT max(substring(x.code FROM '\.D(\
 FROM vi_company_base c WHERE c.id = 1 AND NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = c.id AND name = '实现售电价');
 
 SELECT vi_merge_company_metrics(1);
+
+UPDATE vi_company_base SET scope_breaks = '2016、2023' WHERE id = 1;
+
+DELETE FROM vi_fact_base WHERE company_id = 1 AND title = '2014 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES (1, '2014 年度数据口径与说明', '财务', '口径：重组前（三峡、葛洲坝）；重组前口径（三峡+葛洲坝）；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补；2014—2015 年营业成本待补。', '2014', '2014-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = 1 AND title = 'Wind：长江电力 2014—2025 年财务数据' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = 1 AND title = '2015 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES (1, '2015 年度数据口径与说明', '财务', '口径：重组前（三峡、葛洲坝）；双档派息（重组前/新股东）；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；当年双档派息（重组前股东/新股东），每股股息不填，见分红总额。；归母净资产不填：2017 年报列示的 2015 年末 1207.66 亿元为川云公司并表后的追溯调整数，与本行重组前口径不一致；2014—2015 年营业成本待补。', '2015', '2015-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = 1 AND title = 'Wind：长江电力 2014—2025 年财务数据' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = 1 AND title = '2016 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES (1, '2016 年度数据口径与说明', '财务', '口径：四站（三峡、葛洲坝、溪洛渡、向家坝）；溪洛渡/向家坝注入后首年；双档派息；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；当年双档派息（重组前股东/新股东），每股股息不填，见分红总额。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补。', '2016', '2016-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = 1 AND title = 'Wind：长江电力 2014—2025 年财务数据' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = 1 AND title = '2017 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES (1, '2017 年度数据口径与说明', '财务', '口径：四站（三峡、葛洲坝、溪洛渡、向家坝）；四站口径；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补。', '2017', '2017-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = 1 AND title = 'Wind：长江电力 2014—2025 年财务数据' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = 1 AND title = '2018 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES (1, '2018 年度数据口径与说明', '财务', '口径：四站（三峡、葛洲坝、溪洛渡、向家坝）；四站口径；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补；2018 年营业成本按评级报告毛利率 62.89% 推算。', '2018', '2018-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = 1 AND title = 'Wind：长江电力 2014—2025 年财务数据' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = 1 AND title = '2019 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES (1, '2019 年度数据口径与说明', '财务', '口径：四站（三峡、葛洲坝、溪洛渡、向家坝）；四站口径（来水偏枯）；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补。', '2019', '2019-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = 1 AND title = 'Wind：长江电力 2014—2025 年财务数据' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = 1 AND title = '2020 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES (1, '2020 年度数据口径与说明', '财务', '口径：四站（三峡、葛洲坝、溪洛渡、向家坝）；四站口径；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补。', '2020', '2020-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = 1 AND title = 'Wind：长江电力 2014—2025 年财务数据' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = 1 AND title = '2021 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES (1, '2021 年度数据口径与说明', '财务', '口径：四站（三峡、葛洲坝、溪洛渡、向家坝）；四站口径（乌东德/白鹤滩2023年初并表）；数据为当年披露口径；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补。', '2021', '2021-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = 1 AND title = 'Wind：长江电力 2014—2025 年财务数据' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = 1 AND title = '2022 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES (1, '2022 年度数据口径与说明', '财务', '口径：四站（三峡、葛洲坝、溪洛渡、向家坝）；四站口径，特枯年；六站运营口径发电量1855.80亿千瓦时（发电量公告）；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）。；营业成本、归母净资产于 2026-10-22 由岗底斯知识库（年报原文片段）补。', '2022', '2022-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = 1 AND title = 'Wind：长江电力 2014—2025 年财务数据' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = 1 AND title = '2023 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES (1, '2023 年度数据口径与说明', '财务', '口径：六站全口径（新增乌东德、白鹤滩）；乌白并表首年（六站全口径）；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）；2023—2025 年利润总额、所得税、少数股东、权益法收益、投资分红、净借款、货币资金取自岗底斯。', '2023', '2023-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = 1 AND title = '长江电力 2025 年年度报告' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = 1 AND title = '2024 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES (1, '2024 年度数据口径与说明', '财务', '口径：六站全口径（新增乌东德、白鹤滩）；来水偏丰；发电量+7.11%；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）；2023—2025 年利润总额、所得税、少数股东、权益法收益、投资分红、净借款、货币资金取自岗底斯。；带息负债 2994.54 为旧表口径；Wind 口径为 2974.63。', '2024', '2024-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = 1 AND title = '长江电力 2025 年年度报告' ORDER BY id LIMIT 1));
+
+DELETE FROM vi_fact_base WHERE company_id = 1 AND title = '2025 年度数据口径与说明';
+
+INSERT INTO vi_fact_base (company_id, title, category, statement, period, as_of, verify_status, source_id) VALUES (1, '2025 年度数据口径与说明', '财务', '口径：六站全口径（新增乌东德、白鹤滩）；模型基期年；总发电量3097.35亿千瓦时；六站电量首破3000亿；空缺项于 2026-10-21 由 Wind 补齐（原有值未改）；2023—2025 年利润总额、所得税、少数股东、权益法收益、投资分红、净借款、货币资金取自岗底斯。；带息负债取 Wind 口径（含租赁负债，不含其他流动负债）。', '2025', '2025-12-31', '待核验', (SELECT id FROM vi_source_base WHERE company_id = 1 AND title = '长江电力 2025 年年度报告' ORDER BY id LIMIT 1));
 
 UPDATE vi_metric_base SET source_name = 'https://www.cypc.com.cn' WHERE id = (SELECT id FROM vi_metric_base WHERE company_id = 1 AND name = '发电量' AND unit IS NOT DISTINCT FROM '亿千瓦时' ORDER BY id LIMIT 1);
 
