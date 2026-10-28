@@ -1,9 +1,67 @@
 {
-  "data": [],
+  "data": [
+    {
+      "updated_at": "2026-10-28T08:43:28.058Z",
+      "name": "悲观",
+      "sort": 1,
+      "price_factor": 1,
+      "cost_factor": 1,
+      "discount_rate": 0.1,
+      "terminal_growth": 0,
+      "nature": "免费模式侵蚀付费核心、演出与直播双双走弱",
+      "description": "会员 195、非订阅 105、社交娱乐 42 亿元，核心经营利润率 35%、12%、10%；折现率 10.0%，永续增长 0。",
+      "id": 170,
+      "eff_discount_rate": 0.1,
+      "volume_factor": 1,
+      "is_base": false,
+      "model_id": 57,
+      "ronic": 0.15,
+      "sotp_multiple": null,
+      "probability": null
+    },
+    {
+      "updated_at": "2026-10-28T08:43:28.058Z",
+      "name": "基准",
+      "sort": 2,
+      "price_factor": 1,
+      "cost_factor": 1,
+      "discount_rate": null,
+      "terminal_growth": 0.02,
+      "nature": "会员内生约持平、多元变现带动收入低个位数增长",
+      "description": "会员 208、非订阅 117、社交娱乐 48 亿元，核心经营利润率 42%、15%、16%（三块合计 373 亿元、税前 112.6 亿元，与财务模型 2027E 一致）；折现率＝无风险利率＋风险溢价（8.6%），永续增长 2%。",
+      "id": 171,
+      "eff_discount_rate": 0.086,
+      "volume_factor": 1,
+      "is_base": true,
+      "model_id": 57,
+      "ronic": 0.15,
+      "sotp_multiple": null,
+      "probability": null
+    },
+    {
+      "updated_at": "2026-10-28T08:43:28.058Z",
+      "name": "乐观",
+      "sort": 3,
+      "price_factor": 1,
+      "cost_factor": 1,
+      "discount_rate": 0.076,
+      "terminal_growth": 0.03,
+      "nature": "超级会员与喜马拉雅交叉销售成功、订阅重回增长",
+      "description": "会员 218、非订阅 125、社交娱乐 50 亿元，核心经营利润率 45%、17%、18%；折现率 7.6%，永续增长 3%，新增投资回报率 20%。",
+      "id": 172,
+      "eff_discount_rate": 0.076,
+      "volume_factor": 1,
+      "is_base": false,
+      "model_id": 57,
+      "ronic": 0.2,
+      "sotp_multiple": null,
+      "probability": null
+    }
+  ],
   "meta": {
-    "count": 0,
+    "count": 3,
     "page": 1,
     "pageSize": 1000,
-    "totalPage": 0
+    "totalPage": 1
   }
 }
