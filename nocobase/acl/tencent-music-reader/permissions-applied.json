@@ -1,0 +1,1221 @@
+{
+  "data": {
+    "roleName": "r_tencent_music_reader",
+    "dataSourceKey": "main",
+    "resources": [
+      {
+        "id": 394372805296128,
+        "name": "vi_moat",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296129,
+            "name": "view",
+            "fields": [
+              "check_latest_value",
+              "check_latest_year",
+              "check_metric",
+              "check_op",
+              "check_result",
+              "check_threshold",
+              "check_years",
+              "code",
+              "company",
+              "company_id",
+              "counter",
+              "debate_count",
+              "debate_winner",
+              "evidence",
+              "facts",
+              "financial_link",
+              "id",
+              "mechanism",
+              "moat_type",
+              "replication",
+              "strength",
+              "theses",
+              "threats",
+              "title",
+              "trend",
+              "updated_at",
+              "verdict"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296130,
+        "name": "vi_check",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296131,
+            "name": "view",
+            "fields": [
+              "code",
+              "company_id",
+              "company_name",
+              "detail",
+              "id",
+              "model_id",
+              "model_name",
+              "name",
+              "result"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296132,
+        "name": "vi_issue",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296133,
+            "name": "view",
+            "fields": [
+              "code",
+              "company",
+              "company_id",
+              "done_condition",
+              "id",
+              "impact",
+              "progress",
+              "severity",
+              "status",
+              "title",
+              "updated_at"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296134,
+        "name": "vi_value_chain",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296135,
+            "name": "view",
+            "fields": [
+              "analysis",
+              "code",
+              "company",
+              "company_id",
+              "competitors",
+              "counter",
+              "effect",
+              "facts",
+              "force",
+              "id",
+              "participant",
+              "position",
+              "power",
+              "profit_share",
+              "role",
+              "trend",
+              "updated_at"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296136,
+        "name": "vi_fin_history",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296137,
+            "name": "view",
+            "fields": [
+              "burden",
+              "capex",
+              "capex_to_cfo",
+              "cash",
+              "cfo",
+              "cfo_to_np",
+              "company_id",
+              "cost_of_sales",
+              "da",
+              "dividend_total",
+              "dps",
+              "equity_income",
+              "equity_parent",
+              "fcf",
+              "finance_cost",
+              "finance_cost_yoy",
+              "gross_margin",
+              "id",
+              "income_tax",
+              "interest_debt",
+              "invest_income",
+              "investee_cash_div",
+              "minority_profit",
+              "minority_share",
+              "net_borrowing",
+              "net_debt",
+              "net_debt_to_ebitda",
+              "np_parent",
+              "np_yoy",
+              "payout",
+              "pretax_profit",
+              "price",
+              "price_yoy",
+              "revenue",
+              "revenue_yoy",
+              "roe",
+              "tax_rate",
+              "volume",
+              "volume_yoy",
+              "year"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296138,
+        "name": "vi_sotp_segment",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296139,
+            "name": "view",
+            "fields": [
+              "attrib",
+              "basis",
+              "business",
+              "business_id",
+              "calc_scenario",
+              "code",
+              "commit_amount",
+              "commit_years",
+              "direct_value",
+              "discount_rate",
+              "earn_year",
+              "earnings",
+              "eff_rate",
+              "facts",
+              "formula_multiple",
+              "growth",
+              "id",
+              "interim_cash",
+              "interim_pv",
+              "method",
+              "model",
+              "model_id",
+              "multiple",
+              "multiple_used",
+              "name",
+              "ongoing_cost",
+              "op_margin",
+              "revenue",
+              "ronic",
+              "scenario",
+              "scenario_id",
+              "scope",
+              "stage",
+              "tax_rate",
+              "terminal_pv",
+              "updated_at",
+              "value",
+              "years_to_value"
+            ],
+            "scopeId": 394372782227456
+          }
+        ]
+      },
+      {
+        "id": 394372805296140,
+        "name": "vi_collect_run",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296141,
+            "name": "view",
+            "fields": [
+              "company",
+              "company_id",
+              "duplicates",
+              "fetch_failed",
+              "finished_at",
+              "id",
+              "ingested",
+              "invalid",
+              "label",
+              "raw_count",
+              "requested_at",
+              "seconds",
+              "status",
+              "summary",
+              "trigger_source",
+              "updated_at"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296142,
+        "name": "vi_balance",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296143,
+            "name": "view",
+            "fields": [
+              "capex_total",
+              "company_id",
+              "company_name",
+              "debt_close",
+              "debt_to_capital",
+              "debt_to_ebitda",
+              "depreciation",
+              "dividend",
+              "equity_close",
+              "equity_open",
+              "id",
+              "interest_cover",
+              "lt_invest_close",
+              "minority_close",
+              "model_id",
+              "model_name",
+              "np_parent",
+              "op_assets_close",
+              "op_assets_open",
+              "other_net_assets",
+              "other_net_change",
+              "roe",
+              "scenario_name",
+              "year"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296144,
+        "name": "vi_fin_stmt",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296145,
+            "name": "view",
+            "fields": [
+              "amount",
+              "company",
+              "company_id",
+              "id",
+              "item",
+              "period",
+              "period_end",
+              "seq",
+              "stmt",
+              "updated_at"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296146,
+        "name": "vi_business",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296147,
+            "name": "view",
+            "fields": [
+              "asset_boundary",
+              "boundary",
+              "code",
+              "company",
+              "company_id",
+              "cost_allocation",
+              "id",
+              "name",
+              "sort",
+              "updated_at"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296148,
+        "name": "vi_metric",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296149,
+            "name": "view",
+            "fields": [
+              "basis",
+              "category",
+              "code",
+              "company",
+              "company_id",
+              "formula",
+              "frequency",
+              "id",
+              "latest_date",
+              "latest_period",
+              "latest_value",
+              "model_field",
+              "model_order",
+              "name",
+              "next_due",
+              "notes",
+              "obs_count",
+              "scope",
+              "source_kind",
+              "source_name",
+              "state",
+              "subscribers",
+              "tracked_by",
+              "tracked_codes",
+              "unit",
+              "updated_at",
+              "used_by",
+              "used_by_codes",
+              "valid_max",
+              "valid_min"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296150,
+        "name": "vi_company",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296151,
+            "name": "view",
+            "fields": [
+              "code",
+              "currency",
+              "exchange",
+              "id",
+              "industry",
+              "is_default",
+              "latest_fx",
+              "latest_price",
+              "latest_price_date",
+              "latest_price_raw",
+              "macro_metrics",
+              "macro_used",
+              "name",
+              "notes",
+              "pb",
+              "pe_pb_date",
+              "pe_ttm",
+              "price_fx_metric",
+              "price_fx_metric_id",
+              "price_label",
+              "price_metric",
+              "price_metric_id",
+              "price_unit",
+              "profile",
+              "scope_breaks",
+              "updated_at",
+              "volume_label",
+              "volume_unit"
+            ],
+            "scopeId": 394372778033152
+          }
+        ]
+      },
+      {
+        "id": 394372805296152,
+        "name": "vi_valuation",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296153,
+            "name": "view",
+            "fields": [
+              "cash_implied_irr",
+              "cash_value_today",
+              "cash_years",
+              "company_id",
+              "company_name",
+              "conclusion",
+              "discount_rate",
+              "id",
+              "implied_irr",
+              "irr_spread",
+              "is_base",
+              "market_date",
+              "market_price",
+              "model_id",
+              "model_name",
+              "price_vs_value",
+              "pv_explicit",
+              "required_return",
+              "scenario_name",
+              "terminal_growth",
+              "terminal_pv",
+              "terminal_share",
+              "value_at_required",
+              "value_base_date",
+              "value_today",
+              "watch_high",
+              "watch_low",
+              "years_complete"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296154,
+        "name": "vi_scenario",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296155,
+            "name": "view",
+            "fields": [
+              "cost_factor",
+              "description",
+              "discount_rate",
+              "eff_discount_rate",
+              "id",
+              "is_base",
+              "model",
+              "model_id",
+              "name",
+              "nature",
+              "price_factor",
+              "probability",
+              "ronic",
+              "sort",
+              "sotp_multiple",
+              "terminal_growth",
+              "updated_at",
+              "volume_factor"
+            ],
+            "scopeId": 394372782227456
+          }
+        ]
+      },
+      {
+        "id": 394372805296156,
+        "name": "vi_metric_value",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296157,
+            "name": "view",
+            "fields": [
+              "basis",
+              "company_id",
+              "doc_id",
+              "doc_title",
+              "id",
+              "metric_id",
+              "obs_date",
+              "origin",
+              "period",
+              "summary",
+              "unit",
+              "value",
+              "yoy"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296158,
+        "name": "vi_judgment",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296159,
+            "name": "view",
+            "fields": [
+              "affected_years",
+              "change_threshold",
+              "code",
+              "company",
+              "company_id",
+              "counter_evidence",
+              "fact_layer",
+              "facts",
+              "id",
+              "judgment",
+              "metrics",
+              "no_change_condition",
+              "parameter",
+              "risks",
+              "status",
+              "theses",
+              "title",
+              "transmission",
+              "updated_at"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296160,
+        "name": "vi_thesis",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296161,
+            "name": "view",
+            "fields": [
+              "bear_case",
+              "bear_rebuttal",
+              "bull_case",
+              "bull_rebuttal",
+              "category",
+              "check_latest_value",
+              "check_latest_year",
+              "check_metric",
+              "check_op",
+              "check_result",
+              "check_threshold",
+              "check_years",
+              "code",
+              "company",
+              "company_id",
+              "confidence",
+              "debated_on",
+              "decisive_evidence",
+              "external_view",
+              "facts",
+              "id",
+              "judgment_status",
+              "judgments",
+              "mind_changer",
+              "moats",
+              "model_impact",
+              "risks",
+              "status",
+              "title",
+              "updated_at",
+              "verdict"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296162,
+        "name": "vi_sotp_item",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296163,
+            "name": "view",
+            "fields": [
+              "amount",
+              "amount_used",
+              "as_of",
+              "basis",
+              "boundary",
+              "business",
+              "business_id",
+              "code",
+              "facts",
+              "haircut",
+              "id",
+              "kind",
+              "metric",
+              "metric_id",
+              "model",
+              "model_id",
+              "name",
+              "scenario",
+              "scenario_id",
+              "scope",
+              "signed_value",
+              "treatment",
+              "updated_at",
+              "valuation_method"
+            ],
+            "scopeId": 394372782227456
+          }
+        ]
+      },
+      {
+        "id": 394372805296164,
+        "name": "vi_source",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296165,
+            "name": "view",
+            "fields": [
+              "company",
+              "company_id",
+              "id",
+              "limitations",
+              "publish_date",
+              "publisher",
+              "reliability",
+              "retrieved_on",
+              "source_type",
+              "summary",
+              "title",
+              "updated_at",
+              "url",
+              "verify_status"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296166,
+        "name": "vi_observation",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296167,
+            "name": "view",
+            "fields": [
+              "basis",
+              "collected_at",
+              "doc",
+              "doc_id",
+              "id",
+              "is_current",
+              "is_valid",
+              "metric",
+              "metric_id",
+              "obs_date",
+              "period",
+              "raw_capture",
+              "raw_capture_id",
+              "source_kind",
+              "summary",
+              "unit",
+              "updated_at",
+              "value",
+              "yoy"
+            ],
+            "scopeId": 394372784324608
+          }
+        ]
+      },
+      {
+        "id": 394372805296168,
+        "name": "vi_forecast",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296169,
+            "name": "view",
+            "fields": [
+              "attrib_da",
+              "cash_complete",
+              "cash_cost",
+              "cash_status",
+              "cost_of_debt",
+              "debt_close",
+              "debt_open",
+              "depreciation",
+              "facts",
+              "growth_capex",
+              "id",
+              "interest",
+              "investee_cash_div",
+              "judgments",
+              "maint_capex",
+              "min_cash_topup",
+              "minority_share",
+              "model",
+              "model_id",
+              "net_borrowing",
+              "noncash_gain_deduct",
+              "note",
+              "operating_status",
+              "other_cash_adj",
+              "other_contrib",
+              "payout",
+              "price",
+              "revenue",
+              "tax_rate",
+              "updated_at",
+              "volume",
+              "wc_increase",
+              "year"
+            ],
+            "scopeId": 394372782227456
+          }
+        ]
+      },
+      {
+        "id": 394372805296170,
+        "name": "vi_fit_score",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296171,
+            "name": "view",
+            "fields": [
+              "company",
+              "company_id",
+              "counter",
+              "dimension",
+              "id",
+              "rationale",
+              "score",
+              "sort",
+              "theses",
+              "updated_at"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296172,
+        "name": "vi_risk",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296173,
+            "name": "view",
+            "fields": [
+              "category",
+              "code",
+              "company",
+              "company_id",
+              "early_warning",
+              "facts",
+              "horizon",
+              "id",
+              "impact",
+              "impact_estimate",
+              "judgments",
+              "level",
+              "mechanism",
+              "metrics",
+              "mitigants",
+              "probability",
+              "response",
+              "status",
+              "theses",
+              "thesis_verdicts",
+              "title",
+              "treatment",
+              "trend",
+              "updated_at"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296174,
+        "name": "vi_competitor",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296175,
+            "name": "view",
+            "fields": [
+              "as_of",
+              "company",
+              "company_id",
+              "facts",
+              "gross_margin",
+              "growth",
+              "id",
+              "name",
+              "paying_rate",
+              "price_point",
+              "relation",
+              "scale_label",
+              "scale_unit",
+              "scale_value",
+              "segment",
+              "source",
+              "source_id",
+              "strategy",
+              "threat",
+              "ticker",
+              "trend",
+              "updated_at",
+              "value_chains",
+              "vs_us"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296176,
+        "name": "vi_projection",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296177,
+            "name": "view",
+            "fields": [
+              "cash_cost",
+              "cash_div_pv",
+              "cash_supported_div",
+              "company_id",
+              "company_name",
+              "debt_close",
+              "depreciation",
+              "discount_factor",
+              "discount_rate",
+              "dividend",
+              "dividend_pv",
+              "dps",
+              "fcfe",
+              "funding_gap",
+              "id",
+              "interest",
+              "minority",
+              "model_id",
+              "model_name",
+              "np_parent",
+              "other_contrib",
+              "owner_earnings",
+              "payout",
+              "pretax",
+              "price",
+              "revenue",
+              "scenario_name",
+              "tax",
+              "volume",
+              "year"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296178,
+        "name": "vi_change_log",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296179,
+            "name": "view",
+            "fields": [
+              "basis",
+              "change_date",
+              "company",
+              "company_id",
+              "id",
+              "new_value",
+              "old_value",
+              "reason",
+              "target",
+              "title",
+              "updated_at",
+              "verification"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296180,
+        "name": "vi_sensitivity",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296181,
+            "name": "view",
+            "fields": [
+              "company_id",
+              "company_name",
+              "g",
+              "g_shift",
+              "id",
+              "label",
+              "model_id",
+              "model_name",
+              "r",
+              "r_shift",
+              "value_base_date",
+              "value_today"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296182,
+        "name": "vi_biz_model",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296183,
+            "name": "view",
+            "fields": [
+              "business",
+              "business_id",
+              "code",
+              "company",
+              "company_id",
+              "content",
+              "element",
+              "facts",
+              "id",
+              "metric",
+              "title",
+              "trend",
+              "updated_at"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296184,
+        "name": "vi_sotp",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296185,
+            "name": "view",
+            "fields": [
+              "as_of",
+              "asset_incomplete",
+              "asset_value",
+              "business_value",
+              "cash",
+              "company_id",
+              "company_name",
+              "conclusion",
+              "core_earnings",
+              "core_pretax",
+              "core_value",
+              "core_year",
+              "ddm_value",
+              "debt",
+              "diff_vs_ddm",
+              "direct_value",
+              "discount_rate",
+              "equity_value",
+              "fixed_assets",
+              "formula_multiple",
+              "growth_value",
+              "id",
+              "implied_core_multiple",
+              "implied_growth_value",
+              "implied_mature_multiple",
+              "invest_value",
+              "investments",
+              "is_base",
+              "market_price",
+              "mature_earn_pv",
+              "mature_earnings",
+              "mature_interim_pv",
+              "mature_multiple",
+              "mature_value",
+              "minority_other",
+              "model_id",
+              "model_name",
+              "multiple",
+              "noncore",
+              "op_cash",
+              "other_assets",
+              "price_vs_value",
+              "probability",
+              "repatriation",
+              "ronic",
+              "scenario_name",
+              "segments_value",
+              "shares",
+              "terminal_growth",
+              "usable_net_cash",
+              "value_per_share",
+              "value_per_share_quote",
+              "watch_high",
+              "watch_low",
+              "weighted_value"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296186,
+        "name": "vi_model",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296187,
+            "name": "view",
+            "fields": [
+              "base_discount_rate",
+              "base_year",
+              "company",
+              "company_id",
+              "erp",
+              "id",
+              "latest_rf",
+              "latest_rf_date",
+              "margin_high",
+              "margin_low",
+              "method",
+              "name",
+              "notes",
+              "opening_debt",
+              "opening_equity",
+              "opening_lt_invest",
+              "opening_minority",
+              "opening_op_assets",
+              "primary_method",
+              "required_return",
+              "rf",
+              "rf_date",
+              "rf_metric",
+              "rf_metric_id",
+              "shares",
+              "sotp_as_of",
+              "sotp_core_adj",
+              "sotp_year",
+              "status",
+              "terminal_year",
+              "updated_at",
+              "valuation_date",
+              "years_elapsed"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      },
+      {
+        "id": 394372805296188,
+        "name": "vi_sotp_segment_val",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296189,
+            "name": "view",
+            "fields": [
+              "business_id",
+              "code",
+              "earn_year",
+              "id",
+              "method",
+              "model_id",
+              "name",
+              "scenario_id",
+              "scenario_name",
+              "segment_id",
+              "value"
+            ],
+            "scopeId": 394372786421760
+          }
+        ]
+      },
+      {
+        "id": 394372805296190,
+        "name": "vi_trial",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296191,
+            "name": "view",
+            "fields": [
+              "base_value",
+              "boundary",
+              "change_pct",
+              "cost_delta",
+              "da_delta",
+              "end_year",
+              "id",
+              "interest_delta",
+              "judgments",
+              "model",
+              "model_id",
+              "name",
+              "price_delta",
+              "rate_delta",
+              "start_year",
+              "trial_value",
+              "updated_at",
+              "value_change",
+              "volume_delta"
+            ],
+            "scopeId": 394372782227456
+          }
+        ]
+      },
+      {
+        "id": 394372805296192,
+        "name": "vi_fact",
+        "dataSourceKey": "main",
+        "usingActionsConfig": true,
+        "actions": [
+          {
+            "id": 394372805296193,
+            "name": "view",
+            "fields": [
+              "as_of",
+              "category",
+              "company",
+              "company_id",
+              "id",
+              "judgments",
+              "notes",
+              "period",
+              "source",
+              "source_id",
+              "statement",
+              "theses",
+              "title",
+              "updated_at",
+              "verify_status"
+            ],
+            "scopeId": 394372775936000
+          }
+        ]
+      }
+    ],
+    "count": 33
+  }
+}

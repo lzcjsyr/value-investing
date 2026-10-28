@@ -1,0 +1,2306 @@
+{
+  "data": [
+    {
+      "id": 393358443610112,
+      "parentId": 393441097416704,
+      "title": "采集配置",
+      "schemaUid": "zxnniws5yji",
+      "type": "flowPage"
+    },
+    {
+      "id": 393358443610113,
+      "parentId": 393358443610112,
+      "title": "采集配置",
+      "schemaUid": "xam4q0cm5sg",
+      "type": "tabs"
+    },
+    {
+      "id": 393434692714496,
+      "parentId": 393441097416704,
+      "title": "采集运行",
+      "schemaUid": "l2gbrdcj7yr",
+      "type": "flowPage"
+    },
+    {
+      "id": 393434692714497,
+      "parentId": 393434692714496,
+      "title": "采集运行",
+      "schemaUid": "czcbd9p23a8",
+      "type": "tabs"
+    },
+    {
+      "id": 393434782892032,
+      "parentId": 393441097416704,
+      "title": "原始采集记录",
+      "schemaUid": "4nmb82itnzo",
+      "type": "flowPage"
+    },
+    {
+      "id": 393434782892033,
+      "parentId": 393434782892032,
+      "title": "原始采集记录",
+      "schemaUid": "0ethpcjl7mb",
+      "type": "tabs"
+    },
+    {
+      "id": 393441095319552,
+      "parentId": null,
+      "title": "框架与后台",
+      "schemaUid": "4qiojlmrpur",
+      "type": "group"
+    },
+    {
+      "id": 393441097416704,
+      "parentId": 393441095319552,
+      "title": "采集",
+      "schemaUid": "nr58la05s52",
+      "type": "group"
+    },
+    {
+      "id": 393441126776832,
+      "parentId": null,
+      "title": "长江电力",
+      "schemaUid": "yztupay67b1",
+      "type": "group"
+    },
+    {
+      "id": 393441179205632,
+      "parentId": 393441126776832,
+      "title": "数据底稿",
+      "schemaUid": "23ja5be71ns",
+      "type": "group"
+    },
+    {
+      "id": 393441258897408,
+      "parentId": 393441126776832,
+      "title": "预测与估值",
+      "schemaUid": "j30wsvyoykp",
+      "type": "group"
+    },
+    {
+      "id": 393441309229056,
+      "parentId": 394007866048512,
+      "title": "逐年假设",
+      "schemaUid": "27oazkqfedu",
+      "type": "flowPage"
+    },
+    {
+      "id": 393441309229057,
+      "parentId": 393441309229056,
+      "title": "逐年假设",
+      "schemaUid": "0mti5gd1tau",
+      "type": "tabs"
+    },
+    {
+      "id": 393441395212288,
+      "parentId": 393441126776832,
+      "title": "研究维护",
+      "schemaUid": "a6dxmvk4ezu",
+      "type": "group"
+    },
+    {
+      "id": 393441399406592,
+      "parentId": 393441395212288,
+      "title": "质量自检",
+      "schemaUid": "yeslwvjeigp",
+      "type": "flowPage"
+    },
+    {
+      "id": 393441399406593,
+      "parentId": 393441399406592,
+      "title": "质量自检",
+      "schemaUid": "sziugog50af",
+      "type": "tabs"
+    },
+    {
+      "id": 393441441349632,
+      "parentId": 393441395212288,
+      "title": "变更日志",
+      "schemaUid": "7n2vi7amcyx",
+      "type": "flowPage"
+    },
+    {
+      "id": 393441441349633,
+      "parentId": 393441441349632,
+      "title": "变更日志",
+      "schemaUid": "f0gbbiowatg",
+      "type": "tabs"
+    },
+    {
+      "id": 393441447641088,
+      "parentId": null,
+      "title": "太阳纸业",
+      "schemaUid": "yio3q45p80w",
+      "type": "group"
+    },
+    {
+      "id": 393441485389824,
+      "parentId": 393441447641088,
+      "title": "数据底稿",
+      "schemaUid": "p967ho9kf72",
+      "type": "group"
+    },
+    {
+      "id": 393441512652800,
+      "parentId": 393441447641088,
+      "title": "预测与估值",
+      "schemaUid": "o85eyhhx58m",
+      "type": "group"
+    },
+    {
+      "id": 393441619607552,
+      "parentId": 393441447641088,
+      "title": "研究维护",
+      "schemaUid": "yix0glc8rj9",
+      "type": "group"
+    },
+    {
+      "id": 393441621704704,
+      "parentId": 393441619607552,
+      "title": "质量自检",
+      "schemaUid": "zs2sm40y7pb",
+      "type": "flowPage"
+    },
+    {
+      "id": 393441621704705,
+      "parentId": 393441621704704,
+      "title": "质量自检",
+      "schemaUid": "mez81xyx3u6",
+      "type": "tabs"
+    },
+    {
+      "id": 393441657356288,
+      "parentId": 393441619607552,
+      "title": "变更日志",
+      "schemaUid": "ugyrar8dbej",
+      "type": "flowPage"
+    },
+    {
+      "id": 393441657356289,
+      "parentId": 393441657356288,
+      "title": "变更日志",
+      "schemaUid": "pv241t1rbqh",
+      "type": "tabs"
+    },
+    {
+      "id": 393515315625984,
+      "parentId": null,
+      "title": "中国建筑",
+      "schemaUid": "v3yam8vjd5u",
+      "type": "group"
+    },
+    {
+      "id": 393515361763328,
+      "parentId": 393515315625984,
+      "title": "数据底稿",
+      "schemaUid": "b0eo3n1wi2g",
+      "type": "group"
+    },
+    {
+      "id": 393515397414912,
+      "parentId": 393515315625984,
+      "title": "预测与估值",
+      "schemaUid": "722abookmot",
+      "type": "group"
+    },
+    {
+      "id": 393515516952576,
+      "parentId": 393515315625984,
+      "title": "研究维护",
+      "schemaUid": "vxwmqjh0gcg",
+      "type": "group"
+    },
+    {
+      "id": 393515521146880,
+      "parentId": 393515516952576,
+      "title": "质量自检",
+      "schemaUid": "4v4cnnnlu8r",
+      "type": "flowPage"
+    },
+    {
+      "id": 393515521146881,
+      "parentId": 393515521146880,
+      "title": "质量自检",
+      "schemaUid": "5i37gpylg5o",
+      "type": "tabs"
+    },
+    {
+      "id": 393515558895616,
+      "parentId": 393515516952576,
+      "title": "变更日志",
+      "schemaUid": "6jcp70i4yji",
+      "type": "flowPage"
+    },
+    {
+      "id": 393515558895617,
+      "parentId": 393515558895616,
+      "title": "变更日志",
+      "schemaUid": "t9rizqbcbrc",
+      "type": "tabs"
+    },
+    {
+      "id": 393515621810176,
+      "parentId": 393515397414912,
+      "title": "财务模型",
+      "schemaUid": "kceq40648pz",
+      "type": "flowPage"
+    },
+    {
+      "id": 393515621810177,
+      "parentId": 393515621810176,
+      "title": "财务模型",
+      "schemaUid": "ojzz0er8zr7",
+      "type": "tabs"
+    },
+    {
+      "id": 393523095535616,
+      "parentId": null,
+      "title": "腾讯音乐",
+      "schemaUid": "i4ujv7pyfec",
+      "type": "group"
+    },
+    {
+      "id": 393523143770112,
+      "parentId": 393523095535616,
+      "title": "数据底稿",
+      "schemaUid": "pspgk7bnd7x",
+      "type": "group"
+    },
+    {
+      "id": 393523187810304,
+      "parentId": 393523095535616,
+      "title": "预测与估值",
+      "schemaUid": "ju1wduatlv7",
+      "type": "group"
+    },
+    {
+      "id": 393524699856896,
+      "parentId": 393523095535616,
+      "title": "研究维护",
+      "schemaUid": "c319e1m2sut",
+      "type": "group"
+    },
+    {
+      "id": 393524704051200,
+      "parentId": 393524699856896,
+      "title": "质量自检",
+      "schemaUid": "4cu0ofhqbi8",
+      "type": "flowPage"
+    },
+    {
+      "id": 393524704051201,
+      "parentId": 393524704051200,
+      "title": "质量自检",
+      "schemaUid": "5e3qj3hqzrs",
+      "type": "tabs"
+    },
+    {
+      "id": 393524743897088,
+      "parentId": 393524699856896,
+      "title": "变更日志",
+      "schemaUid": "ls6hb9ad4d9",
+      "type": "flowPage"
+    },
+    {
+      "id": 393524743897089,
+      "parentId": 393524743897088,
+      "title": "变更日志",
+      "schemaUid": "qumd874r7sn",
+      "type": "tabs"
+    },
+    {
+      "id": 393524955709440,
+      "parentId": 393523187810304,
+      "title": "财务模型",
+      "schemaUid": "nnwfqisapqj",
+      "type": "flowPage"
+    },
+    {
+      "id": 393524955709441,
+      "parentId": 393524955709440,
+      "title": "财务模型",
+      "schemaUid": "suhsp48mzys",
+      "type": "tabs"
+    },
+    {
+      "id": 393534500700160,
+      "parentId": 394007866048512,
+      "title": "估值模型",
+      "schemaUid": "b5jxjekofs2",
+      "type": "flowPage"
+    },
+    {
+      "id": 393534500700161,
+      "parentId": 393534500700160,
+      "title": "模型参数",
+      "schemaUid": "z3h9lcg3tp2",
+      "type": "tabs"
+    },
+    {
+      "id": 393534521671680,
+      "parentId": 394098734727168,
+      "title": "估值模型",
+      "schemaUid": "iy2hvi1ihag",
+      "type": "flowPage"
+    },
+    {
+      "id": 393534521671681,
+      "parentId": 393534521671680,
+      "title": "模型参数",
+      "schemaUid": "2ddeyvzzwlw",
+      "type": "tabs"
+    },
+    {
+      "id": 393534530060288,
+      "parentId": 394099942686720,
+      "title": "估值模型",
+      "schemaUid": "magico4683l",
+      "type": "flowPage"
+    },
+    {
+      "id": 393534530060289,
+      "parentId": 393534530060288,
+      "title": "模型参数",
+      "schemaUid": "l8ja0jub322",
+      "type": "tabs"
+    },
+    {
+      "id": 393534536351744,
+      "parentId": 394100483751936,
+      "title": "估值模型",
+      "schemaUid": "q6x37gwoo54",
+      "type": "flowPage"
+    },
+    {
+      "id": 393534536351745,
+      "parentId": 393534536351744,
+      "title": "模型参数",
+      "schemaUid": "3bzvmmgyhvh",
+      "type": "tabs"
+    },
+    {
+      "id": 393570819244032,
+      "parentId": null,
+      "title": "小米集团",
+      "schemaUid": "orowr4lucii",
+      "type": "group"
+    },
+    {
+      "id": 393570928295936,
+      "parentId": 393570819244032,
+      "title": "数据底稿",
+      "schemaUid": "5uz837essbc",
+      "type": "group"
+    },
+    {
+      "id": 393570966044672,
+      "parentId": 393570819244032,
+      "title": "预测与估值",
+      "schemaUid": "4jrbfbdbxyd",
+      "type": "group"
+    },
+    {
+      "id": 393571033153536,
+      "parentId": 394100980776960,
+      "title": "估值模型",
+      "schemaUid": "4y1ghm7cg7t",
+      "type": "flowPage"
+    },
+    {
+      "id": 393571033153537,
+      "parentId": 393571033153536,
+      "title": "模型参数",
+      "schemaUid": "xyauax0pf7a",
+      "type": "tabs"
+    },
+    {
+      "id": 393571131719680,
+      "parentId": 393570819244032,
+      "title": "研究维护",
+      "schemaUid": "7gu4d4kta9n",
+      "type": "group"
+    },
+    {
+      "id": 393571138011136,
+      "parentId": 393571131719680,
+      "title": "质量自检",
+      "schemaUid": "xxu3jyqq44j",
+      "type": "flowPage"
+    },
+    {
+      "id": 393571138011137,
+      "parentId": 393571138011136,
+      "title": "质量自检",
+      "schemaUid": "b9kpye50o4m",
+      "type": "tabs"
+    },
+    {
+      "id": 393571177857024,
+      "parentId": 393571131719680,
+      "title": "变更日志",
+      "schemaUid": "yg9la0ze3pk",
+      "type": "flowPage"
+    },
+    {
+      "id": 393571177857025,
+      "parentId": 393571177857024,
+      "title": "变更日志",
+      "schemaUid": "ytu6fsvbcgq",
+      "type": "tabs"
+    },
+    {
+      "id": 393571534372864,
+      "parentId": 394007866048512,
+      "title": "情景",
+      "schemaUid": "njet4keqaio",
+      "type": "flowPage"
+    },
+    {
+      "id": 393571534372865,
+      "parentId": 393571534372864,
+      "title": "情景对比",
+      "schemaUid": "nttmmttwayu",
+      "type": "tabs"
+    },
+    {
+      "id": 393571546955776,
+      "parentId": 394098734727168,
+      "title": "情景",
+      "schemaUid": "eddt2lu6yv7",
+      "type": "flowPage"
+    },
+    {
+      "id": 393571546955777,
+      "parentId": 393571546955776,
+      "title": "情景对比",
+      "schemaUid": "jibqnir5aa8",
+      "type": "tabs"
+    },
+    {
+      "id": 393571555344384,
+      "parentId": 394099942686720,
+      "title": "情景",
+      "schemaUid": "nlfg8maxbiw",
+      "type": "flowPage"
+    },
+    {
+      "id": 393571555344385,
+      "parentId": 393571555344384,
+      "title": "情景对比",
+      "schemaUid": "xvzoafl4gqo",
+      "type": "tabs"
+    },
+    {
+      "id": 393571561635840,
+      "parentId": 394100483751936,
+      "title": "情景",
+      "schemaUid": "ia75ze4d2lt",
+      "type": "flowPage"
+    },
+    {
+      "id": 393571561635841,
+      "parentId": 393571561635840,
+      "title": "情景对比",
+      "schemaUid": "rladulrvt41",
+      "type": "tabs"
+    },
+    {
+      "id": 393571570024448,
+      "parentId": 394100980776960,
+      "title": "情景",
+      "schemaUid": "sxkvn324zl9",
+      "type": "flowPage"
+    },
+    {
+      "id": 393571570024449,
+      "parentId": 393571570024448,
+      "title": "情景对比",
+      "schemaUid": "e8r841rnbvg",
+      "type": "tabs"
+    },
+    {
+      "id": 393571721019392,
+      "parentId": 393570966044672,
+      "title": "财务模型",
+      "schemaUid": "is3int6s1n6",
+      "type": "flowPage"
+    },
+    {
+      "id": 393571721019393,
+      "parentId": 393571721019392,
+      "title": "财务模型",
+      "schemaUid": "whwtbv51zuj",
+      "type": "tabs"
+    },
+    {
+      "id": 393656988073984,
+      "parentId": 393441126776832,
+      "title": "商业模式",
+      "schemaUid": "zv876g4bs0k",
+      "type": "group"
+    },
+    {
+      "id": 393656996462592,
+      "parentId": 393656988073984,
+      "title": "商业模式拆解",
+      "schemaUid": "n6cb72j4fxj",
+      "type": "flowPage"
+    },
+    {
+      "id": 393656996462593,
+      "parentId": 393656996462592,
+      "title": "画布",
+      "schemaUid": "ixqn8krodnh",
+      "type": "tabs"
+    },
+    {
+      "id": 393657134874624,
+      "parentId": 393656988073984,
+      "title": "价投适配度",
+      "schemaUid": "xqfha2n0tru",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657134874625,
+      "parentId": 393657134874624,
+      "title": "评分",
+      "schemaUid": "pggtzc424ur",
+      "type": "tabs"
+    },
+    {
+      "id": 393657151651840,
+      "parentId": 394007866048512,
+      "title": "假设依据",
+      "schemaUid": "zy5j1sggleb",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657151651841,
+      "parentId": 393657151651840,
+      "title": "假设依据",
+      "schemaUid": "41tk3y0imp8",
+      "type": "tabs"
+    },
+    {
+      "id": 393657181011968,
+      "parentId": 393441179205632,
+      "title": "重要事实",
+      "schemaUid": "ioiw4turzjv",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657181011969,
+      "parentId": 393657181011968,
+      "title": "重要事实",
+      "schemaUid": "9zdummfz0sg",
+      "type": "tabs"
+    },
+    {
+      "id": 393657201983488,
+      "parentId": 393441179205632,
+      "title": "来源文档",
+      "schemaUid": "i6lhvn6v5dm",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657201983489,
+      "parentId": 393657201983488,
+      "title": "来源文档",
+      "schemaUid": "1dy7l4rvu0r",
+      "type": "tabs"
+    },
+    {
+      "id": 393657214566400,
+      "parentId": 393441447641088,
+      "title": "商业模式",
+      "schemaUid": "uhtgf76y2e4",
+      "type": "group"
+    },
+    {
+      "id": 393657216663552,
+      "parentId": 393657214566400,
+      "title": "商业模式拆解",
+      "schemaUid": "71qj8sp2ji4",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657216663553,
+      "parentId": 393657216663552,
+      "title": "画布",
+      "schemaUid": "pwktjbtcrwe",
+      "type": "tabs"
+    },
+    {
+      "id": 393657225052160,
+      "parentId": 393657214566400,
+      "title": "产业链与五力",
+      "schemaUid": "z6rj69mo2q5",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657225052161,
+      "parentId": 393657225052160,
+      "title": "五力图",
+      "schemaUid": "esj6r53t198",
+      "type": "tabs"
+    },
+    {
+      "id": 393657256509440,
+      "parentId": 393657214566400,
+      "title": "价投适配度",
+      "schemaUid": "h2o39ic9c7s",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657256509441,
+      "parentId": 393657256509440,
+      "title": "评分",
+      "schemaUid": "1v2w5xtbo11",
+      "type": "tabs"
+    },
+    {
+      "id": 393657264898048,
+      "parentId": 394098734727168,
+      "title": "假设依据",
+      "schemaUid": "cmyw6iferha",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657264898049,
+      "parentId": 393657264898048,
+      "title": "假设依据",
+      "schemaUid": "03exr9n7wab",
+      "type": "tabs"
+    },
+    {
+      "id": 393657275383808,
+      "parentId": 393441485389824,
+      "title": "重要事实",
+      "schemaUid": "6fn89c4c595",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657275383809,
+      "parentId": 393657275383808,
+      "title": "重要事实",
+      "schemaUid": "bbfbgj4p50v",
+      "type": "tabs"
+    },
+    {
+      "id": 393657283772416,
+      "parentId": 393441485389824,
+      "title": "来源文档",
+      "schemaUid": "4owssnalcws",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657283772417,
+      "parentId": 393657283772416,
+      "title": "来源文档",
+      "schemaUid": "unpryhar42k",
+      "type": "tabs"
+    },
+    {
+      "id": 393657292161024,
+      "parentId": 393515315625984,
+      "title": "商业模式",
+      "schemaUid": "14p17fmzqo6",
+      "type": "group"
+    },
+    {
+      "id": 393657294258176,
+      "parentId": 393657292161024,
+      "title": "商业模式拆解",
+      "schemaUid": "5fxlvxm8edp",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657294258177,
+      "parentId": 393657294258176,
+      "title": "画布",
+      "schemaUid": "34jipyz6x9d",
+      "type": "tabs"
+    },
+    {
+      "id": 393657300549632,
+      "parentId": 393657292161024,
+      "title": "产业链与五力",
+      "schemaUid": "93hyi0fv9rr",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657300549633,
+      "parentId": 393657300549632,
+      "title": "五力图",
+      "schemaUid": "oeh6oojhomh",
+      "type": "tabs"
+    },
+    {
+      "id": 393657332006912,
+      "parentId": 393657292161024,
+      "title": "价投适配度",
+      "schemaUid": "53ovly9ke7l",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657332006913,
+      "parentId": 393657332006912,
+      "title": "评分",
+      "schemaUid": "y6n49o0hlz8",
+      "type": "tabs"
+    },
+    {
+      "id": 393657340395520,
+      "parentId": 394099942686720,
+      "title": "假设依据",
+      "schemaUid": "ibawbnxkz8t",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657340395521,
+      "parentId": 393657340395520,
+      "title": "假设依据",
+      "schemaUid": "28wf65sn2hr",
+      "type": "tabs"
+    },
+    {
+      "id": 393657352978432,
+      "parentId": 393515361763328,
+      "title": "重要事实",
+      "schemaUid": "3iiq85q35cy",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657352978433,
+      "parentId": 393657352978432,
+      "title": "重要事实",
+      "schemaUid": "ljiqd702p63",
+      "type": "tabs"
+    },
+    {
+      "id": 393657361367040,
+      "parentId": 393515361763328,
+      "title": "来源文档",
+      "schemaUid": "5sjzms2v4tu",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657361367041,
+      "parentId": 393657361367040,
+      "title": "来源文档",
+      "schemaUid": "1spykvaqh52",
+      "type": "tabs"
+    },
+    {
+      "id": 393657369755648,
+      "parentId": 393523095535616,
+      "title": "商业模式",
+      "schemaUid": "hjxn9s3ix1x",
+      "type": "group"
+    },
+    {
+      "id": 393657371852800,
+      "parentId": 393657369755648,
+      "title": "商业模式拆解",
+      "schemaUid": "8f09spe9mh8",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657371852801,
+      "parentId": 393657371852800,
+      "title": "画布",
+      "schemaUid": "m10dh9ews68",
+      "type": "tabs"
+    },
+    {
+      "id": 393657378144256,
+      "parentId": 393657369755648,
+      "title": "产业链与五力",
+      "schemaUid": "lnhyoqyc2f5",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657378144257,
+      "parentId": 393657378144256,
+      "title": "五力图",
+      "schemaUid": "u0xd4wmownj",
+      "type": "tabs"
+    },
+    {
+      "id": 393657409601536,
+      "parentId": 393657369755648,
+      "title": "价投适配度",
+      "schemaUid": "9fw94bv8w8y",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657409601537,
+      "parentId": 393657409601536,
+      "title": "评分",
+      "schemaUid": "o5srbzhawtf",
+      "type": "tabs"
+    },
+    {
+      "id": 393657417990144,
+      "parentId": 394100483751936,
+      "title": "假设依据",
+      "schemaUid": "82hxbudxolj",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657417990145,
+      "parentId": 393657417990144,
+      "title": "假设依据",
+      "schemaUid": "4udjen7hn5d",
+      "type": "tabs"
+    },
+    {
+      "id": 393657428475904,
+      "parentId": 393523143770112,
+      "title": "重要事实",
+      "schemaUid": "yrdxconk433",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657428475905,
+      "parentId": 393657428475904,
+      "title": "重要事实",
+      "schemaUid": "2kwz9c9unrq",
+      "type": "tabs"
+    },
+    {
+      "id": 393657438961664,
+      "parentId": 393523143770112,
+      "title": "来源文档",
+      "schemaUid": "rop381dggv2",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657438961665,
+      "parentId": 393657438961664,
+      "title": "来源文档",
+      "schemaUid": "6i9kugn9srl",
+      "type": "tabs"
+    },
+    {
+      "id": 393657447350272,
+      "parentId": 393570819244032,
+      "title": "商业模式",
+      "schemaUid": "58qykj5wlse",
+      "type": "group"
+    },
+    {
+      "id": 393657449447424,
+      "parentId": 393657447350272,
+      "title": "商业模式拆解",
+      "schemaUid": "7huo06w2xp0",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657449447425,
+      "parentId": 393657449447424,
+      "title": "画布",
+      "schemaUid": "45f8h1ve6jw",
+      "type": "tabs"
+    },
+    {
+      "id": 393657455738880,
+      "parentId": 393657447350272,
+      "title": "产业链与五力",
+      "schemaUid": "9bs71o36lbi",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657455738881,
+      "parentId": 393657455738880,
+      "title": "五力图",
+      "schemaUid": "ml5s9v3y2d7",
+      "type": "tabs"
+    },
+    {
+      "id": 393657487196160,
+      "parentId": 393657447350272,
+      "title": "价投适配度",
+      "schemaUid": "rev3sw8hndr",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657487196161,
+      "parentId": 393657487196160,
+      "title": "评分",
+      "schemaUid": "7fjvpm6uypy",
+      "type": "tabs"
+    },
+    {
+      "id": 393657497681920,
+      "parentId": 394100980776960,
+      "title": "假设依据",
+      "schemaUid": "j3k85eaw2nw",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657497681921,
+      "parentId": 393657497681920,
+      "title": "假设依据",
+      "schemaUid": "ao2enc2o0yc",
+      "type": "tabs"
+    },
+    {
+      "id": 393657508167680,
+      "parentId": 393570928295936,
+      "title": "重要事实",
+      "schemaUid": "jc07xaq5ccg",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657508167681,
+      "parentId": 393657508167680,
+      "title": "重要事实",
+      "schemaUid": "p78bdf1cklm",
+      "type": "tabs"
+    },
+    {
+      "id": 393657516556288,
+      "parentId": 393570928295936,
+      "title": "来源文档",
+      "schemaUid": "uoe2xtvktqe",
+      "type": "flowPage"
+    },
+    {
+      "id": 393657516556289,
+      "parentId": 393657516556288,
+      "title": "来源文档",
+      "schemaUid": "gcjfujxu000",
+      "type": "tabs"
+    },
+    {
+      "id": 393798560514048,
+      "parentId": 393656988073984,
+      "title": "产业链与五力",
+      "schemaUid": "i9r038m23ia",
+      "type": "flowPage"
+    },
+    {
+      "id": 393798560514049,
+      "parentId": 393798560514048,
+      "title": "产业链（编辑）",
+      "schemaUid": "4kwx8e341gl",
+      "type": "tabs"
+    },
+    {
+      "id": 393798562611200,
+      "parentId": 393798560514048,
+      "title": "五力图",
+      "schemaUid": "ri4i4xyds1c",
+      "type": "tabs"
+    },
+    {
+      "id": 393818874183680,
+      "parentId": 393441095319552,
+      "title": "公司",
+      "schemaUid": "6ro3vmfo9o1",
+      "type": "flowPage"
+    },
+    {
+      "id": 393818874183681,
+      "parentId": 393818874183680,
+      "title": "公司",
+      "schemaUid": "hntbwdq35uc",
+      "type": "tabs"
+    },
+    {
+      "id": 393818928709632,
+      "parentId": null,
+      "title": "宏观数据",
+      "schemaUid": "n2rzmwpnmo0",
+      "type": "group"
+    },
+    {
+      "id": 393818930806784,
+      "parentId": 393818928709632,
+      "title": "指标",
+      "schemaUid": "ujvwu8gqecp",
+      "type": "flowPage"
+    },
+    {
+      "id": 393818930806785,
+      "parentId": 393818930806784,
+      "title": "指标",
+      "schemaUid": "s3oo9dsuul9",
+      "type": "tabs"
+    },
+    {
+      "id": 393819056635904,
+      "parentId": 393818928709632,
+      "title": "采集配置",
+      "schemaUid": "wpknziqekcb",
+      "type": "flowPage"
+    },
+    {
+      "id": 393819056635905,
+      "parentId": 393819056635904,
+      "title": "采集配置",
+      "schemaUid": "n93866yvjie",
+      "type": "tabs"
+    },
+    {
+      "id": 393849911312384,
+      "parentId": 393656988073984,
+      "title": "风险分析",
+      "schemaUid": "w2d8w96z0fj",
+      "type": "flowPage"
+    },
+    {
+      "id": 393849911312385,
+      "parentId": 393849911312384,
+      "title": "风险矩阵",
+      "schemaUid": "o13odcmom4s",
+      "type": "tabs"
+    },
+    {
+      "id": 393850160873472,
+      "parentId": 393656988073984,
+      "title": "竞争壁垒",
+      "schemaUid": "eiabbix1ieb",
+      "type": "flowPage"
+    },
+    {
+      "id": 393850160873473,
+      "parentId": 393850160873472,
+      "title": "壁垒图",
+      "schemaUid": "pl9jyegwpgn",
+      "type": "tabs"
+    },
+    {
+      "id": 393850186039296,
+      "parentId": 393657214566400,
+      "title": "竞争壁垒",
+      "schemaUid": "hk2vmtnijdu",
+      "type": "flowPage"
+    },
+    {
+      "id": 393850186039297,
+      "parentId": 393850186039296,
+      "title": "壁垒图",
+      "schemaUid": "sbez3o5wira",
+      "type": "tabs"
+    },
+    {
+      "id": 393850194427904,
+      "parentId": 393657292161024,
+      "title": "竞争壁垒",
+      "schemaUid": "qozj7maztxz",
+      "type": "flowPage"
+    },
+    {
+      "id": 393850194427905,
+      "parentId": 393850194427904,
+      "title": "壁垒图",
+      "schemaUid": "r96rd2oh9ba",
+      "type": "tabs"
+    },
+    {
+      "id": 393850200719360,
+      "parentId": 393657369755648,
+      "title": "竞争壁垒",
+      "schemaUid": "t7585fmvnj3",
+      "type": "flowPage"
+    },
+    {
+      "id": 393850202816512,
+      "parentId": 393850200719360,
+      "title": "壁垒图",
+      "schemaUid": "761ihkbop72",
+      "type": "tabs"
+    },
+    {
+      "id": 393850209107968,
+      "parentId": 393657447350272,
+      "title": "竞争壁垒",
+      "schemaUid": "peu960rjvpm",
+      "type": "flowPage"
+    },
+    {
+      "id": 393850209107969,
+      "parentId": 393850209107968,
+      "title": "壁垒图",
+      "schemaUid": "qsqblmfnel1",
+      "type": "tabs"
+    },
+    {
+      "id": 393850506903552,
+      "parentId": 393656988073984,
+      "title": "核心论点",
+      "schemaUid": "w1ihvdkqq8l",
+      "type": "flowPage"
+    },
+    {
+      "id": 393850506903553,
+      "parentId": 393850506903552,
+      "title": "论点图",
+      "schemaUid": "r6oc1p3aztg",
+      "type": "tabs"
+    },
+    {
+      "id": 393850529972224,
+      "parentId": 393657214566400,
+      "title": "核心论点",
+      "schemaUid": "gbetw7qnlt8",
+      "type": "flowPage"
+    },
+    {
+      "id": 393850529972225,
+      "parentId": 393850529972224,
+      "title": "论点图",
+      "schemaUid": "i6c7lg6wxyp",
+      "type": "tabs"
+    },
+    {
+      "id": 393850538360832,
+      "parentId": 393657292161024,
+      "title": "核心论点",
+      "schemaUid": "fwram3s6z0w",
+      "type": "flowPage"
+    },
+    {
+      "id": 393850538360833,
+      "parentId": 393850538360832,
+      "title": "论点图",
+      "schemaUid": "zc9alimz1lb",
+      "type": "tabs"
+    },
+    {
+      "id": 393850544652288,
+      "parentId": 393657369755648,
+      "title": "核心论点",
+      "schemaUid": "iyut3rwi5im",
+      "type": "flowPage"
+    },
+    {
+      "id": 393850544652289,
+      "parentId": 393850544652288,
+      "title": "论点图",
+      "schemaUid": "aujuzqle9jg",
+      "type": "tabs"
+    },
+    {
+      "id": 393850550943744,
+      "parentId": 393657447350272,
+      "title": "核心论点",
+      "schemaUid": "9qrhfm3nwjl",
+      "type": "flowPage"
+    },
+    {
+      "id": 393850550943745,
+      "parentId": 393850550943744,
+      "title": "论点图",
+      "schemaUid": "icz51fkf3gk",
+      "type": "tabs"
+    },
+    {
+      "id": 394007866048512,
+      "parentId": 393441258897408,
+      "title": "模型底稿",
+      "schemaUid": "jdlcx5rj37u",
+      "type": "group"
+    },
+    {
+      "id": 394012060352512,
+      "parentId": 393441258897408,
+      "title": "财务模型",
+      "schemaUid": "53v604rosxv",
+      "type": "flowPage"
+    },
+    {
+      "id": 394012060352513,
+      "parentId": 394012060352512,
+      "title": "财务模型",
+      "schemaUid": "chq0mstqjpp",
+      "type": "tabs"
+    },
+    {
+      "id": 394012070838272,
+      "parentId": 393441258897408,
+      "title": "估值",
+      "schemaUid": "8zlkrvhqkth",
+      "type": "flowPage"
+    },
+    {
+      "id": 394012070838273,
+      "parentId": 394012070838272,
+      "title": "估值",
+      "schemaUid": "gbr8ryko7fl",
+      "type": "tabs"
+    },
+    {
+      "id": 394029525041152,
+      "parentId": 393441179205632,
+      "title": "财务数据",
+      "schemaUid": "n0b7h2uthi6",
+      "type": "flowPage"
+    },
+    {
+      "id": 394029525041153,
+      "parentId": 394029525041152,
+      "title": "财务报表",
+      "schemaUid": "06670qonboz",
+      "type": "tabs"
+    },
+    {
+      "id": 394029535526912,
+      "parentId": 393441485389824,
+      "title": "财务数据",
+      "schemaUid": "pb5pp9xofkj",
+      "type": "flowPage"
+    },
+    {
+      "id": 394029535526913,
+      "parentId": 394029535526912,
+      "title": "财务报表",
+      "schemaUid": "il0h9vtrpi8",
+      "type": "tabs"
+    },
+    {
+      "id": 394029541818368,
+      "parentId": 393515361763328,
+      "title": "财务数据",
+      "schemaUid": "c6kvnf1h9dd",
+      "type": "flowPage"
+    },
+    {
+      "id": 394029541818369,
+      "parentId": 394029541818368,
+      "title": "财务报表",
+      "schemaUid": "wz5cie4u95d",
+      "type": "tabs"
+    },
+    {
+      "id": 394029550206976,
+      "parentId": 393523143770112,
+      "title": "财务数据",
+      "schemaUid": "e75y11y2zmm",
+      "type": "flowPage"
+    },
+    {
+      "id": 394029550206977,
+      "parentId": 394029550206976,
+      "title": "财务报表",
+      "schemaUid": "zhe10jzr408",
+      "type": "tabs"
+    },
+    {
+      "id": 394029558595584,
+      "parentId": 393570928295936,
+      "title": "财务数据",
+      "schemaUid": "5afwnthnnab",
+      "type": "flowPage"
+    },
+    {
+      "id": 394029558595585,
+      "parentId": 394029558595584,
+      "title": "财务报表",
+      "schemaUid": "qyqrxydl2di",
+      "type": "tabs"
+    },
+    {
+      "id": 394080242565120,
+      "parentId": 393656996462592,
+      "title": "明细（编辑）",
+      "schemaUid": "18hsqb9bbrb",
+      "type": "tabs"
+    },
+    {
+      "id": 394080255148032,
+      "parentId": 393850160873472,
+      "title": "明细（编辑）",
+      "schemaUid": "6htzzfa3pg6",
+      "type": "tabs"
+    },
+    {
+      "id": 394080265633792,
+      "parentId": 393850506903552,
+      "title": "明细（编辑）",
+      "schemaUid": "t3ts6qyadoc",
+      "type": "tabs"
+    },
+    {
+      "id": 394080288702464,
+      "parentId": 393849911312384,
+      "title": "明细（编辑）",
+      "schemaUid": "sjmutqd2e12",
+      "type": "tabs"
+    },
+    {
+      "id": 394080441794560,
+      "parentId": 393798560514048,
+      "title": "竞争对手（编辑）",
+      "schemaUid": "2h4zs9z3oou",
+      "type": "tabs"
+    },
+    {
+      "id": 394080576012288,
+      "parentId": 393657134874624,
+      "title": "明细（编辑）",
+      "schemaUid": "z7xvi3bcatw",
+      "type": "tabs"
+    },
+    {
+      "id": 394088712962048,
+      "parentId": 393571534372864,
+      "title": "明细（编辑）",
+      "schemaUid": "svnrgv67fe9",
+      "type": "tabs"
+    },
+    {
+      "id": 394088849276928,
+      "parentId": 393534500700160,
+      "title": "明细（编辑）",
+      "schemaUid": "f6doajkw5uj",
+      "type": "tabs"
+    },
+    {
+      "id": 394093129039872,
+      "parentId": 393441179205632,
+      "title": "业务数据",
+      "schemaUid": "2veokjca71l",
+      "type": "flowPage"
+    },
+    {
+      "id": 394093129039873,
+      "parentId": 394093129039872,
+      "title": "定期经营数据",
+      "schemaUid": "obgfd9obmmh",
+      "type": "tabs"
+    },
+    {
+      "id": 394093137428480,
+      "parentId": 394093129039872,
+      "title": "高频业务数据",
+      "schemaUid": "ha7lsdd4m5s",
+      "type": "tabs"
+    },
+    {
+      "id": 394093145817088,
+      "parentId": 393441485389824,
+      "title": "业务数据",
+      "schemaUid": "v33vgakx72u",
+      "type": "flowPage"
+    },
+    {
+      "id": 394093145817089,
+      "parentId": 394093145817088,
+      "title": "定期经营数据",
+      "schemaUid": "vrlj9hyween",
+      "type": "tabs"
+    },
+    {
+      "id": 394093152108544,
+      "parentId": 394093145817088,
+      "title": "高频业务数据",
+      "schemaUid": "6ffbwgwv0q2",
+      "type": "tabs"
+    },
+    {
+      "id": 394093160497152,
+      "parentId": 393515361763328,
+      "title": "业务数据",
+      "schemaUid": "i3fphwpkudq",
+      "type": "flowPage"
+    },
+    {
+      "id": 394093160497153,
+      "parentId": 394093160497152,
+      "title": "定期经营数据",
+      "schemaUid": "m0ipwrbfoph",
+      "type": "tabs"
+    },
+    {
+      "id": 394093164691456,
+      "parentId": 394093160497152,
+      "title": "高频业务数据",
+      "schemaUid": "r1lnmssyy5w",
+      "type": "tabs"
+    },
+    {
+      "id": 394093175177216,
+      "parentId": 393523143770112,
+      "title": "业务数据",
+      "schemaUid": "2660zxpxjdt",
+      "type": "flowPage"
+    },
+    {
+      "id": 394093175177217,
+      "parentId": 394093175177216,
+      "title": "定期经营数据",
+      "schemaUid": "rxg5kcw8is9",
+      "type": "tabs"
+    },
+    {
+      "id": 394093179371520,
+      "parentId": 394093175177216,
+      "title": "高频业务数据",
+      "schemaUid": "rbql55t6a0q",
+      "type": "tabs"
+    },
+    {
+      "id": 394093187760128,
+      "parentId": 393570928295936,
+      "title": "业务数据",
+      "schemaUid": "bcyrxgiuem8",
+      "type": "flowPage"
+    },
+    {
+      "id": 394093187760129,
+      "parentId": 394093187760128,
+      "title": "定期经营数据",
+      "schemaUid": "4pednpe9kqd",
+      "type": "tabs"
+    },
+    {
+      "id": 394093194051584,
+      "parentId": 394093187760128,
+      "title": "高频业务数据",
+      "schemaUid": "xnk63z9f7ri",
+      "type": "tabs"
+    },
+    {
+      "id": 394093202440192,
+      "parentId": 393441097416704,
+      "title": "数据（全部指标）",
+      "schemaUid": "fec6snzpitf",
+      "type": "flowPage"
+    },
+    {
+      "id": 394093202440193,
+      "parentId": 394093202440192,
+      "title": "数据（全部指标）",
+      "schemaUid": "0yvf0ue7dg8",
+      "type": "tabs"
+    },
+    {
+      "id": 394093349240832,
+      "parentId": 393818928709632,
+      "title": "高频数据",
+      "schemaUid": "l53crbbiima",
+      "type": "flowPage"
+    },
+    {
+      "id": 394093349240833,
+      "parentId": 394093349240832,
+      "title": "高频数据",
+      "schemaUid": "sfeq8bs5cu3",
+      "type": "tabs"
+    },
+    {
+      "id": 394097872797696,
+      "parentId": 393657216663552,
+      "title": "明细（编辑）",
+      "schemaUid": "btx1ewuk6vx",
+      "type": "tabs"
+    },
+    {
+      "id": 394097893769216,
+      "parentId": 393850186039296,
+      "title": "明细（编辑）",
+      "schemaUid": "84mgy90fl78",
+      "type": "tabs"
+    },
+    {
+      "id": 394097910546432,
+      "parentId": 393850529972224,
+      "title": "明细（编辑）",
+      "schemaUid": "h46ee64gel9",
+      "type": "tabs"
+    },
+    {
+      "id": 394097944100864,
+      "parentId": 393657214566400,
+      "title": "风险分析",
+      "schemaUid": "b012n4xl82c",
+      "type": "flowPage"
+    },
+    {
+      "id": 394097944100865,
+      "parentId": 394097944100864,
+      "title": "风险矩阵",
+      "schemaUid": "3kchiy3949p",
+      "type": "tabs"
+    },
+    {
+      "id": 394097954586624,
+      "parentId": 394097944100864,
+      "title": "明细（编辑）",
+      "schemaUid": "8le0psizpig",
+      "type": "tabs"
+    },
+    {
+      "id": 394098552274944,
+      "parentId": 393657256509440,
+      "title": "明细（编辑）",
+      "schemaUid": "cgz0kxan089",
+      "type": "tabs"
+    },
+    {
+      "id": 394098575343616,
+      "parentId": 393571546955776,
+      "title": "明细（编辑）",
+      "schemaUid": "3nq9czffitf",
+      "type": "tabs"
+    },
+    {
+      "id": 394098596315136,
+      "parentId": 393534521671680,
+      "title": "明细（编辑）",
+      "schemaUid": "yjn7sk5ttkl",
+      "type": "tabs"
+    },
+    {
+      "id": 394098631966720,
+      "parentId": 393657225052160,
+      "title": "产业链（编辑）",
+      "schemaUid": "979v8szbcrp",
+      "type": "tabs"
+    },
+    {
+      "id": 394098638258176,
+      "parentId": 393657225052160,
+      "title": "竞争对手（编辑）",
+      "schemaUid": "f5oxayae1yr",
+      "type": "tabs"
+    },
+    {
+      "id": 394098726338560,
+      "parentId": 393441512652800,
+      "title": "估值",
+      "schemaUid": "1s3vkso014u",
+      "type": "flowPage"
+    },
+    {
+      "id": 394098726338561,
+      "parentId": 394098726338560,
+      "title": "回报与门槛",
+      "schemaUid": "fojf0z3ialn",
+      "type": "tabs"
+    },
+    {
+      "id": 394098734727168,
+      "parentId": 393441512652800,
+      "title": "模型底稿",
+      "schemaUid": "1065lodw640",
+      "type": "group"
+    },
+    {
+      "id": 394099225460736,
+      "parentId": 393441512652800,
+      "title": "财务模型",
+      "schemaUid": "xsf39lzk91h",
+      "type": "flowPage"
+    },
+    {
+      "id": 394099225460737,
+      "parentId": 394099225460736,
+      "title": "财务模型",
+      "schemaUid": "5hyx38g6uk2",
+      "type": "tabs"
+    },
+    {
+      "id": 394099225460738,
+      "parentId": 394099225460736,
+      "title": "逐年假设（编辑）",
+      "schemaUid": "q0wgtj16d6z",
+      "type": "tabs"
+    },
+    {
+      "id": 394099661668352,
+      "parentId": 393657294258176,
+      "title": "明细（编辑）",
+      "schemaUid": "fqqpje69hf8",
+      "type": "tabs"
+    },
+    {
+      "id": 394099682639872,
+      "parentId": 393850194427904,
+      "title": "明细（编辑）",
+      "schemaUid": "8xuds3j9pn6",
+      "type": "tabs"
+    },
+    {
+      "id": 394099701514240,
+      "parentId": 393850538360832,
+      "title": "明细（编辑）",
+      "schemaUid": "hvgz51vg0hv",
+      "type": "tabs"
+    },
+    {
+      "id": 394099735068672,
+      "parentId": 393657292161024,
+      "title": "风险分析",
+      "schemaUid": "u8ibjfleg02",
+      "type": "flowPage"
+    },
+    {
+      "id": 394099735068673,
+      "parentId": 394099735068672,
+      "title": "风险矩阵",
+      "schemaUid": "iggzsdr14zn",
+      "type": "tabs"
+    },
+    {
+      "id": 394099745554432,
+      "parentId": 394099735068672,
+      "title": "明细（编辑）",
+      "schemaUid": "h4intbnrsnn",
+      "type": "tabs"
+    },
+    {
+      "id": 394099764428800,
+      "parentId": 393657332006912,
+      "title": "明细（编辑）",
+      "schemaUid": "akv53a5ryx6",
+      "type": "tabs"
+    },
+    {
+      "id": 394099787497472,
+      "parentId": 393571555344384,
+      "title": "明细（编辑）",
+      "schemaUid": "p4kkjvk7x0v",
+      "type": "tabs"
+    },
+    {
+      "id": 394099808468992,
+      "parentId": 393534530060288,
+      "title": "明细（编辑）",
+      "schemaUid": "fhrl3auok9q",
+      "type": "tabs"
+    },
+    {
+      "id": 394099846217728,
+      "parentId": 393657300549632,
+      "title": "产业链（编辑）",
+      "schemaUid": "jfeomxwt8iz",
+      "type": "tabs"
+    },
+    {
+      "id": 394099852509184,
+      "parentId": 393657300549632,
+      "title": "竞争对手（编辑）",
+      "schemaUid": "jsk78cjve1r",
+      "type": "tabs"
+    },
+    {
+      "id": 394099909132288,
+      "parentId": 393515621810176,
+      "title": "逐年假设（编辑）",
+      "schemaUid": "n6vr3spedp4",
+      "type": "tabs"
+    },
+    {
+      "id": 394099936395264,
+      "parentId": 393515397414912,
+      "title": "估值",
+      "schemaUid": "3ahm4oasj5y",
+      "type": "flowPage"
+    },
+    {
+      "id": 394099936395265,
+      "parentId": 394099936395264,
+      "title": "回报与门槛",
+      "schemaUid": "ruku7sb2tzz",
+      "type": "tabs"
+    },
+    {
+      "id": 394099942686720,
+      "parentId": 393515397414912,
+      "title": "模型底稿",
+      "schemaUid": "qufda5px9xr",
+      "type": "group"
+    },
+    {
+      "id": 394100192247808,
+      "parentId": 393657371852800,
+      "title": "明细（编辑）",
+      "schemaUid": "52bzg37hwu1",
+      "type": "tabs"
+    },
+    {
+      "id": 394100206927872,
+      "parentId": 393850200719360,
+      "title": "明细（编辑）",
+      "schemaUid": "8pdqoniceyg",
+      "type": "tabs"
+    },
+    {
+      "id": 394100225802240,
+      "parentId": 393850544652288,
+      "title": "明细（编辑）",
+      "schemaUid": "gd31tr6r3t1",
+      "type": "tabs"
+    },
+    {
+      "id": 394100250968064,
+      "parentId": 393657369755648,
+      "title": "风险分析",
+      "schemaUid": "n09mqsfm8bz",
+      "type": "flowPage"
+    },
+    {
+      "id": 394100250968065,
+      "parentId": 394100250968064,
+      "title": "风险矩阵",
+      "schemaUid": "h10gpiwlv3j",
+      "type": "tabs"
+    },
+    {
+      "id": 394100261453824,
+      "parentId": 394100250968064,
+      "title": "明细（编辑）",
+      "schemaUid": "r5wiwd07qp4",
+      "type": "tabs"
+    },
+    {
+      "id": 394100280328192,
+      "parentId": 393657409601536,
+      "title": "明细（编辑）",
+      "schemaUid": "c1rv7hl8h49",
+      "type": "tabs"
+    },
+    {
+      "id": 394100297105408,
+      "parentId": 393571561635840,
+      "title": "明细（编辑）",
+      "schemaUid": "1qegqwyotgq",
+      "type": "tabs"
+    },
+    {
+      "id": 394100315979776,
+      "parentId": 393534536351744,
+      "title": "明细（编辑）",
+      "schemaUid": "vfi8oeiaucl",
+      "type": "tabs"
+    },
+    {
+      "id": 394100343242752,
+      "parentId": 393657378144256,
+      "title": "产业链（编辑）",
+      "schemaUid": "zpzk02mo6oc",
+      "type": "tabs"
+    },
+    {
+      "id": 394100349534208,
+      "parentId": 393657378144256,
+      "title": "竞争对手（编辑）",
+      "schemaUid": "aef455cskcx",
+      "type": "tabs"
+    },
+    {
+      "id": 394100408254464,
+      "parentId": 393524955709440,
+      "title": "逐年假设（编辑）",
+      "schemaUid": "6i5tl2vm27k",
+      "type": "tabs"
+    },
+    {
+      "id": 394100443906048,
+      "parentId": 393523187810304,
+      "title": "估值",
+      "schemaUid": "uosksakv8s7",
+      "type": "flowPage"
+    },
+    {
+      "id": 394100443906049,
+      "parentId": 394100443906048,
+      "title": "分部估值",
+      "schemaUid": "b86twpu9pzf",
+      "type": "tabs"
+    },
+    {
+      "id": 394100458586112,
+      "parentId": 394100443906048,
+      "title": "资产估值与调整（编辑）",
+      "schemaUid": "fuuqahiflps",
+      "type": "tabs"
+    },
+    {
+      "id": 394100483751936,
+      "parentId": 393523187810304,
+      "title": "模型底稿",
+      "schemaUid": "66xbwqb4c85",
+      "type": "group"
+    },
+    {
+      "id": 394100710244352,
+      "parentId": 393657449447424,
+      "title": "明细（编辑）",
+      "schemaUid": "c8327yq0fm4",
+      "type": "tabs"
+    },
+    {
+      "id": 394100724924416,
+      "parentId": 393850209107968,
+      "title": "明细（编辑）",
+      "schemaUid": "hx0j4ou3kyi",
+      "type": "tabs"
+    },
+    {
+      "id": 394100743798784,
+      "parentId": 393850550943744,
+      "title": "明细（编辑）",
+      "schemaUid": "1wosihx1wnp",
+      "type": "tabs"
+    },
+    {
+      "id": 394100775256064,
+      "parentId": 393657447350272,
+      "title": "风险分析",
+      "schemaUid": "tmik34w2yp2",
+      "type": "flowPage"
+    },
+    {
+      "id": 394100775256065,
+      "parentId": 394100775256064,
+      "title": "风险矩阵",
+      "schemaUid": "i2a7propzm1",
+      "type": "tabs"
+    },
+    {
+      "id": 394100787838976,
+      "parentId": 394100775256064,
+      "title": "明细（编辑）",
+      "schemaUid": "0omalfa9ftn",
+      "type": "tabs"
+    },
+    {
+      "id": 394100806713344,
+      "parentId": 393657487196160,
+      "title": "明细（编辑）",
+      "schemaUid": "k8xqvd64n2y",
+      "type": "tabs"
+    },
+    {
+      "id": 394100821393408,
+      "parentId": 393571570024448,
+      "title": "明细（编辑）",
+      "schemaUid": "zz36ufzr2gb",
+      "type": "tabs"
+    },
+    {
+      "id": 394100840267776,
+      "parentId": 393571033153536,
+      "title": "明细（编辑）",
+      "schemaUid": "jnhe8sqmqij",
+      "type": "tabs"
+    },
+    {
+      "id": 394100865433600,
+      "parentId": 393657455738880,
+      "title": "产业链（编辑）",
+      "schemaUid": "agzds4wspj9",
+      "type": "tabs"
+    },
+    {
+      "id": 394100871725056,
+      "parentId": 393657455738880,
+      "title": "竞争对手（编辑）",
+      "schemaUid": "bh7zzyq0wf3",
+      "type": "tabs"
+    },
+    {
+      "id": 394100926251008,
+      "parentId": 393571721019392,
+      "title": "逐年假设（编辑）",
+      "schemaUid": "3el0zt9voyh",
+      "type": "tabs"
+    },
+    {
+      "id": 394100953513984,
+      "parentId": 393570966044672,
+      "title": "估值",
+      "schemaUid": "hbswju6nw3f",
+      "type": "flowPage"
+    },
+    {
+      "id": 394100953513985,
+      "parentId": 394100953513984,
+      "title": "分部估值",
+      "schemaUid": "h08iur1fo1h",
+      "type": "tabs"
+    },
+    {
+      "id": 394100955611136,
+      "parentId": 394100953513984,
+      "title": "业务估值（编辑）",
+      "schemaUid": "msceews8a06",
+      "type": "tabs"
+    },
+    {
+      "id": 394100959805440,
+      "parentId": 394100953513984,
+      "title": "资产估值与调整（编辑）",
+      "schemaUid": "47cr0r6ivdd",
+      "type": "tabs"
+    },
+    {
+      "id": 394100980776960,
+      "parentId": 393570966044672,
+      "title": "模型底稿",
+      "schemaUid": "282o76q23h6",
+      "type": "group"
+    },
+    {
+      "id": 394164799209472,
+      "parentId": 394029541818368,
+      "title": "分部与财务补充",
+      "schemaUid": "6d4ed6n1f07",
+      "type": "tabs"
+    },
+    {
+      "id": 394164866318336,
+      "parentId": 394029550206976,
+      "title": "分部与财务补充",
+      "schemaUid": "qhbkuwrdr82",
+      "type": "tabs"
+    },
+    {
+      "id": 394164935524352,
+      "parentId": 394029558595584,
+      "title": "分部与财务补充",
+      "schemaUid": "5nirgnk0rgw",
+      "type": "tabs"
+    },
+    {
+      "id": 394197284093952,
+      "parentId": 393441126776832,
+      "title": "驾驶舱",
+      "schemaUid": "iihbe468odp",
+      "type": "flowPage"
+    },
+    {
+      "id": 394197284093953,
+      "parentId": 394197284093952,
+      "title": "驾驶舱",
+      "schemaUid": "qnt1yyyw65o",
+      "type": "tabs"
+    },
+    {
+      "id": 394197296676864,
+      "parentId": 393441447641088,
+      "title": "驾驶舱",
+      "schemaUid": "d3pps9o6z1p",
+      "type": "flowPage"
+    },
+    {
+      "id": 394197296676865,
+      "parentId": 394197296676864,
+      "title": "驾驶舱",
+      "schemaUid": "tojko5o2w64",
+      "type": "tabs"
+    },
+    {
+      "id": 394197307162624,
+      "parentId": 393515315625984,
+      "title": "驾驶舱",
+      "schemaUid": "d9uoj7oiltg",
+      "type": "flowPage"
+    },
+    {
+      "id": 394197307162625,
+      "parentId": 394197307162624,
+      "title": "驾驶舱",
+      "schemaUid": "a0apzx06zza",
+      "type": "tabs"
+    },
+    {
+      "id": 394197323939840,
+      "parentId": 393523095535616,
+      "title": "驾驶舱",
+      "schemaUid": "i82dvrivrum",
+      "type": "flowPage"
+    },
+    {
+      "id": 394197323939841,
+      "parentId": 394197323939840,
+      "title": "驾驶舱",
+      "schemaUid": "i2pf05nlv11",
+      "type": "tabs"
+    },
+    {
+      "id": 394197347008512,
+      "parentId": 393570819244032,
+      "title": "驾驶舱",
+      "schemaUid": "qsjr3v77mh2",
+      "type": "flowPage"
+    },
+    {
+      "id": 394197347008513,
+      "parentId": 394197347008512,
+      "title": "驾驶舱",
+      "schemaUid": "gx5noxly7x4",
+      "type": "tabs"
+    },
+    {
+      "id": 394203908800512,
+      "parentId": 393441395212288,
+      "title": "待办清单",
+      "schemaUid": "ks4es76n7y2",
+      "type": "flowPage"
+    },
+    {
+      "id": 394203908800513,
+      "parentId": 394203908800512,
+      "title": "待办清单",
+      "schemaUid": "cv2m6gl8cf3",
+      "type": "tabs"
+    },
+    {
+      "id": 394203915091968,
+      "parentId": 393441619607552,
+      "title": "待办清单",
+      "schemaUid": "s07036zu3dd",
+      "type": "flowPage"
+    },
+    {
+      "id": 394203915091969,
+      "parentId": 394203915091968,
+      "title": "待办清单",
+      "schemaUid": "z1jey1fy67b",
+      "type": "tabs"
+    },
+    {
+      "id": 394203923480576,
+      "parentId": 393515516952576,
+      "title": "待办清单",
+      "schemaUid": "xvug1zu72p3",
+      "type": "flowPage"
+    },
+    {
+      "id": 394203923480577,
+      "parentId": 394203923480576,
+      "title": "待办清单",
+      "schemaUid": "8do1qy86cqd",
+      "type": "tabs"
+    },
+    {
+      "id": 394203929772032,
+      "parentId": 393524699856896,
+      "title": "待办清单",
+      "schemaUid": "rp9its1a3vq",
+      "type": "flowPage"
+    },
+    {
+      "id": 394203929772033,
+      "parentId": 394203929772032,
+      "title": "待办清单",
+      "schemaUid": "a3izaf8bls8",
+      "type": "tabs"
+    },
+    {
+      "id": 394203938160640,
+      "parentId": 393571131719680,
+      "title": "待办清单",
+      "schemaUid": "y54r45tif1g",
+      "type": "flowPage"
+    },
+    {
+      "id": 394203938160641,
+      "parentId": 394203938160640,
+      "title": "待办清单",
+      "schemaUid": "xphdyfrznt7",
+      "type": "tabs"
+    },
+    {
+      "id": 394213886459904,
+      "parentId": 393657449447424,
+      "title": "业务分部（编辑）",
+      "schemaUid": "f4pgu2vhfvq",
+      "type": "tabs"
+    },
+    {
+      "id": 394270986469376,
+      "parentId": 393441258897408,
+      "title": "重点指标",
+      "schemaUid": "geqtmbie3p0",
+      "type": "flowPage"
+    },
+    {
+      "id": 394270986469377,
+      "parentId": 394270986469376,
+      "title": "模型数据",
+      "schemaUid": "hzcar3a4jhi",
+      "type": "tabs"
+    },
+    {
+      "id": 394270994857984,
+      "parentId": 394270986469376,
+      "title": "跟踪指标",
+      "schemaUid": "m9vl3yf8ocb",
+      "type": "tabs"
+    },
+    {
+      "id": 394271022120960,
+      "parentId": 393441512652800,
+      "title": "重点指标",
+      "schemaUid": "r369qrhkdgb",
+      "type": "flowPage"
+    },
+    {
+      "id": 394271022120961,
+      "parentId": 394271022120960,
+      "title": "模型数据",
+      "schemaUid": "4bcyan6115n",
+      "type": "tabs"
+    },
+    {
+      "id": 394271026315264,
+      "parentId": 394271022120960,
+      "title": "跟踪指标",
+      "schemaUid": "czge5cgs43z",
+      "type": "tabs"
+    },
+    {
+      "id": 394271053578240,
+      "parentId": 393515397414912,
+      "title": "重点指标",
+      "schemaUid": "oqudjnxbjpu",
+      "type": "flowPage"
+    },
+    {
+      "id": 394271053578241,
+      "parentId": 394271053578240,
+      "title": "模型数据",
+      "schemaUid": "et0ooye8ghq",
+      "type": "tabs"
+    },
+    {
+      "id": 394271057772544,
+      "parentId": 394271053578240,
+      "title": "跟踪指标",
+      "schemaUid": "eeyo2b1e4as",
+      "type": "tabs"
+    },
+    {
+      "id": 394271085035520,
+      "parentId": 393523187810304,
+      "title": "重点指标",
+      "schemaUid": "g4lh63153e8",
+      "type": "flowPage"
+    },
+    {
+      "id": 394271085035521,
+      "parentId": 394271085035520,
+      "title": "模型数据",
+      "schemaUid": "p981nr7e6pt",
+      "type": "tabs"
+    },
+    {
+      "id": 394271089229824,
+      "parentId": 394271085035520,
+      "title": "跟踪指标",
+      "schemaUid": "c8p6wo01fm5",
+      "type": "tabs"
+    },
+    {
+      "id": 394271116492800,
+      "parentId": 393570966044672,
+      "title": "重点指标",
+      "schemaUid": "94s5avwutfn",
+      "type": "flowPage"
+    },
+    {
+      "id": 394271116492801,
+      "parentId": 394271116492800,
+      "title": "模型数据",
+      "schemaUid": "2tob8ygmijm",
+      "type": "tabs"
+    },
+    {
+      "id": 394271120687104,
+      "parentId": 394271116492800,
+      "title": "跟踪指标",
+      "schemaUid": "ypcbo7tvidu",
+      "type": "tabs"
+    },
+    {
+      "id": 394275744907264,
+      "parentId": 394270986469376,
+      "title": "其他指标",
+      "schemaUid": "xtw57nngt80",
+      "type": "tabs"
+    },
+    {
+      "id": 394275788947456,
+      "parentId": 394271022120960,
+      "title": "其他指标",
+      "schemaUid": "0atypt94lie",
+      "type": "tabs"
+    },
+    {
+      "id": 394275832987648,
+      "parentId": 394271053578240,
+      "title": "其他指标",
+      "schemaUid": "xrmk10ytl8y",
+      "type": "tabs"
+    },
+    {
+      "id": 394275877027840,
+      "parentId": 394271085035520,
+      "title": "其他指标",
+      "schemaUid": "i704aw2lw17",
+      "type": "tabs"
+    },
+    {
+      "id": 394275918970880,
+      "parentId": 394271116492800,
+      "title": "其他指标",
+      "schemaUid": "8zgn5vu5twr",
+      "type": "tabs"
+    },
+    {
+      "id": 394344615378944,
+      "parentId": 393441095319552,
+      "title": "使用说明",
+      "schemaUid": "qcpe6tyv618",
+      "type": "flowPage"
+    },
+    {
+      "id": 394344615378945,
+      "parentId": 394344615378944,
+      "title": "使用说明",
+      "schemaUid": "m5s66o9sjmq",
+      "type": "tabs"
+    },
+    {
+      "id": 394344625864704,
+      "parentId": 393441095319552,
+      "title": "数据结构",
+      "schemaUid": "esut1o9lk5p",
+      "type": "flowPage"
+    },
+    {
+      "id": 394344625864705,
+      "parentId": 394344625864704,
+      "title": "数据结构",
+      "schemaUid": "kb9smxb25wt",
+      "type": "tabs"
+    },
+    {
+      "id": 394344632156160,
+      "parentId": 393441095319552,
+      "title": "模型公式",
+      "schemaUid": "vefbnyb41dr",
+      "type": "flowPage"
+    },
+    {
+      "id": 394344632156161,
+      "parentId": 394344632156160,
+      "title": "模型公式",
+      "schemaUid": "bw8d0cn9t9k",
+      "type": "tabs"
+    }
+  ],
+  "meta": {
+    "count": 328,
+    "page": 1,
+    "pageSize": 500,
+    "totalPage": 1
+  }
+}

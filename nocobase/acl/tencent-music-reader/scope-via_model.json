@@ -1,0 +1,14 @@
+{
+  "name": "腾讯音乐只读-via_model",
+  "scope": {
+    "$and": [
+      {
+        "model": {
+          "company_id": {
+            "$eq": 11
+          }
+        }
+      }
+    ]
+  }
+}

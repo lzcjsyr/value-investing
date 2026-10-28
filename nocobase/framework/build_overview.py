@@ -227,7 +227,10 @@ try {
     listRows('vi_valuation', { model_id: { $eq: model.id } }),
     listRows('vi_projection', { model_id: { $eq: model.id } }, 500),
     listRows('vi_check', { model_id: { $eq: model.id } }),
-    listRows('vi_collector'),
+    listRows('vi_collector').catch((error) => {
+      if (error?.response?.status === 403 || error?.status === 403 || /No permissions/i.test(error?.message || '')) return [];
+      throw error;
+    }),
     listRows('vi_sotp', { model_id: { $eq: model.id } }),
     listRows('vi_metric', null, 500),
     listRows('vi_company'),
@@ -254,7 +257,6 @@ try {
     const [reqPct, setReqPct] = useState(initial);
     const [trialMult, setTrialMult] = useState(null);   // 试算倍数：留空＝用各情景的合理倍数
     const [saving, setSaving] = useState(false);
-    const [convertRmb, setConvertRmb] = useState(null);
     const req = reqPct / 100;
     const rows = scenarios.map((v) => {
       const ceiling = presentValue(v.flows, v.terminal, v.terminal_growth, req);
@@ -414,6 +416,11 @@ try {
         <Typography.Title level={4} style={{ marginTop: 0 }}>
           {company.name}（{company.code}）· {model.name}
         </Typography.Title>
+        <Row gutter={[16, 8]} style={{ marginBottom: 12 }}>
+          <Col xs={8} md={4}><Statistic title="PE (TTM)" value={fmt(company.pe_ttm)} /></Col>
+          <Col xs={8} md={4}><Statistic title="PB" value={fmt(company.pb)} /></Col>
+          <Col xs={8} md={6}><Statistic title="交易日（akshare 市场口径）" value={company.pe_pb_date || '—'} /></Col>
+        </Row>
         {COMPANY.endsWith('.HK') && (
           <Card size="small" title={`港股速览 · ${COMPANY} · 港元 / 普通股`} style={{ marginBottom: 12 }}>
             <Row gutter={[16, 16]}>
@@ -423,15 +430,6 @@ try {
               <Col xs={12} md={6}><Statistic title="1 港元折人民币" value={fmt(fx, 4)} suffix="元" /></Col>
             </Row>
             {!(fx > 0) && <Alert type="warning" showIcon message="缺少有效汇率，港元估值暂不换算" />}
-            <Space wrap style={{ marginTop: 12 }}>
-              <Typography.Text>人民币金额换算</Typography.Text>
-              <InputNumber value={convertRmb} onChange={setConvertRmb} min={0} placeholder="输入人民币金额" addonAfter="元" />
-              <Typography.Text strong>≈ {fmt(fx > 0 && convertRmb !== null ? convertRmb / fx : null)} 港元</Typography.Text>
-            </Space>
-            <Typography.Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0, fontSize: 12 }}>
-              换算：人民币价值 ÷ 港元兑人民币汇率。采用数据库与股价日匹配的汇率；汇率指标最新观察日 {metrics.find((m) => m.id === company.price_fx_metric_id)?.latest_date || '—'}。
-              下方经营金额和估值底稿仍为人民币，港元结果按同一普通股股本换算。股本与资产假设的核验状态见模型底稿。
-            </Typography.Paragraph>
           </Card>
         )}
         {sotpPrimary ? sotpCard : null}
@@ -587,6 +585,8 @@ function Panel() {
   const scheduledOn = flows && flows.scheduled.length && flows.scheduled.every((w) => w.enabled);
   const step = run ? STEP[run.status] ?? 0 : -1;
   const stepStatus = (i) => (step < 0 ? 'wait' : error && i === Math.min(step, 1) ? 'error' : i < step || run?.status === '完成' ? 'finish' : i === step ? 'process' : 'wait');
+
+  if (/403|No permissions/i.test(error || '')) return null;
 
   return (
     <div>

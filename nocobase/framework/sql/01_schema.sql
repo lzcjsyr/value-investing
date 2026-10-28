@@ -18,6 +18,9 @@ CREATE TABLE vi_company_base (
   price_unit text,
   is_default boolean,
   scope_breaks text,
+  pe_ttm double precision,
+  pb double precision,
+  pe_pb_date date,
   profile text,
   notes text,
   price_metric_id bigint,
@@ -49,6 +52,12 @@ COMMENT ON COLUMN vi_company_base.price_unit IS '单价单位：如 元/千瓦�
 COMMENT ON COLUMN vi_company_base.is_default IS '驾驶舱默认展示：已不再使用：每家公司在自己的菜单下都有驾驶舱';
 
 COMMENT ON COLUMN vi_company_base.scope_breaks IS '口径变化年份：并表范围或披露口径变化的年份（如 2016、2023），历史年度里这些年与上一年不算同比';
+
+COMMENT ON COLUMN vi_company_base.pe_ttm IS '市盈率TTM：市场口径（A 股东方财富、港股百度股市通），由 tools/pe_pb.py 经 akshare 写入；驾驶舱顶部显示';
+
+COMMENT ON COLUMN vi_company_base.pb IS '市净率：同上，市场口径的最新市净率';
+
+COMMENT ON COLUMN vi_company_base.pe_pb_date IS '市盈率/市净率日期：上面两个数对应的交易日';
 
 COMMENT ON COLUMN vi_company_base.profile IS '公司简介';
 
@@ -408,7 +417,7 @@ COMMENT ON COLUMN vi_thesis_base.code IS '编号：如 T1';
 
 COMMENT ON COLUMN vi_thesis_base.title IS '论点：写成一个可以被证伪的判断';
 
-COMMENT ON COLUMN vi_thesis_base.category IS '类别：不利事件本身写在风险分析；这里只放有争议、决定价值的判断（可选：壁垒、经营、财务、治理、估值）';
+COMMENT ON COLUMN vi_thesis_base.category IS '类别：不利事件本身写在风险分析；这里只放有争议、决定价值的判断（可选：经营、财务、治理、估值）';
 
 COMMENT ON COLUMN vi_thesis_base.status IS '裁决：成立＝正方占优；观察＝势均力敌或证据不足；存疑＝反方占优；证伪＝改判条件已经出现（可选：成立、观察、存疑、证伪）';
 

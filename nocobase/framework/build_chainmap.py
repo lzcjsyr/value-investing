@@ -421,7 +421,15 @@ try {
       const compact = (side ? W - 392 : W) < 660;      // 图太窄时改成竖排
       const setSel = (code) => {      // 详解在图下面时：选中后滚过去
         setSelRaw(code);
-        if (!side) setTimeout(() => detailRef.current?.scrollIntoView?.({ behavior: 'smooth', block: 'start' }), 50);
+        if (!side) setTimeout(() => {      // 只滚最近的滚动容器（scrollIntoView 会连外层一起滚，底部露出空白）
+          const el = detailRef.current;
+          let box = el?.parentElement;
+          while (box && !(/(auto|scroll)/.test(window.getComputedStyle(box).overflowY) && box.scrollHeight > box.clientHeight)) box = box.parentElement;
+          if (!el || !box) return;
+          const r = el.getBoundingClientRect(), b = box.getBoundingClientRect();
+          if (r.top >= b.top && r.top < b.bottom - 120) return;
+          box.scrollTo({ top: Math.max(0, Math.min(box.scrollTop + r.top - b.top - 12, box.scrollHeight - box.clientHeight)), behavior: 'smooth' });
+        }, 50);
       };
       if (!rows.length) return <Empty description={`${company.name}还没有填写产业链（切到本页的“__TABLE__”标签新增）`} />;
       const node = rows.find((r) => r.code === sel);

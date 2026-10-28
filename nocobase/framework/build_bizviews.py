@@ -270,7 +270,16 @@ function Shell({ eyebrow, headline, hint, stats, notice, main, detail, sel, deta
   const side = W >= minSide;
   React.useEffect(() => {
     if (first.current) { first.current = false; return; }
-    if (!side) detailRef.current?.scrollIntoView?.({ behavior: 'smooth', block: 'start' });
+    // 只滚动最近的滚动容器：scrollIntoView 会连外层框架和窗口一起滚，详情较短时页面底部会露出空白
+    const el = detailRef.current;
+    if (side || !el) return;
+    let box = el.parentElement;
+    while (box && !(/(auto|scroll)/.test(window.getComputedStyle(box).overflowY) && box.scrollHeight > box.clientHeight)) box = box.parentElement;
+    if (!box) return;
+    const r = el.getBoundingClientRect(), b = box.getBoundingClientRect();
+    if (r.top >= b.top && r.top < b.bottom - 120) return;       // 详情开头已在视野内
+    const top = Math.min(box.scrollTop + r.top - b.top - 12, box.scrollHeight - box.clientHeight);
+    box.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
   }, [sel]);
   return (
     <div ref={rootRef} style={{ maxWidth: 1480, margin: '0 auto', padding: '8px 8px 16px' }}>
@@ -454,7 +463,7 @@ const COLS = [
   ['真实壁垒', '能持续带来超额回报'], ['局部优势', '有优势，但范围有限或可被追赶'], ['待验证', '证据还不够'], ['伪壁垒', '看起来像壁垒，其实不是'],
 ];
 const STRENGTH = { 强: 3, 中: 2, 弱: 1, 无: 0 };
-const unproven = (m) => m.verdict !== '伪壁垒' && !(m.theses || []).some((x) => x.category === '壁垒');
+const unproven = (m) => m.verdict !== '伪壁垒' && !(m.theses || []).some((x) => x.category === '经营');
 
 function Bars({ v }) {
   const { t } = useUI();
@@ -517,7 +526,7 @@ function Detail({ m, refs }) {
       <Attrs items={[['判定', <Status label={m.verdict || '未判定'} color={verdict[m.verdict]} size={15} strong />], ['强度', m.strength], ['趋势', m.trend],
                      ['自动检查', m.check_result || '未设置']]} />
       <LinkList label="论证它的论点" items={ts.map((x) => ({ code: x.code, title: `${x.title}（${x.category || ''}）`, tag: x.status || '未裁决', color: status[x.status] }))} />
-      {unproven(m) ? <Notice items={['关联的论点都不是壁垒类：这项壁垒能否持续，还没有专门正反辩论过。']} /> : null}
+      {unproven(m) ? <Notice items={['没有关联经营类论点：这项壁垒能否持续，还没有专门正反辩论过。']} /> : null}
       <Section label="机制" text={m.mechanism} refs={refs} />
       <Section label="财务体现" text={m.financial_link} refs={refs} tone="key" />
       <Section label="证据" text={m.evidence} refs={refs} tone="pro" />
@@ -541,7 +550,7 @@ boot('竞争壁垒', async (company, scope) => {
     const groups = COLS.map(([v, hint]) => [v, hint, rows.filter((m) => m.verdict === v)]);
     const other = rows.filter((m) => !COLS.some(([v]) => v === m.verdict));
     if (other.length) groups.push(['未判定', '还没有判定', other]);
-    const todo = rows.filter(unproven).map((m) => `${m.code} ${short(m.title)}：关联的 ${(m.theses || []).map((x) => x.code).join('、') || '—'} 不是壁垒类论点，能否持续还没专门辩论`)
+    const todo = rows.filter(unproven).map((m) => `${m.code} ${short(m.title)}：关联的 ${(m.theses || []).map((x) => x.code).join('、') || '—'} 不是经营类论点，能否持续还没专门辩论`)
       .concat(rows.filter((m) => m.check_result === '已触发').map((m) => `${m.code} ${short(m.title)}：自动检查已触发，需要复核判定`));
     const headline = real.length ? `护城河来自 ${real.map((m) => short(m.title, 20)).join('、')}` : '还没有确认的真实壁垒';
     const board = (w) => {

@@ -17,6 +17,9 @@ SELECT b.id,
        b.price_unit,
        b.is_default,
        b.scope_breaks,
+       b.pe_ttm,
+       b.pb,
+       b.pe_pb_date,
        b.profile,
        b.notes,
        b.price_metric_id,
@@ -34,10 +37,10 @@ COMMENT ON VIEW vi_company IS '公司（界面视图：输入列＋自动计算�
 CREATE OR REPLACE FUNCTION vi_company_dml() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_company_base (code, name, exchange, industry, currency, volume_label, volume_unit, price_label, price_unit, is_default, scope_breaks, profile, notes, price_metric_id, price_fx_metric_id) VALUES (NEW.code, NEW.name, NEW.exchange, NEW.industry, NEW.currency, NEW.volume_label, NEW.volume_unit, NEW.price_label, NEW.price_unit, NEW.is_default, NEW.scope_breaks, NEW.profile, NEW.notes, NEW.price_metric_id, NEW.price_fx_metric_id) RETURNING id INTO NEW.id;
+    INSERT INTO vi_company_base (code, name, exchange, industry, currency, volume_label, volume_unit, price_label, price_unit, is_default, scope_breaks, pe_ttm, pb, pe_pb_date, profile, notes, price_metric_id, price_fx_metric_id) VALUES (NEW.code, NEW.name, NEW.exchange, NEW.industry, NEW.currency, NEW.volume_label, NEW.volume_unit, NEW.price_label, NEW.price_unit, NEW.is_default, NEW.scope_breaks, NEW.pe_ttm, NEW.pb, NEW.pe_pb_date, NEW.profile, NEW.notes, NEW.price_metric_id, NEW.price_fx_metric_id) RETURNING id INTO NEW.id;
     RETURN NEW;
   ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_company_base SET code = NEW.code, name = NEW.name, exchange = NEW.exchange, industry = NEW.industry, currency = NEW.currency, volume_label = NEW.volume_label, volume_unit = NEW.volume_unit, price_label = NEW.price_label, price_unit = NEW.price_unit, is_default = NEW.is_default, scope_breaks = NEW.scope_breaks, profile = NEW.profile, notes = NEW.notes, price_metric_id = NEW.price_metric_id, price_fx_metric_id = NEW.price_fx_metric_id WHERE id = OLD.id;
+    UPDATE vi_company_base SET code = NEW.code, name = NEW.name, exchange = NEW.exchange, industry = NEW.industry, currency = NEW.currency, volume_label = NEW.volume_label, volume_unit = NEW.volume_unit, price_label = NEW.price_label, price_unit = NEW.price_unit, is_default = NEW.is_default, scope_breaks = NEW.scope_breaks, pe_ttm = NEW.pe_ttm, pb = NEW.pb, pe_pb_date = NEW.pe_pb_date, profile = NEW.profile, notes = NEW.notes, price_metric_id = NEW.price_metric_id, price_fx_metric_id = NEW.price_fx_metric_id WHERE id = OLD.id;
     RETURN NEW;
   ELSE
     DELETE FROM vi_company_base WHERE id = OLD.id;

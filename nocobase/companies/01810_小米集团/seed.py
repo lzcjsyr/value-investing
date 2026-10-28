@@ -494,7 +494,7 @@ def facts():
 # 2026-10-23 重构：原投资论点 10 条与多空辩论 5 场合并为 9 条，每个观点只写一处；描述性内容在商业模式、产业链、竞争壁垒里，这里按编号引用。
 #   T1＝原 T1＋D1；T2＝原 T2＋D2；T3＝原 T3＋D3；T4＝原 T4＋D4；T5—T7＝原 T5—T7；T8＝原 T8＋T9；T9＝原 T10＋D5。
 THESES = [
-    dict(code='T1', title='生态用户与互联网变现是真壁垒：硬件按成本获客，互联网服务赚钱', category='壁垒', status='成立', confidence='中',
+    dict(code='T1', title='生态用户与互联网变现是真壁垒：硬件按成本获客，互联网服务赚钱', category='经营', status='成立', confidence='中',
          bull_case='1）硬件按接近成本卖出（综合毛利率约 20%，扣除研发、销售、行政后接近盈亏平衡），利润来自互联网：2025 年互联网服务毛利 286.4 亿元，几乎等于生态经营利润 278.4 亿元（B9）。'
                    '2）月活连续十年增长、互联网毛利率稳定在 75%—78%（M1）：硬件卖得再便宜，只要设备在用户手里，每个用户每年就有约 50 元的高毛利收入（B9）。'
                    '3）11.6 亿台 IoT 设备和米家、小爱的高活跃让用户难以离开。',
@@ -1132,6 +1132,32 @@ def line_annual():
     return rows
 
 
+def segment_margin_rows():
+    """分部毛利率的补充（公告披露的毛利÷收入）：其他相关业务（年度 2019 起、单季 2024Q1 起）；两大分部的全年值（四个季度齐全的年份）。"""
+    def row(p, end, item, val, kind, s, summ=None):
+        return dict(company_id=Raw(CO), period=p, period_end=end, period_kind=kind, line_item=item, value=round(val, 2), unit='%',
+                    yoy=None, summary=summ, status='无需入模', source_id=src(s))
+    rows = []                    # 先写单季：指标按第一条数据的口径建（主口径单季，与其他分项毛利率一致）
+    for p in sorted(Q):
+        q = Q[p]
+        s = S_Q226 if p == '2026Q2' else S_Q126 if p == '2026Q1' else S_FY25 if p == '2025Q4' else S_Q325 if p == '2025Q3' else S_Q225 if p == '2025Q2' else S_Q125
+        orv, og = q[2] - q[4] - q[5] - q[6], q[7] - q[9] - q[10] - q[11]
+        rows.append(row(p, q[0], '其他相关业务毛利率', og / orv * 100, '单季', s,
+                        f'分部合计减手机、IoT、互联网：收入 {orv:.2f} 亿元、毛利 {og:.2f} 亿元'))
+    rows += [row(str(y), f'{y}-12-31', '其他相关业务毛利率', og / orv * 100, '全年', S_FY25 if y == 2025 else S_HIST,
+                 '2023 年及以前为“其他”' if y <= 2023 else None)
+             for y, (*_, orv, og) in LINE_HIST.items()]
+    for y in sorted({int(p[:4]) for p in Q}):
+        qs = [Q.get(f'{y}Q{i}') for i in range(1, 5)]
+        if not all(qs):
+            continue
+        s = S_FY25 if y == 2025 else S_Q125
+        for item, r, g in (('手机×AIoT 分部毛利率', 2, 7), ('汽车及AI分部毛利率', 3, 8)):
+            rev, gp = sum(x[r] for x in qs), sum(x[g] for x in qs)
+            rows.append(row(str(y), f'{y}-12-31', item, gp / rev * 100, '全年', s, f'毛利 {gp:.2f}÷收入 {rev:.2f} 亿元（四个季度合计）'))
+    return rows
+
+
 ANNUAL = [  # 期间, 项目, 数值, 单位, 来源, 摘要
     *[(str(y), '全球月活跃用户（12 月）', v * 100, '百万人', S_HIST if y < 2025 else S_FY25, None) for y, v in VOLUME.items()],
     *[(str(y), '智能手机出货量', v, '百万台', S_HIST if y < 2025 else S_FY25, None)
@@ -1212,6 +1238,7 @@ def period_data():
             add(p, end, '回购（港元）', BUYBACK_Q[p], '亿港元', None, None, S_Q226)
     for per, item, val, unit, s, summ in ANNUAL:
         add(per, f'{per}-12-31', item, val, unit, None, summ, s, kind='全年')
+    out += segment_margin_rows()
     put_disclosed(out)
 
 

@@ -74,7 +74,7 @@ FROM vi_company_base c WHERE c.id = {co} AND NOT EXISTS (SELECT 1 FROM vi_metric
         out.append(f"UPDATE vi_metric_base SET basis = {lit(m['basis'])} WHERE id = {metric(co, m)};")
     for t, key in (('judgment', 'judgment_metrics'), ('risk', 'risk_metrics')):
         for code, m in d.get(key, []):
-            out.append(f"INSERT INTO vi_lnk_{t}_metrics ({t}_id, metric_id) SELECT x.id, {metric(co, m)} FROM vi_{t}_base x "
+            out.append(f"INSERT INTO vi_lnk_{t}_metrics ({t}_id, metric_id, \"createdAt\", \"updatedAt\") SELECT x.id, {metric(co, m)}, now(), now() FROM vi_{t}_base x "
                        f"WHERE x.company_id = {co} AND x.code = {lit(code)} AND {metric(co, m)} IS NOT NULL ON CONFLICT DO NOTHING;")
     for t, code, col, text in d.get('text', []):
         out.append(f"UPDATE vi_{t}_base SET {col} = {lit(text)} WHERE company_id = {co} AND code = {lit(code)};")
