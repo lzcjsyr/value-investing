@@ -1,0 +1,82 @@
+{
+  "data": {
+    "id": 394578391662592,
+    "createdAt": "2026-10-28T07:47:18.456Z",
+    "updatedAt": "2026-10-28T07:47:18.456Z",
+    "dataSourceKey": "main",
+    "roleName": "r_tencent_music_reader",
+    "name": "vi_fin_forecast",
+    "usingActionsConfig": true,
+    "actions": [
+      {
+        "id": 394578391662593,
+        "createdAt": "2026-10-28T07:47:18.479Z",
+        "updatedAt": "2026-10-28T07:47:18.479Z",
+        "name": "view",
+        "fields": [
+          "acq_amort",
+          "adj_np",
+          "admin",
+          "admin_ratio",
+          "capex",
+          "cfo",
+          "cfo_ratio",
+          "core_op",
+          "core_op_margin",
+          "eps",
+          "equity_income",
+          "fcf",
+          "finance_cost",
+          "gross_margin",
+          "gross_profit",
+          "id",
+          "income_tax",
+          "minority",
+          "minority_share",
+          "model",
+          "model_id",
+          "net_cash_end",
+          "net_profit",
+          "nonsub_rev",
+          "note",
+          "np_parent",
+          "other_cash",
+          "other_income",
+          "pretax",
+          "revenue",
+          "sbc",
+          "selling",
+          "selling_ratio",
+          "shareholder_return",
+          "social_rev",
+          "sub_rev",
+          "tax_rate",
+          "updated_at",
+          "year"
+        ],
+        "scopeId": 394372782227456,
+        "rolesResourceId": 394578391662592,
+        "scope": {
+          "id": 394372782227456,
+          "createdAt": "2026-10-27T04:33:16.044Z",
+          "updatedAt": "2026-10-27T04:33:16.044Z",
+          "key": "2hsz40il8hj",
+          "dataSourceKey": "main",
+          "name": "腾讯音乐只读-via_model",
+          "resourceName": null,
+          "scope": {
+            "$and": [
+              {
+                "model": {
+                  "company_id": {
+                    "$eq": 11
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

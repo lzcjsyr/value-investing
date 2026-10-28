@@ -1,0 +1,55 @@
+{
+  "base_cny": 45.626107791423856,
+  "base_hkd": 53.70304589386047,
+  "quote_hkd": 33.1,
+  "fx_cny_per_hkd": 0.8496,
+  "shares_100m": 31.5,
+  "cash_duplicate_100m": 0.72,
+  "cash_duplicate_per_share_cny": 0.022857142857142857,
+  "cash_duplicate_per_share_hkd": 0.026903416733925208,
+  "amortization_addback_pretax_100m": 6.3,
+  "amortization_addback_value_per_share_cny": 2.0161091496718115,
+  "amortization_addback_value_per_share_hkd": 2.3730098277681395,
+  "ni_adjustment_illustration": {
+    "2026": {
+      "shown": 100.76741874999999,
+      "uniform_tax_and_minority_illustration": 98.17066874999999,
+      "difference": 2.59675
+    },
+    "2027": {
+      "shown": 102.67107625,
+      "uniform_tax_and_minority_illustration": 99.47507625,
+      "difference": 3.195999999999998
+    },
+    "2028": {
+      "shown": 104.76453024999999,
+      "uniform_tax_and_minority_illustration": 101.56853025,
+      "difference": 3.195999999999998
+    }
+  },
+  "discount_rate_sensitivity": {
+    "0.086": {
+      "cny": 45.626107791423856,
+      "hkd": 53.70304589386047
+    },
+    "0.1": {
+      "cny": 39.56545690596929,
+      "hkd": 46.56951142416348
+    },
+    "0.11": {
+      "cny": 36.39138205526037,
+      "hkd": 42.833547616831886
+    },
+    "0.12": {
+      "cny": 33.852522958985986,
+      "hkd": 39.845248303891225
+    }
+  },
+  "cash_50pct_sensitivity_hkd": 49.7347919256065,
+  "debt_like_items_100m": {
+    "investment_payable": 4.1,
+    "acquisition_consideration_liability": 3.24,
+    "nci_put_liability": 4.48,
+    "total_review_not_automatic_deduction": 11.82
+  }
+}

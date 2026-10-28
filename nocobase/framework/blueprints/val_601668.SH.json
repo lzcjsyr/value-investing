@@ -1,14 +1,8 @@
 {
  "version": "1",
- "mode": "create",
- "navigation": {
-  "group": {
-   "routeId": 393515397414912
-  },
-  "item": {
-   "title": "估值",
-   "icon": "FundOutlined"
-  }
+ "mode": "replace",
+ "target": {
+  "pageSchemaUid": "3ahm4oasj5y"
  },
  "page": {
   "title": "估值",

@@ -887,14 +887,6 @@
     "name": "对外上市股权（公允价值）",
     "unit": "亿元"
    }
-  },
-  {
-   "code": "C8",
-   "scenario": null,
-   "metric": {
-    "name": "少数股东权益",
-    "unit": "亿元"
-   }
   }
  ],
  "new_stmt": [

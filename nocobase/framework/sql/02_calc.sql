@@ -1233,7 +1233,8 @@ WITH b AS (
 ), h AS (
   SELECT g.*, net_profit * coalesce(minority_share, 0) AS minority, net_profit * (1 - coalesce(minority_share, 0)) AS np_parent FROM g
 ), i AS (
-  SELECT h.*, np_parent + coalesce(sbc, 0) + coalesce(acq_amort, 0) AS adj_np, np_parent / NULLIF(shares, 0) AS eps,
+  -- 经调整归母：股权激励按不可抵税、收购摊销按税后加回，再归母（2026-10-28）
+  SELECT h.*, np_parent + (coalesce(sbc, 0) + coalesce(acq_amort, 0) * (1 - tax_rate)) * (1 - coalesce(minority_share, 0)) AS adj_np, np_parent / NULLIF(shares, 0) AS eps,
          np_parent * cfo_ratio AS cfo FROM h
 ), j AS (
   SELECT i.*, cfo - coalesce(capex, 0) AS fcf FROM i

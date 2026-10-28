@@ -637,7 +637,7 @@ async function renderThree(D, full) {
     { key: 'e1', label: '① 主营业务', j: [], f: (s) => s.segments_value },
     { key: 'e2', label: '＋ ② 可分配的自由现金', j: [], f: (s) => s.usable_net_cash },
     { key: 'e3', label: '＋ ③ 对外投资', j: [], f: (s) => s.investments },
-    { key: 'd', label: '− 少数股东权益', j: [], f: (s) => s.minority_other },
+    { key: 'd', label: '− 投资应付款与少数股东份额（3%）', j: [], f: (s) => s.minority_other },
     { key: 'e', label: '＝ 股权价值（亿元）', j: [], f: (s) => s.equity_value, strong: true },
     { key: 'sh', label: '÷ 股本（亿股）', j: [], f: () => model.shares, d: 2 },
     { key: 'f', label: '＝ 每股价值（元人民币）', j: [], f: (s) => s.value_per_share, strong: true, d: 2 },
@@ -699,7 +699,7 @@ async function renderThree(D, full) {
       <Card size="small" style={{ marginBottom: 12 }} title="① 主营业务：2027 年收入 × 利润率 ×（1 − 税率）× 归母比例 × 倍数，折回资产负债日">
         <Paragraph style={{ marginBottom: 8 }}>
           <Text strong>利润率</Text>＝核心经营利润率＝（毛利 − 销售费用 − 管理费用 ＋ 七成收购摊销）÷ 收入。税前；不含利息收入、投资收益与融资成本（它们来自现金、持股和借款，在下面的自由现金、对外投资里单独计价）；股权激励作为成本扣除。
-          税率 {pct(segs[0]?.tax_rate, 1)}，归母比例 {pct(segs[0]?.attrib, 0)}（扣除少数股东约 3% 的利润）。
+          税率 {pct(segs[0]?.tax_rate, 1)}，归母比例 {pct(segs[0]?.attrib, 0)}（扣除少数股东约 3% 的利润；非经营资产净额同样扣 3%，见资产项 C8）。
         </Paragraph>
         <Table size="small" pagination={false} rowKey="key" dataSource={segRows} columns={segCols} scroll={{ x: 'max-content' }} />
         <Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0 }}>
@@ -789,7 +789,7 @@ try {
     { label: '所得税', k: 'income_tax', neg: true }, { label: '　税率', f: (c) => ratio(c.v.income_tax, c.v.pretax), pct: true, sub: true },
     { label: '少数股东损益', k: 'minority', neg: true },
     { label: '归母净利润', k: 'np_parent', strong: true }, { label: '　同比', f: growth('np_parent'), pct: true, sub: true },
-    { label: '经调整归母净利润（加回股权激励与收购摊销）', k: 'adj_np' },
+    { label: '经调整归母净利润（加回股权激励与税后收购摊销，归母）', k: 'adj_np' },
     { label: '每股收益（元）', k: 'eps', d: 2 },
     { section: '现金摘要（亿元）' },
     { label: '经营现金流', k: 'cfo' }, { label: '资本开支', k: 'capex', neg: true },
