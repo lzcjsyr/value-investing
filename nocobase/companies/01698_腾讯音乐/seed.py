@@ -509,11 +509,11 @@ THESES = [
          facts=[F_REV, F_Q2, F_H1, F_GM, F_XM, F_MGMT, F_SOC]),
     dict(code='T5', title='治理与股东回报：腾讯控股下，利润和超额现金会持续回到少数股东手里', category='治理', status='观察', confidence='低',
          bull_case='1）2026 年二季度单季回购 4 亿美元（约占股本 2.8%），9 月发行 10 亿美元票据，用途写明含回购；管理层称准备新一轮回购、探讨不同的股东回报方式。'
-                   '2）2023 年起每年分红，每股 0.07 → 0.09 → 0.12 美元；回购 2021—2024 年每年 12—35 亿元。'
+                   '2）自 2023 财年起宣派年度股息（自 2024 年实际支付），每股 0.07 → 0.09 → 0.12 美元；回购 2021—2024 年每年 12—35 亿元。'
                    '3）净现金约 273 亿元、经营现金流约 100 亿元/年、资本开支只要约 12 亿元：钱足够，再投资需求很低（B9、T6）。'
                    '4）扣除非经营资产后，主营只值约 6 倍核心盈利（估值模型口径），此时回购的每股增值效果大。'
                    '5）腾讯控股是控股股东（列为非全资附属公司），在视频号、元宝、广告与支付上提供生态协同，也从回购中被动增持，利益大体一致。',
-         bear_case='1）历史回报率只有 26%—60%（2023—2025 年）：2025 年回购只有 3.9 亿元，回报率 26%（剔除一次性收益后 33%）。'
+         bear_case='1）实际现金回报占归母净利润约 21%—52%（2023—2025 年）：2025 年回购现金支出 3.9 亿元、实付股息 19.81 亿元，现金回报占归母净利润 21.4%（剔除 23.73 亿元一次性收益后约 27.3%）。'
                    '2）刚花约 86 亿元现金加新股收购喜马拉雅：现金也可能继续用于并购（T4）。'
                    '3）现金主要在境内，汇出要缴预提税并受外汇管理；借约 5% 的美元去回购、同时在境内存约 2% 的人民币，说明资金调度有摩擦（T7）。'
                    '4）没有正式的股东回报政策（比例或金额承诺）；控股股东可能让腾讯音乐承担生态任务（如接手视频号音乐运营），而不是最大化股东回报。'
@@ -524,7 +524,7 @@ THESES = [
                  '估值把约 212 亿元自由现金按“能分的钱”全额计入（J-CASH），这条论点决定这部分最终能有多少回到股东手里。',
          decisive_evidence='新一轮回购计划的规模与期限；2026 年度股息；境外资金来源（新发债、境内分红汇出）；关联交易（腾讯云、广告、版权）与董事会构成。',
          mind_changer='正方胜：宣布每年 10 亿美元以上的回购或明确的股东回报比例。反方胜：现金再用于大额并购，或回购节奏回到 2025 年的水平，或出现明显损害少数股东的关联交易。'
-                      '自动检查：股东回报率（股息＋回购÷归母净利润）连续两年低于 50%。',
+                      '自动检查：（当年实付股息＋现金回购）÷归母净利润连续两年低于 50%。',
          model_impact='派息率（股东回报率）是第一跟踪项',
          external_view='中金（2026-09）：腾讯音乐 2026 年股东回报率约 2.9%（按当时口径，未含新一轮回购）。摩根大通（2026-08）：把“回购价持续低于公允价值”列为资本回报的验证条件。',
          debated_on='2026-10-22', check_metric='派息率', check_op='<', check_threshold=0.5, check_years=2,
@@ -635,13 +635,13 @@ JUDGMENTS = [
     dict(code='J-CASH', title='可分配的自由现金：扣掉有息负债与经营所需', parameter='分部估值项·C1 现金、C2 带息负债、C4 资金汇出成本（C3 经营所需现金见 J-OPCASH）', affected_years='资产负债日 2026-06-30',
          fact_layer='2026 年 6 月末：现金等 442.22 亿元、带息负债 168.84 亿元。境内未分派利润 172.5 亿元，对应 10% 预提税 17.3 亿元（2025 年末），2026 年上半年境内利润约 45 亿元。'
                     '浮存金（应付账款、递延收入、其他应付、应付税项、长期应付，减应收、预付与存货）：2021—2025 年末 35、54、51、67、67 亿元，2026 年 6 月 81 亿元（含喜马拉雅）；2021—2023 年收入降 11%，浮存金反而增加。'
-                    '核心自由现金流 2022—2025 年合计 275 亿元，为税后核心经营利润的 1.33 倍；同期股息＋回购只有 104 亿元（38%），净现金从 194 亿元增至 343 亿元。',
+                    '核心自由现金流 2022—2025 年合计 275 亿元，为税后核心经营利润的 1.33 倍；同期实际现金股息＋回购合计 101.8 亿元（约 37%），净现金从 194 亿元增至 343 亿元。',
          judgment='自由现金＝现金 442.9（C1，报表接口口径，含流动其他投资 0.72）− 带息负债 168.8 − 经营所需 40 − 汇出预提税 21.7 ≈ 212 亿元，三情景相同。'
                   '①带息负债全额扣除：借款与票据要还，借来的钱不是股东的。'
                   '②经营所需现金 40 亿元：日常周转、季节性波动与压力缓冲三块，测算与“为什么不扣全部浮存金”见 J-OPCASH。'
                   '③汇出预提税：现金大部分在境内，分给境外股东前要缴 10% 预提税（17.3＋上半年约 4.5 亿元）。'
                   '④存量与流量不重复：6 月末之前攒下的现金算在这里，之后产生的现金在主营价值里。'
-                  '⑤这是“能分的钱”，不是“会分的钱”：过去四年只还了 38%，能否回到股东手里见 T5。',
+                  '⑤这是“能分的钱”，不是“会分的钱”：过去四年实际现金回报约占核心自由现金流的 37%，能否回到股东手里见 T5。',
          transmission='每 10 亿元自由现金约合每股 0.32 元（约 0.38 港元）；若把浮存金全部扣除（再减约 45 亿元），每股约 −1.4 元。',
          change_threshold='季度现金或借款变化超过 30 亿元；资金汇出安排变化。', no_change_condition='季度内的回购与股息（同时减少现金与股本，按市价回购对每股价值影响小）。',
          counter_evidence='如果现金被拿去做低回报并购（喜马拉雅初始回报约 4%）而不是回报股东，这部分价值要打折。',
@@ -1217,6 +1217,36 @@ def tracking():
     ])
 
 
+def shareholder_cash_returns():
+    """实际支付口径的股息、回购；与股息归属年度分开保存。"""
+    audit = json.loads((DATA / 'shareholder_cash_returns.json').read_text())
+    for source in audit['sources']:
+        OUT.append(f"""INSERT INTO vi_source_base
+(company_id, title, source_type, publisher, publish_date, url, reliability, verify_status, retrieved_on, summary)
+SELECT {CO}, {lit(source['title'])}, '定期报告', '腾讯音乐', {lit(source['publish_date'])}, {lit(source['url'])},
+       '一级·法定披露', '已读原文', {lit(audit['verified_on'])}, {lit(audit['basis'])}
+WHERE NOT EXISTS (SELECT 1 FROM vi_source_base WHERE company_id={CO} AND title={lit(source['title'])});""")
+    for code, name, column in [
+        ('01698.HK.CASH_DIV_PAID', '实付本公司股东现金股息', 'cash_dividend_rmb_million'),
+        ('01698.HK.BUYBACK_CASH_PAID', '现金回购支出', 'buyback_rmb_million'),
+    ]:
+        OUT.append(f"""INSERT INTO vi_metric_base
+(code, name, unit, category, source_kind, basis, source_name, frequency, notes, company_id)
+SELECT {lit(code)}, {lit(name)}, '亿元', '财务', '公司披露', '全年', '20-F合并现金流量表', '年',
+       {lit(audit['basis'])}, {CO}
+WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id={CO} AND name={lit(name)});""")
+        metric_id = f"(SELECT id FROM vi_metric_base WHERE company_id={CO} AND name={lit(name)} LIMIT 1)"
+        for row in audit['rows']:
+            year = str(row['year'])
+            title = next(s['title'] for s in audit['sources'] if s['year'] == row['source_year'])
+            doc_id = f"(SELECT id FROM vi_source_base WHERE company_id={CO} AND title={lit(title)} LIMIT 1)"
+            OUT.append(f"DELETE FROM vi_observation_base WHERE metric_id={metric_id} AND basis='全年' AND period={lit(year)};")
+            OUT.append(f"""INSERT INTO vi_observation_base
+(metric_id, obs_date, period, basis, value, summary, collected_at, doc_id)
+VALUES ({metric_id}, '{year}-12-31', {lit(year)}, '全年', {row[column] / 100},
+        {lit(audit['basis'])}, now(), {doc_id});""")
+
+
 if __name__ == '__main__':
     OUT.append('BEGIN;')
     company_and_metrics()
@@ -1228,6 +1258,7 @@ if __name__ == '__main__':
     period_data(); model(); tracking()
     OUT.extend(data_layer_seed.fin_stmt_statements(CO, HERE / 'data' / 'fin_stmt.json'))   # 三大报表原值（报表计算指标读它）
     OUT.extend(data_layer_seed.statements(CO, HERE / 'data' / 'data_layer.json'))   # 关注与数据底稿补充，放最后
+    shareholder_cash_returns()
     OUT.append('COMMIT;')
     (HERE / 'seed.sql').write_text('\n\n'.join(OUT) + '\n')
     print('seed.sql written,', sum(s.count('\n') for s in OUT), 'lines')

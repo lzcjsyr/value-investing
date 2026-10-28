@@ -1,0 +1,43 @@
+{
+  "usingActionsConfig": true,
+  "actions": [
+    {
+      "id": 394372805296189,
+      "name": "view",
+      "fields": [
+        "attrib",
+        "business_id",
+        "code",
+        "earn_year",
+        "earnings",
+        "id",
+        "method",
+        "model_id",
+        "multiple_used",
+        "name",
+        "op_margin",
+        "revenue",
+        "scenario_id",
+        "scenario_name",
+        "segment_id",
+        "tau",
+        "tax_rate",
+        "value"
+      ],
+      "scope": {
+        "name": "腾讯音乐只读-model_57",
+        "dataSourceKey": "main",
+        "key": "tencent_music_model_57_reader_193251",
+        "scope": {
+          "$and": [
+            {
+              "model_id": {
+                "$eq": 57
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

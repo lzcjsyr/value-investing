@@ -1,0 +1,69 @@
+{
+  "verified_on": "2026-10-28",
+  "basis": "当年实际支付给本公司股东的现金股息＋现金流量表回购股份付款；不含向非控股股东派息；回购为现金支出毛额，不扣员工行权所得。",
+  "excludes": "股息归属年度与支付年度分开。2025年度每股0.12美元股息于2026年支付，未计入2025年实际现金回报。现金回报占利润不是投资者持有收益率。",
+  "sources": [
+    {
+      "year": 2022,
+      "title": "腾讯音乐 2022 年 20-F（股东现金回报）",
+      "url": "https://www.sec.gov/Archives/edgar/data/1744676/000095017023014459/tme-20221231.htm",
+      "publish_date": "2023-04-25"
+    },
+    {
+      "year": 2024,
+      "title": "腾讯音乐 2024 年 20-F（股东现金回报）",
+      "url": "https://www.sec.gov/Archives/edgar/data/1744676/000095017025056949/tme-20241231.htm",
+      "publish_date": "2025-04-23"
+    },
+    {
+      "year": 2025,
+      "title": "腾讯音乐 2025 年 20-F（股东现金回报）",
+      "url": "https://www.sec.gov/Archives/edgar/data/1744676/000119312526160257/tme-20251231.htm",
+      "publish_date": "2026-04-23"
+    }
+  ],
+  "rows": [
+    {
+      "year": 2020,
+      "cash_dividend_rmb_million": 0,
+      "buyback_rmb_million": 134,
+      "total_rmb_100million": 1.34,
+      "source_year": 2022
+    },
+    {
+      "year": 2021,
+      "cash_dividend_rmb_million": 0,
+      "buyback_rmb_million": 3479,
+      "total_rmb_100million": 34.79,
+      "source_year": 2022
+    },
+    {
+      "year": 2022,
+      "cash_dividend_rmb_million": 0,
+      "buyback_rmb_million": 3127,
+      "total_rmb_100million": 31.27,
+      "source_year": 2024
+    },
+    {
+      "year": 2023,
+      "cash_dividend_rmb_million": 0,
+      "buyback_rmb_million": 1249,
+      "total_rmb_100million": 12.49,
+      "source_year": 2025
+    },
+    {
+      "year": 2024,
+      "cash_dividend_rmb_million": 1508,
+      "buyback_rmb_million": 1925,
+      "total_rmb_100million": 34.33,
+      "source_year": 2025
+    },
+    {
+      "year": 2025,
+      "cash_dividend_rmb_million": 1981,
+      "buyback_rmb_million": 390,
+      "total_rmb_100million": 23.71,
+      "source_year": 2025
+    }
+  ]
+}

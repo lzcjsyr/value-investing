@@ -1,0 +1,22 @@
+{
+  "companies": {
+    "unchanged": true,
+    "rows": 4
+  },
+  "models": {
+    "unchanged": true,
+    "rows": 4
+  },
+  "valuation": {
+    "unchanged": true,
+    "rows": 12
+  },
+  "sotp": {
+    "unchanged": true,
+    "rows": 3
+  },
+  "checks": {
+    "unchanged": true,
+    "rows": 76
+  }
+}

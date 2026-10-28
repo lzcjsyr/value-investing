@@ -1,0 +1,547 @@
+{
+  "data": {
+    "key": "eq7xy68zj9d",
+    "name": "vi_valuation",
+    "title": "估值结论",
+    "inherit": false,
+    "hidden": false,
+    "description": "每个情景的估值结论；引用【估值模型】【情景】【预测计算】；被【单参数试验】【分部加总估值】【敏感性：折现率×永续增长】【自动检查】引用。每个情景一行：股息贴现价值（基准日与今天）、现金支持价值、终值占比、关注价与市场价对照。研究结论，不是交易指令。",
+    "fields": [
+      {
+        "key": "tapjs0u6mqt",
+        "name": "id",
+        "type": "bigInt",
+        "interface": "id",
+        "description": null,
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "ID",
+          "x-component": "InputNumber",
+          "x-read-pretty": true
+        },
+        "primaryKey": true,
+        "allowNull": false,
+        "autoIncrement": true
+      },
+      {
+        "key": "a8j9yt8qsyf",
+        "name": "company_name",
+        "type": "string",
+        "interface": "input",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "公司",
+          "x-component": "Input"
+        }
+      },
+      {
+        "key": "nejpcp1vhg0",
+        "name": "model_name",
+        "type": "string",
+        "interface": "input",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "模型",
+          "x-component": "Input"
+        }
+      },
+      {
+        "key": "capp8c58ao1",
+        "name": "scenario_name",
+        "type": "string",
+        "interface": "input",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "情景",
+          "x-component": "Input"
+        }
+      },
+      {
+        "key": "6bhksxyewsg",
+        "name": "is_base",
+        "type": "boolean",
+        "interface": "checkbox",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "boolean",
+          "title": "基准情景",
+          "x-component": "Checkbox"
+        }
+      },
+      {
+        "key": "i5gm6d8df8q",
+        "name": "discount_rate",
+        "type": "float",
+        "interface": "percent",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "折现率",
+          "x-component": "Percent",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.01",
+            "addonAfter": "%"
+          }
+        }
+      },
+      {
+        "key": "rddc4gmodyr",
+        "name": "terminal_growth",
+        "type": "float",
+        "interface": "percent",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "永续增长率",
+          "x-component": "Percent",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.01",
+            "addonAfter": "%"
+          }
+        }
+      },
+      {
+        "key": "bzrpf533igx",
+        "name": "value_base_date",
+        "type": "double",
+        "interface": "number",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "每股价值·基准日（元）",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.01"
+          }
+        }
+      },
+      {
+        "key": "g2bklabwdpp",
+        "name": "value_today",
+        "type": "double",
+        "interface": "number",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "每股价值·今天（元）",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.01"
+          }
+        }
+      },
+      {
+        "key": "zvvf0xbmflf",
+        "name": "cash_value_today",
+        "type": "double",
+        "interface": "number",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "现金支持价值·今天（元）",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.01"
+          }
+        }
+      },
+      {
+        "key": "gcyzjrkobu4",
+        "name": "pv_explicit",
+        "type": "double",
+        "interface": "number",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "预测期股息现值（亿元）",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.01"
+          }
+        }
+      },
+      {
+        "key": "b8hxcz641ip",
+        "name": "terminal_pv",
+        "type": "double",
+        "interface": "number",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "终值现值（亿元）",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.01"
+          }
+        }
+      },
+      {
+        "key": "zfvewf3vum2",
+        "name": "terminal_share",
+        "type": "float",
+        "interface": "percent",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "终值占比",
+          "x-component": "Percent",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.1",
+            "addonAfter": "%"
+          }
+        }
+      },
+      {
+        "key": "wh6e2ndcmrv",
+        "name": "market_price",
+        "type": "double",
+        "interface": "number",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "市场价（元）",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.01"
+          }
+        }
+      },
+      {
+        "key": "fh1tmda14jm",
+        "name": "market_date",
+        "type": "dateOnly",
+        "interface": "dateOnly",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "市场价日期",
+          "x-component": "DatePicker",
+          "x-component-props": {
+            "dateOnly": true,
+            "showTime": false
+          }
+        }
+      },
+      {
+        "key": "9boh3lz2oag",
+        "name": "price_vs_value",
+        "type": "float",
+        "interface": "percent",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "市场价相对今天价值",
+          "x-component": "Percent",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.1",
+            "addonAfter": "%"
+          }
+        }
+      },
+      {
+        "key": "k5z7w5iv0ui",
+        "name": "watch_low",
+        "type": "double",
+        "interface": "number",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "关注价·低档边际（元）",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.01"
+          }
+        }
+      },
+      {
+        "key": "ni51wrzrr7g",
+        "name": "watch_high",
+        "type": "double",
+        "interface": "number",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "关注价·高档边际（元）",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.01"
+          }
+        }
+      },
+      {
+        "key": "nhoumty78gh",
+        "name": "years_complete",
+        "type": "boolean",
+        "interface": "checkbox",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "boolean",
+          "title": "预测年份完整",
+          "x-component": "Checkbox"
+        }
+      },
+      {
+        "key": "ce1hsh6owgj",
+        "name": "cash_years",
+        "type": "bigInt",
+        "interface": "integer",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "现金桥接完整年数",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "1"
+          },
+          "x-validator": "integer"
+        }
+      },
+      {
+        "key": "b6s0vegk527",
+        "name": "conclusion",
+        "type": "text",
+        "interface": "textarea",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "结论说明",
+          "x-component": "Input.TextArea"
+        }
+      },
+      {
+        "key": "bnczkybu5ig",
+        "name": "model_id",
+        "type": "bigInt",
+        "interface": "integer",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "模型ID",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "1"
+          },
+          "x-validator": "integer"
+        }
+      },
+      {
+        "key": "1dxl4p0cooq",
+        "name": "required_return",
+        "type": "float",
+        "interface": "percent",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "要求收益率",
+          "x-component": "Percent",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.1",
+            "addonAfter": "%"
+          }
+        }
+      },
+      {
+        "key": "ixc8wkj8eig",
+        "name": "implied_irr",
+        "type": "float",
+        "interface": "percent",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "隐含年化收益率",
+          "x-component": "Percent",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.01",
+            "addonAfter": "%"
+          }
+        }
+      },
+      {
+        "key": "47z2herisnb",
+        "name": "cash_implied_irr",
+        "type": "float",
+        "interface": "percent",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "隐含年化收益率·现金支持",
+          "x-component": "Percent",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.01",
+            "addonAfter": "%"
+          }
+        }
+      },
+      {
+        "key": "dnd4igtpdah",
+        "name": "irr_spread",
+        "type": "float",
+        "interface": "percent",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "string",
+          "title": "隐含收益率−要求收益率",
+          "x-component": "Percent",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.01",
+            "addonAfter": "%"
+          }
+        }
+      },
+      {
+        "key": "vd7kvz6blva",
+        "name": "value_at_required",
+        "type": "double",
+        "interface": "number",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "要求收益率下的最高买入价（元）",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "0.01"
+          }
+        }
+      },
+      {
+        "key": "c3mi50cnoaf",
+        "name": "company_id",
+        "type": "bigInt",
+        "interface": "integer",
+        "description": "",
+        "collectionName": "vi_valuation",
+        "parentKey": null,
+        "reverseKey": null,
+        "uiSchema": {
+          "type": "number",
+          "title": "公司ID",
+          "x-component": "InputNumber",
+          "x-component-props": {
+            "stringMode": true,
+            "step": "1"
+          },
+          "x-validator": "integer"
+        }
+      }
+    ],
+    "template": "view",
+    "view": true,
+    "schema": "public",
+    "writableView": false,
+    "filterTargetKey": "id",
+    "titleField": "scenario_name",
+    "sortable": false,
+    "viewName": "vi_valuation",
+    "unavailableActions": [
+      "create",
+      "update",
+      "destroy",
+      "importXlsx",
+      "destroyMany",
+      "updateMany"
+    ]
+  }
+}

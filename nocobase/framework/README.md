@@ -1,5 +1,7 @@
 # 价值投资研究框架（vi_）
 
+2026-10-28 腾讯音乐驾驶舱精简：现有地址不变，25 张图减为 12 张，两列、固定 360px 高度。首屏按已保存模型列出三情景估值，统一人民币与港元口径；分部价值改为瀑布桥接、单季收入改为堆叠柱、用户趋势仅用同口径单季披露，股东回报明确为现金股息加回购，股价标示港元普通股不复权。移除混合指标同比、口径不齐的竞品比较、重复估值图、状态饼图和独立利率/汇率图；壁垒、五力与论点明细仍在对应研究页。采集工具折叠至页尾。腾讯音乐专用配置在 `tencent_dashboard.py` / `tencent_dashboard_kpi.jsx`，`build_overview.py` 与 `align_companies.py` 均已接入；本次未重跑公司种子。
+
 2026-10-26 页面维护：四家公司的页面现由 `align_companies.py` 对标长江电力；商业模式可视化与原生编辑并列，财务模型内编辑逐年假设，腾讯音乐和小米的分部/资产项目在估值页内编辑。重复报表菜单删除，底层数据保留。腾讯音乐驾驶舱新增港股速览（人民币价值÷港元兑人民币汇率），不把缺失的情景概率显示为 0 元。详见 `../checks/alignment_20261026/`。
 
 后续重建这四家公司使用 `python3 framework/align_companies.py [公司代码 ...]`（在 `nocobase/` 执行）。脚本拒绝长江电力代码；只修改明确选中的公司。`seed_page_risks.py` 将已有论点反证整理成风险及关联，可重复执行，不覆盖已存在的风险判断。不要用全量重建命令覆盖长江电力的现有定制页。
@@ -506,3 +508,11 @@ python3 struct_doc.py --apply                        # 「数据结构」页：�
 - 腾讯音乐估值页新增「业务估值（编辑）」标签（`align_companies.finance`）；估值页因此删掉重建过一次，地址已变。
 - **页面合并与财务预测（2026-10-28 下午）**：`build_pages.SOTP_ONLY`（现为腾讯音乐）的「估值」「模型底稿 / 估值模型」「情景」合并为一页「估值模型」（页面键仍是 val；脚本 `build_valuation.VALMODEL_JS`；编辑标签加情景、模型参数；`CUSTOM_VALUATION` 跳过 scenario、model，`align_companies.business` 与 `refresh_company_scripts` 也跳过）。
   「财务模型」改为券商研报式预测：新表「财务预测」`vi_fin_forecast`（`spec.py` 的 fin_forecast；迁移 `sql/migrations/2026-10-28b_fin_forecast.sql`；计算视图 `vi_fin_forecast_calc` 在 02_calc；集合用 `register.collection_body` 单独登记后重启 app）。页面脚本 `build_valuation.FINMODEL_JS`：实际 3 年读三大报表、历史年度与披露的三块年度收入，预测读财务预测表，底部与估值模型对账（核心经营利润＋七成收购摊销 vs 三块合计税前利润，相差超过 3% 标黄）。估值模型、财务模型两页因此删掉重建过，地址已变。
+
+## 四家公司驾驶舱对标腾讯音乐（2026-10-28）
+
+长江电力、太阳纸业、中国建筑各保留 12 张核心图，小米集团保留 14 张。统一为首屏核心读数与三情景、两列图表、底部折叠采集。三家 A 股继续用隐含回报与门槛；小米继续用分部加总与港元报价。参数试算在原有估值页，驾驶舱只读取已保存模型。首屏保留 PE/PB、质量检查和估值／财务模型／核心论点入口。
+
+`company_dashboard.py` 定义公司专属图表清单和显示口径，`company_dashboard_kpi.jsx` 生成首屏；`build_overview.py` 的新建与原址更新共用同一生成器。小米出货量、月活图只展示季度口径，价值桥接为瀑布图，股价按原上市币种标注。历史研究数据、当前模型、情景估值和质量检查均未改变。
+
+原地址刷新：`python3 framework/build_overview.py --refresh-dashboard 600900.SH 002078.SZ 601668.SH 01810.HK`。验收、前后截图和恢复蓝图见 `checks/dashboard_polish_20261028/验收记录.md`。恢复旧页面时取 `*_rollback_blueprint.json` 中的 `data.document` 交给 `nb api flow-surfaces apply-blueprint`。

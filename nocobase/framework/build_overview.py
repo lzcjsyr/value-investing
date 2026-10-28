@@ -2,6 +2,7 @@
 
   python3 build_overview.py                      缺什么建什么（新公司加入后执行）
   python3 build_overview.py --rebuild-dashboard [代码 ...]  重建驾驶舱（不跟代码＝所有公司；改了下面的 JS 或图表之后用）
+  python3 build_overview.py --refresh-dashboard 代码 ...  原地址更新驾驶舱（保留菜单与页面地址）
   python3 build_overview.py --rebuild-docs       重建三篇说明
 """
 import json, subprocess, pathlib, sys
@@ -821,7 +822,14 @@ def charts(co):
     out = [x for x in out if have.get(needs.get(x[0]), 1) > 0]      # 没有内容的通用图不放（如还没做分部加总或还没填商业模式分析的公司）
     if irr_only(code):                                               # 只看隐含回报的公司：不画折现率价值、关注价、终值占比、折现率敏感性
         out = [x for x in out if x[0] not in ('value', 'watch', 'tv', 'sens')]
-    return out + EXTRA.get(code, [])
+    result = out + EXTRA.get(code, [])
+    if code == '01698.HK':
+        from tencent_dashboard import charts as tencent_charts
+        return tencent_charts(result)
+    from company_dashboard import PROFILES, charts as company_charts
+    if code in PROFILES:
+        return company_charts(code, result)
+    return result
 
 
 def irr_only(code):
@@ -976,6 +984,12 @@ def company_info(co):
 
 
 def kpi_code(code):
+    if code == '01698.HK':
+        from tencent_dashboard import kpi_code as tencent_kpi_code
+        return tencent_kpi_code()
+    from company_dashboard import PROFILES, kpi_code as company_kpi_code
+    if code in PROFILES:
+        return company_kpi_code(code)
     js = KPI.replace('__COMPANY__', code).replace('__IRR_ONLY__', 'true' if irr_only(code) else 'false')
     if code != '600900.SH':
         from page_style import wrap_js
@@ -985,7 +999,7 @@ def kpi_code(code):
     return js
 
 
-def dashboard(co):
+def dashboard_document(co, replace=False):
     co = company_info(co)
     st = state()
     gid = company_root(st, co)
@@ -996,14 +1010,35 @@ def dashboard(co):
              [{'key': k, 'type': 'chart', 'title': t, 'chart': k} for k, t, _ in cs]
     rows = [[{'key': 'kpi', 'span': 24}], [{'key': 'collect', 'span': 24}]] + \
            [[{'key': k, 'span': 8} for k in keys[i:i + 3]] for i in range(0, len(keys), 3)]
-    apply_page(f"dashboard_{co['code']}", {
+    from company_dashboard import PROFILES
+    if co['code'] == '01698.HK' or co['code'] in PROFILES:
+        from tencent_dashboard import layout
+        rows = layout(keys)
+        for block in blocks:
+            if block['type'] == 'chart':
+                block['settings'] = {'height': 360, 'heightMode': 'specifyValue'}
+    body = {
         'version': '1', 'mode': 'create',
         'navigation': {'group': {'routeId': gid}, 'item': {'title': '驾驶舱', 'icon': 'DashboardOutlined'}},
         'page': {'title': '驾驶舱', 'documentTitle': f"{co['name']} · 驾驶舱"},
         'assets': {'scripts': {'kpi': {'version': 'v2', 'code': kpi_code(co['code'])},
                                'collect': {'version': 'v2', 'code': collect_js(co['code'])}},
                    'charts': {k: v for k, _, v in cs}},
-        'tabs': [{'title': '驾驶舱', 'layout': {'rows': rows}, 'blocks': blocks}]})
+        'tabs': [{'title': '驾驶舱', 'layout': {'rows': rows}, 'blocks': blocks}]}
+    if replace:
+        body['mode'] = 'replace'
+        body['target'] = {'pageSchemaUid': st['pages'][f"dashboard@{co['code']}"]['pageSchemaUid']}
+        del body['navigation']
+    return body
+
+
+def dashboard(co, replace=False):
+    apply_page(f"dashboard_{co['code']}", dashboard_document(co, replace=replace))
+    if replace:
+        print(co['name'], '驾驶舱原地址更新 OK')
+        return
+    st = state()
+    gid = company_root(st, co)
     record(f"dashboard@{co['code']}", gid, '驾驶舱')
 
 
@@ -1011,7 +1046,12 @@ def collect_js(code):
     """按钮按 key 找工作流的当前版本（新建版本后 id 会变，key 不变），用来显示是否已启用。"""
     wf = json.loads((HERE / 'workflows_state.json').read_text()) if (HERE / 'workflows_state.json').exists() else {}
     flows = {'manual': wf.get('manual', {}).get('key'), 'scheduled': [wf[n]['key'] for n in ('collect', 'ingest', 'selfcheck') if n in wf]}
-    return COLLECT.replace('__FLOWS__', json.dumps(flows, ensure_ascii=False)).replace('__COMPANY__', code)
+    js = COLLECT.replace('__FLOWS__', json.dumps(flows, ensure_ascii=False)).replace('__COMPANY__', code)
+    from company_dashboard import PROFILES
+    if code == '01698.HK' or code in PROFILES:
+        from tencent_dashboard import collect_code
+        return collect_code(js)
+    return js
 
 
 def doc(key, title, icon, content):
@@ -1031,6 +1071,14 @@ DOCS = (('doc_guide', '使用说明', 'ReadOutlined', GUIDE),
 
 if __name__ == '__main__':
     cos = companies()
+    if '--refresh-dashboard' in sys.argv:
+        only = {a for a in sys.argv[1:] if not a.startswith('--')}
+        if not only:
+            sys.exit('请明确指定需要原地址更新的公司代码')
+        for co in cos:
+            if co['code'] in only:
+                dashboard(co, replace=True)
+        sys.exit(0)
     if '--rebuild-dashboard' in sys.argv:          # 后面可跟公司代码，只重建这几家
         only = {a for a in sys.argv[1:] if not a.startswith('--')}
         for co in cos:

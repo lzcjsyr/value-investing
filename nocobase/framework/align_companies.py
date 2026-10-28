@@ -212,6 +212,12 @@ def dashboard(co):
         {'key': k, 'type': 'chart', 'title': title, 'chart': k} for k, title, _ in charts]
     rows = [[{'key': 'kpi', 'span': 24}], [{'key': 'collect', 'span': 24}]] + [
         [{'key': k, 'span': 8} for k in keys[i:i+3]] for i in range(0, len(keys), 3)]
+    if co['code'] == '01698.HK':
+        from tencent_dashboard import layout
+        rows = layout(keys)
+        for block in blocks:
+            if block['type'] == 'chart':
+                block['settings'] = {'height': 360, 'heightMode': 'specifyValue'}
     body = {'version': '1', 'mode': 'replace', 'target': {'pageSchemaUid': bp.state()['pages'][key]['pageSchemaUid']},
         'page': {'title': '驾驶舱', 'documentTitle': f'{co["name"]} · 驾驶舱'},
         'assets': {'scripts': {'kpi': {'version': 'v2', 'code': overview.kpi_code(co['code'])},

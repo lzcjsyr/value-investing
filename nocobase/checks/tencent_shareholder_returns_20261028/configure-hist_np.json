@@ -1,0 +1,18 @@
+{
+  "target": {
+    "uid": "tnla2lq9f7a"
+  },
+  "changes": {
+    "title": "归母利润、实付股息与现金回购（亿元）",
+    "height": 360,
+    "heightMode": "specifyValue",
+    "query": {
+      "mode": "sql",
+      "sql": "SELECT h.year::text AS year,x.item,x.amount FROM vi_fin_history h JOIN vi_company_base co ON co.id=h.company_id AND co.code='01698.HK' LEFT JOIN LATERAL (SELECT max(d.value) FILTER (WHERE d.line_item='实付本公司股东现金股息') AS div, max(d.value) FILTER (WHERE d.line_item='现金回购支出') AS buyback FROM vi_disclosed d WHERE d.company_id=h.company_id AND d.period=h.year::text AND d.period_kind='全年') r ON true CROSS JOIN LATERAL (VALUES ('归母净利润',h.np_parent),('实付现金股息',r.div),('现金回购',r.buyback)) x(item,amount) WHERE h.year>=2020 AND x.amount IS NOT NULL ORDER BY h.year,x.item"
+    },
+    "visual": {
+      "mode": "custom",
+      "raw": "const rows = ctx.data?.objects || [];\nconst spec = {\"x\": \"year\", \"y\": \"amount\", \"group\": \"item\", \"kind\": \"line\", \"unit\": \"亿元\", \"names\": [\"归母净利润\", \"实付现金股息\", \"现金回购\"], \"note\": \"按实际支付年份；股息不含向非控股股东派息\"};\nconst categories = [...new Set(rows.map((row) => String(row[spec.x])))];\nconst names = spec.names || [...new Set(rows.map((row) => spec.group ? String(row[spec.group]) : spec.label))];\nconst colors = spec.colors || ['#5470c6', '#2b9d8f', '#d99044', '#66758a'];\nconst numeric = (value) => value === null || value === undefined ? null : Number(value);\nconst series = names.map((name, index) => ({\n  name,\n  type: spec.kind,\n  stack: spec.stack ? 'total' : undefined,\n  barMaxWidth: 32,\n  connectNulls: false,\n  showSymbol: categories.length < 30,\n  symbolSize: 5,\n  lineStyle: { width: 2 },\n  itemStyle: { color: colors[index % colors.length] },\n  data: categories.map((category) => {\n    const row = rows.find((item) => String(item[spec.x]) === category && (!spec.group || String(item[spec.group]) === name));\n    return row ? numeric(row[spec.y]) : null;\n  }),\n}));\nreturn {\n  animation: false,\n  grid: { left: 12, right: 22, top: 44, bottom: spec.note ? 42 : 16, containLabel: true },\n  legend: { top: 0, type: 'scroll', textStyle: { fontSize: 12 } },\n  tooltip: { trigger: 'axis', valueFormatter: (v) => v === null ? '—' : `${Number(v).toFixed(spec.digits ?? 1)} ${spec.unit}` },\n  xAxis: {\n    type: 'category',\n    data: categories,\n    boundaryGap: spec.kind === 'bar',\n    axisLabel: { hideOverlap: true, formatter: (v) => /^\\d{4}Q/.test(v) ? v.slice(2) : v },\n    axisTick: { alignWithLabel: true },\n  },\n  yAxis: { type: 'value', min: spec.min, max: spec.max, name: spec.unit, splitLine: { lineStyle: { color: '#edf0f4' } } },\n  graphic: spec.note ? [{ type: 'text', left: 'center', bottom: 0, style: { text: spec.note, fill: '#8c8c8c', fontSize: 11 } }] : [],\n  series,\n};\n"
+    }
+  }
+}
