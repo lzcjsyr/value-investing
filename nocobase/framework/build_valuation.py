@@ -595,7 +595,7 @@ VALMODEL_JS = COMMON + r"""
 async function renderThree(D, full) {
   const { company, model, scenarios, judgments } = D;
   const byModel = { model_id: { $eq: model.id } };
-  const [segs, sotp] = await Promise.all([listRows('vi_sotp_segment_val', byModel), listRows('vi_sotp', byModel)]);
+  const [segs, sotp, fins] = await Promise.all([listRows('vi_sotp_segment_val', byModel), listRows('vi_sotp', byModel), listRows('vi_fin_forecast', byModel)]);
   const names = scenarios.map((s) => s.name);
   const sOf = (n) => sotp.find((r) => r.scenario_name === n) || {};
   const T = (c) => <JTag key={c} code={c} judgments={judgments} />;
@@ -609,8 +609,8 @@ async function renderThree(D, full) {
   const num = { fontVariantNumeric: 'tabular-nums' };
   const segCell = (g) => !g ? '—' : (
     <div style={{ ...num, lineHeight: 1.7 }}>
-      <div>{fmt(g.revenue, 0)} 亿元 × {pct(g.op_margin, 0)}</div>
-      <div style={{ fontSize: 12, opacity: 0.7 }}>税后盈利 {fmt(g.earnings, 1)} × {fmt(g.multiple_used, 1)} 倍</div>
+      <div>收入 {fmt(g.revenue, 0)} × 利润率 {pct(g.op_margin, 0)} ＝ 税前 {fmt(Number(g.revenue) * Number(g.op_margin), 1)}</div>
+      <div style={{ fontSize: 12, opacity: 0.7 }}>税后归母 {fmt(g.earnings, 1)} × {fmt(g.multiple_used, 1)} 倍，折回 {fmt(g.tau, 1)} 年</div>
       <div style={{ fontWeight: 600 }}>{fmt(g.value, 0)} 亿元</div>
     </div>);
   const segCols = [
@@ -667,6 +667,10 @@ async function renderThree(D, full) {
     const pre = gs.reduce((a, g) => a + Number(g.revenue || 0) * Number(g.op_margin || 0), 0);
     return `${n}收入 ${fmt(rev, 0)} 亿元、税前 ${fmt(pre, 1)} 亿元（${pct(rev ? pre / rev : null, 1)}）`;
   }).join('；');
+  const vy = segs.find((g) => g.earn_year)?.earn_year;
+  const fr = fins.find((r) => Number(r.year) === Number(vy));
+  const fmPre = fr ? Number(fr.core_op) + 0.7 * Number(fr.acq_amort || 0) : null;
+  const fmRev = fr ? Number(fr.revenue) : null;
   ctx.render(
     <div>
       <Title level={5} style={{ marginTop: 0 }}>{full ? `${company.name} · 估值模型` : `${company.name} · 财务模型（三块）`}</Title>
@@ -693,9 +697,14 @@ async function renderThree(D, full) {
         </>);
       })() : <Paragraph type="secondary">{model.method}</Paragraph>}
       <Card size="small" style={{ marginBottom: 12 }} title="① 主营业务：2027 年收入 × 利润率 ×（1 − 税率）× 归母比例 × 倍数，折回资产负债日">
+        <Paragraph style={{ marginBottom: 8 }}>
+          <Text strong>利润率</Text>＝核心经营利润率＝（毛利 − 销售费用 − 管理费用 ＋ 七成收购摊销）÷ 收入。税前；不含利息收入、投资收益与融资成本（它们来自现金、持股和借款，在下面的自由现金、对外投资里单独计价）；股权激励作为成本扣除。
+          税率 {pct(segs[0]?.tax_rate, 1)}，归母比例 {pct(segs[0]?.attrib, 0)}（扣除少数股东约 3% 的利润）。
+        </Paragraph>
         <Table size="small" pagination={false} rowKey="key" dataSource={segRows} columns={segCols} scroll={{ x: 'max-content' }} />
         <Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0 }}>
-          三块的利润率是分摊估算，加总须等于公司整体核心经营利润（不含利息、投资收益与收购摊销）：{calib}。修改在本页「业务估值（编辑）」。
+          三块的利润率是分摊估算（公司不披露分业务成本），基准情景的加总须等于财务模型：{calib}。
+          {fr ? `财务模型 ${vy}E：收入 ${fmt(fmRev, 0)} 亿元，核心经营利润 ${fmt(fr.core_op, 1)} ＋ 七成收购摊销 ${fmt(0.7 * Number(fr.acq_amort || 0), 1)} ＝ ${fmt(fmPre, 1)} 亿元。` : ''}修改在本页「业务估值（编辑）」。
         </Paragraph>
       </Card>
       <Card size="small" title={`三块加总：主营 ＋ 自由现金 ＋ 对外投资 → 每股价值${fx ? ' → 港元' : ''}（亿元；资产负债日 ${base.as_of || '—'}；②③ 三情景相同）`}>

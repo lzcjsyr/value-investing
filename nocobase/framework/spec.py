@@ -877,7 +877,7 @@ REPORTS = [
          fields=[F('model_id','模型ID','int'), F('scenario_id','情景ID','int'), F('segment_id','分部输入ID','int'),
                  F('business_id','业务ID','int'), F('scenario_name','情景','text'), F('code','编号','text'),
                  F('name','业务','text'), F('method','估值方法','text'), F('earn_year','盈利年份','year'),
-                 F('revenue','收入（亿元）','num',p=1), F('op_margin','经营利润率','pct'), F('earnings','税后归母盈利（亿元）','num',p=2),
+                 F('revenue','收入（亿元）','num',p=1), F('op_margin','经营利润率','pct'), F('tax_rate','所得税率','pct'), F('attrib','归母比例','pct'), F('earnings','税后归母盈利（亿元）','num',p=2),
                  F('multiple_used','采用倍数','num',p=2), F('tau','折现年数','num',p=2),
                  F('value','分部价值（亿元）','num',p=2)]),
     dict(code='sotp', title='分部加总估值', group='3 估值', title_field='scenario_name',
