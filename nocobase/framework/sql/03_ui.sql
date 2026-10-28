@@ -839,6 +839,67 @@ END $$;
 
 CREATE TRIGGER vi_forecast_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_forecast FOR EACH ROW EXECUTE FUNCTION vi_forecast_dml();
 
+DROP VIEW IF EXISTS vi_fin_forecast CASCADE;
+
+CREATE VIEW vi_fin_forecast AS
+SELECT b.id,
+       b.year,
+       b.sub_rev,
+       b.nonsub_rev,
+       b.social_rev,
+       b.gross_margin,
+       b.selling_ratio,
+       b.admin_ratio,
+       b.other_income,
+       b.equity_income,
+       b.finance_cost,
+       b.tax_rate,
+       b.minority_share,
+       b.sbc,
+       b.acq_amort,
+       b.cfo_ratio,
+       b.capex,
+       b.shareholder_return,
+       b.other_cash,
+       b.note,
+       b.model_id,
+       c.revenue,
+       c.gross_profit,
+       c.selling,
+       c.admin,
+       c.core_op,
+       c.core_op_margin,
+       c.pretax,
+       c.income_tax,
+       c.net_profit,
+       c.minority,
+       c.np_parent,
+       c.adj_np,
+       c.eps,
+       c.cfo,
+       c.fcf,
+       c.net_cash_end,
+       b.updated_at
+FROM vi_fin_forecast_base b LEFT JOIN vi_fin_forecast_calc c ON c.id = b.id;
+
+COMMENT ON VIEW vi_fin_forecast IS '财务预测（界面视图：输入列＋自动计算列）';
+
+CREATE OR REPLACE FUNCTION vi_fin_forecast_dml() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  IF TG_OP = 'INSERT' THEN
+    INSERT INTO vi_fin_forecast_base (year, sub_rev, nonsub_rev, social_rev, gross_margin, selling_ratio, admin_ratio, other_income, equity_income, finance_cost, tax_rate, minority_share, sbc, acq_amort, cfo_ratio, capex, shareholder_return, other_cash, note, model_id) VALUES (NEW.year, NEW.sub_rev, NEW.nonsub_rev, NEW.social_rev, NEW.gross_margin, NEW.selling_ratio, NEW.admin_ratio, NEW.other_income, NEW.equity_income, NEW.finance_cost, NEW.tax_rate, NEW.minority_share, NEW.sbc, NEW.acq_amort, NEW.cfo_ratio, NEW.capex, NEW.shareholder_return, NEW.other_cash, NEW.note, NEW.model_id) RETURNING id INTO NEW.id;
+    RETURN NEW;
+  ELSIF TG_OP = 'UPDATE' THEN
+    UPDATE vi_fin_forecast_base SET year = NEW.year, sub_rev = NEW.sub_rev, nonsub_rev = NEW.nonsub_rev, social_rev = NEW.social_rev, gross_margin = NEW.gross_margin, selling_ratio = NEW.selling_ratio, admin_ratio = NEW.admin_ratio, other_income = NEW.other_income, equity_income = NEW.equity_income, finance_cost = NEW.finance_cost, tax_rate = NEW.tax_rate, minority_share = NEW.minority_share, sbc = NEW.sbc, acq_amort = NEW.acq_amort, cfo_ratio = NEW.cfo_ratio, capex = NEW.capex, shareholder_return = NEW.shareholder_return, other_cash = NEW.other_cash, note = NEW.note, model_id = NEW.model_id WHERE id = OLD.id;
+    RETURN NEW;
+  ELSE
+    DELETE FROM vi_fin_forecast_base WHERE id = OLD.id;
+    RETURN OLD;
+  END IF;
+END $$;
+
+CREATE TRIGGER vi_fin_forecast_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_fin_forecast FOR EACH ROW EXECUTE FUNCTION vi_fin_forecast_dml();
+
 DROP VIEW IF EXISTS vi_trial CASCADE;
 
 CREATE VIEW vi_trial AS

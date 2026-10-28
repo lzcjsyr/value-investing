@@ -928,6 +928,79 @@ function Detail({ s, v, refs }) {
   );
 }
 
+// 只用分部加总、没有逐年预测的模型（腾讯音乐，2026-10-28 起）：按分部加总比较各情景
+function SotpScenPage({ company, model, scens, sotp, segs, refs }) {
+  const { t } = useUI();
+  const color = useScenColor();
+  const base = scens.find((s) => s.is_base) || scens[0];
+  const [sel, setSel] = useState(base?.name);
+  const so = (n) => sotp.find((r) => r.scenario_name === n) || {};
+  const price = so(base?.name).market_price;
+  const rows = scens.map((s) => ({ name: s.name, is_base: s.is_base, vps: so(s.name).value_per_share }));
+  const max = Math.max(price || 0, ...rows.map((r) => r.vps || 0)) * 1.15 || 1;
+  const below = rows.filter((r) => price && r.vps && price < r.vps);
+  const headline = !price ? `${scens.length} 个情景`
+    : below.length === rows.length ? `市场价 ${num(price)} 元低于全部 ${rows.length} 个情景的每股价值`
+    : below.length ? `市场价 ${num(price)} 元低于${below.map((r) => r.name).join('、')}情景的每股价值，高于其余` : `市场价 ${num(price)} 元高于全部情景的每股价值`;
+  const codes = [...new Set(segs.map((g) => g.code))].sort();
+  const segOf = (c, n) => segs.find((g) => g.code === c && g.scenario_name === n);
+  const cell = { padding: '6px 10px', textAlign: 'right', fontVariantNumeric: 'tabular-nums', borderBottom: `1px solid ${t.colorBorderSecondary}` };
+  const head = { ...cell, fontWeight: 600, color: t.colorTextSecondary };
+  const lines = [
+    ...codes.map((c) => ({ label: `${c} ${segs.find((g) => g.code === c)?.name || ''}`, f: (n) => segOf(c, n)?.value,
+                           sub: (n) => { const g = segOf(c, n); return g ? `${num(g.revenue, 0)}×${pct(g.op_margin, 0)}，${num(g.multiple_used, 1)} 倍` : ''; } })),
+    { label: '① 主营合计', f: (n) => so(n).segments_value, strong: true },
+    { label: '② 可分配的自由现金', f: (n) => so(n).usable_net_cash },
+    { label: '③ 对外投资（七折）', f: (n) => so(n).investments },
+    { label: '− 少数股东权益', f: (n) => so(n).minority_other },
+    { label: '每股价值（元）', f: (n) => so(n).value_per_share, strong: true, d: 2 },
+  ];
+  const main = (w) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+      <div>
+        <Label>每股价值 vs 市场价（元）</Label>
+        <div style={{ position: 'relative', paddingTop: 26 }}>
+          {price ? (
+            <div style={{ position: 'absolute', top: 0, bottom: 0, left: `calc(96px + (100% - 96px - 72px) * ${price / max})`, borderLeft: `2px dashed ${t.colorTextSecondary}`, zIndex: 1 }}>
+              <span style={{ position: 'absolute', top: 0, left: 6, fontSize: 12, fontWeight: 600, whiteSpace: 'nowrap' }}>市场价 {num(price)}</span>
+            </div>) : null}
+          {rows.map((r, i) => (
+            <div key={r.name} onClick={() => setSel(r.name)} style={{ display: 'grid', gridTemplateColumns: '96px 1fr 72px', alignItems: 'center', padding: '8px 0', cursor: 'pointer' }}>
+              <span style={{ fontSize: 14, fontWeight: 600, color: sel === r.name ? t.colorPrimary : t.colorText }}>{r.name}</span>
+              <div style={{ position: 'relative', height: 14, background: t.colorFillQuaternary, borderRadius: 7 }}>
+                <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: `${Math.max(0, ((r.vps || 0) / max) * 100)}%`, background: color(r.name, i), borderRadius: 7 }} />
+              </div>
+              <span style={{ fontSize: 15, fontWeight: 600, textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{num(r.vps)}</span>
+            </div>))}
+        </div>
+      </div>
+      <div style={{ overflowX: 'auto' }}>
+        <Label>三块拆解（亿元）：情景只改主营，自由现金与对外投资相同</Label>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+          <thead><tr><th style={{ ...head, textAlign: 'left' }}>项目</th>{scens.map((s) => <th key={s.id} style={head}>{s.name}</th>)}</tr></thead>
+          <tbody>{lines.map((l) => (
+            <tr key={l.label}>
+              <td style={{ ...cell, textAlign: 'left', fontWeight: l.strong ? 600 : 400 }}>{l.label}</td>
+              {scens.map((s) => (
+                <td key={s.id} style={{ ...cell, fontWeight: l.strong ? 600 : 400 }}>
+                  {num(l.f(s.name), l.d ?? 0)}
+                  {l.sub ? <div style={{ fontSize: 11, color: t.colorTextSecondary, fontWeight: 400 }}>{l.sub(s.name)}</div> : null}
+                </td>))}
+            </tr>))}</tbody>
+        </table>
+      </div>
+    </div>
+  );
+  const cur = scens.find((s) => s.name === sel);
+  return (
+    <Shell eyebrow={company.name + ' · 情景（分部加总）'} headline={headline}
+           hint={`模型：${model.name}。三个情景只改主营三块的收入、利润率与倍数，分部参数在「估值 / 业务估值（编辑）」；点情景看说明。`}
+           stats={<Stats items={rows.map((r, i) => ({ label: `${r.name}·每股价值`, value: `${num(r.vps)} 元`, color: color(r.name, i) })).concat(price ? [{ label: '市场价', value: `${num(price)} 元` }] : [])} />}
+           main={main} sel={sel}
+           detail={cur ? <div><Section label="情景说明" text={cur.description} refs={refs} /><Section label="假设性质" text={cur.nature} refs={refs} /></div> : null} />
+  );
+}
+
 boot('情景', async (company, scope) => {
   const models = await listRows('vi_model', scope);
   const model = models.find((m) => m.status === '当前') || models[0];
@@ -939,6 +1012,10 @@ boot('情景', async (company, scope) => {
   scens.sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
   const val = (n) => vals.find((v) => v.scenario_name === n);
   const years = [...new Set(proj.map((r) => r.year))].sort((a, b) => a - b);
+  if (!proj.length) {
+    const [sotp, segs] = await Promise.all([listRows('vi_sotp', { model_id: { $eq: model.id } }), listRows('vi_sotp_segment_val', { model_id: { $eq: model.id } })]);
+    if (sotp.length) { ctx.render(<SotpScenPage company={company} model={model} scens={scens} sotp={sotp} segs={segs} refs={refs} />); return; }
+  }
   function Page() {
     const { t } = useUI();
     const color = useScenColor();

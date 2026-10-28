@@ -47,7 +47,7 @@ GUIDE = """# 使用说明
 
 ## 主估值方法：按生意选，不套一个公式
 - **股息贴现**（默认）：只承认分给股东的现金；适合派息稳定、留存少的公司（长江电力）。
-- **分部加总**（在估值模型里把“主估值方法”设为分部加总）：核心业务盈利 × 合理倍数 ＋ 可用净现金 ＋ 对外投资（折后）− 少数股东权益。适合“经营业务＋大额现金与持股”的公司（腾讯音乐）。
+- **分部加总**（在估值模型里把“主估值方法”设为分部加总）：核心业务盈利 × 合理倍数 ＋ 可用净现金 ＋ 对外投资（折后）− 少数股东权益。适合“经营业务＋大额现金与持股”的公司（腾讯音乐：主营再拆成三块经营分部，不做逐年预测）。
 - **经营分部估值**（分部加总的一种，估值模型的“核心盈利年份”留空）：一家公司里处在不同发展阶段的业务各用一种方法，写在「估值 / 业务估值（编辑）」，每个情景可以有自己的一行：
   - **盈利×倍数**：成熟或周期业务，用正常化盈利（不用周期顶部或底部的当年利润）；倍数按价值驱动公式推导，正常化年份晚于下一年时折回今天，并加上过渡期的现金流。
   - **稳态折现**：成长业务，用稳态年份的盈利 × 退出倍数折回今天（可单独设更高的折现率），加上到稳态前的期间现金流（负数＝还要投钱）。
@@ -91,7 +91,7 @@ GUIDE = """# 使用说明
 - **长江电力**（类债资产）：派息率有承诺（≥70%），股息贴现最直接；关键变量是来水、电价、利率。商业模式分析：梯级电站资源与零燃料成本是真实壁垒，适配度 34/40。
 - **太阳纸业**（周期制造业、正在扩张）：现在只分约 27%，大部分利润投进新产能。股息贴现价值主要取决于**扩张结束后派息率能否提高**（判断 J-PAYOUT），所以同时看“现金支持价值”和“隐含收益率”，并用毛利率、资本开支÷经营现金流、净负债÷EBITDA 做证伪检查。商业模式分析：真实壁垒只有自制浆与林浆纸一体化（周期底部仍赚钱，但不是定价权），适配度 22/40。
 - **中国建筑**（总承包商＋地产，薄利、垫资）：收入＝新签合同总额×收入转化率；利润率只有 6%—7%，减值放在“其他净贡献”里单独看。关键不在订单，而在**利润能不能变成现金**（营运资本占用，判断 J-WC）和**减值会不会收敛**（J-IMP）。驾驶舱另有收入转化率、应收＋合同资产、减值三张图。商业模式分析：没有真实壁垒——央企信用、规模与大项目能力、中海地产带来的是份额，不是高于同业的利润率；新签规模、政府客户关系、PPP 是伪壁垒；适配度 15/40，只能按股息与资产价值看。
-- **腾讯音乐**（港股、人民币记账，净现金的平台型公司）：股价是港元，按港元兑人民币折算后比较。“派息率”在这里是**股东回报率＝（股息＋回购）÷归母净利**——按公允价格回购与分红对股东等价。价值最敏感的是**利润和账上现金有多少回到股东手里**（判断 J-PAYOUT、J-CASH）：回报率 120% 时基准价值约 44.6 元，只回报 60% 时约 28 元，和股价相当。对外持有的 Spotify、环球音乐股权没有计入。主估值是**分部加总**：2027 年核心盈利约 90 亿元 × 13.1 倍 ＋ 可用净现金约 232 亿元 ＋ 对外投资（折后）约 160 亿元，基准每股约 49 元；市场只给核心业务约 5.5 倍。股息贴现（约 44.6 元）作交叉验证。驾驶舱另有收入结构、会员与社交娱乐同比、毛利率、付费用户、现金与负债、股东回报率、汇率七张图。商业模式分析：上游议价权是真实壁垒，曲库、转换成本、腾讯生态是正在削弱的局部优势，适配度 25/40。
+- **腾讯音乐**（港股、人民币记账，净现金的平台型公司）：股价是港元，按港元兑人民币折算后比较。估值只用**分部加总，分三块**（2026-10-28 起不做逐年预测与股息贴现）：①主营三块各自的 2027 年盈利×倍数：会员订阅（208 亿元×42%）、非订阅音乐（117 亿元×15%）按 13.1 倍，社交娱乐（48 亿元×15%）按萎缩年金约 6 倍，合计约 1,091 亿元（判断 J-S1、J-S2、J-S3、J-R）；②可分配的自由现金＝现金−带息负债−经营所需（40 亿元，J-OPCASH）−汇出预提税，约 212 亿元（J-CASH）；③对外投资按最新报告账面价值打七折，约 160 亿元（J-INV）；减少数股东约 28 亿元。基准每股约 45.6 元、约 53.6 港元（悲观 36.5、乐观 78.5 港元）；市场给主营约 6 倍。三块的利润率是分摊估算，加总须等于公司整体利润率。最敏感的是自由现金和利润有多少真正回到股东手里（论点 T5）。驾驶舱另有收入结构、会员与社交娱乐同比、毛利率、付费用户、现金与负债、股东回报率、汇率七张图。商业模式分析：上游议价权是真实壁垒，曲库、转换成本、腾讯生态是局部优势，适配度 31/40。
 - **小米集团**（港股、五块业务处在不同阶段）：手机、AIoT、互联网三块按收入分摊费用后分开估值（正常化盈利×倍数，基准合计约 15.6 倍）；智能汽车是成长业务，按 2030 年稳态盈利折回今天；AI、芯片与机器人没有可预测的盈利，按用户的主观判断直接估 1,000 亿元（经营分部估值里的“直接估值”）。加上可用净现金与对外投资，基准每股约 28.6 元（约 33.6 港元），概率加权约 30.2 元，比现价高约三成；但高出的部分大半来自 AI 的 1,000 亿元，AI 按 0 计约 24.7 元。股东回报折现（“股息”＝回购）只有约 11.4 元，说明大部分价值留在公司里。驾驶舱另有分部收入、分部损益、生态利润率、毛利率、手机出货与 ASP、汽车交付、月活、现金与借款、汇率等图。商业模式分析：适配度 19/40，更像需要安全边际的特殊机会，而不是复利标的。
 
 > 研究提示，不是交易指令。所有新阈值都是研究预警，不是自动买卖规则。"""
@@ -240,6 +240,7 @@ try {
   const sotp = sotpRows.slice().sort((a, b) => (a.id || 0) - (b.id || 0));
   const sotpPrimary = model.primary_method === '分部加总' && sotp.length > 0;
   const sotpBase = sotp.find((r) => r.is_base) || sotp[0];
+  const hasDdm = projections.some((p) => p.year > model.base_year);   // 只用分部加总、没有逐年预测时不显示股息贴现（腾讯音乐，2026-10-28 起）
   const scenarios = valuations.slice().sort((a, b) => (a.id || 0) - (b.id || 0)).map((v) => {
     const rows = projections.filter((p) => p.scenario_name === v.scenario_name && p.year > model.base_year && p.year <= model.terminal_year);
     const flows = rows.map((p) => ({ dps: p.dps, tau: (p.year - model.base_year) - model.years_elapsed }));
@@ -405,9 +406,9 @@ try {
         <Typography.Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0 }}>
           {hasSeg
             ? <>经营分部按发展阶段估值（明细见「估值 / 业务估值（编辑）」）：成熟业务＝正常化盈利×倍数，倍数＝(1−永续增长率÷新增投资回报率)÷(折现率−永续增长率)；成长业务＝稳态年盈利×退出倍数折回资产负债日，加上到稳态前的期间现金流；投入期业务＝已承诺投入的税后现值加承诺期后年成本（负值）；直接估值业务＝按可比公司或主观判断给出的整体价值。非经营部分统一截至 {sotpBase.as_of}，明细见「估值 / 资产估值与调整（编辑）」。
-                市场隐含值＝其余部分按本模型取值时，市值对应的成熟业务倍数或成长业务价值。试算倍数只改成熟业务的倍数。股东回报折现（交叉验证）基准 {fmt(sotpBase.ddm_value)} 元。</>
+                市场隐含值＝其余部分按本模型取值时，市值对应的成熟业务倍数或成长业务价值。试算倍数只改成熟业务的倍数。{hasDdm ? `股东回报折现（交叉验证）基准 ${fmt(sotpBase.ddm_value)} 元。` : ''}</>
             : <>合理倍数＝(1−永续增长率÷新增投资回报率)÷(折现率−永续增长率)，可在“情景”里手填覆盖；非经营部分统一截至 {sotpBase.as_of}（与股本同日），明细见「估值 / 资产估值与调整（编辑）」。
-                隐含倍数＝(市值−非经营部分)÷核心盈利：市场为核心业务付了几倍。股息贴现口径（交叉验证）基准 {fmt(sotpBase.ddm_value)} 元。</>}
+                隐含倍数＝(市值−非经营部分)÷核心盈利：市场为核心业务付了几倍。{hasDdm ? `股息贴现口径（交叉验证）基准 ${fmt(sotpBase.ddm_value)} 元。` : ''}</>}
         </Typography.Paragraph>
       </Card>
     );
@@ -433,7 +434,7 @@ try {
           </Card>
         )}
         {sotpPrimary ? sotpCard : null}
-        <Card size="small" title={sotpPrimary ? '交叉验证：股息贴现，按要求收益率估值' : IRR_ONLY ? '估值：按市价买入的隐含年化回报 vs 门槛' : '按要求收益率估值'} style={{ marginBottom: 12 }}>
+        {hasDdm ? (<Card size="small" title={sotpPrimary ? '交叉验证：股息贴现，按要求收益率估值' : IRR_ONLY ? '估值：按市价买入的隐含年化回报 vs 门槛' : '按要求收益率估值'} style={{ marginBottom: 12 }}>
           <Space wrap align="center" style={{ marginBottom: 8 }}>
             <Typography.Text strong>{IRR_ONLY ? '门槛' : '要求收益率'}</Typography.Text>
             <Slider style={{ width: 240 }} min={3} max={10} step={0.1} value={reqPct} onChange={(v) => setReqPct(v)} />
@@ -459,12 +460,12 @@ try {
             隐含年化收益率＝按今天市场价买入、获得模型预测的股息并按永续增长率增长时的内部收益率，与要求收益率无关；
             最高买入价＝按要求收益率把未来股息折现到今天的每股价值。两者等价：隐含收益率高于要求收益率 ⇔ 市场价低于最高买入价。
           </Typography.Paragraph>}
-        </Card>
+        </Card>) : null}
         {!sotpPrimary ? sotpCard : null}
-        {IRR_ONLY ? (
+        {IRR_ONLY || !hasDdm ? (
           <Typography.Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0 }}>
             质量自检：通过 {count('通过')} · 提示 {count('提示')} · 阻断 {count('阻断')}。自动采集（这家公司和通用指标）：{healthy} / {enabled.length} 个数据源正常。
-            回报拆解、买入价与假设的影响见「预测与估值 / 估值」。
+            {hasDdm ? '回报拆解、买入价与假设的影响见「预测与估值 / 估值」。' : (sotpBase?.conclusion || '')}
           </Typography.Paragraph>
         ) : (<>
         <Row gutter={[12, 12]}>
@@ -816,6 +817,7 @@ def charts(co):
     have = content(code)
     needs = {'sotp_parts': 'sotp', 'sotp_bridge': 'sotp', 'sotp_grid': 'sotp', 'sotp_mult': 'sotp', 'fit': 'fit', 'moat': 'moat',
              'forces': 'chain', 'peers': 'comp', 'theses': 'thesis'}
+    needs.update({k: 'fc' for k in ('irr_scen', 'irr_curve', 'req_curve', 'value', 'watch', 'tv', 'path', 'sens', 'debt')})   # 没有逐年预测（只用分部加总）就不画股息贴现类图
     out = [x for x in out if have.get(needs.get(x[0]), 1) > 0]      # 没有内容的通用图不放（如还没做分部加总或还没填商业模式分析的公司）
     if irr_only(code):                                               # 只看隐含回报的公司：不画折现率价值、关注价、终值占比、折现率敏感性
         out = [x for x in out if x[0] not in ('value', 'watch', 'tv', 'sens')]
@@ -833,7 +835,8 @@ def content(code):
     sql = (f"SELECT json_build_object('sotp', (SELECT count(*) FROM vi_sotp WHERE company_id = {co}), "
            f"'fit', (SELECT count(*) FROM vi_fit_score_base WHERE company_id = {co}), 'moat', (SELECT count(*) FROM vi_moat_base WHERE company_id = {co}), "
            f"'chain', (SELECT count(*) FROM vi_value_chain_base WHERE company_id = {co}), 'comp', (SELECT count(*) FROM vi_competitor_base WHERE company_id = {co}), "
-           f"'thesis', (SELECT count(*) FROM vi_thesis_base WHERE company_id = {co}))")
+           f"'thesis', (SELECT count(*) FROM vi_thesis_base WHERE company_id = {co}), "
+           f"'fc', (SELECT count(*) FROM vi_forecast_base f JOIN vi_model_base m ON m.id = f.model_id WHERE m.company_id = {co} AND m.status = '当前'))")
     p = subprocess.run([str(ROOT / 'psql.sh'), '-At', '-c', 'SET jit=off', '-c', sql], capture_output=True, text=True, check=True)
     return json.loads(p.stdout.strip().split('\n')[-1])
 
@@ -888,7 +891,7 @@ EXTRA = {   # 行业专属图表
             "UNION ALL SELECT d.period, CASE WHEN d.line_item LIKE '现金%' THEN '现金与定期存款' ELSE '带息负债' END, d.value "
             "FROM vi_disclosed d JOIN vi_company_base co ON co.id = d.company_id AND co.code = '01698.HK' WHERE d.period = '2026Q2' "
             "AND (d.line_item LIKE '现金%' OR d.line_item LIKE '带息负债%') ORDER BY 1, 2", 'bar', {'x': 'year', 'y': '亿元', 'series': '项目'})),
-        ('payout', '股东回报率（股息＋回购÷归母净利，%）：历史与基准预测', c(
+        ('payout', '股东回报率（股息＋回购÷归母净利，%）：历史', c(
             "SELECT h.year::text AS year, '历史' AS \"口径\", round((h.payout * 100)::numeric, 1) AS \"%\" FROM vi_fin_history h "
             "JOIN vi_company_base co ON co.id = h.company_id AND co.code = '01698.HK' WHERE h.year >= 2020 AND h.payout IS NOT NULL "
             "UNION ALL SELECT p.year::text, '预测', round((p.payout * 100)::numeric, 1) FROM vi_projection p "

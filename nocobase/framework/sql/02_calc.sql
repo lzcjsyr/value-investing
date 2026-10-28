@@ -6,7 +6,7 @@ BEGIN;
 DROP MATERIALIZED VIEW IF EXISTS vi_fin_history_cache, vi_stmt_cache CASCADE;
 DROP VIEW IF EXISTS vi_metric_value CASCADE;
 DROP VIEW IF EXISTS vi_check, vi_sotp, vi_sotp_segment_calc, vi_sotp_segment_val, vi_sotp_item_calc, vi_moat_calc, vi_risk_calc, vi_sensitivity, vi_valuation, vi_valuation_cf, vi_balance, vi_projection, vi_collect_run_calc, vi_trial_calc,
-  vi_forecast_calc, vi_scenario_calc, vi_model_calc, vi_series, vi_thesis_calc, vi_fin_metric,
+  vi_forecast_calc, vi_fin_forecast_calc, vi_scenario_calc, vi_model_calc, vi_series, vi_thesis_calc, vi_fin_metric,
   vi_fin_history, vi_fin_history_calc, vi_collector_calc, vi_raw_capture_calc, vi_observation_calc, vi_obs_current, vi_disclosed,
   vi_metric_calc, vi_company_calc, vi_company_metric CASCADE;
 
@@ -1179,7 +1179,7 @@ SELECT z.scenario_id AS id, z.model_id, z.company_id, z.company_name, z.model_na
             WHEN z.n_segments = 0 AND z.sotp_year IS NULL THEN format('纯资产估值：资产估值与调整净额 %s 亿元；股本 %s 亿股，每股 %s 元。',vi_fmt(z.noncore,0),vi_fmt(z.shares,2),vi_fmt(z.vps))
             WHEN z.n_segments = 0 THEN
               format('核心盈利 %s 亿元（%s 年）× 合理倍数 %s 倍 ＝ %s 亿元；可用净现金 %s 亿元；对外投资（折后）%s 亿元；少数股东权益与其他 %s 亿元；'
-                     '股权价值 %s 亿元，每股 %s 元%s。市场价 %s 元，%s；市场给核心业务的隐含倍数 %s 倍。股息贴现口径 %s 元。',
+                     '股权价值 %s 亿元，每股 %s 元%s。市场价 %s 元，%s；市场给核心业务的隐含倍数 %s 倍。%s',
                      vi_fmt(z.core_earnings, 1), z.sotp_year, vi_fmt(z.multiple, 1), vi_fmt(z.core_value, 0),
                      vi_fmt(z.usable_net_cash, 0), vi_fmt(z.investments, 0), vi_fmt(z.minority_other, 0),
                      vi_fmt(z.equity_value, 0), vi_fmt(z.vps),
@@ -1189,10 +1189,10 @@ SELECT z.scenario_id AS id, z.model_id, z.company_id, z.company_name, z.model_na
                           WHEN z.latest_price > z.vps THEN format('高于每股价值 %s', vi_pct(z.latest_price / z.vps - 1))
                           ELSE format('低于每股价值 %s', vi_pct(1 - z.latest_price / z.vps)) END,
                      vi_fmt((z.mcap - z.noncore) / NULLIF(z.core_earnings, 0), 1),
-                     vi_fmt(dv.value_today))
+                     CASE WHEN dv.value_today IS NOT NULL THEN format('股息贴现口径 %s 元。', vi_fmt(dv.value_today)) ELSE '' END)
             ELSE
               format('%s经营分部合计 %s 亿元（成熟业务 %s、成长业务 %s、投入期业务 %s、直接估值业务 %s）；可用净现金 %s 亿元；对外投资（折后）%s 亿元；'
-                     '少数股东权益与其他 %s 亿元；股权价值 %s 亿元，每股 %s 元%s。市场价 %s 元，%s。%s%s%s股息贴现口径 %s 元。',
+                     '少数股东权益与其他 %s 亿元；股权价值 %s 亿元，每股 %s 元%s。市场价 %s 元，%s。%s%s%s%s',
                      CASE WHEN z.core_earnings IS NOT NULL THEN format('核心盈利 %s 亿元（%s 年）× %s 倍 ＝ %s 亿元；',
                           vi_fmt(z.core_earnings, 1), z.sotp_year, vi_fmt(z.multiple, 1), vi_fmt(z.core_value, 0)) ELSE '' END,
                      vi_fmt(z.segments_value, 0), vi_fmt(coalesce(z.mature_value, 0), 0), vi_fmt(coalesce(z.growth_value, 0), 0),
@@ -1208,7 +1208,7 @@ SELECT z.scenario_id AS id, z.model_id, z.company_id, z.company_name, z.model_na
                      CASE WHEN z.implied_growth_value IS NOT NULL THEN format('或者说，市场为成长业务付了约 %s 亿元（本模型 %s 亿元）。',
                           vi_fmt(z.implied_growth_value, 0), vi_fmt(z.growth_value, 0)) ELSE '' END,
                      CASE WHEN z.weighted_value IS NOT NULL THEN format('按情景概率加权，每股 %s 元。', vi_fmt(z.weighted_value)) ELSE '' END,
-                     vi_fmt(dv.value_today)) END
+                     CASE WHEN dv.value_today IS NOT NULL THEN format('股息贴现口径 %s 元。', vi_fmt(dv.value_today)) ELSE '' END) END
        || format(' 单独计价固定资产 %s 亿元，其他非经营资产 %s 亿元；业务估值与资产调整分开汇总，已含业务价值的资产不再加计。', vi_fmt(coalesce(z.fixed_assets, 0), 0), vi_fmt(coalesce(z.other_assets, 0), 0)) AS conclusion,
        CASE WHEN z.n_incomplete = 0 AND (z.sotp_year IS NULL OR z.core_earnings * z.multiple IS NOT NULL)
             THEN coalesce(z.core_value, 0) + coalesce(z.segments_value, 0) END AS business_value,
@@ -1216,6 +1216,36 @@ SELECT z.scenario_id AS id, z.model_id, z.company_id, z.company_name, z.model_na
 FROM z LEFT JOIN vi_valuation dv ON dv.id = z.scenario_id;
 
 ---------------------------------------------------------------------------
+-- 财务预测（券商研报式利润表与现金摘要，2026-10-28）：输入为三块收入、毛利率、费用率等；
+-- 期末净现金＝上一实际年末（现金−带息负债，取历史年度）＋按年累计（自由现金流−股东回报＋其他现金变动）
+CREATE VIEW vi_fin_forecast_calc AS
+WITH b AS (
+  SELECT f.*, m.company_id, m.shares, coalesce(f.sub_rev, 0) + coalesce(f.nonsub_rev, 0) + coalesce(f.social_rev, 0) AS revenue
+  FROM vi_fin_forecast_base f JOIN vi_model_base m ON m.id = f.model_id
+), c AS (
+  SELECT b.*, revenue * gross_margin AS gross_profit, revenue * selling_ratio AS selling, revenue * admin_ratio AS admin FROM b
+), d AS (
+  SELECT c.*, gross_profit - selling - admin AS core_op FROM c
+), e AS (
+  SELECT d.*, core_op + coalesce(other_income, 0) + coalesce(equity_income, 0) - coalesce(finance_cost, 0) AS pretax FROM d
+), g AS (
+  SELECT e.*, pretax * tax_rate AS income_tax, pretax * (1 - tax_rate) AS net_profit FROM e
+), h AS (
+  SELECT g.*, net_profit * coalesce(minority_share, 0) AS minority, net_profit * (1 - coalesce(minority_share, 0)) AS np_parent FROM g
+), i AS (
+  SELECT h.*, np_parent + coalesce(sbc, 0) + coalesce(acq_amort, 0) AS adj_np, np_parent / NULLIF(shares, 0) AS eps,
+         np_parent * cfo_ratio AS cfo FROM h
+), j AS (
+  SELECT i.*, cfo - coalesce(capex, 0) AS fcf FROM i
+), o AS (
+  SELECT DISTINCT ON (fh.company_id) fh.company_id, fh.cash - fh.interest_debt AS net_cash
+  FROM vi_fin_history fh WHERE fh.cash IS NOT NULL AND fh.interest_debt IS NOT NULL ORDER BY fh.company_id, fh.year DESC
+)
+SELECT j.id, j.revenue, j.gross_profit, j.selling, j.admin, j.core_op, j.core_op / NULLIF(j.revenue, 0) AS core_op_margin,
+       j.pretax, j.income_tax, j.net_profit, j.minority, j.np_parent, j.adj_np, j.eps, j.cfo, j.fcf,
+       o.net_cash + sum(j.fcf - coalesce(j.shareholder_return, 0) + coalesce(j.other_cash, 0)) OVER (PARTITION BY j.model_id ORDER BY j.year) AS net_cash_end
+FROM j LEFT JOIN o ON o.company_id = j.company_id;
+
 CREATE VIEW vi_check AS
 WITH m AS (
   SELECT m.id, m.name AS model_name, m.company_id, co.name AS company_name, m.base_year AS b, m.terminal_year AS t,
@@ -1293,7 +1323,11 @@ WITH m AS (
   LEFT JOIN vb ON vb.model_id = m.id
   LEFT JOIN sb ON sb.model_id = m.id
 )
-SELECT id * 100 + k AS id, id AS model_id, company_id, company_name, model_name, code, name, result, detail
+-- 只用分部加总、没有逐年预测的模型（如腾讯音乐，2026-10-28 起）：逐年预测与股息贴现类检查不适用
+SELECT id * 100 + k AS id, id AS model_id, company_id, company_name, model_name, code, name,
+       CASE WHEN n_fc = 0 AND n_seg > 0 AND code IN ('C01', 'C03', 'C04', 'C08', 'C13', 'C16') THEN '不适用' ELSE result END AS result,
+       CASE WHEN n_fc = 0 AND n_seg > 0 AND code IN ('C01', 'C03', 'C04', 'C08', 'C13', 'C16')
+            THEN '只用分部加总估值，没有逐年预测与股息贴现，本项不适用' ELSE detail END AS detail
 FROM c CROSS JOIN LATERAL (VALUES
   (1, 'C01', '预测年份完整',
       CASE WHEN n_fc = t - b THEN '通过' ELSE '阻断' END,

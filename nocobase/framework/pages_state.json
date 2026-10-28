@@ -95,10 +95,6 @@
    "routeId": 393534530060288,
    "pageSchemaUid": "magico4683l"
   },
-  "model@01698.HK": {
-   "routeId": 393534536351744,
-   "pageSchemaUid": "q6x37gwoo54"
-  },
   "model@01810.HK": {
    "routeId": 393571033153536,
    "pageSchemaUid": "4y1ghm7cg7t"
@@ -122,10 +118,6 @@
   "scenario@601668.SH": {
    "routeId": 393571555344384,
    "pageSchemaUid": "nlfg8maxbiw"
-  },
-  "scenario@01698.HK": {
-   "routeId": 393571561635840,
-   "pageSchemaUid": "ia75ze4d2lt"
   },
   "scenario@01810.HK": {
    "routeId": 393571570024448,
@@ -387,14 +379,6 @@
    "routeId": 393657378144256,
    "pageSchemaUid": "lnhyoqyc2f5"
   },
-  "assume@01698.HK": {
-   "routeId": 393524955709440,
-   "pageSchemaUid": "nnwfqisapqj"
-  },
-  "val@01698.HK": {
-   "routeId": 394100443906048,
-   "pageSchemaUid": "uosksakv8s7"
-  },
   "risk@01810.HK": {
    "routeId": 394100775256064,
    "pageSchemaUid": "tmik34w2yp2"
@@ -422,10 +406,6 @@
   "dashboard@601668.SH": {
    "routeId": 394197307162624,
    "pageSchemaUid": "d9uoj7oiltg"
-  },
-  "dashboard@01698.HK": {
-   "routeId": 394197323939840,
-   "pageSchemaUid": "i82dvrivrum"
   },
   "dashboard@01810.HK": {
    "routeId": 394197347008512,
@@ -471,17 +451,29 @@
    "routeId": 394271116492800,
    "pageSchemaUid": "94s5avwutfn"
   },
+  "dashboard@01698.HK": {
+   "routeId": 394543869984768,
+   "pageSchemaUid": "rcxptn5zkmz"
+  },
+  "val@01698.HK": {
+   "routeId": 394548764737536,
+   "pageSchemaUid": "euxy5ltu78h"
+  },
+  "assume@01698.HK": {
+   "routeId": 394549793587200,
+   "pageSchemaUid": "wc3nccce8ou"
+  },
   "doc_guide": {
-   "routeId": 394344615378944,
-   "pageSchemaUid": "qcpe6tyv618"
+   "routeId": 394553102893056,
+   "pageSchemaUid": "cq3374s0vol"
   },
   "doc_structure": {
-   "routeId": 394344625864704,
-   "pageSchemaUid": "esut1o9lk5p"
+   "routeId": 394553113378816,
+   "pageSchemaUid": "zjajkozbis3"
   },
   "doc_formulas": {
-   "routeId": 394344632156160,
-   "pageSchemaUid": "vefbnyb41dr"
+   "routeId": 394553117573120,
+   "pageSchemaUid": "no4dvhw26di"
   }
  }
 }

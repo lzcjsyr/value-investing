@@ -59,6 +59,8 @@ def business(co, only=None):
     for code in biz.VIEWS:
         if only and code not in only:
             continue
+        if bp.skipped(code, co):                   # 如腾讯音乐的情景、估值模型已并入「估值模型」页（build_pages.SOTP_ONLY）
+            continue
         key = bp.page_key(code, co)
         title = biz.page_title(code)
         if key not in bp.state()['pages']:
@@ -118,14 +120,19 @@ def finance(co, only=None):
     for key, title, icon, factory in val.PAGES:
         if only and key not in only:
             continue
+        sotp_only = key == 'val' and co['code'] in bp.SOTP_ONLY
+        if sotp_only:
+            title = '估值模型'                       # 估值、估值模型、情景合并为一页（2026-10-28）
         script = financial_script(key, co)
         b = val.body(co, key, title, script)
         b['page']['enableTabs'] = True
         b['defaults'] = {'collections': {}}
-        edits = [('forecast', '逐年假设（编辑）')] if key == 'assume' else \
-                ([('sotp_segment', '业务估值（编辑）')] if co['code'] == '01810.HK' else []) + [('sotp_item', '资产估值与调整（编辑）')] if profile['method'] == 'sotp' else []
+        edits = [('fin_forecast' if co['code'] in bp.SOTP_ONLY else 'forecast', '逐年假设（编辑）')] if key == 'assume' else \
+                ([('sotp_segment', '业务估值（编辑）')] if co['code'] in ('01810.HK', '01698.HK') else []) + [('sotp_item', '资产估值与调整（编辑）')] if profile['method'] == 'sotp' else []
+        if sotp_only:
+            edits += [('scenario', '情景（编辑）'), ('model', '模型参数（编辑）')]
         if key == 'val':
-            b['tabs'][0]['title'] = '分部估值' if profile['method'] == 'sotp' else '回报与门槛'
+            b['tabs'][0]['title'] = '总览' if sotp_only else '分部估值' if profile['method'] == 'sotp' else '回报与门槛'
         for table, label in edits:
             tab, defaults = native_tab(table, label, gid, co)
             tab['title'] = label
@@ -164,6 +171,10 @@ def financial_script(key, co):
     profile = val.PROFILES[co['code']]
     factory = next(factory for k, _, _, factory in val.PAGES if k == key)
     js = factory(profile).replace('__COMPANY__', co['code']).replace('__PROFILE__', json.dumps(profile, ensure_ascii=False))
+    if key == 'assume' and co['code'] in bp.SOTP_ONLY:      # 券商研报式财务预测（vi_fin_forecast）
+        return wrap_js(val.FINMODEL_JS.replace('__COMPANY__', co['code']).replace('__PROFILE__', json.dumps(profile, ensure_ascii=False)))
+    if key == 'val' and co['code'] in bp.SOTP_ONLY:
+        return wrap_js(val.VALMODEL_JS.replace('__COMPANY__', co['code']).replace('__PROFILE__', json.dumps(profile, ensure_ascii=False)))
     if key == 'assume':
         js = wrap_js(js).replace('没列出的假设（折旧、利息、税率、派息率、资本开支）各情景相同。情景只改现金流，不改门槛，门槛在「估值」页。',
             '逐年路径与情景系数共同生成预测；分部估值另用各分部参数。所有金额为亿元人民币，每股金额及业务单位以行标题为准。')

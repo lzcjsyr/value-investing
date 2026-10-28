@@ -13,7 +13,7 @@ def walk(nodes):
 if __name__ == '__main__':
     st = a.bp.state()
     roots = a.bp.routes()
-    # 腾讯音乐用核心盈利，不需要空白的经营分部表；资产项目仍保留。
+    # 清理腾讯音乐早期遗留的“经营分部（编辑）”空标签（2026-10-28 起分部改在“业务估值（编辑）”维护）。
     target = st['pages']['val@01698.HK']['routeId']
     route = next(n for n in walk(roots) if n['id'] == target)
     for tab in route.get('children') or []:

@@ -496,3 +496,13 @@ python3 struct_doc.py --apply                        # 「数据结构」页：�
 迁移原 61 条跟踪事项：40 条挂到指标（新建 1 个指标：长江电力实现售电价）；21 条定性事项、7 条指标覆盖不全的部分写成“持续跟踪”句子；正文里 21 处跟踪事项编号换成名称。重要事实 13 条新关联指标，10 条推算值记进备注。原始记录存档在 `checks/data_layer_20261026/`（`watch_archive.json`、`fact_values_archive.json`）。估值 15 行、自动检查 95 行与迁移前完全一致。
 
 维护：结构 `framework/spec.py`；计算 `framework/sql/02_calc.sql`（`vi_tracking`、`vi_company_metric`、C19）；迁移 `framework/sql/migrations/2026-10-26f_data_layer.sql`（由 `framework/migrate_data_layer.py` 生成）；种子统一用 `framework/data_layer_seed.py` 写入各公司 `data/data_layer.json`（由 `framework/tools/export_data_layer.py` 导出）。
+## 只用分部加总、不做逐年预测的模型（2026-10-28，腾讯音乐首例）
+
+- 判定条件：当前模型没有逐年假设（`vi_forecast_base` 为空）且有经营分部（`vi_sotp_segment_base`）。估值模型的“核心盈利年份”留空，主营拆成若干经营分部，各情景可有专属行。
+- `02_calc.sql`：质量自检 C01、C03、C04、C08、C13、C16 标为“不适用”；分部加总结论不再输出“股息贴现口径 — 元”。
+- 驾驶舱（`build_overview.py`）：不显示股息贴现卡片与 9 张股息贴现类图（`content()` 新增 `fc` 计数）。
+- 财务模型页（`build_valuation.ASSUME_JS` 的 `renderThree`）：改为三块总览（各分部收入×利润率×倍数，自由现金与对外投资，每股价值）。`vi_sotp_segment_val` 为此补登了收入、利润率、税后盈利、采用倍数、折现年数 5 个字段（`spec.py`，单独 `fields apply`）。
+- 情景页（`build_bizviews.SCENARIO` 的 `SotpScenPage`）：按分部加总比较各情景；估值页「情景汇总」没有股息贴现时隐藏该列（`build_sotp.py`）。
+- 腾讯音乐估值页新增「业务估值（编辑）」标签（`align_companies.finance`）；估值页因此删掉重建过一次，地址已变。
+- **页面合并与财务预测（2026-10-28 下午）**：`build_pages.SOTP_ONLY`（现为腾讯音乐）的「估值」「模型底稿 / 估值模型」「情景」合并为一页「估值模型」（页面键仍是 val；脚本 `build_valuation.VALMODEL_JS`；编辑标签加情景、模型参数；`CUSTOM_VALUATION` 跳过 scenario、model，`align_companies.business` 与 `refresh_company_scripts` 也跳过）。
+  「财务模型」改为券商研报式预测：新表「财务预测」`vi_fin_forecast`（`spec.py` 的 fin_forecast；迁移 `sql/migrations/2026-10-28b_fin_forecast.sql`；计算视图 `vi_fin_forecast_calc` 在 02_calc；集合用 `register.collection_body` 单独登记后重启 app）。页面脚本 `build_valuation.FINMODEL_JS`：实际 3 年读三大报表、历史年度与披露的三块年度收入，预测读财务预测表，底部与估值模型对账（核心经营利润＋七成收购摊销 vs 三块合计税前利润，相差超过 3% 标黄）。估值模型、财务模型两页因此删掉重建过，地址已变。

@@ -85,16 +85,16 @@ try {
      ].filter(([,v])=>v).map(([label,v])=>({key:label,label,children:v}))} />
      }))} />
     </Card>
-    <Card size="small" title="情景汇总与交叉验证">
+    <Card size="small" title={totals.some(r=>r.ddm_value!==null&&r.ddm_value!==undefined)?"情景汇总与交叉验证":"情景汇总"}>
      <Table rowKey="id" pagination={false} dataSource={totals} columns={[
       {title:'情景',dataIndex:'scenario_name'}, {title:'业务估值（亿元）',dataIndex:'business_value',align:'right',render:v=>fmt(v)},
       {title:'资产调整净额（亿元）',dataIndex:'asset_value',align:'right',render:v=>fmt(v)},
       {title:'股权价值（亿元）',dataIndex:'equity_value',align:'right',render:v=>fmt(v)},
       {title:'每股价值（元）',dataIndex:'value_per_share',align:'right',render:v=>fmt(v,2)},
       {title:'每股价值（港元）',dataIndex:'value_per_share_quote',align:'right',render:v=>fmt(v,2)},
-      {title:'股东回报折现（元）',dataIndex:'ddm_value',align:'right',render:v=>fmt(v,2)},
+      ...(totals.some(r=>r.ddm_value!==null&&r.ddm_value!==undefined)?[{title:'股东回报折现（元）',dataIndex:'ddm_value',align:'right',render:v=>fmt(v,2)}]:[]),   // 只用分部加总的公司没有股息贴现
      ]} />
-     <Paragraph type="secondary" style={{marginTop:12}}>业务参数、资产项目分别在本页编辑标签维护；业务边界及画布在“商业模式拆解”维护。股东回报折现作为集团口径交叉验证。</Paragraph>
+     <Paragraph type="secondary" style={{marginTop:12}}>业务参数、资产项目分别在本页编辑标签维护；业务边界及画布在“商业模式拆解”维护。{totals.some(r=>r.ddm_value!==null&&r.ddm_value!==undefined)?'股东回报折现作为集团口径交叉验证。':''}</Paragraph>
     </Card>
    </div>;
   }

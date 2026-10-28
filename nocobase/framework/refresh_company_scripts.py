@@ -16,6 +16,8 @@ if __name__ == '__main__':
         if co['code'] not in a.TARGETS:
             continue
         for key in ('assume', 'val', 'model', 'scenario', 'dashboard'):
+            if key in ('model', 'scenario') and a.bp.skipped(key, co):
+                continue                          # 已并入「估值模型」页（build_pages.SOTP_ONLY）
             tree = a.bp.page_tree(a.bp.page_key(key, co))
             blocks = list(js_blocks(tree['tree']))
             if not blocks:

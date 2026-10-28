@@ -44,6 +44,11 @@ REPLACED_BY_CUSTOM = ('finmodel', 'valuation', 'projection', 'balance', 'sensiti
 CUSTOM_VALUATION = {'600900.SH': {'skip': ('sotp', 'sotp_segment', 'sotp_item') + REPLACED_BY_CUSTOM}}
 for _code in ('002078.SZ', '601668.SH', '01698.HK', '01810.HK'):
     CUSTOM_VALUATION[_code] = {'skip': ('sotp', 'sotp_segment', 'sotp_item', 'forecast') + REPLACED_BY_CUSTOM}
+# 只用分部加总三块的公司（2026-10-28 起腾讯音乐）：估值、估值模型、情景合并为「估值模型」一页（页面键仍是 val），
+# 情景与模型参数变成该页的编辑标签，不再单独生成「模型底稿 / 估值模型」「情景」
+SOTP_ONLY = {'01698.HK'}
+for _code in SOTP_ONLY:
+    CUSTOM_VALUATION[_code]['skip'] += ('scenario', 'model')
 SHARED = '框架与后台'
 SHARED_MENU = [('company', '公司')]                      # 直接放在“框架与后台”下；指标在各公司「数据底稿」和「宏观数据」里
 SHARED_SUB = ('采集', 'CloudDownloadOutlined',
@@ -55,7 +60,7 @@ SCOPE = {'thesis': 'company_id', 'fact': 'company_id', 'source': 'company_id', '
          'business': 'company_id', 'biz_model': 'company_id', 'value_chain': 'company_id', 'competitor': 'company_id', 'moat': 'company_id',
          'fit_score': 'company_id', 'risk': 'company_id', 'sotp_item': 'model.company_id', 'sotp_segment': 'model.company_id', 'sotp': 'company_id',
          'observation': 'metric.company_id',
-         'model': 'company_id', 'scenario': 'model.company_id', 'forecast': 'model.company_id', 'trial': 'model.company_id',
+         'model': 'company_id', 'scenario': 'model.company_id', 'forecast': 'model.company_id', 'fin_forecast': 'model.company_id', 'trial': 'model.company_id',
          'issue': 'company_id', 'change_log': 'company_id',
          'projection': 'company_id', 'balance': 'company_id', 'valuation': 'company_id', 'sensitivity': 'company_id', 'check': 'company_id'}
 
@@ -88,6 +93,8 @@ COLUMNS = {
                  'sotp_multiple', 'description'],
     'forecast': ['year', 'volume', 'price', 'revenue', 'cash_cost', 'depreciation', 'interest', 'other_contrib', 'tax_rate', 'payout',
                  'net_borrowing', 'cost_of_debt', 'maint_capex', 'growth_capex', 'operating_status', 'cash_status'],
+    'fin_forecast': ['year', 'sub_rev', 'nonsub_rev', 'social_rev', 'revenue', 'gross_margin', 'selling_ratio', 'admin_ratio', 'core_op',
+                     'other_income', 'finance_cost', 'np_parent', 'adj_np', 'cfo_ratio', 'capex', 'shareholder_return', 'other_cash', 'note'],
     'trial': ['name', 'start_year', 'end_year', 'base_value', 'trial_value', 'value_change', 'change_pct'],
     'issue': ['code', 'title', 'severity', 'status', 'impact', 'progress'],
     'change_log': ['change_date', 'title', 'target', 'reason', 'verification'],
