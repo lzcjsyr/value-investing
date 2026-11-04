@@ -22,23 +22,29 @@ def category(name):
     return '财务' if re.search('收入|利润|毛利|费用|开支|损益|现金|负债|借款|应收|应付|减值|回购|股息|收益', name) else '其他'
 
 
-# 以下范围都按“指标”筛（数据底稿的这几个标签每个指标一行，逐期数据在指标详情里）
-def business_scope(company, automatic=False):
-    if automatic:
-        return {'logic': '$and', 'items': [
-            {'path': 'source_kind', 'operator': '$eq', 'value': '自动采集'},
-            {'path': 'category', 'operator': '$in', 'value': ['经营', '水文', '商品']},
-            {'logic': '$or', 'items': [
-                {'path': 'company_id', 'operator': '$eq', 'value': company['id']},
-                {'path': 'used_by_codes', 'operator': '$includes', 'value': ',' + company['code'] + ','}]}]}
-    return {'logic': '$and', 'items': [
-        {'path': 'company_id', 'operator': '$eq', 'value': company['id']},
-        {'path': 'category', 'operator': '$eq', 'value': '经营'},
-        {'path': 'source_kind', 'operator': '$in', 'value': ['公司披露', '年报', '手工整理']} ]}
+# 「数据底稿 / 定量指标」四个标签（这家公司的全部指标，每个指标恰好落在一个标签；每个指标一行，逐期数据在指标详情里）：
+#   定期经营＝本公司的经营指标（披露、年报、手工）；高频经营＝自动采集的经营、水文；
+#   财务指标＝本公司的财务指标（报表计算的也在这里，数仍从财务报表实时算）；宏观与市场＝利率、汇率、商品、行情及其他
+MARKET = ['利率', '汇率', '商品', '行情', '其他']
+TABS = [('定期经营', 'disclosed'), ('高频经营', 'auto'), ('财务指标', 'finance'), ('宏观与市场', 'market')]
 
 
-def financial_supplement_scope(company):
-    return {'logic': '$and', 'items': [
-        {'path': 'company_id', 'operator': '$eq', 'value': company['id']},
-        {'path': 'category', 'operator': '$eq', 'value': '财务'},
-        {'path': 'source_kind', 'operator': '$ne', 'value': '报表计算'}]}
+def _own(company):
+    return {'path': 'company_id', 'operator': '$eq', 'value': company['id']}
+
+
+def _own_or_used(company):
+    return {'logic': '$or', 'items': [_own(company),
+            {'path': 'used_by_codes', 'operator': '$includes', 'value': ',' + company['code'] + ','}]}
+
+
+def tab_scope(key, company):
+    items = {
+        'disclosed': [_own(company), {'path': 'category', 'operator': '$eq', 'value': '经营'},
+                      {'path': 'source_kind', 'operator': '$ne', 'value': '自动采集'}],
+        'auto': [_own_or_used(company), {'path': 'category', 'operator': '$in', 'value': ['经营', '水文']},
+                 {'path': 'source_kind', 'operator': '$eq', 'value': '自动采集'}],
+        'finance': [_own(company), {'path': 'category', 'operator': '$eq', 'value': '财务'}],
+        'market': [_own_or_used(company), {'path': 'category', 'operator': '$in', 'value': MARKET}],
+    }[key]
+    return {'logic': '$and', 'items': items}

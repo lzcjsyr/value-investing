@@ -58,8 +58,8 @@ def move_after(uid, anchor):
     bp.nb_json('flow-surfaces', 'move-node', '--source-uid', uid, '--target-uid', anchor, '--position', 'after')
 
 
-# 「数据底稿 / 定量指标」三个标签（区块 key）：趋势列紧跟指标名称；其余指标表格放在最新值（及单位）后
-NAME_FIRST = ('disclosed', 'auto', 'supplement')
+# 「数据底稿 / 定量指标」各标签（区块 key，见 data_domains.TABS；supplement 是改版前的旧标签）：趋势列紧跟指标名称；其余指标表格放在最新值（及单位）后
+NAME_FIRST = ('disclosed', 'auto', 'finance', 'market', 'supplement')
 
 
 def ensure(table_uid, after=None):

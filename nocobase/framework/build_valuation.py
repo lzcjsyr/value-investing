@@ -860,7 +860,7 @@ def move_drafts(co):
     st = state()
     drafts = valuation_group(st, co)
     skip = CUSTOM_VALUATION[co['code']].get('skip', ())
-    codes = ['finmodel'] + [c for g, _, pages in COMPANY_MENU if g == '预测与估值' for c, _ in pages if c != 'key_metric']   # 重点指标留在顶层
+    codes = ['finmodel'] + [c for g, _, pages in COMPANY_MENU if g == '预测与估值' for c, _ in pages]
     for code in codes:
         key = page_key(code, co)
         if key not in state()['pages']:

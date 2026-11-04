@@ -309,9 +309,16 @@ class Notes:
                 return ((f"本公司按期披露的经营指标（量、价、订单、用户等），现有 {listed('disclosed')}。" if m.get('disclosed') else
                          '本公司按期披露的经营指标（量、价、订单、用户等）；目前还没有这类指标，标签为空。') + each)
             if key == 'auto':
-                return ((f"自动采集的高频经营环境指标，现有 {listed('auto')}。" if m.get('auto') else
-                         '自动采集的高频经营环境指标（如水位、商品价格）；本公司目前没有这类指标，标签为空。')
-                        + each + '股价看驾驶舱，利率与汇率看宏观数据。')
+                return ((f"自动采集的高频经营指标，现有 {listed('auto')}。" if m.get('auto') else
+                         '自动采集的高频经营指标（如水位、流量）；本公司目前没有这类指标，标签为空。')
+                        + each + '股价、利率、汇率、商品价格在“宏观与市场”标签。')
+            if key == 'finance':
+                return (f"本公司的全部财务指标，共 {len(m.get('finance', []))} 个：报表里有的科目与比率（收入、利润、现金流、毛利率等）"
+                        "按报表公式从财务报表实时算，不另存；报表里没有的（分部收入、公司口径的现金与调整后利润、股息回购等）在这里录入。"
+                        + each + '“模型字段”有值的进财务模型，“重点跟踪”列出盯着它的假设依据和风险。')
+            if key == 'market':
+                return (f"本公司用到的宏观与市场数据，现有 {listed('market')}，多为自动采集。" + each
+                        + '宏观指标各公司共用，新建与采集配置在“宏观数据”。')
             if b['tab'] == '分部与财务补充':
                 return (f"三大报表里没有的财务指标（分部收入与利润率、公司口径的现金与调整后利润、股息等），现有 {listed('fin_extra')}。"
                         + each + '报表里有的科目由指标按报表公式直接算，不在这里；量、价、用户等经营指标在“定期经营”标签。')
@@ -348,10 +355,15 @@ def scope_metrics():
     out = collections.defaultdict(dict)
     for name, kind, items in [tuple(r) for r in q("""SELECT json_agg(json_build_array(n, k, v)) FROM (
         SELECT c.name n, 'auto' k, json_agg(DISTINCT m.name) v FROM vi_company_base c JOIN vi_metric m
-          ON m.source_kind='自动采集' AND m.category IN ('经营','水文','商品')
+          ON m.source_kind='自动采集' AND m.category IN ('经营','水文')
          AND (m.company_id=c.id OR m.used_by_codes LIKE '%,'||c.code||',%') GROUP BY c.name
         UNION ALL SELECT c.name, 'disclosed', json_agg(DISTINCT m.name) FROM vi_company_base c JOIN vi_metric m
-          ON m.company_id=c.id AND m.category='经营' AND m.source_kind IN ('公司披露','年报','手工整理') GROUP BY c.name
+          ON m.company_id=c.id AND m.category='经营' AND m.source_kind IS DISTINCT FROM '自动采集' GROUP BY c.name
+        UNION ALL SELECT c.name, 'finance', json_agg(DISTINCT m.name) FROM vi_company_base c JOIN vi_metric m
+          ON m.company_id=c.id AND m.category='财务' GROUP BY c.name
+        UNION ALL SELECT c.name, 'market', json_agg(DISTINCT m.name) FROM vi_company_base c JOIN vi_metric m
+          ON m.category IN ('利率','汇率','商品','行情','其他')
+         AND (m.company_id=c.id OR m.used_by_codes LIKE '%,'||c.code||',%') GROUP BY c.name
         UNION ALL SELECT c.name, 'fin_extra', json_agg(DISTINCT m.name) FROM vi_company_base c JOIN vi_metric m
           ON m.company_id=c.id AND m.category='财务' AND m.source_kind<>'报表计算' GROUP BY c.name
         UNION ALL SELECT '宏观数据', 'macro', json_agg(name ORDER BY id) FROM vi_metric WHERE scope='宏观'

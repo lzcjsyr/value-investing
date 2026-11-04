@@ -22,13 +22,10 @@ COMPANY_MENU = [  # (二级分组, 图标, [(code, 页面标题)])
     ('商业模式', 'SafetyOutlined', [('biz_model', '商业模式拆解'), ('value_chain', '产业链与五力'), ('competitor', '竞争对手'),
                                    ('moat', '竞争壁垒'), ('risk', '风险分析'), ('fit_score', '价投适配度'), ('thesis', '核心论点')]),
     # 预测与估值：财务模型（可视化总览）在最前；表格页先看假设依据（每个参数为什么这么设），再看结论与模型
-    # 重点指标＝财务模型和判断依赖的数（模型字段指标、假设依据与风险的跟踪指标），点开看趋势；放在组内最前，有定制估值页的公司也不收进模型底稿
-    ('预测与估值', 'CalculatorOutlined', [('key_metric', '重点指标'), ('judgment', '假设依据'), ('valuation', '估值结论'), ('sotp', '分部加总估值'), ('sotp_segment', '经营分部估值'), ('sotp_item', '资产估值与调整'), ('model', '估值模型'), ('scenario', '情景'), ('forecast', '逐年假设'),
+    ('预测与估值', 'CalculatorOutlined', [('judgment', '假设依据'), ('valuation', '估值结论'), ('sotp', '分部加总估值'), ('sotp_segment', '经营分部估值'), ('sotp_item', '资产估值与调整'), ('model', '估值模型'), ('scenario', '情景'), ('forecast', '逐年假设'),
                                    ('projection', '预测计算'), ('balance', '资产与资本'), ('sensitivity', '敏感性：折现率×永续增长'),
                                    ('trial', '单参数试验')]),
-    # 数据底稿：业务数据＝定期经营指标与高频业务环境，财务结果另列；
-    # 原始材料：业务数据（每期数值）、财务数据（季度三大报表的定制页 build_finstmt.py，不在此生成）、定性事实（文字）、来源文档（出处，垫底）。
-    # 指标目录不在这里：在「预测与估值 / 重点指标」（模型数据｜跟踪指标｜其他指标）
+    # 数据底稿：财务报表（定制页 build_finstmt.py，不在此生成）、定量指标（这家公司的全部指标）、定性事实（文字）、来源文档（出处，垫底）
     ('数据底稿', 'DatabaseOutlined', [('observation', '定量指标'), ('fact', '定性事实'), ('source', '来源文档')]),
     # 研究维护：维护这套研究本身（模型与数据检查、待办、改动记录），不是对公司的分析
     ('研究维护', 'ToolOutlined', [('check', '质量自检'), ('issue', '待办清单'), ('change_log', '变更日志')]),
@@ -45,7 +42,7 @@ CUSTOM_VALUATION = {'600900.SH': {'skip': ('sotp', 'sotp_segment', 'sotp_item') 
 for _code in ('002078.SZ', '601668.SH', '01698.HK', '01810.HK'):
     CUSTOM_VALUATION[_code] = {'skip': ('sotp', 'sotp_segment', 'sotp_item', 'forecast') + REPLACED_BY_CUSTOM}
 # 只用分部加总三块的公司（2026-10-28 起腾讯音乐）：估值、估值模型、情景合并为「估值模型」一页（页面键仍是 val），
-# 情景与模型参数变成该页的编辑标签，不再单独生成「模型底稿 / 估值模型」「情景」
+# 情景与模型参数变成该页的编辑标签，不再单独生成「模型底稿 / 估值模型」「情景」；假设依据直接放在「预测与估值」下，没有模型底稿子组
 SOTP_ONLY = {'01698.HK'}
 for _code in SOTP_ONLY:
     CUSTOM_VALUATION[_code]['skip'] += ('scenario', 'model')
@@ -85,10 +82,11 @@ COLUMNS = {
     'sotp': ['scenario_name', 'probability', 'core_earnings', 'multiple', 'core_value', 'segments_value', 'usable_net_cash', 'investments', 'minority_other',
              'value_per_share', 'value_per_share_quote', 'market_price', 'price_vs_value', 'implied_core_multiple', 'implied_mature_multiple',
              'implied_growth_value', 'weighted_value', 'ddm_value', 'conclusion'],
-    'key_metric': ['name', 'measure', 'model_field', 'tracked_by', 'latest_value', 'unit', 'latest_period', 'state', 'source_kind', 'notes'],
     'metric': ['name', 'category', 'measure', 'unit', 'basis', 'latest_value', 'latest_period', 'state', 'tracked_by', 'source_kind', 'formula', 'source_name'],
-    # 数据底稿（业务数据、分部与财务补充）：每个指标一行，“趋势”小折线由 trend_column.py 补在单位后面；逐期数据在指标详情里看和录入
-    'metric_series': ['name', 'measure', 'basis', 'latest_period', 'latest_value', 'unit', 'obs_count', 'state', 'source_kind', 'source_name'],
+    # 数据底稿 / 定量指标：每个指标一行，“趋势”小折线由 trend_column.py 补在指标名称后面；逐期数据在指标详情里看和录入；
+    # “模型字段”“重点跟踪”说明这个数被财务模型、假设依据或风险用到（原「重点指标」页的用途分类）
+    'metric_series': ['name', 'measure', 'basis', 'latest_period', 'latest_value', 'unit', 'obs_count', 'state', 'model_field', 'tracked_by',
+                      'source_kind', 'source_name'],
     'observation': ['metric', 'obs_date', 'value', 'unit', 'is_current', 'is_valid', 'collected_at', 'doc', 'raw_capture'],
     'model': ['name', 'status', 'primary_method', 'required_return', 'base_year', 'terminal_year', 'shares', 'rf', 'erp', 'base_discount_rate',
               'sotp_year', 'valuation_date'],
@@ -114,7 +112,7 @@ COLUMNS = {
     'check': ['code', 'name', 'result', 'detail'],
 }
 SORT = {'observation': [('obs_date', 'desc')], 'raw_capture': [('collected_at', 'desc')], 'collect_run': [('id', 'desc')], 'change_log': [('change_date', 'desc')],
-        'key_metric': [('model_order', 'asc'), ('name', 'asc')], 'event': [('latest_as_of', 'desc')], 'fact': [('event_id', 'asc'), ('as_of', 'asc')], 'metric_series': [('name', 'asc')], 'fit_score': [('sort', 'asc')], 'forecast': [('year', 'asc')],
+'event': [('latest_as_of', 'desc')], 'fact': [('event_id', 'asc'), ('as_of', 'asc')], 'metric_series': [('name', 'asc')], 'fit_score': [('sort', 'asc')], 'forecast': [('year', 'asc')],
         'projection': [('id', 'asc')], 'sotp': [('id', 'asc')], 'sotp_item': [('code', 'asc'), ('id', 'asc')], 'sotp_segment': [('code', 'asc'), ('id', 'asc')], 'risk': [('code', 'asc')], 'metric': [('category', 'asc'), ('name', 'asc')], 'balance': [('id', 'asc')], 'valuation': [('id', 'asc')], 'sensitivity': [('id', 'asc')], 'check': [('id', 'asc')]}
 
 
@@ -180,7 +178,7 @@ def default_groups(code):
 
 def blueprint(code, page_title, group_route, company=None, scope=None, prefix=None):
     """一个表格页面。company＝{'id','code','name'} 时只显示这家公司的记录（区块数据范围）。"""
-    src = 'metric' if code in ('key_metric', 'metric_series') else code    # 重点指标、数据底稿的指标序列都是指标表的视角
+    src = 'metric' if code == 'metric_series' else code    # 数据底稿 / 定量指标是指标表的视角
     t = T[src]
     coll = f'vi_{src}'
     report = code in REPORT_CODES
@@ -204,7 +202,7 @@ def blueprint(code, page_title, group_route, company=None, scope=None, prefix=No
         settings['dataScope'] = {'logic': '$or', 'items': [
             {'path': 'metric.company_id', 'operator': '$eq', 'value': company['id']},
             {'path': 'metric.used_by_codes', 'operator': '$includes', 'value': f",{company['code']},"}]}
-    elif company and code in ('metric', 'key_metric'):   # 公司的指标＝自己的指标＋用到的宏观指标
+    elif company and code == 'metric':           # 公司的指标＝自己的指标＋用到的宏观指标
         settings['dataScope'] = {'logic': '$or', 'items': [
             {'path': 'company_id', 'operator': '$eq', 'value': company['id']},
             {'path': 'used_by_codes', 'operator': '$includes', 'value': f",{company['code']},"}]}
@@ -233,31 +231,17 @@ def blueprint(code, page_title, group_route, company=None, scope=None, prefix=No
     nav = {'group': {'routeId': group_route}, 'item': {'title': page_title, 'icon': 'TableOutlined' if not report else 'FundOutlined'}}
     prefix = prefix or (company['name'] if company else '价值投资框架')
     tabs = [{'title': page_title, 'blocks': [block]}]
-    if company and code == 'key_metric':         # 重点指标：模型数据 ｜ 跟踪指标 ｜ 其他指标（这家公司的全部指标都在这一页）
-        own = {'path': 'company_id', 'operator': '$eq', 'value': company['id']}
-        used = {'logic': '$or', 'items': [own, {'path': 'used_by_codes', 'operator': '$includes', 'value': f",{company['code']},"}]}
-        rest = {'logic': '$and', 'items': [used, {'path': 'model_field', 'operator': '$empty', 'value': True},
-                {'logic': '$or', 'items': [{'path': 'tracked_codes', 'operator': '$empty', 'value': True},
-                                           {'path': 'tracked_codes', 'operator': '$notIncludes', 'value': f",{company['code']},"}]}]}
-        model = {'logic': '$and', 'items': [own, {'path': 'model_field', 'operator': '$notEmpty', 'value': True}]}
-        tracked = {'logic': '$and', 'items': [{'path': 'tracked_codes', 'operator': '$includes', 'value': f",{company['code']},"}]}
-        tabs = [{'title': '模型数据', 'blocks': [dict(block, key='model', settings=dict(settings, dataScope=model))]},
-                {'title': '跟踪指标', 'blocks': [dict(block, key='tracked', settings=dict(settings, dataScope=tracked))]},
-                {'title': '其他指标', 'blocks': [dict(block, key='rest', settings=dict(settings, dataScope=rest))]}]
     if company and code == 'fact' and not scope:           # 定性事实：事项（一件事一行）｜ 全部事实（各侧面平铺，在这里挂“所属事项”）
         b = blueprint('event', page_title, group_route, company, prefix=prefix)
         tabs = [{'title': '事项', 'blocks': [dict(b['tabs'][0]['blocks'][0], key='events')]},
                 {'title': '全部事实', 'blocks': [dict(block, key='facts')]}]
         defaults['collections'].update(b['defaults']['collections'])
         assets = b.get('assets')
-    if company and code == 'observation' and not scope:    # 数据底稿 / 定量指标：定期经营 ｜ 高频经营 ｜ 分部与财务补充，每个指标一行（趋势小折线）
-        from data_domains import business_scope
+    if company and code == 'observation' and not scope:    # 数据底稿 / 定量指标：这家公司的全部指标分四个标签（data_domains.TABS），每个指标一行（趋势小折线）
+        import data_domains
         tabs, defaults = [], {'collections': {}}
-        from data_domains import financial_supplement_scope
-        for title, key, sc in (('定期经营', 'disclosed', business_scope(company)),
-                               ('高频经营', 'auto', business_scope(company, automatic=True)),
-                               ('分部与财务补充', 'supplement', financial_supplement_scope(company))):
-            b = blueprint('metric_series', page_title, group_route, company, scope=sc, prefix=prefix)
+        for title, key in data_domains.TABS:
+            b = blueprint('metric_series', page_title, group_route, company, scope=data_domains.tab_scope(key, company), prefix=prefix)
             tabs.append({'title': title, 'blocks': [dict(b['tabs'][0]['blocks'][0], key=key)]})
             defaults['collections'].update(b['defaults']['collections'])
             assets = b.get('assets')
@@ -368,13 +352,13 @@ def company_root(st, co):
 def valuation_group(st, co):
     """“预测与估值”的表格页放在哪个分组：有定制估值页的公司放进组内的“模型底稿”子组。"""
     gid = ensure_group(st, f"{co['name']}/预测与估值", '预测与估值', 'CalculatorOutlined', parent=company_root(st, co))
-    if co['code'] in CUSTOM_VALUATION:
+    if co['code'] in CUSTOM_VALUATION and co['code'] not in SOTP_ONLY:   # 只用分部加总的公司录入页只剩假设依据，不再套一层
         gid = ensure_group(st, f"{co['name']}/预测与估值/{DRAFTS}", DRAFTS, 'FolderOutlined', parent=gid)
     return gid
 
 
 def page_group(st, co, sub, icon, code=None):
-    if sub == '预测与估值' and code != 'key_metric':     # 重点指标不收进模型底稿
+    if sub == '预测与估值':
         return valuation_group(st, co)
     return ensure_group(st, f"{co['name']}/{sub}", sub, icon, parent=company_root(st, co))
 
@@ -584,8 +568,9 @@ def sort_menu(company_codes=None):
     # 可视化页不在 COMPANY_MENU 里：财务数据（build_finstmt.py，季度三大报表）在数据底稿里跟在数据后面；
     # 财务模型（build_finmodel.py）在预测与估值表格页前；定制估值页（build_valuation.py）在最前，模型底稿子组在最后
     sub_order['数据底稿'] = ['财务报表', '定量指标', '定性事实', '来源文档']   # 原始报表 → 指标 → 定性 → 出处
-    sub_order['预测与估值'] = ['重点指标', '财务模型', '估值'] + [t for t in sub_order['预测与估值'] if t != '重点指标'] + [DRAFTS]
-    sub_order[DRAFTS] = sub_order['预测与估值']
+    sub_order[DRAFTS] = ['财务模型', '估值'] + sub_order['预测与估值'] + [DRAFTS]
+    # 没有模型底稿子组的公司（SOTP_ONLY）：估值模型紧跟财务模型，假设依据放最后
+    sub_order['预测与估值'] = ['财务模型', '估值', '估值模型'] + [t for t in sub_order[DRAFTS] if t not in ('财务模型', '估值', '估值模型')]
     for g in current_routes:
         top = g['title']
         if company_codes is not None and top not in [c['name'] for c in companies() if c['code'] in company_codes]:
