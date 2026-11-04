@@ -1,0 +1,5149 @@
+{
+ "target": {
+  "locator": {
+   "pageSchemaUid": "h2o39ic9c7s"
+  },
+  "uid": "cuz61nsegjr",
+  "kind": "page"
+ },
+ "tree": {
+  "parentId": "h2o39ic9c7s",
+  "subKey": "page",
+  "subType": "object",
+  "use": "RootPageModel",
+  "props": {
+   "routeId": 393657256509440,
+   "title": "价投适配度",
+   "enableTabs": true,
+   "displayTitle": true,
+   "icon": "TableOutlined",
+   "enableHeader": false
+  },
+  "stepParams": {
+   "pageSettings": {
+    "general": {
+     "title": "价投适配度",
+     "displayTitle": true,
+     "enableTabs": true,
+     "documentTitle": "太阳纸业 · 价投适配度",
+     "icon": "TableOutlined",
+     "enableHeader": false
+    }
+   }
+  },
+  "parent": "h2o39ic9c7s",
+  "uid": "cuz61nsegjr",
+  "subModels": {
+   "tabs": [
+    {
+     "uid": "1v2w5xtbo11",
+     "use": "RootPageTabModel",
+     "props": {
+      "route": {
+       "createdAt": "2026-10-23T05:46:47.035Z",
+       "updatedAt": "2026-10-25T16:40:47.975Z",
+       "id": 393657256509441,
+       "parentId": 393657256509440,
+       "title": "评分",
+       "tooltip": null,
+       "icon": null,
+       "schemaUid": "1v2w5xtbo11",
+       "menuSchemaUid": null,
+       "tabSchemaName": "1c7p03oohgi",
+       "type": "tabs",
+       "options": {
+        "flowRegistry": {}
+       },
+       "sort": 1,
+       "hideInMenu": null,
+       "enableTabs": null,
+       "enableHeader": null,
+       "displayTitle": null,
+       "hidden": false,
+       "createdById": null,
+       "updatedById": 1,
+       "children": []
+      },
+      "title": "评分",
+      "icon": null
+     },
+     "decoratorProps": {},
+     "flowRegistry": {},
+     "stepParams": {
+      "pageTabSettings": {
+       "tab": {
+        "title": "评分",
+        "icon": null
+       }
+      }
+     },
+     "subModels": {
+      "grid": {
+       "parentId": "1v2w5xtbo11",
+       "subKey": "grid",
+       "subType": "object",
+       "use": "BlockGridModel",
+       "props": {
+        "rows": {
+         "row1": [
+          [
+           "8qw7dzka2w0"
+          ]
+         ]
+        },
+        "sizes": {
+         "row1": [
+          24
+         ]
+        },
+        "rowOrder": [
+         "row1"
+        ]
+       },
+       "stepParams": {
+        "gridSettings": {
+         "grid": {
+          "rows": {
+           "row1": [
+            [
+             "8qw7dzka2w0"
+            ]
+           ]
+          },
+          "sizes": {
+           "row1": [
+            24
+           ]
+          },
+          "rowOrder": [
+           "row1"
+          ]
+         }
+        }
+       },
+       "uid": "hncg3k3uzj4",
+       "subModels": {
+        "items": [
+         {
+          "parentId": "hncg3k3uzj4",
+          "subKey": "items",
+          "subType": "array",
+          "use": "JSBlockModel",
+          "props": {},
+          "decoratorProps": {},
+          "stepParams": {
+           "jsSettings": {
+            "runJs": {
+             "version": "v2",
+             "code": "const COMPANY = '002078.SZ';   // 由 build_fitboard.py 写入：只看这家公司的适配度\nconst { React } = ctx.libs;\nconst { Alert, Empty, theme } = ctx.libs.antd;\n\nasync function listRows(name, filter) {\n  const resource = ctx.makeResource('MultiRecordResource');\n  resource.setResourceName(name);\n  resource.setPageSize?.(100);\n  if (filter) resource.setFilter?.(filter);\n  await resource.refresh();\n  return resource.getData() || [];\n}\n\n// 与自动检查 C15 的归类一致\nconst BANDS = [\n  { from: 0, to: 21, name: '不适合', text: '通常不符合价值投资标准' },\n  { from: 22, to: 31, name: '可研究', text: '可研究，需说明更偏复利、现金流价值还是资产价值' },\n  { from: 32, to: 40, name: '复利型', text: '适合价值投资复利框架（仍需价格安全边际）' },\n];\n\nfunction Board({ company, rows }) {\n  const { token } = theme.useToken();\n  const total = rows.reduce((a, r) => a + (Number(r.score) || 0), 0);\n  const max = rows.length * 5 || 40;\n  const scaled = max === 40 ? total : Math.round((total / max) * 40);\n  const band = BANDS.find((b) => scaled >= b.from && scaled <= b.to) || BANDS[0];\n  const tone = { 不适合: token.colorError, 可研究: token.colorWarning, 复利型: token.colorSuccess };\n  const soft = { 不适合: token.colorErrorBg, 可研究: token.colorWarningBg, 复利型: token.colorSuccessBg };\n  const color = (s) => (s >= 4 ? token.colorSuccess : s <= 2 ? token.colorError : token.colorTextSecondary);\n  const strong = rows.filter((r) => Number(r.score) >= 4);\n  const weak = rows.filter((r) => Number(r.score) <= 2);\n  const list = (xs) => xs.map((r) => `${r.dimension} ${r.score}`).join('、');\n  const narrow = (typeof window !== 'undefined' ? window.innerWidth : 1400) < 900;\n  const label = { fontSize: 12, color: token.colorTextTertiary };\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 28, maxWidth: 1100 }}>\n      {/* 结论：总分、归类、刻度、强项与短板 */}\n      <div style={{ display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'minmax(0, 1fr) minmax(0, 1fr)', gap: narrow ? 18 : 48, alignItems: 'end' }}>\n        <div>\n          <div style={label}>{company.name} · 价投适配度</div>\n          <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginTop: 4 }}>\n            <span style={{ fontSize: 44, fontWeight: 600, lineHeight: 1.1, color: tone[band.name] }}>{total}</span>\n            <span style={{ fontSize: 16, color: token.colorTextTertiary }}>/ {max}</span>\n            <span style={{ fontSize: 13, fontWeight: 600, color: tone[band.name], background: soft[band.name], borderRadius: 4, padding: '2px 8px' }}>{band.name}</span>\n          </div>\n          <div style={{ fontSize: 13, color: token.colorTextSecondary, marginTop: 6, lineHeight: 1.6 }}>{band.text}</div>\n        </div>\n        <div>\n          <div style={{ position: 'relative', paddingTop: 10 }}>\n            <div style={{ display: 'flex', height: 8, borderRadius: 4, overflow: 'hidden' }}>\n              {BANDS.map((b) => (\n                <div key={b.name} style={{ flex: b.to - b.from + 1, background: b.name === band.name ? tone[b.name] : token.colorFillSecondary, opacity: b.name === band.name ? 0.85 : 1 }} />\n              ))}\n            </div>\n            <div style={{ position: 'absolute', top: 0, left: `calc(${(Math.min(scaled, 40) / 41) * 100}% - 5px)`, width: 0, height: 0,\n                          borderLeft: '5px solid transparent', borderRight: '5px solid transparent', borderTop: `7px solid ${token.colorText}` }} />\n            <div style={{ display: 'flex', fontSize: 11, color: token.colorTextTertiary, marginTop: 6 }}>\n              {BANDS.map((b) => <span key={b.name} style={{ flex: b.to - b.from + 1 }}>{b.name} {b.from === 0 ? `≤${b.to}` : b.to === 40 ? `${b.from}+` : `${b.from}–${b.to}`}</span>)}\n            </div>\n          </div>\n          <div style={{ marginTop: 14, fontSize: 13, lineHeight: 1.9, color: token.colorTextSecondary }}>\n            <div><span style={{ color: token.colorSuccess, fontWeight: 600, marginRight: 12 }}>强项</span>{strong.length ? list(strong) : '—'}</div>\n            <div><span style={{ color: token.colorError, fontWeight: 600, marginRight: 12 }}>短板</span>{weak.length ? list(weak) : '—'}</div>\n          </div>\n        </div>\n      </div>\n      {/* 八个维度：分数、理由、反面，一行一个 */}\n      <div>\n        {!narrow ? (\n          <div style={{ display: 'grid', gridTemplateColumns: '88px 150px 32px minmax(0, 1fr) minmax(0, 1fr)', gap: 20, padding: '0 0 8px', ...label,\n                        borderBottom: `1px solid ${token.colorSplit}` }}>\n            <span>维度</span><span>评分</span><span /><span>理由</span><span>反面</span>\n          </div>\n        ) : null}\n        {rows.map((r) => {\n          const s = Number(r.score) || 0;\n          const bar = (\n            <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>\n              {[1, 2, 3, 4, 5].map((i) => (\n                <span key={i} style={{ flex: 1, height: 6, borderRadius: 2, background: i <= s ? color(s) : token.colorFillSecondary }} />\n              ))}\n            </div>\n          );\n          return (\n            <div key={r.id} style={{ display: 'grid', gridTemplateColumns: narrow ? '72px minmax(0, 1fr) 28px' : '88px 150px 32px minmax(0, 1fr) minmax(0, 1fr)',\n                                     gap: narrow ? '6px 12px' : 20, padding: '12px 0', alignItems: 'baseline', borderBottom: `1px solid ${token.colorSplit}` }}>\n              <span style={{ fontSize: 14, fontWeight: 500, color: token.colorText }}>{r.dimension}</span>\n              <div style={{ alignSelf: 'center' }}>{bar}</div>\n              <span style={{ fontSize: 16, fontWeight: 600, color: color(s), textAlign: 'right' }}>{r.score ?? '—'}</span>\n              <div style={{ fontSize: 13, color: token.colorText, lineHeight: 1.65, gridColumn: narrow ? '1 / -1' : undefined }}>{r.rationale || '—'}</div>\n              <div style={{ fontSize: 13, color: token.colorTextTertiary, lineHeight: 1.65, gridColumn: narrow ? '1 / -1' : undefined }}>\n                {narrow && r.counter ? '反面：' : ''}{r.counter || '—'}\n              </div>\n            </div>\n          );\n        })}\n      </div>\n    </div>\n  );\n}\n\ntry {\n  const cos = await listRows('vi_company', { code: { $eq: COMPANY } });\n  const company = cos[0];\n  if (!company) {\n    ctx.render(<Alert type=\"info\" showIcon message={`公司表里没有代码为 ${COMPANY} 的公司`} />);\n  } else {\n    const rows = (await listRows('vi_fit_score', { company_id: { $eq: company.id } }))\n      .sort((a, b) => (Number(a.sort) || 0) - (Number(b.sort) || 0));\n    ctx.render(rows.length ? <Board company={company} rows={rows} /> : <Empty description=\"还没有评分：在“明细（编辑）”标签里给八个维度各打 0—5 分\" />);\n  }\n} catch (error) {\n  ctx.render(<Alert type=\"error\" showIcon message=\"适配度读取失败\" description={String(error?.message || error)} />);\n}\n"
+            }
+           }
+          },
+          "uid": "8qw7dzka2w0",
+          "parent": "hncg3k3uzj4",
+          "sortIndex": 1,
+          "popup": {
+           "mode": "local"
+          }
+         }
+        ]
+       },
+       "parent": "1v2w5xtbo11",
+       "sortIndex": 1,
+       "popup": {
+        "mode": "local"
+       }
+      }
+     },
+     "popup": {
+      "mode": "local"
+     }
+    },
+    {
+     "uid": "cgz0kxan089",
+     "use": "RootPageTabModel",
+     "props": {
+      "route": {
+       "createdAt": "2026-10-25T16:13:53.506Z",
+       "updatedAt": "2026-10-25T16:40:49.570Z",
+       "id": 394098552274944,
+       "parentId": 393657256509440,
+       "title": "明细（编辑）",
+       "tooltip": null,
+       "icon": null,
+       "schemaUid": "cgz0kxan089",
+       "menuSchemaUid": null,
+       "tabSchemaName": "明细（编辑）",
+       "type": "tabs",
+       "options": {
+        "flowRegistry": {}
+       },
+       "sort": 2,
+       "hideInMenu": null,
+       "enableTabs": null,
+       "enableHeader": null,
+       "displayTitle": null,
+       "hidden": false,
+       "createdById": null,
+       "updatedById": 1,
+       "children": []
+      },
+      "title": "明细（编辑）",
+      "icon": null
+     },
+     "decoratorProps": {},
+     "flowRegistry": {},
+     "stepParams": {
+      "pageTabSettings": {
+       "tab": {
+        "title": "明细（编辑）",
+        "icon": null
+       }
+      }
+     },
+     "subModels": {
+      "grid": {
+       "parentId": "cgz0kxan089",
+       "subKey": "grid",
+       "subType": "object",
+       "use": "BlockGridModel",
+       "props": {
+        "rows": {
+         "row1": [
+          [
+           "b5zvt4x9chc"
+          ]
+         ]
+        },
+        "sizes": {
+         "row1": [
+          24
+         ]
+        },
+        "rowOrder": [
+         "row1"
+        ]
+       },
+       "stepParams": {
+        "gridSettings": {
+         "grid": {
+          "rows": {
+           "row1": [
+            [
+             "b5zvt4x9chc"
+            ]
+           ]
+          },
+          "sizes": {
+           "row1": [
+            24
+           ]
+          },
+          "rowOrder": [
+           "row1"
+          ]
+         }
+        }
+       },
+       "uid": "60nxwx3ohxf",
+       "subModels": {
+        "items": [
+         {
+          "parentId": "60nxwx3ohxf",
+          "subKey": "items",
+          "subType": "array",
+          "use": "TableBlockModel",
+          "props": {},
+          "decoratorProps": {},
+          "stepParams": {
+           "resourceSettings": {
+            "init": {
+             "dataSourceKey": "main",
+             "collectionName": "vi_fit_score"
+            }
+           },
+           "cardSettings": {
+            "titleDescription": {
+             "description": "按八个维度打分，看公司适不适合价值投资；引用【核心论点】；被【质量自检】引用。"
+            }
+           },
+           "tableSettings": {
+            "pageSize": {
+             "pageSize": 50
+            },
+            "tableDensity": {
+             "size": "middle"
+            },
+            "defaultSorting": {
+             "sort": [
+              {
+               "field": "sort",
+               "direction": "asc"
+              }
+             ]
+            },
+            "dataScope": {
+             "filter": {
+              "logic": "$and",
+              "items": [
+               {
+                "path": "company_id",
+                "operator": "$eq",
+                "value": 2
+               }
+              ]
+             }
+            }
+           }
+          },
+          "uid": "b5zvt4x9chc",
+          "subModels": {
+           "columns": [
+            {
+             "use": "TableActionsColumnModel",
+             "props": {},
+             "decoratorProps": {},
+             "stepParams": {
+              "tableColumnSettings": {
+               "title": {
+                "title": "{{t(\"Actions\")}}"
+               }
+              }
+             },
+             "flowRegistry": {},
+             "subKey": "columns",
+             "subType": "array",
+             "uid": "scrlgqqjjvr",
+             "subModels": {
+              "actions": [
+               {
+                "parentId": "scrlgqqjjvr",
+                "subKey": "actions",
+                "subType": "array",
+                "use": "ViewActionModel",
+                "props": {
+                 "type": "link",
+                 "title": "{{t(\"View\")}}",
+                 "icon": null
+                },
+                "decoratorProps": {},
+                "stepParams": {
+                 "buttonSettings": {
+                  "general": {
+                   "title": "{{t(\"View\")}}",
+                   "icon": null,
+                   "type": "link",
+                   "iconOnly": false
+                  }
+                 },
+                 "popupSettings": {
+                  "openView": {
+                   "mode": "drawer",
+                   "size": "medium",
+                   "pageModelClass": "ChildPageModel",
+                   "dataSourceKey": "main",
+                   "collectionName": "vi_fit_score",
+                   "title": "{{t(\"Details\")}}"
+                  }
+                 }
+                },
+                "flowRegistry": {},
+                "uid": "s78mx7dvlr7",
+                "parent": "scrlgqqjjvr",
+                "sortIndex": 1,
+                "popup": {
+                 "template": {
+                  "uid": "fc7a8x3w9pp",
+                  "mode": "reference"
+                 }
+                }
+               },
+               {
+                "parentId": "scrlgqqjjvr",
+                "subKey": "actions",
+                "subType": "array",
+                "use": "EditActionModel",
+                "props": {
+                 "title": "{{t(\"Edit\")}}",
+                 "icon": null,
+                 "type": "link"
+                },
+                "decoratorProps": {},
+                "stepParams": {
+                 "buttonSettings": {
+                  "general": {
+                   "title": "{{t(\"Edit\")}}",
+                   "icon": null,
+                   "type": "link",
+                   "iconOnly": false
+                  }
+                 },
+                 "popupSettings": {
+                  "openView": {
+                   "mode": "drawer",
+                   "size": "medium",
+                   "pageModelClass": "ChildPageModel",
+                   "dataSourceKey": "main",
+                   "collectionName": "vi_fit_score",
+                   "title": "编辑 · 价投适配度",
+                   "filterByTk": "{{ctx.record.id}}"
+                  }
+                 }
+                },
+                "flowRegistry": {},
+                "uid": "ebprlepuzwk",
+                "subModels": {
+                 "page": {
+                  "parentId": "ebprlepuzwk",
+                  "subKey": "page",
+                  "subType": "object",
+                  "use": "ChildPageModel",
+                  "props": {
+                   "displayTitle": false,
+                   "enableTabs": true
+                  },
+                  "stepParams": {
+                   "pageSettings": {
+                    "general": {
+                     "displayTitle": false,
+                     "enableTabs": true
+                    }
+                   }
+                  },
+                  "uid": "4dwkwvy512c",
+                  "subModels": {
+                   "tabs": [
+                    {
+                     "use": "ChildPageTabModel",
+                     "props": {
+                      "title": "{{t(\"Details\")}}"
+                     },
+                     "stepParams": {
+                      "pageTabSettings": {
+                       "tab": {
+                        "title": "{{t(\"Details\")}}"
+                       }
+                      }
+                     },
+                     "subKey": "tabs",
+                     "subType": "array",
+                     "uid": "38qhxv5qomq",
+                     "subModels": {
+                      "grid": {
+                       "use": "BlockGridModel",
+                       "subKey": "grid",
+                       "subType": "object",
+                       "props": {
+                        "rows": {
+                         "row1": [
+                          [
+                           "5aug01nxpvh"
+                          ]
+                         ]
+                        },
+                        "sizes": {
+                         "row1": [
+                          24
+                         ]
+                        },
+                        "rowOrder": [
+                         "row1"
+                        ]
+                       },
+                       "stepParams": {
+                        "gridSettings": {
+                         "grid": {
+                          "rows": {
+                           "row1": [
+                            [
+                             "5aug01nxpvh"
+                            ]
+                           ]
+                          },
+                          "sizes": {
+                           "row1": [
+                            24
+                           ]
+                          },
+                          "rowOrder": [
+                           "row1"
+                          ]
+                         }
+                        }
+                       },
+                       "uid": "g43vbuaya7j",
+                       "subModels": {
+                        "items": [
+                         {
+                          "parentId": "g43vbuaya7j",
+                          "subKey": "items",
+                          "subType": "array",
+                          "use": "EditFormModel",
+                          "props": {},
+                          "decoratorProps": {},
+                          "stepParams": {
+                           "resourceSettings": {
+                            "init": {
+                             "dataSourceKey": "main",
+                             "collectionName": "vi_fit_score",
+                             "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+                            }
+                           }
+                          },
+                          "uid": "5aug01nxpvh",
+                          "subModels": {
+                           "grid": {
+                            "use": "FormGridModel",
+                            "subKey": "grid",
+                            "subType": "object",
+                            "stepParams": {
+                             "gridSettings": {
+                              "grid": {
+                               "rows": {
+                                "row1": [
+                                 [
+                                  "fmb9qiuxpr8"
+                                 ],
+                                 [
+                                  "8b48md77b3d"
+                                 ]
+                                ],
+                                "row2": [
+                                 [
+                                  "zi60bis6mnk"
+                                 ],
+                                 [
+                                  "r3bu6fl2p6x"
+                                 ]
+                                ],
+                                "row3": [
+                                 [
+                                  "0ygiq4aoaom"
+                                 ],
+                                 [
+                                  "lkcovzlnuc3"
+                                 ]
+                                ],
+                                "row4": [
+                                 [
+                                  "n95bgwzhio8"
+                                 ]
+                                ]
+                               },
+                               "sizes": {
+                                "row1": [
+                                 12,
+                                 12
+                                ],
+                                "row2": [
+                                 12,
+                                 12
+                                ],
+                                "row3": [
+                                 12,
+                                 12
+                                ],
+                                "row4": [
+                                 24
+                                ]
+                               },
+                               "rowOrder": [
+                                "row1",
+                                "row2",
+                                "row3",
+                                "row4"
+                               ]
+                              }
+                             }
+                            },
+                            "props": {
+                             "rows": {
+                              "row1": [
+                               [
+                                "fmb9qiuxpr8"
+                               ],
+                               [
+                                "8b48md77b3d"
+                               ]
+                              ],
+                              "row2": [
+                               [
+                                "zi60bis6mnk"
+                               ],
+                               [
+                                "r3bu6fl2p6x"
+                               ]
+                              ],
+                              "row3": [
+                               [
+                                "0ygiq4aoaom"
+                               ],
+                               [
+                                "lkcovzlnuc3"
+                               ]
+                              ],
+                              "row4": [
+                               [
+                                "n95bgwzhio8"
+                               ]
+                              ]
+                             },
+                             "sizes": {
+                              "row1": [
+                               12,
+                               12
+                              ],
+                              "row2": [
+                               12,
+                               12
+                              ],
+                              "row3": [
+                               12,
+                               12
+                              ],
+                              "row4": [
+                               24
+                              ]
+                             },
+                             "rowOrder": [
+                              "row1",
+                              "row2",
+                              "row3",
+                              "row4"
+                             ]
+                            },
+                            "uid": "gzunqafcd2m",
+                            "subModels": {
+                             "items": [
+                              {
+                               "parentId": "gzunqafcd2m",
+                               "subKey": "items",
+                               "subType": "array",
+                               "use": "FormItemModel",
+                               "props": {},
+                               "stepParams": {
+                                "fieldSettings": {
+                                 "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_fit_score",
+                                  "fieldPath": "dimension"
+                                 }
+                                }
+                               },
+                               "uid": "fmb9qiuxpr8",
+                               "subModels": {
+                                "field": {
+                                 "use": "SelectFieldModel",
+                                 "props": {
+                                  "allowClear": true
+                                 },
+                                 "stepParams": {
+                                  "fieldSettings": {
+                                   "init": {
+                                    "dataSourceKey": "main",
+                                    "collectionName": "vi_fit_score",
+                                    "fieldPath": "dimension"
+                                   }
+                                  }
+                                 },
+                                 "subKey": "field",
+                                 "subType": "object",
+                                 "uid": "zhasfxpmu6b",
+                                 "parent": "fmb9qiuxpr8",
+                                 "parentId": "fmb9qiuxpr8",
+                                 "sortIndex": 1,
+                                 "popup": {
+                                  "mode": "local"
+                                 }
+                                }
+                               },
+                               "parent": "gzunqafcd2m",
+                               "sortIndex": 1,
+                               "popup": {
+                                "mode": "local"
+                               }
+                              },
+                              {
+                               "parentId": "gzunqafcd2m",
+                               "subKey": "items",
+                               "subType": "array",
+                               "use": "FormItemModel",
+                               "props": {},
+                               "stepParams": {
+                                "fieldSettings": {
+                                 "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_fit_score",
+                                  "fieldPath": "score"
+                                 }
+                                }
+                               },
+                               "uid": "8b48md77b3d",
+                               "subModels": {
+                                "field": {
+                                 "use": "NumberFieldModel",
+                                 "props": {},
+                                 "stepParams": {
+                                  "fieldSettings": {
+                                   "init": {
+                                    "dataSourceKey": "main",
+                                    "collectionName": "vi_fit_score",
+                                    "fieldPath": "score"
+                                   }
+                                  }
+                                 },
+                                 "subKey": "field",
+                                 "subType": "object",
+                                 "uid": "oej3tjd4y47",
+                                 "parent": "8b48md77b3d",
+                                 "parentId": "8b48md77b3d",
+                                 "sortIndex": 1,
+                                 "popup": {
+                                  "mode": "local"
+                                 }
+                                }
+                               },
+                               "parent": "gzunqafcd2m",
+                               "sortIndex": 2,
+                               "popup": {
+                                "mode": "local"
+                               }
+                              },
+                              {
+                               "parentId": "gzunqafcd2m",
+                               "subKey": "items",
+                               "subType": "array",
+                               "use": "FormItemModel",
+                               "props": {},
+                               "stepParams": {
+                                "fieldSettings": {
+                                 "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_fit_score",
+                                  "fieldPath": "rationale"
+                                 }
+                                }
+                               },
+                               "uid": "zi60bis6mnk",
+                               "subModels": {
+                                "field": {
+                                 "use": "TextareaFieldModel",
+                                 "props": {
+                                  "autoSize": {
+                                   "maxRows": 10,
+                                   "minRows": 3
+                                  }
+                                 },
+                                 "stepParams": {
+                                  "fieldSettings": {
+                                   "init": {
+                                    "dataSourceKey": "main",
+                                    "collectionName": "vi_fit_score",
+                                    "fieldPath": "rationale"
+                                   }
+                                  }
+                                 },
+                                 "subKey": "field",
+                                 "subType": "object",
+                                 "uid": "iunwrc0pcem",
+                                 "parent": "zi60bis6mnk",
+                                 "parentId": "zi60bis6mnk",
+                                 "sortIndex": 1,
+                                 "popup": {
+                                  "mode": "local"
+                                 }
+                                }
+                               },
+                               "parent": "gzunqafcd2m",
+                               "sortIndex": 3,
+                               "popup": {
+                                "mode": "local"
+                               }
+                              },
+                              {
+                               "parentId": "gzunqafcd2m",
+                               "subKey": "items",
+                               "subType": "array",
+                               "use": "FormItemModel",
+                               "props": {},
+                               "stepParams": {
+                                "fieldSettings": {
+                                 "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_fit_score",
+                                  "fieldPath": "counter"
+                                 }
+                                }
+                               },
+                               "uid": "r3bu6fl2p6x",
+                               "subModels": {
+                                "field": {
+                                 "use": "TextareaFieldModel",
+                                 "props": {
+                                  "autoSize": {
+                                   "maxRows": 10,
+                                   "minRows": 3
+                                  }
+                                 },
+                                 "stepParams": {
+                                  "fieldSettings": {
+                                   "init": {
+                                    "dataSourceKey": "main",
+                                    "collectionName": "vi_fit_score",
+                                    "fieldPath": "counter"
+                                   }
+                                  }
+                                 },
+                                 "subKey": "field",
+                                 "subType": "object",
+                                 "uid": "lanbwyb44rw",
+                                 "parent": "r3bu6fl2p6x",
+                                 "parentId": "r3bu6fl2p6x",
+                                 "sortIndex": 1,
+                                 "popup": {
+                                  "mode": "local"
+                                 }
+                                }
+                               },
+                               "parent": "gzunqafcd2m",
+                               "sortIndex": 4,
+                               "popup": {
+                                "mode": "local"
+                               }
+                              },
+                              {
+                               "parentId": "gzunqafcd2m",
+                               "subKey": "items",
+                               "subType": "array",
+                               "use": "FormItemModel",
+                               "props": {},
+                               "stepParams": {
+                                "fieldSettings": {
+                                 "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_fit_score",
+                                  "fieldPath": "sort"
+                                 }
+                                }
+                               },
+                               "uid": "0ygiq4aoaom",
+                               "subModels": {
+                                "field": {
+                                 "use": "NumberFieldModel",
+                                 "props": {},
+                                 "stepParams": {
+                                  "fieldSettings": {
+                                   "init": {
+                                    "dataSourceKey": "main",
+                                    "collectionName": "vi_fit_score",
+                                    "fieldPath": "sort"
+                                   }
+                                  }
+                                 },
+                                 "subKey": "field",
+                                 "subType": "object",
+                                 "uid": "spbr0tvvdw8",
+                                 "parent": "0ygiq4aoaom",
+                                 "parentId": "0ygiq4aoaom",
+                                 "sortIndex": 1,
+                                 "popup": {
+                                  "mode": "local"
+                                 }
+                                }
+                               },
+                               "parent": "gzunqafcd2m",
+                               "sortIndex": 5,
+                               "popup": {
+                                "mode": "local"
+                               }
+                              },
+                              {
+                               "parentId": "gzunqafcd2m",
+                               "subKey": "items",
+                               "subType": "array",
+                               "use": "FormItemModel",
+                               "props": {
+                                "titleField": "name"
+                               },
+                               "stepParams": {
+                                "fieldSettings": {
+                                 "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_fit_score",
+                                  "fieldPath": "company"
+                                 }
+                                },
+                                "editItemSettings": {
+                                 "titleField": {
+                                  "label": "name"
+                                 }
+                                }
+                               },
+                               "uid": "lkcovzlnuc3",
+                               "subModels": {
+                                "field": {
+                                 "use": "RecordSelectFieldModel",
+                                 "props": {
+                                  "titleField": "name"
+                                 },
+                                 "stepParams": {
+                                  "fieldSettings": {
+                                   "init": {
+                                    "dataSourceKey": "main",
+                                    "collectionName": "vi_fit_score",
+                                    "fieldPath": "company"
+                                   }
+                                  }
+                                 },
+                                 "subKey": "field",
+                                 "subType": "object",
+                                 "uid": "1exh63j92br",
+                                 "parent": "lkcovzlnuc3",
+                                 "parentId": "lkcovzlnuc3",
+                                 "sortIndex": 1,
+                                 "popup": {
+                                  "mode": "local"
+                                 }
+                                }
+                               },
+                               "parent": "gzunqafcd2m",
+                               "sortIndex": 6,
+                               "popup": {
+                                "mode": "local"
+                               }
+                              },
+                              {
+                               "parentId": "gzunqafcd2m",
+                               "subKey": "items",
+                               "subType": "array",
+                               "use": "FormItemModel",
+                               "props": {
+                                "titleField": "title"
+                               },
+                               "stepParams": {
+                                "fieldSettings": {
+                                 "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_fit_score",
+                                  "fieldPath": "theses"
+                                 }
+                                },
+                                "editItemSettings": {
+                                 "titleField": {
+                                  "label": "title"
+                                 }
+                                }
+                               },
+                               "uid": "n95bgwzhio8",
+                               "subModels": {
+                                "field": {
+                                 "use": "RecordSelectFieldModel",
+                                 "props": {
+                                  "titleField": "title"
+                                 },
+                                 "stepParams": {
+                                  "fieldSettings": {
+                                   "init": {
+                                    "dataSourceKey": "main",
+                                    "collectionName": "vi_fit_score",
+                                    "fieldPath": "theses"
+                                   }
+                                  },
+                                  "selectSettings": {
+                                   "dataScope": {
+                                    "filter": {
+                                     "logic": "$and",
+                                     "items": [
+                                      {
+                                       "path": "company_id",
+                                       "operator": "$eq",
+                                       "value": "{{ctx.formValues.company.id}}"
+                                      }
+                                     ]
+                                    }
+                                   }
+                                  }
+                                 },
+                                 "subKey": "field",
+                                 "subType": "object",
+                                 "uid": "6zh4l7x4mlt",
+                                 "parent": "n95bgwzhio8",
+                                 "parentId": "n95bgwzhio8",
+                                 "sortIndex": 1,
+                                 "popup": {
+                                  "mode": "local"
+                                 }
+                                }
+                               },
+                               "parent": "gzunqafcd2m",
+                               "sortIndex": 7,
+                               "popup": {
+                                "mode": "local"
+                               }
+                              }
+                             ]
+                            },
+                            "parent": "5aug01nxpvh",
+                            "parentId": "5aug01nxpvh",
+                            "sortIndex": 1,
+                            "popup": {
+                             "mode": "local"
+                            }
+                           },
+                           "actions": [
+                            {
+                             "parentId": "5aug01nxpvh",
+                             "subKey": "actions",
+                             "subType": "array",
+                             "use": "FormSubmitActionModel",
+                             "props": {
+                              "title": "{{t(\"Submit\")}}",
+                              "type": "primary",
+                              "htmlType": "submit"
+                             },
+                             "decoratorProps": {},
+                             "stepParams": {
+                              "buttonSettings": {
+                               "general": {
+                                "title": "{{t(\"Submit\")}}",
+                                "type": "primary"
+                               }
+                              },
+                              "submitSettings": {
+                               "confirm": {
+                                "enable": false,
+                                "title": "{{t(\"Submit record\")}}",
+                                "content": "{{t(\"Are you sure you want to save it?\")}}"
+                               }
+                              }
+                             },
+                             "flowRegistry": {},
+                             "uid": "59kd57n4gem",
+                             "parent": "5aug01nxpvh",
+                             "sortIndex": 1,
+                             "popup": {
+                              "mode": "local"
+                             }
+                            }
+                           ]
+                          },
+                          "parent": "g43vbuaya7j",
+                          "sortIndex": 1,
+                          "popup": {
+                           "mode": "local"
+                          }
+                         }
+                        ]
+                       },
+                       "parent": "38qhxv5qomq",
+                       "parentId": "38qhxv5qomq",
+                       "sortIndex": 1,
+                       "popup": {
+                        "mode": "local"
+                       }
+                      }
+                     },
+                     "parent": "4dwkwvy512c",
+                     "parentId": "4dwkwvy512c",
+                     "sortIndex": 1,
+                     "popup": {
+                      "mode": "local"
+                     }
+                    }
+                   ]
+                  },
+                  "parent": "ebprlepuzwk",
+                  "sortIndex": 1,
+                  "popup": {
+                   "mode": "local"
+                  }
+                 }
+                },
+                "parent": "scrlgqqjjvr",
+                "sortIndex": 2,
+                "popup": {
+                 "mode": "local",
+                 "pageUid": "4dwkwvy512c",
+                 "tabUid": "38qhxv5qomq",
+                 "gridUid": "g43vbuaya7j"
+                }
+               },
+               {
+                "parentId": "scrlgqqjjvr",
+                "subKey": "actions",
+                "subType": "array",
+                "use": "DeleteActionModel",
+                "props": {
+                 "type": "link",
+                 "title": "{{t(\"Delete\")}}",
+                 "icon": null
+                },
+                "decoratorProps": {},
+                "stepParams": {
+                 "buttonSettings": {
+                  "general": {
+                   "title": "{{t(\"Delete\")}}",
+                   "icon": null,
+                   "type": "link",
+                   "iconOnly": false
+                  }
+                 },
+                 "deleteSettings": {
+                  "confirm": {
+                   "enable": true,
+                   "title": "{{t(\"Delete record\")}}",
+                   "content": "{{t(\"Are you sure you want to delete it?\")}}"
+                  }
+                 }
+                },
+                "flowRegistry": {},
+                "uid": "ez5bhjt4gdn",
+                "parent": "scrlgqqjjvr",
+                "sortIndex": 3,
+                "popup": {
+                 "mode": "local"
+                }
+               }
+              ]
+             },
+             "parent": "b5zvt4x9chc",
+             "parentId": "b5zvt4x9chc",
+             "sortIndex": 1,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "b5zvt4x9chc",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {
+              "width": 140
+             },
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_fit_score",
+                "fieldPath": "dimension"
+               }
+              },
+              "tableColumnSettings": {
+               "width": {
+                "width": 140
+               }
+              }
+             },
+             "uid": "oz7e47sfst1",
+             "subModels": {
+              "field": {
+               "use": "DisplayEnumFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_fit_score",
+                  "fieldPath": "dimension"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "y98h4nxc234",
+               "parent": "oz7e47sfst1",
+               "parentId": "oz7e47sfst1",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "b5zvt4x9chc",
+             "sortIndex": 2,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "b5zvt4x9chc",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {
+              "width": 150
+             },
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_fit_score",
+                "fieldPath": "score"
+               }
+              },
+              "tableColumnSettings": {
+               "width": {
+                "width": 150
+               }
+              }
+             },
+             "uid": "hvfdx52dahq",
+             "subModels": {
+              "field": {
+               "use": "DisplayNumberFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_fit_score",
+                  "fieldPath": "score"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "n7ettwvwgba",
+               "parent": "hvfdx52dahq",
+               "parentId": "hvfdx52dahq",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "b5zvt4x9chc",
+             "sortIndex": 3,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "b5zvt4x9chc",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {
+              "width": 360
+             },
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_fit_score",
+                "fieldPath": "rationale"
+               }
+              },
+              "tableColumnSettings": {
+               "width": {
+                "width": 360
+               }
+              }
+             },
+             "uid": "9it326pxs0d",
+             "subModels": {
+              "field": {
+               "use": "DisplayTextFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_fit_score",
+                  "fieldPath": "rationale"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "gjay32em9eq",
+               "parent": "9it326pxs0d",
+               "parentId": "9it326pxs0d",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "b5zvt4x9chc",
+             "sortIndex": 4,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "b5zvt4x9chc",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {
+              "titleField": "title",
+              "width": 200
+             },
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_fit_score",
+                "fieldPath": "theses"
+               }
+              },
+              "tableColumnSettings": {
+               "fieldNames": {
+                "label": "title"
+               },
+               "width": {
+                "width": 200
+               }
+              }
+             },
+             "uid": "1wmyc4tumj4",
+             "subModels": {
+              "field": {
+               "use": "DisplayTextFieldModel",
+               "props": {
+                "titleField": "title",
+                "clickToOpen": true
+               },
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_fit_score",
+                  "fieldPath": "theses"
+                 }
+                },
+                "displayFieldSettings": {
+                 "clickToOpen": {
+                  "clickToOpen": true
+                 }
+                },
+                "popupSettings": {
+                 "openView": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_thesis",
+                  "mode": "drawer",
+                  "size": "medium",
+                  "pageModelClass": "ChildPageModel",
+                  "associationName": "vi_fit_score.theses",
+                  "title": "核心论点"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "odcj68asau1",
+               "subModels": {
+                "page": {
+                 "parentId": "odcj68asau1",
+                 "subKey": "page",
+                 "subType": "object",
+                 "use": "ChildPageModel",
+                 "props": {
+                  "displayTitle": false,
+                  "enableTabs": true
+                 },
+                 "stepParams": {
+                  "pageSettings": {
+                   "general": {
+                    "displayTitle": false,
+                    "enableTabs": true
+                   }
+                  }
+                 },
+                 "uid": "gc3x0suj0wx",
+                 "subModels": {
+                  "tabs": [
+                   {
+                    "use": "ChildPageTabModel",
+                    "props": {
+                     "title": "{{t(\"Details\")}}"
+                    },
+                    "stepParams": {
+                     "pageTabSettings": {
+                      "tab": {
+                       "title": "{{t(\"Details\")}}"
+                      }
+                     }
+                    },
+                    "subKey": "tabs",
+                    "subType": "array",
+                    "uid": "o2anw0qbeod",
+                    "subModels": {
+                     "grid": {
+                      "use": "BlockGridModel",
+                      "subKey": "grid",
+                      "subType": "object",
+                      "props": {
+                       "rows": {
+                        "row1": [
+                         [
+                          "7shfohwior7"
+                         ]
+                        ]
+                       },
+                       "sizes": {
+                        "row1": [
+                         24
+                        ]
+                       },
+                       "rowOrder": [
+                        "row1"
+                       ]
+                      },
+                      "stepParams": {
+                       "gridSettings": {
+                        "grid": {
+                         "rows": {
+                          "row1": [
+                           [
+                            "7shfohwior7"
+                           ]
+                          ]
+                         },
+                         "sizes": {
+                          "row1": [
+                           24
+                          ]
+                         },
+                         "rowOrder": [
+                          "row1"
+                         ]
+                        }
+                       }
+                      },
+                      "uid": "ykz4zg4135r",
+                      "subModels": {
+                       "items": [
+                        {
+                         "parentId": "ykz4zg4135r",
+                         "subKey": "items",
+                         "subType": "array",
+                         "use": "DetailsBlockModel",
+                         "props": {},
+                         "decoratorProps": {},
+                         "stepParams": {
+                          "resourceSettings": {
+                           "init": {
+                            "dataSourceKey": "main",
+                            "collectionName": "vi_thesis",
+                            "filterByTk": "{{ctx.record.id}}",
+                            "associationName": "vi_fit_score.theses",
+                            "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+                           }
+                          }
+                         },
+                         "uid": "7shfohwior7",
+                         "subModels": {
+                          "grid": {
+                           "use": "DetailsGridModel",
+                           "subKey": "grid",
+                           "subType": "object",
+                           "stepParams": {
+                            "gridSettings": {
+                             "grid": {
+                              "rows": {
+                               "row1": [
+                                [
+                                 "8j0b28f5nup"
+                                ],
+                                [
+                                 "y7yafd80n3j"
+                                ]
+                               ],
+                               "row2": [
+                                [
+                                 "fsyf2qvccml"
+                                ],
+                                [
+                                 "bnhualclxj5"
+                                ]
+                               ],
+                               "row3": [
+                                [
+                                 "0l8gjts7eoy"
+                                ],
+                                [
+                                 "ngwgdmc8ra9"
+                                ]
+                               ]
+                              },
+                              "sizes": {
+                               "row1": [
+                                12,
+                                12
+                               ],
+                               "row2": [
+                                12,
+                                12
+                               ],
+                               "row3": [
+                                12,
+                                12
+                               ]
+                              },
+                              "rowOrder": [
+                               "row1",
+                               "row2",
+                               "row3"
+                              ]
+                             }
+                            }
+                           },
+                           "props": {
+                            "rows": {
+                             "row1": [
+                              [
+                               "8j0b28f5nup"
+                              ],
+                              [
+                               "y7yafd80n3j"
+                              ]
+                             ],
+                             "row2": [
+                              [
+                               "fsyf2qvccml"
+                              ],
+                              [
+                               "bnhualclxj5"
+                              ]
+                             ],
+                             "row3": [
+                              [
+                               "0l8gjts7eoy"
+                              ],
+                              [
+                               "ngwgdmc8ra9"
+                              ]
+                             ]
+                            },
+                            "sizes": {
+                             "row1": [
+                              12,
+                              12
+                             ],
+                             "row2": [
+                              12,
+                              12
+                             ],
+                             "row3": [
+                              12,
+                              12
+                             ]
+                            },
+                            "rowOrder": [
+                             "row1",
+                             "row2",
+                             "row3"
+                            ]
+                           },
+                           "uid": "e8gcw0caz3j",
+                           "subModels": {
+                            "items": [
+                             {
+                              "parentId": "e8gcw0caz3j",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_thesis",
+                                 "fieldPath": "title"
+                                }
+                               }
+                              },
+                              "uid": "8j0b28f5nup",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_thesis",
+                                   "fieldPath": "title"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "fanhsnw36nu",
+                                "parent": "8j0b28f5nup",
+                                "parentId": "8j0b28f5nup",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "e8gcw0caz3j",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "e8gcw0caz3j",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_thesis",
+                                 "fieldPath": "code"
+                                }
+                               }
+                              },
+                              "uid": "y7yafd80n3j",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_thesis",
+                                   "fieldPath": "code"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "6qauvzp9iti",
+                                "parent": "y7yafd80n3j",
+                                "parentId": "y7yafd80n3j",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "e8gcw0caz3j",
+                              "sortIndex": 2,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "e8gcw0caz3j",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_thesis",
+                                 "fieldPath": "category"
+                                }
+                               }
+                              },
+                              "uid": "fsyf2qvccml",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_thesis",
+                                   "fieldPath": "category"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "aa61ddn25b2",
+                                "parent": "fsyf2qvccml",
+                                "parentId": "fsyf2qvccml",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "e8gcw0caz3j",
+                              "sortIndex": 3,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "e8gcw0caz3j",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_thesis",
+                                 "fieldPath": "status"
+                                }
+                               }
+                              },
+                              "uid": "bnhualclxj5",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_thesis",
+                                   "fieldPath": "status"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "34r5trd0eaj",
+                                "parent": "bnhualclxj5",
+                                "parentId": "bnhualclxj5",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "e8gcw0caz3j",
+                              "sortIndex": 4,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "e8gcw0caz3j",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_thesis",
+                                 "fieldPath": "confidence"
+                                }
+                               }
+                              },
+                              "uid": "0l8gjts7eoy",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_thesis",
+                                   "fieldPath": "confidence"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "tb5b492x4ac",
+                                "parent": "0l8gjts7eoy",
+                                "parentId": "0l8gjts7eoy",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "e8gcw0caz3j",
+                              "sortIndex": 5,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "e8gcw0caz3j",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_thesis",
+                                 "fieldPath": "bull_case"
+                                }
+                               }
+                              },
+                              "uid": "ngwgdmc8ra9",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_thesis",
+                                   "fieldPath": "bull_case"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "jhmhqtbs446",
+                                "parent": "ngwgdmc8ra9",
+                                "parentId": "ngwgdmc8ra9",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "e8gcw0caz3j",
+                              "sortIndex": 6,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            ]
+                           },
+                           "parent": "7shfohwior7",
+                           "parentId": "7shfohwior7",
+                           "sortIndex": 1,
+                           "popup": {
+                            "mode": "local"
+                           }
+                          },
+                          "actions": [
+                           {
+                            "parentId": "7shfohwior7",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "EditActionModel",
+                            "props": {
+                             "title": "{{t(\"Edit\")}}",
+                             "icon": "EditOutlined",
+                             "type": "default"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                             "buttonSettings": {
+                              "general": {
+                               "title": "{{t(\"Edit\")}}",
+                               "icon": "EditOutlined",
+                               "type": "default"
+                              }
+                             },
+                             "popupSettings": {
+                              "openView": {
+                               "mode": "drawer",
+                               "size": "medium",
+                               "pageModelClass": "ChildPageModel",
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_thesis",
+                               "associationName": "vi_fit_score.theses",
+                               "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+                               "title": "核心论点·编辑"
+                              }
+                             }
+                            },
+                            "flowRegistry": {},
+                            "uid": "rp6liw2gs2y",
+                            "parent": "7shfohwior7",
+                            "sortIndex": 1,
+                            "popup": {
+                             "template": {
+                              "uid": "kvo6otysunu",
+                              "mode": "reference"
+                             }
+                            }
+                           }
+                          ]
+                         },
+                         "parent": "ykz4zg4135r",
+                         "sortIndex": 1,
+                         "popup": {
+                          "mode": "local"
+                         }
+                        }
+                       ]
+                      },
+                      "parent": "o2anw0qbeod",
+                      "parentId": "o2anw0qbeod",
+                      "sortIndex": 1,
+                      "popup": {
+                       "mode": "local"
+                      }
+                     }
+                    },
+                    "parent": "gc3x0suj0wx",
+                    "parentId": "gc3x0suj0wx",
+                    "sortIndex": 1,
+                    "popup": {
+                     "mode": "local"
+                    }
+                   }
+                  ]
+                 },
+                 "parent": "odcj68asau1",
+                 "sortIndex": 1,
+                 "popup": {
+                  "mode": "local"
+                 }
+                }
+               },
+               "parent": "1wmyc4tumj4",
+               "parentId": "1wmyc4tumj4",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local",
+                "pageUid": "gc3x0suj0wx",
+                "tabUid": "o2anw0qbeod",
+                "gridUid": "ykz4zg4135r"
+               }
+              }
+             },
+             "parent": "b5zvt4x9chc",
+             "sortIndex": 5,
+             "popup": {
+              "mode": "local"
+             }
+            }
+           ],
+           "actions": [
+            {
+             "parentId": "b5zvt4x9chc",
+             "subKey": "actions",
+             "subType": "array",
+             "use": "FilterActionModel",
+             "props": {
+              "title": "{{t(\"Filter\")}}",
+              "icon": "FilterOutlined",
+              "defaultFilterValue": {
+               "logic": "$and",
+               "items": [
+                {
+                 "path": "dimension",
+                 "operator": "$eq"
+                },
+                {
+                 "path": "rationale",
+                 "operator": "$includes"
+                },
+                {
+                 "path": "counter",
+                 "operator": "$includes"
+                }
+               ]
+              },
+              "filterValue": {
+               "logic": "$and",
+               "items": [
+                {
+                 "path": "dimension",
+                 "operator": "$eq"
+                },
+                {
+                 "path": "rationale",
+                 "operator": "$includes"
+                },
+                {
+                 "path": "counter",
+                 "operator": "$includes"
+                }
+               ]
+              }
+             },
+             "decoratorProps": {},
+             "stepParams": {
+              "buttonSettings": {
+               "general": {
+                "title": "{{t(\"Filter\")}}",
+                "icon": "FilterOutlined"
+               }
+              },
+              "filterSettings": {
+               "defaultFilter": {
+                "defaultFilter": {
+                 "logic": "$and",
+                 "items": [
+                  {
+                   "path": "dimension",
+                   "operator": "$eq"
+                  },
+                  {
+                   "path": "rationale",
+                   "operator": "$includes"
+                  },
+                  {
+                   "path": "counter",
+                   "operator": "$includes"
+                  }
+                 ]
+                }
+               }
+              }
+             },
+             "flowRegistry": {},
+             "uid": "e8bzer7kjuh",
+             "parent": "b5zvt4x9chc",
+             "sortIndex": 1,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "b5zvt4x9chc",
+             "subKey": "actions",
+             "subType": "array",
+             "use": "RefreshActionModel",
+             "props": {
+              "title": "{{t(\"Refresh\")}}",
+              "icon": "ReloadOutlined"
+             },
+             "decoratorProps": {},
+             "stepParams": {
+              "buttonSettings": {
+               "general": {
+                "title": "{{t(\"Refresh\")}}",
+                "icon": "ReloadOutlined"
+               }
+              }
+             },
+             "flowRegistry": {},
+             "uid": "14ku58l55es",
+             "parent": "b5zvt4x9chc",
+             "sortIndex": 2,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "b5zvt4x9chc",
+             "subKey": "actions",
+             "subType": "array",
+             "use": "BulkDeleteActionModel",
+             "props": {
+              "title": "",
+              "tooltip": "{{t(\"Delete\")}}",
+              "icon": "DeleteOutlined",
+              "iconOnly": true,
+              "position": "right"
+             },
+             "decoratorProps": {},
+             "stepParams": {
+              "buttonSettings": {
+               "general": {
+                "title": "",
+                "tooltip": "{{t(\"Delete\")}}",
+                "icon": "DeleteOutlined",
+                "iconOnly": true
+               }
+              },
+              "deleteSettings": {
+               "confirm": {
+                "enable": true,
+                "title": "{{t(\"Delete record\")}}",
+                "content": "{{t(\"Are you sure you want to delete it?\")}}"
+               }
+              }
+             },
+             "flowRegistry": {},
+             "uid": "wbjkn48ldu3",
+             "parent": "b5zvt4x9chc",
+             "sortIndex": 3,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "b5zvt4x9chc",
+             "subKey": "actions",
+             "subType": "array",
+             "use": "AddNewActionModel",
+             "props": {
+              "type": "primary",
+              "title": "{{t(\"Add new\")}}",
+              "icon": "PlusOutlined"
+             },
+             "decoratorProps": {},
+             "stepParams": {
+              "buttonSettings": {
+               "general": {
+                "title": "{{t(\"Add new\")}}",
+                "icon": "PlusOutlined",
+                "type": "primary"
+               }
+              },
+              "popupSettings": {
+               "openView": {
+                "mode": "drawer",
+                "size": "medium",
+                "pageModelClass": "ChildPageModel",
+                "dataSourceKey": "main",
+                "collectionName": "vi_fit_score",
+                "title": "新增 · 价投适配度"
+               }
+              }
+             },
+             "flowRegistry": {},
+             "uid": "tlofayy3dxk",
+             "subModels": {
+              "page": {
+               "parentId": "tlofayy3dxk",
+               "subKey": "page",
+               "subType": "object",
+               "use": "ChildPageModel",
+               "props": {
+                "displayTitle": false,
+                "enableTabs": true
+               },
+               "stepParams": {
+                "pageSettings": {
+                 "general": {
+                  "displayTitle": false,
+                  "enableTabs": true
+                 }
+                }
+               },
+               "uid": "6ej66slssnf",
+               "subModels": {
+                "tabs": [
+                 {
+                  "use": "ChildPageTabModel",
+                  "props": {
+                   "title": "{{t(\"Details\")}}"
+                  },
+                  "stepParams": {
+                   "pageTabSettings": {
+                    "tab": {
+                     "title": "{{t(\"Details\")}}"
+                    }
+                   }
+                  },
+                  "subKey": "tabs",
+                  "subType": "array",
+                  "uid": "qrj2997w73e",
+                  "subModels": {
+                   "grid": {
+                    "use": "BlockGridModel",
+                    "subKey": "grid",
+                    "subType": "object",
+                    "props": {
+                     "rows": {
+                      "row1": [
+                       [
+                        "iaajziz5pos"
+                       ]
+                      ]
+                     },
+                     "sizes": {
+                      "row1": [
+                       24
+                      ]
+                     },
+                     "rowOrder": [
+                      "row1"
+                     ]
+                    },
+                    "stepParams": {
+                     "gridSettings": {
+                      "grid": {
+                       "rows": {
+                        "row1": [
+                         [
+                          "iaajziz5pos"
+                         ]
+                        ]
+                       },
+                       "sizes": {
+                        "row1": [
+                         24
+                        ]
+                       },
+                       "rowOrder": [
+                        "row1"
+                       ]
+                      }
+                     }
+                    },
+                    "uid": "fpwx1ul5wtc",
+                    "subModels": {
+                     "items": [
+                      {
+                       "parentId": "fpwx1ul5wtc",
+                       "subKey": "items",
+                       "subType": "array",
+                       "use": "CreateFormModel",
+                       "props": {},
+                       "decoratorProps": {},
+                       "stepParams": {
+                        "resourceSettings": {
+                         "init": {
+                          "dataSourceKey": "main",
+                          "collectionName": "vi_fit_score"
+                         }
+                        }
+                       },
+                       "uid": "iaajziz5pos",
+                       "subModels": {
+                        "grid": {
+                         "use": "FormGridModel",
+                         "subKey": "grid",
+                         "subType": "object",
+                         "stepParams": {
+                          "gridSettings": {
+                           "grid": {
+                            "rows": {
+                             "row1": [
+                              [
+                               "lmh595azi3u"
+                              ],
+                              [
+                               "ljommozest8"
+                              ]
+                             ],
+                             "row2": [
+                              [
+                               "pzt0n6llbg5"
+                              ],
+                              [
+                               "dpq0miekmx9"
+                              ]
+                             ],
+                             "row3": [
+                              [
+                               "oo35fo3lpbd"
+                              ],
+                              [
+                               "uejk46cpsto"
+                              ]
+                             ],
+                             "row4": [
+                              [
+                               "wnnusigv3n3"
+                              ]
+                             ]
+                            },
+                            "sizes": {
+                             "row1": [
+                              12,
+                              12
+                             ],
+                             "row2": [
+                              12,
+                              12
+                             ],
+                             "row3": [
+                              12,
+                              12
+                             ],
+                             "row4": [
+                              24
+                             ]
+                            },
+                            "rowOrder": [
+                             "row1",
+                             "row2",
+                             "row3",
+                             "row4"
+                            ]
+                           }
+                          }
+                         },
+                         "props": {
+                          "rows": {
+                           "row1": [
+                            [
+                             "lmh595azi3u"
+                            ],
+                            [
+                             "ljommozest8"
+                            ]
+                           ],
+                           "row2": [
+                            [
+                             "pzt0n6llbg5"
+                            ],
+                            [
+                             "dpq0miekmx9"
+                            ]
+                           ],
+                           "row3": [
+                            [
+                             "oo35fo3lpbd"
+                            ],
+                            [
+                             "uejk46cpsto"
+                            ]
+                           ],
+                           "row4": [
+                            [
+                             "wnnusigv3n3"
+                            ]
+                           ]
+                          },
+                          "sizes": {
+                           "row1": [
+                            12,
+                            12
+                           ],
+                           "row2": [
+                            12,
+                            12
+                           ],
+                           "row3": [
+                            12,
+                            12
+                           ],
+                           "row4": [
+                            24
+                           ]
+                          },
+                          "rowOrder": [
+                           "row1",
+                           "row2",
+                           "row3",
+                           "row4"
+                          ]
+                         },
+                         "uid": "8iljuehksw1",
+                         "subModels": {
+                          "items": [
+                           {
+                            "parentId": "8iljuehksw1",
+                            "subKey": "items",
+                            "subType": "array",
+                            "use": "FormItemModel",
+                            "props": {},
+                            "stepParams": {
+                             "fieldSettings": {
+                              "init": {
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_fit_score",
+                               "fieldPath": "dimension"
+                              }
+                             }
+                            },
+                            "uid": "lmh595azi3u",
+                            "subModels": {
+                             "field": {
+                              "use": "SelectFieldModel",
+                              "props": {
+                               "allowClear": true
+                              },
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_fit_score",
+                                 "fieldPath": "dimension"
+                                }
+                               }
+                              },
+                              "subKey": "field",
+                              "subType": "object",
+                              "uid": "13rzt881z1h",
+                              "parent": "lmh595azi3u",
+                              "parentId": "lmh595azi3u",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            },
+                            "parent": "8iljuehksw1",
+                            "sortIndex": 1,
+                            "popup": {
+                             "mode": "local"
+                            }
+                           },
+                           {
+                            "parentId": "8iljuehksw1",
+                            "subKey": "items",
+                            "subType": "array",
+                            "use": "FormItemModel",
+                            "props": {},
+                            "stepParams": {
+                             "fieldSettings": {
+                              "init": {
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_fit_score",
+                               "fieldPath": "score"
+                              }
+                             }
+                            },
+                            "uid": "ljommozest8",
+                            "subModels": {
+                             "field": {
+                              "use": "NumberFieldModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_fit_score",
+                                 "fieldPath": "score"
+                                }
+                               }
+                              },
+                              "subKey": "field",
+                              "subType": "object",
+                              "uid": "l0z0nwbezrg",
+                              "parent": "ljommozest8",
+                              "parentId": "ljommozest8",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            },
+                            "parent": "8iljuehksw1",
+                            "sortIndex": 2,
+                            "popup": {
+                             "mode": "local"
+                            }
+                           },
+                           {
+                            "parentId": "8iljuehksw1",
+                            "subKey": "items",
+                            "subType": "array",
+                            "use": "FormItemModel",
+                            "props": {},
+                            "stepParams": {
+                             "fieldSettings": {
+                              "init": {
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_fit_score",
+                               "fieldPath": "rationale"
+                              }
+                             }
+                            },
+                            "uid": "pzt0n6llbg5",
+                            "subModels": {
+                             "field": {
+                              "use": "TextareaFieldModel",
+                              "props": {
+                               "autoSize": {
+                                "maxRows": 10,
+                                "minRows": 3
+                               }
+                              },
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_fit_score",
+                                 "fieldPath": "rationale"
+                                }
+                               }
+                              },
+                              "subKey": "field",
+                              "subType": "object",
+                              "uid": "o37qvdc4jar",
+                              "parent": "pzt0n6llbg5",
+                              "parentId": "pzt0n6llbg5",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            },
+                            "parent": "8iljuehksw1",
+                            "sortIndex": 3,
+                            "popup": {
+                             "mode": "local"
+                            }
+                           },
+                           {
+                            "parentId": "8iljuehksw1",
+                            "subKey": "items",
+                            "subType": "array",
+                            "use": "FormItemModel",
+                            "props": {},
+                            "stepParams": {
+                             "fieldSettings": {
+                              "init": {
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_fit_score",
+                               "fieldPath": "counter"
+                              }
+                             }
+                            },
+                            "uid": "dpq0miekmx9",
+                            "subModels": {
+                             "field": {
+                              "use": "TextareaFieldModel",
+                              "props": {
+                               "autoSize": {
+                                "maxRows": 10,
+                                "minRows": 3
+                               }
+                              },
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_fit_score",
+                                 "fieldPath": "counter"
+                                }
+                               }
+                              },
+                              "subKey": "field",
+                              "subType": "object",
+                              "uid": "87spmi3aqba",
+                              "parent": "dpq0miekmx9",
+                              "parentId": "dpq0miekmx9",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            },
+                            "parent": "8iljuehksw1",
+                            "sortIndex": 4,
+                            "popup": {
+                             "mode": "local"
+                            }
+                           },
+                           {
+                            "parentId": "8iljuehksw1",
+                            "subKey": "items",
+                            "subType": "array",
+                            "use": "FormItemModel",
+                            "props": {},
+                            "stepParams": {
+                             "fieldSettings": {
+                              "init": {
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_fit_score",
+                               "fieldPath": "sort"
+                              }
+                             }
+                            },
+                            "uid": "oo35fo3lpbd",
+                            "subModels": {
+                             "field": {
+                              "use": "NumberFieldModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_fit_score",
+                                 "fieldPath": "sort"
+                                }
+                               }
+                              },
+                              "subKey": "field",
+                              "subType": "object",
+                              "uid": "ry01cc907kh",
+                              "parent": "oo35fo3lpbd",
+                              "parentId": "oo35fo3lpbd",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            },
+                            "parent": "8iljuehksw1",
+                            "sortIndex": 5,
+                            "popup": {
+                             "mode": "local"
+                            }
+                           },
+                           {
+                            "parentId": "8iljuehksw1",
+                            "subKey": "items",
+                            "subType": "array",
+                            "use": "FormItemModel",
+                            "props": {
+                             "titleField": "name"
+                            },
+                            "stepParams": {
+                             "fieldSettings": {
+                              "init": {
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_fit_score",
+                               "fieldPath": "company"
+                              }
+                             },
+                             "editItemSettings": {
+                              "titleField": {
+                               "label": "name"
+                              }
+                             }
+                            },
+                            "uid": "uejk46cpsto",
+                            "subModels": {
+                             "field": {
+                              "use": "RecordSelectFieldModel",
+                              "props": {
+                               "titleField": "name"
+                              },
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_fit_score",
+                                 "fieldPath": "company"
+                                }
+                               }
+                              },
+                              "subKey": "field",
+                              "subType": "object",
+                              "uid": "2oj4jpk7hiy",
+                              "parent": "uejk46cpsto",
+                              "parentId": "uejk46cpsto",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            },
+                            "parent": "8iljuehksw1",
+                            "sortIndex": 6,
+                            "popup": {
+                             "mode": "local"
+                            }
+                           },
+                           {
+                            "parentId": "8iljuehksw1",
+                            "subKey": "items",
+                            "subType": "array",
+                            "use": "FormItemModel",
+                            "props": {
+                             "titleField": "title"
+                            },
+                            "stepParams": {
+                             "fieldSettings": {
+                              "init": {
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_fit_score",
+                               "fieldPath": "theses"
+                              }
+                             },
+                             "editItemSettings": {
+                              "titleField": {
+                               "label": "title"
+                              }
+                             }
+                            },
+                            "uid": "wnnusigv3n3",
+                            "subModels": {
+                             "field": {
+                              "use": "RecordSelectFieldModel",
+                              "props": {
+                               "titleField": "title"
+                              },
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_fit_score",
+                                 "fieldPath": "theses"
+                                }
+                               },
+                               "selectSettings": {
+                                "dataScope": {
+                                 "filter": {
+                                  "logic": "$and",
+                                  "items": [
+                                   {
+                                    "path": "company_id",
+                                    "operator": "$eq",
+                                    "value": "{{ctx.formValues.company.id}}"
+                                   }
+                                  ]
+                                 }
+                                }
+                               }
+                              },
+                              "subKey": "field",
+                              "subType": "object",
+                              "uid": "k83c9b36sqc",
+                              "parent": "wnnusigv3n3",
+                              "parentId": "wnnusigv3n3",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            },
+                            "parent": "8iljuehksw1",
+                            "sortIndex": 7,
+                            "popup": {
+                             "mode": "local"
+                            }
+                           }
+                          ]
+                         },
+                         "parent": "iaajziz5pos",
+                         "parentId": "iaajziz5pos",
+                         "sortIndex": 1,
+                         "popup": {
+                          "mode": "local"
+                         }
+                        },
+                        "actions": [
+                         {
+                          "parentId": "iaajziz5pos",
+                          "subKey": "actions",
+                          "subType": "array",
+                          "use": "FormSubmitActionModel",
+                          "props": {
+                           "title": "{{t(\"Submit\")}}",
+                           "type": "primary",
+                           "htmlType": "submit"
+                          },
+                          "decoratorProps": {},
+                          "stepParams": {
+                           "buttonSettings": {
+                            "general": {
+                             "title": "{{t(\"Submit\")}}",
+                             "type": "primary"
+                            }
+                           },
+                           "submitSettings": {
+                            "confirm": {
+                             "enable": false,
+                             "title": "{{t(\"Submit record\")}}",
+                             "content": "{{t(\"Are you sure you want to save it?\")}}"
+                            }
+                           }
+                          },
+                          "flowRegistry": {},
+                          "uid": "0crkwi6d453",
+                          "parent": "iaajziz5pos",
+                          "sortIndex": 1,
+                          "popup": {
+                           "mode": "local"
+                          }
+                         }
+                        ]
+                       },
+                       "parent": "fpwx1ul5wtc",
+                       "sortIndex": 1,
+                       "popup": {
+                        "mode": "local"
+                       }
+                      }
+                     ]
+                    },
+                    "parent": "qrj2997w73e",
+                    "parentId": "qrj2997w73e",
+                    "sortIndex": 1,
+                    "popup": {
+                     "mode": "local"
+                    }
+                   }
+                  },
+                  "parent": "6ej66slssnf",
+                  "parentId": "6ej66slssnf",
+                  "sortIndex": 1,
+                  "popup": {
+                   "mode": "local"
+                  }
+                 }
+                ]
+               },
+               "parent": "tlofayy3dxk",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "b5zvt4x9chc",
+             "sortIndex": 4,
+             "popup": {
+              "mode": "local",
+              "pageUid": "6ej66slssnf",
+              "tabUid": "qrj2997w73e",
+              "gridUid": "fpwx1ul5wtc"
+             }
+            }
+           ]
+          },
+          "parent": "60nxwx3ohxf",
+          "sortIndex": 1,
+          "popup": {
+           "mode": "local"
+          }
+         }
+        ]
+       },
+       "parent": "cgz0kxan089",
+       "sortIndex": 1,
+       "popup": {
+        "mode": "local"
+       }
+      }
+     },
+     "popup": {
+      "mode": "local"
+     }
+    }
+   ]
+  },
+  "popup": {
+   "mode": "local"
+  }
+ },
+ "nodeMap": {
+  "cuz61nsegjr": {
+   "uid": "cuz61nsegjr",
+   "use": "RootPageModel",
+   "props": {
+    "routeId": 393657256509440,
+    "title": "价投适配度",
+    "enableTabs": true,
+    "displayTitle": true,
+    "icon": "TableOutlined",
+    "enableHeader": false
+   },
+   "stepParams": {
+    "pageSettings": {
+     "general": {
+      "title": "价投适配度",
+      "displayTitle": true,
+      "enableTabs": true,
+      "documentTitle": "太阳纸业 · 价投适配度",
+      "icon": "TableOutlined",
+      "enableHeader": false
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "1v2w5xtbo11": {
+   "uid": "1v2w5xtbo11",
+   "use": "RootPageTabModel",
+   "props": {
+    "route": {
+     "createdAt": "2026-10-23T05:46:47.035Z",
+     "updatedAt": "2026-10-25T16:40:47.975Z",
+     "id": 393657256509441,
+     "parentId": 393657256509440,
+     "title": "评分",
+     "tooltip": null,
+     "icon": null,
+     "schemaUid": "1v2w5xtbo11",
+     "menuSchemaUid": null,
+     "tabSchemaName": "1c7p03oohgi",
+     "type": "tabs",
+     "options": {
+      "flowRegistry": {}
+     },
+     "sort": 1,
+     "hideInMenu": null,
+     "enableTabs": null,
+     "enableHeader": null,
+     "displayTitle": null,
+     "hidden": false,
+     "createdById": null,
+     "updatedById": 1,
+     "children": []
+    },
+    "title": "评分",
+    "icon": null
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "pageTabSettings": {
+     "tab": {
+      "title": "评分",
+      "icon": null
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "hncg3k3uzj4": {
+   "uid": "hncg3k3uzj4",
+   "use": "BlockGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "8qw7dzka2w0"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "8qw7dzka2w0"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "8qw7dzka2w0": {
+   "uid": "8qw7dzka2w0",
+   "use": "JSBlockModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "jsSettings": {
+     "runJs": {
+      "version": "v2",
+      "code": "const COMPANY = '002078.SZ';   // 由 build_fitboard.py 写入：只看这家公司的适配度\nconst { React } = ctx.libs;\nconst { Alert, Empty, theme } = ctx.libs.antd;\n\nasync function listRows(name, filter) {\n  const resource = ctx.makeResource('MultiRecordResource');\n  resource.setResourceName(name);\n  resource.setPageSize?.(100);\n  if (filter) resource.setFilter?.(filter);\n  await resource.refresh();\n  return resource.getData() || [];\n}\n\n// 与自动检查 C15 的归类一致\nconst BANDS = [\n  { from: 0, to: 21, name: '不适合', text: '通常不符合价值投资标准' },\n  { from: 22, to: 31, name: '可研究', text: '可研究，需说明更偏复利、现金流价值还是资产价值' },\n  { from: 32, to: 40, name: '复利型', text: '适合价值投资复利框架（仍需价格安全边际）' },\n];\n\nfunction Board({ company, rows }) {\n  const { token } = theme.useToken();\n  const total = rows.reduce((a, r) => a + (Number(r.score) || 0), 0);\n  const max = rows.length * 5 || 40;\n  const scaled = max === 40 ? total : Math.round((total / max) * 40);\n  const band = BANDS.find((b) => scaled >= b.from && scaled <= b.to) || BANDS[0];\n  const tone = { 不适合: token.colorError, 可研究: token.colorWarning, 复利型: token.colorSuccess };\n  const soft = { 不适合: token.colorErrorBg, 可研究: token.colorWarningBg, 复利型: token.colorSuccessBg };\n  const color = (s) => (s >= 4 ? token.colorSuccess : s <= 2 ? token.colorError : token.colorTextSecondary);\n  const strong = rows.filter((r) => Number(r.score) >= 4);\n  const weak = rows.filter((r) => Number(r.score) <= 2);\n  const list = (xs) => xs.map((r) => `${r.dimension} ${r.score}`).join('、');\n  const narrow = (typeof window !== 'undefined' ? window.innerWidth : 1400) < 900;\n  const label = { fontSize: 12, color: token.colorTextTertiary };\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 28, maxWidth: 1100 }}>\n      {/* 结论：总分、归类、刻度、强项与短板 */}\n      <div style={{ display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'minmax(0, 1fr) minmax(0, 1fr)', gap: narrow ? 18 : 48, alignItems: 'end' }}>\n        <div>\n          <div style={label}>{company.name} · 价投适配度</div>\n          <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginTop: 4 }}>\n            <span style={{ fontSize: 44, fontWeight: 600, lineHeight: 1.1, color: tone[band.name] }}>{total}</span>\n            <span style={{ fontSize: 16, color: token.colorTextTertiary }}>/ {max}</span>\n            <span style={{ fontSize: 13, fontWeight: 600, color: tone[band.name], background: soft[band.name], borderRadius: 4, padding: '2px 8px' }}>{band.name}</span>\n          </div>\n          <div style={{ fontSize: 13, color: token.colorTextSecondary, marginTop: 6, lineHeight: 1.6 }}>{band.text}</div>\n        </div>\n        <div>\n          <div style={{ position: 'relative', paddingTop: 10 }}>\n            <div style={{ display: 'flex', height: 8, borderRadius: 4, overflow: 'hidden' }}>\n              {BANDS.map((b) => (\n                <div key={b.name} style={{ flex: b.to - b.from + 1, background: b.name === band.name ? tone[b.name] : token.colorFillSecondary, opacity: b.name === band.name ? 0.85 : 1 }} />\n              ))}\n            </div>\n            <div style={{ position: 'absolute', top: 0, left: `calc(${(Math.min(scaled, 40) / 41) * 100}% - 5px)`, width: 0, height: 0,\n                          borderLeft: '5px solid transparent', borderRight: '5px solid transparent', borderTop: `7px solid ${token.colorText}` }} />\n            <div style={{ display: 'flex', fontSize: 11, color: token.colorTextTertiary, marginTop: 6 }}>\n              {BANDS.map((b) => <span key={b.name} style={{ flex: b.to - b.from + 1 }}>{b.name} {b.from === 0 ? `≤${b.to}` : b.to === 40 ? `${b.from}+` : `${b.from}–${b.to}`}</span>)}\n            </div>\n          </div>\n          <div style={{ marginTop: 14, fontSize: 13, lineHeight: 1.9, color: token.colorTextSecondary }}>\n            <div><span style={{ color: token.colorSuccess, fontWeight: 600, marginRight: 12 }}>强项</span>{strong.length ? list(strong) : '—'}</div>\n            <div><span style={{ color: token.colorError, fontWeight: 600, marginRight: 12 }}>短板</span>{weak.length ? list(weak) : '—'}</div>\n          </div>\n        </div>\n      </div>\n      {/* 八个维度：分数、理由、反面，一行一个 */}\n      <div>\n        {!narrow ? (\n          <div style={{ display: 'grid', gridTemplateColumns: '88px 150px 32px minmax(0, 1fr) minmax(0, 1fr)', gap: 20, padding: '0 0 8px', ...label,\n                        borderBottom: `1px solid ${token.colorSplit}` }}>\n            <span>维度</span><span>评分</span><span /><span>理由</span><span>反面</span>\n          </div>\n        ) : null}\n        {rows.map((r) => {\n          const s = Number(r.score) || 0;\n          const bar = (\n            <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>\n              {[1, 2, 3, 4, 5].map((i) => (\n                <span key={i} style={{ flex: 1, height: 6, borderRadius: 2, background: i <= s ? color(s) : token.colorFillSecondary }} />\n              ))}\n            </div>\n          );\n          return (\n            <div key={r.id} style={{ display: 'grid', gridTemplateColumns: narrow ? '72px minmax(0, 1fr) 28px' : '88px 150px 32px minmax(0, 1fr) minmax(0, 1fr)',\n                                     gap: narrow ? '6px 12px' : 20, padding: '12px 0', alignItems: 'baseline', borderBottom: `1px solid ${token.colorSplit}` }}>\n              <span style={{ fontSize: 14, fontWeight: 500, color: token.colorText }}>{r.dimension}</span>\n              <div style={{ alignSelf: 'center' }}>{bar}</div>\n              <span style={{ fontSize: 16, fontWeight: 600, color: color(s), textAlign: 'right' }}>{r.score ?? '—'}</span>\n              <div style={{ fontSize: 13, color: token.colorText, lineHeight: 1.65, gridColumn: narrow ? '1 / -1' : undefined }}>{r.rationale || '—'}</div>\n              <div style={{ fontSize: 13, color: token.colorTextTertiary, lineHeight: 1.65, gridColumn: narrow ? '1 / -1' : undefined }}>\n                {narrow && r.counter ? '反面：' : ''}{r.counter || '—'}\n              </div>\n            </div>\n          );\n        })}\n      </div>\n    </div>\n  );\n}\n\ntry {\n  const cos = await listRows('vi_company', { code: { $eq: COMPANY } });\n  const company = cos[0];\n  if (!company) {\n    ctx.render(<Alert type=\"info\" showIcon message={`公司表里没有代码为 ${COMPANY} 的公司`} />);\n  } else {\n    const rows = (await listRows('vi_fit_score', { company_id: { $eq: company.id } }))\n      .sort((a, b) => (Number(a.sort) || 0) - (Number(b.sort) || 0));\n    ctx.render(rows.length ? <Board company={company} rows={rows} /> : <Empty description=\"还没有评分：在“明细（编辑）”标签里给八个维度各打 0—5 分\" />);\n  }\n} catch (error) {\n  ctx.render(<Alert type=\"error\" showIcon message=\"适配度读取失败\" description={String(error?.message || error)} />);\n}\n"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "cgz0kxan089": {
+   "uid": "cgz0kxan089",
+   "use": "RootPageTabModel",
+   "props": {
+    "route": {
+     "createdAt": "2026-10-25T16:13:53.506Z",
+     "updatedAt": "2026-10-25T16:40:49.570Z",
+     "id": 394098552274944,
+     "parentId": 393657256509440,
+     "title": "明细（编辑）",
+     "tooltip": null,
+     "icon": null,
+     "schemaUid": "cgz0kxan089",
+     "menuSchemaUid": null,
+     "tabSchemaName": "明细（编辑）",
+     "type": "tabs",
+     "options": {
+      "flowRegistry": {}
+     },
+     "sort": 2,
+     "hideInMenu": null,
+     "enableTabs": null,
+     "enableHeader": null,
+     "displayTitle": null,
+     "hidden": false,
+     "createdById": null,
+     "updatedById": 1,
+     "children": []
+    },
+    "title": "明细（编辑）",
+    "icon": null
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "pageTabSettings": {
+     "tab": {
+      "title": "明细（编辑）",
+      "icon": null
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "60nxwx3ohxf": {
+   "uid": "60nxwx3ohxf",
+   "use": "BlockGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "b5zvt4x9chc"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "b5zvt4x9chc"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "b5zvt4x9chc": {
+   "uid": "b5zvt4x9chc",
+   "use": "TableBlockModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "resourceSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score"
+     }
+    },
+    "cardSettings": {
+     "titleDescription": {
+      "description": "按八个维度打分，看公司适不适合价值投资；引用【核心论点】；被【质量自检】引用。"
+     }
+    },
+    "tableSettings": {
+     "pageSize": {
+      "pageSize": 50
+     },
+     "tableDensity": {
+      "size": "middle"
+     },
+     "defaultSorting": {
+      "sort": [
+       {
+        "field": "sort",
+        "direction": "asc"
+       }
+      ]
+     },
+     "dataScope": {
+      "filter": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "company_id",
+         "operator": "$eq",
+         "value": 2
+        }
+       ]
+      }
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "scrlgqqjjvr": {
+   "uid": "scrlgqqjjvr",
+   "use": "TableActionsColumnModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "tableColumnSettings": {
+     "title": {
+      "title": "{{t(\"Actions\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "s78mx7dvlr7": {
+   "uid": "s78mx7dvlr7",
+   "use": "ViewActionModel",
+   "props": {
+    "type": "link",
+    "title": "{{t(\"View\")}}",
+    "icon": null
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"View\")}}",
+      "icon": null,
+      "type": "link",
+      "iconOnly": false
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "title": "{{t(\"Details\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "template": {
+     "uid": "fc7a8x3w9pp",
+     "mode": "reference"
+    }
+   }
+  },
+  "ebprlepuzwk": {
+   "uid": "ebprlepuzwk",
+   "use": "EditActionModel",
+   "props": {
+    "title": "{{t(\"Edit\")}}",
+    "icon": null,
+    "type": "link"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Edit\")}}",
+      "icon": null,
+      "type": "link",
+      "iconOnly": false
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "title": "编辑 · 价投适配度",
+      "filterByTk": "{{ctx.record.id}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local",
+    "pageUid": "4dwkwvy512c",
+    "tabUid": "38qhxv5qomq",
+    "gridUid": "g43vbuaya7j"
+   }
+  },
+  "4dwkwvy512c": {
+   "uid": "4dwkwvy512c",
+   "use": "ChildPageModel",
+   "props": {
+    "displayTitle": false,
+    "enableTabs": true
+   },
+   "stepParams": {
+    "pageSettings": {
+     "general": {
+      "displayTitle": false,
+      "enableTabs": true
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "38qhxv5qomq": {
+   "uid": "38qhxv5qomq",
+   "use": "ChildPageTabModel",
+   "props": {
+    "title": "{{t(\"Details\")}}"
+   },
+   "stepParams": {
+    "pageTabSettings": {
+     "tab": {
+      "title": "{{t(\"Details\")}}"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "g43vbuaya7j": {
+   "uid": "g43vbuaya7j",
+   "use": "BlockGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "5aug01nxpvh"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "5aug01nxpvh"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "5aug01nxpvh": {
+   "uid": "5aug01nxpvh",
+   "use": "EditFormModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "resourceSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "gzunqafcd2m": {
+   "uid": "gzunqafcd2m",
+   "use": "FormGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "fmb9qiuxpr8"
+      ],
+      [
+       "8b48md77b3d"
+      ]
+     ],
+     "row2": [
+      [
+       "zi60bis6mnk"
+      ],
+      [
+       "r3bu6fl2p6x"
+      ]
+     ],
+     "row3": [
+      [
+       "0ygiq4aoaom"
+      ],
+      [
+       "lkcovzlnuc3"
+      ]
+     ],
+     "row4": [
+      [
+       "n95bgwzhio8"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      12,
+      12
+     ],
+     "row2": [
+      12,
+      12
+     ],
+     "row3": [
+      12,
+      12
+     ],
+     "row4": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1",
+     "row2",
+     "row3",
+     "row4"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "fmb9qiuxpr8"
+        ],
+        [
+         "8b48md77b3d"
+        ]
+       ],
+       "row2": [
+        [
+         "zi60bis6mnk"
+        ],
+        [
+         "r3bu6fl2p6x"
+        ]
+       ],
+       "row3": [
+        [
+         "0ygiq4aoaom"
+        ],
+        [
+         "lkcovzlnuc3"
+        ]
+       ],
+       "row4": [
+        [
+         "n95bgwzhio8"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        12,
+        12
+       ],
+       "row2": [
+        12,
+        12
+       ],
+       "row3": [
+        12,
+        12
+       ],
+       "row4": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1",
+       "row2",
+       "row3",
+       "row4"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "fmb9qiuxpr8": {
+   "uid": "fmb9qiuxpr8",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "dimension"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "zhasfxpmu6b": {
+   "uid": "zhasfxpmu6b",
+   "use": "SelectFieldModel",
+   "props": {
+    "allowClear": true
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "dimension"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "8b48md77b3d": {
+   "uid": "8b48md77b3d",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "score"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "oej3tjd4y47": {
+   "uid": "oej3tjd4y47",
+   "use": "NumberFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "score"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "zi60bis6mnk": {
+   "uid": "zi60bis6mnk",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "rationale"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "iunwrc0pcem": {
+   "uid": "iunwrc0pcem",
+   "use": "TextareaFieldModel",
+   "props": {
+    "autoSize": {
+     "maxRows": 10,
+     "minRows": 3
+    }
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "rationale"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "r3bu6fl2p6x": {
+   "uid": "r3bu6fl2p6x",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "counter"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "lanbwyb44rw": {
+   "uid": "lanbwyb44rw",
+   "use": "TextareaFieldModel",
+   "props": {
+    "autoSize": {
+     "maxRows": 10,
+     "minRows": 3
+    }
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "counter"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "0ygiq4aoaom": {
+   "uid": "0ygiq4aoaom",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "sort"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "spbr0tvvdw8": {
+   "uid": "spbr0tvvdw8",
+   "use": "NumberFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "sort"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "lkcovzlnuc3": {
+   "uid": "lkcovzlnuc3",
+   "use": "FormItemModel",
+   "props": {
+    "titleField": "name"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "company"
+     }
+    },
+    "editItemSettings": {
+     "titleField": {
+      "label": "name"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "1exh63j92br": {
+   "uid": "1exh63j92br",
+   "use": "RecordSelectFieldModel",
+   "props": {
+    "titleField": "name"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "company"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "n95bgwzhio8": {
+   "uid": "n95bgwzhio8",
+   "use": "FormItemModel",
+   "props": {
+    "titleField": "title"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "theses"
+     }
+    },
+    "editItemSettings": {
+     "titleField": {
+      "label": "title"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "6zh4l7x4mlt": {
+   "uid": "6zh4l7x4mlt",
+   "use": "RecordSelectFieldModel",
+   "props": {
+    "titleField": "title"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "theses"
+     }
+    },
+    "selectSettings": {
+     "dataScope": {
+      "filter": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "company_id",
+         "operator": "$eq",
+         "value": "{{ctx.formValues.company.id}}"
+        }
+       ]
+      }
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "59kd57n4gem": {
+   "uid": "59kd57n4gem",
+   "use": "FormSubmitActionModel",
+   "props": {
+    "title": "{{t(\"Submit\")}}",
+    "type": "primary",
+    "htmlType": "submit"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Submit\")}}",
+      "type": "primary"
+     }
+    },
+    "submitSettings": {
+     "confirm": {
+      "enable": false,
+      "title": "{{t(\"Submit record\")}}",
+      "content": "{{t(\"Are you sure you want to save it?\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ez5bhjt4gdn": {
+   "uid": "ez5bhjt4gdn",
+   "use": "DeleteActionModel",
+   "props": {
+    "type": "link",
+    "title": "{{t(\"Delete\")}}",
+    "icon": null
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Delete\")}}",
+      "icon": null,
+      "type": "link",
+      "iconOnly": false
+     }
+    },
+    "deleteSettings": {
+     "confirm": {
+      "enable": true,
+      "title": "{{t(\"Delete record\")}}",
+      "content": "{{t(\"Are you sure you want to delete it?\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "oz7e47sfst1": {
+   "uid": "oz7e47sfst1",
+   "use": "TableColumnModel",
+   "props": {
+    "width": 140
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "dimension"
+     }
+    },
+    "tableColumnSettings": {
+     "width": {
+      "width": 140
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "y98h4nxc234": {
+   "uid": "y98h4nxc234",
+   "use": "DisplayEnumFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "dimension"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "hvfdx52dahq": {
+   "uid": "hvfdx52dahq",
+   "use": "TableColumnModel",
+   "props": {
+    "width": 150
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "score"
+     }
+    },
+    "tableColumnSettings": {
+     "width": {
+      "width": 150
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "n7ettwvwgba": {
+   "uid": "n7ettwvwgba",
+   "use": "DisplayNumberFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "score"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "9it326pxs0d": {
+   "uid": "9it326pxs0d",
+   "use": "TableColumnModel",
+   "props": {
+    "width": 360
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "rationale"
+     }
+    },
+    "tableColumnSettings": {
+     "width": {
+      "width": 360
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "gjay32em9eq": {
+   "uid": "gjay32em9eq",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "rationale"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "1wmyc4tumj4": {
+   "uid": "1wmyc4tumj4",
+   "use": "TableColumnModel",
+   "props": {
+    "titleField": "title",
+    "width": 200
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "theses"
+     }
+    },
+    "tableColumnSettings": {
+     "fieldNames": {
+      "label": "title"
+     },
+     "width": {
+      "width": 200
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "odcj68asau1": {
+   "uid": "odcj68asau1",
+   "use": "DisplayTextFieldModel",
+   "props": {
+    "titleField": "title",
+    "clickToOpen": true
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "theses"
+     }
+    },
+    "displayFieldSettings": {
+     "clickToOpen": {
+      "clickToOpen": true
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_thesis",
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "associationName": "vi_fit_score.theses",
+      "title": "核心论点"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local",
+    "pageUid": "gc3x0suj0wx",
+    "tabUid": "o2anw0qbeod",
+    "gridUid": "ykz4zg4135r"
+   }
+  },
+  "gc3x0suj0wx": {
+   "uid": "gc3x0suj0wx",
+   "use": "ChildPageModel",
+   "props": {
+    "displayTitle": false,
+    "enableTabs": true
+   },
+   "stepParams": {
+    "pageSettings": {
+     "general": {
+      "displayTitle": false,
+      "enableTabs": true
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "o2anw0qbeod": {
+   "uid": "o2anw0qbeod",
+   "use": "ChildPageTabModel",
+   "props": {
+    "title": "{{t(\"Details\")}}"
+   },
+   "stepParams": {
+    "pageTabSettings": {
+     "tab": {
+      "title": "{{t(\"Details\")}}"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ykz4zg4135r": {
+   "uid": "ykz4zg4135r",
+   "use": "BlockGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "7shfohwior7"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "7shfohwior7"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "7shfohwior7": {
+   "uid": "7shfohwior7",
+   "use": "DetailsBlockModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "resourceSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_thesis",
+      "filterByTk": "{{ctx.record.id}}",
+      "associationName": "vi_fit_score.theses",
+      "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "e8gcw0caz3j": {
+   "uid": "e8gcw0caz3j",
+   "use": "DetailsGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "8j0b28f5nup"
+      ],
+      [
+       "y7yafd80n3j"
+      ]
+     ],
+     "row2": [
+      [
+       "fsyf2qvccml"
+      ],
+      [
+       "bnhualclxj5"
+      ]
+     ],
+     "row3": [
+      [
+       "0l8gjts7eoy"
+      ],
+      [
+       "ngwgdmc8ra9"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      12,
+      12
+     ],
+     "row2": [
+      12,
+      12
+     ],
+     "row3": [
+      12,
+      12
+     ]
+    },
+    "rowOrder": [
+     "row1",
+     "row2",
+     "row3"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "8j0b28f5nup"
+        ],
+        [
+         "y7yafd80n3j"
+        ]
+       ],
+       "row2": [
+        [
+         "fsyf2qvccml"
+        ],
+        [
+         "bnhualclxj5"
+        ]
+       ],
+       "row3": [
+        [
+         "0l8gjts7eoy"
+        ],
+        [
+         "ngwgdmc8ra9"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        12,
+        12
+       ],
+       "row2": [
+        12,
+        12
+       ],
+       "row3": [
+        12,
+        12
+       ]
+      },
+      "rowOrder": [
+       "row1",
+       "row2",
+       "row3"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "8j0b28f5nup": {
+   "uid": "8j0b28f5nup",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_thesis",
+      "fieldPath": "title"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "fanhsnw36nu": {
+   "uid": "fanhsnw36nu",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_thesis",
+      "fieldPath": "title"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "y7yafd80n3j": {
+   "uid": "y7yafd80n3j",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_thesis",
+      "fieldPath": "code"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "6qauvzp9iti": {
+   "uid": "6qauvzp9iti",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_thesis",
+      "fieldPath": "code"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "fsyf2qvccml": {
+   "uid": "fsyf2qvccml",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_thesis",
+      "fieldPath": "category"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "aa61ddn25b2": {
+   "uid": "aa61ddn25b2",
+   "use": "DisplayEnumFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_thesis",
+      "fieldPath": "category"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "bnhualclxj5": {
+   "uid": "bnhualclxj5",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_thesis",
+      "fieldPath": "status"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "34r5trd0eaj": {
+   "uid": "34r5trd0eaj",
+   "use": "DisplayEnumFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_thesis",
+      "fieldPath": "status"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "0l8gjts7eoy": {
+   "uid": "0l8gjts7eoy",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_thesis",
+      "fieldPath": "confidence"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "tb5b492x4ac": {
+   "uid": "tb5b492x4ac",
+   "use": "DisplayEnumFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_thesis",
+      "fieldPath": "confidence"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ngwgdmc8ra9": {
+   "uid": "ngwgdmc8ra9",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_thesis",
+      "fieldPath": "bull_case"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "jhmhqtbs446": {
+   "uid": "jhmhqtbs446",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_thesis",
+      "fieldPath": "bull_case"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "rp6liw2gs2y": {
+   "uid": "rp6liw2gs2y",
+   "use": "EditActionModel",
+   "props": {
+    "title": "{{t(\"Edit\")}}",
+    "icon": "EditOutlined",
+    "type": "default"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Edit\")}}",
+      "icon": "EditOutlined",
+      "type": "default"
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "dataSourceKey": "main",
+      "collectionName": "vi_thesis",
+      "associationName": "vi_fit_score.theses",
+      "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+      "title": "核心论点·编辑"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "template": {
+     "uid": "kvo6otysunu",
+     "mode": "reference"
+    }
+   }
+  },
+  "e8bzer7kjuh": {
+   "uid": "e8bzer7kjuh",
+   "use": "FilterActionModel",
+   "props": {
+    "title": "{{t(\"Filter\")}}",
+    "icon": "FilterOutlined",
+    "defaultFilterValue": {
+     "logic": "$and",
+     "items": [
+      {
+       "path": "dimension",
+       "operator": "$eq"
+      },
+      {
+       "path": "rationale",
+       "operator": "$includes"
+      },
+      {
+       "path": "counter",
+       "operator": "$includes"
+      }
+     ]
+    },
+    "filterValue": {
+     "logic": "$and",
+     "items": [
+      {
+       "path": "dimension",
+       "operator": "$eq"
+      },
+      {
+       "path": "rationale",
+       "operator": "$includes"
+      },
+      {
+       "path": "counter",
+       "operator": "$includes"
+      }
+     ]
+    }
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Filter\")}}",
+      "icon": "FilterOutlined"
+     }
+    },
+    "filterSettings": {
+     "defaultFilter": {
+      "defaultFilter": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "dimension",
+         "operator": "$eq"
+        },
+        {
+         "path": "rationale",
+         "operator": "$includes"
+        },
+        {
+         "path": "counter",
+         "operator": "$includes"
+        }
+       ]
+      }
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "14ku58l55es": {
+   "uid": "14ku58l55es",
+   "use": "RefreshActionModel",
+   "props": {
+    "title": "{{t(\"Refresh\")}}",
+    "icon": "ReloadOutlined"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Refresh\")}}",
+      "icon": "ReloadOutlined"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "wbjkn48ldu3": {
+   "uid": "wbjkn48ldu3",
+   "use": "BulkDeleteActionModel",
+   "props": {
+    "title": "",
+    "tooltip": "{{t(\"Delete\")}}",
+    "icon": "DeleteOutlined",
+    "iconOnly": true,
+    "position": "right"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "",
+      "tooltip": "{{t(\"Delete\")}}",
+      "icon": "DeleteOutlined",
+      "iconOnly": true
+     }
+    },
+    "deleteSettings": {
+     "confirm": {
+      "enable": true,
+      "title": "{{t(\"Delete record\")}}",
+      "content": "{{t(\"Are you sure you want to delete it?\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "tlofayy3dxk": {
+   "uid": "tlofayy3dxk",
+   "use": "AddNewActionModel",
+   "props": {
+    "type": "primary",
+    "title": "{{t(\"Add new\")}}",
+    "icon": "PlusOutlined"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Add new\")}}",
+      "icon": "PlusOutlined",
+      "type": "primary"
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "title": "新增 · 价投适配度"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local",
+    "pageUid": "6ej66slssnf",
+    "tabUid": "qrj2997w73e",
+    "gridUid": "fpwx1ul5wtc"
+   }
+  },
+  "6ej66slssnf": {
+   "uid": "6ej66slssnf",
+   "use": "ChildPageModel",
+   "props": {
+    "displayTitle": false,
+    "enableTabs": true
+   },
+   "stepParams": {
+    "pageSettings": {
+     "general": {
+      "displayTitle": false,
+      "enableTabs": true
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "qrj2997w73e": {
+   "uid": "qrj2997w73e",
+   "use": "ChildPageTabModel",
+   "props": {
+    "title": "{{t(\"Details\")}}"
+   },
+   "stepParams": {
+    "pageTabSettings": {
+     "tab": {
+      "title": "{{t(\"Details\")}}"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "fpwx1ul5wtc": {
+   "uid": "fpwx1ul5wtc",
+   "use": "BlockGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "iaajziz5pos"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "iaajziz5pos"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "iaajziz5pos": {
+   "uid": "iaajziz5pos",
+   "use": "CreateFormModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "resourceSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "8iljuehksw1": {
+   "uid": "8iljuehksw1",
+   "use": "FormGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "lmh595azi3u"
+      ],
+      [
+       "ljommozest8"
+      ]
+     ],
+     "row2": [
+      [
+       "pzt0n6llbg5"
+      ],
+      [
+       "dpq0miekmx9"
+      ]
+     ],
+     "row3": [
+      [
+       "oo35fo3lpbd"
+      ],
+      [
+       "uejk46cpsto"
+      ]
+     ],
+     "row4": [
+      [
+       "wnnusigv3n3"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      12,
+      12
+     ],
+     "row2": [
+      12,
+      12
+     ],
+     "row3": [
+      12,
+      12
+     ],
+     "row4": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1",
+     "row2",
+     "row3",
+     "row4"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "lmh595azi3u"
+        ],
+        [
+         "ljommozest8"
+        ]
+       ],
+       "row2": [
+        [
+         "pzt0n6llbg5"
+        ],
+        [
+         "dpq0miekmx9"
+        ]
+       ],
+       "row3": [
+        [
+         "oo35fo3lpbd"
+        ],
+        [
+         "uejk46cpsto"
+        ]
+       ],
+       "row4": [
+        [
+         "wnnusigv3n3"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        12,
+        12
+       ],
+       "row2": [
+        12,
+        12
+       ],
+       "row3": [
+        12,
+        12
+       ],
+       "row4": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1",
+       "row2",
+       "row3",
+       "row4"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "lmh595azi3u": {
+   "uid": "lmh595azi3u",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "dimension"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "13rzt881z1h": {
+   "uid": "13rzt881z1h",
+   "use": "SelectFieldModel",
+   "props": {
+    "allowClear": true
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "dimension"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ljommozest8": {
+   "uid": "ljommozest8",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "score"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "l0z0nwbezrg": {
+   "uid": "l0z0nwbezrg",
+   "use": "NumberFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "score"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "pzt0n6llbg5": {
+   "uid": "pzt0n6llbg5",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "rationale"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "o37qvdc4jar": {
+   "uid": "o37qvdc4jar",
+   "use": "TextareaFieldModel",
+   "props": {
+    "autoSize": {
+     "maxRows": 10,
+     "minRows": 3
+    }
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "rationale"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "dpq0miekmx9": {
+   "uid": "dpq0miekmx9",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "counter"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "87spmi3aqba": {
+   "uid": "87spmi3aqba",
+   "use": "TextareaFieldModel",
+   "props": {
+    "autoSize": {
+     "maxRows": 10,
+     "minRows": 3
+    }
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "counter"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "oo35fo3lpbd": {
+   "uid": "oo35fo3lpbd",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "sort"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ry01cc907kh": {
+   "uid": "ry01cc907kh",
+   "use": "NumberFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "sort"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "uejk46cpsto": {
+   "uid": "uejk46cpsto",
+   "use": "FormItemModel",
+   "props": {
+    "titleField": "name"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "company"
+     }
+    },
+    "editItemSettings": {
+     "titleField": {
+      "label": "name"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "2oj4jpk7hiy": {
+   "uid": "2oj4jpk7hiy",
+   "use": "RecordSelectFieldModel",
+   "props": {
+    "titleField": "name"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "company"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "wnnusigv3n3": {
+   "uid": "wnnusigv3n3",
+   "use": "FormItemModel",
+   "props": {
+    "titleField": "title"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "theses"
+     }
+    },
+    "editItemSettings": {
+     "titleField": {
+      "label": "title"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "k83c9b36sqc": {
+   "uid": "k83c9b36sqc",
+   "use": "RecordSelectFieldModel",
+   "props": {
+    "titleField": "title"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fit_score",
+      "fieldPath": "theses"
+     }
+    },
+    "selectSettings": {
+     "dataScope": {
+      "filter": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "company_id",
+         "operator": "$eq",
+         "value": "{{ctx.formValues.company.id}}"
+        }
+       ]
+      }
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "0crkwi6d453": {
+   "uid": "0crkwi6d453",
+   "use": "FormSubmitActionModel",
+   "props": {
+    "title": "{{t(\"Submit\")}}",
+    "type": "primary",
+    "htmlType": "submit"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Submit\")}}",
+      "type": "primary"
+     }
+    },
+    "submitSettings": {
+     "confirm": {
+      "enable": false,
+      "title": "{{t(\"Submit record\")}}",
+      "content": "{{t(\"Are you sure you want to save it?\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  }
+ },
+ "pageRoute": {
+  "createdAt": "2026-10-23T05:46:47.022Z",
+  "updatedAt": "2026-10-25T16:13:53.341Z",
+  "id": 393657256509440,
+  "parentId": 393657214566400,
+  "title": "价投适配度",
+  "tooltip": null,
+  "icon": "TableOutlined",
+  "schemaUid": "h2o39ic9c7s",
+  "menuSchemaUid": "ihnobl4gi0t",
+  "tabSchemaName": null,
+  "type": "flowPage",
+  "options": {
+   "flowSurfaceMenuBindable": true
+  },
+  "sort": 6,
+  "hideInMenu": false,
+  "enableTabs": true,
+  "enableHeader": false,
+  "displayTitle": true,
+  "hidden": null,
+  "createdById": null,
+  "updatedById": 1,
+  "children": [
+   {
+    "createdAt": "2026-10-23T05:46:47.035Z",
+    "updatedAt": "2026-10-25T16:40:47.975Z",
+    "id": 393657256509441,
+    "parentId": 393657256509440,
+    "title": "评分",
+    "tooltip": null,
+    "icon": null,
+    "schemaUid": "1v2w5xtbo11",
+    "menuSchemaUid": null,
+    "tabSchemaName": "1c7p03oohgi",
+    "type": "tabs",
+    "options": {
+     "flowRegistry": {}
+    },
+    "sort": 1,
+    "hideInMenu": null,
+    "enableTabs": null,
+    "enableHeader": null,
+    "displayTitle": null,
+    "hidden": false,
+    "createdById": null,
+    "updatedById": 1
+   },
+   {
+    "createdAt": "2026-10-25T16:13:53.506Z",
+    "updatedAt": "2026-10-25T16:40:49.570Z",
+    "id": 394098552274944,
+    "parentId": 393657256509440,
+    "title": "明细（编辑）",
+    "tooltip": null,
+    "icon": null,
+    "schemaUid": "cgz0kxan089",
+    "menuSchemaUid": null,
+    "tabSchemaName": "明细（编辑）",
+    "type": "tabs",
+    "options": {
+     "flowRegistry": {}
+    },
+    "sort": 2,
+    "hideInMenu": null,
+    "enableTabs": null,
+    "enableHeader": null,
+    "displayTitle": null,
+    "hidden": false,
+    "createdById": null,
+    "updatedById": 1
+   }
+  ]
+ }
+}

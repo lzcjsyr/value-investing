@@ -1,0 +1,136 @@
+Browser tab: 4, Title: "腾讯音乐 · 驾驶舱", URL: "http://118.196.72.148/admin/rcxptn5zkmz".
+1 AXWebArea 腾讯音乐 · 驾驶舱, URL: 118.196.72.148/admin/rcxptn5zkmz
+	2 container
+		3 container root
+			4 container nocobase-app-container
+				5 container
+					6 container
+						7 image menu
+						8 image
+						9 image ellipsis
+					10 container
+						11 container
+							12 text 驾驶舱
+							13 container
+								14 container
+									15 heading 腾讯音乐 · 投资驾驶舱, Value: 4
+										16 text 腾讯音乐 · 投资驾驶舱
+									17 container
+										18 link Description: 估值模型, Value: 118.196.72.148/admin/euxy5ltu78h
+										19 link Description: 财务模型, Value: 118.196.72.148/admin/wc3nccce8ou
+										20 link Description: 核心论点, Value: 118.196.72.148/admin/iyut3rwi5im
+									21 text 01698.HK · 股价  2026-10-28  · 资产基准日  2026-06-30  · 股本  31.6  亿普通股
+									22 container 现价与情景估值对比
+										23 text ● 当前市场价
+										24 container
+											25 text 33.08 港元  / 股
+										26 container
+											27 text 市场报价 ·  2026-10-28
+										28 text ↘ 悲观 估值 压力情景
+										29 container
+											30 text 36.86 港元  / 股
+										31 text ◆ 基准 估值 核心参考
+										32 container
+											33 text 54.01 港元  / 股
+										34 text ↗ 乐观 估值 顺利情景
+										35 container
+											36 text 78.70 港元  / 股
+										37 text 现价比基准估值低 38.7%
+										38 text 报价是市场成交水平；三种估值是模型情景测算
+										39 container 价格位置，现价 33.08，悲观估值 36.86，基准估值 54.01，乐观估值 78.70，单位港元
+									40 text 关注价 · 10% 边际  48.61  港元 / 30% 边际  37.80  港元
+									41 table
+										42 row
+											43 cell
+												44 text 情景
+											45 cell
+												46 text 主营价值（亿元）
+											47 cell
+												48 text 资产与调整（亿元）
+											49 cell
+												50 text 股权价值（亿元）
+											51 cell
+												52 text 每股（人民币元）
+											53 cell
+												54 text 每股（港元）
+											55 cell
+												56 text 现价相对价值
+										57 row
+											58 cell
+												59 text 悲观
+											60 cell
+												61 text 632.7
+											62 cell
+												63 text 356.7
+											64 cell
+												65 text 989.4
+											66 cell
+												67 text 31.31
+											68 cell
+												69 text 36.86
+											70 cell
+												71 text -10.3%
+										72 row
+											73 cell
+												74 text 基准
+											75 cell
+												76 text 1092.9
+											77 cell
+												78 text 356.7
+											79 cell
+												80 text 1449.6
+											81 cell
+												82 text 45.87
+											83 cell
+												84 text 54.01
+											85 cell
+												86 text -38.7%
+										87 row
+											88 cell
+												89 text 乐观
+											90 cell
+												91 text 1755.8
+											92 cell
+												93 text 356.7
+											94 cell
+												95 text 2112.4
+											96 cell
+												97 text 66.85
+											98 cell
+												99 text 78.70
+											100 cell
+												101 text -58.0%
+									102 text 主营价值＋资产与调整＝股权价值；股权价值÷股本＝每股价值。1 港元＝ 0.8494  元人民币。 驾驶舱与下方图表均读取当前已保存模型，参数与分部明细见「估值模型」。
+									103 text 质量自检
+									104 container
+										105 text 通过  9
+									106 container
+										107 text 提示  4
+									108 container
+										109 text 阻断  0
+							110 container
+								111 text 基准每股价值桥接（人民币元）
+							112 container
+								113 text 成熟业务统一倍数试算（人民币元/股）
+							114 container
+								115 text 单季收入结构（亿元）
+							116 container
+								117 text 单季收入同比（%）
+							118 container
+								119 text 单季毛利率（%）
+							120 container
+								121 text 在线音乐用户（百万人，季末披露）
+							122 container
+								123 text 归母利润、实付股息与现金回购（亿元）
+							124 container
+								125 text 经营现金流与资本开支（亿元）
+							126 container
+								127 text 现金储备与带息负债（亿元，期末）
+							128 container
+								129 text 股东现金回报占归母利润（%）
+							130 container
+								131 text 港股收盘价（港元/普通股，不复权）
+							132 container
+								133 text 价值投资适配度（各项 0—5 分）
+
+The focused UI element is 1 AXWebArea 腾讯音乐 · 驾驶舱, URL: 118.196.72.148/admin/rcxptn5zkmz

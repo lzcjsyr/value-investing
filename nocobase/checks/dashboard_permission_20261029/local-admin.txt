@@ -1,0 +1,99 @@
+Browser tab: 5, Title: "腾讯音乐 · 驾驶舱", URL: "http://localhost:13000/admin/rcxptn5zkmz".
+1 AXWebArea 腾讯音乐 · 驾驶舱, URL: localhost:13000/admin/rcxptn5zkmz
+	2 container
+		3 container root
+			4 container nocobase-app-container
+				5 menu
+					6 驾驶舱
+						7 container
+							8 link Description: 驾驶舱, Value: localhost:13000/admin/rcxptn5zkmz
+					9 (collapsed) 商业模式, Secondary Actions: Expand
+						10 container
+							11 container 商业模式
+								12 image safety
+								13 text 商业模式
+					14 (collapsed) 预测与估值, Secondary Actions: Expand
+						15 container
+							16 container 预测与估值
+								17 image calculator
+								18 text 预测与估值
+					19 (collapsed) 数据底稿, Secondary Actions: Expand
+						20 container
+							21 container 数据底稿
+								22 image database
+								23 text 数据底稿
+					24 (collapsed) 研究维护, Secondary Actions: Expand
+						25 container
+							26 container 研究维护
+								27 image tool
+								28 text 研究维护
+				29 container
+					30 container
+						31 container logo
+							32 image
+							33 heading 1
+						34 menu
+							35 长江电力
+								36 container
+									37 link Description: 长江电力, Value: localhost:13000/admin/iihbe468odp
+							38 太阳纸业
+								39 container
+									40 link Description: 太阳纸业, Value: localhost:13000/admin/d3pps9o6z1p
+							41 中国建筑
+								42 container
+									43 link Description: 中国建筑, Value: localhost:13000/admin/d9uoj7oiltg
+							44 腾讯音乐
+								45 container
+									46 link Description: 腾讯音乐, Value: localhost:13000/admin/rcxptn5zkmz
+							47 小米集团
+								48 container
+									49 link Description: 小米集团, Value: localhost:13000/admin/qsjr3v77mh2
+							50 宏观数据
+								51 container
+									52 link Description: 宏观数据, Value: localhost:13000/admin/ujvwu8gqecp
+							53 框架与后台
+								54 container
+									55 link Description: 框架与后台, Value: localhost:13000/admin/6ro3vmfo9o1
+						56 button highlight, Help: 界面配置
+							57 image highlight
+						58 button setting
+							59 image setting
+						60 button bell
+							61 image bell
+						62 image question-circle
+						63 image user
+					64 container
+						65 container
+							66 text 驾驶舱
+							67 container
+								68 text 基准每股价值桥接（人民币元）
+							69 container
+								70 text 成熟业务统一倍数试算（人民币元/股）
+							71 container
+								72 text 单季收入结构（亿元）
+							73 container
+								74 text 单季收入同比（%）
+							75 container
+								76 text 单季毛利率（%）
+							77 container
+								78 text 在线音乐用户（百万人，季末披露）
+							79 container
+								80 text 归母利润、实付股息与现金回购（亿元）
+							81 container
+								82 text 经营现金流与资本开支（亿元）
+							83 container
+								84 text 现金储备与带息负债（亿元，期末）
+							85 container
+								86 text 股东现金回报占归母利润（%）
+							87 container
+								88 text 港股收盘价（港元/普通股，不复权）
+							89 container
+								90 text 价值投资适配度（各项 0—5 分）
+							91 container
+								92 button (collapsed) collapsed 数据更新与采集, Secondary Actions: Expand
+									93 image collapsed
+									94 text 数据更新与采集
+			95 button 打开 AI 对话
+				96 image
+
+The focused UI element is 1 AXWebArea 腾讯音乐 · 驾驶舱, URL: localhost:13000/admin/rcxptn5zkmz

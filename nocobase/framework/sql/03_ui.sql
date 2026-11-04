@@ -86,6 +86,39 @@ END $$;
 
 CREATE TRIGGER vi_source_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_source FOR EACH ROW EXECUTE FUNCTION vi_source_dml();
 
+DROP VIEW IF EXISTS vi_event CASCADE;
+
+CREATE VIEW vi_event AS
+SELECT b.id,
+       b.name,
+       b.category,
+       b.status,
+       b.period,
+       b.summary,
+       b.company_id,
+       c.fact_count,
+       c.latest_as_of,
+       b.updated_at
+FROM vi_event_base b LEFT JOIN vi_event_calc c ON c.id = b.id;
+
+COMMENT ON VIEW vi_event IS '事项（界面视图：输入列＋自动计算列）';
+
+CREATE OR REPLACE FUNCTION vi_event_dml() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  IF TG_OP = 'INSERT' THEN
+    INSERT INTO vi_event_base (name, category, status, period, summary, company_id) VALUES (NEW.name, NEW.category, NEW.status, NEW.period, NEW.summary, NEW.company_id) RETURNING id INTO NEW.id;
+    RETURN NEW;
+  ELSIF TG_OP = 'UPDATE' THEN
+    UPDATE vi_event_base SET name = NEW.name, category = NEW.category, status = NEW.status, period = NEW.period, summary = NEW.summary, company_id = NEW.company_id WHERE id = OLD.id;
+    RETURN NEW;
+  ELSE
+    DELETE FROM vi_event_base WHERE id = OLD.id;
+    RETURN OLD;
+  END IF;
+END $$;
+
+CREATE TRIGGER vi_event_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_event FOR EACH ROW EXECUTE FUNCTION vi_event_dml();
+
 DROP VIEW IF EXISTS vi_fact CASCADE;
 
 CREATE VIEW vi_fact AS
@@ -98,19 +131,20 @@ SELECT b.id,
        b.verify_status,
        b.notes,
        b.company_id,
+       b.event_id,
        b.source_id,
        b.updated_at
 FROM vi_fact_base b;
 
-COMMENT ON VIEW vi_fact IS '重要事实（界面视图：输入列＋自动计算列）';
+COMMENT ON VIEW vi_fact IS '定性事实（界面视图：输入列＋自动计算列）';
 
 CREATE OR REPLACE FUNCTION vi_fact_dml() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_fact_base (title, category, statement, period, as_of, verify_status, notes, company_id, source_id) VALUES (NEW.title, NEW.category, NEW.statement, NEW.period, NEW.as_of, NEW.verify_status, NEW.notes, NEW.company_id, NEW.source_id) RETURNING id INTO NEW.id;
+    INSERT INTO vi_fact_base (title, category, statement, period, as_of, verify_status, notes, company_id, event_id, source_id) VALUES (NEW.title, NEW.category, NEW.statement, NEW.period, NEW.as_of, NEW.verify_status, NEW.notes, NEW.company_id, NEW.event_id, NEW.source_id) RETURNING id INTO NEW.id;
     RETURN NEW;
   ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_fact_base SET title = NEW.title, category = NEW.category, statement = NEW.statement, period = NEW.period, as_of = NEW.as_of, verify_status = NEW.verify_status, notes = NEW.notes, company_id = NEW.company_id, source_id = NEW.source_id WHERE id = OLD.id;
+    UPDATE vi_fact_base SET title = NEW.title, category = NEW.category, statement = NEW.statement, period = NEW.period, as_of = NEW.as_of, verify_status = NEW.verify_status, notes = NEW.notes, company_id = NEW.company_id, event_id = NEW.event_id, source_id = NEW.source_id WHERE id = OLD.id;
     RETURN NEW;
   ELSE
     DELETE FROM vi_fact_base WHERE id = OLD.id;
@@ -485,7 +519,7 @@ SELECT b.id,
        b.updated_at
 FROM vi_fin_stmt_base b;
 
-COMMENT ON VIEW vi_fin_stmt IS '财务数据（界面视图：输入列＋自动计算列）';
+COMMENT ON VIEW vi_fin_stmt IS '财务报表（界面视图：输入列＋自动计算列）';
 
 CREATE OR REPLACE FUNCTION vi_fin_stmt_dml() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
@@ -511,6 +545,7 @@ SELECT b.id,
        b.name,
        b.unit,
        b.category,
+       b.measure,
        b.source_kind,
        b.basis,
        b.model_field,
@@ -525,6 +560,7 @@ SELECT b.id,
        c.latest_value,
        c.latest_period,
        c.latest_date,
+       c.trend,
        c.state,
        c.next_due,
        c.tracked_by,
@@ -541,10 +577,10 @@ COMMENT ON VIEW vi_metric IS '指标（界面视图：输入列＋自动计算�
 CREATE OR REPLACE FUNCTION vi_metric_dml() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, model_field, formula, source_name, frequency, valid_min, valid_max, notes, company_id) VALUES (NEW.code, NEW.name, NEW.unit, NEW.category, COALESCE(NEW.source_kind, '自动采集'), COALESCE(NEW.basis, '时点'), NEW.model_field, NEW.formula, NEW.source_name, NEW.frequency, NEW.valid_min, NEW.valid_max, NEW.notes, NEW.company_id) RETURNING id INTO NEW.id;
+    INSERT INTO vi_metric_base (code, name, unit, category, measure, source_kind, basis, model_field, formula, source_name, frequency, valid_min, valid_max, notes, company_id) VALUES (NEW.code, NEW.name, NEW.unit, NEW.category, NEW.measure, COALESCE(NEW.source_kind, '自动采集'), COALESCE(NEW.basis, '时点'), NEW.model_field, NEW.formula, NEW.source_name, NEW.frequency, NEW.valid_min, NEW.valid_max, NEW.notes, NEW.company_id) RETURNING id INTO NEW.id;
     RETURN NEW;
   ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_metric_base SET code = NEW.code, name = NEW.name, unit = NEW.unit, category = NEW.category, source_kind = COALESCE(NEW.source_kind, '自动采集'), basis = COALESCE(NEW.basis, '时点'), model_field = NEW.model_field, formula = NEW.formula, source_name = NEW.source_name, frequency = NEW.frequency, valid_min = NEW.valid_min, valid_max = NEW.valid_max, notes = NEW.notes, company_id = NEW.company_id WHERE id = OLD.id;
+    UPDATE vi_metric_base SET code = NEW.code, name = NEW.name, unit = NEW.unit, category = NEW.category, measure = NEW.measure, source_kind = COALESCE(NEW.source_kind, '自动采集'), basis = COALESCE(NEW.basis, '时点'), model_field = NEW.model_field, formula = NEW.formula, source_name = NEW.source_name, frequency = NEW.frequency, valid_min = NEW.valid_min, valid_max = NEW.valid_max, notes = NEW.notes, company_id = NEW.company_id WHERE id = OLD.id;
     RETURN NEW;
   ELSE
     DELETE FROM vi_metric_base WHERE id = OLD.id;
@@ -569,6 +605,7 @@ SELECT b.id,
        b.doc_id,
        b.raw_capture_id,
        c.unit,
+       c.measure,
        c.source_kind,
        c.is_current,
        c.is_valid,

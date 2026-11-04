@@ -7,6 +7,13 @@ JS = r"""const { React } = ctx.libs;
 const { useState } = React;
 const { Segmented, Table, Button, Input, InputNumber, Select, Space, Alert, Empty, Tag, theme, message } = ctx.libs.antd;
 const BASES = ['时点', '单季', '半年累计', '前三季度累计', '全年', '年初至今累计', '滚动四季度'];
+// 指标性质决定能用的口径：时点指标（存量）只有“时点”，时期指标（流量）不能用“时点”；未判定的都可选
+const FLOW_BASES = BASES.filter((b) => b !== '时点');
+const allowedBases = (measure) => (measure === '时点' ? ['时点'] : measure === '时期' ? FLOW_BASES : BASES);
+const MEASURE_NOTE = {
+  时期: '时期指标（流量）：一段时间内发生的量，同类时期可以相加',
+  时点: '时点指标（存量）：某一时刻的规模或状态，不能跨期相加',
+};
 
 async function listRows(name, filter, pageSize = 2000) {
   const resource = ctx.makeResource('MultiRecordResource');
@@ -70,7 +77,8 @@ function Panel({ metric, rows, reload }) {
   const bases = BASES.filter((b) => rows.some((r) => r.basis === b));
   const [basis, setBasis] = useState(bases.includes(metric.basis) ? metric.basis : bases[0]);
   const [range, setRange] = useState('近 5 年');
-  const [form, setForm] = useState({ basis: metric.basis || '时点' });
+  const allowed = allowedBases(metric.measure);
+  const [form, setForm] = useState({ basis: allowed.includes(metric.basis) ? metric.basis : allowed[0] });
   const [saving, setSaving] = useState(false);
   const cut = new Date(); cut.setFullYear(cut.getFullYear() - 5);
   const series = rows.filter((r) => r.basis === basis).sort((a, b) => String(a.obs_date).localeCompare(String(b.obs_date)));
@@ -79,7 +87,7 @@ function Panel({ metric, rows, reload }) {
   const latest = series[series.length - 1];
   const add = async () => {
     const end = periodEnd(form.period);
-    if (!end) { message.warning('期间写成 2026Q3、2026H1、2026 或 2026M09'); return; }
+    if (!end) { message.warning('统计时间写成 2026Q3、2026H1、2026 或 2026M09'); return; }
     if (form.value === undefined || form.value === null || form.value === '') { message.warning('请填写数值'); return; }
     setSaving(true);
     try {
@@ -100,6 +108,7 @@ function Panel({ metric, rows, reload }) {
         {latest ? <span style={{ color: token.colorTextSecondary }}>最新 {latest.period}：<b style={{ color: token.colorText }}>{num(latest.value, d)}</b> {metric.unit || ''}
           {latest.yoy !== null && latest.yoy !== undefined ? `（同比 ${num(latest.yoy * 100, 1)}%）` : ''}</span> : null}
         {metric.source_kind === '报表计算' ? <Tag>报表计算：{metric.formula}</Tag> : <Tag>{metric.source_kind}</Tag>}
+        {metric.measure ? <Tag color={metric.measure === '时点' ? 'purple' : 'blue'}>{MEASURE_NOTE[metric.measure]}</Tag> : <Tag>指标性质未判定</Tag>}
       </div>
       {rows.length === 0 ? <Empty description="还没有数据：在下面录入第一期" /> : (
         <>
@@ -111,7 +120,7 @@ function Panel({ metric, rows, reload }) {
           <Chart points={shown} unit={metric.unit} token={token} />
           <Table size="small" rowKey="id" pagination={{ pageSize: 8, size: 'small' }}
             dataSource={series.slice().reverse()} columns={[
-              { title: '期间', dataIndex: 'period', width: 100 },
+              { title: '统计时间', dataIndex: 'period', width: 100 },
               { title: `数值（${metric.unit || ''}）`, dataIndex: 'value', align: 'right', width: 120, render: (v) => num(v, d) },
               { title: '同比', dataIndex: 'yoy', align: 'right', width: 90, render: (v) => (v === null || v === undefined ? '—' : `${num(v * 100, 1)}%`) },
               { title: '取值', dataIndex: 'origin', width: 90, render: (v) => <Tag color={v === '录入' ? 'blue' : 'default'}>{v}</Tag> },
@@ -126,8 +135,9 @@ function Panel({ metric, rows, reload }) {
             录入一期{metric.source_kind === '报表计算' ? '（报表计算的指标：录入的数会覆盖报表算出的同期数，用于追溯调整或口径不同的年份）' : ''}
           </div>
           <Space wrap>
-            <Input style={{ width: 130 }} placeholder="期间，如 2026Q3" value={form.period} onChange={(e) => setForm({ ...form, period: e.target.value })} />
-            <Select style={{ width: 130 }} options={BASES.map((b) => ({ value: b, label: b }))} value={form.basis} onChange={(v) => setForm({ ...form, basis: v })} />
+            <Input style={{ width: 170 }} placeholder={metric.measure === '时点' ? '统计时间，如 2026Q3（季末）' : '统计时间，如 2026Q3'}
+              value={form.period} onChange={(e) => setForm({ ...form, period: e.target.value })} />
+            <Select style={{ width: 130 }} options={allowed.map((b) => ({ value: b, label: b }))} value={form.basis} onChange={(v) => setForm({ ...form, basis: v })} />
             <InputNumber style={{ width: 140 }} placeholder={`数值（${metric.unit || ''}）`} value={form.value} onChange={(v) => setForm({ ...form, value: v })} />
             <InputNumber style={{ width: 120 }} placeholder="同比 %" value={form.yoy} onChange={(v) => setForm({ ...form, yoy: v })} />
             <Input style={{ width: 260 }} placeholder="说明（可选）" value={form.summary} onChange={(e) => setForm({ ...form, summary: e.target.value })} />
@@ -157,7 +167,7 @@ try {
 }
 """
 
-DETAIL_FIELDS = ['name', 'category', 'unit', 'basis', 'source_kind', 'formula', 'model_field', 'frequency', 'source_name', 'tracked_by', 'notes']
+DETAIL_FIELDS = ['name', 'category', 'measure', 'unit', 'basis', 'source_kind', 'formula', 'model_field', 'frequency', 'source_name', 'tracked_by', 'notes']
 
 
 def view_action(page_title):

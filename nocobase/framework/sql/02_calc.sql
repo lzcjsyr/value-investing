@@ -8,7 +8,7 @@ DROP VIEW IF EXISTS vi_metric_value CASCADE;
 DROP VIEW IF EXISTS vi_check, vi_sotp, vi_sotp_segment_calc, vi_sotp_segment_val, vi_sotp_item_calc, vi_moat_calc, vi_risk_calc, vi_sensitivity, vi_valuation, vi_valuation_cf, vi_balance, vi_projection, vi_collect_run_calc, vi_trial_calc,
   vi_forecast_calc, vi_fin_forecast_calc, vi_scenario_calc, vi_model_calc, vi_series, vi_thesis_calc, vi_fin_metric,
   vi_fin_history, vi_fin_history_calc, vi_collector_calc, vi_raw_capture_calc, vi_observation_calc, vi_obs_current, vi_disclosed,
-  vi_metric_calc, vi_company_calc, vi_company_metric CASCADE;
+  vi_metric_calc, vi_company_calc, vi_company_metric, vi_event_calc CASCADE;
 
 ---------------------------------------------------------------------------
 -- 通用函数
@@ -83,12 +83,18 @@ END $$;
 -- 数据（每期数值）。口径记在每一行上；同一指标、同一口径、同一日期多次采集时取最后一次为当前版本
 ---------------------------------------------------------------------------
 CREATE VIEW vi_observation_calc AS
-SELECT o.id, m.unit, m.source_kind,
+SELECT o.id, m.unit, m.measure, m.source_kind,
        row_number() OVER (PARTITION BY o.metric_id, o.basis, o.obs_date ORDER BY o.collected_at DESC NULLS LAST, o.id DESC) = 1 AS is_current,
        (o.value IS NOT NULL
         AND o.value >= coalesce(m.valid_min, '-infinity'::float8)
         AND o.value <= coalesce(m.valid_max, 'infinity'::float8)) AS is_valid
 FROM vi_observation_base o LEFT JOIN vi_metric_base m ON m.id = o.metric_id;
+
+-- 事项：挂了几个侧面（定性事实）、最近一个侧面的截至日期
+CREATE VIEW vi_event_calc AS
+SELECT e.id, count(f.id)::int AS fact_count, max(f.as_of) AS latest_as_of
+FROM vi_event_base e LEFT JOIN vi_fact_base f ON f.event_id = e.id
+GROUP BY e.id;
 
 -- 每个指标的“当前且有效”数据（供其他视图引用）
 -- 写成“没有更新的同期同口径数据”，按指标走索引（单个指标取最新值时不用把全部数据排一遍）
@@ -225,6 +231,40 @@ FROM vi_series x JOIN vi_metric_base m ON m.id = x.metric_id
 LEFT JOIN vi_observation_base o ON o.id = x.observation_id
 LEFT JOIN vi_source_base d ON d.id = o.doc_id;
 
+-- 指标性质与口径一致：时点指标（存量）每期口径只能是“时点”，时期指标（流量）不能用“时点”；指标性质留空的不检查
+CREATE OR REPLACE FUNCTION vi_measure_basis_guard() RETURNS trigger LANGUAGE plpgsql AS $$
+DECLARE ms text; nm text; bad text;
+BEGIN
+  IF TG_TABLE_NAME = 'vi_observation_base' THEN
+    SELECT measure, name INTO ms, nm FROM vi_metric_base WHERE id = NEW.metric_id;
+    IF ms = '时点' AND NEW.basis IS DISTINCT FROM '时点' THEN
+      RAISE EXCEPTION '指标“%”是时点指标（存量），每期口径只能是“时点”，这一期写的是“%”', nm, NEW.basis;
+    ELSIF ms = '时期' AND NEW.basis = '时点' THEN
+      RAISE EXCEPTION '指标“%”是时期指标（流量），口径不能是“时点”，请选单季、全年等', nm;
+    END IF;
+  ELSE
+    IF NEW.measure = '时点' AND NEW.basis IS DISTINCT FROM '时点' THEN
+      RAISE EXCEPTION '指标“%”是时点指标，主口径只能是“时点”', NEW.name;
+    ELSIF NEW.measure = '时期' AND NEW.basis = '时点' THEN
+      RAISE EXCEPTION '指标“%”是时期指标，主口径不能是“时点”，请选单季、全年等', NEW.name;
+    END IF;
+    IF NEW.measure IS NOT NULL THEN
+      SELECT string_agg(DISTINCT o.basis, '、') INTO bad FROM vi_observation_base o
+       WHERE o.metric_id = NEW.id AND ((NEW.measure = '时点' AND o.basis IS DISTINCT FROM '时点') OR (NEW.measure = '时期' AND o.basis = '时点'));
+      IF bad IS NOT NULL THEN
+        RAISE EXCEPTION '指标“%”已有口径为“%”的数据，与“%指标”不符；先改这些数据的口径', NEW.name, bad, NEW.measure;
+      END IF;
+    END IF;
+  END IF;
+  RETURN NEW;
+END $$;
+DROP TRIGGER IF EXISTS vi_observation_measure_guard ON vi_observation_base;
+CREATE TRIGGER vi_observation_measure_guard BEFORE INSERT OR UPDATE OF metric_id, basis ON vi_observation_base
+  FOR EACH ROW EXECUTE FUNCTION vi_measure_basis_guard();
+DROP TRIGGER IF EXISTS vi_metric_measure_guard ON vi_metric_base;
+CREATE TRIGGER vi_metric_measure_guard BEFORE INSERT OR UPDATE OF measure, basis ON vi_metric_base
+  FOR EACH ROW EXECUTE FUNCTION vi_measure_basis_guard();
+
 -- 写入一条公司披露的数据：按 公司×项目×口径×单位 找指标，没有就新建（代码＝公司代码.D001 起顺序编号）；
 -- 同一指标同一期间已有的数据先删掉再写，可重复执行。种子脚本和迁移都用它，规则只写一处。
 -- 业务驱动与财务结果分域；合同额/合约销售额和 ARPPU 是业务，不能仅按金额单位判断。
@@ -320,11 +360,19 @@ SELECT m.id,
        CASE WHEN m.company_id IS NULL THEN '宏观' ELSE '公司' END AS scope,
        u.used_by, u.used_by_codes,
        CASE WHEN l.obs_date IS NULL THEN '未记录' WHEN d.due < vi_today() THEN '待更新' ELSE '已更新' END AS state,
-       d.due AS next_due, t.tracked_by, t.tracked_codes,
+       d.due AS next_due, t.tracked_by, t.tracked_codes, tr.trend,
        array_position(ARRAY['volume', 'revenue', 'cost_of_sales', 'pretax_profit', 'income_tax', 'np_parent', 'minority_profit', 'da', 'finance_cost', 'invest_income', 'equity_income', 'cfo', 'capex', 'investee_cash_div', 'net_borrowing', 'interest_debt', 'cash', 'equity_parent', 'dividend_total', 'dps'], m.model_field) AS model_order
 FROM vi_metric_base m
 LEFT JOIN LATERAL (SELECT value, period, obs_date FROM vi_series x WHERE x.metric_id = m.id
                    ORDER BY (x.basis IS NOT DISTINCT FROM m.basis) DESC, obs_date DESC LIMIT 1) l ON true
+-- 趋势（表格里的小折线）：主口径最近 12 期，日度数据取最近 60 个交易日；按时间先后，[[统计时间, 数值], …]
+LEFT JOIN LATERAL (
+  SELECT json_agg(json_build_array(coalesce(z.period, z.obs_date::text), round(z.value::numeric, 4)) ORDER BY z.obs_date)::text AS trend
+  FROM (SELECT x.period, x.obs_date, x.value FROM vi_series x
+        WHERE x.metric_id = m.id AND x.basis IS NOT DISTINCT FROM m.basis AND x.value IS NOT NULL
+        ORDER BY x.obs_date DESC
+        LIMIT CASE WHEN m.frequency IN ('交易日', '工作日', '日') THEN 60 ELSE 12 END) z
+) tr ON true
 CROSS JOIN LATERAL (
   SELECT (l.obs_date + CASE WHEN m.frequency IN ('交易日', '工作日', '日') THEN interval '5 days' WHEN m.frequency = '周' THEN interval '12 days'
           WHEN m.frequency IN ('月', '月度') THEN interval '55 days' WHEN m.frequency IN ('季', '季度') THEN interval '4 months'
@@ -1383,7 +1431,7 @@ FROM c CROSS JOIN LATERAL (VALUES
       format('已评 %s / 8 个维度，总分 %s / 40：%s', n_fit, coalesce(fit_total, 0),
              CASE WHEN n_fit < 8 THEN '评分未完成'
                   WHEN fit_total >= 32 THEN '适合价值投资复利框架（仍需价格安全边际）'
-                  WHEN fit_total >= 22 THEN '可研究，需说明更偏复利、现金流价值还是资产价值'
+                  WHEN fit_total >= 22 THEN '合适，需说明更偏复利、现金流价值还是资产价值'
                   ELSE '通常不符合价值投资标准' END)),
   (16, 'C16', '分部加总与股息贴现对照',
       CASE WHEN sotp_base IS NULL THEN '通过' WHEN abs(sotp_diff) > 0.25 THEN '提示' ELSE '通过' END,

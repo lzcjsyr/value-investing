@@ -1,6 +1,6 @@
 """“<公司> / 商业模式 / 价投适配度”顶部的结论看板：总分与归类、八个维度的分数条、强项与短板。
 看板是一个 JS 区块，放在原有的适配度表格上方（同一列上下叠放），数据只读 vi_fit_score，页面本身不存内容。
-归类与自动检查 C15 一致：32—40 适合复利框架，22—31 可研究，21 及以下通常不符合价值投资标准。
+归类与自动检查 C15 一致：32—40 适合复利框架，22—31 合适，21 及以下通常不符合价值投资标准。
 
   python3 build_fitboard.py              # 给所有公司的适配度页面加看板（已有的更新代码）
   python3 build_fitboard.py 600900.SH    # 只处理这家公司
@@ -25,7 +25,7 @@ async function listRows(name, filter) {
 // 与自动检查 C15 的归类一致
 const BANDS = [
   { from: 0, to: 21, name: '不适合', text: '通常不符合价值投资标准' },
-  { from: 22, to: 31, name: '可研究', text: '可研究，需说明更偏复利、现金流价值还是资产价值' },
+  { from: 22, to: 31, name: '合适', text: '合适，需说明更偏复利、现金流价值还是资产价值' },
   { from: 32, to: 40, name: '复利型', text: '适合价值投资复利框架（仍需价格安全边际）' },
 ];
 
@@ -35,8 +35,8 @@ function Board({ company, rows }) {
   const max = rows.length * 5 || 40;
   const scaled = max === 40 ? total : Math.round((total / max) * 40);
   const band = BANDS.find((b) => scaled >= b.from && scaled <= b.to) || BANDS[0];
-  const tone = { 不适合: token.colorError, 可研究: token.colorWarning, 复利型: token.colorSuccess };
-  const soft = { 不适合: token.colorErrorBg, 可研究: token.colorWarningBg, 复利型: token.colorSuccessBg };
+  const tone = { 不适合: token.colorError, 合适: token.colorWarning, 复利型: token.colorSuccess };
+  const soft = { 不适合: token.colorErrorBg, 合适: token.colorWarningBg, 复利型: token.colorSuccessBg };
   const color = (s) => (s >= 4 ? token.colorSuccess : s <= 2 ? token.colorError : token.colorTextSecondary);
   const strong = rows.filter((r) => Number(r.score) >= 4);
   const weak = rows.filter((r) => Number(r.score) <= 2);

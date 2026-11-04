@@ -1,0 +1,904 @@
+Browser tab: 2, Title: "腾讯音乐 · 重要事实", URL: "http://118.196.72.148/admin/yrdxconk433".
+1 AXWebArea 腾讯音乐 · 重要事实, URL: 118.196.72.148/admin/yrdxconk433
+	2 container
+		3 container root
+			6 container nocobase-app-container
+				7 container
+					8 container
+						9 image menu
+						10 image
+						11 image ellipsis
+					12 container
+						13 container
+							14 text 重要事实
+							15 container
+								23 text 用文字记录的单条可核验事实；数字在数据里；引用【来源文档】；被【商业模式拆解】【产业链与五力】【竞争对手】【竞争壁垒】【核心论点】【风险分析】【假设依据】【资产估值与调整】【经营分部估值】【逐年假设】引用。
+								24 button filter, Help: 筛选
+									25 image filter
+								26 container
+									27 button reload, Help: 刷新
+										28 image reload
+								16 container
+									17 table
+										18 row
+											19 cell
+												20 container
+													21 checkbox (settable, integer) Description: Select all, Value: 0
+											29 cell
+												30 container
+													31 text 操作
+											32 cell
+												33 container
+													34 text 事实
+											35 cell
+												36 container
+													37 text 类别
+											38 cell
+												39 container
+													40 text 所属期间
+											41 cell
+												42 container
+													43 text 核验状态
+											44 cell
+												45 container
+													46 text 来源文档
+										47 row
+											48 cell
+												49 button table-index-1
+													50 text 1
+											51 cell
+												52 button 查看
+											53 cell
+												54 text 流通股约 31.6 亿股（中期报告附注推算）
+											55 cell
+												56 text 治理
+											57 cell
+												58 text 2026-06-30
+											59 cell
+												60 text 已核验
+											61 cell
+												62 link 2026 年第二季度未经审计财务业绩公告
+													63 text 2026 年第二季度未经审计财务业绩公告
+										64 row
+											65 cell
+												66 button table-index-2
+													67 text 2
+											68 cell
+												69 button 查看
+											70 cell
+												71 text 2025 年收入 329.0 亿元（+15.8%），订阅 176.6 亿元
+											72 cell
+												73 text 经营
+											74 cell
+												75 text 2025
+											76 cell
+												77 text 已核验
+											78 cell
+												79 link 2025 年第四季度及全年未经审计财务业绩公告
+													80 text 2025 年第四季度及全年未经审计财务业绩公告
+										81 row
+											82 cell
+												83 button table-index-3
+													84 text 3
+											85 cell
+												86 button 查看
+											87 cell
+												88 text 付费用户 1.274 亿、ARPPU 11.9 元，月活连续下滑
+											89 cell
+												90 text 经营
+											91 cell
+												92 text 2025Q4
+											93 cell
+												94 text 已核验
+											95 cell
+												96 link 2025 年第四季度及全年未经审计财务业绩公告
+													97 text 2025 年第四季度及全年未经审计财务业绩公告
+										98 row
+											99 cell
+												100 button table-index-4
+													101 text 4
+											102 cell
+												103 button 查看
+											104 cell
+												105 text 订阅（会员）收入增速：+26% → +16% → 内生约持平
+											106 cell
+												107 text 经营
+											108 cell
+												109 text 2026Q2
+											110 cell
+												111 text 已核验
+											112 cell
+												113 link 2026 年第二季度未经审计财务业绩公告
+													114 text 2026 年第二季度未经审计财务业绩公告
+										115 row
+											116 cell
+												117 button table-index-5
+													118 text 5
+											119 cell
+												120 button 查看
+											121 cell
+												122 text 2026 年上半年：收入 +6.5%、非国际财务报告准则归母 +5.6%
+											123 cell
+												124 text 财务
+											125 cell
+												126 text 2026H1
+											127 cell
+												128 text 已核验
+											129 cell
+												130 link 2026 年第二季度未经审计财务业绩公告
+													131 text 2026 年第二季度未经审计财务业绩公告
+										132 row
+											133 cell
+												134 button table-index-6
+													135 text 6
+											136 cell
+												137 button 查看
+											138 cell
+												139 text 2026 年二季度：喜马拉雅并表 4.07 亿元，社交娱乐 −16%
+											140 cell
+												141 text 经营
+											142 cell
+												143 text 2026Q2
+											144 cell
+												145 text 已核验
+											146 cell
+												147 link 2026 年第二季度未经审计财务业绩公告
+													148 text 2026 年第二季度未经审计财务业绩公告
+										149 row
+											150 cell
+												151 button table-index-7
+													152 text 7
+											153 cell
+												154 button 查看
+											155 cell
+												156 text 毛利率从 2021 年 30% 升到 2025 年 44%，2026 年下半年同比略降
+											157 cell
+												158 text 经营
+											159 cell
+												160 text 2025
+											161 cell
+												162 text 已核验
+											163 cell
+												164 link 2025 年第四季度及全年未经审计财务业绩公告
+													165 text 2025 年第四季度及全年未经审计财务业绩公告
+										166 row
+											167 cell
+												168 button table-index-8
+													169 text 8
+											170 cell
+												171 button 查看
+											172 cell
+												173 text 经营费用率从 2021 年 21% 降到 2025 年 15%
+											174 cell
+												175 text 财务
+											176 cell
+												177 text 2025
+											178 cell
+												179 text 已核验
+											180 cell
+												181 link 2025 年第四季度及全年未经审计财务业绩公告
+													182 text 2025 年第四季度及全年未经审计财务业绩公告
+										183 row
+											184 cell
+												185 button table-index-9
+													186 text 9
+											187 cell
+												188 button 查看
+											189 cell
+												190 text 2025 年一次性收益 23.7 亿元（UMG 股权实物分派）
+											191 cell
+												192 text 财务
+											193 cell
+												194 text 2025Q1
+											195 cell
+												196 text 已核验
+											197 cell
+												198 link 2025 年第四季度及全年未经审计财务业绩公告
+													199 text 2025 年第四季度及全年未经审计财务业绩公告
+										200 row
+											201 cell
+												202 button table-index-10
+													203 text 10
+											204 cell
+												205 button 查看
+											206 cell
+												207 text 现金等 442 亿元，借款与票据约 165 亿元
+											208 cell
+												209 text 债务
+											210 cell
+												211 text 2026-06-30
+											212 cell
+												213 text 已核验
+											214 cell
+												215 link 2026 年第二季度未经审计财务业绩公告
+													216 text 2026 年第二季度未经审计财务业绩公告
+										217 row
+											218 cell
+												219 button table-index-11
+													220 text 11
+											221 cell
+												222 button 查看
+											223 cell
+												224 text 2026 年 9 月发行 10 亿美元票据（5.05%、5.65%）
+											225 cell
+												226 text 债务
+											227 cell
+												228 text 2026-09
+											229 cell
+												230 text 已核验
+											231 cell
+												232 link 10 亿美元票据发售的定价与完成公告（2026-09）
+													233 text 10 亿美元票据发售的定价与完成公告（2026-09）
+										234 row
+											235 cell
+												236 button table-index-12
+													237 text 12
+											238 cell
+												239 button 查看
+											240 cell
+												241 text 喜马拉雅：总对价约 140 亿元，现金约 86 亿元，商誉约 92 亿元
+											242 cell
+												243 text 资本开支
+											244 cell
+												245 text 2026
+											246 cell
+												247 text 已核验
+											248 cell
+												249 link 2026 年第二季度未经审计财务业绩公告
+													250 text 2026 年第二季度未经审计财务业绩公告
+										251 row
+											252 cell
+												253 button table-index-13
+													254 text 13
+											255 cell
+												256 button 查看
+											257 cell
+												258 text 回购与分红：2026 年二季度回购 4 亿美元，新一轮在准备
+											259 cell
+												260 text 分红
+											261 cell
+												262 text 2026Q2
+											263 cell
+												264 text 已核验
+											265 cell
+												266 link 2026 年第二季度未经审计财务业绩公告
+													267 text 2026 年第二季度未经审计财务业绩公告
+										268 row
+											269 cell
+												270 button table-index-14
+													271 text 14
+											272 cell
+												273 button 查看
+											274 cell
+												275 text 对外投资 191 亿元：Spotify、UMG、WMG、SM 娱乐
+											276 cell
+												277 text 估值方法
+											278 cell
+												279 text 2026-06-30
+											280 cell
+												281 text 已核验
+											282 cell
+												283 link 2026 年第二季度未经审计财务业绩公告
+													284 text 2026 年第二季度未经审计财务业绩公告
+										285 row
+											286 cell
+												287 button table-index-15
+													288 text 15
+											289 cell
+												290 button 查看
+											291 cell
+												292 text 汽水音乐月活 1.7 亿，定价约为 QQ 音乐的三分之一
+											293 cell
+												294 text 经营
+											295 cell
+												296 text 2026-07
+											297 cell
+												298 text 待核验
+											299 cell
+												300 link 行业竞争资料：汽水音乐、番茄音乐用户规模与定价
+													301 text 行业竞争资料：汽水音乐、番茄音乐用户规模与定价
+										302 row
+											303 cell
+												304 button table-index-16
+													305 text 16
+											306 cell
+												307 button 查看
+											308 cell
+												309 text 管理层：竞争冲击轻度用户，超级会员稳定
+											310 cell
+												311 text 经营
+											312 cell
+												313 text 2025Q4
+											314 cell
+												315 text 待核验
+											316 cell
+												317 link 2026 年第二季度业绩电话会纪要（2026-08-11）
+													318 text 2026 年第二季度业绩电话会纪要（2026-08-11）
+										319 row
+											320 cell
+												321 button table-index-17
+													322 text 17
+											323 cell
+												324 button 查看
+											325 cell
+												326 text 2026 年指引：净利率小幅承压，经调整 EBITDA 小幅增长
+											327 cell
+												328 text 经营
+											329 cell
+												330 text 2026
+											331 cell
+												332 text 待核验
+											333 cell
+												334 link 2026 年第二季度业绩电话会纪要（2026-08-11）
+													335 text 2026 年第二季度业绩电话会纪要（2026-08-11）
+										336 row
+											337 cell
+												338 button table-index-18
+													339 text 18
+											340 cell
+												341 button 查看
+											342 cell
+												343 text 卖方预期 2026—2028 年经调整归母约 98/109/118 亿元
+											344 cell
+												345 text 估值方法
+											346 cell
+												347 text 2026E
+											348 cell
+												349 text 待核验
+											350 cell
+												351 link 岗底斯：卖方 2026 年中报点评（国信、光大、广发、华泰等）与外资估值
+													352 text 岗底斯：卖方 2026 年中报点评（国信、光大、广发、华泰等）与外资估值
+										353 row
+											354 cell
+												355 button table-index-19
+													356 text 19
+											357 cell
+												358 button 查看
+											359 cell
+												360 text 股价一年跌 63%：87.1 → 32.14 港元
+											361 cell
+												362 text 估值方法
+											363 cell
+												364 text 2026-10-22
+											365 cell
+												366 text 已核验
+											367 cell
+												368 link 腾讯行情 K 线：腾讯音乐港股日线与港元兑人民币（2025-10—2026-10）
+													369 text 腾讯行情 K 线：腾讯音乐港股日线与港元兑人民币（2025-10—2026-10）
+										370 row
+											371 cell
+												372 button table-index-20
+													373 text 20
+											374 cell
+												375 button 查看
+											376 cell
+												377 text 市值约 864 亿元，扣除非经营资产后主营约 508 亿元、约 6 倍核心盈利
+											378 cell
+												379 text 估值方法
+											380 cell
+												381 text 2026-10-22
+											382 cell
+												383 text 已核验
+											384 cell
+												385 link 腾讯行情 K 线：腾讯音乐港股日线与港元兑人民币（2025-10—2026-10）
+													386 text 腾讯行情 K 线：腾讯音乐港股日线与港元兑人民币（2025-10—2026-10）
+										387 row
+											388 cell
+												389 button table-index-21
+													390 text 21
+											391 cell
+												392 button 查看
+											393 cell
+												394 text 社交娱乐收入持续收缩
+											395 cell
+												396 text 经营
+											397 cell
+												398 text 2025
+											399 cell
+												400 text 已核验
+											401 cell
+												402 link 2025 年第四季度及全年未经审计财务业绩公告
+													403 text 2025 年第四季度及全年未经审计财务业绩公告
+										404 row
+											405 cell
+												406 button table-index-22
+													407 text 22
+											408 cell
+												409 button 查看
+											410 cell
+												411 text 经营现金流约 100 亿元，与经调整净利相当
+											412 cell
+												413 text 财务
+											414 cell
+												415 text 2025
+											416 cell
+												417 text 已核验
+											418 cell
+												419 link 东方财富港股/美股格式三大报表（akshare 取数）
+													420 text 东方财富港股/美股格式三大报表（akshare 取数）
+										421 row
+											422 cell
+												423 button table-index-23
+													424 text 23
+											425 cell
+												426 button 查看
+											427 cell
+												428 text 有效税率约 17.5%，少数股东约 3%
+											429 cell
+												430 text 财务
+											431 cell
+												432 text 2026H1
+											433 cell
+												434 text 已核验
+											435 cell
+												436 link 2026 年第二季度未经审计财务业绩公告
+													437 text 2026 年第二季度未经审计财务业绩公告
+										438 row
+											439 cell
+												440 button table-index-24
+													441 text 24
+											442 cell
+												443 button 查看
+											444 cell
+												445 text 股权激励费用约 7 亿元/年
+											446 cell
+												447 text 财务
+											448 cell
+												449 text 2025
+											450 cell
+												451 text 已核验
+											452 cell
+												453 link 2025 年第四季度及全年未经审计财务业绩公告
+													454 text 2025 年第四季度及全年未经审计财务业绩公告
+										455 row
+											456 cell
+												457 button table-index-25
+													458 text 25
+											459 cell
+												460 button 查看
+											461 cell
+												462 text 港元兑人民币 0.851，一年内人民币升值约 7%
+											463 cell
+												464 text 估值方法
+											465 cell
+												466 text 2026-10-22
+											467 cell
+												468 text 已核验
+											469 cell
+												470 link 腾讯行情 K 线：腾讯音乐港股日线与港元兑人民币（2025-10—2026-10）
+													471 text 腾讯行情 K 线：腾讯音乐港股日线与港元兑人民币（2025-10—2026-10）
+										472 row
+											473 cell
+												474 button table-index-26
+													475 text 26
+											476 cell
+												477 button 查看
+											478 cell
+												479 text AI 音乐：供给多但有效播放少
+											480 cell
+												481 text 其他
+											482 cell
+												483 text 2026
+											484 cell
+												485 text 待核验
+											486 cell
+												487 link 摩根大通：2026 年二季度业绩后投资者交流会要点（2026-08-16）及 3 月下调评级报告
+													488 text 摩根大通：2026 年二季度业绩后投资者交流会要点（2026-08-16）及 3 月下调评级报告
+										489 row
+											490 cell
+												491 button table-index-27
+													492 text 27
+											493 cell
+												494 button 查看
+											495 cell
+												496 text 上游分散：国内前五大唱片公司约 29%，平台付给版权方约 45%—55%
+											497 cell
+												498 text 经营
+											499 cell
+												500 text 2022
+											501 cell
+												502 text 待核验
+											503 cell
+												504 link 卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）
+													505 text 卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）
+										506 row
+											507 cell
+												508 button table-index-28
+													509 text 28
+											510 cell
+												511 button 查看
+											512 cell
+												513 text 同业对比：付费率 24% 对 31%、39%；毛利率 44% 对 37%、30% 出头
+											514 cell
+												515 text 经营
+											516 cell
+												517 text 2026Q2
+											518 cell
+												519 text 待核验
+											520 cell
+												521 link 卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）
+													522 text 卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）
+										523 row
+											524 cell
+												525 button table-index-29
+													526 text 29
+											527 cell
+												528 button 查看
+											529 cell
+												530 text 网易云音乐 2026 年上半年：收入 +3.4%、会员订阅 +5.3%、毛利率 37.2%
+											531 cell
+												532 text 经营
+											533 cell
+												534 text 2026H1
+											535 cell
+												536 text 待核验
+											537 cell
+												538 link 网易云音乐 2026 年中期业绩点评（光大、东财、浦银国际、华兴、中金）
+													539 text 网易云音乐 2026 年中期业绩点评（光大、东财、浦银国际、华兴、中金）
+										540 row
+											541 cell
+												542 button table-index-30
+													543 text 30
+											544 cell
+												545 button 查看
+											546 cell
+												547 text 汽水音乐的打法：抖音热歌、对三大唱片“必采”、曲库约 5,000 万首
+											548 cell
+												549 text 经营
+											550 cell
+												551 text 2024
+											552 cell
+												553 text 待核验
+											554 cell
+												555 link 卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）
+													556 text 卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）
+										557 row
+											558 cell
+												559 button table-index-31
+													560 text 31
+											561 cell
+												562 button 查看
+											563 cell
+												564 text 自制音乐播放份额约 20%—30%，已超过三大唱片
+											565 cell
+												566 text 经营
+											567 cell
+												568 text 2025Q2
+											569 cell
+												570 text 待核验
+											571 cell
+												572 link 卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）
+													573 text 卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）
+										574 row
+											575 cell
+												576 button table-index-32
+													577 text 32
+											578 cell
+												579 button 查看
+											580 cell
+												581 text 经营性投入资本约等于商誉，剔除商誉后为负
+											582 cell
+												583 text 财务
+											584 cell
+												585 text 2025
+											586 cell
+												587 text 已核验
+											588 cell
+												589 link 2025 年第四季度及全年未经审计财务业绩公告
+													590 text 2025 年第四季度及全年未经审计财务业绩公告
+										591 row
+											592 cell
+												593 button table-index-33
+													594 text 33
+											595 cell
+												596 button 查看
+											597 cell
+												598 text 销售费用率约 3%，2026 年一季度销售费用 +36%
+											599 cell
+												600 text 财务
+											601 cell
+												602 text 2025
+											603 cell
+												604 text 已核验
+											605 cell
+												606 link 2026 年第二季度未经审计财务业绩公告
+													607 text 2026 年第二季度未经审计财务业绩公告
+										608 row
+											609 cell
+												610 button table-index-34
+													611 text 34
+											612 cell
+												613 button 查看
+											614 cell
+												615 text 版权授权：期限 1—3 年，最低保底＋收入分成
+											616 cell
+												617 text 经营
+											618 cell
+												619 text 2025
+											620 cell
+												621 text 待核验
+											622 cell
+												623 link 卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）
+													624 text 卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）
+										625 row
+											626 cell
+												627 button table-index-35
+													628 text 35
+											629 cell
+												630 button 查看
+											631 cell
+												632 text 续费率 80% 以上；付费墙比例说法不一
+											633 cell
+												634 text 经营
+											635 cell
+												636 text 2025
+											637 cell
+												638 text 待核验
+											639 cell
+												640 link 券商组织的行业专家与业内交流纪要（国信 2025-05、06、11；弘则 2025-06；汽水音乐专题 2026-06；中金业绩会纪要与月度交流）
+													641 text 券商组织的行业专家与业内交流纪要（国信 2025-05、06、11；弘则 2025-06；汽水音乐专题 2026-06；中金业绩会纪要与月度交流）
+										642 row
+											643 cell
+												644 button table-index-36
+													645 text 36
+											646 cell
+												647 button 查看
+											648 cell
+												649 text AI 音乐：日上传量约 40%，播放只占 1%—3%
+											650 cell
+												651 text 其他
+											652 cell
+												653 text 2026
+											654 cell
+												655 text 待核验
+											656 cell
+												657 link 卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）
+													658 text 卖方行业研究：在线音乐产业链、版权成本与竞争格局（国信、中金、长江、中信建投等，2024-12—2026-09）
+										659 row
+											660 cell
+												661 button table-index-37
+													662 text 37
+											663 cell
+												664 button 查看
+											665 cell
+												666 text 监管：2021 年解除独家版权，2026 年喜马拉雅收购附条件批准
+											667 cell
+												668 text 政策
+											669 cell
+												670 text 2026
+											671 cell
+												672 text 待核验
+											673 cell
+												674 link 券商组织的行业专家与业内交流纪要（国信 2025-05、06、11；弘则 2025-06；汽水音乐专题 2026-06；中金业绩会纪要与月度交流）
+													675 text 券商组织的行业专家与业内交流纪要（国信 2025-05、06、11；弘则 2025-06；汽水音乐专题 2026-06；中金业绩会纪要与月度交流）
+										676 row
+											677 cell
+												678 button table-index-38
+													679 text 38
+											680 cell
+												681 button 查看
+											682 cell
+												683 text 2026 年 6 月末：现金等 442.2 亿元、带息负债 168.8 亿元、对外投资 228.4 亿元
+											684 cell
+												685 text 财务
+											686 cell
+												687 text 2026-06-30
+											688 cell
+												689 text 已核验
+											690 cell
+												691 link 2026 年第二季度未经审计财务业绩公告
+													692 text 2026 年第二季度未经审计财务业绩公告
+										693 row
+											694 cell
+												695 button table-index-39
+													696 text 39
+											697 cell
+												698 button 查看
+											699 cell
+												700 text 境内未分派利润 172.5 亿元，汇出预提税约 17.3 亿元（2025 年末）
+											701 cell
+												702 text 财务
+											703 cell
+												704 text 2025
+											705 cell
+												706 text 待核验
+											707 cell
+												708 link 腾讯音乐 2025 年年报
+													709 text 腾讯音乐 2025 年年报
+										710 row
+											711 cell
+												712 button table-index-40
+													713 text 40
+											714 cell
+												715 button 查看
+											716 cell
+												717 text 收购摊销：2026 年二季度 1.57 亿元，全年化约 9 亿元
+											718 cell
+												719 text 财务
+											720 cell
+												721 text 2026Q2
+											722 cell
+												723 text 已核验
+											724 cell
+												725 link 2026 年第二季度未经审计财务业绩公告
+													726 text 2026 年第二季度未经审计财务业绩公告
+										727 row
+											728 cell
+												729 button table-index-41
+													730 text 41
+											731 cell
+												732 button 查看
+											733 cell
+												734 text 倍数参照：同业约 10 倍，卖方 9—17 倍，市场隐含核心倍数约 6 倍
+											735 cell
+												736 text 估值方法
+											737 cell
+												738 text 2026-10-22
+											739 cell
+												740 text 待核验
+											741 cell
+												742 link 岗底斯：卖方 2026 年中报点评（国信、光大、广发、华泰等）与外资估值
+													743 text 岗底斯：卖方 2026 年中报点评（国信、光大、广发、华泰等）与外资估值
+										744 row
+											745 cell
+												746 button table-index-42
+													747 text 42
+											748 cell
+												749 button 查看
+											750 cell
+												751 text 2017 年度数据口径与说明
+											752 cell
+												753 text 财务
+											754 cell
+												755 text 2017
+											756 cell
+												757 text 待核验
+											758 cell
+												759 link 东方财富港股/美股格式三大报表（akshare 取数）
+													760 text 东方财富港股/美股格式三大报表（akshare 取数）
+										761 row
+											762 cell
+												763 button table-index-43
+													764 text 43
+											765 cell
+												766 button 查看
+											767 cell
+												768 text 2018 年度数据口径与说明
+											769 cell
+												770 text 财务
+											771 cell
+												772 text 2018
+											773 cell
+												774 text 待核验
+											775 cell
+												776 link 东方财富港股/美股格式三大报表（akshare 取数）
+													777 text 东方财富港股/美股格式三大报表（akshare 取数）
+										778 row
+											779 cell
+												780 button table-index-44
+													781 text 44
+											782 cell
+												783 button 查看
+											784 cell
+												785 text 2019 年度数据口径与说明
+											786 cell
+												787 text 财务
+											788 cell
+												789 text 2019
+											790 cell
+												791 text 待核验
+											792 cell
+												793 link 东方财富港股/美股格式三大报表（akshare 取数）
+													794 text 东方财富港股/美股格式三大报表（akshare 取数）
+										795 row
+											796 cell
+												797 button table-index-45
+													798 text 45
+											799 cell
+												800 button 查看
+											801 cell
+												802 text 2020 年度数据口径与说明
+											803 cell
+												804 text 财务
+											805 cell
+												806 text 2020
+											807 cell
+												808 text 待核验
+											809 cell
+												810 link 东方财富港股/美股格式三大报表（akshare 取数）
+													811 text 东方财富港股/美股格式三大报表（akshare 取数）
+										812 row
+											813 cell
+												814 button table-index-46
+													815 text 46
+											816 cell
+												817 button 查看
+											818 cell
+												819 text 2021 年度数据口径与说明
+											820 cell
+												821 text 财务
+											822 cell
+												823 text 2021
+											824 cell
+												825 text 待核验
+											826 cell
+												827 link 东方财富港股/美股格式三大报表（akshare 取数）
+													828 text 东方财富港股/美股格式三大报表（akshare 取数）
+										829 row
+											830 cell
+												831 button table-index-47
+													832 text 47
+											833 cell
+												834 button 查看
+											835 cell
+												836 text 2022 年度数据口径与说明
+											837 cell
+												838 text 财务
+											839 cell
+												840 text 2022
+											841 cell
+												842 text 待核验
+											843 cell
+												844 link 东方财富港股/美股格式三大报表（akshare 取数）
+													845 text 东方财富港股/美股格式三大报表（akshare 取数）
+										846 row
+											847 cell
+												848 button table-index-48
+													849 text 48
+											850 cell
+												851 button 查看
+											852 cell
+												853 text 2023 年度数据口径与说明
+											854 cell
+												855 text 财务
+											856 cell
+												857 text 2023
+											858 cell
+												859 text 待核验
+											860 cell
+												861 link 东方财富港股/美股格式三大报表（akshare 取数）
+													862 text 东方财富港股/美股格式三大报表（akshare 取数）
+										863 row
+											864 cell
+												865 button table-index-49
+													866 text 49
+											867 cell
+												868 button 查看
+											869 cell
+												870 text 2024 年度数据口径与说明
+											871 cell
+												872 text 财务
+											873 cell
+												874 text 2024
+											875 cell
+												876 text 待核验
+											877 cell
+												878 link 2025 年第四季度及全年未经审计财务业绩公告
+													879 text 2025 年第四季度及全年未经审计财务业绩公告
+										880 row
+											881 cell
+												882 button table-index-50
+													883 text 50
+											884 cell
+												885 button 查看
+											886 cell
+												887 text 2025 年度数据口径与说明
+											888 cell
+												889 text 财务
+											890 cell
+												891 text 2025
+											892 cell
+												893 text 待核验
+											894 cell
+												895 link 2025 年第四季度及全年未经审计财务业绩公告
+													896 text 2025 年第四季度及全年未经审计财务业绩公告
+									22 content list
+										897 container 上一页
+											898 button (disabled) left
+												899 image left
+										900 text 1
+										901 container 下一页
+											902 button (disabled) right
+												903 image right
+
+The focused UI element is 1 AXWebArea 腾讯音乐 · 重要事实, URL: 118.196.72.148/admin/yrdxconk433

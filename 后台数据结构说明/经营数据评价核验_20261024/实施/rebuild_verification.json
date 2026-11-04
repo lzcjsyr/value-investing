@@ -1,9 +1,0 @@
-{
-  "database": "vi_period_check_20261024_a50ddd29",
-  "created_for": "经营解读迁移隔离重建校验",
-  "period_rows": 549,
-  "period_content_matches_live": true,
-  "old_placeholders": 0,
-  "schema_comment": "经营解读：结合公司业务说明比较基准、变化原因及对利润或模型假设的影响；缺少依据时留空。原来水评价仅保留历史标签，不等于经营好坏。",
-  "migration_idempotent": true
-}

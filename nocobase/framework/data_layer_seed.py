@@ -7,13 +7,14 @@ data_layer.json 记录 2026-10-26 几次重构的结果，由 framework/migrate_
   metric_updates    指标的跟踪用途（说明）、数据来源、频率
   judgment_metrics  假设依据 → 跟踪指标        risk_metrics  风险 → 预警指标
   text              研究正文的改写（原跟踪事项编号换成名称、补写的“持续跟踪：…”），整段覆盖
-  facts             重要事实的备注
+  facts             定性事实（原“重要事实”）的备注
   new_stmt          资产项目要引用、数据里还没有的报表计算指标
   history           历史年度每列对应的指标（报表公式或披露）与需要录入的年份值（追溯调整值、报表外的数；值为空＝该年明确不取报表值）
   assets            资产估值与调整：引用指标的项目（按编号＋情景）
   merge_metrics     同一序列被拆成两个指标的：并入保留的那个（按系数换算单位）后删除
-  year_notes        原历史年度的年度备注，写成重要事实（“<年> 年度数据口径与说明”）
+  year_notes        原历史年度的年度备注，写成定性事实（“<年> 年度数据口径与说明”；腾讯音乐已并入来源文档）
   company           公司表补充字段（如口径变化年份）
+  measure           指标性质：{"时点": [指标名称…], "时期": "其余"}——列出的是时点指标，其余为时期指标；最后执行（口径都写完之后，口径须与性质一致）
 报表原值（data/fin_stmt.json）由 fin_stmt_statements() 写入，放在最前。
 指标按 名称＋单位＋归属（公司或宏观）定位（一个指标一行，口径记在每期数据上）。放在种子最后执行（指标、假设依据、事实都写完之后）。
 """
@@ -96,6 +97,11 @@ FROM vi_company_base c WHERE c.id = {co} AND NOT EXISTS (SELECT 1 FROM vi_metric
         scen = f"scenario_id IN (SELECT id FROM vi_scenario_base WHERE name = {lit(a['scenario'])})" if a['scenario'] else 'scenario_id IS NULL'
         out.append(f"UPDATE vi_sotp_item_base SET metric_id = {metric(co, a['metric'])}, amount = NULL "
                    f"WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {co}) AND code = {lit(a['code'])} AND {scen};")
+    meas = d.get('measure')
+    if meas:
+        out.append(f"UPDATE vi_metric_base SET measure = '时点' WHERE company_id = {co} AND name IN ({', '.join(lit(n) for n in meas['时点'])});")
+        if meas.get('时期') == '其余':
+            out.append(f"UPDATE vi_metric_base SET measure = '时期' WHERE company_id = {co} AND measure IS NULL;")
     return out
 
 

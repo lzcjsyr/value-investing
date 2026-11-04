@@ -1,0 +1,194 @@
+{
+  "vi_biz_model_base": {
+    "rows": 90,
+    "digest": "fd9c31697a2e52ff2901970f6ff6c8d4"
+  },
+  "vi_business_base": {
+    "rows": 5,
+    "digest": "a29bad1fec90ca714d513d736747319b"
+  },
+  "vi_change_log_base": {
+    "rows": 41,
+    "digest": "1275ed4d7ecd6ca1167f25949e62c92b"
+  },
+  "vi_collect_run_base": {
+    "rows": 18,
+    "digest": "7abfb54828752c79eb070ea46e3ef04e"
+  },
+  "vi_collector_base": {
+    "rows": 9,
+    "digest": "841c403c8bb937c4021f5d78d5d62262"
+  },
+  "vi_company_base": {
+    "rows": 5,
+    "digest": "925a6af186c8eff07ab3839f6a84f168"
+  },
+  "vi_competitor_base": {
+    "rows": 47,
+    "digest": "fd7c0effc9e4a4e5645e0b1a8ea577c7"
+  },
+  "vi_fact_base": {
+    "rows": 247,
+    "digest": "a44010ce043bafdd60ee11f8901eecea"
+  },
+  "vi_fin_forecast_base": {
+    "rows": 3,
+    "digest": "dcceac313cdc09713fe647bdfe6c66f6"
+  },
+  "vi_fin_stmt_base": {
+    "rows": 36512,
+    "digest": "c3ed3b01cbe30be536aa898fc93481b2"
+  },
+  "vi_fit_score_base": {
+    "rows": 40,
+    "digest": "15648d72810095a9deaa3848d2357d73"
+  },
+  "vi_forecast_base": {
+    "rows": 40,
+    "digest": "cc629065ced13fb8cb2636b65bfa60ca"
+  },
+  "vi_issue_base": {
+    "rows": 45,
+    "digest": "937350492a80803f53fa407f07853528"
+  },
+  "vi_judgment_base": {
+    "rows": 68,
+    "digest": "f94dfc3e633fcade4bb97710ff11eaa9"
+  },
+  "vi_lnk_biz_model_facts": {
+    "rows": 238,
+    "digest": "1088b831737a977ec0e8eee4f9ca0d50"
+  },
+  "vi_lnk_company_macro_metrics": {
+    "rows": 3,
+    "digest": "1b598a0b37a3c8bd1a0045c901773b17"
+  },
+  "vi_lnk_competitor_facts": {
+    "rows": 60,
+    "digest": "035e931af10f6e86117cb2c535c2d2bc"
+  },
+  "vi_lnk_fit_score_theses": {
+    "rows": 71,
+    "digest": "c8f8716ec87c9d6e0b9d1fabe1a203d4"
+  },
+  "vi_lnk_forecast_facts": {
+    "rows": 150,
+    "digest": "fe799cfbc26b5a0b62ae25e76e91f5b5"
+  },
+  "vi_lnk_forecast_judgments": {
+    "rows": 310,
+    "digest": "983673ed1e5ea87c84335aee56c86858"
+  },
+  "vi_lnk_judgment_facts": {
+    "rows": 188,
+    "digest": "2549166540ad4ee0effdfde76ee82989"
+  },
+  "vi_lnk_judgment_metrics": {
+    "rows": 64,
+    "digest": "ae0b64b95d2a67f178542e86f8f81a7f"
+  },
+  "vi_lnk_judgment_theses": {
+    "rows": 85,
+    "digest": "a9300e9fca7b4c108c1b5376ed6c9be9"
+  },
+  "vi_lnk_moat_facts": {
+    "rows": 107,
+    "digest": "203419f45af682e9fc87dbbc98d06e7e"
+  },
+  "vi_lnk_moat_theses": {
+    "rows": 52,
+    "digest": "b0faba3739f9675489f33fd414a8fb63"
+  },
+  "vi_lnk_risk_facts": {
+    "rows": 18,
+    "digest": "63291acbafd8871d4c0db71403f629db"
+  },
+  "vi_lnk_risk_judgments": {
+    "rows": 24,
+    "digest": "662ec571b716177c901ef95503c1f35a"
+  },
+  "vi_lnk_risk_metrics": {
+    "rows": 25,
+    "digest": "58877cbbb22d80a3f507bcf801818386"
+  },
+  "vi_lnk_risk_theses": {
+    "rows": 20,
+    "digest": "6a26bfc10976a66fcc863bc0450ddeca"
+  },
+  "vi_lnk_sotp_item_facts": {
+    "rows": 49,
+    "digest": "b65443d76b0e1eff1e751a29138dda66"
+  },
+  "vi_lnk_sotp_segment_facts": {
+    "rows": 75,
+    "digest": "9f3c1a22ed3843df732b907d10ad1b36"
+  },
+  "vi_lnk_thesis_facts": {
+    "rows": 171,
+    "digest": "fc0d2c3dfac9b3163b89b815e1b70e17"
+  },
+  "vi_lnk_trial_judgments": {
+    "rows": 21,
+    "digest": "c3c62368d9d4ff095d46bdf1d175e954"
+  },
+  "vi_lnk_value_chain_competitors": {
+    "rows": 57,
+    "digest": "1869768bc9c87588d8e62723ff8b5872"
+  },
+  "vi_lnk_value_chain_facts": {
+    "rows": 83,
+    "digest": "63bde14807268b79cde36ce9a940c5d6"
+  },
+  "vi_metric_base": {
+    "rows": 175,
+    "digest": "42346c205737076d8d2bfb9020c79e47"
+  },
+  "vi_moat_base": {
+    "rows": 41,
+    "digest": "d1546d1a822c7126179e459220fbe598"
+  },
+  "vi_model_base": {
+    "rows": 5,
+    "digest": "eb9144986fcfdabd5d8aa93890a26890"
+  },
+  "vi_observation_base": {
+    "rows": 3384,
+    "digest": "4bc9ce89c325ba23e3d4371136a71207"
+  },
+  "vi_raw_capture_base": {
+    "rows": 190,
+    "digest": "954593598973e7b6f495e18ed1c52c0c"
+  },
+  "vi_risk_base": {
+    "rows": 26,
+    "digest": "e000fa972d28916f7577334ab2fb5e07"
+  },
+  "vi_scenario_base": {
+    "rows": 15,
+    "digest": "ea201a7492edb93f87bc40449b072e5f"
+  },
+  "vi_sotp_item_base": {
+    "rows": 34,
+    "digest": "e61453414de62a1afc3365654d55bdee"
+  },
+  "vi_sotp_segment_base": {
+    "rows": 24,
+    "digest": "1bda9009b66f39592595c41a95a69aba"
+  },
+  "vi_source_base": {
+    "rows": 130,
+    "digest": "25a12465c762a360be0f130dcafef11c"
+  },
+  "vi_thesis_base": {
+    "rows": 38,
+    "digest": "d915d4ec8fc7a94b9deccb69b96153d3"
+  },
+  "vi_trial_base": {
+    "rows": 21,
+    "digest": "714be954fc434b7e30c181365c184037"
+  },
+  "vi_value_chain_base": {
+    "rows": 55,
+    "digest": "1ac3236ba1263951ce3c05b20c14af16"
+  }
+}

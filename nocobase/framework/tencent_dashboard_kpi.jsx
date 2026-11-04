@@ -62,19 +62,8 @@ try {
       <Typography.Paragraph type="secondary" style={{ marginBottom: 16 }}>
         01698.HK · 股价 {company.latest_price_date || '—'} · 资产基准日 {base.as_of || '—'} · 股本 {number(model.shares, 1)} 亿普通股
       </Typography.Paragraph>
-      <Row gutter={[20, 16]}>
-        {metrics.map((metric) => (
-          <Col key={metric.title} xs={12} lg={6}>
-            <Statistic title={metric.title} value={number(metric.value)} suffix="港元" />
-          </Col>
-        ))}
-      </Row>
-      <Space wrap style={{ margin: '16px 0 12px' }}>
-        <Tag color="blue">现价相对基准价值 {percent(baseRow.gap)}</Tag>
-        <Typography.Text type="secondary">
-          关注价：10% 边际 {number(hkd(base.watch_low))} 港元 · 30% 边际 {number(hkd(base.watch_high))} 港元
-        </Typography.Text>
-      </Space>
+      <PriceSummary price={company.latest_price_raw} date={company.latest_price_date} scenarios={rows.map((r) => ({ name: r.scenario_name, value: r.quote, isBase: r.is_base }))} />
+      <Typography.Paragraph type="secondary" style={{ marginBottom: 12 }}>关注价 · 10% 边际 {number(hkd(base.watch_low))} 港元 / 30% 边际 {number(hkd(base.watch_high))} 港元</Typography.Paragraph>
       <Table
         size="small"
         rowKey="id"

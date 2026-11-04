@@ -1,7 +1,0 @@
-{
-  "collectionName": "vi_period_data",
-  "name": "assessment",
-  "title": "经营解读",
-  "interface": "textarea",
-  "description": "结合公司业务说明比较基准、变化原因及对利润或模型假设的影响；缺少依据时留空。"
-}

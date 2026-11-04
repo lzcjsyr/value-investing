@@ -6,7 +6,7 @@ HERE = Path(__file__).resolve().parent
 
 
 def kpi_code():
-    return (HERE / 'tencent_dashboard_kpi.jsx').read_text()
+    return (HERE / 'price_summary.jsx').read_text() + '\n' + (HERE / 'tencent_dashboard_kpi.jsx').read_text()
 
 
 def layout(keys):
@@ -20,11 +20,11 @@ def collect_code(code):
     """沿用现有采集逻辑和权限处理，只把工具折叠。"""
     code = code.replace('Button, Steps, Table,', 'Button, Collapse, Steps, Table,', 1)
     start = '  return (\n    <div>\n      {flows && !ready && ('
-    end = '    </div>\n  );\n}\n\nctx.render(<Panel />);'
+    end = '    </div>\n  );\n}\n\n'
     assert start in code and end in code
     return code.replace(start,
         "  return (\n    <Collapse items={[{ key: 'collect', label: '数据更新与采集', children: <div>\n      {flows && !ready && (", 1
-    ).replace(end, '    </div> }]} />\n  );\n}\n\nctx.render(<Panel />);', 1)
+    ).replace(end, '    </div> }]} />\n  );\n}\n\n', 1)
 
 
 SERIES = r"""const rows = ctx.data?.objects || [];
@@ -180,7 +180,7 @@ def charts(existing):
     add('users', '在线音乐用户（百万人，季末披露）',
         {'x': 'period', 'y': '百万人', 'group': '项目', 'kind': 'line', 'unit': '百万人',
          'names': ['在线音乐付费用户', '在线音乐月活跃用户'], 'note': '2026 年起停止季度披露；此处仅比较同口径季末数据'},
-        sql=configs['users']['query']['sql'].replace("WHERE d.line_item IN", "WHERE d.period_kind='单季' AND d.line_item IN"))
+        sql=configs['users']['query']['sql'].replace("WHERE d.line_item IN", "WHERE d.period_kind='时点' AND d.period ~ 'Q[1-4]$' AND d.period >= '2024Q1' AND d.line_item IN"))   # 用户数是时点指标（季末），逐季披露从 2024Q1 起
     add('hist_np', '归母利润、实付股息与现金回购（亿元）',
         {'x': 'year', 'y': 'amount', 'group': 'item', 'kind': 'line', 'unit': '亿元',
          'names': ['归母净利润', '实付现金股息', '现金回购'], 'note': '按实际支付年份；股息不含向非控股股东派息'},

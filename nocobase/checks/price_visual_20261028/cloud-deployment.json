@@ -1,0 +1,21 @@
+{
+  "verified_date": "2026-10-29",
+  "environment": "volcengine-preview",
+  "url": "http://118.196.72.148/admin",
+  "scope": [
+    "腾讯音乐驾驶舱",
+    "腾讯音乐估值模型总览"
+  ],
+  "public_api_readback_matches_local": true,
+  "browser_verified": [
+    "cloud-dashboard.png",
+    "cloud-valuation.png"
+  ],
+  "parameters_changed": false,
+  "business_data_changed": false,
+  "server_archive": "/opt/nocobase-preview/ui-updates/price-visual-20261028",
+  "code_sha256": {
+    "dashboard": "43dfc1108461262b63342afdbfae2ca2cda1bd1c0885749f96b6fedb5dd1fd48",
+    "valuation": "0b7fa52541a0d2c24a8c57208e750d2a870862894349bfcbfb5a1b5cdeba2925"
+  }
+}

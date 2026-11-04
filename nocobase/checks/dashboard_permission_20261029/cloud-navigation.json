@@ -1,0 +1,31 @@
+{
+  "data": {
+    "version": "1",
+    "capabilities": {
+      "multiPortal": false
+    },
+    "targets": [
+      {
+        "kind": "layout",
+        "uid": "admin-layout-model",
+        "title": "Desktop layout",
+        "layoutUid": "admin-layout-model",
+        "layoutType": "desktop",
+        "routeName": "admin",
+        "routePath": "/admin",
+        "authCheck": true,
+        "default": true
+      },
+      {
+        "kind": "layout",
+        "uid": "mobile-layout-model",
+        "title": "Mobile layout",
+        "layoutUid": "mobile-layout-model",
+        "layoutType": "mobile",
+        "routeName": "mobile",
+        "routePath": "/mobile",
+        "authCheck": true
+      }
+    ]
+  }
+}

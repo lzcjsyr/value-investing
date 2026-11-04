@@ -590,7 +590,7 @@ try {
 
 
 # 估值模型页（只用分部加总三块的公司，build_pages.SOTP_ONLY）：三块总览＋折现率、股本、门槛、关注价
-VALMODEL_JS = COMMON + r"""
+VALMODEL_JS = COMMON + (__import__('pathlib').Path(__file__).parent / 'price_summary.jsx').read_text() + r"""
 // 只用分部加总、没有逐年预测的公司（腾讯音乐，2026-10-28 起）：财务模型＝三块（主营各块盈利×倍数＋可分配自由现金＋对外投资）
 async function renderThree(D, full) {
   const { company, model, scenarios, judgments } = D;
@@ -681,12 +681,8 @@ async function renderThree(D, full) {
         const head = !isNum(v) || !isNum(px) ? '' : `${hk ? '港股价' : '市场价'} ${fmt(px, 2)} ${unit}，比基准每股价值 ${fmt(v, 2)} ${unit}${px < v ? '低' : '高'} ${pct(Math.abs(1 - px / v), 1)}`;
         const low = hk ? toH(sOf(names[0]).value_per_share) : sOf(names[0]).value_per_share;
         return (<>
-          <Title level={4} style={{ marginTop: 0 }}>{head}{isNum(low) && isNum(px) && px < low ? '，也低于悲观情景' : ''}</Title>
-          <Row gutter={[16, 12]} style={{ marginBottom: 12 }}>
-            {names.map((n) => <Col key={n} xs={12} md={4}><Statistic title={hk ? `${n}·每股价值（≈ ${fmt(sOf(n).value_per_share, 2)} 元）` : `${n}·每股价值`} value={fmt(hk ? toH(sOf(n).value_per_share) : sOf(n).value_per_share, 2)} suffix={unit} /></Col>)}
-            <Col xs={12} md={4}><Statistic title={hk ? `港股价（${pxDate}）` : '市场价'} value={fmt(px, 2)} suffix={unit} /></Col>
-            <Col xs={12} md={4}><Statistic title={`关注价（边际 ${pct(model.margin_low, 0)} / ${pct(model.margin_high, 0)}）`} value={hk ? `${fmt(toH(base.watch_low), 2)} / ${fmt(toH(base.watch_high), 2)}` : `${fmt(base.watch_low, 2)} / ${fmt(base.watch_high, 2)}`} suffix={unit} /></Col>
-          </Row>
+          <PriceSummary price={px} date={pxDate} unit={unit} scenarios={names.map((n) => ({ name: n, value: hk ? toH(sOf(n).value_per_share) : sOf(n).value_per_share, isBase: !!sOf(n).is_base }))} />
+          <Paragraph type="secondary">关注价 · {pct(model.margin_low, 0)} 边际 {fmt(hk ? toH(base.watch_low) : base.watch_low, 2)} {unit} / {pct(model.margin_high, 0)} 边际 {fmt(hk ? toH(base.watch_high) : base.watch_high, 2)} {unit}</Paragraph>
           <Descriptions size="small" bordered column={narrow ? 1 : 4} style={{ marginBottom: 12 }} items={[
             { key: 'r', label: <span>折现率（基准）<JTag code="J-R" judgments={judgments} /></span>, children: `无风险利率 ${pct(model.rf, 2)} ＋ 风险溢价 ${pct(model.erp, 1)} ＝ ${pct(base.discount_rate, 1)}` },
             { key: 'sh', label: '股本', children: `${fmt(model.shares, 2)} 亿股` },

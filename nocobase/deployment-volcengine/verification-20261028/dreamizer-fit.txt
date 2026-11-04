@@ -1,0 +1,3 @@
+Browser tab: 2, Title: "评分", URL: "http://118.196.72.148/admin/9fw94bv8w8y".
+There has been no change in the accessibility tree.
+The focused UI element is 1 AXWebArea 评分, URL: 118.196.72.148/admin/9fw94bv8w8y

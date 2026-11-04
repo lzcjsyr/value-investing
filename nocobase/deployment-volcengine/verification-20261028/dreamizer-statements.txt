@@ -1,0 +1,1334 @@
+Browser tab: 2, Title: "财务报表", URL: "http://118.196.72.148/admin/e75y11y2zmm".
+1 AXWebArea 财务报表, URL: 118.196.72.148/admin/e75y11y2zmm
+	2 container
+		3 container root
+			6 container nocobase-app-container
+				7 container
+					8 container
+						9 image menu
+						10 image
+						11 image ellipsis
+					12 container
+						13 container
+							14 text 财务数据
+							15 tab group
+								16 container
+									17 tab (selected, settable, boolean) 财务报表, ID: rc-tabs-0-tab-zhe10jzr408, Value: 1
+财务报表
+									18 tab (selectable, settable, boolean) 分部与财务补充, ID: rc-tabs-0-tab-qhbkuwrdr82, Value: 0
+分部与财务补充
+							19 container Description: 财务报表, ID: rc-tabs-0-panel-zhe10jzr408
+								20 container
+									21 container
+										31 text 公司的季度三大报表原值。
+										32 segmented control
+											33 container
+												34 radio button (settable, integer) Description: 资产负债表, Value: 1
+												35 text 资产负债表
+												36 radio button (settable, integer) Description: 利润表, Value: 0
+												37 text 利润表
+												38 radio button (settable, integer) Description: 现金流量表, Value: 0
+												39 text 现金流量表
+										40 segmented control
+											41 container
+												42 radio button (settable, integer) Description: 累计, Value: 1
+												43 text 累计
+										28 container
+											29 combo box (collapsed, settable) ID: rc_select_0, Secondary Actions: Expand
+											44 text 近12期
+										45 text 金额单位：亿元。利润表/现金流量表为年初至报告期末累计；「单季」＝本年相邻报告期累计之差（Q1 即累计）。空白＝该期未披露。
+										46 table
+											47 row
+												48 cell
+													49 text 科目
+												50 cell
+													51 text 2026Q2
+													52 text 2026-06-30
+												53 cell
+													54 text 2026Q1
+													55 text 2026-03-31
+												56 cell
+													57 text 2025Q4
+													58 container
+														59 text 2025-12-31  年报
+												60 cell
+													61 text 2025Q3
+													62 text 2025-09-30
+												63 cell
+													64 text 2025Q2
+													65 text 2025-06-30
+												66 cell
+													67 text 2025Q1
+													68 text 2025-03-31
+												69 cell
+													70 text 2024Q4
+													71 container
+														72 text 2024-12-31  年报
+												73 cell
+													74 text 2024Q3
+													75 text 2024-09-30
+												76 cell
+													77 text 2024Q2
+													78 text 2024-06-30
+												79 cell
+													80 text 2024Q1
+													81 text 2024-03-31
+												82 cell
+													83 text 2023Q4
+													84 container
+														85 text 2023-12-31  年报
+												86 cell
+													87 text 2023Q3
+													88 text 2023-09-30
+											89 row
+												90 cell
+													91 text 物业厂房及设备
+												92 cell
+													93 text 15.40
+												94 cell
+													95 text 13.01
+												96 cell
+													97 text 12.01
+												98 cell
+													99 text 10.49
+												100 cell
+													101 text 9.63
+												102 cell
+													103 text 8.81
+												104 cell
+													105 text 8.03
+												106 cell
+													107 text 7.04
+												108 cell
+													109 text 5.91
+												110 cell
+													111 text 5.26
+												112 cell
+													113 text 4.90
+												114 cell
+													115 text 4.36
+											116 row
+												117 cell
+													118 text 无形资产
+												119 cell
+													120 text 58.95
+												121 cell
+													122 text 27.70
+												123 cell
+													124 text 28.99
+												125 cell
+													126 text 29.44
+												127 cell
+													128 text 30.47
+												129 cell
+													130 text 20.29
+												131 cell
+													132 text 20.49
+												133 cell
+													134 text 19.96
+												135 cell
+													136 text 20.34
+												137 cell
+													138 text 20.23
+												139 cell
+													140 text 20.32
+												141 cell
+													142 text 21.36
+											143 row
+												144 cell
+													145 text 商誉
+												146 cell
+													147 text 297.57
+												148 cell
+													149 text 205.28
+												150 cell
+													151 text 205.21
+												152 cell
+													153 text 205.17
+												154 cell
+													155 text 204.65
+												156 cell
+													157 text 196.48
+												158 cell
+													159 text 196.47
+												160 cell
+													161 text 196.47
+												162 cell
+													163 text 196.46
+												164 cell
+													165 text 195.67
+												166 cell
+													167 text 195.42
+												168 cell
+													169 text 195.42
+											170 row
+												171 cell
+													172 text 土地使用权
+												173 cell
+													174 text 22.54
+												175 cell
+													176 text 22.72
+												177 cell
+													178 text 22.90
+												179 cell
+													180 text 23.08
+												181 cell
+													182 text 23.27
+												183 cell
+													184 text 23.45
+												185 cell
+													186 text 23.64
+												187 cell
+													188 text 23.82
+												189 cell
+													190 text 24.01
+												191 cell
+													192 text 24.19
+												193 cell
+													194 text 24.37
+												195 cell
+													196 text 24.56
+											197 row
+												198 cell
+													199 text 递延税项资产
+												200 cell
+													201 text 6.33
+												202 cell
+													203 text 5.35
+												204 cell
+													205 text 4.98
+												206 cell
+													207 text 5.38
+												208 cell
+													209 text 4.31
+												210 cell
+													211 text 3.93
+												212 cell
+													213 text 4.22
+												214 cell
+													215 text 3.88
+												216 cell
+													217 text 3.69
+												218 cell
+													219 text 3.60
+												220 cell
+													221 text 3.52
+												222 cell
+													223 text 3.75
+											224 row
+												225 cell
+													226 text 预付款项
+												227 cell
+													228 text 4.45
+												229 cell
+													230 text 4.18
+												231 cell
+													232 text 3.65
+												233 cell
+													234 text 3.73
+												235 cell
+													236 text 2.63
+												237 cell
+													238 text 3.12
+												239 cell
+													240 text 4.25
+												241 cell
+													242 text 4.54
+												243 cell
+													244 text 4.19
+												245 cell
+													246 text 4.37
+												247 cell
+													248 text 5.40
+												249 cell
+													250 text 5.80
+											251 row
+												252 cell
+													253 text 其他投资
+												254 cell
+													255 text 36.25
+												256 cell
+													257 text 28.92
+												258 cell
+													259 text 19.62
+												260 cell
+													261 text 21.61
+												262 cell
+													263 text 21.67
+												264 cell
+													265 text 21.75
+												266 cell
+													267 text 49.78
+												268 cell
+													269 text 48.98
+												270 cell
+													271 text 50.24
+												272 cell
+													273 text 46.04
+												274 cell
+													275 text 45.81
+												276 cell
+													277 text 46.91
+											278 row
+												279 cell
+													280 text 指定以公允价值记账之金融资产
+												281 cell
+													282 text 191.47
+												283 cell
+													284 text 198.66
+												285 cell
+													286 text 262.31
+												287 cell
+													288 text 309.40
+												289 cell
+													290 text 342.54
+												291 cell
+													292 text 247.80
+												293 cell
+													294 text 144.98
+												295 cell
+													296 text 117.77
+												297 cell
+													298 text 102.94
+												299 cell
+													300 text 87.91
+												301 cell
+													302 text 65.40
+											303 row
+												304 cell
+													305 text 中长期存款
+												306 cell
+													307 text 136.40
+												308 cell
+													309 text 143.30
+												310 cell
+													311 text 138.10
+												312 cell
+													313 text 138.10
+												314 cell
+													315 text 127.69
+												316 cell
+													317 text 110.29
+												318 cell
+													319 text 104.19
+												320 cell
+													321 text 75.29
+												322 cell
+													323 text 105.29
+												324 cell
+													325 text 75.89
+												326 cell
+													327 text 87.19
+												328 cell
+													329 text 87.69
+											330 row
+												331 cell
+													332 text 非流动资产其他项目
+												333 cell
+													334 text 3.22
+												335 cell
+													336 text 2.72
+												337 cell
+													338 text 2.87
+												339 cell
+													340 text 3.09
+												341 cell
+													342 text 3.10
+												343 cell
+													344 text 3.16
+												345 cell
+													346 text 2.95
+												347 cell
+													348 text 3.12
+												349 cell
+													350 text 3.08
+												351 cell
+													352 text 3.17
+												353 cell
+													354 text 3.67
+												355 cell
+													356 text 58.92
+											357 row
+												358 cell
+													359 text 非流动资产合计
+												360 cell
+													361 text 772.58
+												362 cell
+													363 text 651.84
+												364 cell
+													365 text 700.64
+												366 cell
+													367 text 749.49
+												368 cell
+													369 text 769.96
+												370 cell
+													371 text 639.08
+												372 cell
+													373 text 559.00
+												374 cell
+													375 text 500.87
+												376 cell
+													377 text 516.15
+												378 cell
+													379 text 466.33
+												380 cell
+													381 text 456.00
+												382 cell
+													383 text 448.77
+											384 row
+												385 cell
+													386 text 存货
+												387 cell
+													388 text 0.9800
+												389 cell
+													390 text 0.4800
+												391 cell
+													392 text 0.4100
+												393 cell
+													394 text 0.5700
+												395 cell
+													396 text 0.3200
+												397 cell
+													398 text 0.1800
+												399 cell
+													400 text 0.2300
+												401 cell
+													402 text 0.1800
+												403 cell
+													404 text 0.1400
+												405 cell
+													406 text 0.1100
+												407 cell
+													408 text 0.0800
+												409 cell
+													410 text 0.0500
+											411 row
+												412 cell
+													413 text 应收帐款
+												414 cell
+													415 text 41.84
+												416 cell
+													417 text 38.25
+												418 cell
+													419 text 39.03
+												420 cell
+													421 text 36.82
+												422 cell
+													423 text 37.29
+												424 cell
+													425 text 32.01
+												426 cell
+													427 text 35.08
+												428 cell
+													429 text 29.35
+												430 cell
+													431 text 30.24
+												432 cell
+													433 text 28.08
+												434 cell
+													435 text 29.18
+												436 cell
+													437 text 25.02
+											438 row
+												439 cell
+													440 text 预付款按金及其他应收款
+												441 cell
+													442 text 47.45
+												443 cell
+													444 text 40.36
+												445 cell
+													446 text 41.83
+												447 cell
+													448 text 38.43
+												449 cell
+													450 text 49.00
+												451 cell
+													452 text 42.55
+												453 cell
+													454 text 37.93
+												455 cell
+													456 text 30.00
+												457 cell
+													458 text 31.98
+												459 cell
+													460 text 30.68
+												461 cell
+													462 text 34.38
+												463 cell
+													464 text 33.38
+											465 row
+												466 cell
+													467 text 短期投资
+												468 cell
+													469 text 1.95
+												470 cell
+													471 text 0.7300
+												472 cell
+													473 text 0.8300
+												474 cell
+													475 text 0.5000
+												476 cell
+													477 text 0.5000
+												478 cell
+													479 text 0.4800
+												480 cell
+													481 text 0.4600
+												482 cell
+													483 text 0.4800
+												484 cell
+													485 text 10.43
+												486 cell
+													487 text 0.3700
+												488 cell
+													489 text 0.3700
+												490 cell
+													491 text 0.3700
+											492 row
+												493 cell
+													494 text 受限制存款及现金
+												495 cell
+													496 text 0.0800
+												497 cell
+													498 text 0.1500
+												499 cell
+													500 text 0.1500
+												501 cell
+													502 text 0.1500
+												503 cell
+													504 text 0.2000
+												505 cell
+													506 text 0.1100
+												507 cell
+													508 text 0.1100
+												509 cell
+													510 text 0.1000
+												511 cell
+													512 text 0.0700
+												513 cell
+													514 text 0.3100
+												515 cell
+													516 text 0.3100
+												517 cell
+													518 text 0.1000
+											519 row
+												520 cell
+													521 text 现金及等价物
+												522 cell
+													523 text 236.98
+												524 cell
+													525 text 184.16
+												526 cell
+													527 text 84.70
+												528 cell
+													529 text 112.55
+												530 cell
+													531 text 109.99
+												532 cell
+													533 text 120.22
+												534 cell
+													535 text 131.64
+												536 cell
+													537 text 102.09
+												538 cell
+													539 text 122.51
+												540 cell
+													541 text 102.18
+												542 cell
+													543 text 135.67
+												544 cell
+													545 text 123.81
+											546 row
+												547 cell
+													548 text 短期存款
+												549 cell
+													550 text 67.61
+												551 cell
+													552 text 82.54
+												553 cell
+													554 text 157.63
+												555 cell
+													556 text 110.15
+												557 cell
+													558 text 111.47
+												559 cell
+													560 text 146.21
+												561 cell
+													562 text 139.99
+												563 cell
+													564 text 183.06
+												565 cell
+													566 text 112.53
+												567 cell
+													568 text 163.70
+												569 cell
+													570 text 99.37
+												571 cell
+													572 text 98.06
+											573 row
+												574 cell
+													575 text 流动资产合计
+												576 cell
+													577 text 396.89
+												578 cell
+													579 text 346.67
+												580 cell
+													581 text 324.58
+												582 cell
+													583 text 299.17
+												584 cell
+													585 text 308.77
+												586 cell
+													587 text 341.76
+												588 cell
+													589 text 345.44
+												590 cell
+													591 text 345.26
+												592 cell
+													593 text 307.90
+												594 cell
+													595 text 325.43
+												596 cell
+													597 text 299.36
+												598 cell
+													599 text 280.79
+											600 row
+												601 cell
+													602 text 总资产
+												603 cell
+													604 text 1,169.47
+												605 cell
+													606 text 998.51
+												607 cell
+													608 text 1,025.22
+												609 cell
+													610 text 1,048.66
+												611 cell
+													612 text 1,078.73
+												613 cell
+													614 text 980.84
+												615 cell
+													616 text 904.44
+												617 cell
+													618 text 846.13
+												619 cell
+													620 text 824.05
+												621 cell
+													622 text 791.76
+												623 cell
+													624 text 755.36
+												625 cell
+													626 text 729.56
+											627 row
+												628 cell
+													629 text 应付帐款
+												630 cell
+													631 text 67.16
+												632 cell
+													633 text 61.76
+												634 cell
+													635 text 62.84
+												636 cell
+													637 text 66.19
+												638 cell
+													639 text 69.56
+												640 cell
+													641 text 72.96
+												642 cell
+													643 text 68.79
+												644 cell
+													645 text 65.23
+												646 cell
+													647 text 62.18
+												648 cell
+													649 text 54.93
+												650 cell
+													651 text 50.06
+												652 cell
+													653 text 50.50
+											654 row
+												655 cell
+													656 text 应付税项
+												657 cell
+													658 text 9.99
+												659 cell
+													660 text 10.59
+												661 cell
+													662 text 10.92
+												663 cell
+													664 text 9.48
+												665 cell
+													666 text 8.51
+												667 cell
+													668 text 9.11
+												669 cell
+													670 text 9.34
+												671 cell
+													672 text 8.23
+												673 cell
+													674 text 6.96
+												675 cell
+													676 text 6.70
+												677 cell
+													678 text 5.67
+												679 cell
+													680 text 4.91
+											681 row
+												682 cell
+													683 text 融资租赁负债(流动)
+												684 cell
+													685 text 1.37
+												686 cell
+													687 text 1.11
+												688 cell
+													689 text 1.16
+												690 cell
+													691 text 1.04
+												692 cell
+													693 text 1.04
+												694 cell
+													695 text 1.04
+												696 cell
+													697 text 1.06
+												698 cell
+													699 text 1.09
+												700 cell
+													701 text 1.12
+												702 cell
+													703 text 0.9700
+												704 cell
+													705 text 1.15
+												706 cell
+													707 text 1.13
+											708 row
+												709 cell
+													710 text 递延收入(流动)
+												711 cell
+													712 text 44.47
+												713 cell
+													714 text 38.15
+												715 cell
+													716 text 35.39
+												717 cell
+													718 text 34.08
+												719 cell
+													720 text 34.28
+												721 cell
+													722 text 33.13
+												723 cell
+													724 text 30.96
+												725 cell
+													726 text 29.31
+												727 cell
+													728 text 29.52
+												729 cell
+													730 text 29.91
+												731 cell
+													732 text 28.54
+												733 cell
+													734 text 25.55
+											735 row
+												736 cell
+													737 text 其他应付款及应计费用
+												738 cell
+													739 text 44.51
+												740 cell
+													741 text 54.60
+												742 cell
+													743 text 35.58
+												744 cell
+													745 text 32.69
+												746 cell
+													747 text 30.10
+												748 cell
+													749 text 48.54
+												750 cell
+													751 text 33.81
+												752 cell
+													753 text 27.86
+												754 cell
+													755 text 32.01
+												756 cell
+													757 text 29.36
+												758 cell
+													759 text 34.72
+												760 cell
+													761 text 32.04
+											762 row
+												763 cell
+													764 text 短期贷款
+												765 cell
+													766 text 59.97
+											767 row
+												768 cell
+													769 text 流动负债合计
+												770 cell
+													771 text 227.47
+												772 cell
+													773 text 166.21
+												774 cell
+													775 text 145.89
+												776 cell
+													777 text 143.48
+												778 cell
+													779 text 164.96
+												780 cell
+													781 text 186.30
+												782 cell
+													783 text 165.50
+												784 cell
+													785 text 152.71
+												786 cell
+													787 text 131.79
+												788 cell
+													789 text 121.87
+												790 cell
+													791 text 120.14
+												792 cell
+													793 text 114.13
+											794 row
+												795 cell
+													796 text 净流动资产
+												797 cell
+													798 text 169.42
+												799 cell
+													800 text 180.46
+												801 cell
+													802 text 178.69
+												803 cell
+													804 text 155.69
+												805 cell
+													806 text 143.81
+												807 cell
+													808 text 155.46
+												809 cell
+													810 text 179.94
+												811 cell
+													812 text 192.55
+												813 cell
+													814 text 176.11
+												815 cell
+													816 text 203.56
+												817 cell
+													818 text 179.22
+												819 cell
+													820 text 166.66
+											821 row
+												822 cell
+													823 text 总资产减流动负债
+												824 cell
+													825 text 942.00
+												826 cell
+													827 text 832.30
+												828 cell
+													829 text 879.33
+												830 cell
+													831 text 905.18
+												832 cell
+													833 text 913.77
+												834 cell
+													835 text 794.54
+												836 cell
+													837 text 738.94
+												838 cell
+													839 text 693.42
+												840 cell
+													841 text 692.26
+												842 cell
+													843 text 669.89
+												844 cell
+													845 text 635.22
+												846 cell
+													847 text 615.43
+											848 row
+												849 cell
+													850 text 长期贷款
+												851 cell
+													852 text 71.42
+												853 cell
+													854 text 11.00
+											855 row
+												856 cell
+													857 text 递延税项负债
+												858 cell
+													859 text 14.62
+												860 cell
+													861 text 5.88
+												862 cell
+													863 text 5.04
+												864 cell
+													865 text 6.79
+												866 cell
+													867 text 6.16
+												868 cell
+													869 text 2.27
+												870 cell
+													871 text 1.98
+												872 cell
+													873 text 2.34
+												874 cell
+													875 text 2.67
+												876 cell
+													877 text 1.74
+												878 cell
+													879 text 2.39
+												880 cell
+													881 text 2.06
+											882 row
+												883 cell
+													884 text 融资租赁负债(非流动)
+												885 cell
+													886 text 2.18
+												887 cell
+													888 text 1.88
+												889 cell
+													890 text 2.00
+												891 cell
+													892 text 2.27
+												893 cell
+													894 text 2.32
+												895 cell
+													896 text 2.51
+												897 cell
+													898 text 2.19
+												899 cell
+													900 text 2.35
+												901 cell
+													902 text 2.43
+												903 cell
+													904 text 2.57
+												905 cell
+													906 text 2.97
+												907 cell
+													908 text 3.20
+											909 row
+												910 cell
+													911 text 递延收入(非流动)
+												912 cell
+													913 text 4.47
+												914 cell
+													915 text 3.56
+												916 cell
+													917 text 3.03
+												918 cell
+													919 text 2.80
+												920 cell
+													921 text 2.50
+												922 cell
+													923 text 2.09
+												924 cell
+													925 text 1.79
+												926 cell
+													927 text 1.63
+												928 cell
+													929 text 1.63
+												930 cell
+													931 text 1.56
+												932 cell
+													933 text 1.48
+												934 cell
+													935 text 1.37
+											936 row
+												937 cell
+													938 text 长期应付款
+												939 cell
+													940 text 4.68
+												941 cell
+													942 text 4.25
+												943 cell
+													944 text 3.79
+												945 cell
+													946 text 3.65
+												947 cell
+													948 text 3.45
+											949 row
+												950 cell
+													951 text 应付票据(非流动)
+												952 cell
+													953 text 33.90
+												954 cell
+													955 text 34.43
+												956 cell
+													957 text 34.97
+												958 cell
+													959 text 35.34
+												960 cell
+													961 text 35.59
+												962 cell
+													963 text 35.68
+												964 cell
+													965 text 35.72
+												966 cell
+													967 text 34.81
+												968 cell
+													969 text 56.74
+												970 cell
+													971 text 56.47
+												972 cell
+													973 text 56.36
+												974 cell
+													975 text 57.12
+											976 row
+												977 cell
+													978 text 非流动负债合计
+												979 cell
+													980 text 131.27
+												981 cell
+													982 text 61.00
+												983 cell
+													984 text 48.83
+												985 cell
+													986 text 50.85
+												987 cell
+													988 text 50.02
+												989 cell
+													990 text 42.55
+												991 cell
+													992 text 41.68
+												993 cell
+													994 text 41.13
+												995 cell
+													996 text 63.47
+												997 cell
+													998 text 62.34
+												999 cell
+													1000 text 63.20
+												1001 cell
+													1002 text 63.75
+											1003 row
+												1004 cell
+													1005 text 总负债
+												1006 cell
+													1007 text 358.74
+												1008 cell
+													1009 text 227.21
+												1010 cell
+													1011 text 194.72
+												1012 cell
+													1013 text 194.33
+												1014 cell
+													1015 text 214.98
+												1016 cell
+													1017 text 228.85
+												1018 cell
+													1019 text 207.18
+												1020 cell
+													1021 text 193.84
+												1022 cell
+													1023 text 195.26
+												1024 cell
+													1025 text 184.21
+												1026 cell
+													1027 text 183.34
+												1028 cell
+													1029 text 177.88
+											1030 row
+												1031 cell
+													1032 text 少数股东权益
+												1033 cell
+													1034 text 28.01
+												1035 cell
+													1036 text 27.90
+												1037 cell
+													1038 text 27.63
+												1039 cell
+													1040 text 26.82
+												1041 cell
+													1042 text 24.97
+												1043 cell
+													1044 text 19.62
+												1045 cell
+													1046 text 18.63
+												1047 cell
+													1048 text 17.44
+												1049 cell
+													1050 text 16.70
+												1051 cell
+													1052 text 14.39
+												1053 cell
+													1054 text 12.95
+												1055 cell
+													1056 text 12.34
+											1057 row
+												1058 cell
+													1059 text 净资产
+												1060 cell
+													1061 text 810.73
+												1062 cell
+													1063 text 771.30
+												1064 cell
+													1065 text 830.50
+												1066 cell
+													1067 text 854.33
+												1068 cell
+													1069 text 863.75
+												1070 cell
+													1071 text 751.99
+												1072 cell
+													1073 text 697.26
+												1074 cell
+													1075 text 652.29
+												1076 cell
+													1077 text 628.79
+												1078 cell
+													1079 text 607.55
+												1080 cell
+													1081 text 572.02
+												1082 cell
+													1083 text 551.68
+											1084 row
+												1085 cell
+													1086 text 股本
+												1087 cell
+													1088 text 0.0200
+												1089 cell
+													1090 text 0.0200
+												1091 cell
+													1092 text 0.0200
+												1093 cell
+													1094 text 0.0200
+												1095 cell
+													1096 text 0.0200
+												1097 cell
+													1098 text 0.0200
+												1099 cell
+													1100 text 0.0200
+												1101 cell
+													1102 text 0.0200
+												1103 cell
+													1104 text 0.0200
+												1105 cell
+													1106 text 0.0200
+												1107 cell
+													1108 text 0.0200
+												1109 cell
+													1110 text 0.0200
+											1111 row
+												1112 cell
+													1113 text 保留溢利(累计亏损)
+												1114 cell
+													1115 text 311.18
+												1116 cell
+													1117 text 286.47
+												1118 cell
+													1119 text 293.81
+												1120 cell
+													1121 text 271.88
+												1122 cell
+													1123 text 250.36
+												1124 cell
+													1125 text 226.42
+												1126 cell
+													1127 text 200.51
+												1128 cell
+													1129 text 181.06
+												1130 cell
+													1131 text 165.20
+												1132 cell
+													1133 text 183.91
+												1134 cell
+													1135 text 169.69
+												1136 cell
+													1137 text 156.66
+											1138 row
+												1139 cell
+													1140 text 公积金
+												1141 cell
+													1142 text 349.33
+												1143 cell
+													1144 text 300.20
+												1145 cell
+													1146 text 299.19
+												1147 cell
+													1148 text 298.95
+												1149 cell
+													1150 text 294.63
+												1151 cell
+													1152 text 291.76
+												1153 cell
+													1154 text 290.35
+												1155 cell
+													1156 text 367.02
+												1157 cell
+													1158 text 366.43
+												1159 cell
+													1160 text 365.59
+												1161 cell
+													1162 text 365.76
+												1163 cell
+													1164 text 365.95
+											1165 row
+												1166 cell
+													1167 text 其他储备
+												1168 cell
+													1169 text 156.08
+												1170 cell
+													1171 text 163.35
+												1172 cell
+													1173 text 216.49
+												1174 cell
+													1175 text 263.30
+												1176 cell
+													1177 text 303.16
+												1178 cell
+													1179 text 224.26
+												1180 cell
+													1181 text 193.25
+												1182 cell
+													1183 text 162.13
+												1184 cell
+													1185 text 151.11
+												1186 cell
+													1187 text 115.60
+												1188 cell
+													1189 text 93.56
+												1190 cell
+													1191 text 82.10
+											1192 row
+												1193 cell
+													1194 text 库存股
+												1195 cell
+													1196 text -33.89
+												1197 cell
+													1198 text -6.64
+												1199 cell
+													1200 text -6.64
+												1201 cell
+													1202 text -6.64
+												1203 cell
+													1204 text -9.39
+												1205 cell
+													1206 text -10.09
+												1207 cell
+													1208 text -5.50
+												1209 cell
+													1210 text -75.38
+												1211 cell
+													1212 text -70.67
+												1213 cell
+													1214 text -71.96
+												1215 cell
+													1216 text -69.96
+												1217 cell
+													1218 text -65.39
+											1219 row
+												1220 cell
+													1221 text 股东权益
+												1222 cell
+													1223 text 782.72
+												1224 cell
+													1225 text 743.40
+												1226 cell
+													1227 text 802.87
+												1228 cell
+													1229 text 827.51
+												1230 cell
+													1231 text 838.78
+												1232 cell
+													1233 text 732.37
+												1234 cell
+													1235 text 678.63
+												1236 cell
+													1237 text 634.85
+												1238 cell
+													1239 text 612.09
+												1240 cell
+													1241 text 593.16
+												1242 cell
+													1243 text 559.07
+												1244 cell
+													1245 text 539.34
+											1246 row
+												1247 cell
+													1248 text 总权益
+												1249 cell
+													1250 text 810.73
+												1251 cell
+													1252 text 771.30
+												1253 cell
+													1254 text 830.50
+												1255 cell
+													1256 text 854.33
+												1257 cell
+													1258 text 863.75
+												1259 cell
+													1260 text 751.99
+												1261 cell
+													1262 text 697.26
+												1263 cell
+													1264 text 652.29
+												1265 cell
+													1266 text 628.79
+												1267 cell
+													1268 text 607.55
+												1269 cell
+													1270 text 572.02
+												1271 cell
+													1272 text 551.68
+											1273 row
+												1274 cell
+													1275 text 总权益及非流动负债
+												1276 cell
+													1277 text 942.00
+												1278 cell
+													1279 text 832.30
+												1280 cell
+													1281 text 879.33
+												1282 cell
+													1283 text 905.18
+												1284 cell
+													1285 text 913.77
+												1286 cell
+													1287 text 794.54
+												1288 cell
+													1289 text 738.94
+												1290 cell
+													1291 text 693.42
+												1292 cell
+													1293 text 692.26
+												1294 cell
+													1295 text 669.89
+												1296 cell
+													1297 text 635.22
+												1298 cell
+													1299 text 615.43
+											1300 row
+												1301 cell
+													1302 text 总权益及总负债
+												1303 cell
+													1304 text 1,169.47
+												1305 cell
+													1306 text 998.51
+												1307 cell
+													1308 text 1,025.22
+												1309 cell
+													1310 text 1,048.66
+												1311 cell
+													1312 text 1,078.73
+												1313 cell
+													1314 text 980.84
+												1315 cell
+													1316 text 904.44
+												1317 cell
+													1318 text 846.13
+												1319 cell
+													1320 text 824.05
+												1321 cell
+													1322 text 791.76
+												1323 cell
+													1324 text 755.36
+												1325 cell
+													1326 text 729.56
+											1327 row
+												1328 cell
+													1329 text 应付票据
+												1330 cell
+													1331 text 21.47
+												1332 cell
+													1333 text 21.52
+												1334 cell
+													1335 text 21.54
+												1336 cell
+													1337 text 20.99
+										30 text 数据源：akshare（A 股＝新浪财报，港股＝东方财富港股报表）；取数、检验与口径见 framework/tools/fin_stmt.py，表代码 fin_stmt。
+
+The focused UI element is 1 AXWebArea 财务报表, URL: 118.196.72.148/admin/e75y11y2zmm

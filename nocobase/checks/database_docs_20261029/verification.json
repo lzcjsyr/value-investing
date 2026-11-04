@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-29",
+  "env": "local",
+  "structure_page": "http://localhost:13000/admin/vsha1l0e5il",
+  "guide_page": "http://localhost:13000/admin/6jy1tr62qf3",
+  "base_tables": 27,
+  "link_tables": 21,
+  "views": 58,
+  "materialized_views": 2,
+  "stale_collection_registrations": [
+    "vi_lnk_risk_watches",
+    "vi_lnk_watch_judgments",
+    "vi_lnk_watch_theses"
+  ],
+  "business_tables_unchanged": 48,
+  "persisted_content_exact_match": true,
+  "regenerated_content_exact_match": true,
+  "blueprints_match": true,
+  "browser_structure_page_visible": true,
+  "mermaid_blocks_rendered": 2,
+  "scope": "Local documentation only; no cloud sync performed"
+}

@@ -2,65 +2,12 @@
  "version": "1",
  "mode": "replace",
  "page": {
-  "title": "业务数据",
-  "documentTitle": "长江电力 · 业务数据",
+  "title": "定量指标",
+  "documentTitle": "长江电力 · 定量指标",
   "enableTabs": true
  },
  "defaults": {
   "collections": {
-   "vi_observation": {
-    "popups": {
-     "view": {
-      "name": "数据·详情",
-      "description": "查看一条「数据」记录"
-     },
-     "addNew": {
-      "name": "数据·新增",
-      "description": "新增一条「数据」记录"
-     },
-     "edit": {
-      "name": "数据·编辑",
-      "description": "编辑一条「数据」记录"
-     }
-    },
-    "fieldGroups": [
-     {
-      "title": "基本信息",
-      "fields": [
-       "obs_date",
-       "period",
-       "basis",
-       "value",
-       "yoy",
-       "summary",
-       "collected_at"
-      ]
-     },
-     {
-      "title": "关联",
-      "fields": [
-       "metric",
-       "doc",
-       "raw_capture"
-      ]
-     },
-     {
-      "title": "自动计算（只读）",
-      "fields": [
-       "unit",
-       "source_kind",
-       "is_current",
-       "is_valid"
-      ]
-     },
-     {
-      "title": "系统",
-      "fields": [
-       "updated_at"
-      ]
-     }
-    ]
-   },
    "vi_metric": {
     "popups": {
      "view": {
@@ -97,7 +44,8 @@
       "fields": [
        "valid_min",
        "valid_max",
-       "notes"
+       "notes",
+       "measure"
       ]
      },
      {
@@ -117,14 +65,16 @@
        "next_due",
        "tracked_by",
        "tracked_codes",
-       "scope",
-       "used_by"
+       "model_order",
+       "scope"
       ]
      },
      {
       "title": "自动计算（只读）（2/2）",
       "fields": [
-       "used_by_codes"
+       "used_by",
+       "used_by_codes",
+       "trend"
       ]
      },
      {
@@ -133,96 +83,149 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "category": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "source_kind": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "basis": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "model_field": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "formula": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "source_name": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "valid_min": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "obs_count": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_value": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "state": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "tracked_by": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "tracked_codes": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "model_order": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "scope": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "used_by": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "used_by_codes": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "measure": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "trend": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    },
-   "vi_source": {
+   "vi_company": {
     "popups": {
      "view": {
-      "name": "来源文档·详情",
-      "description": "查看一条「来源文档」记录"
+      "name": "公司·详情",
+      "description": "查看一条「公司」记录"
      },
      "addNew": {
-      "name": "来源文档·新增",
-      "description": "新增一条「来源文档」记录"
+      "name": "公司·新增",
+      "description": "新增一条「公司」记录"
      },
      "edit": {
-      "name": "来源文档·编辑",
-      "description": "编辑一条「来源文档」记录"
+      "name": "公司·编辑",
+      "description": "编辑一条「公司」记录"
      }
     },
     "fieldGroups": [
      {
-      "title": "基本信息",
+      "title": "基本信息（1/2）",
       "fields": [
-       "title",
-       "source_type",
-       "publisher",
-       "publish_date",
-       "url",
-       "reliability",
-       "verify_status",
-       "retrieved_on",
-       "summary",
-       "limitations"
+       "code",
+       "name",
+       "exchange",
+       "industry",
+       "currency",
+       "volume_label",
+       "volume_unit",
+       "price_label",
+       "price_unit",
+       "is_default"
+      ]
+     },
+     {
+      "title": "基本信息（2/2）",
+      "fields": [
+       "scope_breaks",
+       "profile",
+       "notes",
+       "pe_ttm",
+       "pb",
+       "pe_pb_date"
       ]
      },
      {
       "title": "关联",
       "fields": [
-       "company"
-      ]
-     },
-     {
-      "title": "系统",
-      "fields": [
-       "updated_at"
-      ]
-     }
-    ]
-   },
-   "vi_raw_capture": {
-    "popups": {
-     "view": {
-      "name": "原始采集记录·详情",
-      "description": "查看一条「原始采集记录」记录"
-     },
-     "addNew": {
-      "name": "原始采集记录·新增",
-      "description": "新增一条「原始采集记录」记录"
-     },
-     "edit": {
-      "name": "原始采集记录·编辑",
-      "description": "编辑一条「原始采集记录」记录"
-     }
-    },
-    "fieldGroups": [
-     {
-      "title": "基本信息",
-      "fields": [
-       "run_label",
-       "collected_at",
-       "status",
-       "raw_response",
-       "fetch_result"
-      ]
-     },
-     {
-      "title": "关联",
-      "fields": [
-       "collector",
-       "run"
+       "price_metric",
+       "price_fx_metric"
       ]
      },
      {
       "title": "自动计算（只读）",
       "fields": [
-       "parsed_date",
-       "parsed_value",
-       "is_valid",
-       "already_exists",
-       "decision",
-       "fetch_ok",
-       "fetch_note"
+       "latest_price",
+       "latest_price_date",
+       "latest_price_raw",
+       "latest_fx",
+       "macro_used"
       ]
      },
      {
@@ -231,50 +234,89 @@
        "updated_at"
       ]
      }
-    ]
+    ],
+    "formBehaviorDescriptionReview": {
+     "fields": {
+      "code": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "currency": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "volume_label": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "volume_unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "price_label": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "price_unit": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "is_default": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "scope_breaks": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_price": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_price_raw": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "latest_fx": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "macro_used": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "pe_ttm": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      },
+      "pb": {
+       "decision": "noUiBehavior",
+       "reasonCode": "no-ui-behavior"
+      }
+     }
+    }
    }
   }
  },
  "tabs": [
   {
-   "title": "定期经营数据",
+   "title": "定期经营",
    "blocks": [
     {
      "key": "disclosed",
      "type": "table",
-     "collection": "vi_observation",
+     "collection": "vi_metric",
      "fields": [
       {
-       "field": "metric",
-       "titleField": "name",
-       "popup": {
-        "title": "指标",
-        "blocks": [
-         {
-          "type": "details",
-          "resource": {
-           "binding": "currentRecord",
-           "collectionName": "vi_metric"
-          },
-          "fields": [
-           "name",
-           "code",
-           "unit",
-           "category",
-           "source_kind",
-           "basis"
-          ]
-         }
-        ]
-       },
+       "field": "name",
        "settings": {
         "width": 280
        }
       },
       {
-       "field": "period",
+       "field": "measure",
        "settings": {
-        "width": 200
+        "width": 140
        }
       },
       {
@@ -284,7 +326,13 @@
        }
       },
       {
-       "field": "value",
+       "field": "latest_period",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "latest_value",
        "settings": {
         "width": 150
        }
@@ -296,40 +344,25 @@
        }
       },
       {
-       "field": "yoy",
+       "field": "obs_count",
        "settings": {
         "width": 150
        }
       },
       {
-       "field": "summary",
+       "field": "state",
        "settings": {
-        "width": 360
+        "width": 140
        }
       },
       {
-       "field": "doc",
-       "titleField": "title",
-       "popup": {
-        "title": "来源文档",
-        "blocks": [
-         {
-          "type": "details",
-          "resource": {
-           "binding": "currentRecord",
-           "collectionName": "vi_source"
-          },
-          "fields": [
-           "title",
-           "source_type",
-           "publisher",
-           "publish_date",
-           "url",
-           "reliability"
-          ]
-         }
-        ]
-       },
+       "field": "source_kind",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "source_name",
        "settings": {
         "width": 200
        }
@@ -337,29 +370,29 @@
      ],
      "settings": {
       "title": "",
-      "description": "按期披露的量、价、订单、面积、用户与设备等经营指标及解读；引用【指标】【来源文档】；被【驾驶舱】【自动检查】【重点跟踪】引用；【重要事实】通过“相关指标”引用本序列。收入、利润、毛利率、现金与负债见【财务数据】。",
+      "description": "一家公司要看的每一个数（经营、财务、行情与环境），一个指标一行：从哪来、最新值、是否到期；被【公司】【商业模式拆解】【产业链与五力】【竞争壁垒】【核心论点】【风险分析】【假设依据】【数据】【估值模型】【资产估值与调整】【经营分部估值】【逐年假设】【采集配置】【历史年度】【指标数值】【质量自检】引用。",
       "pageSize": 50,
       "sorting": [
        {
-        "field": "obs_date",
-        "direction": "desc"
+        "field": "name",
+        "direction": "asc"
        }
       ],
       "dataScope": {
        "logic": "$and",
        "items": [
         {
-         "path": "metric.company_id",
+         "path": "company_id",
          "operator": "$eq",
          "value": 1
         },
         {
-         "path": "metric.category",
+         "path": "category",
          "operator": "$eq",
          "value": "经营"
         },
         {
-         "path": "metric.source_kind",
+         "path": "source_kind",
          "operator": "$in",
          "value": [
           "公司披露",
@@ -377,32 +410,46 @@
       {
        "type": "addNew",
        "popup": {
-        "title": "新增 · 业务数据",
+        "title": "新增 · 定量指标",
         "blocks": [
          {
           "type": "createForm",
           "resource": {
-           "collectionName": "vi_observation"
+           "collectionName": "vi_metric"
           },
-          "fields": [
-           "obs_date",
-           "period",
-           "basis",
-           "value",
-           "yoy",
-           "summary",
-           "collected_at",
+          "fieldGroups": [
            {
-            "field": "metric",
-            "titleField": "name"
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "name",
+             "unit",
+             "category",
+             "measure",
+             "source_kind",
+             "basis",
+             "model_field",
+             "formula",
+             "source_name"
+            ]
            },
            {
-            "field": "doc",
-            "titleField": "title"
+            "title": "基本信息（2/2）",
+            "fields": [
+             "frequency",
+             "valid_min",
+             "valid_max",
+             "notes"
+            ]
            },
            {
-            "field": "raw_capture",
-            "titleField": "run_label"
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             }
+            ]
            }
           ],
           "actions": [
@@ -415,33 +462,86 @@
       "bulkDelete"
      ],
      "recordActions": [
-      "view",
+      {
+       "type": "view",
+       "popup": {
+        "title": "定量指标 · 指标详情",
+        "blocks": [
+         {
+          "key": "trend",
+          "type": "jsBlock",
+          "script": "metric_trend"
+         },
+         {
+          "key": "info",
+          "type": "details",
+          "resource": {
+           "binding": "currentRecord",
+           "collectionName": "vi_metric"
+          },
+          "fieldGroups": [
+           {
+            "title": "指标信息",
+            "fields": [
+             "name",
+             "category",
+             "measure",
+             "unit",
+             "basis",
+             "source_kind",
+             "formula",
+             "model_field",
+             "frequency",
+             "source_name",
+             "tracked_by",
+             "notes"
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      },
       {
        "type": "edit",
        "popup": {
-        "title": "编辑 · 业务数据",
+        "title": "编辑 · 定量指标",
         "blocks": [
          {
           "type": "editForm",
-          "fields": [
-           "obs_date",
-           "period",
-           "basis",
-           "value",
-           "yoy",
-           "summary",
-           "collected_at",
+          "fieldGroups": [
            {
-            "field": "metric",
-            "titleField": "name"
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "name",
+             "unit",
+             "category",
+             "measure",
+             "source_kind",
+             "basis",
+             "model_field",
+             "formula",
+             "source_name"
+            ]
            },
            {
-            "field": "doc",
-            "titleField": "title"
+            "title": "基本信息（2/2）",
+            "fields": [
+             "frequency",
+             "valid_min",
+             "valid_max",
+             "notes"
+            ]
            },
            {
-            "field": "raw_capture",
-            "titleField": "run_label"
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             }
+            ]
            }
           ],
           "actions": [
@@ -457,48 +557,39 @@
    ]
   },
   {
-   "title": "高频业务数据",
+   "title": "高频经营",
    "blocks": [
     {
      "key": "auto",
      "type": "table",
-     "collection": "vi_observation",
+     "collection": "vi_metric",
      "fields": [
       {
-       "field": "metric",
-       "titleField": "name",
-       "popup": {
-        "title": "指标",
-        "blocks": [
-         {
-          "type": "details",
-          "resource": {
-           "binding": "currentRecord",
-           "collectionName": "vi_metric"
-          },
-          "fields": [
-           "name",
-           "code",
-           "unit",
-           "category",
-           "source_kind",
-           "basis"
-          ]
-         }
-        ]
-       },
+       "field": "name",
        "settings": {
         "width": 280
        }
       },
       {
-       "field": "obs_date",
+       "field": "measure",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "basis",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "latest_period",
        "settings": {
         "width": 200
        }
       },
       {
-       "field": "value",
+       "field": "latest_value",
        "settings": {
         "width": 150
        }
@@ -510,72 +601,25 @@
        }
       },
       {
-       "field": "is_current",
+       "field": "obs_count",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "state",
        "settings": {
         "width": 140
        }
       },
       {
-       "field": "is_valid",
+       "field": "source_kind",
        "settings": {
         "width": 140
        }
       },
       {
-       "field": "collected_at",
-       "settings": {
-        "width": 170
-       }
-      },
-      {
-       "field": "doc",
-       "titleField": "title",
-       "popup": {
-        "title": "来源文档",
-        "blocks": [
-         {
-          "type": "details",
-          "resource": {
-           "binding": "currentRecord",
-           "collectionName": "vi_source"
-          },
-          "fields": [
-           "title",
-           "source_type",
-           "publisher",
-           "publish_date",
-           "url",
-           "reliability"
-          ]
-         }
-        ]
-       },
-       "settings": {
-        "width": 200
-       }
-      },
-      {
-       "field": "raw_capture",
-       "titleField": "run_label",
-       "popup": {
-        "title": "原始采集记录",
-        "blocks": [
-         {
-          "type": "details",
-          "resource": {
-           "binding": "currentRecord",
-           "collectionName": "vi_raw_capture"
-          },
-          "fields": [
-           "run_label",
-           "collected_at",
-           "status",
-           "fetch_result",
-           "raw_response"
-          ]
-         }
-        ]
-       },
+       "field": "source_name",
        "settings": {
         "width": 200
        }
@@ -583,24 +627,24 @@
      ],
      "settings": {
       "title": "",
-      "description": "自动采集的水位、来水、纸浆价格等高频经营环境数据；引用【指标】【原始采集记录】，保留采集地址；被【驾驶舱】【自动检查】【重点跟踪】引用；【重要事实】通过“相关指标”引用本序列。股价见【驾驶舱】，利率与汇率见【宏观数据】。",
+      "description": "一家公司要看的每一个数（经营、财务、行情与环境），一个指标一行：从哪来、最新值、是否到期；被【公司】【商业模式拆解】【产业链与五力】【竞争壁垒】【核心论点】【风险分析】【假设依据】【数据】【估值模型】【资产估值与调整】【经营分部估值】【逐年假设】【采集配置】【历史年度】【指标数值】【质量自检】引用。",
       "pageSize": 50,
       "sorting": [
        {
-        "field": "obs_date",
-        "direction": "desc"
+        "field": "name",
+        "direction": "asc"
        }
       ],
       "dataScope": {
        "logic": "$and",
        "items": [
         {
-         "path": "metric.source_kind",
+         "path": "source_kind",
          "operator": "$eq",
          "value": "自动采集"
         },
         {
-         "path": "metric.category",
+         "path": "category",
          "operator": "$in",
          "value": [
           "经营",
@@ -612,12 +656,12 @@
          "logic": "$or",
          "items": [
           {
-           "path": "metric.company_id",
+           "path": "company_id",
            "operator": "$eq",
            "value": 1
           },
           {
-           "path": "metric.used_by_codes",
+           "path": "used_by_codes",
            "operator": "$includes",
            "value": ",600900.SH,"
           }
@@ -633,32 +677,46 @@
       {
        "type": "addNew",
        "popup": {
-        "title": "新增 · 业务数据",
+        "title": "新增 · 定量指标",
         "blocks": [
          {
           "type": "createForm",
           "resource": {
-           "collectionName": "vi_observation"
+           "collectionName": "vi_metric"
           },
-          "fields": [
-           "obs_date",
-           "period",
-           "basis",
-           "value",
-           "yoy",
-           "summary",
-           "collected_at",
+          "fieldGroups": [
            {
-            "field": "metric",
-            "titleField": "name"
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "name",
+             "unit",
+             "category",
+             "measure",
+             "source_kind",
+             "basis",
+             "model_field",
+             "formula",
+             "source_name"
+            ]
            },
            {
-            "field": "doc",
-            "titleField": "title"
+            "title": "基本信息（2/2）",
+            "fields": [
+             "frequency",
+             "valid_min",
+             "valid_max",
+             "notes"
+            ]
            },
            {
-            "field": "raw_capture",
-            "titleField": "run_label"
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             }
+            ]
            }
           ],
           "actions": [
@@ -671,33 +729,339 @@
       "bulkDelete"
      ],
      "recordActions": [
-      "view",
+      {
+       "type": "view",
+       "popup": {
+        "title": "定量指标 · 指标详情",
+        "blocks": [
+         {
+          "key": "trend",
+          "type": "jsBlock",
+          "script": "metric_trend"
+         },
+         {
+          "key": "info",
+          "type": "details",
+          "resource": {
+           "binding": "currentRecord",
+           "collectionName": "vi_metric"
+          },
+          "fieldGroups": [
+           {
+            "title": "指标信息",
+            "fields": [
+             "name",
+             "category",
+             "measure",
+             "unit",
+             "basis",
+             "source_kind",
+             "formula",
+             "model_field",
+             "frequency",
+             "source_name",
+             "tracked_by",
+             "notes"
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      },
       {
        "type": "edit",
        "popup": {
-        "title": "编辑 · 业务数据",
+        "title": "编辑 · 定量指标",
         "blocks": [
          {
           "type": "editForm",
-          "fields": [
-           "obs_date",
-           "period",
-           "basis",
-           "value",
-           "yoy",
-           "summary",
-           "collected_at",
+          "fieldGroups": [
            {
-            "field": "metric",
-            "titleField": "name"
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "name",
+             "unit",
+             "category",
+             "measure",
+             "source_kind",
+             "basis",
+             "model_field",
+             "formula",
+             "source_name"
+            ]
            },
            {
-            "field": "doc",
-            "titleField": "title"
+            "title": "基本信息（2/2）",
+            "fields": [
+             "frequency",
+             "valid_min",
+             "valid_max",
+             "notes"
+            ]
            },
            {
-            "field": "raw_capture",
-            "titleField": "run_label"
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "delete"
+     ]
+    }
+   ]
+  },
+  {
+   "title": "分部与财务补充",
+   "blocks": [
+    {
+     "key": "supplement",
+     "type": "table",
+     "collection": "vi_metric",
+     "fields": [
+      {
+       "field": "name",
+       "settings": {
+        "width": 280
+       }
+      },
+      {
+       "field": "measure",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "basis",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "latest_period",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "latest_value",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "unit",
+       "settings": {
+        "width": 200
+       }
+      },
+      {
+       "field": "obs_count",
+       "settings": {
+        "width": 150
+       }
+      },
+      {
+       "field": "state",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "source_kind",
+       "settings": {
+        "width": 140
+       }
+      },
+      {
+       "field": "source_name",
+       "settings": {
+        "width": 200
+       }
+      }
+     ],
+     "settings": {
+      "title": "",
+      "description": "一家公司要看的每一个数（经营、财务、行情与环境），一个指标一行：从哪来、最新值、是否到期；被【公司】【商业模式拆解】【产业链与五力】【竞争壁垒】【核心论点】【风险分析】【假设依据】【数据】【估值模型】【资产估值与调整】【经营分部估值】【逐年假设】【采集配置】【历史年度】【指标数值】【质量自检】引用。",
+      "pageSize": 50,
+      "sorting": [
+       {
+        "field": "name",
+        "direction": "asc"
+       }
+      ],
+      "dataScope": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "company_id",
+         "operator": "$eq",
+         "value": 1
+        },
+        {
+         "path": "category",
+         "operator": "$eq",
+         "value": "财务"
+        },
+        {
+         "path": "source_kind",
+         "operator": "$ne",
+         "value": "报表计算"
+        }
+       ]
+      },
+      "density": "middle"
+     },
+     "actions": [
+      "filter",
+      "refresh",
+      {
+       "type": "addNew",
+       "popup": {
+        "title": "新增 · 定量指标",
+        "blocks": [
+         {
+          "type": "createForm",
+          "resource": {
+           "collectionName": "vi_metric"
+          },
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "name",
+             "unit",
+             "category",
+             "measure",
+             "source_kind",
+             "basis",
+             "model_field",
+             "formula",
+             "source_name"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "frequency",
+             "valid_min",
+             "valid_max",
+             "notes"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             }
+            ]
+           }
+          ],
+          "actions": [
+           "submit"
+          ]
+         }
+        ]
+       }
+      },
+      "bulkDelete"
+     ],
+     "recordActions": [
+      {
+       "type": "view",
+       "popup": {
+        "title": "定量指标 · 指标详情",
+        "blocks": [
+         {
+          "key": "trend",
+          "type": "jsBlock",
+          "script": "metric_trend"
+         },
+         {
+          "key": "info",
+          "type": "details",
+          "resource": {
+           "binding": "currentRecord",
+           "collectionName": "vi_metric"
+          },
+          "fieldGroups": [
+           {
+            "title": "指标信息",
+            "fields": [
+             "name",
+             "category",
+             "measure",
+             "unit",
+             "basis",
+             "source_kind",
+             "formula",
+             "model_field",
+             "frequency",
+             "source_name",
+             "tracked_by",
+             "notes"
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      },
+      {
+       "type": "edit",
+       "popup": {
+        "title": "编辑 · 定量指标",
+        "blocks": [
+         {
+          "type": "editForm",
+          "fieldGroups": [
+           {
+            "title": "基本信息（1/2）",
+            "fields": [
+             "code",
+             "name",
+             "unit",
+             "category",
+             "measure",
+             "source_kind",
+             "basis",
+             "model_field",
+             "formula",
+             "source_name"
+            ]
+           },
+           {
+            "title": "基本信息（2/2）",
+            "fields": [
+             "frequency",
+             "valid_min",
+             "valid_max",
+             "notes"
+            ]
+           },
+           {
+            "title": "关联",
+            "fields": [
+             {
+              "field": "company",
+              "titleField": "name"
+             }
+            ]
            }
           ],
           "actions": [
@@ -713,6 +1077,14 @@
    ]
   }
  ],
+ "assets": {
+  "scripts": {
+   "metric_trend": {
+    "version": "v2",
+    "code": "const { React } = ctx.libs;\nconst { useState } = React;\nconst { Segmented, Table, Button, Input, InputNumber, Select, Space, Alert, Empty, Tag, theme, message } = ctx.libs.antd;\nconst BASES = ['时点', '单季', '半年累计', '前三季度累计', '全年', '年初至今累计', '滚动四季度'];\n// 指标性质决定能用的口径：时点指标（存量）只有“时点”，时期指标（流量）不能用“时点”；未判定的都可选\nconst FLOW_BASES = BASES.filter((b) => b !== '时点');\nconst allowedBases = (measure) => (measure === '时点' ? ['时点'] : measure === '时期' ? FLOW_BASES : BASES);\nconst MEASURE_NOTE = {\n  时期: '时期指标（流量）：一段时间内发生的量，同类时期可以相加',\n  时点: '时点指标（存量）：某一时刻的规模或状态，不能跨期相加',\n};\n\nasync function listRows(name, filter, pageSize = 2000) {\n  const resource = ctx.makeResource('MultiRecordResource');\n  resource.setResourceName(name);\n  resource.setPageSize?.(pageSize);\n  if (filter) resource.setFilter?.(filter);\n  await resource.refresh();\n  return resource.getData() || [];\n}\nconst num = (v, d = 2) => (v === null || v === undefined || v === '' || Number.isNaN(Number(v)) ? '—'\n  : Number(v).toLocaleString('zh-CN', { minimumFractionDigits: d, maximumFractionDigits: d }));\nconst digits = (vals) => { const m = Math.max(...vals.map((v) => Math.abs(Number(v) || 0))); return m >= 1000 ? 0 : m >= 100 ? 1 : 2; };\n// 期间 → 期末日期：2026Q2、2026H1、2026、2026M09\nfunction periodEnd(p) {\n  const s = String(p || '').trim();\n  let m;\n  if ((m = s.match(/^(\\d{4})Q([1-4])$/))) return `${m[1]}-${['03-31', '06-30', '09-30', '12-31'][m[2] - 1]}`;\n  if ((m = s.match(/^(\\d{4})H1$/))) return `${m[1]}-06-30`;\n  if ((m = s.match(/^(\\d{4})M(\\d{2})$/))) { const d = new Date(Number(m[1]), Number(m[2]), 0); return `${m[1]}-${m[2]}-${String(d.getDate()).padStart(2, '0')}`; }\n  if ((m = s.match(/^(\\d{4})$/))) return `${m[1]}-12-31`;\n  return null;\n}\n\nfunction Chart({ points, unit, token }) {\n  if (points.length < 2) return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description=\"这个口径的数据不足两期，画不出趋势\" />;\n  const W = 760, H = 220, L = 56, R = 16, T = 14, B = 34;\n  const vals = points.map((p) => Number(p.value));\n  let lo = Math.min(...vals), hi = Math.max(...vals);\n  if (lo === hi) { lo -= 1; hi += 1; }\n  const pad = (hi - lo) * 0.08; lo -= pad; hi += pad;\n  const x = (i) => L + (i * (W - L - R)) / (points.length - 1);\n  const y = (v) => T + ((hi - v) * (H - T - B)) / (hi - lo);\n  const d = digits(vals);\n  const ticks = [0, 1, 2, 3].map((k) => lo + ((hi - lo) * k) / 3);\n  const every = Math.max(1, Math.ceil(points.length / 8));\n  const path = points.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(Number(p.value)).toFixed(1)}`).join(' ');\n  return (\n    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', maxWidth: W, height: 'auto', display: 'block' }}>\n      {ticks.map((t, k) => (\n        <g key={k}>\n          <line x1={L} x2={W - R} y1={y(t)} y2={y(t)} stroke={token.colorSplit} />\n          <text x={L - 8} y={y(t) + 4} fontSize=\"11\" textAnchor=\"end\" fill={token.colorTextTertiary}>{num(t, d)}</text>\n        </g>\n      ))}\n      <path d={path} fill=\"none\" stroke={token.colorPrimary} strokeWidth=\"2\" />\n      {points.map((p, i) => (\n        <g key={p.id}>\n          <circle cx={x(i)} cy={y(Number(p.value))} r=\"3.5\" fill={p.origin === '录入' ? token.colorPrimary : '#fff'} stroke={token.colorPrimary} strokeWidth=\"1.5\">\n            <title>{`${p.period}：${num(p.value, d)} ${unit || ''}${p.yoy !== null && p.yoy !== undefined ? `（同比 ${num(p.yoy * 100, 1)}%）` : ''}｜${p.origin}`}</title>\n          </circle>\n          {(i % every === 0 || i === points.length - 1)\n            ? <text x={x(i)} y={H - 12} fontSize=\"11\" textAnchor=\"middle\" fill={token.colorTextTertiary}>{p.period}</text> : null}\n        </g>\n      ))}\n    </svg>\n  );\n}\n\nfunction Panel({ metric, rows, reload }) {\n  const { token } = theme.useToken();\n  const bases = BASES.filter((b) => rows.some((r) => r.basis === b));\n  const [basis, setBasis] = useState(bases.includes(metric.basis) ? metric.basis : bases[0]);\n  const [range, setRange] = useState('近 5 年');\n  const allowed = allowedBases(metric.measure);\n  const [form, setForm] = useState({ basis: allowed.includes(metric.basis) ? metric.basis : allowed[0] });\n  const [saving, setSaving] = useState(false);\n  const cut = new Date(); cut.setFullYear(cut.getFullYear() - 5);\n  const series = rows.filter((r) => r.basis === basis).sort((a, b) => String(a.obs_date).localeCompare(String(b.obs_date)));\n  const shown = range === '全部' ? series : series.filter((r) => new Date(r.obs_date) >= cut);\n  const d = digits(rows.map((r) => r.value));\n  const latest = series[series.length - 1];\n  const add = async () => {\n    const end = periodEnd(form.period);\n    if (!end) { message.warning('统计时间写成 2026Q3、2026H1、2026 或 2026M09'); return; }\n    if (form.value === undefined || form.value === null || form.value === '') { message.warning('请填写数值'); return; }\n    setSaving(true);\n    try {\n      await ctx.request({ url: 'vi_observation:create', method: 'post', data: {\n        metric_id: metric.id, period: form.period.trim(), basis: form.basis, obs_date: end, value: form.value,\n        yoy: form.yoy === undefined || form.yoy === null ? null : form.yoy / 100, summary: form.summary || null, collected_at: new Date().toISOString() } });\n      message.success(`已录入 ${form.period} ${form.basis}`);\n      setForm({ basis: form.basis });\n      await reload();\n    } catch (e) {\n      message.error('录入失败：' + String(e?.response?.data?.errors?.[0]?.message || e?.message || e));\n    } finally { setSaving(false); }\n  };\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>\n      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', gap: 16 }}>\n        <span style={{ fontSize: 16, fontWeight: 600 }}>{metric.name}</span>\n        {latest ? <span style={{ color: token.colorTextSecondary }}>最新 {latest.period}：<b style={{ color: token.colorText }}>{num(latest.value, d)}</b> {metric.unit || ''}\n          {latest.yoy !== null && latest.yoy !== undefined ? `（同比 ${num(latest.yoy * 100, 1)}%）` : ''}</span> : null}\n        {metric.source_kind === '报表计算' ? <Tag>报表计算：{metric.formula}</Tag> : <Tag>{metric.source_kind}</Tag>}\n        {metric.measure ? <Tag color={metric.measure === '时点' ? 'purple' : 'blue'}>{MEASURE_NOTE[metric.measure]}</Tag> : <Tag>指标性质未判定</Tag>}\n      </div>\n      {rows.length === 0 ? <Empty description=\"还没有数据：在下面录入第一期\" /> : (\n        <>\n          <Space wrap>\n            {bases.length > 1 ? <Segmented options={bases} value={basis} onChange={setBasis} /> : <Tag>{basis}</Tag>}\n            <Segmented options={['近 5 年', '全部']} value={range} onChange={setRange} />\n            <span style={{ fontSize: 12, color: token.colorTextTertiary }}>实心点＝录入的数，空心点＝报表算出的数</span>\n          </Space>\n          <Chart points={shown} unit={metric.unit} token={token} />\n          <Table size=\"small\" rowKey=\"id\" pagination={{ pageSize: 8, size: 'small' }}\n            dataSource={series.slice().reverse()} columns={[\n              { title: '统计时间', dataIndex: 'period', width: 100 },\n              { title: `数值（${metric.unit || ''}）`, dataIndex: 'value', align: 'right', width: 120, render: (v) => num(v, d) },\n              { title: '同比', dataIndex: 'yoy', align: 'right', width: 90, render: (v) => (v === null || v === undefined ? '—' : `${num(v * 100, 1)}%`) },\n              { title: '取值', dataIndex: 'origin', width: 90, render: (v) => <Tag color={v === '录入' ? 'blue' : 'default'}>{v}</Tag> },\n              { title: '说明', dataIndex: 'summary', ellipsis: true },\n              { title: '来源文档', dataIndex: 'doc_title', ellipsis: true, width: 200 },\n            ]} />\n        </>\n      )}\n      {metric.source_kind === '自动采集' ? null : (\n        <div style={{ borderTop: `1px solid ${token.colorSplit}`, paddingTop: 12 }}>\n          <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8 }}>\n            录入一期{metric.source_kind === '报表计算' ? '（报表计算的指标：录入的数会覆盖报表算出的同期数，用于追溯调整或口径不同的年份）' : ''}\n          </div>\n          <Space wrap>\n            <Input style={{ width: 170 }} placeholder={metric.measure === '时点' ? '统计时间，如 2026Q3（季末）' : '统计时间，如 2026Q3'}\n              value={form.period} onChange={(e) => setForm({ ...form, period: e.target.value })} />\n            <Select style={{ width: 130 }} options={allowed.map((b) => ({ value: b, label: b }))} value={form.basis} onChange={(v) => setForm({ ...form, basis: v })} />\n            <InputNumber style={{ width: 140 }} placeholder={`数值（${metric.unit || ''}）`} value={form.value} onChange={(v) => setForm({ ...form, value: v })} />\n            <InputNumber style={{ width: 120 }} placeholder=\"同比 %\" value={form.yoy} onChange={(v) => setForm({ ...form, yoy: v })} />\n            <Input style={{ width: 260 }} placeholder=\"说明（可选）\" value={form.summary} onChange={(e) => setForm({ ...form, summary: e.target.value })} />\n            <Button type=\"primary\" loading={saving} onClick={add}>录入</Button>\n          </Space>\n        </div>\n      )}\n    </div>\n  );\n}\n\ntry {\n  const rec = await ctx.getVar('ctx.popup.record');\n  const id = rec?.id;\n  if (!id) {\n    ctx.render(<Alert type=\"info\" showIcon message=\"没有拿到指标\" />);\n  } else {\n    async function load() {\n      const [metric] = await listRows('vi_metric', { id: { $eq: id } }, 1);\n      const rows = await listRows('vi_metric_value', { metric_id: { $eq: id } });\n      ctx.render(<Panel key={rows.length} metric={metric || rec} rows={rows} reload={load} />);\n    }\n    await load();\n  }\n} catch (error) {\n  ctx.render(<Alert type=\"error\" showIcon message=\"指标趋势读取失败\" description={String(error?.message || error)} />);\n}\n"
+   }
+  }
+ },
  "target": {
   "pageSchemaUid": "2veokjca71l"
  }

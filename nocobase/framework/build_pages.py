@@ -27,9 +27,9 @@ COMPANY_MENU = [  # (二级分组, 图标, [(code, 页面标题)])
                                    ('projection', '预测计算'), ('balance', '资产与资本'), ('sensitivity', '敏感性：折现率×永续增长'),
                                    ('trial', '单参数试验')]),
     # 数据底稿：业务数据＝定期经营指标与高频业务环境，财务结果另列；
-    # 原始材料：业务数据（每期数值）、财务数据（季度三大报表的定制页 build_finstmt.py，不在此生成）、重要事实（文字）、来源文档（出处，垫底）。
+    # 原始材料：业务数据（每期数值）、财务数据（季度三大报表的定制页 build_finstmt.py，不在此生成）、定性事实（文字）、来源文档（出处，垫底）。
     # 指标目录不在这里：在「预测与估值 / 重点指标」（模型数据｜跟踪指标｜其他指标）
-    ('数据底稿', 'DatabaseOutlined', [('observation', '业务数据'), ('fact', '重要事实'), ('source', '来源文档')]),
+    ('数据底稿', 'DatabaseOutlined', [('observation', '定量指标'), ('fact', '定性事实'), ('source', '来源文档')]),
     # 研究维护：维护这套研究本身（模型与数据检查、待办、改动记录），不是对公司的分析
     ('研究维护', 'ToolOutlined', [('check', '质量自检'), ('issue', '待办清单'), ('change_log', '变更日志')]),
 ]
@@ -56,7 +56,7 @@ SHARED_SUB = ('采集', 'CloudDownloadOutlined',
 COMPANY_ICON = {'600900.SH': 'ThunderboltOutlined', '002078.SZ': 'FileTextOutlined', '601668.SH': 'BuildOutlined',
                 '01698.HK': 'SoundOutlined', '01810.HK': 'MobileOutlined'}
 # 每张表按哪个字段过滤到“这家公司”（关联路径的末端都是整数字段，用 $eq）
-SCOPE = {'thesis': 'company_id', 'fact': 'company_id', 'source': 'company_id', 'judgment': 'company_id',
+SCOPE = {'thesis': 'company_id', 'event': 'company_id', 'fact': 'company_id', 'source': 'company_id', 'judgment': 'company_id',
          'business': 'company_id', 'biz_model': 'company_id', 'value_chain': 'company_id', 'competitor': 'company_id', 'moat': 'company_id',
          'fit_score': 'company_id', 'risk': 'company_id', 'sotp_item': 'model.company_id', 'sotp_segment': 'model.company_id', 'sotp': 'company_id',
          'observation': 'metric.company_id',
@@ -68,7 +68,8 @@ COLUMNS = {
     'company': ['code', 'name', 'industry', 'volume_label', 'volume_unit', 'price_label', 'latest_price', 'latest_price_raw', 'latest_fx', 'latest_price_date'],
     'thesis': ['code', 'title', 'category', 'status', 'confidence', 'verdict', 'mind_changer', 'check_result', 'debated_on'],
     'source': ['title', 'source_type', 'publish_date', 'reliability', 'verify_status', 'url'],
-    'fact': ['title', 'category', 'period', 'verify_status', 'source'],
+    'event': ['name', 'status', 'period', 'fact_count', 'latest_as_of', 'category', 'summary'],
+    'fact': ['event', 'title', 'category', 'period', 'as_of', 'verify_status', 'source'],
     'judgment': ['code', 'title', 'parameter', 'status', 'theses', 'facts'],
     'business': ['code', 'name', 'boundary', 'cost_allocation', 'asset_boundary'],
     'biz_model': ['business', 'code', 'element', 'title', 'metric', 'trend'],
@@ -84,8 +85,10 @@ COLUMNS = {
     'sotp': ['scenario_name', 'probability', 'core_earnings', 'multiple', 'core_value', 'segments_value', 'usable_net_cash', 'investments', 'minority_other',
              'value_per_share', 'value_per_share_quote', 'market_price', 'price_vs_value', 'implied_core_multiple', 'implied_mature_multiple',
              'implied_growth_value', 'weighted_value', 'ddm_value', 'conclusion'],
-    'key_metric': ['name', 'model_field', 'tracked_by', 'latest_value', 'unit', 'latest_period', 'state', 'source_kind', 'notes'],
-    'metric': ['name', 'category', 'unit', 'basis', 'latest_value', 'latest_period', 'state', 'tracked_by', 'source_kind', 'formula', 'source_name'],
+    'key_metric': ['name', 'measure', 'model_field', 'tracked_by', 'latest_value', 'unit', 'latest_period', 'state', 'source_kind', 'notes'],
+    'metric': ['name', 'category', 'measure', 'unit', 'basis', 'latest_value', 'latest_period', 'state', 'tracked_by', 'source_kind', 'formula', 'source_name'],
+    # 数据底稿（业务数据、分部与财务补充）：每个指标一行，“趋势”小折线由 trend_column.py 补在单位后面；逐期数据在指标详情里看和录入
+    'metric_series': ['name', 'measure', 'basis', 'latest_period', 'latest_value', 'unit', 'obs_count', 'state', 'source_kind', 'source_name'],
     'observation': ['metric', 'obs_date', 'value', 'unit', 'is_current', 'is_valid', 'collected_at', 'doc', 'raw_capture'],
     'model': ['name', 'status', 'primary_method', 'required_return', 'base_year', 'terminal_year', 'shares', 'rf', 'erp', 'base_discount_rate',
               'sotp_year', 'valuation_date'],
@@ -110,10 +113,8 @@ COLUMNS = {
     'sensitivity': ['label', 'r', 'g', 'value_today', 'value_base_date'],
     'check': ['code', 'name', 'result', 'detail'],
 }
-# 公司数据页“定期经营数据”标签的列（自动采集标签用 COLUMNS['observation']）
-DISCLOSED_COLUMNS = ['metric', 'period', 'basis', 'value', 'unit', 'yoy', 'summary', 'doc']
 SORT = {'observation': [('obs_date', 'desc')], 'raw_capture': [('collected_at', 'desc')], 'collect_run': [('id', 'desc')], 'change_log': [('change_date', 'desc')],
-        'key_metric': [('model_order', 'asc'), ('name', 'asc')], 'fit_score': [('sort', 'asc')], 'forecast': [('year', 'asc')],
+        'key_metric': [('model_order', 'asc'), ('name', 'asc')], 'event': [('latest_as_of', 'desc')], 'fact': [('event_id', 'asc'), ('as_of', 'asc')], 'metric_series': [('name', 'asc')], 'fit_score': [('sort', 'asc')], 'forecast': [('year', 'asc')],
         'projection': [('id', 'asc')], 'sotp': [('id', 'asc')], 'sotp_item': [('code', 'asc'), ('id', 'asc')], 'sotp_segment': [('code', 'asc'), ('id', 'asc')], 'risk': [('code', 'asc')], 'metric': [('category', 'asc'), ('name', 'asc')], 'balance': [('id', 'asc')], 'valuation': [('id', 'asc')], 'sensitivity': [('id', 'asc')], 'check': [('id', 'asc')]}
 
 
@@ -179,7 +180,7 @@ def default_groups(code):
 
 def blueprint(code, page_title, group_route, company=None, scope=None, prefix=None):
     """一个表格页面。company＝{'id','code','name'} 时只显示这家公司的记录（区块数据范围）。"""
-    src = 'metric' if code == 'key_metric' else code          # 重点指标是指标表的一个视角
+    src = 'metric' if code in ('key_metric', 'metric_series') else code    # 重点指标、数据底稿的指标序列都是指标表的视角
     t = T[src]
     coll = f'vi_{src}'
     report = code in REPORT_CODES
@@ -194,7 +195,8 @@ def blueprint(code, page_title, group_route, company=None, scope=None, prefix=No
         fg = default_groups(c[3:])
         if fg:
             defaults['collections'][c]['fieldGroups'] = fg
-    # 区块说明栏写这张表的一句话定位（spec.role_line），录入前就能看到；标题留空（默认的“基础表 · …”没有信息）
+    # 区块说明栏先写一句话定位（spec.role_line），建完页面由 table_notes.py 改写成四条（定位、基本表、引用、被引用）；
+    # 标题留空（默认的“基础表 · …”没有信息）
     settings = {'title': '', 'description': spec.role_line(t), 'pageSize': 50, 'sorting': [{'field': f, 'direction': d} for f, d in SORT.get(code, [('id', 'asc')])]}
     if scope:
         settings['dataScope'] = scope
@@ -224,6 +226,10 @@ def blueprint(code, page_title, group_route, company=None, scope=None, prefix=No
         import metric_detail
         block['recordActions'][0] = metric_detail.view_action(page_title)
         assets = metric_detail.ASSETS
+    if src == 'event':                           # 点开事项：简介与各个侧面的时间线（event_detail.py）
+        import event_detail
+        block['recordActions'][0] = event_detail.view_action(page_title)
+        assets = event_detail.ASSETS
     nav = {'group': {'routeId': group_route}, 'item': {'title': page_title, 'icon': 'TableOutlined' if not report else 'FundOutlined'}}
     prefix = prefix or (company['name'] if company else '价值投资框架')
     tabs = [{'title': page_title, 'blocks': [block]}]
@@ -235,22 +241,26 @@ def blueprint(code, page_title, group_route, company=None, scope=None, prefix=No
                                            {'path': 'tracked_codes', 'operator': '$notIncludes', 'value': f",{company['code']},"}]}]}
         model = {'logic': '$and', 'items': [own, {'path': 'model_field', 'operator': '$notEmpty', 'value': True}]}
         tracked = {'logic': '$and', 'items': [{'path': 'tracked_codes', 'operator': '$includes', 'value': f",{company['code']},"}]}
-        tabs = [{'title': '模型数据', 'blocks': [dict(block, key='model', settings=dict(settings, dataScope=model,
-                    description='财务模型历史一侧用到的数（收入、成本、利润、现金、负债、分红、业务量等），按年汇总给财务模型和自动检查。点开看趋势与逐期数据。'))]},
-                {'title': '跟踪指标', 'blocks': [dict(block, key='tracked', settings=dict(settings, dataScope=tracked,
-                    description='假设依据的“跟踪指标”、风险的“预警指标”关联到的指标：最新值、是否到期。要盯新的数，在假设依据或风险里关联指标；为什么盯写在指标说明。'))]},
-                {'title': '其他指标', 'blocks': [dict(block, key='rest', settings=dict(settings, dataScope=rest,
-                    description='没有进模型、也没有被假设依据或风险盯着的指标：分部数据、行情与用到的宏观数据等。新建指标点“添加”；被关联或设了模型字段后会出现在前两个标签。'))]}]
-    if company and code == 'observation' and not scope:    # 公司的业务页：定期经营数据 ｜ 高频业务数据
-        from data_domains import business_scope, business_description
-        auto = business_scope(company, automatic=True)
-        disclosed = business_scope(company)
-        dcols = [rel_popup(rels[c]) if c in rels else c for c in DISCLOSED_COLUMNS]
-        tabs = [{'title': '定期经营数据', 'blocks': [dict(block, key='disclosed', fields=dcols, settings=dict(settings, dataScope=disclosed))]},
-                {'title': '高频业务数据', 'blocks': [dict(block, key='auto', settings=dict(settings, dataScope=auto))]}]
-        for tab in tabs:
-            for entry in tab['blocks']:
-                entry['settings']['description'] = business_description(automatic=entry['key'] == 'auto')
+        tabs = [{'title': '模型数据', 'blocks': [dict(block, key='model', settings=dict(settings, dataScope=model))]},
+                {'title': '跟踪指标', 'blocks': [dict(block, key='tracked', settings=dict(settings, dataScope=tracked))]},
+                {'title': '其他指标', 'blocks': [dict(block, key='rest', settings=dict(settings, dataScope=rest))]}]
+    if company and code == 'fact' and not scope:           # 定性事实：事项（一件事一行）｜ 全部事实（各侧面平铺，在这里挂“所属事项”）
+        b = blueprint('event', page_title, group_route, company, prefix=prefix)
+        tabs = [{'title': '事项', 'blocks': [dict(b['tabs'][0]['blocks'][0], key='events')]},
+                {'title': '全部事实', 'blocks': [dict(block, key='facts')]}]
+        defaults['collections'].update(b['defaults']['collections'])
+        assets = b.get('assets')
+    if company and code == 'observation' and not scope:    # 数据底稿 / 定量指标：定期经营 ｜ 高频经营 ｜ 分部与财务补充，每个指标一行（趋势小折线）
+        from data_domains import business_scope
+        tabs, defaults = [], {'collections': {}}
+        from data_domains import financial_supplement_scope
+        for title, key, sc in (('定期经营', 'disclosed', business_scope(company)),
+                               ('高频经营', 'auto', business_scope(company, automatic=True)),
+                               ('分部与财务补充', 'supplement', financial_supplement_scope(company))):
+            b = blueprint('metric_series', page_title, group_route, company, scope=sc, prefix=prefix)
+            tabs.append({'title': title, 'blocks': [dict(b['tabs'][0]['blocks'][0], key=key)]})
+            defaults['collections'].update(b['defaults']['collections'])
+            assets = b.get('assets')
     return {'version': '1', 'mode': 'create', 'navigation': nav,
             'page': {'title': page_title, 'documentTitle': f'{prefix} · {page_title}', **({'enableTabs': True} if len(tabs) > 1 else {})},
             'defaults': defaults, 'tabs': tabs, **({'assets': assets} if assets else {})}
@@ -460,16 +470,10 @@ def order_tabs(key, titles):
         nb_json('flow-surfaces', 'move-tab', '--source-uid', uid[b], '--target-uid', uid[a], '--position', 'after')
 
 
-def describe_pages():
-    """已建页面重写区块说明（spec.role_line）：改了表的定位或关联之后执行。新页面由 blueprint() 直接带上。"""
-    for key in state()['pages']:
-        t = T.get(key.split('@')[0])
-        if not t:
-            continue
-        uid = next(b['uid'] for b in blocks(page_tree(key)['tree']) if b.get('use') == 'TableBlockModel')
-        nb_json('flow-surfaces', 'configure', '--target', json.dumps({'uid': uid}),
-                '--changes', json.dumps({'title': '', 'description': spec.role_line(t)}, ensure_ascii=False))
-        print(key, '说明 OK')
+def describe_pages(tops=None):
+    """全部表格区块重写说明栏（table_notes.py 四条：定位、基本表、引用、被引用）。建完或重建任何页面、改了表的关联之后执行。"""
+    import table_notes
+    table_notes.apply(table_notes.Notes(), tops)
 
 
 def blocks(x):
@@ -579,7 +583,7 @@ def sort_menu(company_codes=None):
     sub_order = {g: [t for _, t in pages] for g, _, pages in COMPANY_MENU} | {SHARED_SUB[0]: [t for _, t in SHARED_SUB[2]]}
     # 可视化页不在 COMPANY_MENU 里：财务数据（build_finstmt.py，季度三大报表）在数据底稿里跟在数据后面；
     # 财务模型（build_finmodel.py）在预测与估值表格页前；定制估值页（build_valuation.py）在最前，模型底稿子组在最后
-    sub_order['数据底稿'] = ['业务数据', '财务数据'] + [t for t in sub_order['数据底稿'] if t not in ('业务数据', '财务数据')]
+    sub_order['数据底稿'] = ['财务报表', '定量指标', '定性事实', '来源文档']   # 原始报表 → 指标 → 定性 → 出处
     sub_order['预测与估值'] = ['重点指标', '财务模型', '估值'] + [t for t in sub_order['预测与估值'] if t != '重点指标'] + [DRAFTS]
     sub_order[DRAFTS] = sub_order['预测与估值']
     for g in current_routes:
@@ -617,7 +621,7 @@ def sort_menu(company_codes=None):
 if __name__ == '__main__':
     # python3 build_pages.py                 共用页面＋所有公司
     # python3 build_pages.py 002078.SZ       只建这家公司的页面（新公司加入后执行）
-    # python3 build_pages.py --describe      已建页面重写区块说明（表的一句话定位，spec.role_line）
+    # python3 build_pages.py --describe      全部表格区块重写说明栏（table_notes.py）
     if '--describe' in sys.argv:
         describe_pages(); sys.exit()
     want = set(sys.argv[1:])
@@ -628,3 +632,4 @@ if __name__ == '__main__':
             sys.exit(1)
     import scope_selects
     scope_selects.main()
+    describe_pages({co['name'] for co in companies() if co['code'] in want} if want else None)

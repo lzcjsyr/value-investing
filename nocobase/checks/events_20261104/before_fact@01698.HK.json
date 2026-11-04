@@ -1,0 +1,5448 @@
+{
+ "target": {
+  "locator": {
+   "pageSchemaUid": "yrdxconk433"
+  },
+  "uid": "p5h0cgmh6la",
+  "kind": "page"
+ },
+ "tree": {
+  "parentId": "yrdxconk433",
+  "subKey": "page",
+  "subType": "object",
+  "use": "RootPageModel",
+  "props": {
+   "routeId": 393657428475904,
+   "title": "定性事实",
+   "enableTabs": false,
+   "displayTitle": true,
+   "icon": "TableOutlined",
+   "enableHeader": false
+  },
+  "stepParams": {
+   "pageSettings": {
+    "general": {
+     "title": "定性事实",
+     "displayTitle": true,
+     "enableTabs": false,
+     "documentTitle": "腾讯音乐 · 定性事实",
+     "icon": "TableOutlined",
+     "enableHeader": false
+    }
+   }
+  },
+  "parent": "yrdxconk433",
+  "uid": "p5h0cgmh6la",
+  "subModels": {
+   "tabs": [
+    {
+     "uid": "2kwz9c9unrq",
+     "use": "RootPageTabModel",
+     "props": {
+      "route": {
+       "createdAt": "2026-10-23T05:48:09.965Z",
+       "updatedAt": "2026-11-04T03:32:59.547Z",
+       "id": 393657428475905,
+       "parentId": 393657428475904,
+       "title": "定性事实",
+       "tooltip": null,
+       "icon": null,
+       "schemaUid": "2kwz9c9unrq",
+       "menuSchemaUid": null,
+       "tabSchemaName": "ih5t9q3sag0",
+       "type": "tabs",
+       "options": {
+        "flowRegistry": {},
+        "documentTitle": "腾讯音乐 · 重要事实"
+       },
+       "sort": 1,
+       "hideInMenu": null,
+       "enableTabs": null,
+       "enableHeader": null,
+       "displayTitle": null,
+       "hidden": true,
+       "createdById": null,
+       "updatedById": 1,
+       "children": []
+      },
+      "title": "定性事实",
+      "icon": null
+     },
+     "decoratorProps": {},
+     "flowRegistry": {},
+     "stepParams": {
+      "pageTabSettings": {
+       "tab": {
+        "title": "定性事实",
+        "icon": null,
+        "documentTitle": "腾讯音乐 · 重要事实"
+       }
+      }
+     },
+     "subModels": {
+      "grid": {
+       "parentId": "2kwz9c9unrq",
+       "subKey": "grid",
+       "subType": "object",
+       "use": "BlockGridModel",
+       "props": {
+        "rows": {
+         "row1": [
+          [
+           "z6y18c67jnn"
+          ]
+         ]
+        },
+        "sizes": {
+         "row1": [
+          24
+         ]
+        },
+        "rowOrder": [
+         "row1"
+        ]
+       },
+       "stepParams": {
+        "gridSettings": {
+         "grid": {
+          "rows": {
+           "row1": [
+            [
+             "z6y18c67jnn"
+            ]
+           ]
+          },
+          "sizes": {
+           "row1": [
+            24
+           ]
+          },
+          "rowOrder": [
+           "row1"
+          ]
+         }
+        }
+       },
+       "uid": "xrkv50dguem",
+       "subModels": {
+        "items": [
+         {
+          "parentId": "xrkv50dguem",
+          "subKey": "items",
+          "subType": "array",
+          "use": "TableBlockModel",
+          "props": {},
+          "decoratorProps": {},
+          "stepParams": {
+           "resourceSettings": {
+            "init": {
+             "dataSourceKey": "main",
+             "collectionName": "vi_fact"
+            }
+           },
+           "cardSettings": {
+            "titleDescription": {
+             "description": "① 功能定位：数字以外、会改变判断的事实：制度监管、合作授权、并购与资本运作、人事、诉讼、管理层表态、竞争对手动作，以及外部观点与估值参照。\n② 数据库基本表：\n　存储　vi_fact_base（页面上新增、修改都写回这里）\n③ 引用的前端表格：\n　关联选择　来源文档〔数据底稿 / 来源文档〕\n④ 被哪些前端表格引用：\n　关联选择　商业模式拆解〔商业模式 / 商业模式拆解〕、产业链与五力〔商业模式 / 产业链与五力〕、竞争对手〔商业模式 / 产业链与五力〕、竞争壁垒〔商业模式 / 竞争壁垒〕、核心论点〔商业模式 / 核心论点〕、风险分析〔商业模式 / 风险分析〕、假设依据〔预测与估值 / 模型底稿 / 假设依据〕、资产估值与调整〔预测与估值 / 估值模型〕、经营分部估值〔预测与估值 / 估值模型〕、逐年假设〔本公司没有这类记录；中国建筑、小米集团、太阳纸业在 预测与估值 / 财务模型，长江电力在 预测与估值 / 模型底稿 / 逐年假设〕"
+            }
+           },
+           "tableSettings": {
+            "pageSize": {
+             "pageSize": 50
+            },
+            "tableDensity": {
+             "size": "middle"
+            },
+            "defaultSorting": {
+             "sort": [
+              {
+               "field": "id",
+               "direction": "asc"
+              }
+             ]
+            },
+            "dataScope": {
+             "filter": {
+              "logic": "$and",
+              "items": [
+               {
+                "path": "company_id",
+                "operator": "$eq",
+                "value": 11
+               }
+              ]
+             }
+            }
+           }
+          },
+          "uid": "z6y18c67jnn",
+          "subModels": {
+           "columns": [
+            {
+             "use": "TableActionsColumnModel",
+             "props": {},
+             "decoratorProps": {},
+             "stepParams": {
+              "tableColumnSettings": {
+               "title": {
+                "title": "{{t(\"Actions\")}}"
+               }
+              }
+             },
+             "flowRegistry": {},
+             "subKey": "columns",
+             "subType": "array",
+             "uid": "vk7s0dhcg6c",
+             "subModels": {
+              "actions": [
+               {
+                "parentId": "vk7s0dhcg6c",
+                "subKey": "actions",
+                "subType": "array",
+                "use": "ViewActionModel",
+                "props": {
+                 "type": "link",
+                 "title": "{{t(\"View\")}}",
+                 "icon": null
+                },
+                "decoratorProps": {},
+                "stepParams": {
+                 "buttonSettings": {
+                  "general": {
+                   "title": "{{t(\"View\")}}",
+                   "icon": null,
+                   "type": "link",
+                   "iconOnly": false
+                  }
+                 },
+                 "popupSettings": {
+                  "openView": {
+                   "mode": "drawer",
+                   "size": "medium",
+                   "pageModelClass": "ChildPageModel",
+                   "dataSourceKey": "main",
+                   "collectionName": "vi_fact",
+                   "title": "{{t(\"Details\")}}"
+                  }
+                 }
+                },
+                "flowRegistry": {},
+                "uid": "l0qvd44ml57",
+                "parent": "vk7s0dhcg6c",
+                "sortIndex": 1,
+                "popup": {
+                 "template": {
+                  "uid": "dcix5nym9le",
+                  "mode": "reference"
+                 }
+                }
+               },
+               {
+                "parentId": "vk7s0dhcg6c",
+                "subKey": "actions",
+                "subType": "array",
+                "use": "EditActionModel",
+                "props": {
+                 "title": "{{t(\"Edit\")}}",
+                 "icon": null,
+                 "type": "link"
+                },
+                "decoratorProps": {},
+                "stepParams": {
+                 "buttonSettings": {
+                  "general": {
+                   "title": "{{t(\"Edit\")}}",
+                   "icon": null,
+                   "type": "link",
+                   "iconOnly": false
+                  }
+                 },
+                 "popupSettings": {
+                  "openView": {
+                   "mode": "drawer",
+                   "size": "medium",
+                   "pageModelClass": "ChildPageModel",
+                   "dataSourceKey": "main",
+                   "collectionName": "vi_fact",
+                   "title": "编辑 · 定性事实",
+                   "filterByTk": "{{ctx.record.id}}"
+                  }
+                 }
+                },
+                "flowRegistry": {},
+                "parent": "vk7s0dhcg6c",
+                "uid": "e6t9qzx9ky4",
+                "subModels": {
+                 "page": {
+                  "parentId": "e6t9qzx9ky4",
+                  "subKey": "page",
+                  "subType": "object",
+                  "use": "ChildPageModel",
+                  "props": {
+                   "displayTitle": false,
+                   "enableTabs": true
+                  },
+                  "stepParams": {
+                   "pageSettings": {
+                    "general": {
+                     "displayTitle": false,
+                     "enableTabs": true
+                    }
+                   }
+                  },
+                  "uid": "j2o4yuzme92",
+                  "subModels": {
+                   "tabs": [
+                    {
+                     "use": "ChildPageTabModel",
+                     "props": {
+                      "title": "{{t(\"Details\")}}"
+                     },
+                     "stepParams": {
+                      "pageTabSettings": {
+                       "tab": {
+                        "title": "{{t(\"Details\")}}"
+                       }
+                      }
+                     },
+                     "subKey": "tabs",
+                     "subType": "array",
+                     "uid": "na8wim798x4",
+                     "subModels": {
+                      "grid": {
+                       "use": "BlockGridModel",
+                       "subKey": "grid",
+                       "subType": "object",
+                       "props": {
+                        "rows": {
+                         "row1": [
+                          [
+                           "vrym1ihbsz7"
+                          ]
+                         ]
+                        },
+                        "sizes": {
+                         "row1": [
+                          24
+                         ]
+                        },
+                        "rowOrder": [
+                         "row1"
+                        ]
+                       },
+                       "stepParams": {
+                        "gridSettings": {
+                         "grid": {
+                          "rows": {
+                           "row1": [
+                            [
+                             "vrym1ihbsz7"
+                            ]
+                           ]
+                          },
+                          "sizes": {
+                           "row1": [
+                            24
+                           ]
+                          },
+                          "rowOrder": [
+                           "row1"
+                          ]
+                         }
+                        }
+                       },
+                       "uid": "lb1uqjkfdmv",
+                       "subModels": {
+                        "items": [
+                         {
+                          "parentId": "lb1uqjkfdmv",
+                          "subKey": "items",
+                          "subType": "array",
+                          "use": "EditFormModel",
+                          "props": {},
+                          "decoratorProps": {},
+                          "stepParams": {
+                           "resourceSettings": {
+                            "init": {
+                             "dataSourceKey": "main",
+                             "collectionName": "vi_fact",
+                             "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+                            }
+                           }
+                          },
+                          "uid": "vrym1ihbsz7",
+                          "subModels": {
+                           "grid": {
+                            "use": "FormGridModel",
+                            "subKey": "grid",
+                            "subType": "object",
+                            "stepParams": {
+                             "gridSettings": {
+                              "grid": {
+                               "rows": {
+                                "row1": [
+                                 [
+                                  "kqxikb7lx33"
+                                 ],
+                                 [
+                                  "e67h6gz4c30"
+                                 ]
+                                ],
+                                "row2": [
+                                 [
+                                  "pa1klsqh0f1"
+                                 ],
+                                 [
+                                  "v5ne9lydqvf"
+                                 ]
+                                ],
+                                "row3": [
+                                 [
+                                  "fs89tkjbwl2"
+                                 ],
+                                 [
+                                  "jeprshbraca"
+                                 ]
+                                ],
+                                "row4": [
+                                 [
+                                  "tjihv5ari1w"
+                                 ],
+                                 [
+                                  "yzu6sznproe"
+                                 ]
+                                ],
+                                "row5": [
+                                 [
+                                  "tl9gufxdsnv"
+                                 ]
+                                ]
+                               },
+                               "sizes": {
+                                "row1": [
+                                 12,
+                                 12
+                                ],
+                                "row2": [
+                                 12,
+                                 12
+                                ],
+                                "row3": [
+                                 12,
+                                 12
+                                ],
+                                "row4": [
+                                 12,
+                                 12
+                                ],
+                                "row5": [
+                                 24
+                                ]
+                               },
+                               "rowOrder": [
+                                "row1",
+                                "row2",
+                                "row3",
+                                "row4",
+                                "row5"
+                               ]
+                              }
+                             }
+                            },
+                            "props": {
+                             "rows": {
+                              "row1": [
+                               [
+                                "kqxikb7lx33"
+                               ],
+                               [
+                                "e67h6gz4c30"
+                               ]
+                              ],
+                              "row2": [
+                               [
+                                "pa1klsqh0f1"
+                               ],
+                               [
+                                "v5ne9lydqvf"
+                               ]
+                              ],
+                              "row3": [
+                               [
+                                "fs89tkjbwl2"
+                               ],
+                               [
+                                "jeprshbraca"
+                               ]
+                              ],
+                              "row4": [
+                               [
+                                "tjihv5ari1w"
+                               ],
+                               [
+                                "yzu6sznproe"
+                               ]
+                              ],
+                              "row5": [
+                               [
+                                "tl9gufxdsnv"
+                               ]
+                              ]
+                             },
+                             "sizes": {
+                              "row1": [
+                               12,
+                               12
+                              ],
+                              "row2": [
+                               12,
+                               12
+                              ],
+                              "row3": [
+                               12,
+                               12
+                              ],
+                              "row4": [
+                               12,
+                               12
+                              ],
+                              "row5": [
+                               24
+                              ]
+                             },
+                             "rowOrder": [
+                              "row1",
+                              "row2",
+                              "row3",
+                              "row4",
+                              "row5"
+                             ]
+                            },
+                            "uid": "c7avfxyo0n2",
+                            "subModels": {
+                             "items": [
+                              {
+                               "parentId": "c7avfxyo0n2",
+                               "subKey": "items",
+                               "subType": "array",
+                               "use": "FormItemModel",
+                               "props": {},
+                               "stepParams": {
+                                "fieldSettings": {
+                                 "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_fact",
+                                  "fieldPath": "title"
+                                 }
+                                }
+                               },
+                               "uid": "kqxikb7lx33",
+                               "subModels": {
+                                "field": {
+                                 "use": "InputFieldModel",
+                                 "props": {},
+                                 "stepParams": {
+                                  "fieldSettings": {
+                                   "init": {
+                                    "dataSourceKey": "main",
+                                    "collectionName": "vi_fact",
+                                    "fieldPath": "title"
+                                   }
+                                  }
+                                 },
+                                 "subKey": "field",
+                                 "subType": "object",
+                                 "uid": "wy4p1mw5chj",
+                                 "parent": "kqxikb7lx33",
+                                 "parentId": "kqxikb7lx33",
+                                 "sortIndex": 1,
+                                 "popup": {
+                                  "mode": "local"
+                                 }
+                                }
+                               },
+                               "parent": "c7avfxyo0n2",
+                               "sortIndex": 1,
+                               "popup": {
+                                "mode": "local"
+                               }
+                              },
+                              {
+                               "parentId": "c7avfxyo0n2",
+                               "subKey": "items",
+                               "subType": "array",
+                               "use": "FormItemModel",
+                               "props": {},
+                               "stepParams": {
+                                "fieldSettings": {
+                                 "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_fact",
+                                  "fieldPath": "category"
+                                 }
+                                }
+                               },
+                               "uid": "e67h6gz4c30",
+                               "subModels": {
+                                "field": {
+                                 "use": "SelectFieldModel",
+                                 "props": {
+                                  "allowClear": true
+                                 },
+                                 "stepParams": {
+                                  "fieldSettings": {
+                                   "init": {
+                                    "dataSourceKey": "main",
+                                    "collectionName": "vi_fact",
+                                    "fieldPath": "category"
+                                   }
+                                  }
+                                 },
+                                 "subKey": "field",
+                                 "subType": "object",
+                                 "uid": "zlq4rv4otzf",
+                                 "parent": "e67h6gz4c30",
+                                 "parentId": "e67h6gz4c30",
+                                 "sortIndex": 1,
+                                 "popup": {
+                                  "mode": "local"
+                                 }
+                                }
+                               },
+                               "parent": "c7avfxyo0n2",
+                               "sortIndex": 2,
+                               "popup": {
+                                "mode": "local"
+                               }
+                              },
+                              {
+                               "parentId": "c7avfxyo0n2",
+                               "subKey": "items",
+                               "subType": "array",
+                               "use": "FormItemModel",
+                               "props": {},
+                               "stepParams": {
+                                "fieldSettings": {
+                                 "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_fact",
+                                  "fieldPath": "statement"
+                                 }
+                                }
+                               },
+                               "uid": "pa1klsqh0f1",
+                               "subModels": {
+                                "field": {
+                                 "use": "TextareaFieldModel",
+                                 "props": {
+                                  "autoSize": {
+                                   "maxRows": 10,
+                                   "minRows": 3
+                                  }
+                                 },
+                                 "stepParams": {
+                                  "fieldSettings": {
+                                   "init": {
+                                    "dataSourceKey": "main",
+                                    "collectionName": "vi_fact",
+                                    "fieldPath": "statement"
+                                   }
+                                  }
+                                 },
+                                 "subKey": "field",
+                                 "subType": "object",
+                                 "uid": "sktqlr01qn9",
+                                 "parent": "pa1klsqh0f1",
+                                 "parentId": "pa1klsqh0f1",
+                                 "sortIndex": 1,
+                                 "popup": {
+                                  "mode": "local"
+                                 }
+                                }
+                               },
+                               "parent": "c7avfxyo0n2",
+                               "sortIndex": 3,
+                               "popup": {
+                                "mode": "local"
+                               }
+                              },
+                              {
+                               "parentId": "c7avfxyo0n2",
+                               "subKey": "items",
+                               "subType": "array",
+                               "use": "FormItemModel",
+                               "props": {},
+                               "stepParams": {
+                                "fieldSettings": {
+                                 "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_fact",
+                                  "fieldPath": "period"
+                                 }
+                                }
+                               },
+                               "uid": "v5ne9lydqvf",
+                               "subModels": {
+                                "field": {
+                                 "use": "InputFieldModel",
+                                 "props": {},
+                                 "stepParams": {
+                                  "fieldSettings": {
+                                   "init": {
+                                    "dataSourceKey": "main",
+                                    "collectionName": "vi_fact",
+                                    "fieldPath": "period"
+                                   }
+                                  }
+                                 },
+                                 "subKey": "field",
+                                 "subType": "object",
+                                 "uid": "f1p1nu4g7qy",
+                                 "parent": "v5ne9lydqvf",
+                                 "parentId": "v5ne9lydqvf",
+                                 "sortIndex": 1,
+                                 "popup": {
+                                  "mode": "local"
+                                 }
+                                }
+                               },
+                               "parent": "c7avfxyo0n2",
+                               "sortIndex": 4,
+                               "popup": {
+                                "mode": "local"
+                               }
+                              },
+                              {
+                               "parentId": "c7avfxyo0n2",
+                               "subKey": "items",
+                               "subType": "array",
+                               "use": "FormItemModel",
+                               "props": {},
+                               "stepParams": {
+                                "fieldSettings": {
+                                 "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_fact",
+                                  "fieldPath": "as_of"
+                                 }
+                                }
+                               },
+                               "uid": "fs89tkjbwl2",
+                               "subModels": {
+                                "field": {
+                                 "use": "InputFieldModel",
+                                 "props": {},
+                                 "stepParams": {
+                                  "fieldSettings": {
+                                   "init": {
+                                    "dataSourceKey": "main",
+                                    "collectionName": "vi_fact",
+                                    "fieldPath": "as_of"
+                                   }
+                                  }
+                                 },
+                                 "subKey": "field",
+                                 "subType": "object",
+                                 "uid": "bz0v5jfr35w",
+                                 "parent": "fs89tkjbwl2",
+                                 "parentId": "fs89tkjbwl2",
+                                 "sortIndex": 1,
+                                 "popup": {
+                                  "mode": "local"
+                                 }
+                                }
+                               },
+                               "parent": "c7avfxyo0n2",
+                               "sortIndex": 5,
+                               "popup": {
+                                "mode": "local"
+                               }
+                              },
+                              {
+                               "parentId": "c7avfxyo0n2",
+                               "subKey": "items",
+                               "subType": "array",
+                               "use": "FormItemModel",
+                               "props": {},
+                               "stepParams": {
+                                "fieldSettings": {
+                                 "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_fact",
+                                  "fieldPath": "verify_status"
+                                 }
+                                }
+                               },
+                               "uid": "jeprshbraca",
+                               "subModels": {
+                                "field": {
+                                 "use": "SelectFieldModel",
+                                 "props": {
+                                  "allowClear": true
+                                 },
+                                 "stepParams": {
+                                  "fieldSettings": {
+                                   "init": {
+                                    "dataSourceKey": "main",
+                                    "collectionName": "vi_fact",
+                                    "fieldPath": "verify_status"
+                                   }
+                                  }
+                                 },
+                                 "subKey": "field",
+                                 "subType": "object",
+                                 "uid": "dhpqd9ewt1m",
+                                 "parent": "jeprshbraca",
+                                 "parentId": "jeprshbraca",
+                                 "sortIndex": 1,
+                                 "popup": {
+                                  "mode": "local"
+                                 }
+                                }
+                               },
+                               "parent": "c7avfxyo0n2",
+                               "sortIndex": 6,
+                               "popup": {
+                                "mode": "local"
+                               }
+                              },
+                              {
+                               "parentId": "c7avfxyo0n2",
+                               "subKey": "items",
+                               "subType": "array",
+                               "use": "FormItemModel",
+                               "props": {},
+                               "stepParams": {
+                                "fieldSettings": {
+                                 "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_fact",
+                                  "fieldPath": "notes"
+                                 }
+                                }
+                               },
+                               "uid": "tjihv5ari1w",
+                               "subModels": {
+                                "field": {
+                                 "use": "TextareaFieldModel",
+                                 "props": {
+                                  "autoSize": {
+                                   "maxRows": 10,
+                                   "minRows": 3
+                                  }
+                                 },
+                                 "stepParams": {
+                                  "fieldSettings": {
+                                   "init": {
+                                    "dataSourceKey": "main",
+                                    "collectionName": "vi_fact",
+                                    "fieldPath": "notes"
+                                   }
+                                  }
+                                 },
+                                 "subKey": "field",
+                                 "subType": "object",
+                                 "uid": "gvzrm2q0pla",
+                                 "parent": "tjihv5ari1w",
+                                 "parentId": "tjihv5ari1w",
+                                 "sortIndex": 1,
+                                 "popup": {
+                                  "mode": "local"
+                                 }
+                                }
+                               },
+                               "parent": "c7avfxyo0n2",
+                               "sortIndex": 7,
+                               "popup": {
+                                "mode": "local"
+                               }
+                              },
+                              {
+                               "parentId": "c7avfxyo0n2",
+                               "subKey": "items",
+                               "subType": "array",
+                               "use": "FormItemModel",
+                               "props": {
+                                "titleField": "name"
+                               },
+                               "stepParams": {
+                                "fieldSettings": {
+                                 "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_fact",
+                                  "fieldPath": "company"
+                                 }
+                                },
+                                "editItemSettings": {
+                                 "titleField": {
+                                  "label": "name"
+                                 }
+                                }
+                               },
+                               "uid": "yzu6sznproe",
+                               "subModels": {
+                                "field": {
+                                 "use": "RecordSelectFieldModel",
+                                 "props": {
+                                  "titleField": "name"
+                                 },
+                                 "stepParams": {
+                                  "fieldSettings": {
+                                   "init": {
+                                    "dataSourceKey": "main",
+                                    "collectionName": "vi_fact",
+                                    "fieldPath": "company"
+                                   }
+                                  }
+                                 },
+                                 "subKey": "field",
+                                 "subType": "object",
+                                 "uid": "if38txj5rqd",
+                                 "parent": "yzu6sznproe",
+                                 "parentId": "yzu6sznproe",
+                                 "sortIndex": 1,
+                                 "popup": {
+                                  "mode": "local"
+                                 }
+                                }
+                               },
+                               "parent": "c7avfxyo0n2",
+                               "sortIndex": 8,
+                               "popup": {
+                                "mode": "local"
+                               }
+                              },
+                              {
+                               "parentId": "c7avfxyo0n2",
+                               "subKey": "items",
+                               "subType": "array",
+                               "use": "FormItemModel",
+                               "props": {
+                                "titleField": "title"
+                               },
+                               "stepParams": {
+                                "fieldSettings": {
+                                 "init": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "vi_fact",
+                                  "fieldPath": "source"
+                                 }
+                                },
+                                "editItemSettings": {
+                                 "titleField": {
+                                  "label": "title"
+                                 }
+                                }
+                               },
+                               "uid": "tl9gufxdsnv",
+                               "subModels": {
+                                "field": {
+                                 "use": "RecordSelectFieldModel",
+                                 "props": {
+                                  "titleField": "title"
+                                 },
+                                 "stepParams": {
+                                  "fieldSettings": {
+                                   "init": {
+                                    "dataSourceKey": "main",
+                                    "collectionName": "vi_fact",
+                                    "fieldPath": "source"
+                                   }
+                                  },
+                                  "selectSettings": {
+                                   "dataScope": {
+                                    "filter": {
+                                     "logic": "$and",
+                                     "items": [
+                                      {
+                                       "path": "company_id",
+                                       "operator": "$eq",
+                                       "value": "{{ctx.formValues.company.id}}"
+                                      }
+                                     ]
+                                    }
+                                   }
+                                  }
+                                 },
+                                 "subKey": "field",
+                                 "subType": "object",
+                                 "uid": "ml95kpaxe8d",
+                                 "parent": "tl9gufxdsnv",
+                                 "parentId": "tl9gufxdsnv",
+                                 "sortIndex": 1,
+                                 "popup": {
+                                  "mode": "local"
+                                 }
+                                }
+                               },
+                               "parent": "c7avfxyo0n2",
+                               "sortIndex": 9,
+                               "popup": {
+                                "mode": "local"
+                               }
+                              }
+                             ]
+                            },
+                            "parent": "vrym1ihbsz7",
+                            "parentId": "vrym1ihbsz7",
+                            "sortIndex": 1,
+                            "popup": {
+                             "mode": "local"
+                            }
+                           },
+                           "actions": [
+                            {
+                             "parentId": "vrym1ihbsz7",
+                             "subKey": "actions",
+                             "subType": "array",
+                             "use": "FormSubmitActionModel",
+                             "props": {
+                              "title": "{{t(\"Submit\")}}",
+                              "type": "primary",
+                              "htmlType": "submit"
+                             },
+                             "decoratorProps": {},
+                             "stepParams": {
+                              "buttonSettings": {
+                               "general": {
+                                "title": "{{t(\"Submit\")}}",
+                                "type": "primary"
+                               }
+                              },
+                              "submitSettings": {
+                               "confirm": {
+                                "enable": false,
+                                "title": "{{t(\"Submit record\")}}",
+                                "content": "{{t(\"Are you sure you want to save it?\")}}"
+                               }
+                              }
+                             },
+                             "flowRegistry": {},
+                             "uid": "99ncxb17ms9",
+                             "parent": "vrym1ihbsz7",
+                             "sortIndex": 1,
+                             "popup": {
+                              "mode": "local"
+                             }
+                            }
+                           ]
+                          },
+                          "parent": "lb1uqjkfdmv",
+                          "sortIndex": 1,
+                          "popup": {
+                           "mode": "local"
+                          }
+                         }
+                        ]
+                       },
+                       "parent": "na8wim798x4",
+                       "parentId": "na8wim798x4",
+                       "sortIndex": 1,
+                       "popup": {
+                        "mode": "local"
+                       }
+                      }
+                     },
+                     "parent": "j2o4yuzme92",
+                     "parentId": "j2o4yuzme92",
+                     "sortIndex": 1,
+                     "popup": {
+                      "mode": "local"
+                     }
+                    }
+                   ]
+                  },
+                  "parent": "e6t9qzx9ky4",
+                  "sortIndex": 1,
+                  "popup": {
+                   "mode": "local"
+                  }
+                 }
+                },
+                "sortIndex": 2,
+                "popup": {
+                 "mode": "local",
+                 "pageUid": "j2o4yuzme92",
+                 "tabUid": "na8wim798x4",
+                 "gridUid": "lb1uqjkfdmv"
+                }
+               },
+               {
+                "parentId": "vk7s0dhcg6c",
+                "subKey": "actions",
+                "subType": "array",
+                "use": "DeleteActionModel",
+                "props": {
+                 "type": "link",
+                 "title": "{{t(\"Delete\")}}",
+                 "icon": null
+                },
+                "decoratorProps": {},
+                "stepParams": {
+                 "buttonSettings": {
+                  "general": {
+                   "title": "{{t(\"Delete\")}}",
+                   "icon": null,
+                   "type": "link",
+                   "iconOnly": false
+                  }
+                 },
+                 "deleteSettings": {
+                  "confirm": {
+                   "enable": true,
+                   "title": "{{t(\"Delete record\")}}",
+                   "content": "{{t(\"Are you sure you want to delete it?\")}}"
+                  }
+                 }
+                },
+                "flowRegistry": {},
+                "uid": "ozzzd4jita5",
+                "parent": "vk7s0dhcg6c",
+                "sortIndex": 3,
+                "popup": {
+                 "mode": "local"
+                }
+               }
+              ]
+             },
+             "parent": "z6y18c67jnn",
+             "parentId": "z6y18c67jnn",
+             "sortIndex": 1,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "z6y18c67jnn",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {
+              "width": 280
+             },
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_fact",
+                "fieldPath": "title"
+               }
+              },
+              "tableColumnSettings": {
+               "width": {
+                "width": 280
+               }
+              }
+             },
+             "uid": "53ike3tgutt",
+             "subModels": {
+              "field": {
+               "use": "DisplayTextFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_fact",
+                  "fieldPath": "title"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "59sxtg5xddz",
+               "parent": "53ike3tgutt",
+               "parentId": "53ike3tgutt",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "z6y18c67jnn",
+             "sortIndex": 2,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "z6y18c67jnn",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {
+              "width": 140
+             },
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_fact",
+                "fieldPath": "category"
+               }
+              },
+              "tableColumnSettings": {
+               "width": {
+                "width": 140
+               }
+              }
+             },
+             "uid": "70n51gmuwyz",
+             "subModels": {
+              "field": {
+               "use": "DisplayEnumFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_fact",
+                  "fieldPath": "category"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "0qu9ixpaid4",
+               "parent": "70n51gmuwyz",
+               "parentId": "70n51gmuwyz",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "z6y18c67jnn",
+             "sortIndex": 3,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "z6y18c67jnn",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {
+              "width": 200
+             },
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_fact",
+                "fieldPath": "period"
+               }
+              },
+              "tableColumnSettings": {
+               "width": {
+                "width": 200
+               }
+              }
+             },
+             "uid": "w8w6hfs6ksb",
+             "subModels": {
+              "field": {
+               "use": "DisplayTextFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_fact",
+                  "fieldPath": "period"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "ap0yuruubqe",
+               "parent": "w8w6hfs6ksb",
+               "parentId": "w8w6hfs6ksb",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "z6y18c67jnn",
+             "sortIndex": 4,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "z6y18c67jnn",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {
+              "width": 140
+             },
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_fact",
+                "fieldPath": "verify_status"
+               }
+              },
+              "tableColumnSettings": {
+               "width": {
+                "width": 140
+               }
+              }
+             },
+             "uid": "mrd8sh9bucv",
+             "subModels": {
+              "field": {
+               "use": "DisplayEnumFieldModel",
+               "props": {},
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_fact",
+                  "fieldPath": "verify_status"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "pipi73v7bdu",
+               "parent": "mrd8sh9bucv",
+               "parentId": "mrd8sh9bucv",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "parent": "z6y18c67jnn",
+             "sortIndex": 5,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "z6y18c67jnn",
+             "subKey": "columns",
+             "subType": "array",
+             "use": "TableColumnModel",
+             "props": {
+              "titleField": "title",
+              "width": 200
+             },
+             "stepParams": {
+              "fieldSettings": {
+               "init": {
+                "dataSourceKey": "main",
+                "collectionName": "vi_fact",
+                "fieldPath": "source"
+               }
+              },
+              "tableColumnSettings": {
+               "fieldNames": {
+                "label": "title"
+               },
+               "width": {
+                "width": 200
+               }
+              }
+             },
+             "uid": "h8rcd34hsqy",
+             "subModels": {
+              "field": {
+               "use": "DisplayTextFieldModel",
+               "props": {
+                "titleField": "title",
+                "clickToOpen": true
+               },
+               "stepParams": {
+                "fieldSettings": {
+                 "init": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_fact",
+                  "fieldPath": "source"
+                 }
+                },
+                "displayFieldSettings": {
+                 "clickToOpen": {
+                  "clickToOpen": true
+                 }
+                },
+                "popupSettings": {
+                 "openView": {
+                  "dataSourceKey": "main",
+                  "collectionName": "vi_source",
+                  "mode": "drawer",
+                  "size": "medium",
+                  "pageModelClass": "ChildPageModel",
+                  "associationName": "vi_fact.source",
+                  "title": "来源文档"
+                 }
+                }
+               },
+               "subKey": "field",
+               "subType": "object",
+               "uid": "mgzvfqn9jqd",
+               "subModels": {
+                "page": {
+                 "parentId": "mgzvfqn9jqd",
+                 "subKey": "page",
+                 "subType": "object",
+                 "use": "ChildPageModel",
+                 "props": {
+                  "displayTitle": false,
+                  "enableTabs": true
+                 },
+                 "stepParams": {
+                  "pageSettings": {
+                   "general": {
+                    "displayTitle": false,
+                    "enableTabs": true
+                   }
+                  }
+                 },
+                 "uid": "k3x9uzrifc2",
+                 "subModels": {
+                  "tabs": [
+                   {
+                    "use": "ChildPageTabModel",
+                    "props": {
+                     "title": "{{t(\"Details\")}}"
+                    },
+                    "stepParams": {
+                     "pageTabSettings": {
+                      "tab": {
+                       "title": "{{t(\"Details\")}}"
+                      }
+                     }
+                    },
+                    "subKey": "tabs",
+                    "subType": "array",
+                    "uid": "ps1mu8ya170",
+                    "subModels": {
+                     "grid": {
+                      "use": "BlockGridModel",
+                      "subKey": "grid",
+                      "subType": "object",
+                      "props": {
+                       "rows": {
+                        "row1": [
+                         [
+                          "hu19bwn8rw4"
+                         ]
+                        ]
+                       },
+                       "sizes": {
+                        "row1": [
+                         24
+                        ]
+                       },
+                       "rowOrder": [
+                        "row1"
+                       ]
+                      },
+                      "stepParams": {
+                       "gridSettings": {
+                        "grid": {
+                         "rows": {
+                          "row1": [
+                           [
+                            "hu19bwn8rw4"
+                           ]
+                          ]
+                         },
+                         "sizes": {
+                          "row1": [
+                           24
+                          ]
+                         },
+                         "rowOrder": [
+                          "row1"
+                         ]
+                        }
+                       }
+                      },
+                      "uid": "l28hvn1ixke",
+                      "subModels": {
+                       "items": [
+                        {
+                         "parentId": "l28hvn1ixke",
+                         "subKey": "items",
+                         "subType": "array",
+                         "use": "DetailsBlockModel",
+                         "props": {},
+                         "decoratorProps": {},
+                         "stepParams": {
+                          "resourceSettings": {
+                           "init": {
+                            "dataSourceKey": "main",
+                            "collectionName": "vi_source",
+                            "filterByTk": "{{ctx.record.id}}",
+                            "associationName": "vi_fact.source",
+                            "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+                           }
+                          }
+                         },
+                         "uid": "hu19bwn8rw4",
+                         "subModels": {
+                          "grid": {
+                           "use": "DetailsGridModel",
+                           "subKey": "grid",
+                           "subType": "object",
+                           "stepParams": {
+                            "gridSettings": {
+                             "grid": {
+                              "rows": {
+                               "row1": [
+                                [
+                                 "f79xsaoh60m"
+                                ],
+                                [
+                                 "ldr306xmsu7"
+                                ]
+                               ],
+                               "row2": [
+                                [
+                                 "j614cv1qffs"
+                                ],
+                                [
+                                 "z56ssaepanv"
+                                ]
+                               ],
+                               "row3": [
+                                [
+                                 "7tzjpwjbh0d"
+                                ],
+                                [
+                                 "iqgkbbcaudg"
+                                ]
+                               ]
+                              },
+                              "sizes": {
+                               "row1": [
+                                12,
+                                12
+                               ],
+                               "row2": [
+                                12,
+                                12
+                               ],
+                               "row3": [
+                                12,
+                                12
+                               ]
+                              },
+                              "rowOrder": [
+                               "row1",
+                               "row2",
+                               "row3"
+                              ]
+                             }
+                            }
+                           },
+                           "props": {
+                            "rows": {
+                             "row1": [
+                              [
+                               "f79xsaoh60m"
+                              ],
+                              [
+                               "ldr306xmsu7"
+                              ]
+                             ],
+                             "row2": [
+                              [
+                               "j614cv1qffs"
+                              ],
+                              [
+                               "z56ssaepanv"
+                              ]
+                             ],
+                             "row3": [
+                              [
+                               "7tzjpwjbh0d"
+                              ],
+                              [
+                               "iqgkbbcaudg"
+                              ]
+                             ]
+                            },
+                            "sizes": {
+                             "row1": [
+                              12,
+                              12
+                             ],
+                             "row2": [
+                              12,
+                              12
+                             ],
+                             "row3": [
+                              12,
+                              12
+                             ]
+                            },
+                            "rowOrder": [
+                             "row1",
+                             "row2",
+                             "row3"
+                            ]
+                           },
+                           "uid": "igiqv7pg7bb",
+                           "subModels": {
+                            "items": [
+                             {
+                              "parentId": "igiqv7pg7bb",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_source",
+                                 "fieldPath": "title"
+                                }
+                               }
+                              },
+                              "uid": "f79xsaoh60m",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_source",
+                                   "fieldPath": "title"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "n4rhs0dkupn",
+                                "parent": "f79xsaoh60m",
+                                "parentId": "f79xsaoh60m",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "igiqv7pg7bb",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "igiqv7pg7bb",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_source",
+                                 "fieldPath": "source_type"
+                                }
+                               }
+                              },
+                              "uid": "ldr306xmsu7",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_source",
+                                   "fieldPath": "source_type"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "9el3t3im6di",
+                                "parent": "ldr306xmsu7",
+                                "parentId": "ldr306xmsu7",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "igiqv7pg7bb",
+                              "sortIndex": 2,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "igiqv7pg7bb",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_source",
+                                 "fieldPath": "publisher"
+                                }
+                               }
+                              },
+                              "uid": "j614cv1qffs",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_source",
+                                   "fieldPath": "publisher"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "h9n7w5z0xh6",
+                                "parent": "j614cv1qffs",
+                                "parentId": "j614cv1qffs",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "igiqv7pg7bb",
+                              "sortIndex": 3,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "igiqv7pg7bb",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_source",
+                                 "fieldPath": "publish_date"
+                                }
+                               }
+                              },
+                              "uid": "z56ssaepanv",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayTextFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_source",
+                                   "fieldPath": "publish_date"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "qmso2xcilan",
+                                "parent": "z56ssaepanv",
+                                "parentId": "z56ssaepanv",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "igiqv7pg7bb",
+                              "sortIndex": 4,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "igiqv7pg7bb",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_source",
+                                 "fieldPath": "url"
+                                }
+                               }
+                              },
+                              "uid": "7tzjpwjbh0d",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayURLFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_source",
+                                   "fieldPath": "url"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "2sn7lo1fm2b",
+                                "parent": "7tzjpwjbh0d",
+                                "parentId": "7tzjpwjbh0d",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "igiqv7pg7bb",
+                              "sortIndex": 5,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             },
+                             {
+                              "parentId": "igiqv7pg7bb",
+                              "subKey": "items",
+                              "subType": "array",
+                              "use": "DetailsItemModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_source",
+                                 "fieldPath": "reliability"
+                                }
+                               }
+                              },
+                              "uid": "iqgkbbcaudg",
+                              "subModels": {
+                               "field": {
+                                "use": "DisplayEnumFieldModel",
+                                "props": {},
+                                "stepParams": {
+                                 "fieldSettings": {
+                                  "init": {
+                                   "dataSourceKey": "main",
+                                   "collectionName": "vi_source",
+                                   "fieldPath": "reliability"
+                                  }
+                                 }
+                                },
+                                "subKey": "field",
+                                "subType": "object",
+                                "uid": "wd8jeuxtk6m",
+                                "parent": "iqgkbbcaudg",
+                                "parentId": "iqgkbbcaudg",
+                                "sortIndex": 1,
+                                "popup": {
+                                 "mode": "local"
+                                }
+                               }
+                              },
+                              "parent": "igiqv7pg7bb",
+                              "sortIndex": 6,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            ]
+                           },
+                           "parent": "hu19bwn8rw4",
+                           "parentId": "hu19bwn8rw4",
+                           "sortIndex": 1,
+                           "popup": {
+                            "mode": "local"
+                           }
+                          },
+                          "actions": [
+                           {
+                            "parentId": "hu19bwn8rw4",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "EditActionModel",
+                            "props": {
+                             "title": "{{t(\"Edit\")}}",
+                             "icon": "EditOutlined",
+                             "type": "default"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                             "buttonSettings": {
+                              "general": {
+                               "title": "{{t(\"Edit\")}}",
+                               "icon": "EditOutlined",
+                               "type": "default"
+                              }
+                             },
+                             "popupSettings": {
+                              "openView": {
+                               "mode": "drawer",
+                               "size": "medium",
+                               "pageModelClass": "ChildPageModel",
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_source",
+                               "associationName": "vi_fact.source",
+                               "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+                               "title": "来源文档·编辑"
+                              }
+                             }
+                            },
+                            "flowRegistry": {},
+                            "uid": "0lihlpctrmt",
+                            "parent": "hu19bwn8rw4",
+                            "sortIndex": 1,
+                            "popup": {
+                             "template": {
+                              "uid": "3uyy34lrdt8",
+                              "mode": "reference"
+                             }
+                            }
+                           }
+                          ]
+                         },
+                         "parent": "l28hvn1ixke",
+                         "sortIndex": 1,
+                         "popup": {
+                          "mode": "local"
+                         }
+                        }
+                       ]
+                      },
+                      "parent": "ps1mu8ya170",
+                      "parentId": "ps1mu8ya170",
+                      "sortIndex": 1,
+                      "popup": {
+                       "mode": "local"
+                      }
+                     }
+                    },
+                    "parent": "k3x9uzrifc2",
+                    "parentId": "k3x9uzrifc2",
+                    "sortIndex": 1,
+                    "popup": {
+                     "mode": "local"
+                    }
+                   }
+                  ]
+                 },
+                 "parent": "mgzvfqn9jqd",
+                 "sortIndex": 1,
+                 "popup": {
+                  "mode": "local"
+                 }
+                }
+               },
+               "parent": "h8rcd34hsqy",
+               "parentId": "h8rcd34hsqy",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local",
+                "pageUid": "k3x9uzrifc2",
+                "tabUid": "ps1mu8ya170",
+                "gridUid": "l28hvn1ixke"
+               }
+              }
+             },
+             "parent": "z6y18c67jnn",
+             "sortIndex": 6,
+             "popup": {
+              "mode": "local"
+             }
+            }
+           ],
+           "actions": [
+            {
+             "parentId": "z6y18c67jnn",
+             "subKey": "actions",
+             "subType": "array",
+             "use": "FilterActionModel",
+             "props": {
+              "title": "{{t(\"Filter\")}}",
+              "icon": "FilterOutlined",
+              "defaultFilterValue": {
+               "logic": "$and",
+               "items": [
+                {
+                 "path": "title",
+                 "operator": "$includes"
+                },
+                {
+                 "path": "category",
+                 "operator": "$eq"
+                },
+                {
+                 "path": "statement",
+                 "operator": "$includes"
+                },
+                {
+                 "path": "period",
+                 "operator": "$includes"
+                }
+               ]
+              },
+              "filterValue": {
+               "logic": "$and",
+               "items": [
+                {
+                 "path": "title",
+                 "operator": "$includes"
+                },
+                {
+                 "path": "category",
+                 "operator": "$eq"
+                },
+                {
+                 "path": "statement",
+                 "operator": "$includes"
+                },
+                {
+                 "path": "period",
+                 "operator": "$includes"
+                }
+               ]
+              }
+             },
+             "decoratorProps": {},
+             "stepParams": {
+              "buttonSettings": {
+               "general": {
+                "title": "{{t(\"Filter\")}}",
+                "icon": "FilterOutlined"
+               }
+              },
+              "filterSettings": {
+               "defaultFilter": {
+                "defaultFilter": {
+                 "logic": "$and",
+                 "items": [
+                  {
+                   "path": "title",
+                   "operator": "$includes"
+                  },
+                  {
+                   "path": "category",
+                   "operator": "$eq"
+                  },
+                  {
+                   "path": "statement",
+                   "operator": "$includes"
+                  },
+                  {
+                   "path": "period",
+                   "operator": "$includes"
+                  }
+                 ]
+                }
+               }
+              }
+             },
+             "flowRegistry": {},
+             "uid": "5l34pog7ric",
+             "parent": "z6y18c67jnn",
+             "sortIndex": 1,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "z6y18c67jnn",
+             "subKey": "actions",
+             "subType": "array",
+             "use": "RefreshActionModel",
+             "props": {
+              "title": "{{t(\"Refresh\")}}",
+              "icon": "ReloadOutlined"
+             },
+             "decoratorProps": {},
+             "stepParams": {
+              "buttonSettings": {
+               "general": {
+                "title": "{{t(\"Refresh\")}}",
+                "icon": "ReloadOutlined"
+               }
+              }
+             },
+             "flowRegistry": {},
+             "uid": "o9qupg7i92z",
+             "parent": "z6y18c67jnn",
+             "sortIndex": 2,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "z6y18c67jnn",
+             "subKey": "actions",
+             "subType": "array",
+             "use": "BulkDeleteActionModel",
+             "props": {
+              "title": "",
+              "tooltip": "{{t(\"Delete\")}}",
+              "icon": "DeleteOutlined",
+              "iconOnly": true,
+              "position": "right"
+             },
+             "decoratorProps": {},
+             "stepParams": {
+              "buttonSettings": {
+               "general": {
+                "title": "",
+                "tooltip": "{{t(\"Delete\")}}",
+                "icon": "DeleteOutlined",
+                "iconOnly": true
+               }
+              },
+              "deleteSettings": {
+               "confirm": {
+                "enable": true,
+                "title": "{{t(\"Delete record\")}}",
+                "content": "{{t(\"Are you sure you want to delete it?\")}}"
+               }
+              }
+             },
+             "flowRegistry": {},
+             "uid": "xb8y8rds1z4",
+             "parent": "z6y18c67jnn",
+             "sortIndex": 3,
+             "popup": {
+              "mode": "local"
+             }
+            },
+            {
+             "parentId": "z6y18c67jnn",
+             "subKey": "actions",
+             "subType": "array",
+             "use": "AddNewActionModel",
+             "props": {
+              "type": "primary",
+              "title": "{{t(\"Add new\")}}",
+              "icon": "PlusOutlined"
+             },
+             "decoratorProps": {},
+             "stepParams": {
+              "buttonSettings": {
+               "general": {
+                "title": "{{t(\"Add new\")}}",
+                "icon": "PlusOutlined",
+                "type": "primary"
+               }
+              },
+              "popupSettings": {
+               "openView": {
+                "mode": "drawer",
+                "size": "medium",
+                "pageModelClass": "ChildPageModel",
+                "dataSourceKey": "main",
+                "collectionName": "vi_fact",
+                "title": "新增 · 定性事实"
+               }
+              }
+             },
+             "flowRegistry": {},
+             "parent": "z6y18c67jnn",
+             "uid": "kfdh45hobyb",
+             "subModels": {
+              "page": {
+               "parentId": "kfdh45hobyb",
+               "subKey": "page",
+               "subType": "object",
+               "use": "ChildPageModel",
+               "props": {
+                "displayTitle": false,
+                "enableTabs": true
+               },
+               "stepParams": {
+                "pageSettings": {
+                 "general": {
+                  "displayTitle": false,
+                  "enableTabs": true
+                 }
+                }
+               },
+               "uid": "zba6j63zm2z",
+               "subModels": {
+                "tabs": [
+                 {
+                  "use": "ChildPageTabModel",
+                  "props": {
+                   "title": "{{t(\"Details\")}}"
+                  },
+                  "stepParams": {
+                   "pageTabSettings": {
+                    "tab": {
+                     "title": "{{t(\"Details\")}}"
+                    }
+                   }
+                  },
+                  "subKey": "tabs",
+                  "subType": "array",
+                  "uid": "452bx7dgyii",
+                  "subModels": {
+                   "grid": {
+                    "use": "BlockGridModel",
+                    "subKey": "grid",
+                    "subType": "object",
+                    "props": {
+                     "rows": {
+                      "row1": [
+                       [
+                        "eajcndn375a"
+                       ]
+                      ]
+                     },
+                     "sizes": {
+                      "row1": [
+                       24
+                      ]
+                     },
+                     "rowOrder": [
+                      "row1"
+                     ]
+                    },
+                    "stepParams": {
+                     "gridSettings": {
+                      "grid": {
+                       "rows": {
+                        "row1": [
+                         [
+                          "eajcndn375a"
+                         ]
+                        ]
+                       },
+                       "sizes": {
+                        "row1": [
+                         24
+                        ]
+                       },
+                       "rowOrder": [
+                        "row1"
+                       ]
+                      }
+                     }
+                    },
+                    "uid": "9547fvk9zvh",
+                    "subModels": {
+                     "items": [
+                      {
+                       "parentId": "9547fvk9zvh",
+                       "subKey": "items",
+                       "subType": "array",
+                       "use": "CreateFormModel",
+                       "props": {},
+                       "decoratorProps": {},
+                       "stepParams": {
+                        "resourceSettings": {
+                         "init": {
+                          "dataSourceKey": "main",
+                          "collectionName": "vi_fact"
+                         }
+                        }
+                       },
+                       "uid": "eajcndn375a",
+                       "subModels": {
+                        "grid": {
+                         "use": "FormGridModel",
+                         "subKey": "grid",
+                         "subType": "object",
+                         "stepParams": {
+                          "gridSettings": {
+                           "grid": {
+                            "rows": {
+                             "row1": [
+                              [
+                               "t4mk7tvb9mg"
+                              ],
+                              [
+                               "fnid3sda2vk"
+                              ]
+                             ],
+                             "row2": [
+                              [
+                               "r5id24iehv3"
+                              ],
+                              [
+                               "w87kq45d7e2"
+                              ]
+                             ],
+                             "row3": [
+                              [
+                               "o3qb3eum309"
+                              ],
+                              [
+                               "6v3v4aoe2qt"
+                              ]
+                             ],
+                             "row4": [
+                              [
+                               "1x3okugewgt"
+                              ],
+                              [
+                               "5q7g1n3qex5"
+                              ]
+                             ],
+                             "row5": [
+                              [
+                               "xzstwl4swkw"
+                              ]
+                             ]
+                            },
+                            "sizes": {
+                             "row1": [
+                              12,
+                              12
+                             ],
+                             "row2": [
+                              12,
+                              12
+                             ],
+                             "row3": [
+                              12,
+                              12
+                             ],
+                             "row4": [
+                              12,
+                              12
+                             ],
+                             "row5": [
+                              24
+                             ]
+                            },
+                            "rowOrder": [
+                             "row1",
+                             "row2",
+                             "row3",
+                             "row4",
+                             "row5"
+                            ]
+                           }
+                          }
+                         },
+                         "props": {
+                          "rows": {
+                           "row1": [
+                            [
+                             "t4mk7tvb9mg"
+                            ],
+                            [
+                             "fnid3sda2vk"
+                            ]
+                           ],
+                           "row2": [
+                            [
+                             "r5id24iehv3"
+                            ],
+                            [
+                             "w87kq45d7e2"
+                            ]
+                           ],
+                           "row3": [
+                            [
+                             "o3qb3eum309"
+                            ],
+                            [
+                             "6v3v4aoe2qt"
+                            ]
+                           ],
+                           "row4": [
+                            [
+                             "1x3okugewgt"
+                            ],
+                            [
+                             "5q7g1n3qex5"
+                            ]
+                           ],
+                           "row5": [
+                            [
+                             "xzstwl4swkw"
+                            ]
+                           ]
+                          },
+                          "sizes": {
+                           "row1": [
+                            12,
+                            12
+                           ],
+                           "row2": [
+                            12,
+                            12
+                           ],
+                           "row3": [
+                            12,
+                            12
+                           ],
+                           "row4": [
+                            12,
+                            12
+                           ],
+                           "row5": [
+                            24
+                           ]
+                          },
+                          "rowOrder": [
+                           "row1",
+                           "row2",
+                           "row3",
+                           "row4",
+                           "row5"
+                          ]
+                         },
+                         "uid": "r2mi4w6qzbf",
+                         "subModels": {
+                          "items": [
+                           {
+                            "parentId": "r2mi4w6qzbf",
+                            "subKey": "items",
+                            "subType": "array",
+                            "use": "FormItemModel",
+                            "props": {},
+                            "stepParams": {
+                             "fieldSettings": {
+                              "init": {
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_fact",
+                               "fieldPath": "title"
+                              }
+                             }
+                            },
+                            "uid": "t4mk7tvb9mg",
+                            "subModels": {
+                             "field": {
+                              "use": "InputFieldModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_fact",
+                                 "fieldPath": "title"
+                                }
+                               }
+                              },
+                              "subKey": "field",
+                              "subType": "object",
+                              "uid": "spugiji8nac",
+                              "parent": "t4mk7tvb9mg",
+                              "parentId": "t4mk7tvb9mg",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            },
+                            "parent": "r2mi4w6qzbf",
+                            "sortIndex": 1,
+                            "popup": {
+                             "mode": "local"
+                            }
+                           },
+                           {
+                            "parentId": "r2mi4w6qzbf",
+                            "subKey": "items",
+                            "subType": "array",
+                            "use": "FormItemModel",
+                            "props": {},
+                            "stepParams": {
+                             "fieldSettings": {
+                              "init": {
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_fact",
+                               "fieldPath": "category"
+                              }
+                             }
+                            },
+                            "uid": "fnid3sda2vk",
+                            "subModels": {
+                             "field": {
+                              "use": "SelectFieldModel",
+                              "props": {
+                               "allowClear": true
+                              },
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_fact",
+                                 "fieldPath": "category"
+                                }
+                               }
+                              },
+                              "subKey": "field",
+                              "subType": "object",
+                              "uid": "slc6fw6s18q",
+                              "parent": "fnid3sda2vk",
+                              "parentId": "fnid3sda2vk",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            },
+                            "parent": "r2mi4w6qzbf",
+                            "sortIndex": 2,
+                            "popup": {
+                             "mode": "local"
+                            }
+                           },
+                           {
+                            "parentId": "r2mi4w6qzbf",
+                            "subKey": "items",
+                            "subType": "array",
+                            "use": "FormItemModel",
+                            "props": {},
+                            "stepParams": {
+                             "fieldSettings": {
+                              "init": {
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_fact",
+                               "fieldPath": "statement"
+                              }
+                             }
+                            },
+                            "uid": "r5id24iehv3",
+                            "subModels": {
+                             "field": {
+                              "use": "TextareaFieldModel",
+                              "props": {
+                               "autoSize": {
+                                "maxRows": 10,
+                                "minRows": 3
+                               }
+                              },
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_fact",
+                                 "fieldPath": "statement"
+                                }
+                               }
+                              },
+                              "subKey": "field",
+                              "subType": "object",
+                              "uid": "a1vv9v16c37",
+                              "parent": "r5id24iehv3",
+                              "parentId": "r5id24iehv3",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            },
+                            "parent": "r2mi4w6qzbf",
+                            "sortIndex": 3,
+                            "popup": {
+                             "mode": "local"
+                            }
+                           },
+                           {
+                            "parentId": "r2mi4w6qzbf",
+                            "subKey": "items",
+                            "subType": "array",
+                            "use": "FormItemModel",
+                            "props": {},
+                            "stepParams": {
+                             "fieldSettings": {
+                              "init": {
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_fact",
+                               "fieldPath": "period"
+                              }
+                             }
+                            },
+                            "uid": "w87kq45d7e2",
+                            "subModels": {
+                             "field": {
+                              "use": "InputFieldModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_fact",
+                                 "fieldPath": "period"
+                                }
+                               }
+                              },
+                              "subKey": "field",
+                              "subType": "object",
+                              "uid": "g4t934vok3v",
+                              "parent": "w87kq45d7e2",
+                              "parentId": "w87kq45d7e2",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            },
+                            "parent": "r2mi4w6qzbf",
+                            "sortIndex": 4,
+                            "popup": {
+                             "mode": "local"
+                            }
+                           },
+                           {
+                            "parentId": "r2mi4w6qzbf",
+                            "subKey": "items",
+                            "subType": "array",
+                            "use": "FormItemModel",
+                            "props": {},
+                            "stepParams": {
+                             "fieldSettings": {
+                              "init": {
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_fact",
+                               "fieldPath": "as_of"
+                              }
+                             }
+                            },
+                            "uid": "o3qb3eum309",
+                            "subModels": {
+                             "field": {
+                              "use": "InputFieldModel",
+                              "props": {},
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_fact",
+                                 "fieldPath": "as_of"
+                                }
+                               }
+                              },
+                              "subKey": "field",
+                              "subType": "object",
+                              "uid": "no2z5ddj3uh",
+                              "parent": "o3qb3eum309",
+                              "parentId": "o3qb3eum309",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            },
+                            "parent": "r2mi4w6qzbf",
+                            "sortIndex": 5,
+                            "popup": {
+                             "mode": "local"
+                            }
+                           },
+                           {
+                            "parentId": "r2mi4w6qzbf",
+                            "subKey": "items",
+                            "subType": "array",
+                            "use": "FormItemModel",
+                            "props": {},
+                            "stepParams": {
+                             "fieldSettings": {
+                              "init": {
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_fact",
+                               "fieldPath": "verify_status"
+                              }
+                             }
+                            },
+                            "uid": "6v3v4aoe2qt",
+                            "subModels": {
+                             "field": {
+                              "use": "SelectFieldModel",
+                              "props": {
+                               "allowClear": true
+                              },
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_fact",
+                                 "fieldPath": "verify_status"
+                                }
+                               }
+                              },
+                              "subKey": "field",
+                              "subType": "object",
+                              "uid": "ysvmgj4n5ol",
+                              "parent": "6v3v4aoe2qt",
+                              "parentId": "6v3v4aoe2qt",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            },
+                            "parent": "r2mi4w6qzbf",
+                            "sortIndex": 6,
+                            "popup": {
+                             "mode": "local"
+                            }
+                           },
+                           {
+                            "parentId": "r2mi4w6qzbf",
+                            "subKey": "items",
+                            "subType": "array",
+                            "use": "FormItemModel",
+                            "props": {},
+                            "stepParams": {
+                             "fieldSettings": {
+                              "init": {
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_fact",
+                               "fieldPath": "notes"
+                              }
+                             }
+                            },
+                            "uid": "1x3okugewgt",
+                            "subModels": {
+                             "field": {
+                              "use": "TextareaFieldModel",
+                              "props": {
+                               "autoSize": {
+                                "maxRows": 10,
+                                "minRows": 3
+                               }
+                              },
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_fact",
+                                 "fieldPath": "notes"
+                                }
+                               }
+                              },
+                              "subKey": "field",
+                              "subType": "object",
+                              "uid": "a5d9guct4lo",
+                              "parent": "1x3okugewgt",
+                              "parentId": "1x3okugewgt",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            },
+                            "parent": "r2mi4w6qzbf",
+                            "sortIndex": 7,
+                            "popup": {
+                             "mode": "local"
+                            }
+                           },
+                           {
+                            "parentId": "r2mi4w6qzbf",
+                            "subKey": "items",
+                            "subType": "array",
+                            "use": "FormItemModel",
+                            "props": {
+                             "titleField": "name"
+                            },
+                            "stepParams": {
+                             "fieldSettings": {
+                              "init": {
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_fact",
+                               "fieldPath": "company"
+                              }
+                             },
+                             "editItemSettings": {
+                              "titleField": {
+                               "label": "name"
+                              }
+                             }
+                            },
+                            "uid": "5q7g1n3qex5",
+                            "subModels": {
+                             "field": {
+                              "use": "RecordSelectFieldModel",
+                              "props": {
+                               "titleField": "name"
+                              },
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_fact",
+                                 "fieldPath": "company"
+                                }
+                               }
+                              },
+                              "subKey": "field",
+                              "subType": "object",
+                              "uid": "jdnwhucmhut",
+                              "parent": "5q7g1n3qex5",
+                              "parentId": "5q7g1n3qex5",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            },
+                            "parent": "r2mi4w6qzbf",
+                            "sortIndex": 8,
+                            "popup": {
+                             "mode": "local"
+                            }
+                           },
+                           {
+                            "parentId": "r2mi4w6qzbf",
+                            "subKey": "items",
+                            "subType": "array",
+                            "use": "FormItemModel",
+                            "props": {
+                             "titleField": "title"
+                            },
+                            "stepParams": {
+                             "fieldSettings": {
+                              "init": {
+                               "dataSourceKey": "main",
+                               "collectionName": "vi_fact",
+                               "fieldPath": "source"
+                              }
+                             },
+                             "editItemSettings": {
+                              "titleField": {
+                               "label": "title"
+                              }
+                             }
+                            },
+                            "uid": "xzstwl4swkw",
+                            "subModels": {
+                             "field": {
+                              "use": "RecordSelectFieldModel",
+                              "props": {
+                               "titleField": "title"
+                              },
+                              "stepParams": {
+                               "fieldSettings": {
+                                "init": {
+                                 "dataSourceKey": "main",
+                                 "collectionName": "vi_fact",
+                                 "fieldPath": "source"
+                                }
+                               },
+                               "selectSettings": {
+                                "dataScope": {
+                                 "filter": {
+                                  "logic": "$and",
+                                  "items": [
+                                   {
+                                    "path": "company_id",
+                                    "operator": "$eq",
+                                    "value": "{{ctx.formValues.company.id}}"
+                                   }
+                                  ]
+                                 }
+                                }
+                               }
+                              },
+                              "subKey": "field",
+                              "subType": "object",
+                              "uid": "3tdnj4egcwr",
+                              "parent": "xzstwl4swkw",
+                              "parentId": "xzstwl4swkw",
+                              "sortIndex": 1,
+                              "popup": {
+                               "mode": "local"
+                              }
+                             }
+                            },
+                            "parent": "r2mi4w6qzbf",
+                            "sortIndex": 9,
+                            "popup": {
+                             "mode": "local"
+                            }
+                           }
+                          ]
+                         },
+                         "parent": "eajcndn375a",
+                         "parentId": "eajcndn375a",
+                         "sortIndex": 1,
+                         "popup": {
+                          "mode": "local"
+                         }
+                        },
+                        "actions": [
+                         {
+                          "parentId": "eajcndn375a",
+                          "subKey": "actions",
+                          "subType": "array",
+                          "use": "FormSubmitActionModel",
+                          "props": {
+                           "title": "{{t(\"Submit\")}}",
+                           "type": "primary",
+                           "htmlType": "submit"
+                          },
+                          "decoratorProps": {},
+                          "stepParams": {
+                           "buttonSettings": {
+                            "general": {
+                             "title": "{{t(\"Submit\")}}",
+                             "type": "primary"
+                            }
+                           },
+                           "submitSettings": {
+                            "confirm": {
+                             "enable": false,
+                             "title": "{{t(\"Submit record\")}}",
+                             "content": "{{t(\"Are you sure you want to save it?\")}}"
+                            }
+                           }
+                          },
+                          "flowRegistry": {},
+                          "uid": "d4aeenjryoi",
+                          "parent": "eajcndn375a",
+                          "sortIndex": 1,
+                          "popup": {
+                           "mode": "local"
+                          }
+                         }
+                        ]
+                       },
+                       "parent": "9547fvk9zvh",
+                       "sortIndex": 1,
+                       "popup": {
+                        "mode": "local"
+                       }
+                      }
+                     ]
+                    },
+                    "parent": "452bx7dgyii",
+                    "parentId": "452bx7dgyii",
+                    "sortIndex": 1,
+                    "popup": {
+                     "mode": "local"
+                    }
+                   }
+                  },
+                  "parent": "zba6j63zm2z",
+                  "parentId": "zba6j63zm2z",
+                  "sortIndex": 1,
+                  "popup": {
+                   "mode": "local"
+                  }
+                 }
+                ]
+               },
+               "parent": "kfdh45hobyb",
+               "sortIndex": 1,
+               "popup": {
+                "mode": "local"
+               }
+              }
+             },
+             "sortIndex": 4,
+             "popup": {
+              "mode": "local",
+              "pageUid": "zba6j63zm2z",
+              "tabUid": "452bx7dgyii",
+              "gridUid": "9547fvk9zvh"
+             }
+            }
+           ]
+          },
+          "parent": "xrkv50dguem",
+          "sortIndex": 1,
+          "popup": {
+           "mode": "local"
+          }
+         }
+        ]
+       },
+       "parent": "2kwz9c9unrq",
+       "sortIndex": 1,
+       "popup": {
+        "mode": "local"
+       }
+      }
+     },
+     "popup": {
+      "mode": "local"
+     }
+    }
+   ]
+  },
+  "popup": {
+   "mode": "local"
+  }
+ },
+ "nodeMap": {
+  "p5h0cgmh6la": {
+   "uid": "p5h0cgmh6la",
+   "use": "RootPageModel",
+   "props": {
+    "routeId": 393657428475904,
+    "title": "定性事实",
+    "enableTabs": false,
+    "displayTitle": true,
+    "icon": "TableOutlined",
+    "enableHeader": false
+   },
+   "stepParams": {
+    "pageSettings": {
+     "general": {
+      "title": "定性事实",
+      "displayTitle": true,
+      "enableTabs": false,
+      "documentTitle": "腾讯音乐 · 定性事实",
+      "icon": "TableOutlined",
+      "enableHeader": false
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "2kwz9c9unrq": {
+   "uid": "2kwz9c9unrq",
+   "use": "RootPageTabModel",
+   "props": {
+    "route": {
+     "createdAt": "2026-10-23T05:48:09.965Z",
+     "updatedAt": "2026-11-04T03:32:59.547Z",
+     "id": 393657428475905,
+     "parentId": 393657428475904,
+     "title": "定性事实",
+     "tooltip": null,
+     "icon": null,
+     "schemaUid": "2kwz9c9unrq",
+     "menuSchemaUid": null,
+     "tabSchemaName": "ih5t9q3sag0",
+     "type": "tabs",
+     "options": {
+      "flowRegistry": {},
+      "documentTitle": "腾讯音乐 · 重要事实"
+     },
+     "sort": 1,
+     "hideInMenu": null,
+     "enableTabs": null,
+     "enableHeader": null,
+     "displayTitle": null,
+     "hidden": true,
+     "createdById": null,
+     "updatedById": 1,
+     "children": []
+    },
+    "title": "定性事实",
+    "icon": null
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "pageTabSettings": {
+     "tab": {
+      "title": "定性事实",
+      "icon": null,
+      "documentTitle": "腾讯音乐 · 重要事实"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "xrkv50dguem": {
+   "uid": "xrkv50dguem",
+   "use": "BlockGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "z6y18c67jnn"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "z6y18c67jnn"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "z6y18c67jnn": {
+   "uid": "z6y18c67jnn",
+   "use": "TableBlockModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "resourceSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact"
+     }
+    },
+    "cardSettings": {
+     "titleDescription": {
+      "description": "① 功能定位：数字以外、会改变判断的事实：制度监管、合作授权、并购与资本运作、人事、诉讼、管理层表态、竞争对手动作，以及外部观点与估值参照。\n② 数据库基本表：\n　存储　vi_fact_base（页面上新增、修改都写回这里）\n③ 引用的前端表格：\n　关联选择　来源文档〔数据底稿 / 来源文档〕\n④ 被哪些前端表格引用：\n　关联选择　商业模式拆解〔商业模式 / 商业模式拆解〕、产业链与五力〔商业模式 / 产业链与五力〕、竞争对手〔商业模式 / 产业链与五力〕、竞争壁垒〔商业模式 / 竞争壁垒〕、核心论点〔商业模式 / 核心论点〕、风险分析〔商业模式 / 风险分析〕、假设依据〔预测与估值 / 模型底稿 / 假设依据〕、资产估值与调整〔预测与估值 / 估值模型〕、经营分部估值〔预测与估值 / 估值模型〕、逐年假设〔本公司没有这类记录；中国建筑、小米集团、太阳纸业在 预测与估值 / 财务模型，长江电力在 预测与估值 / 模型底稿 / 逐年假设〕"
+     }
+    },
+    "tableSettings": {
+     "pageSize": {
+      "pageSize": 50
+     },
+     "tableDensity": {
+      "size": "middle"
+     },
+     "defaultSorting": {
+      "sort": [
+       {
+        "field": "id",
+        "direction": "asc"
+       }
+      ]
+     },
+     "dataScope": {
+      "filter": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "company_id",
+         "operator": "$eq",
+         "value": 11
+        }
+       ]
+      }
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "vk7s0dhcg6c": {
+   "uid": "vk7s0dhcg6c",
+   "use": "TableActionsColumnModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "tableColumnSettings": {
+     "title": {
+      "title": "{{t(\"Actions\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "l0qvd44ml57": {
+   "uid": "l0qvd44ml57",
+   "use": "ViewActionModel",
+   "props": {
+    "type": "link",
+    "title": "{{t(\"View\")}}",
+    "icon": null
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"View\")}}",
+      "icon": null,
+      "type": "link",
+      "iconOnly": false
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "title": "{{t(\"Details\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "template": {
+     "uid": "dcix5nym9le",
+     "mode": "reference"
+    }
+   }
+  },
+  "e6t9qzx9ky4": {
+   "uid": "e6t9qzx9ky4",
+   "use": "EditActionModel",
+   "props": {
+    "title": "{{t(\"Edit\")}}",
+    "icon": null,
+    "type": "link"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Edit\")}}",
+      "icon": null,
+      "type": "link",
+      "iconOnly": false
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "title": "编辑 · 定性事实",
+      "filterByTk": "{{ctx.record.id}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local",
+    "pageUid": "j2o4yuzme92",
+    "tabUid": "na8wim798x4",
+    "gridUid": "lb1uqjkfdmv"
+   }
+  },
+  "j2o4yuzme92": {
+   "uid": "j2o4yuzme92",
+   "use": "ChildPageModel",
+   "props": {
+    "displayTitle": false,
+    "enableTabs": true
+   },
+   "stepParams": {
+    "pageSettings": {
+     "general": {
+      "displayTitle": false,
+      "enableTabs": true
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "na8wim798x4": {
+   "uid": "na8wim798x4",
+   "use": "ChildPageTabModel",
+   "props": {
+    "title": "{{t(\"Details\")}}"
+   },
+   "stepParams": {
+    "pageTabSettings": {
+     "tab": {
+      "title": "{{t(\"Details\")}}"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "lb1uqjkfdmv": {
+   "uid": "lb1uqjkfdmv",
+   "use": "BlockGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "vrym1ihbsz7"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "vrym1ihbsz7"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "vrym1ihbsz7": {
+   "uid": "vrym1ihbsz7",
+   "use": "EditFormModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "resourceSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "c7avfxyo0n2": {
+   "uid": "c7avfxyo0n2",
+   "use": "FormGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "kqxikb7lx33"
+      ],
+      [
+       "e67h6gz4c30"
+      ]
+     ],
+     "row2": [
+      [
+       "pa1klsqh0f1"
+      ],
+      [
+       "v5ne9lydqvf"
+      ]
+     ],
+     "row3": [
+      [
+       "fs89tkjbwl2"
+      ],
+      [
+       "jeprshbraca"
+      ]
+     ],
+     "row4": [
+      [
+       "tjihv5ari1w"
+      ],
+      [
+       "yzu6sznproe"
+      ]
+     ],
+     "row5": [
+      [
+       "tl9gufxdsnv"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      12,
+      12
+     ],
+     "row2": [
+      12,
+      12
+     ],
+     "row3": [
+      12,
+      12
+     ],
+     "row4": [
+      12,
+      12
+     ],
+     "row5": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1",
+     "row2",
+     "row3",
+     "row4",
+     "row5"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "kqxikb7lx33"
+        ],
+        [
+         "e67h6gz4c30"
+        ]
+       ],
+       "row2": [
+        [
+         "pa1klsqh0f1"
+        ],
+        [
+         "v5ne9lydqvf"
+        ]
+       ],
+       "row3": [
+        [
+         "fs89tkjbwl2"
+        ],
+        [
+         "jeprshbraca"
+        ]
+       ],
+       "row4": [
+        [
+         "tjihv5ari1w"
+        ],
+        [
+         "yzu6sznproe"
+        ]
+       ],
+       "row5": [
+        [
+         "tl9gufxdsnv"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        12,
+        12
+       ],
+       "row2": [
+        12,
+        12
+       ],
+       "row3": [
+        12,
+        12
+       ],
+       "row4": [
+        12,
+        12
+       ],
+       "row5": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1",
+       "row2",
+       "row3",
+       "row4",
+       "row5"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "kqxikb7lx33": {
+   "uid": "kqxikb7lx33",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "title"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "wy4p1mw5chj": {
+   "uid": "wy4p1mw5chj",
+   "use": "InputFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "title"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "e67h6gz4c30": {
+   "uid": "e67h6gz4c30",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "category"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "zlq4rv4otzf": {
+   "uid": "zlq4rv4otzf",
+   "use": "SelectFieldModel",
+   "props": {
+    "allowClear": true
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "category"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "pa1klsqh0f1": {
+   "uid": "pa1klsqh0f1",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "statement"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "sktqlr01qn9": {
+   "uid": "sktqlr01qn9",
+   "use": "TextareaFieldModel",
+   "props": {
+    "autoSize": {
+     "maxRows": 10,
+     "minRows": 3
+    }
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "statement"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "v5ne9lydqvf": {
+   "uid": "v5ne9lydqvf",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "period"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "f1p1nu4g7qy": {
+   "uid": "f1p1nu4g7qy",
+   "use": "InputFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "period"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "fs89tkjbwl2": {
+   "uid": "fs89tkjbwl2",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "as_of"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "bz0v5jfr35w": {
+   "uid": "bz0v5jfr35w",
+   "use": "InputFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "as_of"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "jeprshbraca": {
+   "uid": "jeprshbraca",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "verify_status"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "dhpqd9ewt1m": {
+   "uid": "dhpqd9ewt1m",
+   "use": "SelectFieldModel",
+   "props": {
+    "allowClear": true
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "verify_status"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "tjihv5ari1w": {
+   "uid": "tjihv5ari1w",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "notes"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "gvzrm2q0pla": {
+   "uid": "gvzrm2q0pla",
+   "use": "TextareaFieldModel",
+   "props": {
+    "autoSize": {
+     "maxRows": 10,
+     "minRows": 3
+    }
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "notes"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "yzu6sznproe": {
+   "uid": "yzu6sznproe",
+   "use": "FormItemModel",
+   "props": {
+    "titleField": "name"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "company"
+     }
+    },
+    "editItemSettings": {
+     "titleField": {
+      "label": "name"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "if38txj5rqd": {
+   "uid": "if38txj5rqd",
+   "use": "RecordSelectFieldModel",
+   "props": {
+    "titleField": "name"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "company"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "tl9gufxdsnv": {
+   "uid": "tl9gufxdsnv",
+   "use": "FormItemModel",
+   "props": {
+    "titleField": "title"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "source"
+     }
+    },
+    "editItemSettings": {
+     "titleField": {
+      "label": "title"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ml95kpaxe8d": {
+   "uid": "ml95kpaxe8d",
+   "use": "RecordSelectFieldModel",
+   "props": {
+    "titleField": "title"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "source"
+     }
+    },
+    "selectSettings": {
+     "dataScope": {
+      "filter": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "company_id",
+         "operator": "$eq",
+         "value": "{{ctx.formValues.company.id}}"
+        }
+       ]
+      }
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "99ncxb17ms9": {
+   "uid": "99ncxb17ms9",
+   "use": "FormSubmitActionModel",
+   "props": {
+    "title": "{{t(\"Submit\")}}",
+    "type": "primary",
+    "htmlType": "submit"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Submit\")}}",
+      "type": "primary"
+     }
+    },
+    "submitSettings": {
+     "confirm": {
+      "enable": false,
+      "title": "{{t(\"Submit record\")}}",
+      "content": "{{t(\"Are you sure you want to save it?\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ozzzd4jita5": {
+   "uid": "ozzzd4jita5",
+   "use": "DeleteActionModel",
+   "props": {
+    "type": "link",
+    "title": "{{t(\"Delete\")}}",
+    "icon": null
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Delete\")}}",
+      "icon": null,
+      "type": "link",
+      "iconOnly": false
+     }
+    },
+    "deleteSettings": {
+     "confirm": {
+      "enable": true,
+      "title": "{{t(\"Delete record\")}}",
+      "content": "{{t(\"Are you sure you want to delete it?\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "53ike3tgutt": {
+   "uid": "53ike3tgutt",
+   "use": "TableColumnModel",
+   "props": {
+    "width": 280
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "title"
+     }
+    },
+    "tableColumnSettings": {
+     "width": {
+      "width": 280
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "59sxtg5xddz": {
+   "uid": "59sxtg5xddz",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "title"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "70n51gmuwyz": {
+   "uid": "70n51gmuwyz",
+   "use": "TableColumnModel",
+   "props": {
+    "width": 140
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "category"
+     }
+    },
+    "tableColumnSettings": {
+     "width": {
+      "width": 140
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "0qu9ixpaid4": {
+   "uid": "0qu9ixpaid4",
+   "use": "DisplayEnumFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "category"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "w8w6hfs6ksb": {
+   "uid": "w8w6hfs6ksb",
+   "use": "TableColumnModel",
+   "props": {
+    "width": 200
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "period"
+     }
+    },
+    "tableColumnSettings": {
+     "width": {
+      "width": 200
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ap0yuruubqe": {
+   "uid": "ap0yuruubqe",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "period"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "mrd8sh9bucv": {
+   "uid": "mrd8sh9bucv",
+   "use": "TableColumnModel",
+   "props": {
+    "width": 140
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "verify_status"
+     }
+    },
+    "tableColumnSettings": {
+     "width": {
+      "width": 140
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "pipi73v7bdu": {
+   "uid": "pipi73v7bdu",
+   "use": "DisplayEnumFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "verify_status"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "h8rcd34hsqy": {
+   "uid": "h8rcd34hsqy",
+   "use": "TableColumnModel",
+   "props": {
+    "titleField": "title",
+    "width": 200
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "source"
+     }
+    },
+    "tableColumnSettings": {
+     "fieldNames": {
+      "label": "title"
+     },
+     "width": {
+      "width": 200
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "mgzvfqn9jqd": {
+   "uid": "mgzvfqn9jqd",
+   "use": "DisplayTextFieldModel",
+   "props": {
+    "titleField": "title",
+    "clickToOpen": true
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "source"
+     }
+    },
+    "displayFieldSettings": {
+     "clickToOpen": {
+      "clickToOpen": true
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "associationName": "vi_fact.source",
+      "title": "来源文档"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local",
+    "pageUid": "k3x9uzrifc2",
+    "tabUid": "ps1mu8ya170",
+    "gridUid": "l28hvn1ixke"
+   }
+  },
+  "k3x9uzrifc2": {
+   "uid": "k3x9uzrifc2",
+   "use": "ChildPageModel",
+   "props": {
+    "displayTitle": false,
+    "enableTabs": true
+   },
+   "stepParams": {
+    "pageSettings": {
+     "general": {
+      "displayTitle": false,
+      "enableTabs": true
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ps1mu8ya170": {
+   "uid": "ps1mu8ya170",
+   "use": "ChildPageTabModel",
+   "props": {
+    "title": "{{t(\"Details\")}}"
+   },
+   "stepParams": {
+    "pageTabSettings": {
+     "tab": {
+      "title": "{{t(\"Details\")}}"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "l28hvn1ixke": {
+   "uid": "l28hvn1ixke",
+   "use": "BlockGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "hu19bwn8rw4"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "hu19bwn8rw4"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "hu19bwn8rw4": {
+   "uid": "hu19bwn8rw4",
+   "use": "DetailsBlockModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "resourceSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "filterByTk": "{{ctx.record.id}}",
+      "associationName": "vi_fact.source",
+      "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "igiqv7pg7bb": {
+   "uid": "igiqv7pg7bb",
+   "use": "DetailsGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "f79xsaoh60m"
+      ],
+      [
+       "ldr306xmsu7"
+      ]
+     ],
+     "row2": [
+      [
+       "j614cv1qffs"
+      ],
+      [
+       "z56ssaepanv"
+      ]
+     ],
+     "row3": [
+      [
+       "7tzjpwjbh0d"
+      ],
+      [
+       "iqgkbbcaudg"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      12,
+      12
+     ],
+     "row2": [
+      12,
+      12
+     ],
+     "row3": [
+      12,
+      12
+     ]
+    },
+    "rowOrder": [
+     "row1",
+     "row2",
+     "row3"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "f79xsaoh60m"
+        ],
+        [
+         "ldr306xmsu7"
+        ]
+       ],
+       "row2": [
+        [
+         "j614cv1qffs"
+        ],
+        [
+         "z56ssaepanv"
+        ]
+       ],
+       "row3": [
+        [
+         "7tzjpwjbh0d"
+        ],
+        [
+         "iqgkbbcaudg"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        12,
+        12
+       ],
+       "row2": [
+        12,
+        12
+       ],
+       "row3": [
+        12,
+        12
+       ]
+      },
+      "rowOrder": [
+       "row1",
+       "row2",
+       "row3"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "f79xsaoh60m": {
+   "uid": "f79xsaoh60m",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "title"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "n4rhs0dkupn": {
+   "uid": "n4rhs0dkupn",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "title"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ldr306xmsu7": {
+   "uid": "ldr306xmsu7",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "source_type"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "9el3t3im6di": {
+   "uid": "9el3t3im6di",
+   "use": "DisplayEnumFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "source_type"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "j614cv1qffs": {
+   "uid": "j614cv1qffs",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "publisher"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "h9n7w5z0xh6": {
+   "uid": "h9n7w5z0xh6",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "publisher"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "z56ssaepanv": {
+   "uid": "z56ssaepanv",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "publish_date"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "qmso2xcilan": {
+   "uid": "qmso2xcilan",
+   "use": "DisplayTextFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "publish_date"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "7tzjpwjbh0d": {
+   "uid": "7tzjpwjbh0d",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "url"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "2sn7lo1fm2b": {
+   "uid": "2sn7lo1fm2b",
+   "use": "DisplayURLFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "url"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "iqgkbbcaudg": {
+   "uid": "iqgkbbcaudg",
+   "use": "DetailsItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "reliability"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "wd8jeuxtk6m": {
+   "uid": "wd8jeuxtk6m",
+   "use": "DisplayEnumFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "fieldPath": "reliability"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "0lihlpctrmt": {
+   "uid": "0lihlpctrmt",
+   "use": "EditActionModel",
+   "props": {
+    "title": "{{t(\"Edit\")}}",
+    "icon": "EditOutlined",
+    "type": "default"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Edit\")}}",
+      "icon": "EditOutlined",
+      "type": "default"
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "dataSourceKey": "main",
+      "collectionName": "vi_source",
+      "associationName": "vi_fact.source",
+      "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+      "title": "来源文档·编辑"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "template": {
+     "uid": "3uyy34lrdt8",
+     "mode": "reference"
+    }
+   }
+  },
+  "5l34pog7ric": {
+   "uid": "5l34pog7ric",
+   "use": "FilterActionModel",
+   "props": {
+    "title": "{{t(\"Filter\")}}",
+    "icon": "FilterOutlined",
+    "defaultFilterValue": {
+     "logic": "$and",
+     "items": [
+      {
+       "path": "title",
+       "operator": "$includes"
+      },
+      {
+       "path": "category",
+       "operator": "$eq"
+      },
+      {
+       "path": "statement",
+       "operator": "$includes"
+      },
+      {
+       "path": "period",
+       "operator": "$includes"
+      }
+     ]
+    },
+    "filterValue": {
+     "logic": "$and",
+     "items": [
+      {
+       "path": "title",
+       "operator": "$includes"
+      },
+      {
+       "path": "category",
+       "operator": "$eq"
+      },
+      {
+       "path": "statement",
+       "operator": "$includes"
+      },
+      {
+       "path": "period",
+       "operator": "$includes"
+      }
+     ]
+    }
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Filter\")}}",
+      "icon": "FilterOutlined"
+     }
+    },
+    "filterSettings": {
+     "defaultFilter": {
+      "defaultFilter": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "title",
+         "operator": "$includes"
+        },
+        {
+         "path": "category",
+         "operator": "$eq"
+        },
+        {
+         "path": "statement",
+         "operator": "$includes"
+        },
+        {
+         "path": "period",
+         "operator": "$includes"
+        }
+       ]
+      }
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "o9qupg7i92z": {
+   "uid": "o9qupg7i92z",
+   "use": "RefreshActionModel",
+   "props": {
+    "title": "{{t(\"Refresh\")}}",
+    "icon": "ReloadOutlined"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Refresh\")}}",
+      "icon": "ReloadOutlined"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "xb8y8rds1z4": {
+   "uid": "xb8y8rds1z4",
+   "use": "BulkDeleteActionModel",
+   "props": {
+    "title": "",
+    "tooltip": "{{t(\"Delete\")}}",
+    "icon": "DeleteOutlined",
+    "iconOnly": true,
+    "position": "right"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "",
+      "tooltip": "{{t(\"Delete\")}}",
+      "icon": "DeleteOutlined",
+      "iconOnly": true
+     }
+    },
+    "deleteSettings": {
+     "confirm": {
+      "enable": true,
+      "title": "{{t(\"Delete record\")}}",
+      "content": "{{t(\"Are you sure you want to delete it?\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "kfdh45hobyb": {
+   "uid": "kfdh45hobyb",
+   "use": "AddNewActionModel",
+   "props": {
+    "type": "primary",
+    "title": "{{t(\"Add new\")}}",
+    "icon": "PlusOutlined"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Add new\")}}",
+      "icon": "PlusOutlined",
+      "type": "primary"
+     }
+    },
+    "popupSettings": {
+     "openView": {
+      "mode": "drawer",
+      "size": "medium",
+      "pageModelClass": "ChildPageModel",
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "title": "新增 · 定性事实"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local",
+    "pageUid": "zba6j63zm2z",
+    "tabUid": "452bx7dgyii",
+    "gridUid": "9547fvk9zvh"
+   }
+  },
+  "zba6j63zm2z": {
+   "uid": "zba6j63zm2z",
+   "use": "ChildPageModel",
+   "props": {
+    "displayTitle": false,
+    "enableTabs": true
+   },
+   "stepParams": {
+    "pageSettings": {
+     "general": {
+      "displayTitle": false,
+      "enableTabs": true
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "452bx7dgyii": {
+   "uid": "452bx7dgyii",
+   "use": "ChildPageTabModel",
+   "props": {
+    "title": "{{t(\"Details\")}}"
+   },
+   "stepParams": {
+    "pageTabSettings": {
+     "tab": {
+      "title": "{{t(\"Details\")}}"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "9547fvk9zvh": {
+   "uid": "9547fvk9zvh",
+   "use": "BlockGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "eajcndn375a"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "eajcndn375a"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "eajcndn375a": {
+   "uid": "eajcndn375a",
+   "use": "CreateFormModel",
+   "props": {},
+   "decoratorProps": {},
+   "stepParams": {
+    "resourceSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "r2mi4w6qzbf": {
+   "uid": "r2mi4w6qzbf",
+   "use": "FormGridModel",
+   "props": {
+    "rows": {
+     "row1": [
+      [
+       "t4mk7tvb9mg"
+      ],
+      [
+       "fnid3sda2vk"
+      ]
+     ],
+     "row2": [
+      [
+       "r5id24iehv3"
+      ],
+      [
+       "w87kq45d7e2"
+      ]
+     ],
+     "row3": [
+      [
+       "o3qb3eum309"
+      ],
+      [
+       "6v3v4aoe2qt"
+      ]
+     ],
+     "row4": [
+      [
+       "1x3okugewgt"
+      ],
+      [
+       "5q7g1n3qex5"
+      ]
+     ],
+     "row5": [
+      [
+       "xzstwl4swkw"
+      ]
+     ]
+    },
+    "sizes": {
+     "row1": [
+      12,
+      12
+     ],
+     "row2": [
+      12,
+      12
+     ],
+     "row3": [
+      12,
+      12
+     ],
+     "row4": [
+      12,
+      12
+     ],
+     "row5": [
+      24
+     ]
+    },
+    "rowOrder": [
+     "row1",
+     "row2",
+     "row3",
+     "row4",
+     "row5"
+    ]
+   },
+   "stepParams": {
+    "gridSettings": {
+     "grid": {
+      "rows": {
+       "row1": [
+        [
+         "t4mk7tvb9mg"
+        ],
+        [
+         "fnid3sda2vk"
+        ]
+       ],
+       "row2": [
+        [
+         "r5id24iehv3"
+        ],
+        [
+         "w87kq45d7e2"
+        ]
+       ],
+       "row3": [
+        [
+         "o3qb3eum309"
+        ],
+        [
+         "6v3v4aoe2qt"
+        ]
+       ],
+       "row4": [
+        [
+         "1x3okugewgt"
+        ],
+        [
+         "5q7g1n3qex5"
+        ]
+       ],
+       "row5": [
+        [
+         "xzstwl4swkw"
+        ]
+       ]
+      },
+      "sizes": {
+       "row1": [
+        12,
+        12
+       ],
+       "row2": [
+        12,
+        12
+       ],
+       "row3": [
+        12,
+        12
+       ],
+       "row4": [
+        12,
+        12
+       ],
+       "row5": [
+        24
+       ]
+      },
+      "rowOrder": [
+       "row1",
+       "row2",
+       "row3",
+       "row4",
+       "row5"
+      ]
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "t4mk7tvb9mg": {
+   "uid": "t4mk7tvb9mg",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "title"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "spugiji8nac": {
+   "uid": "spugiji8nac",
+   "use": "InputFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "title"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "fnid3sda2vk": {
+   "uid": "fnid3sda2vk",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "category"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "slc6fw6s18q": {
+   "uid": "slc6fw6s18q",
+   "use": "SelectFieldModel",
+   "props": {
+    "allowClear": true
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "category"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "r5id24iehv3": {
+   "uid": "r5id24iehv3",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "statement"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "a1vv9v16c37": {
+   "uid": "a1vv9v16c37",
+   "use": "TextareaFieldModel",
+   "props": {
+    "autoSize": {
+     "maxRows": 10,
+     "minRows": 3
+    }
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "statement"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "w87kq45d7e2": {
+   "uid": "w87kq45d7e2",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "period"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "g4t934vok3v": {
+   "uid": "g4t934vok3v",
+   "use": "InputFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "period"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "o3qb3eum309": {
+   "uid": "o3qb3eum309",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "as_of"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "no2z5ddj3uh": {
+   "uid": "no2z5ddj3uh",
+   "use": "InputFieldModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "as_of"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "6v3v4aoe2qt": {
+   "uid": "6v3v4aoe2qt",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "verify_status"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "ysvmgj4n5ol": {
+   "uid": "ysvmgj4n5ol",
+   "use": "SelectFieldModel",
+   "props": {
+    "allowClear": true
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "verify_status"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "1x3okugewgt": {
+   "uid": "1x3okugewgt",
+   "use": "FormItemModel",
+   "props": {},
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "notes"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "a5d9guct4lo": {
+   "uid": "a5d9guct4lo",
+   "use": "TextareaFieldModel",
+   "props": {
+    "autoSize": {
+     "maxRows": 10,
+     "minRows": 3
+    }
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "notes"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "5q7g1n3qex5": {
+   "uid": "5q7g1n3qex5",
+   "use": "FormItemModel",
+   "props": {
+    "titleField": "name"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "company"
+     }
+    },
+    "editItemSettings": {
+     "titleField": {
+      "label": "name"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "jdnwhucmhut": {
+   "uid": "jdnwhucmhut",
+   "use": "RecordSelectFieldModel",
+   "props": {
+    "titleField": "name"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "company"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "xzstwl4swkw": {
+   "uid": "xzstwl4swkw",
+   "use": "FormItemModel",
+   "props": {
+    "titleField": "title"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "source"
+     }
+    },
+    "editItemSettings": {
+     "titleField": {
+      "label": "title"
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "3tdnj4egcwr": {
+   "uid": "3tdnj4egcwr",
+   "use": "RecordSelectFieldModel",
+   "props": {
+    "titleField": "title"
+   },
+   "stepParams": {
+    "fieldSettings": {
+     "init": {
+      "dataSourceKey": "main",
+      "collectionName": "vi_fact",
+      "fieldPath": "source"
+     }
+    },
+    "selectSettings": {
+     "dataScope": {
+      "filter": {
+       "logic": "$and",
+       "items": [
+        {
+         "path": "company_id",
+         "operator": "$eq",
+         "value": "{{ctx.formValues.company.id}}"
+        }
+       ]
+      }
+     }
+    }
+   },
+   "popup": {
+    "mode": "local"
+   }
+  },
+  "d4aeenjryoi": {
+   "uid": "d4aeenjryoi",
+   "use": "FormSubmitActionModel",
+   "props": {
+    "title": "{{t(\"Submit\")}}",
+    "type": "primary",
+    "htmlType": "submit"
+   },
+   "decoratorProps": {},
+   "stepParams": {
+    "buttonSettings": {
+     "general": {
+      "title": "{{t(\"Submit\")}}",
+      "type": "primary"
+     }
+    },
+    "submitSettings": {
+     "confirm": {
+      "enable": false,
+      "title": "{{t(\"Submit record\")}}",
+      "content": "{{t(\"Are you sure you want to save it?\")}}"
+     }
+    }
+   },
+   "flowRegistry": {},
+   "popup": {
+    "mode": "local"
+   }
+  }
+ },
+ "pageRoute": {
+  "createdAt": "2026-10-23T05:48:09.953Z",
+  "updatedAt": "2026-11-04T03:32:58.414Z",
+  "id": 393657428475904,
+  "parentId": 393523143770112,
+  "title": "定性事实",
+  "tooltip": null,
+  "icon": "TableOutlined",
+  "schemaUid": "yrdxconk433",
+  "menuSchemaUid": "r6vocdbejh5",
+  "tabSchemaName": null,
+  "type": "flowPage",
+  "options": {
+   "flowSurfaceMenuBindable": true
+  },
+  "sort": 3,
+  "hideInMenu": false,
+  "enableTabs": false,
+  "enableHeader": false,
+  "displayTitle": true,
+  "hidden": null,
+  "createdById": null,
+  "updatedById": 1,
+  "children": [
+   {
+    "createdAt": "2026-10-23T05:48:09.965Z",
+    "updatedAt": "2026-11-04T03:32:59.547Z",
+    "id": 393657428475905,
+    "parentId": 393657428475904,
+    "title": "定性事实",
+    "tooltip": null,
+    "icon": null,
+    "schemaUid": "2kwz9c9unrq",
+    "menuSchemaUid": null,
+    "tabSchemaName": "ih5t9q3sag0",
+    "type": "tabs",
+    "options": {
+     "flowRegistry": {},
+     "documentTitle": "腾讯音乐 · 重要事实"
+    },
+    "sort": 1,
+    "hideInMenu": null,
+    "enableTabs": null,
+    "enableHeader": null,
+    "displayTitle": null,
+    "hidden": true,
+    "createdById": null,
+    "updatedById": 1
+   }
+  ]
+ }
+}

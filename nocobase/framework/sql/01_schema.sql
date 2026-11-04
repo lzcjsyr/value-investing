@@ -86,7 +86,7 @@ CREATE TABLE vi_source_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_source_base IS '来源文档：所有数据和事实的出处；被【重要事实】【竞争对手】【数据】【指标数值】引用。原始出处：年报、公告、数据库取数、官网。重要事实、每期数据都关联它；一份文档可以支撑多条事实和数据。';
+COMMENT ON TABLE vi_source_base IS '来源文档：所有数据和事实的出处；被【定性事实】【竞争对手】【数据】【指标数值】引用。原始出处：年报、公告、数据库取数、官网。定性事实、每期数据都关联它；一份文档可以支撑多条事实和数据。';
 
 COMMENT ON COLUMN vi_source_base.title IS '标题';
 
@@ -112,6 +112,34 @@ COMMENT ON COLUMN vi_source_base.company_id IS '公司（关联 公司）';
 
 CREATE TRIGGER vi_source_base_touch BEFORE UPDATE ON vi_source_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
 
+CREATE TABLE vi_event_base (
+  id bigserial PRIMARY KEY,
+  name text,
+  category text,
+  status text,
+  period text,
+  summary text,
+  company_id bigint,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+
+COMMENT ON TABLE vi_event_base IS '事项：一件事一行（并购、监管变化、竞争格局、资本运作等），短名称加简介；具体的可核验侧面是挂在它下面的定性事实；被【定性事实】引用。名称用短名词短语，不带数字；简介三五句讲清来龙去脉、关键条款和现状。每个侧面（日期、来源、核验状态各自独立）记在定性事实里，上层判断引用侧面；零散的一次性事实可以不挂事项。';
+
+COMMENT ON COLUMN vi_event_base.name IS '事项：短名称，不带数字，如“喜马拉雅收购”';
+
+COMMENT ON COLUMN vi_event_base.category IS '类别（可选：经营、财务、资本开支、分红、债务、政策、治理、竞争、估值方法、其他）';
+
+COMMENT ON COLUMN vi_event_base.status IS '状态（可选：进行中、已完成、持续、待观察）';
+
+COMMENT ON COLUMN vi_event_base.period IS '时间：发生或持续的时间，如 2026、2018—2025';
+
+COMMENT ON COLUMN vi_event_base.summary IS '简介：三五句讲清来龙去脉、关键条款和现状；细节看下面的各个侧面';
+
+COMMENT ON COLUMN vi_event_base.company_id IS '公司（关联 公司）';
+
+CREATE TRIGGER vi_event_base_touch BEFORE UPDATE ON vi_event_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
+
 CREATE TABLE vi_fact_base (
   id bigserial PRIMARY KEY,
   title text,
@@ -122,18 +150,19 @@ CREATE TABLE vi_fact_base (
   verify_status text,
   notes text,
   company_id bigint,
+  event_id bigint,
   source_id bigint,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_fact_base IS '重要事实：用文字记录的单条可核验事实；数字在数据里；引用【来源文档】；被【商业模式拆解】【产业链与五力】【竞争对手】【竞争壁垒】【核心论点】【风险分析】【假设依据】【资产估值与调整】【经营分部估值】【逐年假设】引用。从来源文档里摘出的一条可核验事实，只用文字写“是什么”，解释放到论点或假设依据里。本表不存数：按期重复的数字（发电量、销量、收入等）在「数据」或「财务数据」里，看趋势到「预测与估值 / 重点指标」；一次性的数字（股本、产能、对价等）直接写在事实陈述里。';
+COMMENT ON TABLE vi_fact_base IS '定性事实：数字以外、会改变判断的事实：制度监管、合作授权、并购与资本运作、人事、诉讼、管理层表态、竞争对手动作，以及外部观点与估值参照；引用【来源文档】【事项】；被【商业模式拆解】【产业链与五力】【竞争对手】【竞争壁垒】【核心论点】【风险分析】【假设依据】【资产估值与调整】【经营分部估值】【逐年假设】引用。一条可核验的定性事实，通常是某个事项的一个侧面。按期重复的数字不放这里：它们在「指标／数据」里，上层判断用“依据指标”引用；一次性的数字（并购对价、回购额度）可以写进事实。';
 
-COMMENT ON COLUMN vi_fact_base.title IS '事实：一句话标题';
+COMMENT ON COLUMN vi_fact_base.title IS '侧面：短名称，说明是事项的哪个侧面，如“交易对价与商誉”';
 
 COMMENT ON COLUMN vi_fact_base.category IS '类别（可选：经营、财务、资本开支、分红、债务、政策、治理、水文、估值方法、其他）';
 
-COMMENT ON COLUMN vi_fact_base.statement IS '事实陈述';
+COMMENT ON COLUMN vi_fact_base.statement IS '陈述：写清这个侧面发生了什么、关键数字与出处';
 
 COMMENT ON COLUMN vi_fact_base.period IS '所属期间：如 2025、2026Q3';
 
@@ -144,6 +173,8 @@ COMMENT ON COLUMN vi_fact_base.verify_status IS '核验状态（可选：已核�
 COMMENT ON COLUMN vi_fact_base.notes IS '备注';
 
 COMMENT ON COLUMN vi_fact_base.company_id IS '公司（关联 公司）';
+
+COMMENT ON COLUMN vi_fact_base.event_id IS '所属事项（关联 事项）';
 
 COMMENT ON COLUMN vi_fact_base.source_id IS '来源文档（关联 来源文档）';
 
@@ -194,7 +225,7 @@ CREATE TABLE vi_biz_model_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_biz_model_base IS '商业模式拆解：用商业模式画布 9 项讲清公司怎么赚钱；引用【重要事实】【业务分部】。商业模式画布 9 项，每块业务一项一行（B1—B9 按画布顺序）；所属业务留空表示集团整体或共性，不表示自动继承。投资者关心的内容放进画布：盈利公式的收入一侧、收入结构、单价、增长与周期写在“收入来源”；盈利公式的成本一侧、成本构成、单位利润、资本需求与现金循环写在“成本结构”。只写事实与机制；有争议、决定价值的判断写在核心论点里。';
+COMMENT ON TABLE vi_biz_model_base IS '商业模式拆解：用商业模式画布 9 项讲清公司怎么赚钱；引用【定性事实】【业务分部】【指标】。商业模式画布 9 项，每块业务一项一行（B1—B9 按画布顺序）；所属业务留空表示集团整体或共性，不表示自动继承。投资者关心的内容放进画布：盈利公式的收入一侧、收入结构、单价、增长与周期写在“收入来源”；盈利公式的成本一侧、成本构成、单位利润、资本需求与现金循环写在“成本结构”。只写事实与机制；有争议、决定价值的判断写在核心论点里。';
 
 COMMENT ON COLUMN vi_biz_model_base.code IS '编号：B1—B9，按画布顺序；在公司和所属业务内唯一';
 
@@ -232,7 +263,7 @@ CREATE TABLE vi_value_chain_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_value_chain_base IS '产业链与五力：产业链上下游各方对公司的议价力强弱；引用【重要事实】【竞争对手】。上下游各环节是谁、拿走多少利润、对公司的议价力强弱；每行同时标注属于波特五力中的哪一种力量。同业、替代品、潜在进入者这几行只评估力量强弱，具体对手的规模与打法写在竞争对手表，并在“相关对手”里关联。';
+COMMENT ON TABLE vi_value_chain_base IS '产业链与五力：产业链上下游各方对公司的议价力强弱；引用【定性事实】【竞争对手】【指标】。上下游各环节是谁、拿走多少利润、对公司的议价力强弱；每行同时标注属于波特五力中的哪一种力量。同业、替代品、潜在进入者这几行只评估力量强弱，具体对手的规模与打法写在竞争对手表，并在“相关对手”里关联。';
 
 COMMENT ON COLUMN vi_value_chain_base.code IS '编号：V1 固定是本公司环节，其余各方从 V2 起编';
 
@@ -284,7 +315,7 @@ CREATE TABLE vi_competitor_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_competitor_base IS '竞争对手：具体竞争对手的规模、打法和威胁；引用【来源文档】【重要事实】；被【产业链与五力】引用。直接对手、替代品、潜在进入者与海外对标。关键数字写明截至日期；第三方估算在来源里注明。';
+COMMENT ON TABLE vi_competitor_base IS '竞争对手：具体竞争对手的规模、打法和威胁；引用【来源文档】【定性事实】；被【产业链与五力】引用。直接对手、替代品、潜在进入者与海外对标。关键数字写明截至日期；第三方估算在来源里注明。';
 
 COMMENT ON COLUMN vi_competitor_base.name IS '对手';
 
@@ -347,7 +378,7 @@ CREATE TABLE vi_moat_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_moat_base IS '竞争壁垒：公司有哪些护城河，各靠什么机制成立；引用【重要事实】【核心论点】【历史年度】；被【质量自检】引用。每一项候选壁垒：机制、财务体现、证据、反证、复制难度；看起来像壁垒其实不是的（伪壁垒）也要列出。壁垒能不能持续，在核心论点里正反论证并关联到这里。可设自动检查，读取历史年度。';
+COMMENT ON TABLE vi_moat_base IS '竞争壁垒：公司有哪些护城河，各靠什么机制成立；引用【定性事实】【核心论点】【指标】【历史年度】；被【质量自检】引用。每一项候选壁垒：机制、财务体现、证据、反证、复制难度；看起来像壁垒其实不是的（伪壁垒）也要列出。壁垒能不能持续，在核心论点里正反论证并关联到这里。可设自动检查，读取历史年度。';
 
 COMMENT ON COLUMN vi_moat_base.code IS '编号：如 M1';
 
@@ -411,7 +442,7 @@ CREATE TABLE vi_thesis_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_thesis_base IS '核心论点：决定公司价值的关键判断（问题与结论），每条正反辩论后下结论；引用【重要事实】【历史年度】；被【竞争壁垒】【风险分析】【价投适配度】【假设依据】【质量自检】引用。决定价值的几个关键判断，每条都正反论证：正方立论、反方立论、互相反驳，再给裁决、把握、改判条件和对模型的影响。判断只写这里：没有答案的判断性问题也写成论点，缺的证据写进“决定胜负的证据”，不进“待办清单”。壁垒能否持续的论点关联到竞争壁垒（伪壁垒以外每项壁垒至少一条辩论过的论点）；能量化的改判条件设自动检查，读取历史年度。';
+COMMENT ON TABLE vi_thesis_base IS '核心论点：决定公司价值的关键判断（问题与结论），每条正反辩论后下结论；引用【定性事实】【指标】【历史年度】；被【竞争壁垒】【风险分析】【价投适配度】【假设依据】【质量自检】引用。决定价值的几个关键判断，每条都正反论证：正方立论、反方立论、互相反驳，再给裁决、把握、改判条件和对模型的影响。判断只写这里：没有答案的判断性问题也写成论点，缺的证据写进“决定胜负的证据”，不进“待办清单”。壁垒能否持续的论点关联到竞争壁垒（伪壁垒以外每项壁垒至少一条辩论过的论点）；能量化的改判条件设自动检查，读取历史年度。';
 
 COMMENT ON COLUMN vi_thesis_base.code IS '编号：如 T1';
 
@@ -476,7 +507,7 @@ CREATE TABLE vi_risk_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_risk_base IS '风险分析：可能让这笔投资亏钱的事件；引用【重要事实】【核心论点】【假设依据】【指标】；被【质量自检】引用。会让这笔投资亏钱的不利事件：传导路径、可能性×冲击（自动定级）、量化影响、缓冲因素、在估值里怎么处理、预警信号与触发后应对。风险是论点失败或外部冲击的“事件”，论证本身仍在核心论点里，这里只关联会被削弱的论点；落到参数的关联假设依据，盯哪些数关联预警指标。';
+COMMENT ON TABLE vi_risk_base IS '风险分析：可能让这笔投资亏钱的事件；引用【定性事实】【核心论点】【假设依据】【指标】；被【质量自检】引用。会让这笔投资亏钱的不利事件：传导路径、可能性×冲击（自动定级）、量化影响、缓冲因素、在估值里怎么处理、预警信号与触发后应对。风险是论点失败或外部冲击的“事件”，论证本身仍在核心论点里，这里只关联会被削弱的论点；落到参数的关联假设依据，盯哪些数关联预警指标。';
 
 COMMENT ON COLUMN vi_risk_base.code IS '编号：如 R1';
 
@@ -522,7 +553,7 @@ CREATE TABLE vi_fit_score_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_fit_score_base IS '价投适配度：按八个维度打分，看公司适不适合价值投资；引用【核心论点】；被【质量自检】引用。长坡、厚雪、慢变、护城河、再投资、财务质量、治理配置、可估值性，各 0—5 分。总分 32—40 适合复利框架，22—31 可研究，21 以下通常不符合价值投资标准。';
+COMMENT ON TABLE vi_fit_score_base IS '价投适配度：按八个维度打分，看公司适不适合价值投资；引用【核心论点】；被【质量自检】引用。长坡、厚雪、慢变、护城河、再投资、财务质量、治理配置、可估值性，各 0—5 分。总分 32—40 适合复利框架，22—31 合适，21 以下通常不符合价值投资标准。';
 
 COMMENT ON COLUMN vi_fit_score_base.dimension IS '维度（可选：长坡、厚雪、慢变、护城河、再投资、财务质量、治理配置、可估值性）';
 
@@ -556,7 +587,7 @@ CREATE TABLE vi_judgment_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_judgment_base IS '假设依据：每个估值参数为什么这样设；引用【重要事实】【核心论点】【指标】；被【风险分析】【逐年假设】【单参数试验】引用。事实 → 判断 → 参数：解释事实和论点如何影响哪个估值参数、改参数的门槛、什么情况下不改。论证本身写在核心论点里，这里只写到参数的传导。';
+COMMENT ON TABLE vi_judgment_base IS '假设依据：每个估值参数为什么这样设；引用【定性事实】【核心论点】【指标】；被【风险分析】【逐年假设】【单参数试验】引用。事实 → 判断 → 参数：解释事实和论点如何影响哪个估值参数、改参数的门槛、什么情况下不改。论证本身写在核心论点里，这里只写到参数的传导。';
 
 COMMENT ON COLUMN vi_judgment_base.code IS '编号：如 J-Q';
 
@@ -597,7 +628,7 @@ CREATE TABLE vi_fin_stmt_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_fin_stmt_base IS '财务数据：公司的季度三大报表原值；被【历史年度】【指标数值】引用。季度完整三大报表（资产负债表、利润表、现金流量表），一行＝公司×报表×报告期×科目，金额为报表原值折亿元。合并报表科目以这里为准，由 tools/fin_stmt.py 取数检验后入库，不手录（A 股来自新浪财报、港股来自东方财富港股报表，都经 akshare）。空白科目＝该期未披露。资产负债表是时点余额；利润表/现金流量表是年初至报告期末的累计数。';
+COMMENT ON TABLE vi_fin_stmt_base IS '财务报表：公司的季度三大报表原值；被【历史年度】【指标数值】引用。季度完整三大报表（资产负债表、利润表、现金流量表），一行＝公司×报表×报告期×科目，金额为报表原值折亿元。合并报表科目以这里为准，由 tools/fin_stmt.py 取数检验后入库，不手录（A 股来自新浪财报、港股来自东方财富港股报表，都经 akshare）。空白科目＝该期未披露。资产负债表是时点余额；利润表/现金流量表是年初至报告期末的累计数。';
 
 COMMENT ON COLUMN vi_fin_stmt_base.period IS '报告期：如 2025Q3；Q4 即年报口径';
 
@@ -621,6 +652,7 @@ CREATE TABLE vi_metric_base (
   name text,
   unit text,
   category text,
+  measure text,
   source_kind text DEFAULT '自动采集',
   basis text DEFAULT '时点',
   model_field text,
@@ -635,7 +667,7 @@ CREATE TABLE vi_metric_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_metric_base IS '指标：一家公司要看的每一个数（经营、财务、行情与环境），一个指标一行：从哪来、最新值、是否到期、被哪些假设或风险盯着；被【公司】【风险分析】【假设依据】【数据】【估值模型】【资产估值与调整】【采集配置】【历史年度】【指标数值】【质量自检】引用。一个指标一行；每期的数在「数据」里，口径（单季、累计、全年、时点）记在每期数据上。来源方式：自动采集、公司披露／年报／手工整理（在「数据」里录）、报表计算（按“报表公式”从三大报表实时算，不另存；报表里有的科目只能这样取）。所属公司为空的是宏观数据。';
+COMMENT ON TABLE vi_metric_base IS '指标：一家公司要看的每一个数（经营、财务、行情与环境），一个指标一行：从哪来、最新值、是否到期；被【公司】【商业模式拆解】【产业链与五力】【竞争壁垒】【核心论点】【风险分析】【假设依据】【数据】【估值模型】【资产估值与调整】【经营分部估值】【逐年假设】【采集配置】【历史年度】【指标数值】【质量自检】引用。每期的数在「数据」里，口径记在每期数据上。来源方式：自动采集、公司披露／年报／手工整理（在「数据」里录）、报表计算（按报表公式从三大报表实时算，不另存）。所属公司为空的是宏观数据。';
 
 COMMENT ON COLUMN vi_metric_base.code IS '指标代码：稳定的英文代码，如 600900.SH.PRICE';
 
@@ -645,9 +677,11 @@ COMMENT ON COLUMN vi_metric_base.unit IS '单位：利率类直接存百分数�
 
 COMMENT ON COLUMN vi_metric_base.category IS '类别：业务驱动选经营，收入/利润/现金及分部财务选财务；合同额、合约销售额仍是业务。（可选：行情、利率、汇率、商品、宏观、水文、经营、财务、其他）';
 
+COMMENT ON COLUMN vi_metric_base.measure IS '指标性质：时期指标（流量）＝一段时间内累计发生的量，如营业收入、利润、现金流、销量、回购金额；由它们算出的比率（毛利率、ARPPU）也是时期指标，同类时期可以相加（四个单季≈全年）。时点指标（存量）＝某一时刻的状态或规模，如现金、负债、净资产、负债率、股价、零售价、用户数；不能跨期相加，按季度平均的用户数也算时点。时点指标每期的口径只能是“时点”，时期指标不能用“时点”。留空＝还没判定（可选：时期、时点）';
+
 COMMENT ON COLUMN vi_metric_base.source_kind IS '来源方式：报表计算＝按“报表公式”从三大报表实时算出，不在「数据」里存数（可选：自动采集、公司披露、年报、手工整理、报表计算）';
 
-COMMENT ON COLUMN vi_metric_base.basis IS '主口径：最新值、重点跟踪按这个口径取；每期数据自己的口径记在「数据」上（可选：时点、单季、半年累计、前三季度累计、全年、年初至今累计、滚动四季度）';
+COMMENT ON COLUMN vi_metric_base.basis IS '主口径：最新值、趋势和重点跟踪按这个口径取；每期数据自己的口径记在「数据」上。时点指标只能选“时点”（可选：时点、单季、半年累计、前三季度累计、全年、年初至今累计、滚动四季度）';
 
 COMMENT ON COLUMN vi_metric_base.model_field IS '模型字段：这个指标是财务模型历史一侧的哪一列（每家公司每列一个指标）；有模型字段的指标列在「预测与估值 / 重点指标」（可选：volume、revenue、cost_of_sales、pretax_profit、income_tax、np_parent、minority_profit、da、finance_cost、invest_income、equity_income、cfo、capex、investee_cash_div、net_borrowing、interest_debt、cash、equity_parent、dividend_total、dps）';
 
@@ -683,13 +717,13 @@ CREATE TABLE vi_observation_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_observation_base IS '数据：每个指标每一期的数：期间、口径、数值、同比、来源文档和说明；引用【来源文档】【指标】【原始采集记录】；被【历史年度】【指标数值】【质量自检】引用。一行＝某个指标在某一期、某个口径下的一个数：自动采集的按天（股价、利率、水位），公司披露的按期（发电量、销量、新签合同额）。同一指标、同一口径、同一日期多次采集时取最后一次为“当前版本”；超出合理范围的为无效。报表计算的指标不在这里存数。出处只记一处：公司披露和历史补数关联“来源文档”，自动采集关联“原始采集记录”（只做解析与范围校验，不是财务核验，不自动改估值假设）。';
+COMMENT ON TABLE vi_observation_base IS '数据：每个指标每一期的数：统计时间、口径、数值、同比、来源文档和说明；引用【来源文档】【指标】【原始采集记录】；被【历史年度】【指标数值】【质量自检】引用。一行＝某个指标在某一期、某个口径下的一个数：自动采集的按天（股价、利率、水位），公司披露的按期（发电量、销量、新签合同额）。同一指标、同一口径、同一日期多次采集时取最后一次为“当前版本”；超出合理范围的为无效。报表计算的指标不在这里存数。出处只记一处：公司披露和历史补数关联“来源文档”，自动采集关联“原始采集记录”（只做解析与范围校验，不是财务核验）。';
 
-COMMENT ON COLUMN vi_observation_base.obs_date IS '观察日期：自动采集为采集到的日期；公司披露为期末日期';
+COMMENT ON COLUMN vi_observation_base.obs_date IS '对应日期：精确到日：时期指标填这段时期的最后一天（2026Q2 → 2026-06-30）；时点指标填观察当天（股价、水位为交易日，期末余额为期末日）';
 
-COMMENT ON COLUMN vi_observation_base.period IS '期间：公司披露的数据填，如 2026Q3、2026H1、2025';
+COMMENT ON COLUMN vi_observation_base.period IS '统计时间：时期指标写这段时期：2026Q2（第二季度）、2026H1（上半年）、2025（全年）、2026M07（7 月）；时点指标写时点所在的报告期：2026Q2＝二季度末、2026M07＝7 月末；日度数据可留空，以对应日期为准';
 
-COMMENT ON COLUMN vi_observation_base.basis IS '口径：时点＝某一天的值或期末余额；其余为期间数：年初至今累计用于月度简报，滚动四季度＝最近四个季度合计（可选：时点、单季、半年累计、前三季度累计、全年、年初至今累计、滚动四季度）';
+COMMENT ON COLUMN vi_observation_base.basis IS '口径：这一期数值覆盖的范围。时点指标只能用“时点”（某一天的值或期末余额）；时期指标用其余几种：单季、半年累计、前三季度累计、全年、年初至今累计（月度简报用）、滚动四季度（最近四个季度合计）（可选：时点、单季、半年累计、前三季度累计、全年、年初至今累计、滚动四季度）';
 
 COMMENT ON COLUMN vi_observation_base.value IS '数值';
 
@@ -861,7 +895,7 @@ CREATE TABLE vi_sotp_item_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_sotp_item_base IS '资产估值与调整：现金、投资、固定资产等独立价值，以及负债和归属调整；标明是否已含在业务价值中；引用【重要事实】【业务分部】【指标】【估值模型】【情景】；被【分部加总估值】引用。总价值＝业务估值＋资产估值与调整净额。单独计价的资产加计、负债扣减；已含业务估值或不计价的项目只作边界说明，计入值为零。固定资产只有在相关盈利、租金或处置收益未计入业务价值时才单独加计。情景留空＝全部，同编号情景专属行优先。';
+COMMENT ON TABLE vi_sotp_item_base IS '资产估值与调整：现金、投资、固定资产等独立价值，以及负债和归属调整；标明是否已含在业务价值中；引用【定性事实】【业务分部】【指标】【估值模型】【情景】；被【分部加总估值】引用。总价值＝业务估值＋资产估值与调整净额。单独计价的资产加计、负债扣减；已含业务估值或不计价的项目只作边界说明，计入值为零。固定资产只有在相关盈利、租金或处置收益未计入业务价值时才单独加计。情景留空＝全部，同编号情景专属行优先。';
 
 COMMENT ON COLUMN vi_sotp_item_base.code IS '编号：如 C1；同一编号可按情景各写一行';
 
@@ -921,7 +955,7 @@ CREATE TABLE vi_sotp_segment_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_sotp_segment_base IS '经营分部估值：分部加总里每个经营业务的估值；引用【重要事实】【业务分部】【估值模型】【情景】；被【分部逐情景计算】【分部加总估值】【质量自检】引用。分部加总里的经营业务，按发展阶段各用一种方法：成熟或周期业务用“盈利×倍数”（正常化盈利）；成长业务用“稳态折现”（稳态年盈利×退出倍数折回今天，加上到稳态前的期间现金流）；投入期业务用“承诺投入”（只计已承诺的成本，回报不计入）。一行一个分部；适用情景留空＝所有情景，同编号可按情景另写一行。';
+COMMENT ON TABLE vi_sotp_segment_base IS '经营分部估值：分部加总里每个经营业务的估值；引用【定性事实】【业务分部】【指标】【估值模型】【情景】；被【分部逐情景计算】【分部加总估值】【质量自检】引用。分部加总里的经营业务，按发展阶段各用一种方法：成熟或周期业务用“盈利×倍数”（正常化盈利）；成长业务用“稳态折现”（稳态年盈利×退出倍数折回今天，加上到稳态前的期间现金流）；投入期业务用“承诺投入”（只计已承诺的成本，回报不计入）。一行一个分部；适用情景留空＝所有情景，同编号可按情景另写一行。';
 
 COMMENT ON COLUMN vi_sotp_segment_base.code IS '编号：如 S1；同一编号可按情景各写一行';
 
@@ -997,7 +1031,7 @@ CREATE TABLE vi_forecast_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_forecast_base IS '逐年假设：基准情景下每年的经营与现金假设；引用【重要事实】【假设依据】【估值模型】；被【单参数试验】【预测计算】【资产与资本】【质量自检】引用。基准情景下每年的经营与现金假设。每格都显式填写（没有“留空继承”）；利息由债务滚动自动计算。';
+COMMENT ON TABLE vi_forecast_base IS '逐年假设：基准情景下每年的经营与现金假设；引用【定性事实】【假设依据】【指标】【估值模型】；被【单参数试验】【预测计算】【资产与资本】【质量自检】引用。基准情景下每年的经营与现金假设。每格都显式填写（没有“留空继承”）；利息由债务滚动自动计算。';
 
 COMMENT ON COLUMN vi_forecast_base.year IS '年度';
 
@@ -1334,9 +1368,17 @@ ALTER TABLE vi_source_base ADD FOREIGN KEY (company_id) REFERENCES vi_company_ba
 
 CREATE INDEX ON vi_source_base (company_id);
 
+ALTER TABLE vi_event_base ADD FOREIGN KEY (company_id) REFERENCES vi_company_base(id) ON DELETE SET NULL;
+
+CREATE INDEX ON vi_event_base (company_id);
+
 ALTER TABLE vi_fact_base ADD FOREIGN KEY (company_id) REFERENCES vi_company_base(id) ON DELETE SET NULL;
 
 CREATE INDEX ON vi_fact_base (company_id);
+
+ALTER TABLE vi_fact_base ADD FOREIGN KEY (event_id) REFERENCES vi_event_base(id) ON DELETE SET NULL;
+
+CREATE INDEX ON vi_fact_base (event_id);
 
 ALTER TABLE vi_fact_base ADD FOREIGN KEY (source_id) REFERENCES vi_source_base(id) ON DELETE SET NULL;
 
@@ -1496,6 +1538,8 @@ ALTER TABLE vi_scenario_base ADD CONSTRAINT vi_scenario_uniq UNIQUE (model_id, n
 
 ALTER TABLE vi_thesis_base ADD CONSTRAINT vi_thesis_uniq UNIQUE (company_id, code);
 
+ALTER TABLE vi_event_base ADD CONSTRAINT vi_event_uniq UNIQUE (company_id, name);
+
 ALTER TABLE vi_judgment_base ADD CONSTRAINT vi_judgment_uniq UNIQUE (company_id, code);
 
 ALTER TABLE vi_business_base ADD CONSTRAINT vi_business_uniq UNIQUE (company_id, code);
@@ -1532,6 +1576,16 @@ CREATE TABLE vi_lnk_biz_model_facts (
 
 COMMENT ON TABLE vi_lnk_biz_model_facts IS '商业模式拆解 ↔ 依据事实（多对多）';
 
+CREATE TABLE vi_lnk_biz_model_basis_metrics (
+  biz_model_id bigint NOT NULL REFERENCES vi_biz_model_base(id) ON DELETE CASCADE,
+  metric_id bigint NOT NULL REFERENCES vi_metric_base(id) ON DELETE CASCADE,
+  "createdAt" timestamptz NOT NULL DEFAULT now(),
+  "updatedAt" timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (biz_model_id, metric_id)
+);
+
+COMMENT ON TABLE vi_lnk_biz_model_basis_metrics IS '商业模式拆解 ↔ 依据指标（多对多）';
+
 CREATE TABLE vi_lnk_value_chain_facts (
   value_chain_id bigint NOT NULL REFERENCES vi_value_chain_base(id) ON DELETE CASCADE,
   fact_id bigint NOT NULL REFERENCES vi_fact_base(id) ON DELETE CASCADE,
@@ -1541,6 +1595,16 @@ CREATE TABLE vi_lnk_value_chain_facts (
 );
 
 COMMENT ON TABLE vi_lnk_value_chain_facts IS '产业链与五力 ↔ 依据事实（多对多）';
+
+CREATE TABLE vi_lnk_value_chain_basis_metrics (
+  value_chain_id bigint NOT NULL REFERENCES vi_value_chain_base(id) ON DELETE CASCADE,
+  metric_id bigint NOT NULL REFERENCES vi_metric_base(id) ON DELETE CASCADE,
+  "createdAt" timestamptz NOT NULL DEFAULT now(),
+  "updatedAt" timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (value_chain_id, metric_id)
+);
+
+COMMENT ON TABLE vi_lnk_value_chain_basis_metrics IS '产业链与五力 ↔ 依据指标（多对多）';
 
 CREATE TABLE vi_lnk_value_chain_competitors (
   value_chain_id bigint NOT NULL REFERENCES vi_value_chain_base(id) ON DELETE CASCADE,
@@ -1572,6 +1636,16 @@ CREATE TABLE vi_lnk_moat_facts (
 
 COMMENT ON TABLE vi_lnk_moat_facts IS '竞争壁垒 ↔ 依据事实（多对多）';
 
+CREATE TABLE vi_lnk_moat_basis_metrics (
+  moat_id bigint NOT NULL REFERENCES vi_moat_base(id) ON DELETE CASCADE,
+  metric_id bigint NOT NULL REFERENCES vi_metric_base(id) ON DELETE CASCADE,
+  "createdAt" timestamptz NOT NULL DEFAULT now(),
+  "updatedAt" timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (moat_id, metric_id)
+);
+
+COMMENT ON TABLE vi_lnk_moat_basis_metrics IS '竞争壁垒 ↔ 依据指标（多对多）';
+
 CREATE TABLE vi_lnk_moat_theses (
   moat_id bigint NOT NULL REFERENCES vi_moat_base(id) ON DELETE CASCADE,
   thesis_id bigint NOT NULL REFERENCES vi_thesis_base(id) ON DELETE CASCADE,
@@ -1591,6 +1665,16 @@ CREATE TABLE vi_lnk_thesis_facts (
 );
 
 COMMENT ON TABLE vi_lnk_thesis_facts IS '核心论点 ↔ 依据事实（多对多）';
+
+CREATE TABLE vi_lnk_thesis_basis_metrics (
+  thesis_id bigint NOT NULL REFERENCES vi_thesis_base(id) ON DELETE CASCADE,
+  metric_id bigint NOT NULL REFERENCES vi_metric_base(id) ON DELETE CASCADE,
+  "createdAt" timestamptz NOT NULL DEFAULT now(),
+  "updatedAt" timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (thesis_id, metric_id)
+);
+
+COMMENT ON TABLE vi_lnk_thesis_basis_metrics IS '核心论点 ↔ 依据指标（多对多）';
 
 CREATE TABLE vi_lnk_risk_theses (
   risk_id bigint NOT NULL REFERENCES vi_risk_base(id) ON DELETE CASCADE,
@@ -1652,6 +1736,16 @@ CREATE TABLE vi_lnk_judgment_facts (
 
 COMMENT ON TABLE vi_lnk_judgment_facts IS '假设依据 ↔ 依据事实（多对多）';
 
+CREATE TABLE vi_lnk_judgment_basis_metrics (
+  judgment_id bigint NOT NULL REFERENCES vi_judgment_base(id) ON DELETE CASCADE,
+  metric_id bigint NOT NULL REFERENCES vi_metric_base(id) ON DELETE CASCADE,
+  "createdAt" timestamptz NOT NULL DEFAULT now(),
+  "updatedAt" timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (judgment_id, metric_id)
+);
+
+COMMENT ON TABLE vi_lnk_judgment_basis_metrics IS '假设依据 ↔ 依据指标（多对多）';
+
 CREATE TABLE vi_lnk_judgment_theses (
   judgment_id bigint NOT NULL REFERENCES vi_judgment_base(id) ON DELETE CASCADE,
   thesis_id bigint NOT NULL REFERENCES vi_thesis_base(id) ON DELETE CASCADE,
@@ -1682,6 +1776,16 @@ CREATE TABLE vi_lnk_sotp_item_facts (
 
 COMMENT ON TABLE vi_lnk_sotp_item_facts IS '资产估值与调整 ↔ 依据事实（多对多）';
 
+CREATE TABLE vi_lnk_sotp_item_basis_metrics (
+  sotp_item_id bigint NOT NULL REFERENCES vi_sotp_item_base(id) ON DELETE CASCADE,
+  metric_id bigint NOT NULL REFERENCES vi_metric_base(id) ON DELETE CASCADE,
+  "createdAt" timestamptz NOT NULL DEFAULT now(),
+  "updatedAt" timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (sotp_item_id, metric_id)
+);
+
+COMMENT ON TABLE vi_lnk_sotp_item_basis_metrics IS '资产估值与调整 ↔ 依据指标（多对多）';
+
 CREATE TABLE vi_lnk_sotp_segment_facts (
   sotp_segment_id bigint NOT NULL REFERENCES vi_sotp_segment_base(id) ON DELETE CASCADE,
   fact_id bigint NOT NULL REFERENCES vi_fact_base(id) ON DELETE CASCADE,
@@ -1692,6 +1796,16 @@ CREATE TABLE vi_lnk_sotp_segment_facts (
 
 COMMENT ON TABLE vi_lnk_sotp_segment_facts IS '经营分部估值 ↔ 依据事实（多对多）';
 
+CREATE TABLE vi_lnk_sotp_segment_basis_metrics (
+  sotp_segment_id bigint NOT NULL REFERENCES vi_sotp_segment_base(id) ON DELETE CASCADE,
+  metric_id bigint NOT NULL REFERENCES vi_metric_base(id) ON DELETE CASCADE,
+  "createdAt" timestamptz NOT NULL DEFAULT now(),
+  "updatedAt" timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (sotp_segment_id, metric_id)
+);
+
+COMMENT ON TABLE vi_lnk_sotp_segment_basis_metrics IS '经营分部估值 ↔ 依据指标（多对多）';
+
 CREATE TABLE vi_lnk_forecast_facts (
   forecast_id bigint NOT NULL REFERENCES vi_forecast_base(id) ON DELETE CASCADE,
   fact_id bigint NOT NULL REFERENCES vi_fact_base(id) ON DELETE CASCADE,
@@ -1701,6 +1815,16 @@ CREATE TABLE vi_lnk_forecast_facts (
 );
 
 COMMENT ON TABLE vi_lnk_forecast_facts IS '逐年假设 ↔ 依据事实（多对多）';
+
+CREATE TABLE vi_lnk_forecast_basis_metrics (
+  forecast_id bigint NOT NULL REFERENCES vi_forecast_base(id) ON DELETE CASCADE,
+  metric_id bigint NOT NULL REFERENCES vi_metric_base(id) ON DELETE CASCADE,
+  "createdAt" timestamptz NOT NULL DEFAULT now(),
+  "updatedAt" timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (forecast_id, metric_id)
+);
+
+COMMENT ON TABLE vi_lnk_forecast_basis_metrics IS '逐年假设 ↔ 依据指标（多对多）';
 
 CREATE TABLE vi_lnk_forecast_judgments (
   forecast_id bigint NOT NULL REFERENCES vi_forecast_base(id) ON DELETE CASCADE,
