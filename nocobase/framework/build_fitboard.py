@@ -128,6 +128,7 @@ try {
 
 def flow(action, body, tag):
     path = bp.HERE / 'blueprints' / f'fitboard_{tag}.json'
+    path.parent.mkdir(exist_ok=True)
     path.write_text(json.dumps(body, ensure_ascii=False, indent=1))
     r = subprocess.run(['nb', 'api', 'flow-surfaces', action, '--body-file', str(path), '-j'], capture_output=True, text=True, cwd=bp.ROOT)
     if r.returncode:

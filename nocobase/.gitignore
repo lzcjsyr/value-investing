@@ -1,3 +1,6 @@
 storage/
 .env
 backups/
+__pycache__/
+# 页面蓝图：脚本每次生成后交给 nb，不留存
+framework/blueprints/

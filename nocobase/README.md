@@ -19,13 +19,14 @@ docker compose stop       # 停止
 
 ## 目录
 
+历史验收记录（`checks/`）、已执行过的迁移（`sql/migrations/`）、一次性的部署和迁移脚本、飞书时期的文件已于 2026-11-04 清理；文中提到的这些文件需要时从 git 提交 8445328 取回。
+
 | 路径 | 内容 |
 |---|---|
 | `framework/` | **框架层**（可复用）：数据结构定义、SQL 公式、页面与工作流生成脚本。说明见 `framework/README.md` |
 | `macro/` | 宏观数据的种子（利率、汇率、商品；从零重建时第一个灌入），说明见 `macro/README.md` |
 | `companies/600900_长江电力/` | 长江电力的种子数据（`data/` 与 `analysis.py`，`seed.py` 生成 `seed.sql`） |
 | `companies/002078_太阳纸业/` | 太阳纸业的种子数据与原始行情文件（可单独重复执行）；给人读的报告在 `../太阳纸业/投资逻辑与工作台手册.md` |
-| `archive/feishu_migration/` | 从飞书迁移时的脚本与导出（历史记录；项目不读取，可删除） |
 | `db/latest.sql` | 最新整库导出（纯文本，随代码进 git；`./backup.sh` 覆盖） |
 | `backups/` | 本机历史备份（`./backup.sh` 生成，不进 git） |
 | `storage/` | NocoBase 与 PostgreSQL 的数据文件（勿手动修改） |

@@ -1,8 +1,0 @@
-{
-  "scope": "腾讯音乐驾驶舱与估值模型价格视觉",
-  "target": "118.196.72.148",
-  "files": {
-    "dashboard-configure.json": "19901a8ec797010996e2adf11b0f3552009ceb0f453c83d11339d64f1cc1b4bc",
-    "valuation-configure.json": "c9262402c056c7bf0732caf2f9496a43cb9e14db598c959ec68095d4025c391c"
-  }
-}

@@ -971,6 +971,7 @@ EXTRA = {   # 行业专属图表
 
 def apply_page(name, body):
     path = HERE / 'blueprints' / f'{name}.json'
+    path.parent.mkdir(exist_ok=True)
     path.write_text(json.dumps(body, ensure_ascii=False, indent=1))
     p = subprocess.run(['nb', 'api', 'flow-surfaces', 'apply-blueprint', '--body-file', str(path), '-j'],
                        capture_output=True, text=True, cwd=ROOT)
