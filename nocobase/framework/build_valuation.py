@@ -4,11 +4,11 @@
   （原名「情景假设」，2026-10-25 改名：它本质是一张财务模型，情景只是其中的切换，和其他公司的「财务模型」页同名。）
   估值：按公司的估值逻辑定制。现在只有“隐含回报”（irr）：把每股股息当票息，求按市场价买入的年化回报，和门槛比。
 
-录入用的表格页（逐年假设、情景、估值模型、假设依据）收进“预测与估值 / 模型底稿”；被这两页取代的只读报表（预测计算、估值结论、
+录入用的表格页：逐年假设、情景、估值模型并入财务模型、估值模型两页的编辑标签（align_companies.finance），假设依据单独一页；被这两页取代的只读报表（预测计算、估值结论、
 资产与资本、敏感性）、单参数试验和财务模型不再生成页面（build_pages.CUSTOM_VALUATION），表与数据不动。
 页面只读数据库（vi_projection / vi_forecast / vi_scenario / vi_valuation / vi_judgment / vi_fin_history），不存任何数字。
 
-  python3 build_valuation.py             # 给 PROFILES 里的公司建缺的页面，把表格页挪进模型底稿、删掉被取代的页面
+  python3 build_valuation.py             # 给 PROFILES 里的公司建缺的页面，表格页留在「预测与估值」组内、删掉被取代的页面
   python3 build_valuation.py --replace   # 原地改写这两页（改了下面的 JS、标题或 PROFILES 之后用，地址不变）
   python3 build_valuation.py --rebuild   # 删除后重建这两页（地址会变）
 """
@@ -295,7 +295,7 @@ try {
             title={<Space wrap><span>逐年驱动：历史实际 → 预测</span>
               <Segmented size="small" value={sc.id} onChange={setScId} options={scenarios.map((s) => ({ label: s.name, value: s.id }))} /></Space>}>
             <Table size="small" pagination={false} rowKey="key" dataSource={rows} columns={columns} scroll={{ x: 'max-content' }} />
-            <Text type="secondary" style={{ fontSize: 12 }}>灰字为历史实际（预测与估值 / 历史年度）；改数字到「模型底稿 / 逐年假设」「情景」，改依据到「模型底稿 / 假设依据」。</Text>
+            <Text type="secondary" style={{ fontSize: 12 }}>灰字为历史实际（预测与估值 / 历史年度）；改逐年数字到本页「逐年假设（编辑）」，情景到「估值模型」页，改依据到「预测与估值 / 假设依据」。</Text>
           </Card>
 
           <Card size="small" title={`全部假设依据（${judgments.length} 条）`}>
@@ -647,7 +647,7 @@ async function renderThree(D, full) {
       { key: 'h', label: '＝ 每股价值（港元）', j: [], f: (s) => toH(s.value_per_share), strong: true, d: 2 },
       { key: 'hp', label: `港股收盘价（港元，${pxDate}）`, j: [], f: () => pxH, d: 2 },
       { key: 'hg', label: '港股价相对每股价值', j: [], f: (s) => (pxH && toH(s.value_per_share) ? pxH / toH(s.value_per_share) - 1 : null), pct: true },
-      { key: 'hw', label: `关注价（港元，边际 ${pct(model.margin_low, 0)} / ${pct(model.margin_high, 0)}）`, j: [], txt: (s) => `${fmt(toH(s.watch_low), 2)} / ${fmt(toH(s.watch_high), 2)}` },
+      { key: 'hw', label: model.margin_high == null ? `关注价（港元，安全边际 ${pct(model.margin_low, 0)}）` : `关注价（港元，边际 ${pct(model.margin_low, 0)} / ${pct(model.margin_high, 0)}）`, j: [], txt: (s) => model.margin_high == null ? fmt(toH(s.watch_low), 2) : `${fmt(toH(s.watch_low), 2)} / ${fmt(toH(s.watch_high), 2)}` },
     ] : [{ key: 'g', label: '市场价相对每股价值', j: [], f: (s) => s.price_vs_value, pct: true }]),
   ];
   const sumCols = [
@@ -682,7 +682,7 @@ async function renderThree(D, full) {
         const low = hk ? toH(sOf(names[0]).value_per_share) : sOf(names[0]).value_per_share;
         return (<>
           <PriceSummary price={px} date={pxDate} unit={unit} scenarios={names.map((n) => ({ name: n, value: hk ? toH(sOf(n).value_per_share) : sOf(n).value_per_share, isBase: !!sOf(n).is_base }))} />
-          <Paragraph type="secondary">关注价 · {pct(model.margin_low, 0)} 边际 {fmt(hk ? toH(base.watch_low) : base.watch_low, 2)} {unit} / {pct(model.margin_high, 0)} 边际 {fmt(hk ? toH(base.watch_high) : base.watch_high, 2)} {unit}</Paragraph>
+          <Paragraph type="secondary">关注价 · {model.margin_high == null ? `安全边际 ${pct(model.margin_low, 0)}：${fmt(hk ? toH(base.watch_low) : base.watch_low, 2)} ${unit}` : `${pct(model.margin_low, 0)} 边际 ${fmt(hk ? toH(base.watch_low) : base.watch_low, 2)} ${unit} / ${pct(model.margin_high, 0)} 边际 ${fmt(hk ? toH(base.watch_high) : base.watch_high, 2)} ${unit}`}</Paragraph>
           <Descriptions size="small" bordered column={narrow ? 1 : 4} style={{ marginBottom: 12 }} items={[
             { key: 'r', label: <span>折现率（基准）<JTag code="J-R" judgments={judgments} /></span>, children: `无风险利率 ${pct(model.rf, 2)} ＋ 风险溢价 ${pct(model.erp, 1)} ＝ ${pct(base.discount_rate, 1)}` },
             { key: 'sh', label: '股本', children: `${fmt(model.shares, 2)} 亿股` },
@@ -856,7 +856,7 @@ def replace(co, key, title, js):
 
 
 def move_drafts(co):
-    """把这家公司已建的“预测与估值”表格页和财务模型挪进“模型底稿”子组；skip 里的页面删掉（页面可由 build_pages 重建，表和数据不动）。"""
+    """把这家公司已建的“预测与估值”表格页挪到「预测与估值」组内（valuation_group）；skip 里的页面删掉（页面可由 build_pages 重建，表和数据不动）。"""
     st = state()
     drafts = valuation_group(st, co)
     skip = CUSTOM_VALUATION[co['code']].get('skip', ())
@@ -875,7 +875,7 @@ def move_drafts(co):
             continue
         nb_json('resource', 'update', '--resource', 'desktopRoutes', '--filter-by-tk', str(state()['pages'][key]['routeId']),
                 '--values', json.dumps({'parentId': drafts}))
-    print(co['name'], '表格页已在', DRAFTS)
+    print(co['name'], '表格页已在「预测与估值」组内')
 
 
 if __name__ == '__main__':

@@ -20,7 +20,7 @@ GUIDE = """# 使用说明
 先回答“这门生意凭什么持续赚钱”，再回答“值多少钱”。
 
 ## 菜单怎么看
-- **每家公司一个顶层菜单**（现在有长江电力、太阳纸业、中国建筑、腾讯音乐、小米集团），点进去只看到这家公司的数据：驾驶舱，以及四组页面：**商业模式**（只放分析）、**预测与估值**（重点指标 → 财务模型 → 估值 → 模型底稿）、**数据底稿**（财务报表、定量指标、定性事实、来源文档）、**研究维护**。各公司的数据在同一个数据库里，但页面互不混。
+- **每家公司一个顶层菜单**（现在有长江电力、太阳纸业、中国建筑、腾讯音乐、小米集团），点进去只看到这家公司的数据：驾驶舱，以及四组页面：**商业模式**（只放分析）、**预测与估值**（财务模型 → 估值模型 → 假设依据）、**数据底稿**（财务报表、定量指标、定性事实、来源文档）、**研究维护**。各公司的数据在同一个数据库里，但页面互不混。
 - **宏观数据**（独立项目）：利率、汇率、大宗商品等不属于任何公司的数据（指标、高频数据、采集配置）。各公司按需使用：估值参数（无风险利率、股价汇率）和重点跟踪（假设依据、风险关联的指标）直接引用；其他想看的在「框架与后台 / 公司」里勾选“订阅的宏观数据”。公司菜单里「定量指标」的高频经营标签只展示经营、水文和商品指标；股价、利率与汇率在驾驶舱及宏观数据查看。驾驶舱“立即采集一次”仍采这家公司需要的所有指标。
 - **框架与后台**：这三篇说明、公司列表（含订阅的宏观数据）、全部指标定义，以及自动采集（采集配置、采集运行、原始采集记录、全部数据）。
 
@@ -28,7 +28,7 @@ GUIDE = """# 使用说明
 1. **<公司> / 驾驶舱**：看今天每股价值、市场价、按要求收益率的最高买入价和质量自检。
    想看某一年的利润、现金、资产负债是怎么算出来的，打开 **<公司> / 预测与估值 / 财务模型**：选情景和年份，瀑布图逐步展示营收 → 利润 → 股息 → 现金，另有一页资产与资本。
 2. **<公司> / 研究维护 / 质量自检**：先看“阻断”和“提示”，它们说明结论能不能用。
-3. **<公司> / 数据底稿**：按“原始报表 → 定量指标 → 定性事实 → 出处”排列。**财务报表**是季度完整三大报表（只读）；**定量指标**每个指标一行，“趋势”列是主口径最近 12 期的小折线（下方写起止统计时间），点“查看”看大图、逐期数据并录入新一期，分三个标签：“定期经营”是发电量、浆纸销量、合同额、开工面积、用户、设备数与单位售价，“高频经营”是水位、来水和纸浆价格等经营环境指标，“分部与财务补充”是三大报表里没有的财务数（分部收入与利润率、股息、净借款等）；报表里有的科目由指标按公式直接算。股价看驾驶舱，利率与汇率看宏观数据。想更新自动采集指标，可按驾驶舱的 **立即采集一次**；该按钮仍采集这家公司需要的全部数据源。
+3. **<公司> / 数据底稿**：按“原始报表 → 定量指标 → 定性事实 → 出处”排列。**财务报表**是季度完整三大报表（只读）；**定量指标**每个指标一行，“趋势”列是主口径最近 12 期的小折线（主口径不足两期时用数据最多的口径，下方写起止统计时间），点“查看”看大图、逐期数据并录入新一期，这家公司的全部指标分四个标签：“定期经营”是发电量、浆纸销量、合同额、开工面积、用户、设备数与单位售价，“高频经营”是水位、流量等自动采集的经营指标，“财务指标”是全部财务数（报表里有的科目与比率按报表公式实时算，报表外的分部收入、股息、净借款等在这里录入），“宏观与市场”是利率、汇率、商品价格和股价。“模型字段”列说明这个数进财务模型的哪一项，“重点跟踪”列出盯着它的假设依据和风险。想更新自动采集指标，可按驾驶舱的 **立即采集一次**；该按钮仍采集这家公司需要的全部数据源。
 4. 有新公告或财报：先在 **数据底稿 / 来源文档** 登记原件，按期数字录进对应指标，数字以外的事写 **定性事实**；结论有变化先改 **核心论点**（裁决、改判条件），需要改假设时写 **预测与估值 / 假设依据**，然后改 **逐年假设**，最后在 **变更日志** 记录旧值、新值与理由。
    在公司菜单里新增记录时，表单里的“公司”要选这家公司，否则这条记录不会出现在它的页面里。
 
@@ -88,7 +88,7 @@ GUIDE = """# 使用说明
 1. **框架与后台 / 公司**：新增一行，填业务量/单价的名称与单位，并保证“业务量×单价＝营业收入（亿元）”。
    例：太阳纸业用“万吨 × 万元/吨”（0.40 万元/吨＝4000 元/吨）；中国建筑用“新签合同总额（亿元）× 收入转化率”；腾讯音乐用“付费用户（亿人）× 每付费用户年收入（元）”。
 2. **指标 + 采集配置**：加股价指标；采集配置选解析器 `tencent_quote`，参数填股票代码（如 `sz000651`，港股 `hk01698`）。港股、美股等外币报价：再加一个汇率指标（解析器 `tencent_fx`，参数如 `whHKDCNY`），在公司表的“股价汇率指标”里选它，估值结论与驾驶舱的市场价会按当天汇率折成记账币种。
-3. **数据底稿 / 财务报表**：季度完整三大报表（资产负债表、利润表、现金流量表），用 `framework/tools/fin_stmt.py` 从 akshare 取数并检验，不用手录。**预测与估值 / 重点指标**：这家公司的全部指标，分“模型数据｜跟踪指标｜其他指标”三个标签。模型数据是财务模型历史一侧用到的数（收入、成本、利润、现金、负债、分红、业务量），每个是一个指标；报表里有的科目按报表公式自动算，报表外的（业务量、每股股息等）或追溯调整的年份，点开指标在弹窗里录入。点开任何指标都能看趋势和逐期数据。
+3. **数据底稿 / 财务报表**：季度完整三大报表（资产负债表、利润表、现金流量表），用 `framework/tools/fin_stmt.py` 从 akshare 取数并检验，不用手录。**数据底稿 / 定量指标**：这家公司的全部指标。财务模型历史一侧用到的数（收入、成本、利润、现金、负债、分红、业务量）在“模型字段”列标明；报表里有的科目按报表公式自动算，报表外的（业务量、每股股息等）或追溯调整的年份，点开指标在弹窗里录入。点开任何指标都能看趋势和逐期数据。
 4. **估值模型**：新增一版模型（基准年、终值年、股本、无风险利率、风险溢价、期初带息负债）。
    想看资产侧，再填基准年末的经营性长期资产、长期股权投资、归母权益、少数股东权益。
 5. **情景**：至少一个“基准情景”（勾选），可加悲观/乐观。
@@ -334,7 +334,7 @@ try {
             {hasDirect
               ? <Col xs={12} md={6}><Statistic title="直接估值业务（可比公司或主观判断）" value={fmt(sotpBase.direct_value, 0)} suffix="亿元" /></Col>
               : <Col xs={12} md={6}><Statistic title="投入期业务（承诺投入的成本）" value={fmt(sotpBase.invest_value, 0)} suffix="亿元" /></Col>}
-            <Col xs={12} md={6}><Statistic title="关注价（低档/高档边际）" value={`${fmt(sotpBase.watch_low)} / ${fmt(sotpBase.watch_high)}`} suffix="元" /></Col>
+            <Col xs={12} md={6}><Statistic title="关注价（安全边际）" value={sotpBase.watch_high == null ? fmt(sotpBase.watch_low) : `${fmt(sotpBase.watch_low)} / ${fmt(sotpBase.watch_high)}`} suffix="元" /></Col>
           </Row>
         ) : null}
         <Space wrap align="center" style={{ margin: '8px 0' }}>
@@ -481,7 +481,7 @@ try {
         <Row gutter={[12, 12]}>
           <Col xs={12} md={6}><Card size="small"><Statistic title={`${sotpPrimary ? '股息贴现·' : ''}今天每股价值（折现率 ${pct(base.discount_rate)}）`} value={fmt(base.value_today)} suffix="元" /></Card></Col>
           <Col xs={12} md={6}><Card size="small"><Statistic title="现金支持价值·今天" value={fmt(base.cash_value_today)} suffix="元" /></Card></Col>
-          <Col xs={12} md={6}><Card size="small"><Statistic title={`${sotpPrimary ? '股息贴现·' : ''}关注价（低档/高档边际）`} value={`${fmt(base.watch_low)} / ${fmt(base.watch_high)}`} /></Card></Col>
+          <Col xs={12} md={6}><Card size="small"><Statistic title={`${sotpPrimary ? '股息贴现·' : ''}关注价（安全边际）`} value={base.watch_high == null ? fmt(base.watch_low) : `${fmt(base.watch_low)} / ${fmt(base.watch_high)}`} /></Card></Col>
           <Col xs={12} md={6}><Card size="small"><Statistic title="质量自检" value={`通过 ${count('通过')} · 提示 ${count('提示')} · 阻断 ${count('阻断')}`} /></Card></Col>
         </Row>
         <Typography.Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0 }}>
@@ -733,7 +733,7 @@ def charts(co):
                                               'bar', {'x': 'scenario_name', 'y': '今天每股价值'})),
         ('watch', '今天价值、关注价与市场价（元）', c(
             f"SELECT v.scenario_name, '今天价值' AS item, round(v.value_today::numeric, 2) AS price, v.sort {M} "
-            f"UNION ALL SELECT v.scenario_name, '低档关注价', round(v.watch_low::numeric, 2), v.sort {M} "
+            f"UNION ALL SELECT v.scenario_name, '关注价', round(v.watch_low::numeric, 2), v.sort {M} "
             f"UNION ALL SELECT v.scenario_name, '高档关注价', round(v.watch_high::numeric, 2), v.sort {M} "
             f"UNION ALL SELECT v.scenario_name, '市场价', round(v.market_price::numeric, 2), v.sort {M} ORDER BY sort, item",
             'bar', {'x': 'scenario_name', 'y': 'price', 'series': 'item'})),
@@ -867,17 +867,40 @@ def content(code):
 
 
 EXTRA = {   # 行业专属图表
-    '600900.SH': [('level', '市场：三峡水库水位（米）', c(obs('SX.LEVEL'), 'line', {'x': 'obs_date', 'y': '数值'}))],
+    '600900.SH': [('level', '市场：三峡水库水位（米）', c(obs('SX.LEVEL'), 'line', {'x': 'obs_date', 'y': '数值'})),
+                  # 同业对比（companies/600900_长江电力/track.py）：同口径，四家 A 股水电中位数
+                  ('peer_roe', '同业：ROE，长江电力 vs 四家水电中位数（%）', c(
+                      "SELECT s.period, CASE m.name WHEN '归母ROE（同业口径）' THEN '长江电力' ELSE '四家水电中位数' END AS \"口径\", round(s.value::numeric, 2) AS \"数值（%）\" FROM vi_series s JOIN vi_metric_base m ON m.id = s.metric_id AND m.company_id = (SELECT id FROM vi_company_base WHERE code = '600900.SH') AND m.name IN ('归母ROE（同业口径）', '同业ROE中位数（四家水电）') WHERE s.basis = '全年' ORDER BY s.period, 2", 'line', {'x': 'period', 'y': '数值（%）', 'series': '口径'}))],
     '002078.SZ': [
-        ('pulp', '市场：纸浆期货（元/吨，两个口径分开画）', c(
-            "SELECT o.obs_date, mt.name AS \"口径\", o.value AS \"价格\" FROM vi_obs_current o JOIN vi_metric_base mt ON mt.id = o.metric_id "
-            "WHERE mt.code IN ('SP.SHFE.WIND', 'SP.SHFE.SINA') AND o.obs_date >= current_date - 730 ORDER BY o.obs_date, 2", 'line',
+        ('pulp', '市场：纸浆与胶版纸（元/吨）', c(
+            "SELECT o.obs_date, CASE mt.code WHEN 'SP.SHFE.SINA' THEN '纸浆期货' WHEN 'OP.SHFE.SINA' THEN '胶版纸期货' ELSE '纸浆现货' END AS \"口径\", "
+            "o.value AS \"价格\" FROM vi_obs_current o JOIN vi_metric_base mt ON mt.id = o.metric_id "
+            "WHERE mt.code IN ('SP.SHFE.SINA', 'OP.SHFE.SINA', 'SP.SPOT.100PPI') AND o.obs_date >= current_date - 730 ORDER BY o.obs_date, 2", 'line',
             {'x': 'obs_date', 'y': '价格', 'series': '口径'})),
+        # 成本优势的度量（companies/002078_太阳纸业/track.py）：同一口径的单季毛利率，同业中位数＝太阳纸业 − 领先幅度
+        ('peer_gm', '同业：单季毛利率，太阳纸业 vs 七家同业中位数（%）', c(
+            "SELECT x.period, x.k AS \"口径\", round(x.v::numeric, 2) AS \"毛利率（%）\" FROM ("
+            "SELECT s.period, s.obs_date, '太阳纸业' AS k, s.value AS v FROM vi_series s JOIN vi_metric_base m ON m.id = s.metric_id "
+            "AND m.name = '毛利率' AND m.company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ') WHERE s.basis = '单季' "
+            "UNION ALL SELECT l.period, l.obs_date, '七家同业中位数', g.value - l.value FROM vi_series l "
+            "JOIN vi_metric_base lm ON lm.id = l.metric_id AND lm.name = '毛利率领先同业中位数' "
+            "JOIN vi_metric_base gm ON gm.company_id = lm.company_id AND gm.name = '毛利率' "
+            "JOIN vi_series g ON g.metric_id = gm.id AND g.period = l.period AND g.basis = '单季' WHERE l.basis = '单季' "
+            "AND lm.company_id = (SELECT id FROM vi_company_base WHERE code = '002078.SZ')) x "
+            "WHERE x.obs_date >= vi_today() - interval '3 years' ORDER BY x.obs_date, 2", 'line',
+            {'x': 'period', 'y': '毛利率（%）', 'series': '口径'})),
         ('gm_q', '经营数据：单季毛利率（%）', c(
             "SELECT d.period, d.value AS \"毛利率（%）\" FROM vi_disclosed d JOIN vi_company_base co ON co.id = d.company_id "
             "AND co.code = '002078.SZ' WHERE d.line_item = '毛利率' AND d.period_kind = '单季' AND d.period_end >= vi_today() - interval '3 years' ORDER BY d.period_end", 'line', {'x': 'period', 'y': '毛利率（%）'})),
     ],
     '601668.SH': [
+        # 同业对比（companies/601668_中国建筑/track.py）：同口径，六家建筑央企中位数
+        ('peer_roe', '同业：ROE，中国建筑 vs 六家建筑央企中位数（%）', c(
+            "SELECT s.period, CASE m.name WHEN '归母ROE（同业口径）' THEN '中国建筑' ELSE '六家建筑央企中位数' END AS \"口径\", round(s.value::numeric, 2) AS \"数值（%）\" FROM vi_series s JOIN vi_metric_base m ON m.id = s.metric_id AND m.company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND m.name IN ('归母ROE（同业口径）', '同业ROE中位数（六家建筑央企）') WHERE s.basis = '全年' ORDER BY s.period, 2", 'line',
+            {'x': 'period', 'y': '数值（%）', 'series': '口径'})),
+        ('peer_ar', '同业：（应收账款＋合同资产）÷营业收入，中国建筑 vs 同业中位数（%）', c(
+            "SELECT s.period, CASE m.name WHEN '（应收账款＋合同资产）÷营业收入' THEN '中国建筑' ELSE '六家建筑央企中位数' END AS \"口径\", round(s.value::numeric, 2) AS \"数值（%）\" FROM vi_series s JOIN vi_metric_base m ON m.id = s.metric_id AND m.company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND m.name IN ('（应收账款＋合同资产）÷营业收入', '同业（应收账款＋合同资产）÷营业收入中位数') WHERE s.basis = '全年' ORDER BY s.period, 2", 'line',
+            {'x': 'period', 'y': '数值（%）', 'series': '口径'})),
         ('conv', '历史：收入转化率（营业收入÷新签合同总额）', c(
             "SELECT h.year, round(h.price::numeric, 3) AS \"收入转化率\" FROM vi_fin_history h "
             "JOIN vi_company_base co ON co.id = h.company_id AND co.code = '601668.SH' WHERE h.price IS NOT NULL ORDER BY h.year", 'line',

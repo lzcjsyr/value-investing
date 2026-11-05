@@ -473,7 +473,7 @@ try {
 
 def create(co):
     st = state()
-    # 财务模型是财务引擎的可视化，属于“预测与估值”组（有定制估值页的公司放进组内“模型底稿”），排在表格页前（sort_menu）
+    # 财务模型是财务引擎的可视化，属于“预测与估值”组，排在表格页前（sort_menu）
     gid = valuation_group(st, co)
     key = f"{KEY}@{co['code']}"
     apply_page(f"{KEY}_{co['code']}", {

@@ -714,7 +714,7 @@ VALUES ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '腾讯音乐 
   '②可分配的自由现金＝现金−带息负债−经营所需−汇出预提税（J-CASH）；③对外投资＝最新报告账面价值×70%（J-INV）；再减少数股东权益。不做逐年预测与股息贴现（2026-10-28 起）。'
   '估值用人民币，港股股价按当天港元兑人民币折算后比较。',
   2025, 2035, 31.6, 0.0164, '2026-10-22', (SELECT id FROM vi_metric_base WHERE code = 'CGB10Y.CCDC'), 0.07,
-  38.13, 271.98, 278.90, 802.87, 27.63, 0.06, 0.10, 0.30,
+  38.13, 271.98, 278.90, 802.87, 27.63, 0.06, 0.10, NULL,
   '口径（2026-10-28）：主营三块的利润率是分摊估算，三块加总须等于公司整体核心经营利润加回七成收购摊销（不含利息与投资收益，见 J-S1）；税率 17.5%，归母 97%。少数股东统一按 3%：主营盈利乘 97%，非经营资产净额扣 3%（C8）。非经营部分统一截至 2026-06-30（与股本同日）。股本 31.6 亿股按中期报告附注 18、25 推算（见事实卡）；未来回购按市价进行，对每股价值影响小，不预测股本变化；股权激励已作为费用计入利润率。市场价＝港股收盘价×当天港元兑人民币（自动采集）。安全边际两档并列 10%/30%。',
   '分部加总', NULL, NULL, '2026-06-30')
 ;
@@ -3351,6 +3351,8 @@ INSERT INTO vi_observation_base
 VALUES ((SELECT id FROM vi_metric_base WHERE company_id=(SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name='现金回购支出' LIMIT 1), '2025-12-31', '2025', '全年', 3.9,
         '当年实际支付给本公司股东的现金股息＋现金流量表回购股份付款；不含向非控股股东派息；回购为现金支出毛额，不扣员工行权所得。', now(), (SELECT id FROM vi_source_base WHERE company_id=(SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title='腾讯音乐 2025 年 20-F（股东现金回报）' LIMIT 1));
 
+UPDATE vi_metric_base SET measure = '时期' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND measure IS NULL;
+
 -- 腾讯音乐：重要事实 → 定性事实（2026-11-04）。按名称、编号定位，可重复执行；种子（seed.py）在最后执行本文件。
 -- 1. 补两个报表计算指标：经营费用率、销售费用率（与原事实里的数字逐年一致）
 -- 2. 引用了“数字事实”的上层判断，改为（或另外）关联对应的“依据指标”
@@ -3591,6 +3593,172 @@ WHERE f.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AN
 -- 修正：引用了已删除的事实卡“市值约 864 亿元”
 UPDATE vi_fact_base SET statement = replace(statement, '按估值模型口径（见事实卡“市值约 864 亿元”）', '按估值模型口径（以估值模型结论为准）')
 WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND statement LIKE '%见事实卡“市值约 864 亿元”%';
+
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes) SELECT (SELECT c.code || '.T' || lpad((coalesce((SELECT max(substring(x.code FROM '\.T(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.T%'), 0) + 1)::text, 3, '0') FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK')), '同业毛利率：网易云音乐', '%', '其他', '手工整理', '半年累计', (SELECT id FROM vi_company_base WHERE code = '01698.HK'), '跟踪脚本 companies/01698_腾讯音乐/track.py：东方财富港股报表（akshare stock_financial_hk_report_em），毛利率＝毛利÷营业额，经营利润率＝经营溢利÷营业额', '半年', '时期', '国内第二大在线音乐平台；说明里写同期腾讯音乐的同口径毛利率。' WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '同业毛利率：网易云音乐' AND unit IS NOT DISTINCT FROM '%');
+
+UPDATE vi_metric_base SET category = '其他', basis = '半年累计', source_name = '跟踪脚本 companies/01698_腾讯音乐/track.py：东方财富港股报表（akshare stock_financial_hk_report_em），毛利率＝毛利÷营业额，经营利润率＝经营溢利÷营业额', frequency = '半年', measure = '时期', notes = '国内第二大在线音乐平台；说明里写同期腾讯音乐的同口径毛利率。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '同业毛利率：网易云音乐' AND unit IS NOT DISTINCT FROM '%';
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes) SELECT (SELECT c.code || '.T' || lpad((coalesce((SELECT max(substring(x.code FROM '\.T(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.T%'), 0) + 1)::text, 3, '0') FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK')), '同业经营利润率：网易云音乐', '%', '其他', '手工整理', '半年累计', (SELECT id FROM vi_company_base WHERE code = '01698.HK'), '跟踪脚本 companies/01698_腾讯音乐/track.py：东方财富港股报表（akshare stock_financial_hk_report_em），毛利率＝毛利÷营业额，经营利润率＝经营溢利÷营业额', '半年', '时期', '说明里写同期腾讯音乐的同口径经营利润率。' WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '同业经营利润率：网易云音乐' AND unit IS NOT DISTINCT FROM '%');
+
+UPDATE vi_metric_base SET category = '其他', basis = '半年累计', source_name = '跟踪脚本 companies/01698_腾讯音乐/track.py：东方财富港股报表（akshare stock_financial_hk_report_em），毛利率＝毛利÷营业额，经营利润率＝经营溢利÷营业额', frequency = '半年', measure = '时期', notes = '说明里写同期腾讯音乐的同口径经营利润率。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '同业经营利润率：网易云音乐' AND unit IS NOT DISTINCT FROM '%';
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes) SELECT (SELECT c.code || '.T' || lpad((coalesce((SELECT max(substring(x.code FROM '\.T(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.T%'), 0) + 1)::text, 3, '0') FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK')), '同业毛利率：Spotify', '%', '其他', '手工整理', '单季', (SELECT id FROM vi_company_base WHERE code = '01698.HK'), '跟踪脚本：东方财富美股报表（akshare stock_financial_us_report_em，单季），毛利率＝毛利÷营业收入，营业利润率＝营业利润÷营业收入', '季', '时期', '全球订阅音乐龙头；版权方分成比例与腾讯音乐不同，看趋势。' WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '同业毛利率：Spotify' AND unit IS NOT DISTINCT FROM '%');
+
+UPDATE vi_metric_base SET category = '其他', basis = '单季', source_name = '跟踪脚本：东方财富美股报表（akshare stock_financial_us_report_em，单季），毛利率＝毛利÷营业收入，营业利润率＝营业利润÷营业收入', frequency = '季', measure = '时期', notes = '全球订阅音乐龙头；版权方分成比例与腾讯音乐不同，看趋势。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '同业毛利率：Spotify' AND unit IS NOT DISTINCT FROM '%';
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes) SELECT (SELECT c.code || '.T' || lpad((coalesce((SELECT max(substring(x.code FROM '\.T(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.T%'), 0) + 1)::text, 3, '0') FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01698.HK')), '同业营业利润率：Spotify', '%', '其他', '手工整理', '单季', (SELECT id FROM vi_company_base WHERE code = '01698.HK'), '跟踪脚本：东方财富美股报表（akshare stock_financial_us_report_em，单季），毛利率＝毛利÷营业收入，营业利润率＝营业利润÷营业收入', '季', '时期', NULL WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '同业营业利润率：Spotify' AND unit IS NOT DISTINCT FROM '%');
+
+UPDATE vi_metric_base SET category = '其他', basis = '单季', source_name = '跟踪脚本：东方财富美股报表（akshare stock_financial_us_report_em，单季），毛利率＝毛利÷营业收入，营业利润率＝营业利润÷营业收入', frequency = '季', measure = '时期', notes = NULL WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND name = '同业营业利润率：Spotify' AND unit IS NOT DISTINCT FROM '%';
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：网易云音乐', '单季', '%', '2021Q1', '2021-03-31', -3.62, NULL, '同期腾讯音乐 31.52%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：网易云音乐', '半年累计', '%', '2021H1', '2021-06-30', -0.4, NULL, '同期腾讯音乐 30.97%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：网易云音乐', '全年', '%', '2021', '2021-12-31', 2.04, NULL, '同期腾讯音乐 30.10%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：网易云音乐', '半年累计', '%', '2022H1', '2022-06-30', 12.61, NULL, '同期腾讯音乐 28.95%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：网易云音乐', '全年', '%', '2022', '2022-12-31', 14.38, NULL, '同期腾讯音乐 30.96%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：网易云音乐', '半年累计', '%', '2023H1', '2023-06-30', 24.69, NULL, '同期腾讯音乐 33.67%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：网易云音乐', '全年', '%', '2023', '2023-12-31', 26.73, NULL, '同期腾讯音乐 35.29%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：网易云音乐', '半年累计', '%', '2024H1', '2024-06-30', 35.03, NULL, '同期腾讯音乐 41.51%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：网易云音乐', '全年', '%', '2024', '2024-12-31', 33.73, NULL, '同期腾讯音乐 42.34%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：网易云音乐', '半年累计', '%', '2025H1', '2025-06-30', 36.38, NULL, '同期腾讯音乐 44.25%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：网易云音乐', '全年', '%', '2025', '2025-12-31', 35.69, NULL, '同期腾讯音乐 44.18%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：网易云音乐', '半年累计', '%', '2026H1', '2026-06-30', 37.24, NULL, '同期腾讯音乐 44.54%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业经营利润率：网易云音乐', '单季', '%', '2021Q1', '2021-03-31', -23.0, NULL, '同期腾讯音乐 14.88%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业经营利润率：网易云音乐', '半年累计', '%', '2021H1', '2021-06-30', -22.03, NULL, '同期腾讯音乐 13.89%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业经营利润率：网易云音乐', '全年', '%', '2021', '2021-12-31', -19.25, NULL, '同期腾讯音乐 12.16%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业经营利润率：网易云音乐', '半年累计', '%', '2022H1', '2022-06-30', -7.07, NULL, '同期腾讯音乐 13.24%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业经营利润率：网易云音乐', '全年', '%', '2022', '2022-12-31', -4.28, NULL, '同期腾讯音乐 15.68%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业经营利润率：网易云音乐', '半年累计', '%', '2023H1', '2023-06-30', 2.68, NULL, '同期腾讯音乐 20.43%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业经营利润率：网易云音乐', '全年', '%', '2023', '2023-12-31', 4.2, NULL, '同期腾讯音乐 21.83%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业经营利润率：网易云音乐', '半年累计', '%', '2024H1', '2024-06-30', 14.74, NULL, '同期腾讯音乐 29.85%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业经营利润率：网易云音乐', '全年', '%', '2024', '2024-12-31', 14.73, NULL, '同期腾讯音乐 30.67%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业经营利润率：网易云音乐', '半年累计', '%', '2025H1', '2025-06-30', 22.07, NULL, '同期腾讯音乐 49.46%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业经营利润率：网易云音乐', '全年', '%', '2025', '2025-12-31', 20.9, NULL, '同期腾讯音乐 40.62%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业经营利润率：网易云音乐', '半年累计', '%', '2026H1', '2026-06-30', 18.85, NULL, '同期腾讯音乐 33.77%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：Spotify', '单季', '%', '2023Q1', '2023-03-31', 25.18, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：Spotify', '单季', '%', '2023Q2', '2023-06-30', 24.11, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：Spotify', '单季', '%', '2023Q3', '2023-09-30', 26.36, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：Spotify', '单季', '%', '2023Q4', '2023-12-31', 26.7, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：Spotify', '单季', '%', '2024Q1', '2024-03-31', 27.61, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：Spotify', '单季', '%', '2024Q2', '2024-06-30', 29.21, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：Spotify', '单季', '%', '2024Q3', '2024-09-30', 31.09, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：Spotify', '单季', '%', '2024Q4', '2024-12-31', 32.25, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：Spotify', '单季', '%', '2025Q1', '2025-03-31', 31.65, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：Spotify', '单季', '%', '2025Q2', '2025-06-30', 31.48, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：Spotify', '单季', '%', '2025Q3', '2025-09-30', 31.62, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：Spotify', '单季', '%', '2025Q4', '2025-12-31', 33.08, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：Spotify', '单季', '%', '2026Q1', '2026-03-31', 32.98, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：Spotify', '单季', '%', '2026Q2', '2026-06-30', 33.41, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业毛利率：Spotify', '单季', '%', '2026Q3', '2026-09-30', 32.98, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业营业利润率：Spotify', '单季', '%', '2023Q1', '2023-03-31', -5.13, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业营业利润率：Spotify', '单季', '%', '2023Q2', '2023-06-30', -7.77, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业营业利润率：Spotify', '单季', '%', '2023Q3', '2023-09-30', 0.95, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业营业利润率：Spotify', '单季', '%', '2023Q4', '2023-12-31', -2.04, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业营业利润率：Spotify', '单季', '%', '2024Q1', '2024-03-31', 4.62, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业营业利润率：Spotify', '单季', '%', '2024Q2', '2024-06-30', 6.99, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业营业利润率：Spotify', '单季', '%', '2024Q3', '2024-09-30', 11.38, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业营业利润率：Spotify', '单季', '%', '2024Q4', '2024-12-31', 11.24, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业营业利润率：Spotify', '单季', '%', '2025Q1', '2025-03-31', 12.15, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业营业利润率：Spotify', '单季', '%', '2025Q2', '2025-06-30', 9.68, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业营业利润率：Spotify', '单季', '%', '2025Q3', '2025-09-30', 13.62, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业营业利润率：Spotify', '单季', '%', '2025Q4', '2025-12-31', 15.47, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业营业利润率：Spotify', '单季', '%', '2026Q1', '2026-03-31', 15.77, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业营业利润率：Spotify', '单季', '%', '2026Q2', '2026-06-30', 13.71, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '同业营业利润率：Spotify', '单季', '%', '2026Q3', '2026-09-30', 13.52, NULL, NULL, NULL);
+
+-- 腾讯音乐研究增强（2026-11-05）：竞争对手利润率（网易云音乐、Spotify）接入；待办推进。
+-- 数据来自跟踪脚本（track.py → data/track.json，种子在此之前已写入）；本文件只改研究正文、补关联与待办，按业务键定位，可重复执行。
+
+UPDATE vi_thesis_base SET decisive_evidence = '单季毛利率是否守在 42%—43% 以上；版权续约条款（保底与分成比例）；演出与周边的收入占比（毛利率低）；剔除喜马拉雅后会员收入同比；字节是否拿到头部华语全曲库授权。'
+  || '同业对比（跟踪脚本，公告口径）：毛利率领先网易云音乐 2021 年 28.1 个百分点 → 2022 年 16.6 → 2023—2025 年约 8.5 → 2026 年上半年 7.3（44.5% vs 37.2%）——取消独家后对手追上来一大截，2023 年起差距基本稳住、仍在缓慢收窄；Spotify 单季毛利率约 33%。差距跌破 5 个百分点要复核 T1。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND code = 'T1';
+
+WITH co AS (SELECT id FROM vi_company_base WHERE code = '01698.HK')
+INSERT INTO vi_lnk_thesis_basis_metrics (thesis_id, metric_id, "createdAt", "updatedAt")
+SELECT t.id, m.id, now(), now() FROM vi_thesis_base t JOIN vi_metric_base m ON m.company_id = t.company_id AND
+  ((t.code = 'T1' AND m.name IN ('同业毛利率：网易云音乐', '同业毛利率：Spotify')) OR (t.code = 'T3' AND m.name IN ('同业经营利润率：网易云音乐')))
+WHERE t.company_id = (SELECT id FROM co) ON CONFLICT DO NOTHING;
+
+WITH co AS (SELECT id FROM vi_company_base WHERE code = '01698.HK')
+INSERT INTO vi_lnk_moat_basis_metrics (moat_id, metric_id, "createdAt", "updatedAt")
+SELECT x.id, m.id, now(), now() FROM vi_moat_base x JOIN vi_metric_base m ON m.company_id = x.company_id AND m.name = '同业毛利率：网易云音乐'
+WHERE x.company_id = (SELECT id FROM co) AND x.code = 'M1' ON CONFLICT DO NOTHING;
+
+UPDATE vi_issue_base SET status = '处理中', progress = '2026-11-05：竞争对手的利润率改用公告口径——网易云音乐（港股报表，半年与全年）、Spotify（美股报表，单季）由跟踪脚本每期更新（track.py）；第三方月活（汽水音乐）仍是三级来源，只看趋势。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND code = 'Q08';
+
+-- 停止季度披露的三个用户指标：频率改为年（只在年报披露），不再按季度标“待更新”
+UPDATE vi_metric_base SET frequency = '年' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK')
+  AND name IN ('在线音乐付费用户', '在线音乐月活跃用户', '单个付费用户月均收入（ARPPU）');
+
+-- 汽水音乐月活：补第三方监测的历史点（QuestMobile，经媒体与券商转引；三级来源，只看趋势）
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '竞品月活：汽水音乐', '时点', '百万人', '2025M09', '2025-09-30', 120.39, 0.907,
+  'QuestMobile 2025 年 9 月（华金证券行业快报转引）：酷狗 210.2、QQ 音乐 189.8、网易云音乐 147.2、汽水音乐 120.4、酷我 112.5 百万；汽水同比 +90.7%。', NULL);
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '竞品月活：汽水音乐', '时点', '百万人', '2026M04', '2026-04-30', 156, NULL,
+  'QuestMobile 2026 年 4 月（钛媒体转引）：汽水音乐约 1.56 亿、网易云音乐约 1.47 亿。', NULL);
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01698.HK'), '竞品月活：汽水音乐', '时点', '百万人', '2026M06', '2026-06-30', 167, 0.687,
+  'QuestMobile 2026 年 6 月（虎嗅转引）：汽水音乐约 1.67 亿（+68.7%），超过网易云音乐、接近 QQ 音乐 1.89 亿；QQ 音乐 −0.7%，酷狗 −10.7%、酷我 −18.5%、全民 K 歌 −29.7%。', NULL);
+
+-- 安全边际只保留 10% 一档（你确认，2026-11-05）
+INSERT INTO vi_change_log_base (change_date, title, target, old_value, new_value, reason, basis, verification, company_id, created_at, updated_at)
+SELECT '2026-11-05', '安全边际只保留 10% 一档', '估值模型：安全边际（低档 10%、高档取消）', '10% / 30% 两档并列', '10% 一档（关注价＝今天价值×90%）',
+  '你确定交易纪律：安全边际用 10%', '用户决定', '关注价只显示一个；估值不变', c.id, now(), now()
+FROM vi_company_base c WHERE c.code = '01698.HK' AND NOT EXISTS (SELECT 1 FROM vi_change_log_base x WHERE x.company_id = c.id AND x.title = '安全边际只保留 10% 一档');
+UPDATE vi_issue_base SET status = '已解决', progress = '2026-11-05：你确定安全边际用 10%，估值模型只保留一档（关注价＝基准每股价值×90%）。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND code = 'Q01';
 
 
 COMMIT;

@@ -269,7 +269,7 @@ CREATE TRIGGER vi_metric_measure_guard BEFORE INSERT OR UPDATE OF measure, basis
 -- 同一指标同一期间已有的数据先删掉再写，可重复执行。种子脚本和迁移都用它，规则只写一处。
 -- 业务驱动与财务结果分域；合同额/合约销售额和 ARPPU 是业务，不能仅按金额单位判断。
 CREATE OR REPLACE FUNCTION vi_disclosed_category(p_item text) RETURNS text LANGUAGE sql IMMUTABLE AS $$
-SELECT CASE WHEN p_item = ANY(ARRAY['AIoT平台连接设备数（不含手机和平板）', '全球月活跃用户', '全球月活跃用户（12 月）', '单个付费用户月均收入（ARPPU）', '发电量', '在线音乐付费用户', '在线音乐月活跃用户', '地产合约销售额', '建筑业务新签合同额', '房屋建筑新开工面积', '拥有五件及以上AIoT设备的用户数', '新签合同总额', '智能手机ASP', '智能手机出货量', '汽车ASP', '汽车交付量', '浆纸销量（管理层口径）', '竞品月活：汽水音乐']) THEN '经营'
+SELECT CASE WHEN p_item = ANY(ARRAY['AIoT平台连接设备数（不含手机和平板）', '全球月活跃用户', '全球月活跃用户（12 月）', '单个付费用户月均收入（ARPPU）', '发电量', '在线音乐付费用户', '在线音乐月活跃用户', '地产合约销售额', '建筑业务新签合同额', '建筑新签占全国比重', '房屋建筑新开工面积', '清收政府逾期债权', '实现售电价', '拥有五件及以上AIoT设备的用户数', '新签合同总额', '智能手机ASP', '智能手机出货量', '汽车ASP', '汽车交付量', '浆纸销量（管理层口径）', '竞品月活：汽水音乐']) THEN '经营'
             WHEN p_item ~ '收入|利润|毛利|费用|开支|损益|现金|负债|借款|应收|应付|减值|回购|股息|收益' THEN '财务'
             ELSE '其他' END
 $$;
@@ -366,10 +366,15 @@ FROM vi_metric_base m
 LEFT JOIN LATERAL (SELECT value, period, obs_date FROM vi_series x WHERE x.metric_id = m.id
                    ORDER BY (x.basis IS NOT DISTINCT FROM m.basis) DESC, obs_date DESC LIMIT 1) l ON true
 -- 趋势（表格里的小折线）：主口径最近 12 期，日度数据取最近 60 个交易日；按时间先后，[[统计时间, 数值], …]
+-- 主口径不足两期时改用数据最多的口径（如累计口径只有今年一期、全年数有多年），折线下方的起止统计时间能看出口径
+LEFT JOIN LATERAL (
+  SELECT x.basis AS basis FROM vi_series x WHERE x.metric_id = m.id AND x.value IS NOT NULL GROUP BY x.basis
+  ORDER BY (x.basis IS NOT DISTINCT FROM m.basis AND count(*) >= 2) DESC, count(*) DESC, max(x.obs_date) DESC LIMIT 1
+) tb ON true
 LEFT JOIN LATERAL (
   SELECT json_agg(json_build_array(coalesce(z.period, z.obs_date::text), round(z.value::numeric, 4)) ORDER BY z.obs_date)::text AS trend
   FROM (SELECT x.period, x.obs_date, x.value FROM vi_series x
-        WHERE x.metric_id = m.id AND x.basis IS NOT DISTINCT FROM m.basis AND x.value IS NOT NULL
+        WHERE x.metric_id = m.id AND x.basis IS NOT DISTINCT FROM tb.basis AND x.value IS NOT NULL
         ORDER BY x.obs_date DESC
         LIMIT CASE WHEN m.frequency IN ('交易日', '工作日', '日') THEN 60 ELSE 12 END) z
 ) tr ON true
@@ -972,7 +977,9 @@ SELECT id, model_id, company_id, company_name, model_name, scenario_name, is_bas
                         vi_fmt(v1), vi_fmt(v0), vi_pct(r, 2), round(years_elapsed::numeric, 2),
                         CASE WHEN latest_price IS NULL THEN '暂无市场价。'
                              WHEN latest_price > v1 THEN format('市场价 %s 元，高于今天价值 %s。', vi_fmt(latest_price), vi_pct(latest_price / v1 - 1))
-                             WHEN latest_price > v1 * (1 - margin_low) THEN format('市场价 %s 元，低于今天价值 %s，但未到低档关注价 %s 元。', vi_fmt(latest_price), vi_pct(1 - latest_price / v1), vi_fmt(v1 * (1 - margin_low)))
+                             WHEN latest_price > v1 * (1 - margin_low) THEN format('市场价 %s 元，低于今天价值 %s，但未到%s关注价 %s 元。', vi_fmt(latest_price), vi_pct(1 - latest_price / v1), CASE WHEN margin_high IS NULL THEN '' ELSE '低档' END, vi_fmt(v1 * (1 - margin_low)))
+                             -- 只保留一档安全边际（margin_high 为空，2026-11-05 起五家都用 10%）
+                             WHEN margin_high IS NULL THEN format('市场价 %s 元，已低于关注价 %s 元（安全边际 %s）。', vi_fmt(latest_price), vi_fmt(v1 * (1 - margin_low)), vi_pct(margin_low, 0))
                              WHEN latest_price > v1 * (1 - margin_high) THEN format('市场价 %s 元，已低于低档关注价 %s 元。', vi_fmt(latest_price), vi_fmt(v1 * (1 - margin_low)))
                              ELSE format('市场价 %s 元，已低于高档关注价 %s 元。', vi_fmt(latest_price), vi_fmt(v1 * (1 - margin_high))) END,
                         CASE WHEN cv1 IS NULL THEN '现金桥接不完整，现金支持价值不输出。'

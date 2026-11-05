@@ -683,7 +683,7 @@ COMMENT ON COLUMN vi_metric_base.source_kind IS '来源方式：报表计算＝�
 
 COMMENT ON COLUMN vi_metric_base.basis IS '主口径：最新值、趋势和重点跟踪按这个口径取；每期数据自己的口径记在「数据」上。时点指标只能选“时点”（可选：时点、单季、半年累计、前三季度累计、全年、年初至今累计、滚动四季度）';
 
-COMMENT ON COLUMN vi_metric_base.model_field IS '模型字段：这个指标是财务模型历史一侧的哪一列（每家公司每列一个指标）；有模型字段的指标列在「预测与估值 / 重点指标」（可选：volume、revenue、cost_of_sales、pretax_profit、income_tax、np_parent、minority_profit、da、finance_cost、invest_income、equity_income、cfo、capex、investee_cash_div、net_borrowing、interest_debt、cash、equity_parent、dividend_total、dps）';
+COMMENT ON COLUMN vi_metric_base.model_field IS '模型字段：这个指标是财务模型历史一侧的哪一列（每家公司每列一个指标）；在「数据底稿 / 定量指标」的“模型字段”列标明（可选：volume、revenue、cost_of_sales、pretax_profit、income_tax、np_parent、minority_profit、da、finance_cost、invest_income、equity_income、cfo、capex、investee_cash_div、net_borrowing、interest_debt、cash、equity_parent、dividend_total、dps）';
 
 COMMENT ON COLUMN vi_metric_base.formula IS '报表公式：报表计算的指标填：科目相加减，如“应收账款 + 合同资产”；比率用“÷”，如“（营业收入 − 营业成本）÷ 营业收入”（结果为 %）。科目名与三大报表一致';
 

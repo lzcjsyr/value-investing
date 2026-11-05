@@ -370,7 +370,7 @@ JOIN vi_thesis_base x ON x.company_id = (SELECT id FROM vi_company_base WHERE co
 
 INSERT INTO vi_judgment_base (company_id, code, title, fact_layer, judgment, transmission, parameter, affected_years, change_threshold, no_change_condition, counter_evidence, status) VALUES
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 'J-Q', '新签合同总额路径（业务量）', '新签合同总额 2022—2025 年 39,031、43,241、45,027、45,458 亿元；2026 年 1—9 月 32,890 亿元（−0.1%）；全年目标 4.6 万亿元。房建 +3.5%、基建 −5.8%、境外 +72%、地产 −6.5%。', '2026—2028 年 45,400 亿元（与 2025 年持平：2025 年四季度 12,535 亿元，假设今年四季度相当）；2029 年起每年 +1%（城市更新、海外、工业与能源工程对冲住宅与基建下滑）。', '营业收入＝新签合同总额×收入转化率。新签每 ±1%，收入约 ±186 亿元，利润总额约 ±12 亿元（按核心利润率 6.5%）。', '逐年假设·业务量', '2026—2035，全部情景', '年度新签偏离假设 3% 以上；连续两个季度负增长超过 5%。', '单月波动（经营简报按月披露，季末月份订单集中）。', '新签合同额是“签约口径”，包括框架协议和分期确认的大项目，含金量会变化；所以收入要看转化率（J-P），不能只看新签。', '已形成建议'),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 'J-P', '收入转化率（单价）', '营业收入÷新签合同总额：2021 年约 0.536 → 2023 年 0.524 → 2024 年 0.486 → 2025 年 0.458；2026H1 收入 −12%、新签 −1.5%。房建新开工面积 1—9 月 −18.1%，说明 2027 年收入还有下行压力。地产收入（结转）比建筑稳定。', '2026 年 0.414（全年收入约 18,800 亿元，−9.7%：上半年 −12%，下半年约 −8%）；2027 年起 0.405（收入约 18,390 亿元，再降约 2%），之后不变。即收入在 2027 年见底。', '转化率每 ±0.01，收入约 ±454 亿元、利润总额约 ±30 亿元、归母净利约 ±17 亿元。', '逐年假设·单价', '2026—2035', '三季报、年报收入与假设偏离 3% 以上；新开工面积全年降幅超过 15%。', '单季结算节奏波动。', '卖方多数假设 2027 年收入恢复正增长（国投 +5.1%），本模型更保守；若新开工继续两位数下滑，2027 年收入可能再降 5% 以上（悲观情景）。', '已形成建议'),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 'J-P', '收入转化率（单价）', '营业收入÷新签合同总额：2021 年约 0.536 → 2023 年 0.524 → 2024 年 0.486 → 2025 年 0.458；2026H1 收入 −12%、新签 −1.5%。房建新开工面积 1—9 月 −18.1%，说明 2027 年收入还有下行压力。地产收入（结转）比建筑稳定。', '2026 年 0.395（全年收入约 17,930 亿元，−14%：前三季度 −14.3%、三季度单季约 −20%，2026-11-05 由 0.414 下调）；2027 年起 0.405（收入约 18,390 亿元，比 2026 年回升约 2.6%），之后不变。即收入在 2026 年见底。', '转化率每 ±0.01，收入约 ±454 亿元、利润总额约 ±30 亿元、归母净利约 ±17 亿元。', '逐年假设·单价', '2026—2035', '三季报、年报收入与假设偏离 3% 以上；新开工面积全年降幅超过 15%。', '单季结算节奏波动。', '卖方多数假设 2027 年收入恢复正增长（国投 +5.1%），本模型更保守；若新开工继续两位数下滑，2027 年收入可能再降 5% 以上（悲观情景）。', '已形成建议'),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 'J-M', '核心利润率（付现成本）', '核心利润率（不含减值、投资收益）2019—2025 年 7.2%、6.8%、7.1%、6.3%、6.1%、6.2%、6.2%，2026H1 7.1%（下半年历年偏低：2025 年下半年 5.9%）。毛利率 2026H1 +0.9pt，新接项目毛利率 +0.2pt；期间费用率 +0.44pt。', '付现成本＝营业收入×(1−核心利润率)：2026—2027 年 6.6%、2028 年起 6.5%（2022—2025 年平均 6.2%，加施工毛利改善约 0.3pt）。', '核心利润率每 0.1pt ≈ 利润总额 19 亿元 ≈ 归母净利 10.5 亿元（约 3%）。利润对利润率极其敏感：收入大、利润薄。', '逐年假设·付现成本', '2026—2035', '连续两个半年度偏离假设 0.4pt 以上。', '单季结算结构波动。', '收入下降时费用刚性，利润率可能被动下降；地产高价地结转拉低毛利。', '已形成建议'),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 'J-IMP', '减值与其他净贡献', '资产及信用减值 2021—2025 年 126、136、143、201、259 亿元，2026H1 100 亿元，管理层称全年不超过去年；正常账龄计提约 80—100 亿元/年。投资收益由 2023 年 40 亿元降到 2025 年 8 亿元、2026H1 1.4 亿元（联营企业收益减少、应收保理的终止确认损失）。其他收益、营业外等约 +15—25 亿元/年。', '其他净贡献＝投资收益＋其他收益与营业外−减值：2026 年 −215（减值约 235），2027 年 −190，2028 年 −170，2029 年起 −160（减值约 180，即收入的 0.95%，仍是正常账龄的两倍）。', '直接进入利润总额；减值每多 100 亿元，归母净利约少 56 亿元。', '逐年假设·其他净贡献', '2026—2035', '年度减值偏离假设 40 亿元以上；风险房企、PPP 或地方政府出现新的大额违约。', '季度间计提节奏不均（四季度通常最多）；风险用情景和单参数试验展示，不机械改长期假设。', '减值是估计，可能不足，也可能回转（正反论证见 T8）。', '已形成建议'),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 'J-DA', '折旧摊销', '折旧摊销（含使用权资产、特许经营权摊销）2023—2025 年 186、190、192 亿元；2026H1 105 亿元。', '2026—2027 年 205 亿元、2028 年 206 亿元，之后每年 +1%。', '折旧是非现金费用：减少利润，所有者收益里按归母比例加回；维持资本开支按同样的归母口径扣除。', '逐年假设·折旧摊销', '2026—2035', '半年报折旧与假设偏差超过 5%。', '—', '特许经营权（PPP）进入运营后摊销会增加。', '已形成建议'),
@@ -378,7 +378,7 @@ INSERT INTO vi_judgment_base (company_id, code, title, fact_layer, judgment, tra
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 'J-WC', '营运资本占用（现金桥接最大判断）', '经营现金流 2025 年 205 亿元，归母口径约 150 亿元，而归母净利＋归母折旧约 530 亿元：营运资本吃掉约 380 亿元。应收＋合同资产两年增长 70%。2026 年管理层称经营现金流将高于 2025 年。PPP 不再新增、存量进入回款期。', '营运资本增加（归母口径）：2026 年 340、2027 年 260、2028 年 200、2029 年 150、2030 年 120、2031 年 100、2032 年起 80 亿元。即经营现金流逐年改善，但长期仍有营运资本占用（业主付款越来越慢是行业常态）。', '所有者收益＝归母净利＋归母折旧−非现金收益＋投资分红−营运资本增加−维持资本。营运资本每多占用 100 亿元，当年 FCFE 少 100 亿元，约等于一年的股息。', '逐年假设·营运资本增加', '2026—2035', '年度经营现金流偏离隐含值（约 230 亿元起逐年增加）100 亿元以上；应收＋合同资产增速连续两年高于收入增速 15pt。', '上半年经营现金流为负（季节性：年底集中收款）；化债退坡的影响用情景展示，不机械改长期假设。', '若化债退坡、地方财政更紧，占用可能长期维持在 300 亿元以上，那时股息只能靠借款支付（现金支持价值会明显低于股息贴现价值）。', '已形成建议'),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 'J-CAPEX', '维持与扩张资本（归母口径）', '购建长期资产 2023—2025 年 341、198、262 亿元；投资活动净现金流 −265、−25、−322 亿元；PPP 不再新增，但城市更新、运营资产、海外投建营、REITs 盘活在推进。少数股东占约 26%。', '维持资本＝折旧×74%（约 152—163 亿元，归母口径）；扩张资本（城市更新、运营资产、存量 PPP 尾款，归母口径）2026 年 110、2027 年 100、2028 年 90、2029 年 80，2030 年起 70 亿元。', 'FCFE＝所有者收益−扩张资本＋净借款。', '逐年假设·维持/扩张资本', '2026—2035', '新的大额投资模式（如城市更新一二级联动）或年度投资活动净流出超过 400 亿元。', 'REITs、ABS 盘活带来的单年回流。', '城市更新回报周期 5—10 年，管理层自称“权宜之计”；若规模化，扩张资本会更高。', '已形成建议'),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 'J-DEBT', '净借款与债务成本', '带息负债 2025 年末 9,405 亿元、2026H1 9,498 亿元；财务费用（净额）÷平均带息负债约 1.96%；2026H1 综合融资成本 −14bp、利息费用 −9.8%，但汇兑损失使财务费用 +4.3%。', '净借款：2026 年 +200、2027 年 +110、2028 年 +40、2029 年 0、2030 年 −50、2031 年 −70、2032—2035 年 −80 亿元（2035 年约 9,315 亿元）。平均债务成本（按财务费用净额口径）2026 年 1.95%、2027 年 1.90%、2028 年起 1.85%。', '利息＝(期初＋期末)÷2×债务成本；2026—2028 年的净借款部分用于支付股息（见判断 J-PAYOUT 的现金检验）。', '逐年假设·净借款、平均债务成本', '2026—2035', '年报带息负债偏离 300 亿元以上；利率环境变化超过 50bp。', '季度续借。', '净借款是合并口径，少数股东那部分借款本不该全部计入股东现金；本模型净借款小，影响有限。', '已形成建议'),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 'J-PAYOUT', '派息率路径', '每股股息 2023—2025 年度约 0.2715 元，派息率 2018 年约 18%→2025 年 28.7%（约 +1.5pt/年）；管理层：2026 年度每股派息保持平稳；国资委市值管理、破净整改（2027 年底时限）。', '2026 年 31.44%（每股 0.2718 元不变、利润下降导致派息率上升），2027 年起每年 +1pt，2035 年 40%。理由：经营现金流在改善、扩张资本下降，2029 年起 FCFE 高于计划股息；终值按永续增长 1% 计，可持续派息率远高于 40%，40% 偏保守。', '股息＝归母净利×派息率。2026—2028 年 FCFE 刚好覆盖股息（含每年 40—200 亿元净借款）；之后有余。', '逐年假设·派息率', '2026—2035，全部情景', '年度分红方案；股东回报规划；派息率偏离假设 5pt 以上。', '单次特别分红或回购。', '若现金流不改善，公司可能维持每股股息但继续借钱支付；也可能为保住资产负债率而不提高派息。另一面：按本路径，留存的 60%—65% 利润几乎不带来利润增长，“资产与资本”页的 ROE 从 2026 年 7.2% 降到 2035 年 5.7%，低于资本成本——这正是 PB 0.37 倍的含义；派息率越高，股东价值越高。', '已形成建议'),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 'J-PAYOUT', '派息率路径', '每股股息 2023—2025 年度约 0.2715 元，派息率 2018 年约 18%→2025 年 28.7%（约 +1.5pt/年）；管理层：2026 年度每股派息保持平稳；国资委市值管理、破净整改（2027 年底时限）。', '2026 年 34.54%（每股 0.2718 元不变：三季报后归母下调到约 325 亿元，派息率随之由 31.44% 升到 34.54%，2026-11-05），2027 年起回到 32%、每年 +1pt，2035 年 40%（2027 年派息率低于 2026 年，但每股股息仍上升到约 0.277 元）。理由：经营现金流在改善、扩张资本下降，2029 年起 FCFE 高于计划股息；终值按永续增长 1% 计，可持续派息率远高于 40%，40% 偏保守。', '股息＝归母净利×派息率。2026—2028 年 FCFE 刚好覆盖股息（含每年 40—200 亿元净借款）；之后有余。', '逐年假设·派息率', '2026—2035，全部情景', '年度分红方案；股东回报规划；派息率偏离假设 5pt 以上。', '单次特别分红或回购。', '若现金流不改善，公司可能维持每股股息但继续借钱支付；也可能为保住资产负债率而不提高派息。另一面：按本路径，留存的 60%—65% 利润几乎不带来利润增长，“资产与资本”页的 ROE 从 2026 年 7.2% 降到 2035 年 5.7%，低于资本成本——这正是 PB 0.37 倍的含义；派息率越高，股东价值越高。', '已形成建议'),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 'J-R', '折现率与风险溢价', '中债 10 年 1.64%（2026-10-21）。长江电力用 3.5% 风险溢价（类债资产），太阳纸业 6%（周期制造业）。中国建筑：资产负债率 77%、应收与 PPP 资产质量不透明、少数股东与永续债多层分配，但央企信用、业务分散、股息稳定。', '风险溢价 6.0%，基准折现率 7.6%；悲观 8.6%、乐观 7.1%。要求收益率（你自己的门槛）仍为 6%；无风险利率取高频数据里的中债 10 年期国债到期收益率（建模时 1.64%，2026-10-21），加风险溢价后按 0.1 个百分点四舍五入（7.64% → 7.6%）。', '折现率 +1pt，基准价值约 −0.7 元（见单参数试验与敏感性表）。', '估值模型·无风险利率、风险溢价；情景·折现率', '全部', '长期利率变化超过 0.5 个百分点；资产质量出现系统性问题。', '单日利率波动。', '风险溢价是判断，不是测量值；市场给的 PB 0.37 倍隐含的要求回报约 9%。', '已形成建议'),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 'J-TV', '终值与永续增长', '中国建筑业总量已过峰值（住宅新开工持续下降），增量来自城市更新、工业与能源工程、海外；模型 2029 年起收入 +1%/年。', '基准永续增长 1.0%（名义，略低于通胀，即实物量缓慢收缩）；悲观 0%、乐观 2%。', '终值＝终年股息×(1＋g)÷(r−g)，占价值约 57%；g 每 +0.5pt，价值约 +0.3 元。', '情景·永续增长率', '2035 年之后', '行业长期需求判断改变。', '—', '若地产与基建投资长期萎缩，名义增长可能为负。', '已形成建议'),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), 'J-CB', '现金桥接其余项目', '权益法投资收益 2024—2025 年 36.5、17.1 亿元，2026H1 5.6 亿元；收到投资分红 2024—2025 年 25.7、21.7 亿元；货币资金 4,117 亿元。', '非现金收益扣除 8、收到投资分红 15、其他现金调整 0、最低现金补充 0（现金充足）。减值不在现金桥接里加回：视为应收款的真实损失。', '所有者收益＝归母净利＋归母折旧−非现金收益＋投资分红＋其他调整−营运资本增加−维持资本。', '逐年假设·非现金收益、投资分红、其他现金调整、最低现金补充', '2026—2035', '联营企业收益或分红大幅变化。', '季度波动。', '若减值事后被收回（转回），现金会比本模型多。', '已形成建议'),
@@ -547,6 +547,44 @@ SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'
 
 SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '房屋建筑新开工面积', '前三季度累计', '万㎡', '2026Q1-Q3', '2026-09-30', 15928, -0.181, '新开工是 1—2 年后收入的领先指标；竣工面积 −11.6%。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '2026 年经营情况简报（1—6、1—7、1—8、1—9 月）' LIMIT 1));
 
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '地产业务毛利率', '半年累计', '%', '2022H1', '2022-06-30', 20.99, NULL, '半年报分行业毛利率（东方财富主营构成（按行业分类：房地产开发与投资））。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = NULL LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '地产业务毛利率', '半年累计', '%', '2023H1', '2023-06-30', 18.1, NULL, '半年报分行业毛利率（东方财富主营构成（按行业分类：房地产开发与投资））。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = NULL LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '地产业务毛利率', '半年累计', '%', '2024H1', '2024-06-30', 19.41, NULL, '半年报分行业毛利率（东方财富主营构成（按行业分类：房地产开发与投资））。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = NULL LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '地产业务毛利率', '半年累计', '%', '2025H1', '2025-06-30', 15.96, NULL, '半年报分行业毛利率（东方财富主营构成（按行业分类：房地产开发与投资））。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = NULL LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '地产业务毛利率', '半年累计', '%', '2026H1', '2026-06-30', 14.95, NULL, '半年报分行业毛利率（东方财富主营构成（按行业分类：房地产开发与投资））。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2026 年半年度报告' LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '地产业务毛利率', '全年', '%', '2021', '2021-12-31', 21.07, NULL, '年报分行业毛利率（东方财富主营构成（按行业分类：房地产开发与投资））。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = NULL LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '地产业务毛利率', '全年', '%', '2022', '2022-12-31', 18.97, NULL, '年报分行业毛利率（东方财富主营构成（按行业分类：房地产开发与投资））。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = NULL LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '地产业务毛利率', '全年', '%', '2023', '2023-12-31', 18.21, NULL, '年报分行业毛利率（东方财富主营构成（按行业分类：房地产开发与投资））。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2023 年年度报告' LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '地产业务毛利率', '全年', '%', '2024', '2024-12-31', 17.28, NULL, '年报分行业毛利率（东方财富主营构成（按行业分类：房地产开发与投资））。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = NULL LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '地产业务毛利率', '全年', '%', '2025', '2025-12-31', 14.43, NULL, '年报分行业毛利率（东方财富主营构成（按行业分类：房地产开发与投资））。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2025 年年度报告' LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '建筑业务新签合同额', '全年', '亿元', '2023', '2023-12-31', 38727, 0.106, '房建 26,894、基建 11,685、勘察设计 148。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2023 年年度报告' LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '建筑业务新签合同额', '全年', '亿元', '2024', '2024-12-31', 40808, 0.054, '房建 26,516（−1.4%）、基建 14,149（+21.1%）、勘察设计 143；境外 2,110（+20.3%）。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2025 年年度报告' LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '建筑业务新签合同额', '全年', '亿元', '2025', '2025-12-31', 41510, 0.017, '房建 26,654（+0.5%）、基建 14,728（+4.1%）。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2025 年年度报告' LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '房屋建筑新开工面积', '全年', '万㎡', '2023', '2023-12-31', 37725, 0.015, '1—12 月经营情况简报；施工面积约 17.5 亿㎡。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2023 年年度报告' LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '房屋建筑新开工面积', '全年', '万㎡', '2024', '2024-12-31', 30816, -0.1831, '1—12 月经营情况简报；施工 169,251、竣工 22,404 万㎡。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2025 年年度报告' LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '房屋建筑新开工面积', '全年', '万㎡', '2025', '2025-12-31', 27652, -0.1027, '1—12 月经营情况简报；施工 165,442、竣工 22,893 万㎡。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2025 年年度报告' LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '地产合约销售额', '全年', '亿元', '2023', '2023-12-31', 4514, 0.124, '面积 1,858 万㎡（+7.9%）。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2023 年年度报告' LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '地产合约销售额', '全年', '亿元', '2024', '2024-12-31', 4219, -0.0654, '面积 1,461 万㎡。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2025 年年度报告' LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '地产合约销售额', '全年', '亿元', '2025', '2025-12-31', 3948, -0.0642, '面积 1,509 万㎡。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '中国建筑 2025 年年度报告' LIMIT 1));
+
 SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '应收账款＋合同资产', '全年', '亿元', '2019', '2019-12-31', 3049.37, NULL, '期末余额', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' LIMIT 1));
 
 SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '应付票据及应付账款', '全年', '亿元', '2019', '2019-12-31', 5001.6, NULL, '期末余额：回款慢的压力有多少传给了供应商', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND title = '东方财富 F10：中国建筑 2013—2025 年及 2026 年中报三大报表' LIMIT 1));
@@ -606,8 +644,8 @@ INSERT INTO vi_model_base (company_id, name, status, method, base_year, terminal
 VALUES ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '中国建筑 DDM＋现金桥接（2025 年末基准）', '当前',
   '股息贴现（DDM）为主，FCFE 约束股息作交叉验证。收入＝新签合同总额×收入转化率；利润＝核心利润（不含减值）−折旧−利息＋其他净贡献（减值为负）；现金桥接按归母口径。相对估值（PE/PB）只做对照，见判断 J-REL。股价只进对比层。',
   2025, 2035, 413.2039, 0.0164, '2026-10-21', (SELECT id FROM vi_metric_base WHERE code = 'CGB10Y.CCDC'), 0.06,
-  9405.30, 1063.38, 1265.67, 4825.56, 3309.53, 0.06, 0.10, 0.30,
-  '经营假设（2026-10-22）：新签合同总额 2026—2028 年 45,400 亿元、之后 +1%/年；收入转化率 2026 年 0.414、之后 0.405（收入 2026 年约 18,800 亿元、2027 年约 18,390 亿元见底）；核心利润率 6.6%→6.5%；其他净贡献（主要是减值）−215→−160 亿元；折旧 205 亿元起 +1%/年；所得税率 24%；少数股东占比 26%；派息率 31.4%→40%（每年 +1pt）。现金桥接按归母口径：营运资本占用 340→80 亿元、维持资本＝折旧×74%、扩张资本 110→70 亿元、净借款 2026—2028 年 +350 亿元后逐年还 50—80 亿元。期初资产负债取 2025 年末合并报表（东方财富 F10）：经营性长期资产 1,063.38＝固定资产 535.11＋在建工程 50.99＋无形资产 423.93＋使用权资产 53.35；长期股权投资 1,265.67；归母权益 4,825.56（普通股口径＝4,915.56 扣母公司永续债 90）；少数股东权益 3,309.53（含子公司永续债约 608）；带息负债 9,405.30（短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债）。风险溢价 6.0%（与太阳纸业相同）。安全边际两档并列 10%/30%。')
+  9405.30, 1063.38, 1265.67, 4825.56, 3309.53, 0.06, 0.10, NULL,
+  '经营假设（2026-10-22）：新签合同总额 2026—2028 年 45,400 亿元、之后 +1%/年；收入转化率 2026 年 0.395（2026-11-05 按三季报由 0.414 下调）、之后 0.405（收入 2026 年约 17,930 亿元见底、2027 年约 18,390 亿元）；核心利润率 6.6%→6.5%；其他净贡献（主要是减值）−215→−160 亿元；折旧 205 亿元起 +1%/年；所得税率 24%；少数股东占比 26%；派息率 31.4%→40%（每年 +1pt）。现金桥接按归母口径：营运资本占用 340→80 亿元、维持资本＝折旧×74%、扩张资本 110→70 亿元、净借款 2026—2028 年 +350 亿元后逐年还 50—80 亿元。期初资产负债取 2025 年末合并报表（东方财富 F10）：经营性长期资产 1,063.38＝固定资产 535.11＋在建工程 50.99＋无形资产 423.93＋使用权资产 53.35；长期股权投资 1,265.67；归母权益 4,825.56（普通股口径＝4,915.56 扣母公司永续债 90）；少数股东权益 3,309.53（含子公司永续债约 608）；带息负债 9,405.30（短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债）。风险溢价 6.0%（与太阳纸业相同）。安全边际两档并列 10%/30%。')
 ;
 
 INSERT INTO vi_scenario_base (model_id, name, is_base, sort, volume_factor, price_factor, cost_factor, discount_rate, terminal_growth, nature, description) VALUES
@@ -616,7 +654,7 @@ INSERT INTO vi_scenario_base (model_id, name, is_base, sort, volume_factor, pric
 ((SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '中国建筑 DDM＋现金桥接（2025 年末基准）'), '乐观', FALSE, 3, 1.03, 1.02, 1.0472, 0.071, 0.02, '新开工回升、化债推进、利润率回到 2019—2021 年水平', '新签 +3%、收入转化率 +2%（收入较基准 +5.1%），付现成本系数 1.0472 → 核心利润率约 6.8%；折现率 7.1%，永续增长 2%。');
 
 INSERT INTO vi_forecast_base (model_id, year, volume, price, cash_cost, depreciation, other_contrib, tax_rate, minority_share, payout, net_borrowing, cost_of_debt, noncash_gain_deduct, investee_cash_div, other_cash_adj, wc_increase, maint_capex, growth_capex, min_cash_topup, operating_status, cash_status, note) VALUES
-((SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '中国建筑 DDM＋现金桥接（2025 年末基准）'), 2026, 45400, 0.414, 17555.09, 205.0, -215, 0.24, 0.26, 0.3144, 200, 0.0195, 8, 15, 0, 340, 151.7, 110, 0, '建议值待核验', '建议值待核验', '营业收入约 18,796 亿元；核心利润率 6.6%；维持资本＝折旧×74%（归母口径）。上半年实际：营收 9,758、归母 230.0；下半年收入约 −8%、减值少于去年同期（全年约 235 亿元）。归母约 357 亿元（一致预期 370，中报后卖方 328—366）；每股股息 0.2718 元不变。'),
+((SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '中国建筑 DDM＋现金桥接（2025 年末基准）'), 2026, 45400, 0.395, 16749.42, 205.0, -215, 0.24, 0.26, 0.3454, 200, 0.0195, 8, 15, 0, 340, 151.7, 110, 0, '建议值待核验', '建议值待核验', '营业收入约 17,933 亿元；核心利润率 6.6%；维持资本＝折旧×74%（归母口径）。前三季度实际：营收 13,357（−14.3%）、归母 287.1（−24.8%）、减值 101.6；三季度单季营收 −20%。四季度按 −10% 到 −15%，全年收入约 17,930 亿元（−14%），减值全年约 235 亿元。归母约 325 亿元；每股股息 0.2718 元持平，派息率 34.5%（2026-11-05 按三季报修正，待办 Q02）。'),
 ((SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '中国建筑 DDM＋现金桥接（2025 年末基准）'), 2027, 45400, 0.405, 17173.46, 205.0, -190, 0.24, 0.26, 0.32, 110, 0.019, 8, 15, 0, 260, 151.7, 100, 0, '建议值待核验', '建议值待核验', '营业收入约 18,387 亿元；核心利润率 6.6%；维持资本＝折旧×74%（归母口径）。收入再降约 2%（新开工面积 2026 年 −18%），利润率持平；一致预期 382 亿元，本模型约 357 亿元。'),
 ((SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '中国建筑 DDM＋现金桥接（2025 年末基准）'), 2028, 45400, 0.405, 17191.85, 206.0, -170, 0.24, 0.26, 0.33, 40, 0.0185, 8, 15, 0, 200, 152.4, 90, 0, '建议值待核验', '建议值待核验', '营业收入约 18,387 亿元；核心利润率 6.5%；维持资本＝折旧×74%（归母口径）。收入见底持平，减值降到约 190 亿元。'),
 ((SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '中国建筑 DDM＋现金桥接（2025 年末基准）'), 2029, 45854, 0.405, 17363.76, 208.1, -160, 0.24, 0.26, 0.34, 0, 0.0185, 8, 15, 0, 150, 154.0, 80, 0, '建议值待核验', '建议值待核验', '营业收入约 18,571 亿元；核心利润率 6.5%；维持资本＝折旧×74%（归母口径）。新签合同额起每年 +1%；营运资本占用降到 150 亿元，FCFE 开始明显高于股息。'),
@@ -665,6 +703,73 @@ INSERT INTO vi_change_log_base (company_id, change_date, title, target, old_valu
 DELETE FROM vi_fin_stmt_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH');
 
 INSERT INTO vi_fin_stmt_base (company_id, period, period_end, stmt, item, seq, amount) VALUES
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '货币资金', 2, 3677.65468),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '交易性金融资产', 5, 0.18863),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '应收票据及应收账款', 8, 4962.68084),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '应收票据', 9, 20.95637),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '应收账款', 10, 4941.72447),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '应收款项融资', 11, 19.48345),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '预付款项', 12, 335.09554),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '其他应收款(合计)', 23, 917.92187),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '存货', 24, 7946.7902),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '划分为持有待售的资产', 25, 18.39823),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '一年内到期的非流动资产', 28, 521.23019),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '其他流动资产', 29, 2251.03824),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '流动资产合计', 30, 27387.35948),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '债权投资', 33, 205.70435),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '其他债权投资', 34, 5.4519),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '长期股权投资', 38, 1285.87329),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '投资性房地产', 39, 1598.22776),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '长期应收款', 40, 1274.34773),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '其他权益工具投资', 41, 96.30517),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '其他非流动金融资产', 42, 18.99683),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '在建工程合计', 48, 73.50622),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '固定资产及清理合计', 53, 526.17273),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '合同资产', 57, 6736.87761),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '使用权资产', 58, 48.93819),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '无形资产', 59, 497.83305),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '商誉', 61, 22.88182),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '长期待摊费用', 62, 16.1011),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '递延所得税资产', 64, 328.52464),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '其他非流动资产', 65, 3706.76267),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '非流动资产合计', 66, 9705.62745),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '资产总计', 67, 37092.98693),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '短期借款', 69, 1668.8561),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '应付票据及应付账款', 75, 10794.91687),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '应付票据', 76, 90.47741),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '应付账款', 77, 10704.43946),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '预收款项', 78, 16.12408),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '合同负债', 79, 3805.75348),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '应付职工薪酬', 82, 108.13896),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '应交税费', 83, 504.99392),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '其他应付款合计', 89, 1629.44248),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '一年内到期的非流动负债', 103, 1526.2656),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '其他流动负债', 104, 1777.47182),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '流动负债合计', 105, 21831.96331),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '长期借款', 107, 5095.62093),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '应付债券', 108, 1322.38426),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '租赁负债', 111, 29.58557),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '长期应付职工薪酬', 112, 12.63172),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '长期应付款合计', 114, 160.75104),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '预计非流动负债', 116, 25.1586),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '长期递延收益', 117, 4.87807),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '递延所得税负债', 118, 92.77674),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '其他非流动负债', 119, 5.59912),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '非流动负债合计', 120, 6749.38605),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '负债合计', 121, 28581.34936),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '实收资本(或股本)', 123, 413.2039),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '其他权益工具', 124, 90.0),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '永续债', 126, 90.0),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '资本公积', 127, 99.73585),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '其他综合收益', 129, -30.69141),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '专项储备', 130, 47.49699),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '盈余公积', 131, 185.55842),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '一般风险准备', 132, 28.41664),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '未分配利润', 134, 4262.0157),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '归属于母公司股东权益合计', 137, 5095.73609),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '少数股东权益', 138, 3415.90148),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '所有者权益(或股东权益)合计', 139, 8511.63757),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '资产负债表', '负债和所有者权益(或股东权益)总计', 140, 37092.98693),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q2', '2026-06-30', '资产负债表', '货币资金', 2, 3951.33784),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q2', '2026-06-30', '资产负债表', '交易性金融资产', 5, 0.10825),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q2', '2026-06-30', '资产负债表', '应收票据及应收账款', 8, 4633.96033),
@@ -5945,6 +6050,49 @@ INSERT INTO vi_fin_stmt_base (company_id, period, period_end, stmt, item, seq, a
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2005Q4', '2005-12-31', '资产负债表', '少数股东权益', 138, 58.80189),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2005Q4', '2005-12-31', '资产负债表', '所有者权益(或股东权益)合计', 139, 84.46397),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2005Q4', '2005-12-31', '资产负债表', '负债和所有者权益(或股东权益)总计', 140, 947.14316),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '营业总收入', 1, 13357.11672),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '营业收入', 2, 13357.11672),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '营业总成本', 8, 12755.36968),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '营业成本', 9, 12060.78662),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '营业税金及附加', 18, 60.35441),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '研发费用', 19, 221.79282),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '销售费用', 20, 55.59632),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '管理费用', 21, 219.02024),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '财务费用', 22, 137.81927),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '利息费用', 23, 145.28705),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '投资收益', 25, 3.9963),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '对联营企业和合营企业的投资收益', 26, 8.44207),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '以摊余成本计量的金融资产终止确认产生的收益', 27, -13.53509),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '公允价值变动收益', 30, -0.09522),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '其他收益', 34, 3.45507),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '资产减值损失', 35, -28.74022),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '信用减值损失', 36, -72.89677),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '资产处置收益', 38, 1.11908),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '营业利润', 39, 508.58528),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '营业外收入', 40, 5.7419),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '营业外支出', 42, 4.08234),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '利润总额', 44, 510.24484),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '所得税费用', 45, 132.35167),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '净利润', 47, 377.89317),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '持续经营净利润', 48, 377.89317),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '归属于母公司所有者的净利润', 50, 287.14343),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '少数股东损益', 52, 90.74974),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '其他综合收益', 53, -1.1556),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '归属于母公司所有者的其他综合收益', 54, 0.00222),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '（一）以后不能重分类进损益的其他综合收益', 55, -4.23865),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '重新计量设定受益计划变动额', 56, -0.00052),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '其他权益工具投资公允价值变动', 58, -4.23813),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '（二）以后将重分类进损益的其他综合收益', 60, 4.24087),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '权益法下可转损益的其他综合收益', 61, -0.16802),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '其他债权投资公允价值变动', 63, -0.04446),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '外币财务报表折算差额', 69, 4.45335),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '其他', 70, -0.10517),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '归属于少数股东的其他综合收益', 71, -1.15782),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '综合收益总额', 72, 376.73757),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '归属于母公司所有者的综合收益总额', 73, 287.14565),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '归属于少数股东的综合收益总额', 74, 89.59192),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '基本每股收益', 75, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '利润表', '稀释每股收益', 76, 0.0),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q2', '2026-06-30', '利润表', '营业总收入', 1, 9758.37283),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q2', '2026-06-30', '利润表', '营业收入', 2, 9758.37283),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q2', '2026-06-30', '利润表', '营业总成本', 8, 9259.10085),
@@ -6069,33 +6217,33 @@ INSERT INTO vi_fin_stmt_base (company_id, period, period_end, stmt, item, seq, a
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q4', '2025-12-31', '利润表', '归属于少数股东的综合收益总额', 74, 151.22926),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q4', '2025-12-31', '利润表', '基本每股收益', 75, 0.0),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q4', '2025-12-31', '利润表', '稀释每股收益', 76, 0.0),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '营业总收入', 1, 15582.19881),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '营业收入', 2, 15582.19881),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '营业总成本', 8, 14919.96539),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '营业成本', 9, 14223.41202),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '营业税金及附加', 18, 39.40501),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '研发费用', 19, 239.78992),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '销售费用', 20, 58.92815),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '管理费用', 21, 222.86473),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '财务费用', 22, 135.56556),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '利息费用', 23, 151.90064),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '营业总收入', 1, 15583.55844),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '营业收入', 2, 15583.55844),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '营业总成本', 8, 14921.14821),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '营业成本', 9, 14224.15016),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '营业税金及附加', 18, 39.43892),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '研发费用', 19, 239.83856),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '销售费用', 20, 59.09691),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '管理费用', 21, 223.03878),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '财务费用', 22, 135.58488),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '利息费用', 23, 151.91693),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '投资收益', 25, 23.01285),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '对联营企业和合营企业的投资收益', 26, 26.59291),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '以摊余成本计量的金融资产终止确认产生的收益', 27, -13.5765),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '公允价值变动收益', 30, 0.02137),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '其他收益', 34, 5.26569),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '资产减值损失', 35, -17.82124),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '信用减值损失', 36, -61.85605),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '信用减值损失', 36, -61.976),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '资产处置收益', 38, 1.72574),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '营业利润', 39, 612.58178),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '营业外收入', 40, 6.56432),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '营业外支出', 42, 3.7443),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '利润总额', 44, 615.4018),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '所得税费用', 45, 121.98626),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '净利润', 47, 493.41554),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '持续经营净利润', 48, 493.41554),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '归属于母公司所有者的净利润', 50, 381.82402),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '少数股东损益', 52, 111.59152),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '营业利润', 39, 612.63864),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '营业外收入', 40, 6.56762),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '营业外支出', 42, 3.74649),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '利润总额', 44, 615.45977),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '所得税费用', 45, 121.97929),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '净利润', 47, 493.48048),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '持续经营净利润', 48, 493.48048),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '归属于母公司所有者的净利润', 50, 381.90261),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '少数股东损益', 52, 111.57787),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '其他综合收益', 53, 14.46013),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '归属于母公司所有者的其他综合收益', 54, 8.5964),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '（一）以后不能重分类进损益的其他综合收益', 55, -0.84091),
@@ -6106,9 +6254,9 @@ INSERT INTO vi_fin_stmt_base (company_id, period, period_end, stmt, item, seq, a
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '其他债权投资公允价值变动', 63, -0.0162),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '外币财务报表折算差额', 69, 7.7507),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '归属于少数股东的其他综合收益', 71, 5.86373),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '综合收益总额', 72, 507.87567),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '归属于母公司所有者的综合收益总额', 73, 390.42042),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '归属于少数股东的综合收益总额', 74, 117.45525),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '综合收益总额', 72, 507.94061),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '归属于母公司所有者的综合收益总额', 73, 390.49901),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '归属于少数股东的综合收益总额', 74, 117.4416),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '基本每股收益', 75, 0.0),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '利润表', '稀释每股收益', 76, 0.0),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q2', '2025-06-30', '利润表', '营业总收入', 1, 11084.2176),
@@ -8608,6 +8756,41 @@ INSERT INTO vi_fin_stmt_base (company_id, period, period_end, stmt, item, seq, a
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2005Q4', '2005-12-31', '利润表', '少数股东损益', 52, 9.77728),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2005Q4', '2005-12-31', '利润表', '基本每股收益', 75, 0.0),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2005Q4', '2005-12-31', '利润表', '稀释每股收益', 76, 0.0),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '销售商品、提供劳务收到的现金', 2, 13418.6256),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '收到的税费返还', 13, 11.46278),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '收到的其他与经营活动有关的现金', 14, 327.0979),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '经营活动现金流入小计', 15, 13757.18628),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '购买商品、接受劳务支付的现金', 16, 12462.51881),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '支付给职工以及为职工支付的现金', 22, 787.68465),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '支付的各项税费', 23, 471.85128),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '支付的其他与经营活动有关的现金', 24, 489.06306),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '经营活动现金流出小计', 25, 14211.1178),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '经营活动产生的现金流量净额', 26, -453.93152),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '收回投资所收到的现金', 28, 16.31787),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '取得投资收益收到的现金', 29, 12.79998),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '处置固定资产、无形资产和其他长期资产所收回的现金净额', 30, 21.62677),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '收到的其他与投资活动有关的现金', 32, 100.42495),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '投资活动现金流入小计', 35, 151.16957),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '购建固定资产、无形资产和其他长期资产所支付的现金', 36, 139.4628),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '投资所支付的现金', 37, 30.9895),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '支付的其他与投资活动有关的现金', 41, 79.22257),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '投资活动现金流出小计', 42, 249.67487),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '投资活动产生的现金流量净额', 43, -98.5053),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '吸收投资收到的现金', 45, 221.29219),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '子公司吸收少数股东投资收到的现金', 46, 131.29219),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '取得借款收到的现金', 47, 3690.56893),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '收到其他与筹资活动有关的现金', 49, 210.72622),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '筹资活动现金流入小计', 50, 4122.58734),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '偿还债务支付的现金', 51, 3270.0892),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '分配股利、利润或偿付利息所支付的现金', 52, 295.57548),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '子公司支付给少数股东的股利、利润', 53, 48.64341),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '支付其他与筹资活动有关的现金', 54, 395.03092),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '筹资活动现金流出小计', 55, 3960.6956),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '筹资活动产生的现金流量净额', 56, 161.89174),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '汇率变动对现金及现金等价物的影响', 57, -1.12306),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '现金及现金等价物净增加额', 58, -391.66814),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '期初现金及现金等价物余额', 59, 3591.96227),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q3', '2026-09-30', '现金流量表', '期末现金及现金等价物余额', 64, 3200.29413),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q2', '2026-06-30', '现金流量表', '销售商品、提供劳务收到的现金', 2, 9267.74888),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q2', '2026-06-30', '现金流量表', '收到的税费返还', 13, 5.51095),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2026Q2', '2026-06-30', '现金流量表', '收到的其他与经营活动有关的现金', 14, 157.67832),
@@ -8721,27 +8904,27 @@ INSERT INTO vi_fin_stmt_base (company_id, period, period_end, stmt, item, seq, a
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q4', '2025-12-31', '现金流量表', '现金的期末余额', 60, 3591.96227),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q4', '2025-12-31', '现金流量表', '现金的期初余额', 61, 3593.72597),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q4', '2025-12-31', '现金流量表', '期末现金及现金等价物余额', 64, 3591.96227),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '销售商品、提供劳务收到的现金', 2, 15419.39331),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '收到的税费返还', 13, 10.60865),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '收到的其他与经营活动有关的现金', 14, 348.11068),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '经营活动现金流入小计', 15, 15778.11264),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '购买商品、接受劳务支付的现金', 16, 14883.80897),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '支付给职工以及为职工支付的现金', 22, 710.14999),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '支付的各项税费', 23, 484.4782),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '支付的其他与经营活动有关的现金', 24, 394.46531),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '经营活动现金流出小计', 25, 16472.90247),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '经营活动产生的现金流量净额', 26, -694.78983),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '销售商品、提供劳务收到的现金', 2, 15420.0964),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '收到的税费返还', 13, 10.60866),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '收到的其他与经营活动有关的现金', 14, 348.32386),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '经营活动现金流入小计', 15, 15779.02892),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '购买商品、接受劳务支付的现金', 16, 14885.07693),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '支付给职工以及为职工支付的现金', 22, 710.46136),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '支付的各项税费', 23, 484.62355),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '支付的其他与经营活动有关的现金', 24, 394.78195),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '经营活动现金流出小计', 25, 16474.94379),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '经营活动产生的现金流量净额', 26, -695.91487),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '收回投资所收到的现金', 28, 23.66396),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '取得投资收益收到的现金', 29, 9.01456),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '处置固定资产、无形资产和其他长期资产所收回的现金净额', 30, 34.58092),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '处置子公司及其他营业单位收到的现金净额', 31, 15.77401),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '收到的其他与投资活动有关的现金', 32, 154.6462),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '投资活动现金流入小计', 35, 237.67965),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '购建固定资产、无形资产和其他长期资产所支付的现金', 36, 160.60119),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '购建固定资产、无形资产和其他长期资产所支付的现金', 36, 160.67429),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '投资所支付的现金', 37, 102.07727),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '支付的其他与投资活动有关的现金', 41, 100.39257),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '投资活动现金流出小计', 42, 363.07103),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '投资活动产生的现金流量净额', 43, -125.39138),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '支付的其他与投资活动有关的现金', 41, 100.39274),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '投资活动现金流出小计', 42, 363.1443),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '投资活动产生的现金流量净额', 43, -125.46465),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '吸收投资收到的现金', 45, 143.52352),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '子公司吸收少数股东投资收到的现金', 46, 143.52352),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '取得借款收到的现金', 47, 3683.20239),
@@ -8754,9 +8937,9 @@ INSERT INTO vi_fin_stmt_base (company_id, period, period_end, stmt, item, seq, a
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '筹资活动现金流出小计', 55, 3659.96229),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '筹资活动产生的现金流量净额', 56, 271.39855),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '汇率变动对现金及现金等价物的影响', 57, -4.95535),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '现金及现金等价物净增加额', 58, -553.73801),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '期初现金及现金等价物余额', 59, 3593.4302),
-((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '期末现金及现金等价物余额', 64, 3039.69219),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '现金及现金等价物净增加额', 58, -554.93632),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '期初现金及现金等价物余额', 59, 3593.77854),
+((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q3', '2025-09-30', '现金流量表', '期末现金及现金等价物余额', 64, 3038.84222),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q2', '2025-06-30', '现金流量表', '销售商品、提供劳务收到的现金', 2, 10380.66587),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q2', '2025-06-30', '现金流量表', '收到的税费返还', 13, 8.94587),
 ((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '2025Q2', '2025-06-30', '现金流量表', '收到的其他与经营活动有关的现金', 14, 290.51872),
@@ -12035,5 +12218,1101 @@ INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summ
 DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '每股现金分红' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1) AND basis = '全年' AND period = '2022';
 
 INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '每股现金分红' AND unit IS NOT DISTINCT FROM '元' ORDER BY id LIMIT 1), '2022-12-31', '2022', '全年', 0.2527, '历史年度原值；口径：合并口径', now());
+
+UPDATE vi_metric_base SET measure = '时点' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name IN ('PPP 相关长期资产（其他非流动资产＋长期应收款）', '中国建筑收盘价', '带息负债', '应付票据及应付账款', '应收账款＋合同资产', '归母净资产', '货币资金');
+
+UPDATE vi_metric_base SET measure = '时期' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND measure IS NULL;
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes) SELECT 'NBS.PMI.CONSTRUCTION', '建筑业商务活动指数（PMI）', '指数', '宏观', '手工整理', '时点', NULL, '国家统计局（akshare macro_china_nbs_nation）：非制造业采购经理指数 > 建筑业商务活动指数', '月', '时点', '50 以上表示建筑业活动扩张。中国建筑的房建、基建新签与它同向。' WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数');
+
+UPDATE vi_metric_base SET category = '宏观', basis = '时点', source_name = '国家统计局（akshare macro_china_nbs_nation）：非制造业采购经理指数 > 建筑业商务活动指数', frequency = '月', measure = '时点', notes = '50 以上表示建筑业活动扩张。中国建筑的房建、基建新签与它同向。' WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数';
+
+INSERT INTO vi_lnk_company_macro_metrics (company_id, metric_id, "createdAt", "updatedAt") SELECT (SELECT id FROM vi_company_base WHERE code = '601668.SH'), id, now(), now() FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数' ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes) SELECT 'NBS.RE.INVEST', '全国房地产开发投资', '亿元', '宏观', '手工整理', '年初至今累计', NULL, '国家统计局（akshare macro_china_nbs_nation）：房地产 > 房地产开发投资情况（累计值、累计增长）', '月', '时期', '地产投资下滑传导到房建新签（2—3 个季度）和中海地产的拿地。' WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET category = '宏观', basis = '年初至今累计', source_name = '国家统计局（akshare macro_china_nbs_nation）：房地产 > 房地产开发投资情况（累计值、累计增长）', frequency = '月', measure = '时期', notes = '地产投资下滑传导到房建新签（2—3 个季度）和中海地产的拿地。' WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元';
+
+INSERT INTO vi_lnk_company_macro_metrics (company_id, metric_id, "createdAt", "updatedAt") SELECT (SELECT id FROM vi_company_base WHERE code = '601668.SH'), id, now(), now() FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元' ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes) SELECT 'NBS.RE.NEWSTART', '全国房地产新开工施工面积', '万平方米', '宏观', '手工整理', '年初至今累计', NULL, '国家统计局（akshare macro_china_nbs_nation）：房地产 > 房地产施工、竣工面积', '月', '时期', '与公司“房屋建筑新开工面积”对照：公司跌幅小于全国，说明份额在提升。' WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米');
+
+UPDATE vi_metric_base SET category = '宏观', basis = '年初至今累计', source_name = '国家统计局（akshare macro_china_nbs_nation）：房地产 > 房地产施工、竣工面积', frequency = '月', measure = '时期', notes = '与公司“房屋建筑新开工面积”对照：公司跌幅小于全国，说明份额在提升。' WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米';
+
+INSERT INTO vi_lnk_company_macro_metrics (company_id, metric_id, "createdAt", "updatedAt") SELECT (SELECT id FROM vi_company_base WHERE code = '601668.SH'), id, now(), now() FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米' ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes) SELECT 'NBS.CONSTRUCTION.OUTPUT', '全国建筑业总产值', '亿元', '宏观', '手工整理', '年初至今累计', NULL, '国家统计局（akshare macro_china_nbs_nation）：建筑业 > 建筑业总产值（同比按上年同期累计值计算）', '季', '时期', '公司营业收入的行业对照。' WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元');
+
+UPDATE vi_metric_base SET category = '宏观', basis = '年初至今累计', source_name = '国家统计局（akshare macro_china_nbs_nation）：建筑业 > 建筑业总产值（同比按上年同期累计值计算）', frequency = '季', measure = '时期', notes = '公司营业收入的行业对照。' WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元';
+
+INSERT INTO vi_lnk_company_macro_metrics (company_id, metric_id, "createdAt", "updatedAt") SELECT (SELECT id FROM vi_company_base WHERE code = '601668.SH'), id, now(), now() FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元' ON CONFLICT DO NOTHING;
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes) SELECT (SELECT c.code || '.T' || lpad((coalesce((SELECT max(substring(x.code FROM '\.T(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.T%'), 0) + 1)::text, 3, '0') FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '601668.SH')), '同业毛利率中位数（六家建筑央企）', '%', '其他', '手工整理', '单季', (SELECT id FROM vi_company_base WHERE code = '601668.SH'), '跟踪脚本 companies/601668_中国建筑/track.py：新浪财报（akshare stock_financial_report_sina），六家建筑央企：中国中铁、中国铁建、中国交建、中国电建、中国化学、中国中冶；毛利率＝1 − 营业成本÷营业收入', '季', '时期', '与中国建筑同口径。中国建筑的房建占比高、毛利率天然低于基建为主的同业，看的是差距是否稳定。' WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '同业毛利率中位数（六家建筑央企）' AND unit IS NOT DISTINCT FROM '%');
+
+UPDATE vi_metric_base SET category = '其他', basis = '单季', source_name = '跟踪脚本 companies/601668_中国建筑/track.py：新浪财报（akshare stock_financial_report_sina），六家建筑央企：中国中铁、中国铁建、中国交建、中国电建、中国化学、中国中冶；毛利率＝1 − 营业成本÷营业收入', frequency = '季', measure = '时期', notes = '与中国建筑同口径。中国建筑的房建占比高、毛利率天然低于基建为主的同业，看的是差距是否稳定。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '同业毛利率中位数（六家建筑央企）' AND unit IS NOT DISTINCT FROM '%';
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes) SELECT (SELECT c.code || '.T' || lpad((coalesce((SELECT max(substring(x.code FROM '\.T(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.T%'), 0) + 1)::text, 3, '0') FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '601668.SH')), '同业ROE中位数（六家建筑央企）', '%', '其他', '手工整理', '全年', (SELECT id FROM vi_company_base WHERE code = '601668.SH'), '跟踪脚本 companies/601668_中国建筑/track.py：新浪财报（akshare stock_financial_report_sina），六家建筑央企：中国中铁、中国铁建、中国交建、中国电建、中国化学、中国中冶；ROE＝归母净利÷年初年末平均归母权益（含永续债，不扣除）', '年', '时期', '中国建筑的同口径 ROE 见“归母ROE（同业口径）”。' WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '同业ROE中位数（六家建筑央企）' AND unit IS NOT DISTINCT FROM '%');
+
+UPDATE vi_metric_base SET category = '其他', basis = '全年', source_name = '跟踪脚本 companies/601668_中国建筑/track.py：新浪财报（akshare stock_financial_report_sina），六家建筑央企：中国中铁、中国铁建、中国交建、中国电建、中国化学、中国中冶；ROE＝归母净利÷年初年末平均归母权益（含永续债，不扣除）', frequency = '年', measure = '时期', notes = '中国建筑的同口径 ROE 见“归母ROE（同业口径）”。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '同业ROE中位数（六家建筑央企）' AND unit IS NOT DISTINCT FROM '%';
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes) SELECT (SELECT c.code || '.T' || lpad((coalesce((SELECT max(substring(x.code FROM '\.T(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.T%'), 0) + 1)::text, 3, '0') FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '601668.SH')), '同业（应收账款＋合同资产）÷营业收入中位数', '%', '其他', '手工整理', '全年', (SELECT id FROM vi_company_base WHERE code = '601668.SH'), '跟踪脚本 companies/601668_中国建筑/track.py：新浪财报（akshare stock_financial_report_sina），六家建筑央企：中国中铁、中国铁建、中国交建、中国电建、中国化学、中国中冶；年末余额 ÷ 全年营业收入', '年', '时期', '垫资强度：越高说明收入里越多的部分还没收到现金。' WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '同业（应收账款＋合同资产）÷营业收入中位数' AND unit IS NOT DISTINCT FROM '%');
+
+UPDATE vi_metric_base SET category = '其他', basis = '全年', source_name = '跟踪脚本 companies/601668_中国建筑/track.py：新浪财报（akshare stock_financial_report_sina），六家建筑央企：中国中铁、中国铁建、中国交建、中国电建、中国化学、中国中冶；年末余额 ÷ 全年营业收入', frequency = '年', measure = '时期', notes = '垫资强度：越高说明收入里越多的部分还没收到现金。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '同业（应收账款＋合同资产）÷营业收入中位数' AND unit IS NOT DISTINCT FROM '%';
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes) SELECT (SELECT c.code || '.T' || lpad((coalesce((SELECT max(substring(x.code FROM '\.T(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.T%'), 0) + 1)::text, 3, '0') FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '601668.SH')), '归母ROE（同业口径）', '%', '财务', '手工整理', '全年', (SELECT id FROM vi_company_base WHERE code = '601668.SH'), '跟踪脚本：归母净利 ÷ 年初年末平均归母权益（新浪财报，与同业同口径）', '年', '时期', '含永续债的权益口径，与公司公告的加权平均 ROE 略有差异。' WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '归母ROE（同业口径）' AND unit IS NOT DISTINCT FROM '%');
+
+UPDATE vi_metric_base SET category = '财务', basis = '全年', source_name = '跟踪脚本：归母净利 ÷ 年初年末平均归母权益（新浪财报，与同业同口径）', frequency = '年', measure = '时期', notes = '含永续债的权益口径，与公司公告的加权平均 ROE 略有差异。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '归母ROE（同业口径）' AND unit IS NOT DISTINCT FROM '%';
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes) SELECT (SELECT c.code || '.T' || lpad((coalesce((SELECT max(substring(x.code FROM '\.T(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.T%'), 0) + 1)::text, 3, '0') FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '601668.SH')), '（应收账款＋合同资产）÷营业收入', '%', '财务', '手工整理', '全年', (SELECT id FROM vi_company_base WHERE code = '601668.SH'), '跟踪脚本：年末（应收账款＋合同资产）÷ 全年营业收入（新浪财报）', '年', '时期', '垫资强度；与同业中位数对照。' WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '（应收账款＋合同资产）÷营业收入' AND unit IS NOT DISTINCT FROM '%');
+
+UPDATE vi_metric_base SET category = '财务', basis = '全年', source_name = '跟踪脚本：年末（应收账款＋合同资产）÷ 全年营业收入（新浪财报）', frequency = '年', measure = '时期', notes = '垫资强度；与同业中位数对照。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND name = '（应收账款＋合同资产）÷营业收入' AND unit IS NOT DISTINCT FROM '%';
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2021M01' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2021-01-31', '2021M01', '时点', 60.0, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2021M02' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2021-02-28', '2021M02', '时点', 54.7, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2021M03' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2021-03-31', '2021M03', '时点', 62.3, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2021M04' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2021-04-30', '2021M04', '时点', 57.4, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2021M05' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2021-05-31', '2021M05', '时点', 60.1, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2021M06' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2021-06-30', '2021M06', '时点', 60.1, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2021M07' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2021-07-31', '2021M07', '时点', 57.5, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2021M08' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2021-08-31', '2021M08', '时点', 60.5, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2021M09' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2021-09-30', '2021M09', '时点', 57.5, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2021M10' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2021-10-31', '2021M10', '时点', 56.9, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2021M11' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2021-11-30', '2021M11', '时点', 59.1, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2021M12' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2021-12-31', '2021M12', '时点', 56.3, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2022M01' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2022-01-31', '2022M01', '时点', 55.4, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2022M02' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2022-02-28', '2022M02', '时点', 57.6, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2022M03' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2022-03-31', '2022M03', '时点', 58.1, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2022M04' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2022-04-30', '2022M04', '时点', 52.7, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2022M05' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2022-05-31', '2022M05', '时点', 52.2, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2022M06' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2022-06-30', '2022M06', '时点', 56.6, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2022M07' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2022-07-31', '2022M07', '时点', 59.2, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2022M08' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2022-08-31', '2022M08', '时点', 56.5, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2022M09' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2022-09-30', '2022M09', '时点', 60.2, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2022M10' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2022-10-31', '2022M10', '时点', 58.2, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2022M11' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2022-11-30', '2022M11', '时点', 55.4, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2022M12' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2022-12-31', '2022M12', '时点', 54.4, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2023M01' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2023-01-31', '2023M01', '时点', 56.4, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2023M02' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2023-02-28', '2023M02', '时点', 60.2, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2023M03' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2023-03-31', '2023M03', '时点', 65.6, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2023M04' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2023-04-30', '2023M04', '时点', 63.9, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2023M05' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2023-05-31', '2023M05', '时点', 58.2, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2023M06' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2023-06-30', '2023M06', '时点', 55.7, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2023M07' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2023-07-31', '2023M07', '时点', 51.2, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2023M08' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2023-08-31', '2023M08', '时点', 53.8, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2023M09' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2023-09-30', '2023M09', '时点', 56.2, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2023M10' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2023-10-31', '2023M10', '时点', 53.5, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2023M11' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2023-11-30', '2023M11', '时点', 55.0, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2023M12' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2023-12-31', '2023M12', '时点', 56.9, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2024M01' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2024-01-31', '2024M01', '时点', 53.9, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2024M02' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2024-02-28', '2024M02', '时点', 53.5, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2024M03' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2024-03-31', '2024M03', '时点', 56.2, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2024M04' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2024-04-30', '2024M04', '时点', 56.3, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2024M05' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2024-05-31', '2024M05', '时点', 54.4, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2024M06' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2024-06-30', '2024M06', '时点', 52.3, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2024M07' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2024-07-31', '2024M07', '时点', 51.2, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2024M08' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2024-08-31', '2024M08', '时点', 50.6, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2024M09' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2024-09-30', '2024M09', '时点', 50.7, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2024M10' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2024-10-31', '2024M10', '时点', 50.4, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2024M11' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2024-11-30', '2024M11', '时点', 49.7, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2024M12' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2024-12-31', '2024M12', '时点', 53.2, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2025M01' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2025-01-31', '2025M01', '时点', 49.3, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2025M02' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2025-02-28', '2025M02', '时点', 52.7, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2025M03' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2025-03-31', '2025M03', '时点', 53.4, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2025M04' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2025-04-30', '2025M04', '时点', 51.9, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2025M05' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2025-05-31', '2025M05', '时点', 51.0, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2025M06' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2025-06-30', '2025M06', '时点', 52.8, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2025M07' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2025-07-31', '2025M07', '时点', 50.6, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2025M08' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2025-08-31', '2025M08', '时点', 49.1, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2025M09' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2025-09-30', '2025M09', '时点', 49.3, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2025M10' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2025-10-31', '2025M10', '时点', 49.1, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2025M11' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2025-11-30', '2025M11', '时点', 49.6, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2025M12' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2025-12-31', '2025M12', '时点', 52.8, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2026M01' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2026-01-31', '2026M01', '时点', 48.8, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2026M02' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2026-02-28', '2026M02', '时点', 48.2, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2026M03' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2026-03-31', '2026M03', '时点', 49.3, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2026M04' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2026-04-30', '2026M04', '时点', 48.0, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2026M05' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2026-05-31', '2026M05', '时点', 48.8, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2026M06' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2026-06-30', '2026M06', '时点', 49.0, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2026M07' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2026-07-31', '2026M07', '时点', 47.0, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2026M08' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2026-08-31', '2026M08', '时点', 46.9, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2026M09' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2026-09-30', '2026M09', '时点', 50.3, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数') AND period = '2026M10' AND basis = '时点';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '建筑业商务活动指数（PMI）' AND unit IS NOT DISTINCT FROM '指数'), '2026-10-31', '2026M10', '时点', 48.0, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2021M02' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2021-02-28', '2021M02', '年初至今累计', 13985.87, 0.383, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2021M03' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2021-03-31', '2021M03', '年初至今累计', 27575.82, 0.256, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2021M04' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2021-04-30', '2021M04', '年初至今累计', 40239.76, 0.216, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2021M05' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2021-05-31', '2021M05', '年初至今累计', 54318.08, 0.183, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2021M06' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2021-06-30', '2021M06', '年初至今累计', 72179.07, 0.15, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2021M07' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2021-07-31', '2021M07', '年初至今累计', 84895.41, 0.127, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2021M08' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2021-08-31', '2021M08', '年初至今累计', 98059.73, 0.109, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2021M09' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2021-09-30', '2021M09', '年初至今累计', 112568.07, 0.088, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2021M10' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2021-10-31', '2021M10', '年初至今累计', 124933.62, 0.072, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2021M11' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2021-11-30', '2021M11', '年初至今累计', 137313.96, 0.06, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2021M12' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2021-12-31', '2021M12', '年初至今累计', 147602.08, 0.044, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2022M02' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2022-02-28', '2022M02', '年初至今累计', 14499.38, 0.037, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2022M03' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2022-03-31', '2022M03', '年初至今累计', 27764.95, 0.007, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2022M04' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2022-04-30', '2022M04', '年初至今累计', 39154.31, -0.027, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2022M05' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2022-05-31', '2022M05', '年初至今累计', 52133.62, -0.04, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2022M06' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2022-06-30', '2022M06', '年初至今累计', 68314.21, -0.054, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2022M07' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2022-07-31', '2022M07', '年初至今累计', 79462.39, -0.064, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2022M08' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2022-08-31', '2022M08', '年初至今累计', 90808.86, -0.074, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2022M09' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2022-09-30', '2022M09', '年初至今累计', 103558.54, -0.08, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2022M10' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2022-10-31', '2022M10', '年初至今累计', 113945.3, -0.088, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2022M11' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2022-11-30', '2022M11', '年初至今累计', 123863.0, -0.098, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2022M12' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2022-12-31', '2022M12', '年初至今累计', 132895.41, -0.1, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2023M02' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2023-02-28', '2023M02', '年初至今累计', 13669.25, -0.057, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2023M03' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2023-03-31', '2023M03', '年初至今累计', 25973.72, -0.058, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2023M04' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2023-04-30', '2023M04', '年初至今累计', 35514.21, -0.062, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2023M05' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2023-05-31', '2023M05', '年初至今累计', 45701.25, -0.072, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2023M06' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2023-06-30', '2023M06', '年初至今累计', 58549.86, -0.079, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2023M07' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2023-07-31', '2023M07', '年初至今累计', 67717.13, -0.085, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2023M08' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2023-08-31', '2023M08', '年初至今累计', 76899.97, -0.088, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2023M09' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2023-09-30', '2023M09', '年初至今累计', 87269.19, -0.091, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2023M10' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2023-10-31', '2023M10', '年初至今累计', 95921.78, -0.093, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2023M11' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2023-11-30', '2023M11', '年初至今累计', 104045.43, -0.094, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2023M12' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2023-12-31', '2023M12', '年初至今累计', 110912.88, -0.096, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2024M02' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2024-02-28', '2024M02', '年初至今累计', 11841.73, -0.09, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2024M03' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2024-03-31', '2024M03', '年初至今累计', 22082.37, -0.095, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2024M04' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2024-04-30', '2024M04', '年初至今累计', 30927.8, -0.098, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2024M05' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2024-05-31', '2024M05', '年初至今累计', 40632.35, -0.101, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2024M06' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2024-06-30', '2024M06', '年初至今累计', 52528.83, -0.101, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2024M07' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2024-07-31', '2024M07', '年初至今累计', 60877.42, -0.102, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2024M08' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2024-08-31', '2024M08', '年初至今累计', 69283.55, -0.102, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2024M09' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2024-09-30', '2024M09', '年初至今累计', 78680.28, -0.101, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2024M10' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2024-10-31', '2024M10', '年初至今累计', 86308.85, -0.103, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2024M11' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2024-11-30', '2024M11', '年初至今累计', 93634.1, -0.104, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2024M12' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2024-12-31', '2024M12', '年初至今累计', 100280.21, -0.106, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2025M02' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2025-02-28', '2025M02', '年初至今累计', 10719.74, -0.098, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2025M03' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2025-03-31', '2025M03', '年初至今累计', 19904.17, -0.099, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2025M04' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2025-04-30', '2025M04', '年初至今累计', 27729.57, -0.103, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2025M05' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2025-05-31', '2025M05', '年初至今累计', 36233.84, -0.107, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2025M06' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2025-06-30', '2025M06', '年初至今累计', 46657.56, -0.112, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2025M07' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2025-07-31', '2025M07', '年初至今累计', 53579.77, -0.12, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2025M08' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2025-08-31', '2025M08', '年初至今累计', 60309.19, -0.129, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2025M09' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2025-09-30', '2025M09', '年初至今累计', 67705.71, -0.139, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2025M10' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2025-10-31', '2025M10', '年初至今累计', 73562.7, -0.147, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2025M11' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2025-11-30', '2025M11', '年初至今累计', 78590.9, -0.159, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2025M12' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2025-12-31', '2025M12', '年初至今累计', 82788.14, -0.172, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2026M02' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2026-02-28', '2026M02', '年初至今累计', 9612.11, -0.111, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2026M03' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2026-03-31', '2026M03', '年初至今累计', 17719.91, -0.112, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2026M04' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2026-04-30', '2026M04', '年初至今累计', 23969.4, -0.137, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2026M05' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2026-05-31', '2026M05', '年初至今累计', 30355.68, -0.162, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2026M06' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2026-06-30', '2026M06', '年初至今累计', 38073.7, -0.18, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2026M07' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2026-07-31', '2026M07', '年初至今累计', 43008.95, -0.192, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2026M08' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2026-08-31', '2026M08', '年初至今累计', 47978.85, -0.199, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2026M09' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产开发投资' AND unit IS NOT DISTINCT FROM '亿元'), '2026-09-30', '2026M09', '年初至今累计', 53363.52, -0.206, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2021M02' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2021-02-28', '2021M02', '年初至今累计', 17036.94, 0.643, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2021M03' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2021-03-31', '2021M03', '年初至今累计', 36162.54, 0.282, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2021M04' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2021-04-30', '2021M04', '年初至今累计', 53904.55, 0.128, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2021M05' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2021-05-31', '2021M05', '年初至今累计', 74348.71, 0.069, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2021M06' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2021-06-30', '2021M06', '年初至今累计', 101288.34, 0.038, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2021M07' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2021-07-31', '2021M07', '年初至今累计', 118948.27, -0.009, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2021M08' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2021-08-31', '2021M08', '年初至今累计', 135502.09, -0.032, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2021M09' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2021-09-30', '2021M09', '年初至今累计', 152943.59, -0.045, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2021M10' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2021-10-31', '2021M10', '年初至今累计', 166736.25, -0.077, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2021M11' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2021-11-30', '2021M11', '年初至今累计', 182819.53, -0.091, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2021M12' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2021-12-31', '2021M12', '年初至今累计', 198895.05, -0.114, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2022M02' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2022-02-28', '2022M02', '年初至今累计', 14966.74, -0.122, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2022M03' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2022-03-31', '2022M03', '年初至今累计', 29837.59, -0.175, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2022M04' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2022-04-30', '2022M04', '年初至今累计', 39739.01, -0.263, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2022M05' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2022-05-31', '2022M05', '年初至今累计', 51628.07, -0.306, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2022M06' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2022-06-30', '2022M06', '年初至今累计', 66423.47, -0.344, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2022M07' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2022-07-31', '2022M07', '年初至今累计', 76066.76, -0.361, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2022M08' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2022-08-31', '2022M08', '年初至今累计', 85061.83, -0.372, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2022M09' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2022-09-30', '2022M09', '年初至今累计', 94767.26, -0.38, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2022M10' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2022-10-31', '2022M10', '年初至今累计', 103721.71, -0.378, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2022M11' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2022-11-30', '2022M11', '年初至今累计', 111632.04, -0.389, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2022M12' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2022-12-31', '2022M12', '年初至今累计', 120587.07, -0.394, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2023M02' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2023-02-28', '2023M02', '年初至今累计', 13567.23, -0.094, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2023M03' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2023-03-31', '2023M03', '年初至今累计', 24121.15, -0.192, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2023M04' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2023-04-30', '2023M04', '年初至今累计', 31219.95, -0.212, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2023M05' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2023-05-31', '2023M05', '年初至今累计', 39722.73, -0.226, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2023M06' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2023-06-30', '2023M06', '年初至今累计', 49879.5, -0.243, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2023M07' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2023-07-31', '2023M07', '年初至今累计', 56969.11, -0.245, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2023M08' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2023-08-31', '2023M08', '年初至今累计', 63891.13, -0.244, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2023M09' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2023-09-30', '2023M09', '年初至今累计', 72123.41, -0.234, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2023M10' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2023-10-31', '2023M10', '年初至今累计', 79176.6, -0.232, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2023M11' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2023-11-30', '2023M11', '年初至今累计', 87455.66, -0.212, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2023M12' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2023-12-31', '2023M12', '年初至今累计', 95375.53, -0.204, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2024M02' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2024-02-28', '2024M02', '年初至今累计', 9428.94, -0.297, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2024M03' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2024-03-31', '2024M03', '年初至今累计', 17282.82, -0.278, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2024M04' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2024-04-30', '2024M04', '年初至今累计', 23509.73, -0.246, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2024M05' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2024-05-31', '2024M05', '年初至今累计', 30089.53, -0.242, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2024M06' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2024-06-30', '2024M06', '年初至今累计', 38022.53, -0.237, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2024M07' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2024-07-31', '2024M07', '年初至今累计', 43732.89, -0.232, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2024M08' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2024-08-31', '2024M08', '年初至今累计', 49464.89, -0.225, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2024M09' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2024-09-30', '2024M09', '年初至今累计', 56050.75, -0.222, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2024M10' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2024-10-31', '2024M10', '年初至今累计', 61226.93, -0.226, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2024M11' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2024-11-30', '2024M11', '年初至今累计', 67308.44, -0.23, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2024M12' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2024-12-31', '2024M12', '年初至今累计', 73892.84, -0.23, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2025M02' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2025-02-28', '2025M02', '年初至今累计', 6613.94, -0.296, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2025M03' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2025-03-31', '2025M03', '年初至今累计', 12996.46, -0.244, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2025M04' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2025-04-30', '2025M04', '年初至今累计', 17835.84, -0.238, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2025M05' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2025-05-31', '2025M05', '年初至今累计', 23183.61, -0.228, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2025M06' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2025-06-30', '2025M06', '年初至今累计', 30364.32, -0.2, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2025M07' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2025-07-31', '2025M07', '年初至今累计', 35206.14, -0.194, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2025M08' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2025-08-31', '2025M08', '年初至今累计', 39801.01, -0.195, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2025M09' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2025-09-30', '2025M09', '年初至今累计', 45399.32, -0.189, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2025M10' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2025-10-31', '2025M10', '年初至今累计', 49061.39, -0.198, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2025M11' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2025-11-30', '2025M11', '年初至今累计', 53456.7, -0.205, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2025M12' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2025-12-31', '2025M12', '年初至今累计', 58769.96, -0.204, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2026M02' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2026-02-28', '2026M02', '年初至今累计', 5083.9, -0.231, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2026M03' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2026-03-31', '2026M03', '年初至今累计', 10372.9, -0.203, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2026M04' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2026-04-30', '2026M04', '年初至今累计', 13900.22, -0.22, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2026M05' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2026-05-31', '2026M05', '年初至今累计', 17928.6, -0.226, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2026M06' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2026-06-30', '2026M06', '年初至今累计', 23238.94, -0.234, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2026M07' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2026-07-31', '2026M07', '年初至今累计', 26700.19, -0.24, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2026M08' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2026-08-31', '2026M08', '年初至今累计', 29894.06, -0.248, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米') AND period = '2026M09' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国房地产新开工施工面积' AND unit IS NOT DISTINCT FROM '万平方米'), '2026-09-30', '2026M09', '年初至今累计', 34031.3, -0.249, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2021M03' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2021-03-31', '2021M03', '年初至今累计', 47333.17, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2021M06' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2021-06-30', '2021M06', '年初至今累计', 119843.55, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2021M09' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2021-09-30', '2021M09', '年初至今累计', 191283.37, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2021M12' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2021-12-31', '2021M12', '年初至今累计', 293027.42, NULL, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2022M03' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2022-03-31', '2022M03', '年初至今累计', 51698.97, 0.0922, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2022M06' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2022-06-30', '2022M06', '年初至今累计', 128979.79, 0.0762, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2022M09' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2022-09-30', '2022M09', '年初至今累计', 206245.92, 0.0782, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2022M12' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2022-12-31', '2022M12', '年初至今累计', 311979.84, 0.0647, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2023M03' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2023-03-31', '2023M03', '年初至今累计', 54802.86, 0.06, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2023M06' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2023-06-30', '2023M06', '年初至今累计', 132260.74, 0.0254, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2023M09' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2023-09-30', '2023M09', '年初至今累计', 209871.72, 0.0176, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2023M12' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2023-12-31', '2023M12', '年初至今累计', 315911.85, 0.0126, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2024M03' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2024-03-31', '2024M03', '年初至今累计', 56671.08, 0.0341, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2024M06' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2024-06-30', '2024M06', '年初至今累计', 138311.86, 0.0458, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2024M09' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2024-09-30', '2024M09', '年初至今累计', 217410.53, 0.0359, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2024M12' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2024-12-31', '2024M12', '年初至今累计', 326501.11, 0.0335, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2025M03' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2025-03-31', '2025M03', '年初至今累计', 57723.15, 0.0186, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2025M06' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2025-06-30', '2025M06', '年初至今累计', 136745.42, -0.0113, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2025M09' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2025-09-30', '2025M09', '年初至今累计', 210158.79, -0.0334, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2025M12' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2025-12-31', '2025M12', '年初至今累计', 303818.33, -0.0695, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2026M03' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2026-03-31', '2026M03', '年初至今累计', 53780.47, -0.0683, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2026M06' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2026-06-30', '2026M06', '年初至今累计', 119363.49, -0.1271, NULL, now());
+
+DELETE FROM vi_observation_base WHERE metric_id = (SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元') AND period = '2026M09' AND basis = '年初至今累计';
+
+INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES ((SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = '全国建筑业总产值' AND unit IS NOT DISTINCT FROM '亿元'), '2026-09-30', '2026M09', '年初至今累计', 181227.42, -0.1377, NULL, now());
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '全年', '%', '2019', '2019-12-31', 11.22, NULL, '中国建筑 11.10%；中国中铁 9.77、中国铁建 9.64、中国交建 12.78、中国电建 14.09、中国化学 10.80、中国中冶 11.63', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '全年', '%', '2020', '2020-12-31', 11.19, NULL, '中国建筑 10.83%；中国中铁 9.93、中国铁建 9.26、中国交建 13.02、中国电建 14.23、中国化学 11.02、中国中冶 11.35', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '全年', '%', '2021', '2021-12-31', 10.31, NULL, '中国建筑 11.35%；中国中铁 10.00、中国铁建 9.60、中国交建 12.52、中国电建 12.07、中国化学 9.49、中国中冶 10.62', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '全年', '%', '2022', '2022-12-31', 9.95, NULL, '中国建筑 10.46%；中国中铁 9.81、中国铁建 10.09、中国交建 11.71、中国电建 12.21、中国化学 9.34、中国中冶 9.64', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '单季', '%', '2023Q1', '2023-03-31', 9.18, NULL, '中国建筑 8.09%；中国中铁 8.91、中国铁建 7.77、中国交建 11.63、中国电建 12.21、中国化学 7.92、中国中冶 9.45', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '单季', '%', '2023Q2', '2023-06-30', 9.59, NULL, '中国建筑 10.90%；中国中铁 8.80、中国铁建 10.07、中国交建 10.05、中国电建 11.83、中国化学 8.70、中国中冶 9.13', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '单季', '%', '2023Q3', '2023-09-30', 9.63, NULL, '中国建筑 7.63%；中国中铁 9.57、中国铁建 9.69、中国交建 12.29、中国电建 12.88、中国化学 7.95、中国中冶 9.12', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '全年', '%', '2023', '2023-12-31', 10.2, NULL, '中国建筑 9.83%；中国中铁 10.01、中国铁建 10.39、中国交建 12.59、中国电建 13.23、中国化学 9.41、中国中冶 9.69', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '单季', '%', '2023Q4', '2023-12-31', 13.04, NULL, '中国建筑 12.38%；中国中铁 12.16、中国铁建 13.37、中国交建 15.98、中国电建 15.30、中国化学 12.71、中国中冶 10.99', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '单季', '%', '2024Q1', '2024-03-31', 8.39, NULL, '中国建筑 8.09%；中国中铁 8.58、中国铁建 7.79、中国交建 11.90、中国电建 11.76、中国化学 8.01、中国中冶 8.19', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '单季', '%', '2024Q2', '2024-06-30', 10.69, NULL, '中国建筑 10.70%；中国中铁 9.07、中国铁建 10.64、中国交建 11.42、中国电建 12.73、中国化学 10.75、中国中冶 9.92', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '单季', '%', '2024Q3', '2024-09-30', 9.14, NULL, '中国建筑 7.36%；中国中铁 8.72、中国铁建 9.24、中国交建 11.30、中国电建 12.74、中国化学 8.42、中国中冶 9.03', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '全年', '%', '2024', '2024-12-31', 10.19, NULL, '中国建筑 9.86%；中国中铁 9.80、中国铁建 10.27、中国交建 12.29、中国电建 13.19、中国化学 10.11、中国中冶 9.69', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '单季', '%', '2024Q4', '2024-12-31', 12.89, NULL, '中国建筑 12.85%；中国中铁 12.24、中国铁建 12.99、中国交建 14.00、中国电建 14.77、中国化学 12.79、中国中冶 11.60', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '单季', '%', '2025Q1', '2025-03-31', 9.07, NULL, '中国建筑 7.85%；中国中铁 8.46、中国铁建 7.51、中国交建 11.55、中国电建 10.80、中国化学 9.30、中国中冶 8.84', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '单季', '%', '2025Q2', '2025-06-30', 10.1, NULL, '中国建筑 11.01%；中国中铁 8.61、中国铁建 10.32、中国交建 9.88、中国电建 11.63、中国化学 9.85、中国中冶 11.42', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '单季', '%', '2025Q3', '2025-09-30', 9.45, NULL, '中国建筑 6.99%；中国中铁 8.85、中国铁建 8.63、中国交建 11.80、中国电建 11.98、中国化学 9.13、中国中冶 9.76', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '全年', '%', '2025', '2025-12-31', 10.4, NULL, '中国建筑 9.90%；中国中铁 9.34、中国铁建 9.72、中国交建 11.37、中国电建 12.43、中国化学 10.71、中国中冶 10.09', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '单季', '%', '2025Q4', '2025-12-31', 12.09, NULL, '中国建筑 13.39%；中国中铁 11.05、中国铁建 12.02、中国交建 12.15、中国电建 14.45、中国化学 13.96、中国中冶 10.34', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '单季', '%', '2026Q1', '2026-03-31', 8.98, NULL, '中国建筑 7.93%；中国中铁 7.93、中国铁建 7.86、中国交建 10.16、中国电建 10.18、中国化学 9.36、中国中冶 8.60', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '单季', '%', '2026Q2', '2026-06-30', 10.77, NULL, '中国建筑 12.90%；中国中铁 8.74、中国铁建 10.91、中国交建 9.59、中国电建 11.86、中国化学 10.64、中国中冶 11.12', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业毛利率中位数（六家建筑央企）', '单季', '%', '2026Q3', '2026-09-30', 9.81, NULL, '中国建筑 8.11%；中国中铁 8.93、中国铁建 8.90、中国交建 9.99、中国电建 11.50、中国化学 9.84、中国中冶 9.78', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业ROE中位数（六家建筑央企）', '全年', '%', '2019', '2019-12-31', 9.19, NULL, '中国建筑 16.07%；中国中铁 11.46、中国铁建 10.63、中国交建 9.37、中国电建 7.43、中国化学 9.01、中国中冶 7.26', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业ROE中位数（六家建筑央企）', '全年', '%', '2020', '2020-12-31', 8.84, NULL, '中国建筑 15.55%；中国中铁 10.57、中国铁建 9.65、中国交建 6.82、中国电建 7.05、中国化学 10.05、中国中冶 8.03', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业ROE中位数（六家建筑央企）', '全年', '%', '2021', '2021-12-31', 8.8, NULL, '中国建筑 15.96%；中国中铁 10.41、中国铁建 9.44、中国交建 7.12、中国电建 7.60、中国化学 10.79、中国中冶 8.16', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业ROE中位数（六家建筑央企）', '全年', '%', '2022', '2022-12-31', 9.27, NULL, '中国建筑 13.96%；中国中铁 10.85、中国铁建 9.54、中国交建 7.10、中国电建 7.80、中国化学 10.71、中国中冶 8.99', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业ROE中位数（六家建筑央企）', '全年', '%', '2023', '2023-12-31', 8.49, NULL, '中国建筑 13.37%；中国中铁 10.57、中国铁建 8.70、中国交建 8.15、中国电建 8.29、中国化学 9.83、中国中冶 6.50', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业ROE中位数（六家建筑央企）', '全年', '%', '2024', '2024-12-31', 7.49, NULL, '中国建筑 10.38%；中国中铁 8.12、中国铁建 6.96、中国交建 7.60、中国电建 7.37、中国化学 9.50、中国中冶 4.52', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业ROE中位数（六家建筑央企）', '全年', '%', '2025', '2025-12-31', 5.75, NULL, '中国建筑 8.19%；中国中铁 6.31、中国铁建 5.49、中国交建 4.73、中国电建 6.01、中国化学 9.94、中国中冶 0.86', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业（应收账款＋合同资产）÷营业收入中位数', '全年', '%', '2019', '2019-12-31', 29.02, NULL, '中国建筑 21.48%；中国中铁 25.89、中国铁建 32.16、中国交建 34.72、中国电建 15.66、中国化学 21.34、中国中冶 41.00', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业（应收账款＋合同资产）÷营业收入中位数', '全年', '%', '2020', '2020-12-31', 34.6, NULL, '中国建筑 21.14%；中国中铁 25.92、中国铁建 31.94、中国交建 37.25、中国电建 28.67、中国化学 37.68、中国中冶 38.15', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业（应收账款＋合同资产）÷营业收入中位数', '全年', '%', '2021', '2021-12-31', 33.85, NULL, '中国建筑 20.93%；中国中铁 25.34、中国铁建 34.51、中国交建 33.20、中国电建 32.09、中国化学 37.93、中国中冶 34.97', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业（应收账款＋合同资产）÷营业收入中位数', '全年', '%', '2022', '2022-12-31', 35.17, NULL, '中国建筑 23.01%；中国中铁 25.36、中国铁建 36.09、中国交建 35.61、中国电建 34.74、中国化学 38.18、中国中冶 33.79', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业（应收账款＋合同资产）÷营业收入中位数', '全年', '%', '2023', '2023-12-31', 38.62, NULL, '中国建筑 26.16%；中国中铁 31.01、中国铁建 39.33、中国交建 37.79、中国电建 37.90、中国化学 40.63、中国中冶 39.74', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业（应收账款＋合同资产）÷营业收入中位数', '全年', '%', '2024', '2024-12-31', 46.17, NULL, '中国建筑 34.86%；中国中铁 50.05、中国铁建 47.74、中国交建 44.60、中国电建 43.68、中国化学 44.51、中国中冶 66.99', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '同业（应收账款＋合同资产）÷营业收入中位数', '全年', '%', '2025', '2025-12-31', 57.32, NULL, '中国建筑 48.24%；中国中铁 60.12、中国铁建 59.76、中国交建 54.88、中国电建 48.69、中国化学 47.02、中国中冶 95.07', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '归母ROE（同业口径）', '全年', '%', '2019', '2019-12-31', 16.07, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '归母ROE（同业口径）', '全年', '%', '2020', '2020-12-31', 15.55, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '归母ROE（同业口径）', '全年', '%', '2021', '2021-12-31', 15.96, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '归母ROE（同业口径）', '全年', '%', '2022', '2022-12-31', 13.96, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '归母ROE（同业口径）', '全年', '%', '2023', '2023-12-31', 13.37, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '归母ROE（同业口径）', '全年', '%', '2024', '2024-12-31', 10.38, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '归母ROE（同业口径）', '全年', '%', '2025', '2025-12-31', 8.19, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '（应收账款＋合同资产）÷营业收入', '全年', '%', '2019', '2019-12-31', 21.48, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '（应收账款＋合同资产）÷营业收入', '全年', '%', '2020', '2020-12-31', 21.14, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '（应收账款＋合同资产）÷营业收入', '全年', '%', '2021', '2021-12-31', 20.93, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '（应收账款＋合同资产）÷营业收入', '全年', '%', '2022', '2022-12-31', 23.01, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '（应收账款＋合同资产）÷营业收入', '全年', '%', '2023', '2023-12-31', 26.16, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '（应收账款＋合同资产）÷营业收入', '全年', '%', '2024', '2024-12-31', 34.86, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '601668.SH'), '（应收账款＋合同资产）÷营业收入', '全年', '%', '2025', '2025-12-31', 48.24, NULL, NULL, NULL);
+
+-- 中国建筑研究增强（2026-11-05）：行业高频（国家统计局）与六家建筑央企同口径对比接入；三季报核对；待办推进。
+-- 数据来自跟踪脚本（track.py → data/track.json，种子在此之前已写入）；本文件只改研究正文、补关联与待办，按业务键定位，可重复执行。
+
+-- 1. 论点的决定性证据：写入已测算的读数
+UPDATE vi_thesis_base SET decisive_evidence = '建筑新签占全国的比重（中建协年度统计）；订单结构（工业、能源、住宅、海外占比）；新接项目毛利率；应收增速与收入增速之差。'
+  || '季度读数（2026-11，国家统计局）：1—9 月公司新签 +0.4%、全国建筑业总产值 −13.8%；公司房建新开工 −18.1%、全国房地产新开工 −24.9%——降幅都小于全国，份额仍在提升。10 月建筑业商务活动指数 48.0（收缩）。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND code = 'T1';
+
+UPDATE vi_thesis_base SET verdict = verdict || '（2026-11 更新：三季报前三季度收入 −14.3%、三季度单季约 −20%，比“下半年约 −8%”差；2026 年更可能在 −13% 到 −15%，基准是否下调见待办 Q02。）'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND code = 'T2' AND verdict NOT LIKE '%2026-11 更新%';
+
+UPDATE vi_thesis_base SET decisive_evidence = '年度经营现金流÷归母净利；应收＋合同资产增速与收入增速之差；政府债权回收与逾期金额；PPP 回款；应付账款变化。'
+  || '同业对比（跟踪脚本，六家建筑央企同口径，年末应收账款＋合同资产 ÷ 全年营业收入）：中国建筑 2021 年 20.9% → 2025 年 48.2%，同业中位数 33.9% → 57.3%——垫资强度低于同业约 9 个百分点，但上升速度与同业相当。'
+  || '还没取得：应收与合同资产的账龄结构、坏账准备计提比例、政府类客户占比（应收＋合同资产 2026 年中 1.18 万亿元、PPP 相关非流动资产约 4,900 亿元，是 PB 0.37 倍的核心原因）。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND code = 'T4';
+
+UPDATE vi_thesis_base SET decisive_evidence = '年度 ROE；减值是否收敛（T8）；地产利润是否企稳；留存利润的增量回报。'
+  || '同业对比（跟踪脚本，归母净利 ÷ 年初年末平均归母权益）：中国建筑 2021—2025 年 16.0%、14.0%、13.4%、10.4%、8.2%，六家建筑央企中位数 8.8%、9.3%、8.5%、7.5%、5.8%——始终高出 2.4—7 个百分点，但下降斜率与同业相同，已接近资本成本 7.6%。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND code = 'T7';
+
+-- 2. 依据指标与跟踪指标
+WITH co AS (SELECT id FROM vi_company_base WHERE code = '601668.SH')
+INSERT INTO vi_lnk_thesis_basis_metrics (thesis_id, metric_id, "createdAt", "updatedAt")
+SELECT t.id, m.id, now(), now() FROM vi_thesis_base t JOIN vi_metric_base m ON
+  (t.code = 'T1' AND ((m.company_id IS NULL AND m.code IN ('NBS.PMI.CONSTRUCTION', 'NBS.CONSTRUCTION.OUTPUT', 'NBS.RE.NEWSTART'))))
+  OR (t.code = 'T2' AND ((m.company_id IS NULL AND m.code IN ('NBS.CONSTRUCTION.OUTPUT', 'NBS.RE.INVEST', 'NBS.RE.NEWSTART'))))
+  OR (t.code = 'T4' AND m.company_id = t.company_id AND m.name IN ('（应收账款＋合同资产）÷营业收入', '同业（应收账款＋合同资产）÷营业收入中位数'))
+  OR (t.code = 'T7' AND m.company_id = t.company_id AND m.name IN ('归母ROE（同业口径）', '同业ROE中位数（六家建筑央企）'))
+  OR (t.code = 'T3' AND m.company_id = t.company_id AND m.name = '同业毛利率中位数（六家建筑央企）')
+WHERE t.company_id = (SELECT id FROM co) ON CONFLICT DO NOTHING;
+
+WITH co AS (SELECT id FROM vi_company_base WHERE code = '601668.SH')
+INSERT INTO vi_lnk_judgment_metrics (judgment_id, metric_id, "createdAt", "updatedAt")
+SELECT j.id, m.id, now(), now() FROM vi_judgment_base j JOIN vi_metric_base m ON
+  (j.code = 'J-P' AND m.company_id IS NULL AND m.code IN ('NBS.CONSTRUCTION.OUTPUT', 'NBS.RE.NEWSTART'))
+  OR (j.code = 'J-Q' AND m.company_id IS NULL AND m.code = 'NBS.PMI.CONSTRUCTION')
+WHERE j.company_id = (SELECT id FROM co) ON CONFLICT DO NOTHING;
+
+-- 3. 待办
+UPDATE vi_issue_base SET status = '处理中', progress = '三季报核对（2026-11-05）：前三季度营收 13,357 亿元（−14.3%）、归母 287.1 亿元（−24.8%）、减值 101.6 亿元（+27.4%）；三季度单季营收 3,599 亿元（−20.0%）、归母 57.1 亿元。'
+  || '没有达到“收入降幅收窄到 −10% 左右、减值少于去年同期”。按四季度收入同比 −10% 到 −15% 推算，2026 年收入约 17,800—18,100 亿元（−13% 到 −15%），比基准 18,796 亿元低 4%—5%；四季度减值按全年约 235 亿元（前三季度已 101.6）需比去年四季度（178.9）少 46 亿元，归母全年约 300—320 亿元，低于基准 357 亿元。'
+  || '建议（需你确认）：J-P 2026 年收入转化率 0.414 → 约 0.395（收入约 17,950 亿元），2027 年 0.405 是否同步下调待年报；J-IMP 2026 年减值维持约 235 亿元。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND code = 'Q02';
+UPDATE vi_issue_base SET status = '已解决', progress = '2026-11-05：跟踪脚本（companies/601668_中国建筑/track.py，国家统计局）接入建筑业商务活动指数（月）、全国房地产开发投资与新开工面积（月，累计）、全国建筑业总产值（季，累计），历史从 2021 年起；另接入六家建筑央企同口径的毛利率、ROE、垫资强度。专项债发行暂无稳定公开接口。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND code = 'Q08';
+UPDATE vi_issue_base SET progress = progress || '　2026-11-05：网上公开报道只找到 2016 年一季度（建筑新签 3,483 亿元，+26.9%）等分期数，仍未取得 2014—2016 年全年数。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND code = 'Q05' AND progress NOT LIKE '%2026-11-05%';
+
+-- 4. 三季报后修正 2026 年假设（你确认，2026-11-05）
+UPDATE vi_judgment_base SET judgment = '2026 年 0.395（全年收入约 17,930 亿元，−14%：前三季度 −14.3%、三季度单季约 −20%，2026-11-05 由 0.414 下调）；2027 年起 0.405（收入约 18,390 亿元，比 2026 年回升约 2.6%），之后不变。即收入在 2026 年见底。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND code = 'J-P';
+UPDATE vi_judgment_base SET judgment = '2026 年 34.54%（每股 0.2718 元不变：三季报后归母下调到约 325 亿元，派息率随之由 31.44% 升到 34.54%，2026-11-05），2027 年起回到 32%、每年 +1pt，2035 年 40%（2027 年派息率低于 2026 年，但每股股息仍上升到约 0.277 元）。理由：经营现金流在改善、扩张资本下降，2029 年起 FCFE 高于计划股息；终值按永续增长 1% 计，可持续派息率远高于 40%，40% 偏保守。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND code = 'J-PAYOUT';
+UPDATE vi_thesis_base SET verdict = replace(verdict, '基准是否下调见待办 Q02。）', '基准已于 2026-11-05 下调为约 17,930 亿元（−14%），见待办 Q02。）')
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND code = 'T2';
+UPDATE vi_issue_base SET status = '处理中', progress = '2026-11-05 已按三季报修正（你确认）：J-P 2026 年收入转化率 0.414 → 0.395（收入约 17,933 亿元，−13.9%），付现成本按核心利润率 6.6% 同步重算；J-PAYOUT 2026 年派息率 31.44% → 34.54%（每股股息 0.2718 元持平）。基准 2026 年归母 357.2 → 325.2 亿元；股息贴现每股价值不变（5.42 元，股息路径未变），现金支持价值降到 5.34 元。'
+  || '依据：前三季度营收 13,357 亿元（−14.3%）、三季度单季 −20.0%，归母 287.1 亿元（−24.8%），减值 101.6 亿元（+27.4%）。年报出来后核验全年，2027 年 0.405 一并复核后标“已核验”。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND code = 'Q02';
+INSERT INTO vi_change_log_base (change_date, title, target, old_value, new_value, reason, basis, verification, company_id, created_at, updated_at)
+SELECT '2026-11-05', '三季报后下调 2026 年收入并保持每股股息', '逐年假设 2026 年：收入转化率（J-P）、派息率（J-PAYOUT）',
+  '收入转化率 0.414（收入约 18,796 亿元）；派息率 31.44%', '收入转化率 0.395（收入约 17,933 亿元）；派息率 34.54%（每股 0.2718 元持平）',
+  '三季报前三季度收入 −14.3%、三季度单季约 −20%，没有收窄到“下半年约 −8%”（待办 Q02）', '2026 年三季度报告（营业收入、归母净利、减值）',
+  '基准 2026 年归母 357.2 → 325.2 亿元；股息贴现每股价值不变 5.42 元；现金支持价值 5.34 元', c.id, now(), now()
+FROM vi_company_base c WHERE c.code = '601668.SH' AND NOT EXISTS (SELECT 1 FROM vi_change_log_base x WHERE x.company_id = c.id AND x.title = '三季报后下调 2026 年收入并保持每股股息');
+
+-- 安全边际只保留 10% 一档（你确认，2026-11-05）
+INSERT INTO vi_change_log_base (change_date, title, target, old_value, new_value, reason, basis, verification, company_id, created_at, updated_at)
+SELECT '2026-11-05', '安全边际只保留 10% 一档', '估值模型：安全边际（低档 10%、高档取消）', '10% / 30% 两档并列', '10% 一档（关注价＝今天价值×90%）',
+  '你确定交易纪律：安全边际用 10%', '用户决定', '关注价只显示一个；估值不变', c.id, now(), now()
+FROM vi_company_base c WHERE c.code = '601668.SH' AND NOT EXISTS (SELECT 1 FROM vi_change_log_base x WHERE x.company_id = c.id AND x.title = '安全边际只保留 10% 一档');
+
 
 COMMIT;

@@ -6,17 +6,17 @@ HERE = Path(__file__).resolve().parent
 PROFILES = {
     '600900.SH': {
         'focus': '经营重点：来水、发电量、电价与股东现金回报',
-        'keys': ['irr_scen', 'irr_curve', 'hist_vol', 'level', 'hist_np', 'hist_cash',
+        'keys': ['irr_scen', 'irr_curve', 'hist_vol', 'level', 'peer_roe', 'hist_np', 'hist_cash',
                  'hist_quality', 'debt', 'path', 'req_curve', 'price', 'fit'],
     },
     '002078.SZ': {
         'focus': '经营重点：浆纸销量、毛利率、扩产开支与负债',
-        'keys': ['irr_scen', 'irr_curve', 'hist_vol', 'gm_q', 'hist_np', 'hist_cash',
-                 'debt', 'pulp', 'hist_quality', 'path', 'price', 'fit'],
+        'keys': ['irr_scen', 'irr_curve', 'hist_vol', 'peer_gm', 'pulp', 'gm_q', 'hist_np', 'hist_cash',
+                 'debt', 'hist_quality', 'path', 'price', 'fit'],
     },
     '601668.SH': {
         'focus': '经营重点：新签转收入、应收与合同资产、减值及现金回收',
-        'keys': ['irr_scen', 'irr_curve', 'hist_vol', 'conv', 'wc', 'imp',
+        'keys': ['irr_scen', 'irr_curve', 'hist_vol', 'conv', 'wc', 'imp', 'peer_roe', 'peer_ar',
                  'hist_np', 'hist_cash', 'hist_quality', 'debt', 'price', 'fit'],
     },
     '01810.HK': {
@@ -31,12 +31,43 @@ PROFILES = {
 def kpi_code(code):
     state = json.loads((HERE / 'pages_state.json').read_text())['pages']
     links = []
-    for key, title in [('val', '估值'), ('assume', '财务模型'), ('thesis', '核心论点')]:
+    for key, title in [('val', '估值模型'), ('assume', '财务模型'), ('thesis', '核心论点')]:
         page = state.get(f'{key}@{code}')
         if page:
             links.append({'title': title, 'href': '/admin/' + page['pageSchemaUid']})
     config = {k: v for k, v in PROFILES[code].items() if k != 'keys'} | {'code': code, 'links': links}
-    return (HERE / 'company_dashboard_kpi.jsx').read_text().replace('__CONFIG__', json.dumps(config, ensure_ascii=False))
+    return ((HERE / 'price_summary.jsx').read_text() + '\n'
+            + (HERE / 'company_dashboard_kpi.jsx').read_text().replace('__CONFIG__', json.dumps(config, ensure_ascii=False)))
+
+
+# 估值模型页总览顶部的现价与三情景估值（与腾讯音乐估值模型页、各公司驾驶舱同一组件 price_summary.jsx）
+PRICE_HEADER = r"""const CONFIG = __CONFIG__;
+const finite = (v) => v !== null && v !== undefined && Number.isFinite(Number(v));
+async function listRows(collectionName, filter) {
+  const resource = ctx.makeResource('MultiRecordResource');
+  resource.setResourceName(collectionName);
+  resource.setPageSize(200);
+  resource.setFilter(filter);
+  await resource.refresh();
+  return resource.getData() || [];
+}
+try {
+  const [company] = await listRows('vi_company', { $and: [{ code: { $eq: CONFIG.code } }] });
+  const [model] = await listRows('vi_model', { $and: [{ company_id: { $eq: company.id } }, { status: { $eq: '当前' } }] });
+  const values = await listRows(CONFIG.sotp ? 'vi_sotp' : 'vi_valuation', { $and: [{ model_id: { $eq: model.id } }] });
+  const fx = company.latest_fx;
+  const quote = (v) => finite(v) && finite(fx) && Number(fx) > 0 ? Number(v) / Number(fx) : null;
+  ctx.render(<PriceSummary price={CONFIG.sotp ? company.latest_price_raw : company.latest_price} date={company.latest_price_date} unit={CONFIG.sotp ? '港元' : '元'}
+    scenarios={values.map((row) => ({ name: row.scenario_name, value: CONFIG.sotp ? quote(row.value_per_share) : row.value_today, isBase: !!row.is_base }))} />);
+} catch (error) {
+  ctx.render(<div style={{ color: '#999' }}>现价与情景估值读取失败：{String(error?.message || error)}</div>);
+}
+"""
+
+
+def price_header_code(code):
+    config = {'code': code, 'sotp': bool(PROFILES.get(code, {}).get('sotp'))}
+    return (HERE / 'price_summary.jsx').read_text() + '\n' + PRICE_HEADER.replace('__CONFIG__', json.dumps(config, ensure_ascii=False))
 
 
 SERIES = r"""const spec = __SPEC__;
@@ -95,9 +126,10 @@ TITLES = {
     'hist_np': '归母净利润与现金分红（亿元）', 'hist_cash': '经营现金流与资本开支（亿元）',
     'hist_quality': '年度毛利率与 ROE（%）', 'debt': '带息负债：历史与预测（亿元）',
     'fit': '价值投资适配度（各项 0—5 分）', 'level': '三峡水库水位（米）',
-    'gm_q': '单季毛利率（%）', 'pulp': '纸浆期货（元/吨，各来源分列）',
+    'gm_q': '单季毛利率（%）', 'pulp': '纸浆与胶版纸价格（元/吨）', 'peer_gm': '单季毛利率：太阳纸业 vs 七家同业中位数（%）',
     'conv': '收入转化率：收入÷新签合同（%）', 'wc': '营收、应收与合同资产、应付（亿元）',
-    'imp': '年度资产及信用减值损失（亿元）',
+    'imp': '年度资产及信用减值损失（亿元）', 'peer_roe': 'ROE：中国建筑 vs 六家建筑央企中位数（%）',
+    'peer_ar': '（应收＋合同资产）÷收入：中国建筑 vs 同业中位数（%）',
     'sotp_bridge': '基准每股价值桥接（人民币元）', 'sotp_grid': '成熟业务统一倍数试算（人民币元/股）',
     'seg_rev': '单季分部收入（亿元）', 'seg_profit': '单季分部经营损益（亿元）',
     'gm_lines': '单季分业务毛利率（%）', 'line_op': '年度分业务经营利润（分摊，亿元）',
@@ -120,6 +152,8 @@ def charts(code, existing):
         title, original = configs[key]
         config = json.loads(json.dumps(original))
         title = TITLES.get(key, title)
+        if key == 'peer_roe':
+            title = {'600900.SH': 'ROE：长江电力 vs 四家水电中位数（%）', '601668.SH': 'ROE：中国建筑 vs 六家建筑央企中位数（%）'}[code]
         if key == 'hist_vol':
             title = {'600900.SH': '年度发电量（亿千瓦时）', '002078.SZ': '年度浆纸销量（万吨）',
                      '601668.SH': '年度新签合同总额（亿元）'}[code]
@@ -151,7 +185,7 @@ def charts(code, existing):
         else:
             visual = config['visual']
             mappings = visual['mappings']
-            unit = ('%' if key in ('irr_scen', 'irr_curve', 'hist_quality', 'gm_q', 'conv', 'gm_lines') else
+            unit = ('%' if key in ('irr_scen', 'irr_curve', 'hist_quality', 'gm_q', 'conv', 'gm_lines', 'peer_gm', 'peer_roe', 'peer_ar') else
                     '亿元' if key in ('path', 'hist_np', 'hist_cash', 'debt', 'wc', 'imp', 'seg_rev', 'seg_profit', 'line_op', 'cash_q') else
                     '倍' if key == 'sotp_grid' else '米' if key == 'level' else '元/吨' if key == 'pulp' else
                     '亿千瓦时' if key == 'hist_vol' and code == '600900.SH' else '万吨' if key == 'hist_vol' and code == '002078.SZ' else

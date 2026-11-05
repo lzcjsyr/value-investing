@@ -1028,7 +1028,7 @@ VALUES ({CO}, {lit(MODEL_NAME)}, '当前',
   '②可分配的自由现金＝现金−带息负债−经营所需−汇出预提税（J-CASH）；③对外投资＝最新报告账面价值×70%（J-INV）；再减少数股东权益。不做逐年预测与股息贴现（2026-10-28 起）。'
   '估值用人民币，港股股价按当天港元兑人民币折算后比较。',
   2025, 2035, {SHARES}, 0.0164, '2026-10-22', (SELECT id FROM vi_metric_base WHERE code = 'CGB10Y.CCDC'), 0.07,
-  38.13, 271.98, 278.90, 802.87, 27.63, 0.06, 0.10, 0.30,
+  38.13, 271.98, 278.90, 802.87, 27.63, 0.06, 0.10, NULL,
   {lit('口径（2026-10-28）：主营三块的利润率是分摊估算，三块加总须等于公司整体核心经营利润加回七成收购摊销（不含利息与投资收益，见 J-S1）；税率 17.5%，归母 97%。'
        '少数股东统一按 3%：主营盈利乘 97%，非经营资产净额扣 3%（C8）。非经营部分统一截至 2026-06-30（与股本同日）。股本 31.6 亿股按中期报告附注 18、25 推算（见事实卡）；'
        '未来回购按市价进行，对每股价值影响小，不预测股本变化；股权激励已作为费用计入利润率。市场价＝港股收盘价×当天港元兑人民币（自动采集）。安全边际两档并列 10%/30%。')},
@@ -1261,8 +1261,11 @@ if __name__ == '__main__':
     OUT.extend(data_layer_seed.fin_stmt_statements(CO, HERE / 'data' / 'fin_stmt.json'))   # 三大报表原值（报表计算指标读它）
     OUT.extend(data_layer_seed.statements(CO, HERE / 'data' / 'data_layer.json'))   # 关注与数据底稿补充，放最后
     shareholder_cash_returns()
+    OUT.append(f"UPDATE vi_metric_base SET measure = '时期' WHERE company_id = {CO} AND measure IS NULL;")   # 股东回报两个指标在指标性质之后才建
     OUT.append((HERE / 'qualitative_facts_20261104.sql').read_text())   # 重要事实 → 定性事实：精简、改接依据指标（放最后）
     OUT.append((HERE / 'events_20261104.sql').read_text())   # 定性事实按“事项 → 侧面”两层组织
+    OUT.extend(data_layer_seed.track_statements(CO, HERE / 'data' / 'track.json'))   # 跟踪脚本的快照（竞争对手利润率；track.py）
+    OUT.append((HERE / 'research_20261105.sql').read_text())   # 研究增强：同业利润率、待办（放在跟踪数据之后）
     OUT.append('COMMIT;')
     (HERE / 'seed.sql').write_text('\n\n'.join(OUT) + '\n')
     print('seed.sql written,', sum(s.count('\n') for s in OUT), 'lines')

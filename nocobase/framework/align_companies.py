@@ -121,19 +121,32 @@ def finance(co, only=None):
         if only and key not in only:
             continue
         sotp_only = key == 'val' and co['code'] in bp.SOTP_ONLY
-        if sotp_only:
-            title = '估值模型'                       # 估值、估值模型、情景合并为一页（2026-10-28）
+        if key == 'val':
+            title = '估值模型'                       # 估值、估值模型、情景合并为一页（腾讯音乐 2026-10-28，其余四家 2026-11-05）
         script = financial_script(key, co)
         b = val.body(co, key, title, script)
         b['page']['enableTabs'] = True
         b['defaults'] = {'collections': {}}
         edits = [('fin_forecast' if co['code'] in bp.SOTP_ONLY else 'forecast', '逐年假设（编辑）')] if key == 'assume' else \
                 ([('sotp_segment', '业务估值（编辑）')] if co['code'] in ('01810.HK', '01698.HK') else []) + [('sotp_item', '资产估值与调整（编辑）')] if profile['method'] == 'sotp' else []
-        if sotp_only:
-            edits += [('scenario', '情景（编辑）'), ('model', '模型参数（编辑）')]
+        visuals = []
         if key == 'val':
-            b['tabs'][0]['title'] = '总览' if sotp_only else '分部估值' if profile['method'] == 'sotp' else '回报与门槛'
+            b['tabs'][0]['title'] = '总览'
+            if not sotp_only:                     # 总览顶部：现价与三情景估值（与腾讯音乐、驾驶舱同一组件）
+                from company_dashboard import price_header_code
+                b['assets']['scripts']['price'] = {'version': 'v2', 'code': price_header_code(co['code'])}
+                b['tabs'][0]['blocks'].insert(0, {'type': 'jsBlock', 'script': 'price'})
+            if not sotp_only:                     # 分部加总专用总览已含情景与参数；其余公司保留情景对比、模型参数两张图
+                visuals = [('scenario', '情景对比'), ('model', '模型参数')]
+            edits += [('scenario', '情景（编辑）'), ('model', '模型参数（编辑）')]
+        for code, label in visuals:               # 图里“切到明细（编辑）”改指本页对应的编辑标签
+            edit_label = '情景（编辑）' if code == 'scenario' else '模型参数（编辑）'
+            js = business_script(code, co).replace(f"const EDIT_TAB = '{biz.EDIT_TAB}';", f"const EDIT_TAB = '{edit_label}';")
+            b['assets']['scripts'][code] = {'version': 'v2', 'code': js.replace('情景见“情景”', '情景见本页“情景（编辑）”')}
         for table, label in edits:
+            for code, vlabel in visuals:          # 图紧挨着对应的编辑标签
+                if code == table:
+                    b['tabs'].append({'title': vlabel, 'blocks': [{'type': 'jsBlock', 'script': code}]})
             tab, defaults = native_tab(table, label, gid, co)
             tab['title'] = label
             b['tabs'].append(tab)
@@ -178,8 +191,8 @@ def financial_script(key, co):
     if key == 'assume':
         js = wrap_js(js).replace('没列出的假设（折旧、利息、税率、派息率、资本开支）各情景相同。情景只改现金流，不改门槛，门槛在「估值」页。',
             '逐年路径与情景系数共同生成预测；分部估值另用各分部参数。所有金额为亿元人民币，每股金额及业务单位以行标题为准。')
-        js = js.replace('改数字到「模型底稿 / 逐年假设」「情景」，改依据到「模型底稿 / 假设依据」。',
-            '改逐年数字请切换本页「逐年假设（编辑）」；情景和假设依据在「模型底稿」。')
+        js = js.replace('改逐年数字到本页「逐年假设（编辑）」，情景到「估值模型」页，改依据到「预测与估值 / 假设依据」。',
+            '改逐年数字请切换本页「逐年假设（编辑）」；情景在「估值模型」页，改依据到「预测与估值 / 假设依据」。')
     elif profile['method'] == 'irr':
         js = wrap_js(js).replace('这几年是在一边还债一边多付股息。',
             '计划分红超过了模型当年的可分配现金，需要复核资本开支、回款和融资假设。')

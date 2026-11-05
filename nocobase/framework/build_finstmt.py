@@ -487,7 +487,7 @@ def update(co):
 
 
 def page_body(co, gid=None):
-    """只放三大报表；报表外的分部与财务补充指标在「数据底稿 / 定量指标」。"""
+    """只放三大报表；报表外的财务指标在「数据底稿 / 定量指标 / 财务指标」。"""
     return {
         'page': {'title': TITLE, 'documentTitle': f"{co['name']} · {TITLE}"},
         'assets': {'scripts': {KEY: {'version': 'v2', 'code': script(co)}}},

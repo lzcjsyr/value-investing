@@ -537,6 +537,20 @@ SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK')
 
 SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '拥有五件及以上AIoT设备的用户数', '时点', '百万人', '2026Q2', '2026-06-30', 24.6, 0.202, '截至 2026 年 6 月底 AIoT 平台连接设备（不含手机、平板）1,160.8 百万台（+17.4%），拥有五件及以上设备的用户 24.6 百万（+20.2%）。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2026 年第二季度及中期业绩公告（2026-08-18）' LIMIT 1));
 
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), 'AIoT平台连接设备数（不含手机和平板）', '时点', '百万台', '2025Q1', '2025-03-31', 943.7, 0.201, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年第一季度业绩公告（2025-05-27）' LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), 'AIoT平台连接设备数（不含手机和平板）', '时点', '百万台', '2025Q2', '2025-06-30', 989.0, 0.203, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年第二季度及中期业绩公告（2025-08-19）' LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '拥有五件及以上AIoT设备的用户数', '时点', '百万人', '2025Q2', '2025-06-30', 20.5, 0.268, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年第二季度及中期业绩公告（2025-08-19）' LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), 'AIoT平台连接设备数（不含手机和平板）', '时点', '百万台', '2025Q3', '2025-09-30', 1035.5, 0.202, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年第三季度业绩公告（2025-11-18）' LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '拥有五件及以上AIoT设备的用户数', '时点', '百万人', '2025Q3', '2025-09-30', 21.6, 0.261, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年第三季度业绩公告（2025-11-18）' LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), 'AIoT平台连接设备数（不含手机和平板）', '时点', '百万台', '2025Q4', '2025-12-31', 1079.2, 0.193, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年全年业绩公告（2026-03-24）' LIMIT 1));
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '拥有五件及以上AIoT设备的用户数', '时点', '百万人', '2025Q4', '2025-12-31', 22.7, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年全年业绩公告（2026-03-24）' LIMIT 1));
+
 SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '营业收入', '单季', '亿元', '2024Q1', '2024-03-31', 755.07, NULL, 'SU7 3 月 28 日上市；当季汽车收入 1,840 万元。全年交付 136,854 辆减二至四季度 136,794 辆，差 60 辆应为一季度创始版交付（未单独披露）。', (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年第一季度业绩公告（2025-05-27）' LIMIT 1));
 
 SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '手机×AIoT 分部收入', '单季', '亿元', '2024Q1', '2024-03-31', 754.81, NULL, NULL, (SELECT id FROM vi_source_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND title = '2025 年第一季度业绩公告（2025-05-27）' LIMIT 1));
@@ -1241,7 +1255,7 @@ VALUES ((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '小米集团 
   '再加现金、借款、经营所需现金、对外投资等非经营部分（见“经营分部估值”“分部估值项”）。交叉验证：股东回报折现，“股息”＝回购（小米不派现金股息），FCFE 约束，AI 只计成本。'
   '收入＝全球月活×每月活用户年收入。估值用人民币，港股股价按港元兑人民币折算。',
   2025, 2035, 257.0944, 0.0164, '2026-10-22', (SELECT id FROM vi_metric_base WHERE code = 'CGB10Y.CCDC'), 0.075,
-  361.24, 495.76, 655.87, 2662.19, 1.05, 0.06, 0.10, 0.30,
+  361.24, 495.76, 655.87, 2662.19, 1.05, 0.06, 0.10, NULL,
   '分部估值统一截至 2026-06-30（现金、借款、投资、股本同日）。正常化（手机、AIoT 2028 年，互联网 2027 年）：手机 1,850 亿元×(毛利率 11.8%−费用率 14.0%)、AIoT 1,300 亿元×(20.0%−14.0%)、互联网 385 亿元×(76.5%−14.0%)，倍数 11.0、13.9、15.4 倍；汽车 2030 年稳态 90 万辆、7%、10 倍、折现率 11%；AI 直接估值 1,000 亿元；情景概率 25%/50%/25%。逐年假设（股东回报折现用）由同一套分部参数汇总：2026 年收入约 4,388 亿元，2028 年约 5,215 亿元，2030 年约 5,689 亿元；AI 成本只在这里扣除（2026 年下半年 83、2027 年 200、2028 年 230 亿元，之后每年 80 亿元）；派息率＝回购率 2026 年 77%、2027—2030 年 50%、之后 60%。期初资产负债取 2025 年末：经营性长期资产 495.76＝物业厂房及设备 279.50＋无形资产 83.19＋使用权资产 133.07；长期投资 655.87＝权益法 62.68＋长期公允价值投资（不含理财）593.19；归母权益 2,662.19；少数股东权益 1.05；带息负债 361.24（借款，不含租赁）。风险溢价 7.5%。安全边际两档并列 10%/30%。',
   '分部加总', NULL, NULL, '2026-06-30')
 ;
@@ -5479,6 +5493,173 @@ UPDATE vi_sotp_item_base SET metric_id = (SELECT id FROM vi_metric_base WHERE co
 UPDATE vi_sotp_item_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '借款' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), amount = NULL WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK')) AND code = 'C2' AND scenario_id IS NULL;
 
 UPDATE vi_sotp_item_base SET metric_id = (SELECT id FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '少数股东权益' AND unit IS NOT DISTINCT FROM '亿元' ORDER BY id LIMIT 1), amount = NULL WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK')) AND code = 'C10' AND scenario_id IS NULL;
+
+UPDATE vi_metric_base SET measure = '时点' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name IN ('AIoT平台连接设备数（不含手机和平板）', '借款', '小米集团港股收盘价', '少数股东权益', '归母净资产', '拥有五件及以上AIoT设备的用户数', '现金储备', '货币资金');
+
+UPDATE vi_metric_base SET measure = '时期' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND measure IS NULL;
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes) SELECT (SELECT c.code || '.T' || lpad((coalesce((SELECT max(substring(x.code FROM '\.T(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.T%'), 0) + 1)::text, 3, '0') FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01810.HK')), '同业毛利率：理想汽车', '%', '其他', '手工整理', '半年累计', (SELECT id FROM vi_company_base WHERE code = '01810.HK'), '跟踪脚本 companies/01810_小米集团/track.py：东方财富港股报表（akshare stock_financial_hk_report_em），毛利率＝毛利÷营业额', '半年', '时期', '与小米“汽车及AI分部毛利率”对照（说明里写同期小米的值）。' WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '同业毛利率：理想汽车' AND unit IS NOT DISTINCT FROM '%');
+
+UPDATE vi_metric_base SET category = '其他', basis = '半年累计', source_name = '跟踪脚本 companies/01810_小米集团/track.py：东方财富港股报表（akshare stock_financial_hk_report_em），毛利率＝毛利÷营业额', frequency = '半年', measure = '时期', notes = '与小米“汽车及AI分部毛利率”对照（说明里写同期小米的值）。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '同业毛利率：理想汽车' AND unit IS NOT DISTINCT FROM '%';
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes) SELECT (SELECT c.code || '.T' || lpad((coalesce((SELECT max(substring(x.code FROM '\.T(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.T%'), 0) + 1)::text, 3, '0') FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01810.HK')), '同业毛利率：小鹏汽车', '%', '其他', '手工整理', '半年累计', (SELECT id FROM vi_company_base WHERE code = '01810.HK'), '跟踪脚本 companies/01810_小米集团/track.py：东方财富港股报表（akshare stock_financial_hk_report_em），毛利率＝毛利÷营业额', '半年', '时期', '与小米“汽车及AI分部毛利率”对照（说明里写同期小米的值）。' WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '同业毛利率：小鹏汽车' AND unit IS NOT DISTINCT FROM '%');
+
+UPDATE vi_metric_base SET category = '其他', basis = '半年累计', source_name = '跟踪脚本 companies/01810_小米集团/track.py：东方财富港股报表（akshare stock_financial_hk_report_em），毛利率＝毛利÷营业额', frequency = '半年', measure = '时期', notes = '与小米“汽车及AI分部毛利率”对照（说明里写同期小米的值）。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '同业毛利率：小鹏汽车' AND unit IS NOT DISTINCT FROM '%';
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes) SELECT (SELECT c.code || '.T' || lpad((coalesce((SELECT max(substring(x.code FROM '\.T(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.T%'), 0) + 1)::text, 3, '0') FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01810.HK')), '同业毛利率：零跑汽车', '%', '其他', '手工整理', '半年累计', (SELECT id FROM vi_company_base WHERE code = '01810.HK'), '跟踪脚本 companies/01810_小米集团/track.py：东方财富港股报表（akshare stock_financial_hk_report_em），毛利率＝毛利÷营业额', '半年', '时期', '与小米“汽车及AI分部毛利率”对照（说明里写同期小米的值）。' WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '同业毛利率：零跑汽车' AND unit IS NOT DISTINCT FROM '%');
+
+UPDATE vi_metric_base SET category = '其他', basis = '半年累计', source_name = '跟踪脚本 companies/01810_小米集团/track.py：东方财富港股报表（akshare stock_financial_hk_report_em），毛利率＝毛利÷营业额', frequency = '半年', measure = '时期', notes = '与小米“汽车及AI分部毛利率”对照（说明里写同期小米的值）。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '同业毛利率：零跑汽车' AND unit IS NOT DISTINCT FROM '%';
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes) SELECT (SELECT c.code || '.T' || lpad((coalesce((SELECT max(substring(x.code FROM '\.T(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.T%'), 0) + 1)::text, 3, '0') FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01810.HK')), '同业毛利率：蔚来', '%', '其他', '手工整理', '全年', (SELECT id FROM vi_company_base WHERE code = '01810.HK'), '跟踪脚本 companies/01810_小米集团/track.py：东方财富港股报表（akshare stock_financial_hk_report_em），毛利率＝毛利÷营业额', '年', '时期', '与小米“汽车及AI分部毛利率”对照（说明里写同期小米的值）。' WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '同业毛利率：蔚来' AND unit IS NOT DISTINCT FROM '%');
+
+UPDATE vi_metric_base SET category = '其他', basis = '全年', source_name = '跟踪脚本 companies/01810_小米集团/track.py：东方财富港股报表（akshare stock_financial_hk_report_em），毛利率＝毛利÷营业额', frequency = '年', measure = '时期', notes = '与小米“汽车及AI分部毛利率”对照（说明里写同期小米的值）。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '同业毛利率：蔚来' AND unit IS NOT DISTINCT FROM '%';
+
+INSERT INTO vi_metric_base (code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes) SELECT (SELECT c.code || '.T' || lpad((coalesce((SELECT max(substring(x.code FROM '\.T(\d+)$')::int) FROM vi_metric_base x WHERE x.code LIKE c.code || '.T%'), 0) + 1)::text, 3, '0') FROM vi_company_base c WHERE c.id = (SELECT id FROM vi_company_base WHERE code = '01810.HK')), '同业毛利率：传音控股', '%', '其他', '手工整理', '单季', (SELECT id FROM vi_company_base WHERE code = '01810.HK'), '跟踪脚本：新浪财报（akshare stock_financial_report_sina），毛利率＝1 − 营业成本÷营业收入', '季', '时期', '新兴市场手机龙头；与小米“智能手机毛利率”对照。' WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '同业毛利率：传音控股' AND unit IS NOT DISTINCT FROM '%');
+
+UPDATE vi_metric_base SET category = '其他', basis = '单季', source_name = '跟踪脚本：新浪财报（akshare stock_financial_report_sina），毛利率＝1 − 营业成本÷营业收入', frequency = '季', measure = '时期', notes = '新兴市场手机龙头；与小米“智能手机毛利率”对照。' WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND name = '同业毛利率：传音控股' AND unit IS NOT DISTINCT FROM '%';
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：理想汽车', '单季', '%', '2023Q1', '2023-03-31', 20.39, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：理想汽车', '半年累计', '%', '2023H1', '2023-06-30', 21.22, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：理想汽车', '全年', '%', '2023', '2023-12-31', 22.2, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：理想汽车', '单季', '%', '2024Q1', '2024-03-31', 20.61, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：理想汽车', '半年累计', '%', '2024H1', '2024-06-30', 20.0, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：理想汽车', '全年', '%', '2024', '2024-12-31', 20.53, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：理想汽车', '单季', '%', '2025Q1', '2025-03-31', 20.51, NULL, '同期小米汽车及AI分部 23.17%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：理想汽车', '半年累计', '%', '2025H1', '2025-06-30', 20.27, NULL, '同期小米汽车及AI分部 24.92%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：理想汽车', '全年', '%', '2025', '2025-12-31', 18.68, NULL, '同期小米汽车及AI分部 24.29%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：理想汽车', '单季', '%', '2026Q1', '2026-03-31', 7.87, NULL, '同期小米汽车及AI分部 20.11%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：理想汽车', '半年累计', '%', '2026H1', '2026-06-30', 9.55, NULL, '同期小米汽车及AI分部 19.63%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：小鹏汽车', '半年累计', '%', '2023H1', '2023-06-30', -1.43, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：小鹏汽车', '全年', '%', '2023', '2023-12-31', 1.47, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：小鹏汽车', '半年累计', '%', '2024H1', '2024-06-30', 13.5, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：小鹏汽车', '全年', '%', '2024', '2024-12-31', 14.3, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：小鹏汽车', '半年累计', '%', '2025H1', '2025-06-30', 16.51, NULL, '同期小米汽车及AI分部 24.92%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：小鹏汽车', '全年', '%', '2025', '2025-12-31', 18.86, NULL, '同期小米汽车及AI分部 24.29%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：小鹏汽车', '半年累计', '%', '2026H1', '2026-06-30', 20.64, NULL, '同期小米汽车及AI分部 19.63%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：零跑汽车', '半年累计', '%', '2023H1', '2023-06-30', -5.88, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：零跑汽车', '全年', '%', '2023', '2023-12-31', 0.48, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：零跑汽车', '半年累计', '%', '2024H1', '2024-06-30', 1.13, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：零跑汽车', '全年', '%', '2024', '2024-12-31', 8.38, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：零跑汽车', '半年累计', '%', '2025H1', '2025-06-30', 14.13, NULL, '同期小米汽车及AI分部 24.92%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：零跑汽车', '全年', '%', '2025', '2025-12-31', 14.54, NULL, '同期小米汽车及AI分部 24.29%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：零跑汽车', '半年累计', '%', '2026H1', '2026-06-30', 11.67, NULL, '同期小米汽车及AI分部 19.63%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：蔚来', '半年累计', '%', '2023H1', '2023-06-30', 1.52, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：蔚来', '全年', '%', '2023', '2023-12-31', 6.2, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：蔚来', '全年', '%', '2024', '2024-12-31', 11.15, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：蔚来', '全年', '%', '2025', '2025-12-31', 15.5, NULL, '同期小米汽车及AI分部 24.29%', NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '全年', '%', '2019', '2019-12-31', 27.36, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '全年', '%', '2020', '2020-12-31', 23.64, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '全年', '%', '2021', '2021-12-31', 21.3, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '全年', '%', '2022', '2022-12-31', 21.32, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '单季', '%', '2023Q1', '2023-03-31', 23.36, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '单季', '%', '2023Q2', '2023-06-30', 23.65, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '单季', '%', '2023Q3', '2023-09-30', 24.44, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '全年', '%', '2023', '2023-12-31', 23.55, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '单季', '%', '2023Q4', '2023-12-31', 22.71, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '单季', '%', '2024Q1', '2024-03-31', 21.37, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '单季', '%', '2024Q2', '2024-06-30', 21.68, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '单季', '%', '2024Q3', '2024-09-30', 21.72, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '全年', '%', '2024', '2024-12-31', 21.28, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '单季', '%', '2024Q4', '2024-12-31', 20.38, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '单季', '%', '2025Q1', '2025-03-31', 19.27, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '单季', '%', '2025Q2', '2025-06-30', 20.76, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '单季', '%', '2025Q3', '2025-09-30', 18.59, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '全年', '%', '2025', '2025-12-31', 19.15, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '单季', '%', '2025Q4', '2025-12-31', 18.17, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '单季', '%', '2026Q1', '2026-03-31', 22.0, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '单季', '%', '2026Q2', '2026-06-30', 23.16, NULL, NULL, NULL);
+
+SELECT vi_put_disclosed((SELECT id FROM vi_company_base WHERE code = '01810.HK'), '同业毛利率：传音控股', '单季', '%', '2026Q3', '2026-09-30', 22.66, NULL, NULL, NULL);
+
+-- 小米集团研究增强（2026-11-05）：汽车与手机同业毛利率接入；待办推进。
+-- 数据来自跟踪脚本（track.py → data/track.json，种子在此之前已写入）；本文件只改研究正文、补关联与待办，按业务键定位，可重复执行。
+
+UPDATE vi_thesis_base SET decisive_evidence = '月度交付（四季度能否月均 5.5 万辆以上）；2027 年交付与 ASP；汽车及 AI 分部毛利率与经营损益；海外首年销量。'
+  || '同业对比（跟踪脚本，公告口径）：2025 年小米汽车及 AI 分部毛利率 24.3%，小鹏 18.9%、蔚来 15.5%、零跑 14.5%，领先明显；2026 年上半年降到 19.6%（一季度 20.1%、二季度 19.3%），已略低于小鹏（20.6%）、仍高于零跑（11.7%）——“比同业更赚钱”的优势在收窄，看三季度能否止跌。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND code = 'T3';
+
+UPDATE vi_thesis_base SET decisive_evidence = '2026 年三、四季度及 2027 年上半年的手机毛利率与 ASP、生态营业费用率；DRAM/NAND 合约价；出货份额。'
+  || '对照（跟踪脚本）：传音控股单季毛利率 2026 年一至三季度 22.0%、23.2%、22.7%，同期小米智能手机 10.1%、8.5%（三季度待公告）——存储涨价下传音毛利率反而上升，说明不是全行业同压；小米的回落更多来自自身产品与定价结构，验证“周期过后能回到 11%—12%”时要看高端机占比。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND code = 'T2';
+
+WITH co AS (SELECT id FROM vi_company_base WHERE code = '01810.HK')
+INSERT INTO vi_lnk_thesis_basis_metrics (thesis_id, metric_id, "createdAt", "updatedAt")
+SELECT t.id, m.id, now(), now() FROM vi_thesis_base t JOIN vi_metric_base m ON m.company_id = t.company_id AND
+  ((t.code = 'T3' AND m.name IN ('同业毛利率：理想汽车', '同业毛利率：小鹏汽车', '同业毛利率：零跑汽车', '同业毛利率：蔚来'))
+   OR (t.code = 'T2' AND m.name = '同业毛利率：传音控股'))
+WHERE t.company_id = (SELECT id FROM co) ON CONFLICT DO NOTHING;
+
+UPDATE vi_issue_base SET status = '处理中', progress = '2026-11-05：汽车同业（理想、小鹏、零跑、蔚来）与手机同业（传音）的毛利率改用公告口径，由跟踪脚本每期更新（track.py）；交付、份额、单车利润仍需以公司公告或年报核对。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND code = 'Q08';
+
+UPDATE vi_issue_base SET progress = '2026-11-05 检索：未见 2026 年判决、上诉或和解的公开报道。已知进展：2022 年印度执法局冻结约 555.1 亿卢比（约 47 亿元人民币），卡纳塔克邦高等法院 2022 年 5 月暂缓、10 月要求银行保函，2023 年 4 月 FEMA 主管机关确认冻结，公司就 FEMA 第 37 条合宪性起诉，高院已保留判决。模型未计入这笔资金，也未计罚款；判决后按结果调整“其他调整”。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND code = 'Q09';
+
+UPDATE vi_issue_base SET status = '处理中', progress = '分析（2026-11-05）：模型利润率按国际财务报告准则的费用分摊，已含股权激励费用；再按摊薄股本（约 264 亿股）算每股，重复的只是“已授出、未归属”的那部分——它们今后的费用在利润率里扣一次、股数里又摊一次；未来新授出的部分只在费用里扣，不重复。'
+  || '所以两种处理的差（每股约 −2.7%）是重复计算的上限，实际重复小于它。建议（需你确认）：保留摊薄股本作为保守口径，在估值说明里注明“偏保守，上限约 2.7%”，不再另调利润率。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND code = 'Q10';
+
+-- 安全边际只保留 10% 一档（你确认，2026-11-05）
+INSERT INTO vi_change_log_base (change_date, title, target, old_value, new_value, reason, basis, verification, company_id, created_at, updated_at)
+SELECT '2026-11-05', '安全边际只保留 10% 一档', '估值模型：安全边际（低档 10%、高档取消）', '10% / 30% 两档并列', '10% 一档（关注价＝今天价值×90%）',
+  '你确定交易纪律：安全边际用 10%', '用户决定', '关注价只显示一个；估值不变', c.id, now(), now()
+FROM vi_company_base c WHERE c.code = '01810.HK' AND NOT EXISTS (SELECT 1 FROM vi_change_log_base x WHERE x.company_id = c.id AND x.title = '安全边际只保留 10% 一档');
+UPDATE vi_issue_base SET status = '已解决', progress = '2026-11-05：你确定安全边际用 10%，估值模型只保留一档（关注价＝基准每股价值×90%）。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND code = 'Q01';
+UPDATE vi_issue_base SET status = '已解决', progress = progress || '　2026-11-05 你确认：保留摊薄股本（约 264 亿股）作为保守口径，不另调利润率；重复计算的上限约每股 2.7%。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND code = 'Q10' AND progress NOT LIKE '%2026-11-05 你确认%';
+UPDATE vi_model_base SET notes = notes || '股本按摊薄口径（约 264 亿股，含已授出未归属的股权激励），与利润率里已扣的股权激励费用有少量重复，偏保守，上限约每股 2.7%（待办 Q10，2026-11-05）。'
+WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND status = '当前' AND notes NOT LIKE '%待办 Q10%';
+
 
 INSERT INTO vi_business_base(company_id,code,name,boundary,cost_allocation,asset_boundary,sort) VALUES ((SELECT id FROM vi_company_base WHERE code='01810.HK'),'S1','智能手机','手机硬件销售；互联网服务收入和利润归 S3，自研芯片等创新业务归 S5。','手机、AIoT、互联网共用生态营业费用，沿用 J-OPEX 按各自收入分摊；不能因分部独立而漏掉共同获客成本。','经营设备、品牌与渠道对盈利的贡献包含在业务价值中；经营所需现金由 C5 集团统一扣除，集团现金及投资不放进分部价值。',1) ON CONFLICT (company_id,code) DO NOTHING;
 

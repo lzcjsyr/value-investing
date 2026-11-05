@@ -34,18 +34,18 @@ COMPANY_MENU = [  # (二级分组, 图标, [(code, 页面标题)])
 MACRO = ('宏观数据', 'GlobalOutlined', [('metric', '指标'), ('observation', '高频数据'), ('collector', '采集配置')])
 MACRO_SCOPE = {'metric': 'scope', 'observation': 'metric.scope', 'collector': 'metric.scope'}   # 归属＝宏观
 REPLACED_BY_CHAINMAP = ('value_chain', 'competitor')   # 有可视化产业链页面（build_chainmap.py）的公司不再单独生成这两个表格页
-# 有定制估值页（build_valuation.py：财务模型 → 估值）的公司：“预测与估值”组只放这两页，
-# 录入用的表格页收进组内的“模型底稿”子组；skip 里的页面不生成：用不到的估值方法、已被定制页取代的只读报表与财务模型
-DRAFTS = '模型底稿'
+# 有定制估值页（build_valuation.py）的公司，“预测与估值”组＝财务模型、估值模型、假设依据三页（2026-11-05 起五家一致，对标腾讯音乐）：
+#   逐年假设是「财务模型」的编辑标签；估值模型参数与情景是「估值模型」页（页面键仍是 val）的标签（align_companies.finance）；
+#   skip 里的页面不单独生成：用不到的估值方法、已被定制页取代的只读报表与财务模型、已并入上述两页的表格
+DRAFTS = '模型底稿'      # 已取消的子组名（2026-11-05 前录入页收在这里）；仍用于菜单排序时识别旧子组
 REPLACED_BY_CUSTOM = ('finmodel', 'valuation', 'projection', 'balance', 'sensitivity', 'trial')
-CUSTOM_VALUATION = {'600900.SH': {'skip': ('sotp', 'sotp_segment', 'sotp_item') + REPLACED_BY_CUSTOM}}
+MERGED_INTO_PAGES = ('forecast', 'scenario', 'model')
+CUSTOM_VALUATION = {'600900.SH': {'skip': ('sotp', 'sotp_segment', 'sotp_item') + REPLACED_BY_CUSTOM + MERGED_INTO_PAGES}}
 for _code in ('002078.SZ', '601668.SH', '01698.HK', '01810.HK'):
-    CUSTOM_VALUATION[_code] = {'skip': ('sotp', 'sotp_segment', 'sotp_item', 'forecast') + REPLACED_BY_CUSTOM}
-# 只用分部加总三块的公司（2026-10-28 起腾讯音乐）：估值、估值模型、情景合并为「估值模型」一页（页面键仍是 val），
-# 情景与模型参数变成该页的编辑标签，不再单独生成「模型底稿 / 估值模型」「情景」；假设依据直接放在「预测与估值」下，没有模型底稿子组
+    CUSTOM_VALUATION[_code] = {'skip': ('sotp', 'sotp_segment', 'sotp_item') + REPLACED_BY_CUSTOM + MERGED_INTO_PAGES}
+# 只用分部加总三块的公司（2026-10-28 起腾讯音乐）：没有逐年预测，财务模型是券商研报式财务预测（vi_fin_forecast），
+# 估值模型总览用分部加总专用脚本（build_valuation.VALMODEL_JS）
 SOTP_ONLY = {'01698.HK'}
-for _code in SOTP_ONLY:
-    CUSTOM_VALUATION[_code]['skip'] += ('scenario', 'model')
 SHARED = '框架与后台'
 SHARED_MENU = [('company', '公司')]                      # 直接放在“框架与后台”下；指标在各公司「数据底稿」和「宏观数据」里
 SHARED_SUB = ('采集', 'CloudDownloadOutlined',
@@ -84,7 +84,7 @@ COLUMNS = {
              'implied_growth_value', 'weighted_value', 'ddm_value', 'conclusion'],
     'metric': ['name', 'category', 'measure', 'unit', 'basis', 'latest_value', 'latest_period', 'state', 'tracked_by', 'source_kind', 'formula', 'source_name'],
     # 数据底稿 / 定量指标：每个指标一行，“趋势”小折线由 trend_column.py 补在指标名称后面；逐期数据在指标详情里看和录入；
-    # “模型字段”“重点跟踪”说明这个数被财务模型、假设依据或风险用到（原「重点指标」页的用途分类）
+    # “模型字段”“重点跟踪”说明这个数被财务模型、假设依据或风险用到
     'metric_series': ['name', 'measure', 'basis', 'latest_period', 'latest_value', 'unit', 'obs_count', 'state', 'model_field', 'tracked_by',
                       'source_kind', 'source_name'],
     'observation': ['metric', 'obs_date', 'value', 'unit', 'is_current', 'is_valid', 'collected_at', 'doc', 'raw_capture'],
@@ -350,11 +350,8 @@ def company_root(st, co):
 
 
 def valuation_group(st, co):
-    """“预测与估值”的表格页放在哪个分组：有定制估值页的公司放进组内的“模型底稿”子组。"""
-    gid = ensure_group(st, f"{co['name']}/预测与估值", '预测与估值', 'CalculatorOutlined', parent=company_root(st, co))
-    if co['code'] in CUSTOM_VALUATION and co['code'] not in SOTP_ONLY:   # 只用分部加总的公司录入页只剩假设依据，不再套一层
-        gid = ensure_group(st, f"{co['name']}/预测与估值/{DRAFTS}", DRAFTS, 'FolderOutlined', parent=gid)
-    return gid
+    """“预测与估值”的表格页直接放在组内（2026-11-05 起不再有“模型底稿”子组）。"""
+    return ensure_group(st, f"{co['name']}/预测与估值", '预测与估值', 'CalculatorOutlined', parent=company_root(st, co))
 
 
 def page_group(st, co, sub, icon, code=None):
@@ -566,10 +563,10 @@ def sort_menu(company_codes=None):
     names = [c['name'] for c in companies()]
     sub_order = {g: [t for _, t in pages] for g, _, pages in COMPANY_MENU} | {SHARED_SUB[0]: [t for _, t in SHARED_SUB[2]]}
     # 可视化页不在 COMPANY_MENU 里：财务数据（build_finstmt.py，季度三大报表）在数据底稿里跟在数据后面；
-    # 财务模型（build_finmodel.py）在预测与估值表格页前；定制估值页（build_valuation.py）在最前，模型底稿子组在最后
+    # 财务模型（build_finmodel.py）在预测与估值表格页前；定制估值页（build_valuation.py）紧跟其后
     sub_order['数据底稿'] = ['财务报表', '定量指标', '定性事实', '来源文档']   # 原始报表 → 指标 → 定性 → 出处
     sub_order[DRAFTS] = ['财务模型', '估值'] + sub_order['预测与估值'] + [DRAFTS]
-    # 没有模型底稿子组的公司（SOTP_ONLY）：估值模型紧跟财务模型，假设依据放最后
+    # 估值模型紧跟财务模型，假设依据放最后（2026-11-05 起五家公司都没有模型底稿子组）
     sub_order['预测与估值'] = ['财务模型', '估值', '估值模型'] + [t for t in sub_order[DRAFTS] if t not in ('财务模型', '估值', '估值模型')]
     for g in current_routes:
         top = g['title']

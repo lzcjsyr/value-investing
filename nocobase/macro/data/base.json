@@ -11,7 +11,9 @@
    "valid_min": 0,
    "valid_max": 20,
    "notes": "单位为百分数：1.65 表示 1.65%。与中证口径分开存放，不拼接。",
-   "company_id": null
+   "company_id": null,
+   "basis": "时点",
+   "measure": "时点"
   },
   {
    "id": 3,
@@ -24,7 +26,9 @@
    "valid_min": 0,
    "valid_max": 20,
    "notes": "旧本地 Wind 采集，已停更；与中债口径不同，仅作历史对照。",
-   "company_id": null
+   "company_id": null,
+   "basis": "时点",
+   "measure": "时点"
   },
   {
    "id": 9,
@@ -37,7 +41,9 @@
    "valid_min": 2000,
    "valid_max": 12000,
    "notes": "上期所纸浆期货的交割品是漂白针叶浆，只代表针叶浆价格方向；太阳纸业外购浆以阔叶浆为主、自制浆六成以上。看利润要看“纸价−浆价”的价差，不能只看浆价。Wind 积分不足时不再更新，之后用新浪口径。",
-   "company_id": null
+   "company_id": null,
+   "basis": "时点",
+   "measure": "时点"
   },
   {
    "id": 10,
@@ -50,7 +56,9 @@
    "valid_min": 2000,
    "valid_max": 12000,
    "notes": "与 Wind“活跃合约收盘价”口径不同（连续合约、最新价），分开存放、不拼接。晚上 21 点后夜盘时段采集到的是夜盘最新价。",
-   "company_id": null
+   "company_id": null,
+   "basis": "时点",
+   "measure": "时点"
   },
   {
    "id": 29,
@@ -63,7 +71,24 @@
    "valid_min": 0.7,
    "valid_max": 1.1,
    "notes": "1 港元折合多少人民币。用于把港股股价折成人民币，与人民币记账的估值比较。",
-   "company_id": null
+   "company_id": null,
+   "basis": "时点",
+   "measure": "时点"
+  },
+  {
+   "id": 320,
+   "code": "OP.SHFE.SINA",
+   "name": "胶版印刷纸期货（新浪 OP0 连续）",
+   "unit": "元/吨",
+   "category": "商品",
+   "source_name": "新浪期货 OP0 连续（采集工作流）；历史为跟踪脚本补的日收盘价（akshare futures_main_sina）",
+   "frequency": "交易日",
+   "valid_min": 1000,
+   "valid_max": 20000,
+   "notes": "上期所胶版印刷纸期货（2025-09-10 上市），交割品为双胶纸（胶版印刷纸），是文化纸价格的公开日度参照；看“纸价 − 浆价”的价差，不只看纸价。",
+   "company_id": null,
+   "basis": "时点",
+   "measure": "时点"
   }
  ],
  "collector": [
@@ -105,6 +130,19 @@
    "selfcheck_result": "正常；未通知",
    "notes": "市场汇率（非中间价）；第 6 段是时间戳 YYYYMMDDhhmmss。",
    "metric_id": 29
+  },
+  {
+   "id": 12,
+   "name": "胶版印刷纸期货（新浪 OP0）",
+   "url": "https://hq.sinajs.cn/list=nf_OP0",
+   "parser": "sina_future",
+   "parser_param": "OP0",
+   "enabled": true,
+   "max_lag_days": 7,
+   "last_selfcheck": null,
+   "selfcheck_result": null,
+   "notes": "与纸浆期货同一新浪接口（必须带 Referer）；第 9 段为最新价、第 18 段为日期。按钮在 21:00 以后点，抓到的是夜盘最新价。",
+   "metric_id": 320
   }
  ],
  "source": [

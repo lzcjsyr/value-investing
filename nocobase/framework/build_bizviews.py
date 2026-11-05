@@ -1135,7 +1135,7 @@ boot('估值模型', async (company, scope) => {
         <div><Label>折现率构成（虚线是门槛）</Label><RateBar m={m} /></div>
         <div><Label>期初资产负债（{m.base_year} 年末，亿元）</Label><Balance m={m} /></div>
         <LinkList label="门槛的依据（假设依据）" items={hurdleJ.map((j) => ({ code: j.code, title: j.title, tag: j.status }))} />
-        <Attrs items={[['主估值方法', m.primary_method || '—'], ['安全边际', m.margin_low !== null && m.margin_low !== undefined ? `${pct(m.margin_low, 0)} / ${pct(m.margin_high, 0)}` : '—'],
+        <Attrs items={[['主估值方法', m.primary_method || '—'], ['安全边际', m.margin_low !== null && m.margin_low !== undefined ? (m.margin_high === null || m.margin_high === undefined ? pct(m.margin_low, 0) : `${pct(m.margin_low, 0)} / ${pct(m.margin_high, 0)}`) : '—'],
                        ['分部加总核心年', m.sotp_year || '—'], ['状态', m.status || '—']]} />
       </div>
     );

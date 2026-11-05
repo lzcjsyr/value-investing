@@ -303,7 +303,7 @@ class Notes:
         role = (T.get(code) or next(r for r in spec.REPORTS if r['code'] == code))['role'].rstrip('。')
         m = self.metrics.get(top, {})
         listed = lambda k: '、'.join(m[k]) if len(m.get(k, [])) <= 8 else f"{len(m[k])} 个，如 {'、'.join(m[k][:5])} 等"
-        each = '每个指标一行，“趋势”是主口径最近 12 期的小折线；点“查看”看逐期数据并录入新一期。'
+        each = '每个指标一行，“趋势”是主口径最近 12 期的小折线（主口径不足两期时用数据最多的口径）；点“查看”看逐期数据并录入新一期。'
         if code == 'metric':
             if key == 'disclosed':
                 return ((f"本公司按期披露的经营指标（量、价、订单、用户等），现有 {listed('disclosed')}。" if m.get('disclosed') else
@@ -319,15 +319,6 @@ class Notes:
             if key == 'market':
                 return (f"本公司用到的宏观与市场数据，现有 {listed('market')}，多为自动采集。" + each
                         + '宏观指标各公司共用，新建与采集配置在“宏观数据”。')
-            if b['tab'] == '分部与财务补充':
-                return (f"三大报表里没有的财务指标（分部收入与利润率、公司口径的现金与调整后利润、股息等），现有 {listed('fin_extra')}。"
-                        + each + '报表里有的科目由指标按报表公式直接算，不在这里；量、价、用户等经营指标在“定期经营”标签。')
-            if key == 'model':
-                return '财务模型历史一侧用到的指标（收入、成本、利润、现金、负债、分红、业务量等），按年汇总给财务模型和自动检查。点开一行看趋势、逐期数据并录入。'
-            if key == 'tracked':
-                return '被假设依据的“跟踪指标”、风险的“预警指标”关联到的指标，看最新值和是否到期。要盯新的数，到假设依据或风险里关联指标。'
-            if key == 'rest':
-                return '本公司其余指标（没进模型、也没被假设依据或风险盯着），如分部数据、行情与用到的宏观数据。新建指标点“添加”。'
             if top == '宏观数据':
                 return f"各公司共用的宏观指标（利率、汇率、商品价格），现有 {listed('macro')}。点开一行看趋势与逐期数据。"
         if code == 'observation':
@@ -339,8 +330,6 @@ class Notes:
             return f"宏观指标的自动采集配置，现有 {listed('macro_collector')}。全部采集配置在“框架与后台 / 采集”。"
         if code == 'collector':
             return '全部自动采集配置（股价、利率、汇率、水位、商品价格）：从哪里取数、写进哪个指标、允许滞后几天、最近一次自检结果。'
-        if code == 'forecast' and top == '长江电力':
-            return role + '。长江电力的“财务模型”页只读展示，逐年假设在这里录入。'
         if code == 'fin_forecast':
             return '腾讯音乐的逐年财务预测：输入收入、毛利率、费用率、税率、现金转化、资本开支和股东回报，利润、每股收益、期末净现金自动算。收入与业务估值分开存，不自动同步，改一边要核对另一边。'
         if code == 'model' and top == '腾讯音乐':
@@ -362,10 +351,8 @@ def scope_metrics():
         UNION ALL SELECT c.name, 'finance', json_agg(DISTINCT m.name) FROM vi_company_base c JOIN vi_metric m
           ON m.company_id=c.id AND m.category='财务' GROUP BY c.name
         UNION ALL SELECT c.name, 'market', json_agg(DISTINCT m.name) FROM vi_company_base c JOIN vi_metric m
-          ON m.category IN ('利率','汇率','商品','行情','其他')
+          ON m.category IN ('宏观','利率','汇率','商品','行情','其他')
          AND (m.company_id=c.id OR m.used_by_codes LIKE '%,'||c.code||',%') GROUP BY c.name
-        UNION ALL SELECT c.name, 'fin_extra', json_agg(DISTINCT m.name) FROM vi_company_base c JOIN vi_metric m
-          ON m.company_id=c.id AND m.category='财务' AND m.source_kind<>'报表计算' GROUP BY c.name
         UNION ALL SELECT '宏观数据', 'macro', json_agg(name ORDER BY id) FROM vi_metric WHERE scope='宏观'
         UNION ALL SELECT '宏观数据', 'macro_collector', json_agg(c.name ORDER BY c.id) FROM vi_collector c
           JOIN vi_metric m ON m.id=c.metric_id AND m.scope='宏观') x""")]:

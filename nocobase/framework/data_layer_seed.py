@@ -40,6 +40,61 @@ def fin_stmt_statements(co, path):
             f'INSERT INTO vi_fin_stmt_base (company_id, period, period_end, stmt, item, seq, amount) VALUES\n{vals};']
 
 
+
+def track_statements(co, path):
+    """跟踪脚本的快照（framework/tools/track.py 写 companies/<公司>/data/track.json）→ SQL；在线入库与种子共用。
+    指标按 名称＋单位＋归属 定位，没有才建（编号：公司指标＝公司代码.T 顺序号，宏观指标用快照里的 code）；宏观指标同时登记“订阅的宏观数据”。
+    公司指标的每期数据走 vi_put_disclosed（同期间同口径先删后写）；宏观日度行情只补库里没有的日期（采集工作流写过的日期不动）。"""
+    if not path.exists():
+        return []
+    d = json.loads(path.read_text())
+    out = []
+    for m in d.get('metrics', []):
+        owner = 'company_id IS NULL' if m.get('macro') else f'company_id = {co}'
+        cols = 'code, name, unit, category, source_kind, basis, company_id, source_name, frequency, measure, notes'
+        code = lit(m['code']) if m.get('macro') else (
+            f"(SELECT c.code || '.T' || lpad((coalesce((SELECT max(substring(x.code FROM '\\.T(\\d+)$')::int) FROM vi_metric_base x "
+            f"WHERE x.code LIKE c.code || '.T%'), 0) + 1)::text, 3, '0') FROM vi_company_base c WHERE c.id = {co})")
+        out.append(f"INSERT INTO vi_metric_base ({cols}) SELECT {code}, {lit(m['name'])}, {lit(m['unit'])}, {lit(m['category'])}, "
+                   f"{lit(m['source_kind'])}, {lit(m['basis'])}, {'NULL' if m.get('macro') else co}, {lit(m['source_name'])}, "
+                   f"{lit(m['frequency'])}, {lit(m['measure'])}, {lit(m.get('notes'))} "
+                   f"WHERE NOT EXISTS (SELECT 1 FROM vi_metric_base WHERE {owner} AND name = {lit(m['name'])} AND unit IS NOT DISTINCT FROM {lit(m['unit'])});")
+        out.append(f"UPDATE vi_metric_base SET category = {lit(m['category'])}, basis = {lit(m['basis'])}, source_name = {lit(m['source_name'])}, "
+                   f"frequency = {lit(m['frequency'])}, measure = {lit(m['measure'])}, notes = {lit(m.get('notes'))} "
+                   f"WHERE {owner} AND name = {lit(m['name'])} AND unit IS NOT DISTINCT FROM {lit(m['unit'])};")
+        if m.get('macro'):
+            out.append(f"INSERT INTO vi_lnk_company_macro_metrics (company_id, metric_id, \"createdAt\", \"updatedAt\") "
+                       f"SELECT {co}, id, now(), now() FROM vi_metric_base WHERE company_id IS NULL AND name = {lit(m['name'])} "
+                       f"AND unit IS NOT DISTINCT FROM {lit(m['unit'])} ON CONFLICT DO NOTHING;")
+    macro = {(m['name'], m['unit']) for m in d.get('metrics', []) if m.get('macro')}
+    # 宏观指标分两种：日度行情（时点、无期间）只补缺的日期；按期发布的统计数（有期间，如 2026M09、2026Q3）同期间同口径先删后写
+    daily = [o for o in d.get('observations', []) if (o['name'], o['unit']) in macro and not o.get('period')]
+    for o in d.get('observations', []):
+        if (o['name'], o['unit']) in macro and o.get('period'):
+            mid = (f"(SELECT id FROM vi_metric_base WHERE company_id IS NULL AND name = {lit(o['name'])} "
+                   f"AND unit IS NOT DISTINCT FROM {lit(o['unit'])})")
+            yoy = 'NULL' if o.get('yoy') is None else repr(o['yoy'])
+            out.append(f"DELETE FROM vi_observation_base WHERE metric_id = {mid} AND period = {lit(o['period'])} AND basis = {lit(o['basis'])};")
+            out.append(f"INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, yoy, summary, collected_at) VALUES "
+                       f"({mid}, {lit(o['obs_date'])}, {lit(o['period'])}, {lit(o['basis'])}, {repr(o['value'])}, {yoy}, {lit(o.get('summary'))}, now());")
+    if daily:
+        by = {}
+        for o in daily:
+            by.setdefault((o['name'], o['unit']), []).append(o)
+        for (name, unit), rows in by.items():
+            vals = ',\n'.join(f"({lit(o['obs_date'])}::date, {repr(o['value'])})" for o in rows)
+            out.append(f"INSERT INTO vi_observation_base (metric_id, obs_date, basis, value, collected_at, summary)\n"
+                       f"SELECT m.id, v.d, '时点', v.x, now(), {lit(d.get('daily_note'))} FROM (VALUES\n{vals}) v(d, x)\n"
+                       f"JOIN vi_metric_base m ON m.company_id IS NULL AND m.name = {lit(name)} AND m.unit IS NOT DISTINCT FROM {lit(unit)}\n"
+                       f"WHERE NOT EXISTS (SELECT 1 FROM vi_observation_base o WHERE o.metric_id = m.id AND o.obs_date = v.d);")
+    for o in d.get('observations', []):
+        if (o['name'], o['unit']) in macro:
+            continue
+        yoy = 'NULL' if o.get('yoy') is None else repr(o['yoy'])
+        out.append(f"SELECT vi_put_disclosed({co}, {lit(o['name'])}, {lit(o['basis'])}, {lit(o['unit'])}, {lit(o['period'])}, "
+                   f"{lit(o['obs_date'])}, {repr(o['value'])}, {yoy}, {lit(o.get('summary'))}, NULL);")
+    return out
+
 def statements(co, path):
     """co：公司 id 的 SQL 表达式（如 '7' 或 '(SELECT id FROM vi_company_base WHERE code = ...)'）。"""
     d = json.loads(path.read_text())

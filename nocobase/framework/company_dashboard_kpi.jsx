@@ -78,14 +78,16 @@ try {
         {company.code} · 股价 {company.latest_price_date || '—'} · {CONFIG.sotp ? `资产基准日 ${base.as_of || '—'}` : `预测 ${model.base_year + 1}—${model.terminal_year} 年`}
         {' · '}股本 {number(model.shares, 1)} 亿{CONFIG.sotp ? '普通股' : '股'}
       </Typography.Paragraph>
+      <PriceSummary price={CONFIG.sotp ? company.latest_price_raw : company.latest_price} date={company.latest_price_date} unit={CONFIG.sotp ? '港元' : '元'}
+        scenarios={rows.map((row) => ({ name: row.scenario_name, value: CONFIG.sotp ? row.quote : row.value_today, isBase: !!row.is_base }))} />
       <Row gutter={[20, 16]}>{metrics.map((metric) => (
         <Col key={metric.title} xs={12} lg={6}><Statistic title={metric.title} value={number(metric.value)} suffix={metric.suffix} /></Col>
       ))}</Row>
       <Space wrap style={{ margin: '16px 0 12px' }}>
         <Tag color="blue">现价相对基准{CONFIG.sotp ? '价值' : '最高买入价'} {percent(baseRow.gap, 1)}</Tag>
         <Typography.Text type="secondary">
-          {CONFIG.sotp ? `关注价：10% 边际 ${number(quote(base.watch_low))} 港元 · 30% 边际 ${number(quote(base.watch_high))} 港元`
-            : `当前已保存门槛 ${percent(threshold, 1)} · 参数试算与回报拆解见「估值」`}
+          {CONFIG.sotp ? (finite(base.watch_high) ? `关注价：10% 边际 ${number(quote(base.watch_low))} 港元 · 30% 边际 ${number(quote(base.watch_high))} 港元` : `关注价（安全边际 10%）：${number(quote(base.watch_low))} 港元`)
+            : `当前已保存门槛 ${percent(threshold, 1)} · 参数试算与回报拆解见「估值模型」`}
         </Typography.Text>
       </Space>
       <Table size="small" rowKey="id" pagination={false} dataSource={rows} columns={columns}
@@ -104,7 +106,7 @@ try {
       </Space>
       {CONFIG.sotp && <Typography.Paragraph type="secondary" style={{ margin: '10px 0 0' }}>
         直接估值业务含主观判断：基准 {number(base.direct_value, 0)} 亿元；按 0 计时其余假设不变，每股 {number(quote(finite(base.equity_value) && finite(base.direct_value) && Number(base.shares) > 0 ? (base.equity_value - base.direct_value) / base.shares : null))} 港元。
-        此项敏感性与完整分部明细见「估值」。
+        此项敏感性与完整分部明细见「估值模型」。
       </Typography.Paragraph>}
       {CONFIG.sotp && !(finite(fx) && Number(fx) > 0) && <Alert type="warning" showIcon message="汇率缺失，港元估值暂不换算" />}
     </div>,

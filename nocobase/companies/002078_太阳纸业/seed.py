@@ -855,7 +855,7 @@ def model():
 VALUES ({CO}, {lit(MODEL_NAME)}, '当前',
   '股息贴现（DDM）为主，FCFE 约束股息作交叉验证；关键判断是派息率路径（扩张期约 27%，资本开支回落后逐步提高到 80%）。相对估值（PE/PB）只做对照，见判断 J-REL。股价只进对比层。',
   2025, 2035, 28.5419, 0.0164, '2026-10-21', (SELECT id FROM vi_metric_base WHERE code = 'CGB10Y.CCDC'), 0.06,
-  199.67, 439.55, 3.24, 305.02, 1.10, 0.06, 0.10, 0.30,
+  199.67, 439.55, 3.24, 305.02, 1.10, 0.06, 0.10, NULL,
   {lit('经营假设（2026-10-22）：销量 2026 年 1065 万吨→2028 年 1150 万吨→2031 年 1225 万吨，之后约 +1%/年；综合吨收入 2026—2028 年 0.402 万元/吨，之后 +1%/年；'
        '付现成本按 EBITDA 率 18.3%→19.0% 倒推；折旧 29→37.1 亿元；资本开支 70→60→50→48，2030 年起约 40 亿元（含老挝新项目约 50 亿、2030—2031 年新增约 60 万吨销量）；税率 14%→18%（税收优惠陆续到期）；派息率 27%→80%。'
        '股本 28.5419 亿股（2026-08 限制性股票登记后）。'
@@ -965,6 +965,8 @@ if __name__ == '__main__':
     period_data(); model(); tracking()
     OUT.extend(data_layer_seed.fin_stmt_statements(CO, HERE / 'data' / 'fin_stmt.json'))   # 三大报表原值（报表计算指标读它）
     OUT.extend(data_layer_seed.statements(CO, HERE / 'data' / 'data_layer.json'))   # 关注与数据底稿补充，放最后
+    OUT.extend(data_layer_seed.track_statements(CO, HERE / 'data' / 'track.json'))   # 跟踪脚本的快照（同业毛利率、浆价纸价历史、吨经济；track.py）
+    OUT.append((HERE / 'research_20261105.sql').read_text())   # 研究增强：成本优势测算、浆价纸价跟踪、待办（放在跟踪数据之后）
     OUT.append('COMMIT;')
     (HERE / 'seed.sql').write_text('\n\n'.join(OUT) + '\n')
     print('seed.sql written,', sum(s.count('\n') for s in OUT), 'lines')

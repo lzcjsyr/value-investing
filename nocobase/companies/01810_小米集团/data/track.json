@@ -1,0 +1,500 @@
+{
+"fetched_at": "2026-11-05T00:48:37+08:00",
+"metrics": [
+{
+"name": "同业毛利率：理想汽车",
+"unit": "%",
+"category": "其他",
+"source_kind": "手工整理",
+"basis": "半年累计",
+"frequency": "半年",
+"measure": "时期",
+"source_name": "跟踪脚本 companies/01810_小米集团/track.py：东方财富港股报表（akshare stock_financial_hk_report_em），毛利率＝毛利÷营业额",
+"notes": "与小米“汽车及AI分部毛利率”对照（说明里写同期小米的值）。"
+},
+{
+"name": "同业毛利率：小鹏汽车",
+"unit": "%",
+"category": "其他",
+"source_kind": "手工整理",
+"basis": "半年累计",
+"frequency": "半年",
+"measure": "时期",
+"source_name": "跟踪脚本 companies/01810_小米集团/track.py：东方财富港股报表（akshare stock_financial_hk_report_em），毛利率＝毛利÷营业额",
+"notes": "与小米“汽车及AI分部毛利率”对照（说明里写同期小米的值）。"
+},
+{
+"name": "同业毛利率：零跑汽车",
+"unit": "%",
+"category": "其他",
+"source_kind": "手工整理",
+"basis": "半年累计",
+"frequency": "半年",
+"measure": "时期",
+"source_name": "跟踪脚本 companies/01810_小米集团/track.py：东方财富港股报表（akshare stock_financial_hk_report_em），毛利率＝毛利÷营业额",
+"notes": "与小米“汽车及AI分部毛利率”对照（说明里写同期小米的值）。"
+},
+{
+"name": "同业毛利率：蔚来",
+"unit": "%",
+"category": "其他",
+"source_kind": "手工整理",
+"basis": "全年",
+"frequency": "年",
+"measure": "时期",
+"source_name": "跟踪脚本 companies/01810_小米集团/track.py：东方财富港股报表（akshare stock_financial_hk_report_em），毛利率＝毛利÷营业额",
+"notes": "与小米“汽车及AI分部毛利率”对照（说明里写同期小米的值）。"
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"category": "其他",
+"source_kind": "手工整理",
+"basis": "单季",
+"frequency": "季",
+"measure": "时期",
+"source_name": "跟踪脚本：新浪财报（akshare stock_financial_report_sina），毛利率＝1 − 营业成本÷营业收入",
+"notes": "新兴市场手机龙头；与小米“智能手机毛利率”对照。"
+}
+],
+"daily_note": null,
+"observations": [
+{
+"name": "同业毛利率：理想汽车",
+"unit": "%",
+"period": "2023Q1",
+"basis": "单季",
+"obs_date": "2023-03-31",
+"value": 20.39,
+"summary": null
+},
+{
+"name": "同业毛利率：理想汽车",
+"unit": "%",
+"period": "2023H1",
+"basis": "半年累计",
+"obs_date": "2023-06-30",
+"value": 21.22,
+"summary": null
+},
+{
+"name": "同业毛利率：理想汽车",
+"unit": "%",
+"period": "2023",
+"basis": "全年",
+"obs_date": "2023-12-31",
+"value": 22.2,
+"summary": null
+},
+{
+"name": "同业毛利率：理想汽车",
+"unit": "%",
+"period": "2024Q1",
+"basis": "单季",
+"obs_date": "2024-03-31",
+"value": 20.61,
+"summary": null
+},
+{
+"name": "同业毛利率：理想汽车",
+"unit": "%",
+"period": "2024H1",
+"basis": "半年累计",
+"obs_date": "2024-06-30",
+"value": 20.0,
+"summary": null
+},
+{
+"name": "同业毛利率：理想汽车",
+"unit": "%",
+"period": "2024",
+"basis": "全年",
+"obs_date": "2024-12-31",
+"value": 20.53,
+"summary": null
+},
+{
+"name": "同业毛利率：理想汽车",
+"unit": "%",
+"period": "2025Q1",
+"basis": "单季",
+"obs_date": "2025-03-31",
+"value": 20.51,
+"summary": "同期小米汽车及AI分部 23.17%"
+},
+{
+"name": "同业毛利率：理想汽车",
+"unit": "%",
+"period": "2025H1",
+"basis": "半年累计",
+"obs_date": "2025-06-30",
+"value": 20.27,
+"summary": "同期小米汽车及AI分部 24.92%"
+},
+{
+"name": "同业毛利率：理想汽车",
+"unit": "%",
+"period": "2025",
+"basis": "全年",
+"obs_date": "2025-12-31",
+"value": 18.68,
+"summary": "同期小米汽车及AI分部 24.29%"
+},
+{
+"name": "同业毛利率：理想汽车",
+"unit": "%",
+"period": "2026Q1",
+"basis": "单季",
+"obs_date": "2026-03-31",
+"value": 7.87,
+"summary": "同期小米汽车及AI分部 20.11%"
+},
+{
+"name": "同业毛利率：理想汽车",
+"unit": "%",
+"period": "2026H1",
+"basis": "半年累计",
+"obs_date": "2026-06-30",
+"value": 9.55,
+"summary": "同期小米汽车及AI分部 19.63%"
+},
+{
+"name": "同业毛利率：小鹏汽车",
+"unit": "%",
+"period": "2023H1",
+"basis": "半年累计",
+"obs_date": "2023-06-30",
+"value": -1.43,
+"summary": null
+},
+{
+"name": "同业毛利率：小鹏汽车",
+"unit": "%",
+"period": "2023",
+"basis": "全年",
+"obs_date": "2023-12-31",
+"value": 1.47,
+"summary": null
+},
+{
+"name": "同业毛利率：小鹏汽车",
+"unit": "%",
+"period": "2024H1",
+"basis": "半年累计",
+"obs_date": "2024-06-30",
+"value": 13.5,
+"summary": null
+},
+{
+"name": "同业毛利率：小鹏汽车",
+"unit": "%",
+"period": "2024",
+"basis": "全年",
+"obs_date": "2024-12-31",
+"value": 14.3,
+"summary": null
+},
+{
+"name": "同业毛利率：小鹏汽车",
+"unit": "%",
+"period": "2025H1",
+"basis": "半年累计",
+"obs_date": "2025-06-30",
+"value": 16.51,
+"summary": "同期小米汽车及AI分部 24.92%"
+},
+{
+"name": "同业毛利率：小鹏汽车",
+"unit": "%",
+"period": "2025",
+"basis": "全年",
+"obs_date": "2025-12-31",
+"value": 18.86,
+"summary": "同期小米汽车及AI分部 24.29%"
+},
+{
+"name": "同业毛利率：小鹏汽车",
+"unit": "%",
+"period": "2026H1",
+"basis": "半年累计",
+"obs_date": "2026-06-30",
+"value": 20.64,
+"summary": "同期小米汽车及AI分部 19.63%"
+},
+{
+"name": "同业毛利率：零跑汽车",
+"unit": "%",
+"period": "2023H1",
+"basis": "半年累计",
+"obs_date": "2023-06-30",
+"value": -5.88,
+"summary": null
+},
+{
+"name": "同业毛利率：零跑汽车",
+"unit": "%",
+"period": "2023",
+"basis": "全年",
+"obs_date": "2023-12-31",
+"value": 0.48,
+"summary": null
+},
+{
+"name": "同业毛利率：零跑汽车",
+"unit": "%",
+"period": "2024H1",
+"basis": "半年累计",
+"obs_date": "2024-06-30",
+"value": 1.13,
+"summary": null
+},
+{
+"name": "同业毛利率：零跑汽车",
+"unit": "%",
+"period": "2024",
+"basis": "全年",
+"obs_date": "2024-12-31",
+"value": 8.38,
+"summary": null
+},
+{
+"name": "同业毛利率：零跑汽车",
+"unit": "%",
+"period": "2025H1",
+"basis": "半年累计",
+"obs_date": "2025-06-30",
+"value": 14.13,
+"summary": "同期小米汽车及AI分部 24.92%"
+},
+{
+"name": "同业毛利率：零跑汽车",
+"unit": "%",
+"period": "2025",
+"basis": "全年",
+"obs_date": "2025-12-31",
+"value": 14.54,
+"summary": "同期小米汽车及AI分部 24.29%"
+},
+{
+"name": "同业毛利率：零跑汽车",
+"unit": "%",
+"period": "2026H1",
+"basis": "半年累计",
+"obs_date": "2026-06-30",
+"value": 11.67,
+"summary": "同期小米汽车及AI分部 19.63%"
+},
+{
+"name": "同业毛利率：蔚来",
+"unit": "%",
+"period": "2023H1",
+"basis": "半年累计",
+"obs_date": "2023-06-30",
+"value": 1.52,
+"summary": null
+},
+{
+"name": "同业毛利率：蔚来",
+"unit": "%",
+"period": "2023",
+"basis": "全年",
+"obs_date": "2023-12-31",
+"value": 6.2,
+"summary": null
+},
+{
+"name": "同业毛利率：蔚来",
+"unit": "%",
+"period": "2024",
+"basis": "全年",
+"obs_date": "2024-12-31",
+"value": 11.15,
+"summary": null
+},
+{
+"name": "同业毛利率：蔚来",
+"unit": "%",
+"period": "2025",
+"basis": "全年",
+"obs_date": "2025-12-31",
+"value": 15.5,
+"summary": "同期小米汽车及AI分部 24.29%"
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2019",
+"basis": "全年",
+"obs_date": "2019-12-31",
+"value": 27.36
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2020",
+"basis": "全年",
+"obs_date": "2020-12-31",
+"value": 23.64
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2021",
+"basis": "全年",
+"obs_date": "2021-12-31",
+"value": 21.3
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2022",
+"basis": "全年",
+"obs_date": "2022-12-31",
+"value": 21.32
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2023Q1",
+"basis": "单季",
+"obs_date": "2023-03-31",
+"value": 23.36
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2023Q2",
+"basis": "单季",
+"obs_date": "2023-06-30",
+"value": 23.65
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2023Q3",
+"basis": "单季",
+"obs_date": "2023-09-30",
+"value": 24.44
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2023",
+"basis": "全年",
+"obs_date": "2023-12-31",
+"value": 23.55
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2023Q4",
+"basis": "单季",
+"obs_date": "2023-12-31",
+"value": 22.71
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2024Q1",
+"basis": "单季",
+"obs_date": "2024-03-31",
+"value": 21.37
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2024Q2",
+"basis": "单季",
+"obs_date": "2024-06-30",
+"value": 21.68
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2024Q3",
+"basis": "单季",
+"obs_date": "2024-09-30",
+"value": 21.72
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2024",
+"basis": "全年",
+"obs_date": "2024-12-31",
+"value": 21.28
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2024Q4",
+"basis": "单季",
+"obs_date": "2024-12-31",
+"value": 20.38
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2025Q1",
+"basis": "单季",
+"obs_date": "2025-03-31",
+"value": 19.27
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2025Q2",
+"basis": "单季",
+"obs_date": "2025-06-30",
+"value": 20.76
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2025Q3",
+"basis": "单季",
+"obs_date": "2025-09-30",
+"value": 18.59
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2025",
+"basis": "全年",
+"obs_date": "2025-12-31",
+"value": 19.15
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2025Q4",
+"basis": "单季",
+"obs_date": "2025-12-31",
+"value": 18.17
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2026Q1",
+"basis": "单季",
+"obs_date": "2026-03-31",
+"value": 22.0
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2026Q2",
+"basis": "单季",
+"obs_date": "2026-06-30",
+"value": 23.16
+},
+{
+"name": "同业毛利率：传音控股",
+"unit": "%",
+"period": "2026Q3",
+"basis": "单季",
+"obs_date": "2026-09-30",
+"value": 22.66
+}
+]
+}

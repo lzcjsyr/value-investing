@@ -5,9 +5,9 @@
    "unit": "元/千瓦时",
    "category": "经营",
    "source_kind": "公司披露",
-   "basis": "半年累计",
-   "source_name": "https://www.cypc.com.cn（半年报、年报）",
-   "frequency": "半年"
+   "basis": "全年",
+   "source_name": "长江电力年报“电力行业经营性信息”：平均上网电价（元/兆瓦时 ÷ 1000）；半年报不披露，只按年录",
+   "frequency": "年"
   }
  ],
  "stmt_metrics": [],
@@ -24,6 +24,12 @@
    "name": "发电量",
    "unit": "亿千瓦时",
    "source_name": "https://www.cypc.com.cn"
+  },
+  {
+   "name": "实现售电价",
+   "unit": "元/千瓦时",
+   "source_name": "长江电力年报“电力行业经营性信息”：平均上网电价（元/兆瓦时 ÷ 1000）；半年报不披露，只按年录",
+   "frequency": "年"
   }
  ],
  "judgment_metrics": [
@@ -1093,5 +1099,18 @@
  ],
  "company": {
   "scope_breaks": "2016、2023"
+ },
+ "measure": {
+  "时点": [
+   "三峡水库入库流量（Wind）",
+   "三峡水库水位",
+   "三峡水库水位（Wind）",
+   "向家坝水库入库流量（Wind）",
+   "带息负债",
+   "归母净资产",
+   "货币资金",
+   "长江电力收盘价"
+  ],
+  "时期": "其余"
  }
 }

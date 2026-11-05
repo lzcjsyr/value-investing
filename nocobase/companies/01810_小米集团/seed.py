@@ -1189,6 +1189,14 @@ def period_data():
         out.append(dict(company_id=Raw(CO), period='2026Q2', period_end='2026-06-30', period_kind='时点', line_item=name,
                         value=value, unit=unit, yoy=yoy, assessment=None, impact='待判断', status='无需入模', source_id=src(S_Q226),
                         summary='截至 2026 年 6 月底 AIoT 平台连接设备（不含手机、平板）1,160.8 百万台（+17.4%），拥有五件及以上设备的用户 24.6 百万（+20.2%）。'))
+    # 2025 年各季度（2026-11-04 补，季度业绩公告；五件及以上用户数一季度未披露）
+    for p, end, dev, dev_yoy, multi, multi_yoy, s in (
+            ('2025Q1', '2025-03-31', 943.7, 0.201, None, None, S_Q125), ('2025Q2', '2025-06-30', 989.0, 0.203, 20.5, 0.268, S_Q225),
+            ('2025Q3', '2025-09-30', 1035.5, 0.202, 21.6, 0.261, S_Q325), ('2025Q4', '2025-12-31', 1079.2, 0.193, 22.7, None, S_FY25)):
+        for name, unit, value, yoy in ((aiot[0][1], '百万台', dev, dev_yoy), (aiot[1][1], '百万人', multi, multi_yoy)):
+            if value is not None:
+                out.append(dict(company_id=Raw(CO), period=p, period_end=end, period_kind='时点', line_item=name, value=value, unit=unit, yoy=yoy,
+                                assessment=None, impact='待判断', status='无需入模', source_id=src(s), summary=None))
 
     def add(p, end, item, val, unit, yoy=None, summ=None, s=None, kind='单季'):
         if val is None:
@@ -1491,7 +1499,7 @@ VALUES ({CO}, {lit(MODEL_NAME)}, '当前',
   '再加现金、借款、经营所需现金、对外投资等非经营部分（见“经营分部估值”“分部估值项”）。交叉验证：股东回报折现，“股息”＝回购（小米不派现金股息），FCFE 约束，AI 只计成本。'
   '收入＝全球月活×每月活用户年收入。估值用人民币，港股股价按港元兑人民币折算。',
   2025, 2035, {SHARES}, 0.0164, '2026-10-22', (SELECT id FROM vi_metric_base WHERE code = 'CGB10Y.CCDC'), 0.075,
-  361.24, 495.76, 655.87, 2662.19, 1.05, 0.06, 0.10, 0.30,
+  361.24, 495.76, 655.87, 2662.19, 1.05, 0.06, 0.10, NULL,
   {lit('分部估值统一截至 2026-06-30（现金、借款、投资、股本同日）。正常化（手机、AIoT 2028 年，互联网 2027 年）：手机 1,850 亿元×(毛利率 11.8%−费用率 14.0%)、'
        'AIoT 1,300 亿元×(20.0%−14.0%)、互联网 385 亿元×(76.5%−14.0%)，倍数 11.0、13.9、15.4 倍；汽车 2030 年稳态 90 万辆、7%、10 倍、折现率 11%；AI 直接估值 1,000 亿元；情景概率 25%/50%/25%。'
        f'逐年假设（股东回报折现用）由同一套分部参数汇总：2026 年收入约 {REV_NOTE[2026]:,.0f} 亿元，2028 年约 {REV_NOTE[2028]:,.0f} 亿元，2030 年约 {REV_NOTE[2030]:,.0f} 亿元；'
@@ -1625,6 +1633,8 @@ if __name__ == '__main__':
     period_data(); model(); tracking()
     OUT.extend(data_layer_seed.fin_stmt_statements(CO, HERE / 'data' / 'fin_stmt.json'))   # 三大报表原值（报表计算指标读它）
     OUT.extend(data_layer_seed.statements(CO, HERE / 'data' / 'data_layer.json'))   # 关注与数据底稿补充，放最后
+    OUT.extend(data_layer_seed.track_statements(CO, HERE / 'data' / 'track.json'))   # 跟踪脚本的快照（汽车、手机同业毛利率；track.py）
+    OUT.append((HERE / 'research_20261105.sql').read_text())   # 研究增强：同业对比、待办（放在跟踪数据之后）
     from business_bridge import sql as business_bridge_sql
     OUT.append(business_bridge_sql())
     OUT.append('COMMIT;')

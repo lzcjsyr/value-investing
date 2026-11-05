@@ -27,7 +27,7 @@
 flowchart LR
   F[vi_fin_stmt_base] -->|指标公式| S[统一指标序列 vi_series]
   O[vi_observation_base：手录或采集] --> S
-  S --> P[驾驶舱 · 重点指标 · 历史年度]
+  S --> P[驾驶舱 · 定量指标 · 历史年度]
   A[逐年假设 × 情景] --> V[预测计算 → 估值结论]
   B[经营分部估值 + 资产估值与调整] --> W[分部加总估值]
 ```

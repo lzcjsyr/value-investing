@@ -63,7 +63,7 @@ try {
         01698.HK · 股价 {company.latest_price_date || '—'} · 资产基准日 {base.as_of || '—'} · 股本 {number(model.shares, 1)} 亿普通股
       </Typography.Paragraph>
       <PriceSummary price={company.latest_price_raw} date={company.latest_price_date} scenarios={rows.map((r) => ({ name: r.scenario_name, value: r.quote, isBase: r.is_base }))} />
-      <Typography.Paragraph type="secondary" style={{ marginBottom: 12 }}>关注价 · 10% 边际 {number(hkd(base.watch_low))} 港元 / 30% 边际 {number(hkd(base.watch_high))} 港元</Typography.Paragraph>
+      <Typography.Paragraph type="secondary" style={{ marginBottom: 12 }}>关注价 · 安全边际 10%：{number(hkd(base.watch_low))} 港元{base.watch_high != null ? ` / 30% 边际 ${number(hkd(base.watch_high))} 港元` : ''}</Typography.Paragraph>
       <Table
         size="small"
         rowKey="id"

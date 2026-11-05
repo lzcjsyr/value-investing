@@ -371,7 +371,7 @@ TABLES = [
              S('measure', '指标性质', ['时期', '时点'], '时期指标（流量）＝一段时间内累计发生的量，如营业收入、利润、现金流、销量、回购金额；由它们算出的比率（毛利率、ARPPU）也是时期指标，同类时期可以相加（四个单季≈全年）。时点指标（存量）＝某一时刻的状态或规模，如现金、负债、净资产、负债率、股价、零售价、用户数；不能跨期相加，按季度平均的用户数也算时点。时点指标每期的口径只能是“时点”，时期指标不能用“时点”。留空＝还没判定'),
              S('source_kind', '来源方式', ['自动采集', '公司披露', '年报', '手工整理', '报表计算'], '报表计算＝按“报表公式”从三大报表实时算出，不在「数据」里存数', default='自动采集'),
              S('basis', '主口径', ['时点', '单季', '半年累计', '前三季度累计', '全年', '年初至今累计', '滚动四季度'], '最新值、趋势和重点跟踪按这个口径取；每期数据自己的口径记在「数据」上。时点指标只能选“时点”', default='时点'),
-             S('model_field', '模型字段', ['volume', 'revenue', 'cost_of_sales', 'pretax_profit', 'income_tax', 'np_parent', 'minority_profit', 'da', 'finance_cost', 'invest_income', 'equity_income', 'cfo', 'capex', 'investee_cash_div', 'net_borrowing', 'interest_debt', 'cash', 'equity_parent', 'dividend_total', 'dps'], '这个指标是财务模型历史一侧的哪一列（每家公司每列一个指标）；有模型字段的指标列在「预测与估值 / 重点指标」',
+             S('model_field', '模型字段', ['volume', 'revenue', 'cost_of_sales', 'pretax_profit', 'income_tax', 'np_parent', 'minority_profit', 'da', 'finance_cost', 'invest_income', 'equity_income', 'cfo', 'capex', 'investee_cash_div', 'net_borrowing', 'interest_debt', 'cash', 'equity_parent', 'dividend_total', 'dps'], '这个指标是财务模型历史一侧的哪一列（每家公司每列一个指标）；在「数据底稿 / 定量指标」的“模型字段”列标明',
                labels=MODEL_FIELD_LABELS),
              F('formula', '报表公式', 'text', '报表计算的指标填：科目相加减，如“应收账款 + 合同资产”；比率用“÷”，如“（营业收入 − 营业成本）÷ 营业收入”（结果为 %）。科目名与三大报表一致'),
              R('company', '所属公司', 'm2o', 'company', '留空＝宏观数据：不属于任何公司，各公司按需使用'),
