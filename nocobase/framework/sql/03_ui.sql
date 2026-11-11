@@ -160,6 +160,15 @@ CREATE VIEW vi_business AS
 SELECT b.id,
        b.code,
        b.name,
+       b.kind,
+       b.capital_basis,
+       b.driver1_label,
+       b.driver1_unit,
+       b.driver2_label,
+       b.driver2_unit,
+       b.driver3_label,
+       b.driver3_unit,
+       b.driver_scale,
        b.boundary,
        b.cost_allocation,
        b.asset_boundary,
@@ -173,10 +182,10 @@ COMMENT ON VIEW vi_business IS '业务分部（界面视图：输入列＋自动
 CREATE OR REPLACE FUNCTION vi_business_dml() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_business_base (code, name, boundary, cost_allocation, asset_boundary, sort, company_id) VALUES (NEW.code, NEW.name, NEW.boundary, NEW.cost_allocation, NEW.asset_boundary, NEW.sort, NEW.company_id) RETURNING id INTO NEW.id;
+    INSERT INTO vi_business_base (code, name, kind, capital_basis, driver1_label, driver1_unit, driver2_label, driver2_unit, driver3_label, driver3_unit, driver_scale, boundary, cost_allocation, asset_boundary, sort, company_id) VALUES (NEW.code, NEW.name, COALESCE(NEW.kind, '经营'), COALESCE(NEW.capital_basis, '企业'), NEW.driver1_label, NEW.driver1_unit, NEW.driver2_label, NEW.driver2_unit, NEW.driver3_label, NEW.driver3_unit, NEW.driver_scale, NEW.boundary, NEW.cost_allocation, NEW.asset_boundary, NEW.sort, NEW.company_id) RETURNING id INTO NEW.id;
     RETURN NEW;
   ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_business_base SET code = NEW.code, name = NEW.name, boundary = NEW.boundary, cost_allocation = NEW.cost_allocation, asset_boundary = NEW.asset_boundary, sort = NEW.sort, company_id = NEW.company_id WHERE id = OLD.id;
+    UPDATE vi_business_base SET code = NEW.code, name = NEW.name, kind = COALESCE(NEW.kind, '经营'), capital_basis = COALESCE(NEW.capital_basis, '企业'), driver1_label = NEW.driver1_label, driver1_unit = NEW.driver1_unit, driver2_label = NEW.driver2_label, driver2_unit = NEW.driver2_unit, driver3_label = NEW.driver3_label, driver3_unit = NEW.driver3_unit, driver_scale = NEW.driver_scale, boundary = NEW.boundary, cost_allocation = NEW.cost_allocation, asset_boundary = NEW.asset_boundary, sort = NEW.sort, company_id = NEW.company_id WHERE id = OLD.id;
     RETURN NEW;
   ELSE
     DELETE FROM vi_business_base WHERE id = OLD.id;
@@ -185,6 +194,46 @@ BEGIN
 END $$;
 
 CREATE TRIGGER vi_business_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_business FOR EACH ROW EXECUTE FUNCTION vi_business_dml();
+
+DROP VIEW IF EXISTS vi_line CASCADE;
+
+CREATE VIEW vi_line AS
+SELECT b.id,
+       b.code,
+       b.name,
+       b.kind,
+       b.basis,
+       b.driver1_label,
+       b.driver1_unit,
+       b.driver2_label,
+       b.driver2_unit,
+       b.driver3_label,
+       b.driver3_unit,
+       b.driver_scale,
+       b.note,
+       b.sort,
+       b.business_id,
+       b.base_line_id,
+       b.updated_at
+FROM vi_line_base b;
+
+COMMENT ON VIEW vi_line IS '收入与成本项目（界面视图：输入列＋自动计算列）';
+
+CREATE OR REPLACE FUNCTION vi_line_dml() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  IF TG_OP = 'INSERT' THEN
+    INSERT INTO vi_line_base (code, name, kind, basis, driver1_label, driver1_unit, driver2_label, driver2_unit, driver3_label, driver3_unit, driver_scale, note, sort, business_id, base_line_id) VALUES (NEW.code, NEW.name, NEW.kind, NEW.basis, NEW.driver1_label, NEW.driver1_unit, NEW.driver2_label, NEW.driver2_unit, NEW.driver3_label, NEW.driver3_unit, NEW.driver_scale, NEW.note, NEW.sort, NEW.business_id, NEW.base_line_id) RETURNING id INTO NEW.id;
+    RETURN NEW;
+  ELSIF TG_OP = 'UPDATE' THEN
+    UPDATE vi_line_base SET code = NEW.code, name = NEW.name, kind = NEW.kind, basis = NEW.basis, driver1_label = NEW.driver1_label, driver1_unit = NEW.driver1_unit, driver2_label = NEW.driver2_label, driver2_unit = NEW.driver2_unit, driver3_label = NEW.driver3_label, driver3_unit = NEW.driver3_unit, driver_scale = NEW.driver_scale, note = NEW.note, sort = NEW.sort, business_id = NEW.business_id, base_line_id = NEW.base_line_id WHERE id = OLD.id;
+    RETURN NEW;
+  ELSE
+    DELETE FROM vi_line_base WHERE id = OLD.id;
+    RETURN OLD;
+  END IF;
+END $$;
+
+CREATE TRIGGER vi_line_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_line FOR EACH ROW EXECUTE FUNCTION vi_line_dml();
 
 DROP VIEW IF EXISTS vi_biz_model CASCADE;
 
@@ -976,6 +1025,41 @@ BEGIN
 END $$;
 
 CREATE TRIGGER vi_trial_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_trial FOR EACH ROW EXECUTE FUNCTION vi_trial_dml();
+
+DROP VIEW IF EXISTS vi_assumption CASCADE;
+
+CREATE VIEW vi_assumption AS
+SELECT b.id,
+       b.parameter,
+       b.from_year,
+       b.to_year,
+       b.value,
+       b.note,
+       b.model_id,
+       b.business_id,
+       b.line_id,
+       b.scenario_id,
+       b.judgment_id,
+       b.updated_at
+FROM vi_assumption_base b;
+
+COMMENT ON VIEW vi_assumption IS '估值假设（界面视图：输入列＋自动计算列）';
+
+CREATE OR REPLACE FUNCTION vi_assumption_dml() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  IF TG_OP = 'INSERT' THEN
+    INSERT INTO vi_assumption_base (parameter, from_year, to_year, value, note, model_id, business_id, line_id, scenario_id, judgment_id) VALUES (NEW.parameter, NEW.from_year, NEW.to_year, NEW.value, NEW.note, NEW.model_id, NEW.business_id, NEW.line_id, NEW.scenario_id, NEW.judgment_id) RETURNING id INTO NEW.id;
+    RETURN NEW;
+  ELSIF TG_OP = 'UPDATE' THEN
+    UPDATE vi_assumption_base SET parameter = NEW.parameter, from_year = NEW.from_year, to_year = NEW.to_year, value = NEW.value, note = NEW.note, model_id = NEW.model_id, business_id = NEW.business_id, line_id = NEW.line_id, scenario_id = NEW.scenario_id, judgment_id = NEW.judgment_id WHERE id = OLD.id;
+    RETURN NEW;
+  ELSE
+    DELETE FROM vi_assumption_base WHERE id = OLD.id;
+    RETURN OLD;
+  END IF;
+END $$;
+
+CREATE TRIGGER vi_assumption_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_assumption FOR EACH ROW EXECUTE FUNCTION vi_assumption_dml();
 
 DROP VIEW IF EXISTS vi_issue CASCADE;
 

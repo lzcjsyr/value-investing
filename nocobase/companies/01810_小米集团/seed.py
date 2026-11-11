@@ -1633,10 +1633,11 @@ if __name__ == '__main__':
     period_data(); model(); tracking()
     OUT.extend(data_layer_seed.fin_stmt_statements(CO, HERE / 'data' / 'fin_stmt.json'))   # 三大报表原值（报表计算指标读它）
     OUT.extend(data_layer_seed.statements(CO, HERE / 'data' / 'data_layer.json'))   # 关注与数据底稿补充，放最后
+    from business_bridge import sql as business_bridge_sql   # 业务身份与画布（按事实标题前缀关联，须在事实改名之前）
+    OUT.append(business_bridge_sql())
     OUT.extend(data_layer_seed.track_statements(CO, HERE / 'data' / 'track.json'))   # 跟踪脚本的快照（汽车、手机同业毛利率；track.py）
     OUT.append((HERE / 'research_20261105.sql').read_text())   # 研究增强：同业对比、待办（放在跟踪数据之后）
-    from business_bridge import sql as business_bridge_sql
-    OUT.append(business_bridge_sql())
+    OUT.append((HERE / 'facts_events_20261105.sql').read_text())   # 定性事实精简，按“事项 → 侧面”组织（放最后）
     OUT.append('COMMIT;')
     (HERE / 'seed.sql').write_text('\n\n'.join(OUT) + '\n')
     print('seed.sql written,', sum(s.count('\n') for s in OUT), 'lines')

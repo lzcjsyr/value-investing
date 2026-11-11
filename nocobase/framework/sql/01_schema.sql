@@ -184,6 +184,15 @@ CREATE TABLE vi_business_base (
   id bigserial PRIMARY KEY,
   code text,
   name text,
+  kind text DEFAULT '经营',
+  capital_basis text DEFAULT '企业',
+  driver1_label text,
+  driver1_unit text,
+  driver2_label text,
+  driver2_unit text,
+  driver3_label text,
+  driver3_unit text,
+  driver_scale double precision,
   boundary text,
   cost_allocation text,
   asset_boundary text,
@@ -193,11 +202,29 @@ CREATE TABLE vi_business_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_business_base IS '业务分部：商业模式和业务估值共用的业务身份；不随模型或情景重复；被【商业模式拆解】【资产估值与调整】【经营分部估值】【分部逐情景计算】引用。一家公司的一块业务一行。明确业务边界、共享费用分摊与经营资产归属；现金、投资和可单独处置资产在资产估值与调整中处理。';
+COMMENT ON TABLE vi_business_base IS '业务分部：商业模式和业务估值共用的业务身份；不随模型或情景重复；被【收入与成本项目】【商业模式拆解】【资产估值与调整】【经营分部估值】【估值假设】【分部逐情景计算】【估值逐年计算】【收入与成本逐年】引用。一块能单独定价的业务一行，以公司披露的经营分部为准：有自己的客户、资本和费用。共用用户、内容或费用的收入来源不拆成业务，写成同一业务下的收入线（收入与成本项目）。现金、投资和可单独处置的资产在资产估值与调整中处理。';
 
 COMMENT ON COLUMN vi_business_base.code IS '业务编号';
 
 COMMENT ON COLUMN vi_business_base.name IS '业务名称';
+
+COMMENT ON COLUMN vi_business_base.kind IS '类型：总部＝不属于任何一块业务的公司层面费用；每家公司最多一行（可选：经营、总部）';
+
+COMMENT ON COLUMN vi_business_base.capital_basis IS '资本口径：企业＝投入资本与经营利润（利息前），负债在资产负债桥里扣；股权＝净资产与净利润（银行、保险），公式不变（可选：企业、股权）';
+
+COMMENT ON COLUMN vi_business_base.driver1_label IS '驱动1：收入＝驱动1×驱动2×驱动3×换算系数；如 发电量、产能、新签合同、月活';
+
+COMMENT ON COLUMN vi_business_base.driver1_unit IS '驱动1单位';
+
+COMMENT ON COLUMN vi_business_base.driver2_label IS '驱动2：如 电价、开工率、收入转化率、付费率；不用留空';
+
+COMMENT ON COLUMN vi_business_base.driver2_unit IS '驱动2单位';
+
+COMMENT ON COLUMN vi_business_base.driver3_label IS '驱动3：如 吨价、每付费用户月收入；不用留空';
+
+COMMENT ON COLUMN vi_business_base.driver3_unit IS '驱动3单位';
+
+COMMENT ON COLUMN vi_business_base.driver_scale IS '收入换算系数：驱动乘积换算成亿元的系数；单位已对齐时为 1（如 亿千瓦时×元/千瓦时）';
 
 COMMENT ON COLUMN vi_business_base.boundary IS '业务边界';
 
@@ -210,6 +237,61 @@ COMMENT ON COLUMN vi_business_base.sort IS '排序';
 COMMENT ON COLUMN vi_business_base.company_id IS '公司（关联 公司）';
 
 CREATE TRIGGER vi_business_base_touch BEFORE UPDATE ON vi_business_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
+
+CREATE TABLE vi_line_base (
+  id bigserial PRIMARY KEY,
+  code text,
+  name text,
+  kind text,
+  basis text,
+  driver1_label text,
+  driver1_unit text,
+  driver2_label text,
+  driver2_unit text,
+  driver3_label text,
+  driver3_unit text,
+  driver_scale double precision,
+  note text,
+  sort integer,
+  business_id bigint,
+  base_line_id bigint,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+
+COMMENT ON TABLE vi_line_base IS '收入与成本项目：一块业务里的收入线和成本线：收入按各自的驱动算，成本按科目算，不往收入线上分摊费用；引用【业务分部】；被【估值假设】【收入与成本逐年】引用。收入线：驱动（驱动1×驱动2×驱动3×换算系数）、金额，或另一条收入线的比例。成本线：金额、驱动、收入比例（某条收入线或本业务全部收入）、单位成本（×某条收入线的驱动1）。业务有成本线时，经营利润＝收入合计−成本合计；没有时用业务的经营利润率。';
+
+COMMENT ON COLUMN vi_line_base.code IS '编号：收入线 R1、R2…，成本线 C1、C2…；在业务内唯一';
+
+COMMENT ON COLUMN vi_line_base.name IS '项目';
+
+COMMENT ON COLUMN vi_line_base.kind IS '类型（可选：收入、成本）';
+
+COMMENT ON COLUMN vi_line_base.basis IS '计算方式：驱动＝驱动1×驱动2×驱动3×换算系数；金额＝逐年填亿元；收入比例＝比例×基准收入线（留空＝本业务全部收入，只用于成本线）；单位成本＝单位成本×基准收入线的驱动1×换算系数（可选：驱动、金额、收入比例、单位成本）';
+
+COMMENT ON COLUMN vi_line_base.driver1_label IS '驱动1';
+
+COMMENT ON COLUMN vi_line_base.driver1_unit IS '驱动1单位';
+
+COMMENT ON COLUMN vi_line_base.driver2_label IS '驱动2';
+
+COMMENT ON COLUMN vi_line_base.driver2_unit IS '驱动2单位';
+
+COMMENT ON COLUMN vi_line_base.driver3_label IS '驱动3';
+
+COMMENT ON COLUMN vi_line_base.driver3_unit IS '驱动3单位';
+
+COMMENT ON COLUMN vi_line_base.driver_scale IS '换算系数：换算成亿元的系数；留空＝1';
+
+COMMENT ON COLUMN vi_line_base.note IS '口径说明';
+
+COMMENT ON COLUMN vi_line_base.sort IS '排序';
+
+COMMENT ON COLUMN vi_line_base.business_id IS '业务（关联 业务分部）';
+
+COMMENT ON COLUMN vi_line_base.base_line_id IS '基准收入线（关联 收入与成本项目）';
+
+CREATE TRIGGER vi_line_base_touch BEFORE UPDATE ON vi_line_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
 
 CREATE TABLE vi_biz_model_base (
   id bigserial PRIMARY KEY,
@@ -378,7 +460,7 @@ CREATE TABLE vi_moat_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_moat_base IS '竞争壁垒：公司有哪些护城河，各靠什么机制成立；引用【定性事实】【核心论点】【指标】【历史年度】；被【质量自检】引用。每一项候选壁垒：机制、财务体现、证据、反证、复制难度；看起来像壁垒其实不是的（伪壁垒）也要列出。壁垒能不能持续，在核心论点里正反论证并关联到这里。可设自动检查，读取历史年度。';
+COMMENT ON TABLE vi_moat_base IS '竞争壁垒：公司有哪些护城河，各靠什么机制成立；引用【定性事实】【核心论点】【指标】【历史年度】；被【估值引擎检查】【质量自检】引用。每一项候选壁垒：机制、财务体现、证据、反证、复制难度；看起来像壁垒其实不是的（伪壁垒）也要列出。壁垒能不能持续，在核心论点里正反论证并关联到这里。可设自动检查，读取历史年度。';
 
 COMMENT ON COLUMN vi_moat_base.code IS '编号：如 M1';
 
@@ -442,7 +524,7 @@ CREATE TABLE vi_thesis_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_thesis_base IS '核心论点：决定公司价值的关键判断（问题与结论），每条正反辩论后下结论；引用【定性事实】【指标】【历史年度】；被【竞争壁垒】【风险分析】【价投适配度】【假设依据】【质量自检】引用。决定价值的几个关键判断，每条都正反论证：正方立论、反方立论、互相反驳，再给裁决、把握、改判条件和对模型的影响。判断只写这里：没有答案的判断性问题也写成论点，缺的证据写进“决定胜负的证据”，不进“待办清单”。壁垒能否持续的论点关联到竞争壁垒（伪壁垒以外每项壁垒至少一条辩论过的论点）；能量化的改判条件设自动检查，读取历史年度。';
+COMMENT ON TABLE vi_thesis_base IS '核心论点：决定公司价值的关键判断（问题与结论），每条正反辩论后下结论；引用【定性事实】【指标】【历史年度】；被【竞争壁垒】【风险分析】【价投适配度】【假设依据】【估值引擎检查】【质量自检】引用。决定价值的几个关键判断，每条都正反论证：正方立论、反方立论、互相反驳，再给裁决、把握、改判条件和对模型的影响。判断只写这里：没有答案的判断性问题也写成论点，缺的证据写进“决定胜负的证据”，不进“待办清单”。壁垒能否持续的论点关联到竞争壁垒（伪壁垒以外每项壁垒至少一条辩论过的论点）；能量化的改判条件设自动检查，读取历史年度。';
 
 COMMENT ON COLUMN vi_thesis_base.code IS '编号：如 T1';
 
@@ -587,7 +669,7 @@ CREATE TABLE vi_judgment_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_judgment_base IS '假设依据：每个估值参数为什么这样设；引用【定性事实】【核心论点】【指标】；被【风险分析】【逐年假设】【单参数试验】引用。事实 → 判断 → 参数：解释事实和论点如何影响哪个估值参数、改参数的门槛、什么情况下不改。论证本身写在核心论点里，这里只写到参数的传导。';
+COMMENT ON TABLE vi_judgment_base IS '假设依据：每个估值参数为什么这样设；引用【定性事实】【核心论点】【指标】；被【风险分析】【逐年假设】【单参数试验】【估值假设】【估值引擎检查】引用。事实 → 判断 → 参数：解释事实和论点如何影响哪个估值参数、改参数的门槛、什么情况下不改。论证本身写在核心论点里，这里只写到参数的传导。';
 
 COMMENT ON COLUMN vi_judgment_base.code IS '编号：如 J-Q';
 
@@ -628,7 +710,7 @@ CREATE TABLE vi_fin_stmt_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_fin_stmt_base IS '财务报表：公司的季度三大报表原值；被【历史年度】【指标数值】引用。季度完整三大报表（资产负债表、利润表、现金流量表），一行＝公司×报表×报告期×科目，金额为报表原值折亿元。合并报表科目以这里为准，由 tools/fin_stmt.py 取数检验后入库，不手录（A 股来自新浪财报、港股来自东方财富港股报表，都经 akshare）。空白科目＝该期未披露。资产负债表是时点余额；利润表/现金流量表是年初至报告期末的累计数。';
+COMMENT ON TABLE vi_fin_stmt_base IS '财务报表：公司的季度三大报表原值；被【历史年度】【指标数值】【估值引擎检查】引用。季度完整三大报表（资产负债表、利润表、现金流量表），一行＝公司×报表×报告期×科目，金额为报表原值折亿元。合并报表科目以这里为准，由 tools/fin_stmt.py 取数检验后入库，不手录（A 股来自新浪财报、港股来自东方财富港股报表，都经 akshare）。空白科目＝该期未披露。资产负债表是时点余额；利润表/现金流量表是年初至报告期末的累计数。';
 
 COMMENT ON COLUMN vi_fin_stmt_base.period IS '报告期：如 2025Q3；Q4 即年报口径';
 
@@ -771,7 +853,7 @@ CREATE TABLE vi_model_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_model_base IS '估值模型：一家公司一版估值的基本参数；引用【指标】；被【情景】【资产估值与调整】【经营分部估值】【逐年假设】【财务预测】【单参数试验】【预测计算】【资产与资本】【估值结论】【分部逐情景计算】【分部加总估值】【敏感性：折现率×永续增长】【质量自检】引用。一家公司的一版估值模型：基准年、终值年、股本、折现率构成、期初负债与安全边际。';
+COMMENT ON TABLE vi_model_base IS '估值模型：一家公司一版估值的基本参数；引用【指标】；被【情景】【资产估值与调整】【经营分部估值】【逐年假设】【财务预测】【单参数试验】【估值假设】【预测计算】【资产与资本】【估值结论】【分部逐情景计算】【分部加总估值】【敏感性：折现率×永续增长】【估值逐年计算】【收入与成本逐年】【估值结果】【质量自检】引用。一家公司的一版估值模型：基准年、终值年、股本、折现率构成、期初负债与安全边际。';
 
 COMMENT ON COLUMN vi_model_base.name IS '模型名称';
 
@@ -843,7 +925,7 @@ CREATE TABLE vi_scenario_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_scenario_base IS '情景：各情景对逐年假设的整体调整；引用【估值模型】；被【资产估值与调整】【经营分部估值】【预测计算】【估值结论】【分部逐情景计算】【分部加总估值】【质量自检】引用。情景＝对逐年假设的整体调整：业务量、单价、付现成本乘以系数，折现率与永续增长按情景设置。';
+COMMENT ON TABLE vi_scenario_base IS '情景：各情景对逐年假设的整体调整；引用【估值模型】；被【资产估值与调整】【经营分部估值】【估值假设】【预测计算】【估值结论】【分部逐情景计算】【分部加总估值】【估值逐年计算】【收入与成本逐年】【估值结果】【估值引擎检查】【质量自检】引用。情景＝对逐年假设的整体调整：业务量、单价、付现成本乘以系数，折现率与永续增长按情景设置。';
 
 COMMENT ON COLUMN vi_scenario_base.name IS '情景';
 
@@ -895,7 +977,7 @@ CREATE TABLE vi_sotp_item_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_sotp_item_base IS '资产估值与调整：现金、投资、固定资产等独立价值，以及负债和归属调整；标明是否已含在业务价值中；引用【定性事实】【业务分部】【指标】【估值模型】【情景】；被【分部加总估值】引用。总价值＝业务估值＋资产估值与调整净额。单独计价的资产加计、负债扣减；已含业务估值或不计价的项目只作边界说明，计入值为零。固定资产只有在相关盈利、租金或处置收益未计入业务价值时才单独加计。情景留空＝全部，同编号情景专属行优先。';
+COMMENT ON TABLE vi_sotp_item_base IS '资产估值与调整：现金、投资、固定资产等独立价值，以及负债和归属调整；标明是否已含在业务价值中；引用【定性事实】【业务分部】【指标】【估值模型】【情景】；被【分部加总估值】【估值结果】【估值引擎检查】引用。总价值＝业务估值＋资产估值与调整净额。单独计价的资产加计、负债扣减；已含业务估值或不计价的项目只作边界说明，计入值为零。固定资产只有在相关盈利、租金或处置收益未计入业务价值时才单独加计。情景留空＝全部，同编号情景专属行优先。';
 
 COMMENT ON COLUMN vi_sotp_item_base.code IS '编号：如 C1；同一编号可按情景各写一行';
 
@@ -1192,6 +1274,46 @@ COMMENT ON COLUMN vi_trial_base.model_id IS '估值模型（关联 估值模型�
 
 CREATE TRIGGER vi_trial_base_touch BEFORE UPDATE ON vi_trial_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
 
+CREATE TABLE vi_assumption_base (
+  id bigserial PRIMARY KEY,
+  parameter text,
+  from_year integer,
+  to_year integer,
+  value double precision,
+  note text,
+  model_id bigint,
+  business_id bigint,
+  line_id bigint,
+  scenario_id bigint,
+  judgment_id bigint,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+
+COMMENT ON TABLE vi_assumption_base IS '估值假设：统一估值引擎的全部输入：一行一个数，每个数挂一条假设依据；引用【业务分部】【收入与成本项目】【假设依据】【估值模型】【情景】；被【估值逐年计算】【收入与成本逐年】【估值引擎检查】引用。业务×参数×年份区间一行。情景留空＝所有情景，有情景专属行时专属行优先；年份留空＝整个预测期。收入→经营利润→税后经营利润→投入资本→自由现金流；终值的新增投资回报率留空＝门槛。空白＝未知：缺参数的业务不输出价值。';
+
+COMMENT ON COLUMN vi_assumption_base.parameter IS '参数：逐年：驱动1—3、收入（亿元）、经营利润率、经营利润（亿元）、税率、归母比例、资本占用率（投入资本÷收入）、净投资（亿元，与资本占用率二选一）；不分年：期初投入资本（截至日，亿元）、正常化经营利润率（盈利能力价值用，留空取第一个完整年度）、永续增长率、终值新增投资回报率、重置成本（资产价值用，留空取期初投入资本）、直接估值（亿元，无法建模的业务，填了其他参数不再使用）；收入与成本项目的参数：驱动1—3、金额（亿元）、比例、单位成本（可选：驱动1、驱动2、驱动3、收入、经营利润率、经营利润、税率、归母比例、资本占用率、净投资、期初投入资本、正常化经营利润率、永续增长率、终值新增投资回报率、重置成本、直接估值、金额、比例、单位成本）';
+
+COMMENT ON COLUMN vi_assumption_base.from_year IS '起始年：留空＝预测期第一年';
+
+COMMENT ON COLUMN vi_assumption_base.to_year IS '结束年：留空＝终值年';
+
+COMMENT ON COLUMN vi_assumption_base.value IS '数值：比率填小数（0.05＝5%）；金额为亿元';
+
+COMMENT ON COLUMN vi_assumption_base.note IS '说明';
+
+COMMENT ON COLUMN vi_assumption_base.model_id IS '估值模型（关联 估值模型）';
+
+COMMENT ON COLUMN vi_assumption_base.business_id IS '业务（关联 业务分部）';
+
+COMMENT ON COLUMN vi_assumption_base.line_id IS '收入与成本项目（关联 收入与成本项目）';
+
+COMMENT ON COLUMN vi_assumption_base.scenario_id IS '适用情景（关联 情景）';
+
+COMMENT ON COLUMN vi_assumption_base.judgment_id IS '假设依据（关联 假设依据）';
+
+CREATE TRIGGER vi_assumption_base_touch BEFORE UPDATE ON vi_assumption_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
+
 CREATE TABLE vi_issue_base (
   id bigserial PRIMARY KEY,
   code text,
@@ -1388,6 +1510,14 @@ ALTER TABLE vi_business_base ADD FOREIGN KEY (company_id) REFERENCES vi_company_
 
 CREATE INDEX ON vi_business_base (company_id);
 
+ALTER TABLE vi_line_base ADD FOREIGN KEY (business_id) REFERENCES vi_business_base(id) ON DELETE SET NULL;
+
+CREATE INDEX ON vi_line_base (business_id);
+
+ALTER TABLE vi_line_base ADD FOREIGN KEY (base_line_id) REFERENCES vi_line_base(id) ON DELETE SET NULL;
+
+CREATE INDEX ON vi_line_base (base_line_id);
+
 ALTER TABLE vi_biz_model_base ADD FOREIGN KEY (company_id) REFERENCES vi_company_base(id) ON DELETE SET NULL;
 
 CREATE INDEX ON vi_biz_model_base (company_id);
@@ -1500,6 +1630,26 @@ ALTER TABLE vi_trial_base ADD FOREIGN KEY (model_id) REFERENCES vi_model_base(id
 
 CREATE INDEX ON vi_trial_base (model_id);
 
+ALTER TABLE vi_assumption_base ADD FOREIGN KEY (model_id) REFERENCES vi_model_base(id) ON DELETE SET NULL;
+
+CREATE INDEX ON vi_assumption_base (model_id);
+
+ALTER TABLE vi_assumption_base ADD FOREIGN KEY (business_id) REFERENCES vi_business_base(id) ON DELETE SET NULL;
+
+CREATE INDEX ON vi_assumption_base (business_id);
+
+ALTER TABLE vi_assumption_base ADD FOREIGN KEY (line_id) REFERENCES vi_line_base(id) ON DELETE SET NULL;
+
+CREATE INDEX ON vi_assumption_base (line_id);
+
+ALTER TABLE vi_assumption_base ADD FOREIGN KEY (scenario_id) REFERENCES vi_scenario_base(id) ON DELETE SET NULL;
+
+CREATE INDEX ON vi_assumption_base (scenario_id);
+
+ALTER TABLE vi_assumption_base ADD FOREIGN KEY (judgment_id) REFERENCES vi_judgment_base(id) ON DELETE SET NULL;
+
+CREATE INDEX ON vi_assumption_base (judgment_id);
+
 ALTER TABLE vi_issue_base ADD FOREIGN KEY (company_id) REFERENCES vi_company_base(id) ON DELETE SET NULL;
 
 CREATE INDEX ON vi_issue_base (company_id);
@@ -1543,6 +1693,8 @@ ALTER TABLE vi_event_base ADD CONSTRAINT vi_event_uniq UNIQUE (company_id, name)
 ALTER TABLE vi_judgment_base ADD CONSTRAINT vi_judgment_uniq UNIQUE (company_id, code);
 
 ALTER TABLE vi_business_base ADD CONSTRAINT vi_business_uniq UNIQUE (company_id, code);
+
+ALTER TABLE vi_line_base ADD CONSTRAINT vi_line_uniq UNIQUE (business_id, code);
 
 ALTER TABLE vi_biz_model_base ADD CONSTRAINT vi_biz_model_uniq UNIQUE NULLS NOT DISTINCT (company_id, business_id, code);
 

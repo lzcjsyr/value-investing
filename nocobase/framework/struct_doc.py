@@ -14,7 +14,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 T = {t['code']: t for t in spec.TABLES}
 TITLE = documentation.TITLE
 POPUP = ('ChildPageModel', 'ChildPageTabModel')
-COMPANY_GROUPS = ['驾驶舱', '商业模式', '预测与估值', '数据底稿', '研究维护']
+COMPANY_GROUPS = ['驾驶舱', '商业模式', '预测与估值', '经营与财务', '研究维护']
 
 
 def q(sql):

@@ -99,6 +99,7 @@ END LOOP; END $$;''')
     OUT.extend(data_layer_seed.statements(str(CO), DATA / 'data_layer.json'))   # 关注与数据底稿补充，放最后
     OUT.extend(data_layer_seed.track_statements(str(CO), DATA / 'track.json'))   # 跟踪脚本的快照（四家水电同口径对比；track.py）
     OUT.append((HERE / 'research_20261105.sql').read_text())   # 研究增强：同业对比、三季报核对、待办（放在跟踪数据之后）
+    OUT.append((HERE / 'facts_events_20261105.sql').read_text())   # 定性事实精简，按“事项 → 侧面”组织（放最后）
     OUT.append('COMMIT;')
     (HERE / 'seed.sql').write_text('\n\n'.join(OUT) + '\n')
     print('seed.sql written,', sum(s.count('\n') for s in OUT), 'lines')

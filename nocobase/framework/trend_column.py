@@ -59,7 +59,7 @@ def move_after(uid, anchor):
     bp.nb_json('flow-surfaces', 'move-node', '--source-uid', uid, '--target-uid', anchor, '--position', 'after')
 
 
-# 「数据底稿 / 定量指标」各标签（区块 key，见 data_domains.TABS）：趋势列紧跟指标名称；其余指标表格放在最新值（及单位）后
+# 「经营与财务 / 定量指标」各标签（区块 key，见 data_domains.TABS）：趋势列紧跟指标名称；其余指标表格放在最新值（及单位）后
 NAME_FIRST = tuple(k for _, k in data_domains.TABS)
 
 

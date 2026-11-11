@@ -1,4 +1,4 @@
-"""生成 NocoBase 页面：每家公司一个顶层菜单（商业模式/预测与估值/数据底稿/研究维护），共用页面在“框架与后台”。
+"""生成 NocoBase 页面：每家公司一个顶层菜单（商业模式/预测与估值/经营与财务/研究维护），共用页面在“框架与后台”。
 
 表格默认只显示关键列（COLUMNS）；新增/编辑表单只含输入字段与关联；详情弹窗显示全部字段并分组；
 只读报表（预测计算、估值结论、敏感性、质量自检）没有新增/编辑/删除。
@@ -21,14 +21,14 @@ COMPANY_MENU = [  # (二级分组, 图标, [(code, 页面标题)])
     # 商业模式：纯分析（每个观点只写一处）
     ('商业模式', 'SafetyOutlined', [('biz_model', '商业模式拆解'), ('value_chain', '产业链与五力'), ('competitor', '竞争对手'),
                                    ('moat', '竞争壁垒'), ('risk', '风险分析'), ('fit_score', '价投适配度'), ('thesis', '核心论点')]),
+    # 经营与财务：财务报表（定制页 build_finstmt.py，不在此生成）、定量指标（这家公司的全部指标）、定性事实（文字）、来源文档（出处，垫底）
+    ('经营与财务', 'DatabaseOutlined', [('observation', '定量指标'), ('fact', '定性事实')]),
     # 预测与估值：财务模型（可视化总览）在最前；表格页先看假设依据（每个参数为什么这么设），再看结论与模型
     ('预测与估值', 'CalculatorOutlined', [('judgment', '假设依据'), ('valuation', '估值结论'), ('sotp', '分部加总估值'), ('sotp_segment', '经营分部估值'), ('sotp_item', '资产估值与调整'), ('model', '估值模型'), ('scenario', '情景'), ('forecast', '逐年假设'),
                                    ('projection', '预测计算'), ('balance', '资产与资本'), ('sensitivity', '敏感性：折现率×永续增长'),
                                    ('trial', '单参数试验')]),
-    # 数据底稿：财务报表（定制页 build_finstmt.py，不在此生成）、定量指标（这家公司的全部指标）、定性事实（文字）、来源文档（出处，垫底）
-    ('数据底稿', 'DatabaseOutlined', [('observation', '定量指标'), ('fact', '定性事实'), ('source', '来源文档')]),
     # 研究维护：维护这套研究本身（模型与数据检查、待办、改动记录），不是对公司的分析
-    ('研究维护', 'ToolOutlined', [('check', '质量自检'), ('issue', '待办清单'), ('change_log', '变更日志')]),
+    ('研究维护', 'ToolOutlined', [('source', '来源文档'), ('check', '质量自检'), ('issue', '待办清单'), ('change_log', '变更日志')]),
 ]
 # 宏观数据：独立项目（顶层菜单），利率、汇率、商品等不属于任何公司的指标，各公司按需使用（估值参数、重点跟踪、订阅）
 MACRO = ('宏观数据', 'GlobalOutlined', [('metric', '指标'), ('observation', '高频数据'), ('collector', '采集配置')])
@@ -47,7 +47,7 @@ for _code in ('002078.SZ', '601668.SH', '01698.HK', '01810.HK'):
 # 估值模型总览用分部加总专用脚本（build_valuation.VALMODEL_JS）
 SOTP_ONLY = {'01698.HK'}
 SHARED = '框架与后台'
-SHARED_MENU = [('company', '公司')]                      # 直接放在“框架与后台”下；指标在各公司「数据底稿」和「宏观数据」里
+SHARED_MENU = [('company', '公司')]                      # 直接放在“框架与后台”下；指标在各公司「经营与财务」和「宏观数据」里
 SHARED_SUB = ('采集', 'CloudDownloadOutlined',
               [('collector', '采集配置'), ('collect_run', '采集运行'), ('raw_capture', '原始采集记录'), ('observation', '数据（全部指标）')])
 COMPANY_ICON = {'600900.SH': 'ThunderboltOutlined', '002078.SZ': 'FileTextOutlined', '601668.SH': 'BuildOutlined',
@@ -57,7 +57,7 @@ SCOPE = {'thesis': 'company_id', 'event': 'company_id', 'fact': 'company_id', 's
          'business': 'company_id', 'biz_model': 'company_id', 'value_chain': 'company_id', 'competitor': 'company_id', 'moat': 'company_id',
          'fit_score': 'company_id', 'risk': 'company_id', 'sotp_item': 'model.company_id', 'sotp_segment': 'model.company_id', 'sotp': 'company_id',
          'observation': 'metric.company_id',
-         'model': 'company_id', 'scenario': 'model.company_id', 'forecast': 'model.company_id', 'fin_forecast': 'model.company_id', 'trial': 'model.company_id',
+         'model': 'company_id', 'scenario': 'model.company_id', 'forecast': 'model.company_id', 'assumption': 'model.company_id', 'line': 'business.company_id', 'fin_forecast': 'model.company_id', 'trial': 'model.company_id',
          'issue': 'company_id', 'change_log': 'company_id',
          'projection': 'company_id', 'balance': 'company_id', 'valuation': 'company_id', 'sensitivity': 'company_id', 'check': 'company_id'}
 
@@ -68,7 +68,9 @@ COLUMNS = {
     'event': ['name', 'status', 'period', 'fact_count', 'latest_as_of', 'category', 'summary'],
     'fact': ['event', 'title', 'category', 'period', 'as_of', 'verify_status', 'source'],
     'judgment': ['code', 'title', 'parameter', 'status', 'theses', 'facts'],
-    'business': ['code', 'name', 'boundary', 'cost_allocation', 'asset_boundary'],
+    'business': ['code', 'name', 'kind', 'capital_basis', 'driver1_label', 'driver2_label', 'driver3_label', 'driver_scale', 'boundary', 'asset_boundary'],
+    'assumption': ['business', 'line', 'scenario', 'parameter', 'from_year', 'to_year', 'value', 'judgment', 'note'],
+    'line': ['business', 'code', 'name', 'kind', 'basis', 'base_line', 'driver1_label', 'driver2_label', 'driver3_label', 'driver_scale', 'note'],
     'biz_model': ['business', 'code', 'element', 'title', 'metric', 'trend'],
     'value_chain': ['code', 'position', 'participant', 'force', 'power', 'effect', 'trend', 'profit_share'],
     'competitor': ['name', 'relation', 'segment', 'scale_label', 'scale_value', 'scale_unit', 'paying_rate', 'gross_margin', 'growth',
@@ -83,7 +85,7 @@ COLUMNS = {
              'value_per_share', 'value_per_share_quote', 'market_price', 'price_vs_value', 'implied_core_multiple', 'implied_mature_multiple',
              'implied_growth_value', 'weighted_value', 'ddm_value', 'conclusion'],
     'metric': ['name', 'category', 'measure', 'unit', 'basis', 'latest_value', 'latest_period', 'state', 'tracked_by', 'source_kind', 'formula', 'source_name'],
-    # 数据底稿 / 定量指标：每个指标一行，“趋势”小折线由 trend_column.py 补在指标名称后面；逐期数据在指标详情里看和录入；
+    # 经营与财务 / 定量指标：每个指标一行，“趋势”小折线由 trend_column.py 补在指标名称后面；逐期数据在指标详情里看和录入；
     # “模型字段”“重点跟踪”说明这个数被财务模型、假设依据或风险用到
     'metric_series': ['name', 'measure', 'basis', 'latest_period', 'latest_value', 'unit', 'obs_count', 'state', 'model_field', 'tracked_by',
                       'source_kind', 'source_name'],
@@ -112,7 +114,8 @@ COLUMNS = {
     'check': ['code', 'name', 'result', 'detail'],
 }
 SORT = {'observation': [('obs_date', 'desc')], 'raw_capture': [('collected_at', 'desc')], 'collect_run': [('id', 'desc')], 'change_log': [('change_date', 'desc')],
-'event': [('latest_as_of', 'desc')], 'fact': [('event_id', 'asc'), ('as_of', 'asc')], 'metric_series': [('name', 'asc')], 'fit_score': [('sort', 'asc')], 'forecast': [('year', 'asc')],
+'event': [('latest_as_of', 'desc')], 'fact': [('event_id', 'asc'), ('as_of', 'asc')], 'metric_series': [('name', 'asc')], 'fit_score': [('sort', 'asc')], 'forecast': [('year', 'asc')], 'assumption': [('business_id', 'asc'), ('line_id', 'asc'), ('parameter', 'asc'), ('scenario_id', 'asc'), ('from_year', 'asc')],
+        'line': [('business_id', 'asc'), ('sort', 'asc')],
         'projection': [('id', 'asc')], 'sotp': [('id', 'asc')], 'sotp_item': [('code', 'asc'), ('id', 'asc')], 'sotp_segment': [('code', 'asc'), ('id', 'asc')], 'risk': [('code', 'asc')], 'metric': [('category', 'asc'), ('name', 'asc')], 'balance': [('id', 'asc')], 'valuation': [('id', 'asc')], 'sensitivity': [('id', 'asc')], 'check': [('id', 'asc')]}
 
 
@@ -178,7 +181,7 @@ def default_groups(code):
 
 def blueprint(code, page_title, group_route, company=None, scope=None, prefix=None):
     """一个表格页面。company＝{'id','code','name'} 时只显示这家公司的记录（区块数据范围）。"""
-    src = 'metric' if code == 'metric_series' else code    # 数据底稿 / 定量指标是指标表的视角
+    src = 'metric' if code == 'metric_series' else code    # 经营与财务 / 定量指标是指标表的视角
     t = T[src]
     coll = f'vi_{src}'
     report = code in REPORT_CODES
@@ -237,7 +240,7 @@ def blueprint(code, page_title, group_route, company=None, scope=None, prefix=No
                 {'title': '全部事实', 'blocks': [dict(block, key='facts')]}]
         defaults['collections'].update(b['defaults']['collections'])
         assets = b.get('assets')
-    if company and code == 'observation' and not scope:    # 数据底稿 / 定量指标：这家公司的全部指标分四个标签（data_domains.TABS），每个指标一行（趋势小折线）
+    if company and code == 'observation' and not scope:    # 经营与财务 / 定量指标：这家公司的全部指标分四个标签（data_domains.TABS），每个指标一行（趋势小折线）
         import data_domains
         tabs, defaults = [], {'collections': {}}
         for title, key in data_domains.TABS:
@@ -544,11 +547,11 @@ def rebuild(code, company_code=None):
 
 
 COMPANY_TOP = ['驾驶舱'] + [g for g, _, _ in COMPANY_MENU]
-SHARED_ORDER = ['使用说明', '数据结构', '模型公式'] + [t for _, t in SHARED_MENU] + [SHARED_SUB[0]]
+SHARED_ORDER = ['估值地基：Greenwald 三层价值', '使用说明', '数据结构', '模型公式'] + [t for _, t in SHARED_MENU] + [SHARED_SUB[0]]
 
 
 def sort_menu(company_codes=None):
-    """顶层：各公司（按公司 id），最后是“框架与后台”；公司内：驾驶舱、商业模式、预测与估值、数据底稿、研究维护，分组内按菜单定义（预测与估值组内财务模型在最前）。"""
+    """顶层：各公司（按公司 id），最后是“框架与后台”；公司内：驾驶舱、商业模式、预测与估值、经营与财务、研究维护，分组内按菜单定义（预测与估值组内财务模型在最前）。"""
     current_routes = routes()
     current_sort = {}
     def index_sorts(nodes):
@@ -562,9 +565,9 @@ def sort_menu(company_codes=None):
         nb_json('resource', 'update', '--resource', 'desktopRoutes', '--filter-by-tk', str(rid), '--values', json.dumps({'sort': sort}))
     names = [c['name'] for c in companies()]
     sub_order = {g: [t for _, t in pages] for g, _, pages in COMPANY_MENU} | {SHARED_SUB[0]: [t for _, t in SHARED_SUB[2]]}
-    # 可视化页不在 COMPANY_MENU 里：财务数据（build_finstmt.py，季度三大报表）在数据底稿里跟在数据后面；
+    # 可视化页不在 COMPANY_MENU 里：财务数据（build_finstmt.py，季度三大报表）在经营与财务里跟在数据后面；
     # 财务模型（build_finmodel.py）在预测与估值表格页前；定制估值页（build_valuation.py）紧跟其后
-    sub_order['数据底稿'] = ['财务报表', '定量指标', '定性事实', '来源文档']   # 原始报表 → 指标 → 定性 → 出处
+    sub_order['经营与财务'] = ['财务报表', '定量指标', '定性事实']   # 原始报表 → 指标 → 定性 → 出处
     sub_order[DRAFTS] = ['财务模型', '估值'] + sub_order['预测与估值'] + [DRAFTS]
     # 估值模型紧跟财务模型，假设依据放最后（2026-11-05 起五家公司都没有模型底稿子组）
     sub_order['预测与估值'] = ['财务模型', '估值', '估值模型'] + [t for t in sub_order[DRAFTS] if t not in ('财务模型', '估值', '估值模型')]

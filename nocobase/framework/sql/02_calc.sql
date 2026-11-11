@@ -5,7 +5,7 @@ BEGIN;
 
 DROP MATERIALIZED VIEW IF EXISTS vi_fin_history_cache, vi_stmt_cache CASCADE;
 DROP VIEW IF EXISTS vi_metric_value CASCADE;
-DROP VIEW IF EXISTS vi_check, vi_sotp, vi_sotp_segment_calc, vi_sotp_segment_val, vi_sotp_item_calc, vi_moat_calc, vi_risk_calc, vi_sensitivity, vi_valuation, vi_valuation_cf, vi_balance, vi_projection, vi_collect_run_calc, vi_trial_calc,
+DROP VIEW IF EXISTS vi_ve_check, vi_ve_value, vi_ve_business, vi_ve_year, vi_ve_line, vi_ve_grid, vi_check, vi_sotp, vi_sotp_segment_calc, vi_sotp_segment_val, vi_sotp_item_calc, vi_moat_calc, vi_risk_calc, vi_sensitivity, vi_valuation, vi_valuation_cf, vi_balance, vi_projection, vi_collect_run_calc, vi_trial_calc,
   vi_forecast_calc, vi_fin_forecast_calc, vi_scenario_calc, vi_model_calc, vi_series, vi_thesis_calc, vi_fin_metric,
   vi_fin_history, vi_fin_history_calc, vi_collector_calc, vi_raw_capture_calc, vi_observation_calc, vi_obs_current, vi_disclosed,
   vi_metric_calc, vi_company_calc, vi_company_metric, vi_event_calc CASCADE;
@@ -1148,7 +1148,8 @@ WITH sc AS (
   JOIN vi_model_base m ON m.id = s.model_id
   LEFT JOIN vi_company_base co ON co.id = m.company_id
   LEFT JOIN vi_company_calc cc ON cc.id = m.company_id
-  WHERE EXISTS (SELECT 1 FROM vi_sotp_item_base i WHERE i.model_id = m.id)
+  -- 过渡期（2026-11-08 起）：N 开头的资产负债桥项目只属于统一估值引擎（vi_ve_*），旧分部加总不读
+  WHERE EXISTS (SELECT 1 FROM vi_sotp_item_base i WHERE i.model_id = m.id AND i.code NOT LIKE 'N%')
      OR EXISTS (SELECT 1 FROM vi_sotp_segment_base g WHERE g.model_id = m.id)
 ), core AS (
   SELECT sc.*, p.pretax - p.other_contrib + p.interest AS core_pretax,
@@ -1157,7 +1158,7 @@ WITH sc AS (
 ), items AS (
   SELECT DISTINCT ON (c.scenario_id, i.code) c.scenario_id, i.kind, i.treatment, i.business_id, ic.signed_value
   FROM core c
-  JOIN vi_sotp_item_base i ON i.model_id = c.model_id AND (i.scenario_id = c.scenario_id OR i.scenario_id IS NULL)
+  JOIN vi_sotp_item_base i ON i.model_id = c.model_id AND (i.scenario_id = c.scenario_id OR i.scenario_id IS NULL) AND i.code NOT LIKE 'N%'
   JOIN vi_sotp_item_calc ic ON ic.id = i.id
   ORDER BY c.scenario_id, i.code, (i.scenario_id IS NULL)
 ), agg AS (
@@ -1473,6 +1474,399 @@ FROM c CROSS JOIN LATERAL (VALUES
                 || coalesce('；可能性、冲击或估值处理没填：' || risk_incomplete, '')
                 || CASE WHEN risk_unpriced IS NULL AND risk_no_signal IS NULL AND risk_incomplete IS NULL
                         THEN '；重大风险都已计入估值，重大、重要风险都有预警信号' ELSE '' END END)
+) AS x(k, code, name, result, detail);
+
+---------------------------------------------------------------------------
+-- 统一估值引擎（2026-11-08）：价值＝业务价值合计＋资产负债桥。
+--   每块业务：收入→经营利润→税后经营利润（NOPAT）→投入资本→自由现金流＝NOPAT−投入资本增加
+--   只有一个利率：门槛 h（估值模型的要求收益率）。从截至日 D（模型的资产负债日，留空＝基准年末）起按年末折现；
+--   D 所在年只计 D 之后的部分（NOPAT 与净投资按剩余比例 w）。
+--   终值＝NOPAT_T×(1+g)×(1−g÷RONIC)÷(h−g)，RONIC（终值新增投资回报率）留空＝h，即增长不创造价值。
+--   三层：资产价值＝重置成本（留空＝期初投入资本）；盈利能力价值＝正常化 NOPAT÷h；全价值＝现金流折现。
+--   直接估值的业务：全价值＝填写值，资产价值与盈利能力价值都取重置成本或期初投入资本。
+--   空白＝未知：缺参数的业务不输出价值，公司也不输出价值。
+---------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION vi_ve_pv(cf double precision[], tau double precision[], tn double precision[], tg double precision[],
+                                    tr double precision[], ttau double precision[], r double precision)
+RETURNS double precision LANGUAGE sql IMMUTABLE AS $$
+  SELECT CASE WHEN r IS NULL OR r <= -1 OR EXISTS (SELECT 1 FROM unnest(tg) AS g WHERE g >= r) THEN NULL ELSE
+    coalesce((SELECT sum(c / power(1 + r, t)) FROM unnest(cf, tau) AS x(c, t)), 0)
+    + coalesce((SELECT sum(n * (1 - g / coalesce(ro, r)) / (r - g) / power(1 + r, t))
+                FROM unnest(tn, tg, tr, ttau) AS y(n, g, ro, t)), 0) END
+$$;
+
+-- 隐含回报：使 (PV(r)＋常数项)×(1+r)^距今年数÷股本＝市价 的 r（二分法；超出 [max g, 100%] 返回空）
+CREATE OR REPLACE FUNCTION vi_ve_irr(cf double precision[], tau double precision[], tn double precision[], tg double precision[],
+                                     tr double precision[], ttau double precision[], konst double precision,
+                                     shares double precision, elapsed double precision, price double precision)
+RETURNS double precision LANGUAGE plpgsql IMMUTABLE AS $$
+DECLARE lo double precision; hi double precision := 1.0; mid double precision; i int;
+BEGIN
+  IF price IS NULL OR price <= 0 OR shares IS NULL OR shares <= 0 OR konst IS NULL THEN RETURN NULL; END IF;
+  lo := greatest(coalesce((SELECT max(g) FROM unnest(tg) AS g), 0), 0) + 1e-6;
+  IF (vi_ve_pv(cf, tau, tn, tg, tr, ttau, lo) + konst) * power(1 + lo, elapsed) / shares < price THEN RETURN NULL; END IF;
+  IF (vi_ve_pv(cf, tau, tn, tg, tr, ttau, hi) + konst) * power(1 + hi, elapsed) / shares > price THEN RETURN NULL; END IF;
+  FOR i IN 1..60 LOOP
+    mid := (lo + hi) / 2;
+    IF (vi_ve_pv(cf, tau, tn, tg, tr, ttau, mid) + konst) * power(1 + mid, elapsed) / shares > price THEN lo := mid; ELSE hi := mid; END IF;
+  END LOOP;
+  RETURN (lo + hi) / 2;
+END $$;
+
+-- 网格：情景 × 业务 × 年度（有估值假设的业务）
+CREATE VIEW vi_ve_grid AS
+WITH m AS (
+  SELECT m.id AS model_id, m.company_id, m.base_year, m.terminal_year, m.required_return AS h,
+         coalesce(m.sotp_as_of, make_date(m.base_year, 12, 31)) AS as_of
+  FROM vi_model_base m
+  WHERE m.base_year IS NOT NULL AND m.terminal_year IS NOT NULL
+)
+SELECT m.*, s.id AS scenario_id, s.name AS scenario_name, coalesce(s.is_base, false) AS is_base, s.sort AS scenario_sort,
+       b.id AS business_id, b.code AS business_code, b.name AS business_name, coalesce(b.kind, '经营') AS kind,
+       coalesce(b.driver_scale, 1) AS scale, b.sort AS business_sort, y AS year,
+       least(1.0, (make_date(y, 12, 31) - m.as_of) / 365.25) AS w,
+       (make_date(y, 12, 31) - m.as_of) / 365.25 AS tau
+FROM m
+JOIN vi_scenario_base s ON s.model_id = m.model_id
+JOIN vi_business_base b ON b.company_id = m.company_id
+CROSS JOIN generate_series(m.base_year + 1, m.terminal_year) AS y
+WHERE make_date(y, 12, 31) > m.as_of
+  AND EXISTS (SELECT 1 FROM vi_assumption_base a WHERE a.model_id = m.model_id AND a.business_id = b.id);
+
+-- 收入与成本项目：情景 × 项目 × 年度
+--   收入线：驱动＝驱动1×驱动2×驱动3×换算系数；金额；收入比例＝比例×基准收入线（基准须是驱动或金额的收入线）
+--   成本线：金额；驱动；收入比例＝比例×基准收入线（留空＝本业务全部收入）；单位成本＝单位成本×基准收入线的驱动1×换算系数
+CREATE VIEW vi_ve_line AS
+WITH g AS (
+  SELECT g.model_id, g.company_id, g.scenario_id, g.scenario_name, g.business_id, g.year,
+         l.id AS line_id, l.code AS line_code, l.name AS line_name, l.kind, l.basis, l.base_line_id,
+         coalesce(l.driver_scale, 1) AS scale, l.sort
+  FROM vi_ve_grid g JOIN vi_line_base l ON l.business_id = g.business_id
+), p AS (
+  SELECT DISTINCT ON (g.scenario_id, g.line_id, g.year, a.parameter) g.scenario_id, g.line_id, g.year, a.parameter, a.value
+  FROM g JOIN vi_assumption_base a ON a.model_id = g.model_id AND a.line_id = g.line_id
+   AND (a.scenario_id = g.scenario_id OR a.scenario_id IS NULL)
+   AND (a.from_year IS NULL OR a.from_year <= g.year) AND (a.to_year IS NULL OR a.to_year >= g.year)
+  ORDER BY g.scenario_id, g.line_id, g.year, a.parameter, (a.scenario_id IS NULL),
+           coalesce(a.to_year, 9999) - coalesce(a.from_year, 0), a.id DESC
+), v AS (
+  SELECT g.*, x.* FROM g CROSS JOIN LATERAL (
+    SELECT max(value) FILTER (WHERE parameter = '驱动1') AS d1, max(value) FILTER (WHERE parameter = '驱动2') AS d2,
+           max(value) FILTER (WHERE parameter = '驱动3') AS d3, max(value) FILTER (WHERE parameter = '金额') AS amt,
+           max(value) FILTER (WHERE parameter = '比例') AS ratio, max(value) FILTER (WHERE parameter = '单位成本') AS unit_cost
+    FROM p WHERE p.scenario_id = g.scenario_id AND p.line_id = g.line_id AND p.year = g.year) AS x
+), r0 AS (   -- 直接算得出的行：驱动、金额
+  SELECT v.*, CASE WHEN basis = '驱动' THEN d1 * coalesce(d2, 1) * coalesce(d3, 1) * scale WHEN basis = '金额' THEN amt END AS v0
+  FROM v
+), r1 AS (   -- 以收入线为基准的行
+  SELECT r.*, b.v0 AS base_value, b.d1 AS base_d1 FROM r0 r
+  LEFT JOIN r0 b ON b.scenario_id = r.scenario_id AND b.line_id = r.base_line_id AND b.year = r.year
+), rev AS (
+  SELECT scenario_id, business_id, year,
+         sum(CASE WHEN basis = '收入比例' THEN ratio * base_value ELSE v0 END) AS revenue,
+         bool_and(CASE WHEN basis = '收入比例' THEN ratio * base_value ELSE v0 END IS NOT NULL) AS known
+  FROM r1 WHERE kind = '收入' GROUP BY scenario_id, business_id, year
+)
+SELECT r1.scenario_id::bigint * 100000000 + r1.line_id * 10000 + r1.year AS id, r1.model_id, r1.company_id, r1.scenario_id, r1.scenario_name,
+       r1.business_id, r1.line_id, r1.line_code, r1.line_name, r1.kind, r1.basis, r1.sort, r1.year, d1, d2, d3, ratio, unit_cost,
+       CASE WHEN basis IN ('驱动', '金额') THEN v0
+            WHEN basis = '收入比例' THEN ratio * CASE WHEN base_line_id IS NULL AND kind = '成本' THEN CASE WHEN rev.known THEN rev.revenue END ELSE base_value END
+            WHEN basis = '单位成本' THEN unit_cost * base_d1 * scale END AS value
+FROM r1 LEFT JOIN rev ON rev.scenario_id = r1.scenario_id AND rev.business_id = r1.business_id AND rev.year = r1.year;
+
+-- 逐年：情景 × 业务 × 年度
+CREATE VIEW vi_ve_year AS
+WITH g AS (
+  SELECT * FROM vi_ve_grid
+), p AS (   -- 业务层参数（不挂项目的行）：情景专属行优先，其次年份区间更窄的行
+  SELECT DISTINCT ON (g.scenario_id, g.business_id, g.year, a.parameter)
+         g.scenario_id, g.business_id, g.year, a.parameter, a.value
+  FROM g JOIN vi_assumption_base a ON a.model_id = g.model_id AND a.business_id = g.business_id AND a.line_id IS NULL
+   AND (a.scenario_id = g.scenario_id OR a.scenario_id IS NULL)
+   AND (a.from_year IS NULL OR a.from_year <= g.year) AND (a.to_year IS NULL OR a.to_year >= g.year)
+  ORDER BY g.scenario_id, g.business_id, g.year, a.parameter, (a.scenario_id IS NULL),
+           coalesce(a.to_year, 9999) - coalesce(a.from_year, 0), a.id DESC
+), ln AS (
+  SELECT scenario_id, business_id, year,
+         sum(value) FILTER (WHERE kind = '收入') AS line_rev, sum(value) FILTER (WHERE kind = '成本') AS line_cost,
+         count(*) FILTER (WHERE kind = '收入') AS n_rev, count(*) FILTER (WHERE kind = '成本') AS n_cost,
+         bool_and(value IS NOT NULL) FILTER (WHERE kind = '收入') AS rev_known, bool_and(value IS NOT NULL) FILTER (WHERE kind = '成本') AS cost_known
+  FROM vi_ve_line GROUP BY scenario_id, business_id, year
+), v AS (
+  SELECT g.*, x.*, ln.line_rev, ln.line_cost, coalesce(ln.n_rev, 0) AS n_rev, coalesce(ln.n_cost, 0) AS n_cost, ln.rev_known, ln.cost_known
+  FROM g LEFT JOIN ln USING (scenario_id, business_id, year) CROSS JOIN LATERAL (
+    SELECT max(value) FILTER (WHERE parameter = '驱动1') AS d1, max(value) FILTER (WHERE parameter = '驱动2') AS d2,
+           max(value) FILTER (WHERE parameter = '驱动3') AS d3, max(value) FILTER (WHERE parameter = '收入') AS rev_in,
+           max(value) FILTER (WHERE parameter = '经营利润率') AS margin_in, max(value) FILTER (WHERE parameter = '经营利润') AS ebit_in,
+           max(value) FILTER (WHERE parameter = '税率') AS tax, max(value) FILTER (WHERE parameter = '归母比例') AS attrib_in,
+           max(value) FILTER (WHERE parameter = '资本占用率') AS k, max(value) FILTER (WHERE parameter = '净投资') AS ninv,
+           max(value) FILTER (WHERE parameter = '期初投入资本') AS ic0, max(value) FILTER (WHERE parameter = '正常化经营利润率') AS norm_margin,
+           max(value) FILTER (WHERE parameter = '永续增长率') AS g, max(value) FILTER (WHERE parameter = '终值新增投资回报率') AS ronic,
+           max(value) FILTER (WHERE parameter = '重置成本') AS replacement, max(value) FILTER (WHERE parameter = '直接估值') AS direct
+    FROM p WHERE p.scenario_id = g.scenario_id AND p.business_id = g.business_id AND p.year = g.year) AS x
+), c AS (
+  SELECT v.*,
+         CASE WHEN n_rev > 0 THEN CASE WHEN rev_known THEN line_rev END
+              ELSE coalesce(rev_in, d1 * coalesce(d2, 1) * coalesce(d3, 1) * scale) END AS revenue
+  FROM v
+), e AS (
+  SELECT c.*,
+         CASE WHEN n_cost > 0 THEN CASE WHEN cost_known THEN revenue - line_cost END
+              ELSE coalesce(ebit_in, revenue * margin_in) END AS ebit,
+         coalesce(attrib_in, 1) AS attrib,
+         count(k) OVER (PARTITION BY scenario_id, business_id ORDER BY year) AS grp
+  FROM c
+), f AS (
+  SELECT e.*, ebit * (1 - tax) AS nopat,
+         first_value(revenue * k) OVER (PARTITION BY scenario_id, business_id, grp ORDER BY year) AS lvl,
+         sum(CASE WHEN k IS NULL THEN ninv * w ELSE 0 END)
+           OVER (PARTITION BY scenario_id, business_id, grp ORDER BY year ROWS UNBOUNDED PRECEDING) AS inc,
+         bool_and(k IS NOT NULL OR ninv IS NOT NULL)
+           OVER (PARTITION BY scenario_id, business_id, grp ORDER BY year ROWS UNBOUNDED PRECEDING) AS inv_known
+  FROM e
+), i AS (
+  SELECT f.*,
+         CASE WHEN kind = '总部' THEN 0
+              WHEN grp > 0 AND inv_known THEN lvl + coalesce(inc, 0)
+              WHEN inv_known THEN ic0 + coalesce(inc, 0) END AS ic_close
+  FROM f
+), j AS (
+  SELECT i.*, CASE WHEN kind = '总部' THEN 0 ELSE coalesce(lag(ic_close) OVER sb, ic0) END AS ic_open
+  FROM i WINDOW sb AS (PARTITION BY scenario_id, business_id ORDER BY year)
+)
+-- 资本一律是归母口径（与 V09 对账一致：少数股东要么在资产负债桥里扣，要么用归母比例），归母比例只乘利润
+SELECT scenario_id::bigint * 10000000 + business_id * 10000 + year AS id, model_id, company_id, scenario_id, scenario_name, is_base,
+       scenario_sort, business_id, business_code, business_name, kind, business_sort, year, h, as_of, w, tau,
+       d1, d2, d3, revenue, ebit / NULLIF(revenue, 0) AS margin, ebit, tax AS tax_rate, nopat, attrib, k AS capital_intensity,
+       ninv AS net_investment_in, ic_open, ic_close, ic_close - ic_open AS net_investment,
+       nopat * attrib * w - (ic_close - ic_open) AS fcf,
+       CASE WHEN ic_open > 0 THEN nopat * attrib / ic_open END AS roic,
+       1 / power(1 + h, tau) AS discount_factor,
+       (nopat * attrib * w - (ic_close - ic_open)) / power(1 + h, tau) AS fcf_pv,
+       ic0, norm_margin, g, ronic, replacement, direct,
+       direct IS NOT NULL OR (nopat IS NOT NULL AND ic_close IS NOT NULL AND ic_open IS NOT NULL) AS complete,
+       CASE WHEN direct IS NOT NULL THEN NULL ELSE concat_ws('、',
+         CASE WHEN revenue IS NULL AND (n_rev > 0 OR ebit_in IS NULL) THEN CASE WHEN n_rev > 0 THEN '收入线' ELSE '收入或驱动' END END,
+         CASE WHEN ebit IS NULL AND revenue IS NOT NULL THEN CASE WHEN n_cost > 0 THEN '成本线' ELSE '经营利润率' END END,
+         CASE WHEN tax IS NULL THEN '税率' END,
+         CASE WHEN kind <> '总部' AND ic0 IS NULL AND grp = 0 THEN '期初投入资本' END,
+         CASE WHEN kind <> '总部' AND NOT inv_known THEN '资本占用率或净投资' END) END AS missing
+FROM j;
+
+-- 业务：情景 × 业务，三层价值
+CREATE VIEW vi_ve_business AS
+WITH a AS (
+  SELECT scenario_id, business_id, min(model_id) AS model_id, min(company_id) AS company_id,
+         min(scenario_name) AS scenario_name, bool_or(is_base) AS is_base, min(scenario_sort) AS scenario_sort,
+         min(business_code) AS business_code, min(business_name) AS business_name, min(kind) AS kind, min(business_sort) AS business_sort,
+         min(h) AS h, min(as_of) AS as_of, bool_and(complete) AS complete,
+         string_agg(DISTINCT nullif(missing, ''), '、') AS missing_items,
+         string_agg(year::text, '、' ORDER BY year) FILTER (WHERE NOT complete) AS missing_years,
+         sum(fcf_pv) AS explicit_pv, max(year) AS last_year, min(year) FILTER (WHERE w >= 1) AS first_full
+  FROM vi_ve_year GROUP BY scenario_id, business_id
+), b AS (
+  SELECT a.*, t.nopat AS nopat_t, t.attrib AS attrib_t, t.tau AS tau_t, t.ic_open AS ic_open_t, t.g, t.ronic, t.ic0,
+         t.replacement, t.direct, t.revenue AS revenue_t,
+         f.revenue AS revenue_1, f.ebit AS ebit_1, f.tax_rate AS tax_1, f.attrib AS attrib_1, f.norm_margin, f.roic AS roic_1
+  FROM a
+  JOIN vi_ve_year t ON t.scenario_id = a.scenario_id AND t.business_id = a.business_id AND t.year = a.last_year
+  LEFT JOIN vi_ve_year f ON f.scenario_id = a.scenario_id AND f.business_id = a.business_id AND f.year = a.first_full
+), c AS (
+  SELECT b.*,
+         CASE WHEN direct IS NULL AND g < h
+              THEN nopat_t * (1 + g) * attrib_t * (1 - g / coalesce(ronic, h)) / (h - g) / power(1 + h, tau_t) END AS terminal_pv,
+         CASE WHEN direct IS NOT NULL THEN coalesce(replacement, ic0, 0)
+              ELSE coalesce(revenue_1 * norm_margin, ebit_1) * (1 - tax_1) * attrib_1 / h END AS epv_raw,
+         CASE WHEN kind = '总部' THEN 0 ELSE coalesce(replacement * coalesce(attrib_1, 1), ic0) END AS av
+  FROM b
+)
+SELECT scenario_id::bigint * 10000 + business_id AS id, model_id, company_id, scenario_id, scenario_name, is_base, scenario_sort,
+       business_id, business_code, business_name, kind, business_sort, h, as_of,
+       ic0, CASE WHEN direct IS NOT NULL THEN '直接估值' WHEN replacement IS NOT NULL THEN '重置成本' ELSE '账面投入资本' END AS av_basis,
+       av, epv_raw AS epv,
+       CASE WHEN direct IS NOT NULL THEN direct WHEN complete THEN explicit_pv + terminal_pv END AS value,
+       explicit_pv, terminal_pv,
+       CASE WHEN direct IS NULL AND complete THEN terminal_pv / NULLIF(explicit_pv + terminal_pv, 0) END AS terminal_share,
+       epv_raw - av AS franchise_value,
+       CASE WHEN direct IS NOT NULL THEN direct WHEN complete THEN explicit_pv + terminal_pv END - epv_raw AS growth_value,
+       roic_1 AS roic_first, CASE WHEN ic_open_t > 0 THEN nopat_t * attrib_t / ic_open_t END AS roic_terminal,
+       g, coalesce(ronic, h) AS ronic_used, ronic IS NULL AS ronic_default, revenue_1, revenue_t,
+       complete AND (direct IS NOT NULL OR g IS NOT NULL) AS complete,
+       CASE WHEN direct IS NOT NULL THEN '直接估值'
+            WHEN NOT complete THEN '缺 ' || coalesce(missing_items, '') || '（' || coalesce(missing_years, '') || '）'
+            WHEN g IS NULL THEN '缺 永续增长率'
+            WHEN g >= h THEN '永续增长率不低于门槛，不输出价值' END AS note
+FROM c;
+
+-- 公司：情景一行
+CREATE VIEW vi_ve_value AS
+WITH s AS (
+  SELECT s.id AS scenario_id, s.model_id, s.name AS scenario_name, coalesce(s.is_base, false) AS is_base, s.sort, s.probability,
+         m.company_id, m.name AS model_name, co.name AS company_name, m.shares, m.required_return AS h,
+         coalesce(m.sotp_as_of, make_date(m.base_year, 12, 31)) AS as_of, cc.latest_price, cc.latest_price_date
+  FROM vi_scenario_base s
+  JOIN vi_model_base m ON m.id = s.model_id
+  LEFT JOIN vi_company_base co ON co.id = m.company_id
+  LEFT JOIN vi_company_calc cc ON cc.id = m.company_id
+  WHERE EXISTS (SELECT 1 FROM vi_assumption_base a WHERE a.model_id = m.id)
+), items AS (
+  SELECT DISTINCT ON (s.scenario_id, i.code) s.scenario_id, i.treatment, ic.signed_value
+  FROM s JOIN vi_sotp_item_base i ON i.model_id = s.model_id AND (i.scenario_id = s.scenario_id OR i.scenario_id IS NULL)
+  JOIN vi_sotp_item_calc ic ON ic.id = i.id
+  ORDER BY s.scenario_id, i.code, (i.scenario_id IS NULL)
+), br AS (
+  SELECT scenario_id, sum(signed_value) AS bridge, count(*) FILTER (WHERE treatment = '单独计价' AND signed_value IS NULL) AS bridge_unknown
+  FROM items GROUP BY scenario_id
+), bz AS (
+  SELECT scenario_id, sum(value) AS business_value, sum(value) FILTER (WHERE av_basis = '直接估值') AS direct_value,
+         sum(av) AS av, sum(epv) AS epv, sum(terminal_pv) AS terminal_pv, sum(explicit_pv) FILTER (WHERE av_basis <> '直接估值') AS explicit_pv,
+         bool_and(complete) AS complete, string_agg(business_name || '：' || note, '；' ORDER BY business_sort) FILTER (WHERE NOT complete) AS missing
+  FROM vi_ve_business GROUP BY scenario_id
+), cf AS (
+  SELECT y.scenario_id, array_agg(y.fcf ORDER BY y.business_id, y.year) AS cf, array_agg(y.tau ORDER BY y.business_id, y.year) AS tau
+  FROM vi_ve_year y JOIN vi_ve_business b ON b.scenario_id = y.scenario_id AND b.business_id = y.business_id
+  WHERE b.av_basis <> '直接估值' GROUP BY y.scenario_id
+), tv AS (
+  SELECT b.scenario_id, array_agg(t.nopat * (1 + b.g) * t.attrib) AS tn, array_agg(b.g) AS tg,
+         array_agg(b.ronic_used) AS tr, array_agg(t.tau) AS ttau
+  FROM vi_ve_business b JOIN vi_ve_year t ON t.scenario_id = b.scenario_id AND t.business_id = b.business_id
+   AND t.year = (SELECT max(year) FROM vi_ve_year z WHERE z.scenario_id = b.scenario_id AND z.business_id = b.business_id)
+  WHERE b.av_basis <> '直接估值' GROUP BY b.scenario_id
+), x AS (
+  SELECT s.*, bz.business_value, coalesce(bz.direct_value, 0) AS direct_value, bz.av AS av_total, bz.epv AS epv_total,
+         bz.terminal_pv, bz.explicit_pv, coalesce(br.bridge, 0) AS bridge, coalesce(br.bridge_unknown, 0) AS bridge_unknown,
+         bz.complete AND coalesce(br.bridge_unknown, 0) = 0 AND s.shares > 0 AS complete, bz.missing,
+         greatest(0, (vi_today() - s.as_of) / 365.25) AS elapsed, cf.cf, cf.tau, tv.tn, tv.tg, tv.tr, tv.ttau
+  FROM s LEFT JOIN bz ON bz.scenario_id = s.scenario_id LEFT JOIN br ON br.scenario_id = s.scenario_id
+  LEFT JOIN cf ON cf.scenario_id = s.scenario_id LEFT JOIN tv ON tv.scenario_id = s.scenario_id
+), y AS (
+  SELECT x.*, power(1 + h, elapsed) AS roll,
+         CASE WHEN complete THEN business_value + bridge END AS equity_value
+  FROM x
+), z AS (
+  SELECT y.*,
+         equity_value / shares * roll AS value_ps,
+         CASE WHEN complete THEN (av_total + bridge) / shares * roll END AS av_ps,
+         CASE WHEN complete THEN (epv_total + bridge) / shares * roll END AS epv_ps,
+         CASE WHEN complete THEN vi_ve_irr(cf, tau, tn, tg, tr, ttau, direct_value + bridge, shares, elapsed, latest_price) END AS irr,
+         CASE WHEN complete THEN (latest_price * shares / roll - bridge - direct_value) / NULLIF(business_value - direct_value, 0) END AS implied_ratio
+  FROM y
+), w AS (
+  SELECT model_id, CASE WHEN count(*) = count(probability) AND abs(sum(probability) - 1) < 0.005 AND bool_and(complete)
+                        THEN sum(value_ps * probability) END AS weighted_ps
+  FROM z GROUP BY model_id
+)
+SELECT z.scenario_id AS id, z.model_id, company_id, company_name, model_name, scenario_name, is_base, sort, probability, h AS hurdle, as_of,
+       shares, business_value, direct_value, bridge, equity_value, av_total, epv_total,
+       av_ps, epv_ps, value_ps, value_ps - epv_ps AS growth_ps, w.weighted_ps,
+       terminal_pv / NULLIF(business_value - direct_value, 0) AS terminal_share,
+       latest_price AS market_price, latest_price_date AS market_date,
+       latest_price / NULLIF(value_ps, 0) - 1 AS price_vs_value, irr AS implied_irr, irr - h AS irr_spread, implied_ratio,
+       complete,
+       CASE WHEN NOT complete THEN '输入不完整：' || coalesce(missing, CASE WHEN bridge_unknown > 0 THEN '资产负债桥有单独计价项目金额为空' ELSE '股本未填' END)
+            ELSE format('按门槛 %s，今天每股价值 %s 元（资产价值 %s、盈利能力价值 %s，增长部分 %s）。', vi_pct(h, 1), vi_fmt(value_ps),
+                        vi_fmt(av_ps), vi_fmt(epv_ps), vi_fmt(value_ps - epv_ps))
+              || CASE WHEN latest_price IS NULL THEN '暂无市价。'
+                      ELSE format('市价 %s 元%s。', vi_fmt(latest_price),
+                                  CASE WHEN irr IS NULL THEN '，隐含回报超出可解范围'
+                                       ELSE format('，隐含年化回报 %s（门槛 %s）', vi_pct(irr, 1), vi_pct(h, 1)) END)
+                         || CASE WHEN latest_price <= av_ps THEN '市价低于资产价值。'
+                                 WHEN latest_price <= epv_ps THEN '市价在资产价值与盈利能力价值之间：不为增长付钱。'
+                                 WHEN latest_price <= value_ps THEN '市价在盈利能力价值与全价值之间：为部分增长付钱。'
+                                 ELSE '市价高于全价值。' END END END AS conclusion
+FROM z LEFT JOIN w ON w.model_id = z.model_id;
+
+-- 估值引擎检查（模型一行一项）
+CREATE VIEW vi_ve_check AS
+WITH m AS (
+  SELECT m.id AS model_id, m.company_id, co.name AS company_name, m.name AS model_name, m.required_return AS h,
+         coalesce(m.sotp_as_of, make_date(m.base_year, 12, 31)) AS as_of
+  FROM vi_model_base m LEFT JOIN vi_company_base co ON co.id = m.company_id
+  WHERE EXISTS (SELECT 1 FROM vi_assumption_base a WHERE a.model_id = m.id)
+), vb AS (   -- 业务价值只算一次（检查不读 vi_ve_value：那里要解隐含回报，慢）
+  SELECT b.model_id,
+         string_agg(DISTINCT b.scenario_name || '·' || b.business_name || '（' || b.note || '）', '；') FILTER (WHERE NOT b.complete) AS incomplete,
+         string_agg(DISTINCT b.business_name, '、') FILTER (WHERE b.g >= b.h) AS bad_g,
+         sum(b.terminal_pv) FILTER (WHERE b.is_base AND b.av_basis <> '直接估值')
+           / NULLIF(sum(b.value) FILTER (WHERE b.is_base AND b.av_basis <> '直接估值'), 0) AS tshare,
+         sum(b.ic0) FILTER (WHERE b.is_base AND b.kind <> '总部') AS ic0_sum
+  FROM vi_ve_business b GROUP BY b.model_id
+), c AS (
+  SELECT m.*, vb.incomplete, vb.bad_g, vb.tshare, vb.ic0_sum,
+    (SELECT string_agg(DISTINCT bz.name || ' ' || vi_pct(a.value, 0) || coalesce('（' || j.code || '）', '（无依据）'), '；')
+       FROM vi_assumption_base a JOIN vi_business_base bz ON bz.id = a.business_id
+       LEFT JOIN vi_judgment_base j ON j.id = a.judgment_id
+      WHERE a.model_id = m.model_id AND a.parameter = '终值新增投资回报率' AND a.value > m.h
+        AND EXISTS (SELECT 1 FROM vi_assumption_base x WHERE x.model_id = a.model_id AND x.business_id = a.business_id
+                     AND x.parameter = '永续增长率' AND x.value > 0)
+        AND NOT EXISTS (SELECT 1 FROM vi_lnk_judgment_theses jt JOIN vi_thesis_base t ON t.id = jt.thesis_id AND t.status = '成立'
+                         JOIN vi_lnk_moat_theses mt ON mt.thesis_id = t.id JOIN vi_moat_base mo ON mo.id = mt.moat_id AND mo.verdict = '真实壁垒'
+                        WHERE jt.judgment_id = a.judgment_id)) AS ronic_unbacked,
+    (SELECT count(*) FROM vi_assumption_base a WHERE a.model_id = m.model_id AND a.parameter = '终值新增投资回报率' AND a.value > m.h
+        AND EXISTS (SELECT 1 FROM vi_assumption_base x WHERE x.model_id = a.model_id AND x.business_id = a.business_id
+                     AND x.parameter = '永续增长率' AND x.value > 0)) AS n_ronic_high,
+    (SELECT count(*) FROM vi_scenario_base s WHERE s.model_id = m.model_id) AS n_scen,
+    (SELECT count(probability) FROM vi_scenario_base s WHERE s.model_id = m.model_id) AS n_prob,
+    (SELECT sum(probability) FROM vi_scenario_base s WHERE s.model_id = m.model_id) AS prob_sum,
+    (SELECT count(*) FROM vi_assumption_base a WHERE a.model_id = m.model_id) AS n_rows,
+    (SELECT count(*) FROM vi_assumption_base a WHERE a.model_id = m.model_id AND a.judgment_id IS NULL) AS n_nojudg,
+    (SELECT string_agg(DISTINCT coalesce(j.status, '未填'), '、') FROM vi_assumption_base a JOIN vi_judgment_base j ON j.id = a.judgment_id
+      WHERE a.model_id = m.model_id AND coalesce(j.status, '') <> '已采纳') AS judg_status,
+    (SELECT count(DISTINCT a.judgment_id) FROM vi_assumption_base a JOIN vi_judgment_base j ON j.id = a.judgment_id
+      WHERE a.model_id = m.model_id AND coalesce(j.status, '') <> '已采纳') AS n_judg_open,
+    (SELECT string_agg(DISTINCT bz.name || '·' || coalesce((SELECT name FROM vi_line_base WHERE id = a.line_id) || '·', '') || a.parameter, '、')
+       FROM vi_assumption_base a JOIN vi_assumption_base a2
+        ON a2.model_id = a.model_id AND a2.business_id = a.business_id AND a2.parameter = a.parameter AND a2.id > a.id
+       AND a2.scenario_id IS NOT DISTINCT FROM a.scenario_id AND a2.line_id IS NOT DISTINCT FROM a.line_id
+       AND coalesce(a.from_year, 0) <= coalesce(a2.to_year, 9999) AND coalesce(a2.from_year, 0) <= coalesce(a.to_year, 9999)
+       JOIN vi_business_base bz ON bz.id = a.business_id
+      WHERE a.model_id = m.model_id) AS overlap_list,
+    (SELECT string_agg(DISTINCT bz.name, '、') FROM vi_assumption_base a JOIN vi_business_base bz ON bz.id = a.business_id
+      WHERE a.model_id = m.model_id AND bz.company_id IS DISTINCT FROM m.company_id) AS foreign_biz,
+    (SELECT max(f.amount) FROM vi_fin_stmt_base f WHERE f.company_id = m.company_id AND f.stmt = '资产负债表' AND f.period_end = m.as_of
+        AND f.item IN ('归属于母公司股东权益合计', '股东权益')) AS equity_parent,
+    (SELECT sum(CASE WHEN i.kind = '其他调整' THEN ic.amount_used ELSE sign(ic.signed_value) * abs(ic.amount_used) END)
+       FROM vi_sotp_item_base i JOIN vi_sotp_item_calc ic ON ic.id = i.id
+      WHERE i.model_id = m.model_id AND i.treatment = '单独计价' AND ic.signed_value <> 0
+        AND (i.scenario_id IS NULL OR i.scenario_id IN (SELECT id FROM vi_scenario_base WHERE model_id = m.model_id AND is_base))
+        AND NOT EXISTS (SELECT 1 FROM vi_sotp_item_base i2 WHERE i.scenario_id IS NULL AND i2.model_id = i.model_id AND i2.code = i.code
+                         AND i2.scenario_id IN (SELECT id FROM vi_scenario_base WHERE model_id = m.model_id AND is_base))
+        AND ((coalesce(i.valuation_method, '账面价值') = '账面价值' AND i.kind <> '资金汇出成本') OR i.kind = '经营所需现金')) AS bridge_book
+  FROM m LEFT JOIN vb ON vb.model_id = m.model_id
+)
+SELECT model_id * 100 + k AS id, model_id, company_id, company_name, model_name, code, name, result, detail FROM c,
+LATERAL (VALUES
+  (1, 'V01', '参数完整', CASE WHEN incomplete IS NULL THEN '通过' ELSE '阻断' END,
+      coalesce('算不出价值：' || incomplete, '全部业务、全部情景的参数都齐')),
+  (2, 'V02', '永续增长低于门槛', CASE WHEN bad_g IS NULL THEN '通过' ELSE '阻断' END,
+      coalesce('永续增长率不低于门槛 ' || vi_pct(h, 1) || '：' || bad_g, '各业务永续增长率都低于门槛 ' || vi_pct(h, 1))),
+  (3, 'V03', '超额终值回报有壁垒支撑', CASE WHEN ronic_unbacked IS NULL THEN '通过' ELSE '提示' END,
+      CASE WHEN n_ronic_high = 0 THEN '终值新增投资回报率都不高于门槛：增长不创造价值（保守默认）'
+           ELSE coalesce('正增长业务的终值新增投资回报率高于门槛，但依据没有关联“成立”的论点或该论点没有关联“真实壁垒”：' || ronic_unbacked,
+                         n_ronic_high || ' 处高于门槛的终值回报，依据都经“成立”的论点连到“真实壁垒”') END),
+  (4, 'V04', '情景概率', CASE WHEN n_prob = n_scen AND abs(prob_sum - 1) < 0.005 THEN '通过' ELSE '提示' END,
+      CASE WHEN n_prob < n_scen THEN format('%s 个情景中 %s 个没填概率，不输出概率加权价值', n_scen, n_scen - n_prob)
+           ELSE '情景概率合计 ' || vi_pct(prob_sum, 1) END),
+  (5, 'V05', '每个数都有依据', CASE WHEN n_nojudg = 0 THEN '通过' ELSE '阻断' END,
+      CASE WHEN n_nojudg = 0 THEN format('%s 行假设都关联了假设依据', n_rows) ELSE format('%s 行假设没有关联假设依据', n_nojudg) END),
+  (6, 'V06', '依据已采纳', CASE WHEN n_judg_open = 0 THEN '通过' ELSE '提示' END,
+      CASE WHEN n_judg_open = 0 THEN '用到的假设依据都已采纳'
+           ELSE format('%s 条用到的假设依据还不是“已采纳”（%s）：数字可用，但还没最终确认', n_judg_open, judg_status) END),
+  (7, 'V07', '假设行不重叠', CASE WHEN overlap_list IS NULL AND foreign_biz IS NULL THEN '通过' ELSE '阻断' END,
+      coalesce('同一业务、情景、参数的年份区间重叠（取区间更窄、后录入的一行）：' || overlap_list, '')
+      || coalesce('；业务不属于本公司：' || foreign_biz, '')
+      || CASE WHEN overlap_list IS NULL AND foreign_biz IS NULL THEN '没有重叠的假设行' ELSE '' END),
+  (8, 'V08', '终值依赖度', CASE WHEN tshare IS NULL OR tshare <= 0.75 THEN '通过' ELSE '提示' END,
+      CASE WHEN tshare IS NULL THEN '基准情景没有输出价值'
+           ELSE '基准情景终值占经营价值 ' || vi_pct(tshare, 0) || CASE WHEN tshare > 0.75 THEN '（超过 75%：价值主要取决于远期假设）' ELSE '' END END),
+  (9, 'V09', '投入资本与报表对账', CASE WHEN equity_parent IS NULL OR ic0_sum IS NULL THEN '提示'
+                                         WHEN abs(ic0_sum - (equity_parent - coalesce(bridge_book, 0))) <= greatest(1, 0.02 * abs(equity_parent)) THEN '通过'
+                                         ELSE '提示' END,
+      CASE WHEN equity_parent IS NULL THEN '截至日 ' || as_of || ' 没有资产负债表，无法对账'
+           WHEN ic0_sum IS NULL THEN '业务的期初投入资本没填全'
+           ELSE format('各业务期初投入资本合计 %s 亿元；报表口径＝归母权益 %s − 资产负债桥账面项 %s ＝ %s 亿元，相差 %s 亿元（超过归母权益 2%% 时提示：业务资本和资产负债桥有重复或遗漏）',
+                       vi_fmt(ic0_sum, 1), vi_fmt(equity_parent, 1), vi_fmt(bridge_book, 1),
+                       vi_fmt(equity_parent - coalesce(bridge_book, 0), 1), vi_fmt(ic0_sum - (equity_parent - coalesce(bridge_book, 0)), 1)) END)
 ) AS x(k, code, name, result, detail);
 
 COMMIT;

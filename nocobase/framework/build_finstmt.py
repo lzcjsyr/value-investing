@@ -1,4 +1,4 @@
-"""「<公司> / 数据底稿 / 财务报表」定制页：季度完整三大报表的矩阵视图（只读）。
+"""「<公司> / 经营与财务 / 财务报表」定制页：季度完整三大报表的矩阵视图（只读）。
 
 上：关键数据（收入、毛利率、归母净利、经营与自由现金流、净现金、ROE、股东回报）和三张年度趋势图，取各公司的“模型字段”指标
 （vi_metric / vi_metric_value，已按各自报表科目映射成统一口径），五家通用；下：报表明细，长表透视成报表的样子，
@@ -487,7 +487,7 @@ def update(co):
 
 
 def page_body(co, gid=None):
-    """只放三大报表；报表外的财务指标在「数据底稿 / 定量指标 / 财务指标」。"""
+    """只放三大报表；报表外的财务指标在「经营与财务 / 定量指标 / 财务指标」。"""
     return {
         'page': {'title': TITLE, 'documentTitle': f"{co['name']} · {TITLE}"},
         'assets': {'scripts': {KEY: {'version': 'v2', 'code': script(co)}}},
@@ -496,7 +496,7 @@ def page_body(co, gid=None):
 
 def create(co):
     st = state()
-    gid = ensure_group(st, f"{co['name']}/数据底稿", '数据底稿', 'DatabaseOutlined', parent=company_root(st, co))
+    gid = ensure_group(st, f"{co['name']}/经营与财务", '经营与财务', 'DatabaseOutlined', parent=company_root(st, co))
     apply_page(f"{KEY}_{co['code']}", {
         'version': '1', 'mode': 'create',
         'navigation': {'group': {'routeId': gid}, 'item': {'title': TITLE, 'icon': ICON}},
