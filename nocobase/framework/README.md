@@ -525,7 +525,7 @@ python3 struct_doc.py --apply                        # 「数据结构」页：�
 
 「框架与后台 / 数据结构」采用设计说明＋当前数据库清单＋页面映射。设计正文维护在 `database_design.md`，对象与字段清单由 `database_documentation.py` 读取实际数据库目录生成；`struct_doc.py` 负责组合和原地址更新。
 
-- `python3 struct_doc.py --write-local`：更新本地《数据结构说明》《字段字典》，不写应用页面。
+- `python3 struct_doc.py --write-local`：更新 `docs/` 下的[数据结构说明](docs/数据结构说明.md)和[字段字典](docs/字段字典.md)。
 - `python3 struct_doc.py --write-local --apply`：再通过公开 Flow Surfaces 配置接口原地更新说明页，保留页面地址。运行前确认 CLI 指向 local；取数来自本地 Docker 数据库。更新页面后，保存的 doc_structure blueprint 也应同步正文，避免重建时读到旧说明。
 
 2026-11-03 精简：说明只留“东西放在哪里、数字怎么流、两条估值路径、约定、表清单、哪个页面维护哪张表”；去掉变更流水、页面还读取／弹窗、视图依赖、反查表和关系图；字段字典只列录入表的业务字段（不列类型、约束和关联表明细）；不再写 schema 快照（完整结构看 `../db/latest.sql`）。`后台数据结构说明/` 下的旧维护快照已删除，可从 git 历史恢复。
@@ -686,7 +686,7 @@ React＋antd 说明页，不读表；排在“框架与后台”第一位，`bui
 - **页面**：`build_value_engine.py --register` 登记集合（之后重启 app），`build_value_engine.py [公司代码]` 生成「预测与估值 / 估值（统一引擎）」：总览（三情景、三层价值条、业务价值、逐年计算、检查、与旧模型对照）＋估值假设、业务、资产负债桥三个编辑标签。
 - **迁移**：`sql/migrations/2026-11-08_value_engine.sql`、`2026-11-09_value_lines.sql` → `02_calc.sql` → `03_ui.sql`。
   **改了 02_calc.sql 一定紧接着执行 03_ui.sql**：02 开头的 DROP … CASCADE 会连带删掉所有界面视图（vi_company、vi_metric……），不跑 03 整个网站读不出数（2026-11-09 出过一次，约半小时）。
-- **页面标签**：`build_value_engine.py` 用 replace 按位置对应已有标签；加新标签时先加在最后跑一次，再把顺序改回来（否则报“key … is already defined”）。旧引擎结果逐行不变（`vi_valuation` 15 行、`vi_sotp` 6 行；`vi_check` 只有腾讯音乐 C17 因补了情景概率而多出概率加权值），对照在 `../checks/value_engine_20261108/`。
+- **页面标签**：`build_value_engine.py` 用 replace 按位置对应已有标签；加新标签时先加在最后跑一次，再把顺序改回来（否则报“key … is already defined”）。旧引擎结果逐行不变（`vi_valuation` 15 行、`vi_sotp` 6 行；`vi_check` 只有腾讯音乐 C17 因补了情景概率而多出概率加权值），迁移对照见历史提交 `3f25f52` 的 `checks/value_engine_20261108/`。
 - **下一步（未做）**：确认后删除旧表与旧页面（逐年假设、财务预测、经营分部估值、单参数试验，模型与情景上的旧字段，假设依据的“影响参数/影响年份”），驾驶舱与 C01—C17 改读 `vi_ve_*`。
 
 ## 五家公司页面对齐与跟踪脚本（2026-11-05）

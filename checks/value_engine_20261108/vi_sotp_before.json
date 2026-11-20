@@ -1,6 +1,0 @@
-[{"model_id":44,"scenario_name":"悲观","value_per_share":15.052990447054912}, 
- {"model_id":44,"scenario_name":"基准","value_per_share":28.593798609586216}, 
- {"model_id":44,"scenario_name":"乐观","value_per_share":48.461786500315}, 
- {"model_id":57,"scenario_name":"悲观","value_per_share":31.308938276369435}, 
- {"model_id":57,"scenario_name":"基准","value_per_share":45.873366943982646}, 
- {"model_id":57,"scenario_name":"乐观","value_per_share":66.84899297544392}]

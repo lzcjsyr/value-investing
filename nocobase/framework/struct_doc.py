@@ -1,4 +1,4 @@
-"""「框架与后台 / 数据结构」的正文，以及本地 `后台数据结构说明/` 下的两份文件。
+"""「框架与后台 / 数据结构」的正文，以及 framework/docs/ 下的两份本地文档。
 
 设计要点手写在 database_design.md；表清单、行数、“哪个页面维护哪张表”从本地库读，不手写。
 
@@ -137,7 +137,8 @@ if __name__ == '__main__':
     cat = documentation.catalogue(q)
     md = render(cat)
     if '--write-local' in sys.argv:
-        folder = ROOT.parent / '后台数据结构说明'
+        folder = ROOT / 'framework' / 'docs'
+        folder.mkdir(parents=True, exist_ok=True)
         (folder / '数据结构说明.md').write_text(md)
         (folder / '字段字典.md').write_text(documentation.field_dictionary(cat))
     if '--apply' in sys.argv:

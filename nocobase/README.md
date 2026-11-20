@@ -26,7 +26,7 @@ docker compose stop       # 停止
 | `framework/` | **框架层**（可复用）：数据结构定义、SQL 公式、页面与工作流生成脚本。说明见 `framework/README.md` |
 | `macro/` | 宏观数据的种子（利率、汇率、商品；从零重建时第一个灌入），说明见 `macro/README.md` |
 | `companies/600900_长江电力/` | 长江电力的种子数据（`data/` 与 `analysis.py`，`seed.py` 生成 `seed.sql`） |
-| `companies/002078_太阳纸业/` | 太阳纸业的种子数据与原始行情文件（可单独重复执行）；给人读的报告在 `../太阳纸业/投资逻辑与工作台手册.md` |
+| `companies/002078_太阳纸业/` | 太阳纸业的种子数据、行情文件和原始资料，研究手册见 [投资逻辑与工作台手册](companies/002078_太阳纸业/docs/投资逻辑与工作台手册.md) |
 | `db/latest.sql` | 最新整库导出（纯文本，随代码进 git；`./backup.sh` 覆盖） |
 | `backups/` | 本机历史备份（`./backup.sh` 生成，不进 git） |
 | `storage/` | NocoBase 与 PostgreSQL 的数据文件（勿手动修改） |
@@ -58,7 +58,7 @@ docker compose stop       # 停止
 
 **跟踪脚本**（每周或数据发布后跑一次，2026-11-05 起）：`python3 framework/tools/track.py all` 取各公司 `companies/<公司>/track.py` 定义的数——同业同口径利润率（太阳纸业七家造纸、中国建筑六家建筑央企、长江电力四家水电、腾讯音乐对网易云音乐与 Spotify、小米对理想/小鹏/零跑/蔚来与传音）、行业高频（国家统计局建筑业 PMI、房地产投资与新开工、建筑业总产值）、浆价纸价历史与现货、吨经济；快照存 `data/track.json`（进 git），种子最后读同一份快照。
 
-**报表更新**（季报、半年报、年报出来后跑一次）：`python3 framework/tools/fin_stmt.py all <公司代码>` 用 akshare 更新三大报表；来源方式为“报表计算”的指标（收入、毛利率、应收、减值、带息负债等）随之自动更新，不用另外录。
+**报表更新**：其他公司可用 `python3 framework/tools/fin_stmt.py all <公司代码>` 通过 akshare 更新。腾讯音乐先根据公司官方披露更新 `companies/01698_腾讯音乐/data/fin_stmt.json`，再执行 `python3 framework/tools/fin_stmt.py check 01698.HK` 和 `python3 framework/tools/fin_stmt.py load 01698.HK`。财报入库后，报表计算指标随之更新。
 
 **市盈率TTM／市净率**（驾驶舱顶部，单独执行）：`python3 framework/tools/pe_pb.py [公司代码 ...]` 用 akshare 取最新市场口径的市盈率TTM、市净率（A 股东方财富、港股百度股市通），写进公司表的 `pe_ttm`、`pb`、`pe_pb_date`。数据源用自己的收盘价算，日期可能和驾驶舱“市场价”差一两天。迁移 `framework/sql/migrations/2026-10-27b_company_pe_pb.sql`。
 
@@ -112,7 +112,7 @@ docker compose stop       # 停止
 
 - **指标**：一个指标一行，按公司放在「数据底稿 / 指标」第一页（标签：全部｜重点跟踪），宏观指标在「宏观数据」。指标上有主口径、最新值、状态（未记录／待更新／已更新）、被哪些假设依据与风险重点跟踪。后台的全局指标页和单独的「重点跟踪」页已取消。
 - **口径记在每期数据上**：同一指标的单季、累计、全年、时点数据挂在同一个指标下（20 组拆开的指标已合并，112 → 88 个）。
-- **报表计算**：三大报表里有的科目不再另存，指标写“报表公式”（如 `应收账款 + 合同资产`、`（营业收入 − 营业成本）÷ 营业收入`），由 `vi_stmt_series()` 实时算出单季、年初至今累计、全年、滚动四季度、时点。22 个指标改为报表计算，迁移前逐期核对一致（`checks/metric_layer_20261026/stmt_check.json`）。季报出来后只需 `python3 framework/tools/fin_stmt.py all <公司代码>` 更新报表，这些指标自动更新；原 `tools/track_fetch.py` 已删除。
+- **报表计算**：三大报表里有的科目不再另存，指标写“报表公式”（如 `应收账款 + 合同资产`、`（营业收入 − 营业成本）÷ 营业收入`），由 `vi_stmt_series()` 实时算出单季、年初至今累计、全年、滚动四季度、时点。22 个指标改为报表计算，迁移前逐期核对一致（`checks/metric_layer_20261026/stmt_check.json`）。按上文的公司报表更新流程入库后，这些指标自动更新；原 `tools/track_fetch.py` 已删除。
 - **「数据」字段**：删去“经营影响”（654 条中 645 条为默认值）和“处理状态”；“经营解读”（11 条）并入“说明”。
 - 所有数值读取统一走视图 `vi_series`（存的数＋报表算的数）；驾驶舱图表读 `vi_disclosed`。估值 15 行、自动检查 95 行与迁移前一致。维护：迁移 `framework/sql/migrations/2026-10-26g_metric_layer.sql`（`framework/migrate_metric_layer.py` 生成），公共函数 `vi_put_disclosed`、`vi_metric_to_stmt`、`vi_merge_company_metrics` 在 `02_calc.sql`。
 
