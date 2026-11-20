@@ -8,14 +8,14 @@
 cd ~/Desktop/二级市场/价值投资/nocobase
 docker compose up -d      # 启动（需先运行 Docker Desktop）
 docker compose stop       # 停止
-./backup.sh               # 整库导出到 db/latest.sql（进 git）＋ backups/（本机历史）
+./backup.sh               # 导出一份带时间戳的压缩备份到 backups/
 ./psql.sh -c "select * from vi_valuation"   # 直接查库
 ```
 
 - 地址：http://localhost:13000 。只监听本机。
 - 管理员：admin@nocobase.com。初始密码是 NocoBase 默认值，请在右上角个人设置里修改。
 - 电脑关机、休眠或 Docker 未运行时，网站和定时采集都不工作；错过的定时点不会补跑。
-- `storage/`（数据库本体）、`backups/`、`.env` 在 git 仓库目录里但被忽略，不上传 GitHub；上传的是导出文件 `db/latest.sql`，改完数据先 `./backup.sh` 再提交。恢复：`./psql.sh -f db/latest.sql`（会覆盖当前库；新库还要 `ALTER DATABASE nocobase SET jit = off`）。**不要执行 `git clean -fdx` / `-X`**，会把整个数据库删掉；挪动目录前先 `docker compose down`。
+- `storage/`（运行数据）、`backups/`（数据库备份）、`.env` 均由 Git 忽略。移动目录前先停止容器。
 
 ## 目录
 
@@ -27,8 +27,7 @@ docker compose stop       # 停止
 | `macro/` | 宏观数据的种子（利率、汇率、商品；从零重建时第一个灌入），说明见 `macro/README.md` |
 | `companies/600900_长江电力/` | 长江电力的种子数据（`data/` 与 `analysis.py`，`seed.py` 生成 `seed.sql`） |
 | `companies/002078_太阳纸业/` | 太阳纸业的种子数据、行情文件和原始资料，研究手册见 [投资逻辑与工作台手册](companies/002078_太阳纸业/docs/投资逻辑与工作台手册.md) |
-| `db/latest.sql` | 最新整库导出（纯文本，随代码进 git；`./backup.sh` 覆盖） |
-| `backups/` | 本机历史备份（`./backup.sh` 生成，不进 git） |
+| `backups/` | 按时间保存的本机 PostgreSQL 压缩备份 |
 | `storage/` | NocoBase 与 PostgreSQL 的数据文件（勿手动修改） |
 
 数据库里还有一个 `archive_feishu` schema（飞书迁移结构的原始数据）。自 2026-10-24 起项目完全独立：种子、页面、公式、工作流都不读取它，可以删除。
@@ -67,7 +66,22 @@ docker compose stop       # 停止
 抓取失败（连不上网站）和校验失败（拿到响应但解析不出来）分开显示；“原始采集记录”的“抓取情况”列写着 HTTP 状态或连接错误原文。
 
 
-## GitHub 加密云端备份
+## 备份与恢复
+
+在 `nocobase/` 下运行 `./backup.sh`。每次只生成一个 `backups/nocobase_YYYYMMDD_HHMMSS.sql.gz`，时间为北京时间。文件名即可按时间排序。脚本检查压缩完整性后才保存成正式文件。迁移或批量导入前建议做一份。
+
+恢复时选定一个已知可用的备份。从 `nocobase/` 在 Bash 或 zsh 里运行以下命令，SQL 会替换当前工作台数据库里的对象及数据，请先确认目标库。
+
+```sh
+set -o pipefail
+archive=backups/nocobase_YYYYMMDD_HHMMSS.sql.gz
+gzip -t "$archive" &&
+  gzip -dc "$archive" | ./psql.sh --single-transaction --file=-
+```
+
+本机备份包含数据库中的公司数据、账号、页面和工作流。上传附件保存在 `storage/uploads/`。需要跨机器完整恢复时，使用下方包含附件和应用配置的加密备份。
+
+### GitHub 加密云端备份
 
 私有仓库：https://github.com/lzcjsyr/nocobase-value-investing-backup
 
@@ -97,7 +111,7 @@ docker compose stop       # 停止
 - **点开任何指标**（重点指标、宏观数据 / 指标）：趋势图（按口径切换，默认主口径、最近 5 年）、逐期数据（标明录入还是报表计算）、录入一期（报表计算的指标录入的数会覆盖同期算出的数）。脚本在 `framework/metric_detail.py`，读只读视图 `vi_metric_value`。
 - **重复指标合并**：腾讯音乐“在线音乐付费用户”、小米“全球月活跃用户”各有两三个拆开的指标，已合成一个（单位统一为百万人）。
 - 核对：估值、分部加总、95 项自动检查与改动前完全一致；年度数据只有小米 2018 年 ROE 与两项同比新算出（补出了 2015—2017 年）。
-- **备份修复**：`backup.sh` 在导出末尾刷新两个计算缓存，报表计算函数固定查找路径；实测从 `db/latest.sql` 恢复到空库可直接使用。此前的备份恢复后需要手动执行 `REFRESH MATERIALIZED VIEW vi_stmt_cache; REFRESH MATERIALIZED VIEW vi_fin_history_cache;`（若函数报找不到表，先重跑 `framework/sql/02_calc.sql`）。
+- **备份修复**：`backup.sh` 在导出末尾刷新两个计算缓存，报表计算函数固定查找路径；当前恢复步骤见上方「备份与恢复」。此前的备份恢复后需要手动执行 `REFRESH MATERIALIZED VIEW vi_stmt_cache; REFRESH MATERIALIZED VIEW vi_fin_history_cache;`（若函数报找不到表，先重跑 `framework/sql/02_calc.sql`）。
 - 迁移：`framework/sql/migrations/2026-10-26k_drop_fin_history.sql`。
 
 ## 历史年度、资产项目与数据出处（2026-10-26）

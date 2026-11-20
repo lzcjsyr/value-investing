@@ -467,7 +467,7 @@ python3 struct_doc.py --apply                        # 「数据结构」页：�
 - **点开任何指标**（重点指标、宏观数据 / 指标）：趋势图（按口径切换，默认主口径、最近 5 年）、逐期数据（标明录入还是报表计算）、录入一期（报表计算的指标录入的数会覆盖同期算出的数）。脚本在 `framework/metric_detail.py`，读只读视图 `vi_metric_value`。
 - **重复指标合并**：腾讯音乐“在线音乐付费用户”、小米“全球月活跃用户”各有两三个拆开的指标，已合成一个（单位统一为百万人）。
 - 核对：估值、分部加总、95 项自动检查与改动前完全一致；年度数据只有小米 2018 年 ROE 与两项同比新算出（补出了 2015—2017 年）。
-- **备份修复**：`backup.sh` 在导出末尾刷新两个计算缓存，报表计算函数固定查找路径；实测从 `db/latest.sql` 恢复到空库可直接使用。此前的备份恢复后需要手动执行 `REFRESH MATERIALIZED VIEW vi_stmt_cache; REFRESH MATERIALIZED VIEW vi_fin_history_cache;`（若函数报找不到表，先重跑 `framework/sql/02_calc.sql`）。
+- **备份修复**：`backup.sh` 在导出末尾刷新两个计算缓存，报表计算函数固定查找路径；数据库备份的恢复步骤见[备份与恢复](../README.md#备份与恢复)。此前的备份恢复后需要手动执行 `REFRESH MATERIALIZED VIEW vi_stmt_cache; REFRESH MATERIALIZED VIEW vi_fin_history_cache;`（若函数报找不到表，先重跑 `framework/sql/02_calc.sql`）。
 - 迁移：`framework/sql/migrations/2026-10-26k_drop_fin_history.sql`。
 
 ## 历史年度、资产项目与数据出处（2026-10-26）
@@ -528,7 +528,7 @@ python3 struct_doc.py --apply                        # 「数据结构」页：�
 - `python3 struct_doc.py --write-local`：更新 `docs/` 下的[数据结构说明](docs/数据结构说明.md)和[字段字典](docs/字段字典.md)。
 - `python3 struct_doc.py --write-local --apply`：再通过公开 Flow Surfaces 配置接口原地更新说明页，保留页面地址。运行前确认 CLI 指向 local；取数来自本地 Docker 数据库。更新页面后，保存的 doc_structure blueprint 也应同步正文，避免重建时读到旧说明。
 
-2026-11-03 精简：说明只留“东西放在哪里、数字怎么流、两条估值路径、约定、表清单、哪个页面维护哪张表”；去掉变更流水、页面还读取／弹窗、视图依赖、反查表和关系图；字段字典只列录入表的业务字段（不列类型、约束和关联表明细）；不再写 schema 快照（完整结构看 `../db/latest.sql`）。`后台数据结构说明/` 下的旧维护快照已删除，可从 git 历史恢复。
+2026-11-03 精简：说明只留“东西放在哪里、数字怎么流、两条估值路径、约定、表清单、哪个页面维护哪张表”；去掉变更流水、页面还读取／弹窗、视图依赖、反查表和关系图；字段字典只列录入表的业务字段（不列类型、约束和关联表明细）；不再写 schema 快照（当前结构见[数据结构说明](docs/数据结构说明.md)）。`后台数据结构说明/` 下的旧维护快照已删除，可从 git 历史恢复。
 
 本次核验：27 张基础表＋21 张关联表＋58 个普通视图＋2 个计算缓存。集合目录残留三张已删除跟踪关联表的登记，详见说明和 `../checks/database_docs_20261029/`。本次没有清理登记、修改研究数据或调整权限。
 
