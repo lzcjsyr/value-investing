@@ -20,3 +20,6 @@ node_modules/
 # Temporary / logs
 *.log
 *.tmp
+
+# Local Volcengine deployment
+/deployment-volcengine/
