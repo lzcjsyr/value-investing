@@ -8,7 +8,6 @@ from pathlib import Path
 import build_pages as bp
 import build_bizviews as biz
 import build_chainmap as chain
-import build_valuation as val
 import build_overview as overview
 from page_style import wrap_js, column_settings, business_unit_label
 
@@ -114,91 +113,6 @@ def business_script(code, co):
     return js
 
 
-def finance(co, only=None):
-    gid = bp.ensure_group(bp.state(), f'{co["name"]}/预测与估值', '预测与估值', 'CalculatorOutlined', parent=bp.company_root(bp.state(), co))
-    profile = val.PROFILES[co['code']]
-    for key, title, icon, factory in val.PAGES:
-        if only and key not in only:
-            continue
-        sotp_only = key == 'val' and co['code'] in bp.SOTP_ONLY
-        if key == 'val':
-            title = '估值模型'                       # 估值、估值模型、情景合并为一页（腾讯音乐 2026-10-28，其余四家 2026-11-05）
-        script = financial_script(key, co)
-        b = val.body(co, key, title, script)
-        b['page']['enableTabs'] = True
-        b['defaults'] = {'collections': {}}
-        edits = [('fin_forecast' if co['code'] in bp.SOTP_ONLY else 'forecast', '逐年假设（编辑）')] if key == 'assume' else \
-                ([('sotp_segment', '业务估值（编辑）')] if co['code'] in ('01810.HK', '01698.HK') else []) + [('sotp_item', '资产估值与调整（编辑）')] if profile['method'] == 'sotp' else []
-        visuals = []
-        if key == 'val':
-            b['tabs'][0]['title'] = '总览'
-            if not sotp_only:                     # 总览顶部：现价与三情景估值（与腾讯音乐、驾驶舱同一组件）
-                from company_dashboard import price_header_code
-                b['assets']['scripts']['price'] = {'version': 'v2', 'code': price_header_code(co['code'])}
-                b['tabs'][0]['blocks'].insert(0, {'type': 'jsBlock', 'script': 'price'})
-            if not sotp_only:                     # 分部加总专用总览已含情景与参数；其余公司保留情景对比、模型参数两张图
-                visuals = [('scenario', '情景对比'), ('model', '模型参数')]
-            edits += [('scenario', '情景（编辑）'), ('model', '模型参数（编辑）')]
-        for code, label in visuals:               # 图里“切到明细（编辑）”改指本页对应的编辑标签
-            edit_label = '情景（编辑）' if code == 'scenario' else '模型参数（编辑）'
-            js = business_script(code, co).replace(f"const EDIT_TAB = '{biz.EDIT_TAB}';", f"const EDIT_TAB = '{edit_label}';")
-            b['assets']['scripts'][code] = {'version': 'v2', 'code': js.replace('情景见“情景”', '情景见本页“情景（编辑）”')}
-        for table, label in edits:
-            for code, vlabel in visuals:          # 图紧挨着对应的编辑标签
-                if code == table:
-                    b['tabs'].append({'title': vlabel, 'blocks': [{'type': 'jsBlock', 'script': code}]})
-            tab, defaults = native_tab(table, label, gid, co)
-            tab['title'] = label
-            b['tabs'].append(tab)
-            b['defaults']['collections'].update(defaults)
-        pkey = bp.page_key(key, co)
-        # 原财务模型与新页面同名：保留原页面和地址，只转换状态键。
-        st = bp.state()
-        old_key = bp.page_key('finmodel', co)
-        if key == 'assume' and pkey not in st['pages'] and old_key in st['pages']:
-            st['pages'][pkey] = st['pages'].pop(old_key)
-            bp.STATE.write_text(json.dumps(st, ensure_ascii=False, indent=1))
-        if pkey in bp.state()['pages']:
-            live_uids = set()
-            def walk(nodes):
-                for node in nodes:
-                    live_uids.add(node.get('schemaUid'))
-                    walk(node.get('children') or [])
-            walk(bp.routes())
-            if bp.state()['pages'][pkey]['pageSchemaUid'] not in live_uids:
-                st = bp.state(); del st['pages'][pkey]
-                bp.STATE.write_text(json.dumps(st, ensure_ascii=False, indent=1))
-        if pkey in bp.state()['pages']:
-            apply(f'{key}_{co["code"]}', {'version': '1', 'mode': 'replace',
-                 'target': {'pageSchemaUid': bp.state()['pages'][pkey]['pageSchemaUid']}, **b})
-        else:
-            apply(f'{key}_{co["code"]}', {'version': '1', 'mode': 'create',
-                 'navigation': {'group': {'routeId': gid}, 'item': {'title': title, 'icon': icon}}, **b})
-            overview.record(pkey, gid, title)
-        if len(b['tabs']) > 1:
-            bp.order_tabs(pkey, [t['title'] for t in b['tabs']])
-    val.move_drafts(co)
-
-
-def financial_script(key, co):
-    profile = val.PROFILES[co['code']]
-    factory = next(factory for k, _, _, factory in val.PAGES if k == key)
-    js = factory(profile).replace('__COMPANY__', co['code']).replace('__PROFILE__', json.dumps(profile, ensure_ascii=False))
-    if key == 'assume' and co['code'] in bp.SOTP_ONLY:      # 券商研报式财务预测（vi_fin_forecast）
-        return wrap_js(val.FINMODEL_JS.replace('__COMPANY__', co['code']).replace('__PROFILE__', json.dumps(profile, ensure_ascii=False)))
-    if key == 'val' and co['code'] in bp.SOTP_ONLY:
-        return wrap_js(val.VALMODEL_JS.replace('__COMPANY__', co['code']).replace('__PROFILE__', json.dumps(profile, ensure_ascii=False)))
-    if key == 'assume':
-        js = wrap_js(js).replace('没列出的假设（折旧、利息、税率、派息率、资本开支）各情景相同。情景只改现金流，不改门槛，门槛在「估值」页。',
-            '逐年路径与情景系数共同生成预测；分部估值另用各分部参数。所有金额为亿元人民币，每股金额及业务单位以行标题为准。')
-        js = js.replace('改逐年数字到本页「逐年假设（编辑）」，情景到「估值模型」页，改依据到「预测与估值 / 假设依据」。',
-            '改逐年数字请切换本页「逐年假设（编辑）」；情景在「估值模型」页，改依据到「预测与估值 / 假设依据」。')
-    elif profile['method'] == 'irr':
-        js = wrap_js(js).replace('这几年是在一边还债一边多付股息。',
-            '计划分红超过了模型当年的可分配现金，需要复核资本开支、回款和融资假设。')
-    return js
-
-
 def tables(co):
     # 可视化中已有的表不再在菜单重复出现，其余原生表格全部对齐列宽。
     for group, icon, pages in bp.COMPANY_MENU:
@@ -252,7 +166,6 @@ if __name__ == '__main__':
         if '--finish' not in sys.argv:
             business(co)
         if '--business-only' not in sys.argv:
-            finance(co)
             tables(co)
             dashboard(co)
         print('DONE', co['name'], flush=True)

@@ -8,7 +8,7 @@ ratios(sym) → {比率名: {(期间, 口径, 期末): 数值（%）}}
 peer_rows(...) 把同业中位数写成跟踪脚本的数据行，每家的值写在说明里。
 """
 import statistics, warnings
-import akshare as ak
+from akshare_reports import eastmoney_report, sina_report
 
 warnings.filterwarnings('ignore')
 
@@ -22,7 +22,7 @@ def num(v):
 
 
 def sheet(sym, kind):
-    df = ak.stock_financial_report_sina(stock=sym, symbol=kind)
+    df = sina_report(sym, kind)
     return {f'{str(r["报告日"])[:4]}-{str(r["报告日"])[4:6]}-{str(r["报告日"])[6:]}': r for _, r in df.iterrows()}
 
 
@@ -92,7 +92,7 @@ HK_KIND = {'001': ('全年', ''), '002': ('半年累计', 'H1'), '003': ('单季
 
 def hk_margins(code, since=2021):
     """港股同业的毛利率、经营利润率（%）：{'gm'|'op': {(期间, 口径, 期末): 值}}。经营溢利缺失的期次只有毛利率。"""
-    df = ak.stock_financial_hk_report_em(stock=code, symbol='利润表', indicator='报告期')
+    df = eastmoney_report(code, '利润表', 'HK')
     out = {'gm': {}, 'op': {}}
     for (d, kind), g in df.groupby(['REPORT_DATE', 'DATE_TYPE_CODE']):
         d = str(d)[:10]
@@ -113,7 +113,7 @@ def hk_margins(code, since=2021):
 
 def us_margins(code, since=2023):
     """美股同业的单季毛利率、营业利润率（%）（东方财富美股报表，单季报）。"""
-    df = ak.stock_financial_us_report_em(stock=code, symbol='综合损益表', indicator='单季报')
+    df = eastmoney_report(code, '综合损益表', 'US')
     out = {'gm': {}, 'op': {}}
     for d, g in df.groupby('REPORT_DATE'):
         d = str(d)[:10]

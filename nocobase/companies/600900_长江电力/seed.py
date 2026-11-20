@@ -59,9 +59,8 @@ def link(table, pairs):
         OUT.append(f'INSERT INTO {table} ({a}, {b}, "createdAt", "updatedAt") VALUES {vals};')
 
 
-# 写入顺序按外键依赖：指标 → 公司 → 来源 → 事实 → 假设依据 → 历史数据 → 采集 → 模型 → 待办与变更日志
-ORDER = ['metric', 'company', 'source', 'fact', 'judgment', 'collector',
-         'model', 'scenario', 'forecast', 'trial', 'issue', 'change_log']
+# 写入顺序按外键依赖：指标 → 公司 → 来源 → 事实 → 假设依据 → 采集 → 待办与变更日志（估值在 greenwald.sql）
+ORDER = ['metric', 'company', 'source', 'fact', 'judgment', 'collector', 'issue', 'change_log']
 
 
 def base():
@@ -74,13 +73,10 @@ def base():
         if cid is not None:
             OUT.append(f'UPDATE vi_metric_base SET company_id = {cid} WHERE id = {mid};')
     for t in ORDER[2:]:
-        if t == 'model':
-            continue
         if t == 'collector':
             ins('collector', data['collector'])
             ins('raw_capture', json.loads((DATA / 'raw_capture.json').read_text()))
             ins('observation', json.loads((DATA / 'observations.json').read_text()))
-            ins('model', data['model'])
             continue
         ins(t, data[t])
     for table, pairs in data['links'].items():

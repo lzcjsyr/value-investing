@@ -18,8 +18,6 @@ import data_layer_seed
 DATA = HERE / 'data'
 CODE = '601668.SH'
 CO = f"(SELECT id FROM vi_company_base WHERE code = '{CODE}')"
-MODEL_NAME = '中国建筑 DDM＋现金桥接（2025 年末基准）'
-MODEL = f"(SELECT id FROM vi_model_base WHERE company_id = {CO} AND name = '{MODEL_NAME}')"
 SHARES = 413.2039          # 亿股（41,320,390,444 股）
 
 
@@ -127,11 +125,7 @@ WHERE NOT EXISTS (SELECT 1 FROM vi_observation_base o WHERE o.metric_id = {metri
 
 # ================================================================ 清空本公司的研究、数据、模型与跟踪（可重复执行）
 def reset():
-    OUT.append(f"""DELETE FROM vi_trial_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {CO});
-DELETE FROM vi_forecast_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {CO});
-DELETE FROM vi_scenario_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {CO});
-DELETE FROM vi_model_base WHERE company_id = {CO};
-DELETE FROM vi_fit_score_base WHERE company_id = {CO};
+    OUT.append(f"""DELETE FROM vi_fit_score_base WHERE company_id = {CO};
 DELETE FROM vi_moat_base WHERE company_id = {CO};
 DELETE FROM vi_competitor_base WHERE company_id = {CO};
 DELETE FROM vi_value_chain_base WHERE company_id = {CO};
@@ -433,47 +427,47 @@ def theses():
 
 # ================================================================ 判断（事实 → 判断 → 参数）
 JUDGMENTS = [
-    dict(code='J-Q', title='新签合同总额路径（业务量）', parameter='逐年假设·业务量', affected_years='2026—2035，全部情景',
+    dict(code='J-Q', title='新签合同总额路径（业务量）', parameter='逐年假设·业务量',
          fact_layer='新签合同总额 2022—2025 年 39,031、43,241、45,027、45,458 亿元；2026 年 1—9 月 32,890 亿元（−0.1%）；全年目标 4.6 万亿元。房建 +3.5%、基建 −5.8%、境外 +72%、地产 −6.5%。',
          judgment='2026—2028 年 45,400 亿元（与 2025 年持平：2025 年四季度 12,535 亿元，假设今年四季度相当）；2029 年起每年 +1%（城市更新、海外、工业与能源工程对冲住宅与基建下滑）。',
          transmission='营业收入＝新签合同总额×收入转化率。新签每 ±1%，收入约 ±186 亿元，利润总额约 ±12 亿元（按核心利润率 6.5%）。',
          change_threshold='年度新签偏离假设 3% 以上；连续两个季度负增长超过 5%。', no_change_condition='单月波动（经营简报按月披露，季末月份订单集中）。',
          counter_evidence='新签合同额是“签约口径”，包括框架协议和分期确认的大项目，含金量会变化；所以收入要看转化率（J-P），不能只看新签。',
          facts=['2025 年新签合同总额 45,458 亿元', '2026 年 1—9 月新签 32,890 亿元（−0.1%），房建新开工 −18.1%', '订单结构：工业厂房、能源、数据中心增长', '海外：订单高增但毛利率低'], theses=['T1']),
-    dict(code='J-P', title='收入转化率（单价）', parameter='逐年假设·单价', affected_years='2026—2035',
+    dict(code='J-P', title='收入转化率（单价）', parameter='逐年假设·单价',
          fact_layer='营业收入÷新签合同总额：2021 年约 0.536 → 2023 年 0.524 → 2024 年 0.486 → 2025 年 0.458；2026H1 收入 −12%、新签 −1.5%。房建新开工面积 1—9 月 −18.1%，说明 2027 年收入还有下行压力。地产收入（结转）比建筑稳定。',
          judgment='2026 年 0.395（全年收入约 17,930 亿元，−14%：前三季度 −14.3%、三季度单季约 −20%，2026-11-05 由 0.414 下调）；2027 年起 0.405（收入约 18,390 亿元，比 2026 年回升约 2.6%），之后不变。即收入在 2026 年见底。',
          transmission='转化率每 ±0.01，收入约 ±454 亿元、利润总额约 ±30 亿元、归母净利约 ±17 亿元。',
          change_threshold='三季报、年报收入与假设偏离 3% 以上；新开工面积全年降幅超过 15%。', no_change_condition='单季结算节奏波动。',
          counter_evidence='卖方多数假设 2027 年收入恢复正增长（国投 +5.1%），本模型更保守；若新开工继续两位数下滑，2027 年收入可能再降 5% 以上（悲观情景）。',
          facts=['收入转化率从 0.54 降到 0.46，2026 年约 0.41', '2026 年 1—9 月新签 32,890 亿元（−0.1%），房建新开工 −18.1%', '2026 年上半年业绩：营收 −12%、归母 −24%', '2026 年目标与管理层体感'], theses=['T2']),
-    dict(code='J-M', title='核心利润率（付现成本）', parameter='逐年假设·付现成本', affected_years='2026—2035',
+    dict(code='J-M', title='核心利润率（付现成本）', parameter='逐年假设·付现成本',
          fact_layer='核心利润率（不含减值、投资收益）2019—2025 年 7.2%、6.8%、7.1%、6.3%、6.1%、6.2%、6.2%，2026H1 7.1%（下半年历年偏低：2025 年下半年 5.9%）。毛利率 2026H1 +0.9pt，新接项目毛利率 +0.2pt；期间费用率 +0.44pt。',
          judgment='付现成本＝营业收入×(1−核心利润率)：2026—2027 年 6.6%、2028 年起 6.5%（2022—2025 年平均 6.2%，加施工毛利改善约 0.3pt）。',
          transmission='核心利润率每 0.1pt ≈ 利润总额 19 亿元 ≈ 归母净利 10.5 亿元（约 3%）。利润对利润率极其敏感：收入大、利润薄。',
          change_threshold='连续两个半年度偏离假设 0.4pt 以上。', no_change_condition='单季结算结构波动。',
          counter_evidence='收入下降时费用刚性，利润率可能被动下降；地产高价地结转拉低毛利。',
          facts=['核心利润率稳定在 6%—7%', '毛利率：施工提升、地产下滑', '2026 年上半年分业务：房建 −18%、地产 +15%、境外 +27%'], theses=['T3']),
-    dict(code='J-IMP', title='减值与其他净贡献', parameter='逐年假设·其他净贡献', affected_years='2026—2035',
+    dict(code='J-IMP', title='减值与其他净贡献', parameter='逐年假设·其他净贡献',
          fact_layer='资产及信用减值 2021—2025 年 126、136、143、201、259 亿元，2026H1 100 亿元，管理层称全年不超过去年；正常账龄计提约 80—100 亿元/年。投资收益由 2023 年 40 亿元降到 2025 年 8 亿元、2026H1 1.4 亿元（联营企业收益减少、应收保理的终止确认损失）。其他收益、营业外等约 +15—25 亿元/年。',
          judgment='其他净贡献＝投资收益＋其他收益与营业外−减值：2026 年 −215（减值约 235），2027 年 −190，2028 年 −170，2029 年起 −160（减值约 180，即收入的 0.95%，仍是正常账龄的两倍）。',
          transmission='直接进入利润总额；减值每多 100 亿元，归母净利约少 56 亿元。',
          change_threshold='年度减值偏离假设 40 亿元以上；风险房企、PPP 或地方政府出现新的大额违约。', no_change_condition='季度间计提节奏不均（四季度通常最多）；风险用情景和单参数试验展示，不机械改长期假设。',
          counter_evidence='减值是估计，可能不足，也可能回转（正反论证见 T8）。',
          facts=['减值：2025 年 258.7 亿元，2026 年上半年 100.4 亿元', '减值构成：风险房企近半，地产存货与 PPP/BT 有上升苗头', '应收账款＋合同资产 10,045 亿元，两年增长 70%'], theses=['T8', 'T4', 'T7']),
-    dict(code='J-DA', title='折旧摊销', parameter='逐年假设·折旧摊销', affected_years='2026—2035',
+    dict(code='J-DA', title='折旧摊销', parameter='逐年假设·折旧摊销',
          fact_layer='折旧摊销（含使用权资产、特许经营权摊销）2023—2025 年 186、190、192 亿元；2026H1 105 亿元。',
          judgment='2026—2027 年 205 亿元、2028 年 206 亿元，之后每年 +1%。',
          transmission='折旧是非现金费用：减少利润，所有者收益里按归母比例加回；维持资本开支按同样的归母口径扣除。',
          change_threshold='半年报折旧与假设偏差超过 5%。', no_change_condition='—',
          counter_evidence='特许经营权（PPP）进入运营后摊销会增加。', facts=['资本开支约 260 亿元，投资性现金流出 300 亿元级'], theses=['T5']),
-    dict(code='J-TAX', title='所得税率与少数股东占比', parameter='逐年假设·所得税率、少数股东占比', affected_years='2026—2035',
+    dict(code='J-TAX', title='所得税率与少数股东占比', parameter='逐年假设·所得税率、少数股东占比',
          fact_layer='有效税率 2023—2025 年 20.9%、21.6%、23.7%，2026H1 24.3%（减值部分不能抵税）；少数股东损益占净利润 26.2%、26.4%、27.1%，2026H1 25.0%。',
          judgment='所得税率 24%；少数股东占比 26%。',
          transmission='归母净利＝利润总额×0.76×0.74≈利润总额×56%。税率每 +1pt，归母净利约 −2.4 亿元。',
          change_threshold='年报偏离 2 个百分点以上。', no_change_condition='—',
          counter_evidence='地产（中海，非全资）利润占比变化会改变少数股东占比。', facts=['少数股东分走约 27% 的净利润'], theses=['T6']),
-    dict(code='J-WC', title='营运资本占用（现金桥接最大判断）', parameter='逐年假设·营运资本增加', affected_years='2026—2035',
+    dict(code='J-WC', title='营运资本占用（现金桥接最大判断）', parameter='逐年假设·营运资本增加',
          fact_layer='经营现金流 2025 年 205 亿元，归母口径约 150 亿元，而归母净利＋归母折旧约 530 亿元：营运资本吃掉约 380 亿元。应收＋合同资产两年增长 70%。2026 年管理层称经营现金流将高于 2025 年。PPP 不再新增、存量进入回款期。',
          judgment='营运资本增加（归母口径）：2026 年 340、2027 年 260、2028 年 200、2029 年 150、2030 年 120、2031 年 100、2032 年起 80 亿元。即经营现金流逐年改善，但长期仍有营运资本占用（业主付款越来越慢是行业常态）。',
          transmission='所有者收益＝归母净利＋归母折旧−非现金收益＋投资分红−营运资本增加−维持资本。营运资本每多占用 100 亿元，当年 FCFE 少 100 亿元，约等于一年的股息。',
@@ -481,45 +475,45 @@ JUDGMENTS = [
          no_change_condition='上半年经营现金流为负（季节性：年底集中收款）；化债退坡的影响用情景展示，不机械改长期假设。',
          counter_evidence='若化债退坡、地方财政更紧，占用可能长期维持在 300 亿元以上，那时股息只能靠借款支付（现金支持价值会明显低于股息贴现价值）。',
          facts=['经营现金流：连续六年为正但远低于利润', '应收账款＋合同资产 10,045 亿元，两年增长 70%', '化债回款：2025 年政府债权回收超 1,500 亿元', 'PPP：2023-11 后不再新增，存量权益投资 5,951 亿元'], theses=['T4']),
-    dict(code='J-CAPEX', title='维持与扩张资本（归母口径）', parameter='逐年假设·维持/扩张资本', affected_years='2026—2035',
+    dict(code='J-CAPEX', title='维持与扩张资本（归母口径）', parameter='逐年假设·维持/扩张资本',
          fact_layer='购建长期资产 2023—2025 年 341、198、262 亿元；投资活动净现金流 −265、−25、−322 亿元；PPP 不再新增，但城市更新、运营资产、海外投建营、REITs 盘活在推进。少数股东占约 26%。',
          judgment='维持资本＝折旧×74%（约 152—163 亿元，归母口径）；扩张资本（城市更新、运营资产、存量 PPP 尾款，归母口径）2026 年 110、2027 年 100、2028 年 90、2029 年 80，2030 年起 70 亿元。',
          transmission='FCFE＝所有者收益−扩张资本＋净借款。',
          change_threshold='新的大额投资模式（如城市更新一二级联动）或年度投资活动净流出超过 400 亿元。', no_change_condition='REITs、ABS 盘活带来的单年回流。',
          counter_evidence='城市更新回报周期 5—10 年，管理层自称“权宜之计”；若规模化，扩张资本会更高。', facts=['资本开支约 260 亿元，投资性现金流出 300 亿元级', 'PPP：2023-11 后不再新增，存量权益投资 5,951 亿元'], theses=['T4', 'T5']),
-    dict(code='J-DEBT', title='净借款与债务成本', parameter='逐年假设·净借款、平均债务成本', affected_years='2026—2035',
+    dict(code='J-DEBT', title='净借款与债务成本', parameter='逐年假设·净借款、平均债务成本',
          fact_layer='带息负债 2025 年末 9,405 亿元、2026H1 9,498 亿元；财务费用（净额）÷平均带息负债约 1.96%；2026H1 综合融资成本 −14bp、利息费用 −9.8%，但汇兑损失使财务费用 +4.3%。',
          judgment='净借款：2026 年 +200、2027 年 +110、2028 年 +40、2029 年 0、2030 年 −50、2031 年 −70、2032—2035 年 −80 亿元（2035 年约 9,315 亿元）。平均债务成本（按财务费用净额口径）2026 年 1.95%、2027 年 1.90%、2028 年起 1.85%。',
          transmission='利息＝(期初＋期末)÷2×债务成本；2026—2028 年的净借款部分用于支付股息（见判断 J-PAYOUT 的现金检验）。',
          change_threshold='年报带息负债偏离 300 亿元以上；利率环境变化超过 50bp。', no_change_condition='季度续借。',
          counter_evidence='净借款是合并口径，少数股东那部分借款本不该全部计入股东现金；本模型净借款小，影响有限。', facts=['带息负债 9,405 亿元，净负债 5,289 亿元'], theses=['T5']),
-    dict(code='J-PAYOUT', title='派息率路径', parameter='逐年假设·派息率', affected_years='2026—2035，全部情景',
+    dict(code='J-PAYOUT', title='派息率路径', parameter='逐年假设·派息率',
          fact_layer='每股股息 2023—2025 年度约 0.2715 元，派息率 2018 年约 18%→2025 年 28.7%（约 +1.5pt/年）；管理层：2026 年度每股派息保持平稳；国资委市值管理、破净整改（2027 年底时限）。',
          judgment='2026 年 34.54%（每股 0.2718 元不变：三季报后归母下调到约 325 亿元，派息率随之由 31.44% 升到 34.54%，2026-11-05），2027 年起回到 32%、每年 +1pt，2035 年 40%（2027 年派息率低于 2026 年，但每股股息仍上升到约 0.277 元）。'
                   '理由：经营现金流在改善、扩张资本下降，2029 年起 FCFE 高于计划股息；终值按永续增长 1% 计，可持续派息率远高于 40%，40% 偏保守。',
          transmission='股息＝归母净利×派息率。2026—2028 年 FCFE 刚好覆盖股息（含每年 40—200 亿元净借款）；之后有余。',
          change_threshold='年度分红方案；股东回报规划；派息率偏离假设 5pt 以上。', no_change_condition='单次特别分红或回购。',
          counter_evidence='若现金流不改善，公司可能维持每股股息但继续借钱支付；也可能为保住资产负债率而不提高派息。另一面：按本路径，留存的 60%—65% 利润几乎不带来利润增长，“资产与资本”页的 ROE 从 2026 年 7.2% 降到 2035 年 5.7%，低于资本成本——这正是 PB 0.37 倍的含义；派息率越高，股东价值越高。', facts=['分红：每股 0.2718 元、派息率 28.7%，2026 年度保持平稳', '控股股东增持 5—10 亿元，持股 57.73%'], theses=['T6', 'T7']),
-    dict(code='J-R', title='折现率与风险溢价', parameter='估值模型·无风险利率、风险溢价；情景·折现率', affected_years='全部',
+    dict(code='J-R', title='折现率与风险溢价', parameter='估值模型·无风险利率、风险溢价；情景·折现率',
          fact_layer='中债 10 年 1.64%（2026-10-21）。长江电力用 3.5% 风险溢价（类债资产），太阳纸业 6%（周期制造业）。中国建筑：资产负债率 77%、应收与 PPP 资产质量不透明、少数股东与永续债多层分配，但央企信用、业务分散、股息稳定。',
          judgment='风险溢价 6.0%，基准折现率 7.6%；悲观 8.6%、乐观 7.1%。'
                   '要求收益率（你自己的门槛）仍为 6%；无风险利率取高频数据里的中债 10 年期国债到期收益率（建模时 1.64%，2026-10-21），加风险溢价后按 0.1 个百分点四舍五入（7.64% → 7.6%）。',
          transmission='折现率 +1pt，基准价值约 −0.7 元（见单参数试验与敏感性表）。',
          change_threshold='长期利率变化超过 0.5 个百分点；资产质量出现系统性问题。', no_change_condition='单日利率波动。',
          counter_evidence='风险溢价是判断，不是测量值；市场给的 PB 0.37 倍隐含的要求回报约 9%。', facts=[], theses=['T8']),
-    dict(code='J-TV', title='终值与永续增长', parameter='情景·永续增长率', affected_years='2035 年之后',
+    dict(code='J-TV', title='终值与永续增长', parameter='情景·永续增长率',
          fact_layer='中国建筑业总量已过峰值（住宅新开工持续下降），增量来自城市更新、工业与能源工程、海外；模型 2029 年起收入 +1%/年。',
          judgment='基准永续增长 1.0%（名义，略低于通胀，即实物量缓慢收缩）；悲观 0%、乐观 2%。',
          transmission='终值＝终年股息×(1＋g)÷(r−g)，占价值约 57%；g 每 +0.5pt，价值约 +0.3 元。',
          change_threshold='行业长期需求判断改变。', no_change_condition='—',
          counter_evidence='若地产与基建投资长期萎缩，名义增长可能为负。', facts=['2026 年目标与管理层体感'], theses=['T2']),
-    dict(code='J-CB', title='现金桥接其余项目', parameter='逐年假设·非现金收益、投资分红、其他现金调整、最低现金补充', affected_years='2026—2035',
+    dict(code='J-CB', title='现金桥接其余项目', parameter='逐年假设·非现金收益、投资分红、其他现金调整、最低现金补充',
          fact_layer='权益法投资收益 2024—2025 年 36.5、17.1 亿元，2026H1 5.6 亿元；收到投资分红 2024—2025 年 25.7、21.7 亿元；货币资金 4,117 亿元。',
          judgment='非现金收益扣除 8、收到投资分红 15、其他现金调整 0、最低现金补充 0（现金充足）。减值不在现金桥接里加回：视为应收款的真实损失。',
          transmission='所有者收益＝归母净利＋归母折旧−非现金收益＋投资分红＋其他调整−营运资本增加−维持资本。',
          change_threshold='联营企业收益或分红大幅变化。', no_change_condition='季度波动。',
          counter_evidence='若减值事后被收回（转回），现金会比本模型多。', facts=['经营现金流：连续六年为正但远低于利润'], theses=['T4']),
-    dict(code='J-REL', title='相对估值对照（不进入模型）', parameter='—（对照用）', affected_years='—',
+    dict(code='J-REL', title='相对估值对照（不进入模型）', parameter='—（对照用）',
          fact_layer='PB 约 0.37 倍、PE 约 5 倍、股息率约 6%；卖方目标价 4.8—6.87 元；2026-07 本地研究的 PE＋PB＋DDM 加权中枢 5.27 元。',
          judgment='相对估值只做对照：PB 0.37 倍说明市场不相信账面资产（应收、合同资产、PPP、地产存货）能按账面变现；绝对估值以股息贴现＋现金支持口径为准。',
          transmission='—', change_threshold='—', no_change_condition='—',
@@ -531,7 +525,7 @@ def judgments():
     rows = []
     for j in JUDGMENTS:
         rows.append(dict(company_id=Raw(CO), code=j['code'], title=j['title'], fact_layer=j['fact_layer'], judgment=j['judgment'],
-                         transmission=j['transmission'], parameter=j['parameter'], affected_years=j['affected_years'],
+                         transmission=j['transmission'], parameter=j['parameter'],
                          change_threshold=j['change_threshold'], no_change_condition=j['no_change_condition'],
                          counter_evidence=j['counter_evidence'], status='已形成建议' if j['code'] != 'J-REL' else '研究规则'))
     ins('judgment', rows)
@@ -960,63 +954,6 @@ YEAR_NOTE = {
 }
 
 
-def model():
-    OUT.append(f"""INSERT INTO vi_model_base (company_id, name, status, method, base_year, terminal_year, shares, rf, rf_date, rf_metric_id, erp,
-  opening_debt, opening_op_assets, opening_lt_invest, opening_equity, opening_minority, required_return, margin_low, margin_high, notes)
-VALUES ({CO}, {lit(MODEL_NAME)}, '当前',
-  '股息贴现（DDM）为主，FCFE 约束股息作交叉验证。收入＝新签合同总额×收入转化率；利润＝核心利润（不含减值）−折旧−利息＋其他净贡献（减值为负）；现金桥接按归母口径。相对估值（PE/PB）只做对照，见判断 J-REL。股价只进对比层。',
-  2025, 2035, {SHARES}, 0.0164, '2026-10-21', (SELECT id FROM vi_metric_base WHERE code = 'CGB10Y.CCDC'), 0.06,
-  9405.30, 1063.38, 1265.67, 4825.56, 3309.53, 0.06, 0.10, NULL,
-  {lit('经营假设（2026-10-22）：新签合同总额 2026—2028 年 45,400 亿元、之后 +1%/年；收入转化率 2026 年 0.395（2026-11-05 按三季报由 0.414 下调）、之后 0.405（收入 2026 年约 17,930 亿元见底、2027 年约 18,390 亿元）；'
-       '核心利润率 6.6%→6.5%；其他净贡献（主要是减值）−215→−160 亿元；折旧 205 亿元起 +1%/年；所得税率 24%；少数股东占比 26%；派息率 31.4%→40%（每年 +1pt）。'
-       '现金桥接按归母口径：营运资本占用 340→80 亿元、维持资本＝折旧×74%、扩张资本 110→70 亿元、净借款 2026—2028 年 +350 亿元后逐年还 50—80 亿元。'
-       '期初资产负债取 2025 年末合并报表（东方财富 F10）：经营性长期资产 1,063.38＝固定资产 535.11＋在建工程 50.99＋无形资产 423.93＋使用权资产 53.35；'
-       '长期股权投资 1,265.67；归母权益 4,825.56（普通股口径＝4,915.56 扣母公司永续债 90）；少数股东权益 3,309.53（含子公司永续债约 608）；'
-       '带息负债 9,405.30（短期借款＋一年内到期非流动负债＋长期借款＋应付债券＋租赁负债）。风险溢价 6.0%（与太阳纸业相同）。安全边际两档并列 10%/30%。')})
-;""")
-    scen = [
-        ('悲观', False, 1, 0.95, 0.98, 0.936, 0.086, 0.0, '收入继续下滑、利润率与减值都不改善',
-         '新签 −5%、收入转化率 −2%（收入较基准 −6.9%），付现成本系数 0.936 → 核心利润率约 6.0%（2023—2025 年水平）；减值不变；折现率 8.6%，永续增长 0。'
-         '营运资本与资本开支不随之下降，所以 FCFE 不足以支付计划股息，现金支持价值明显低于股息贴现价值。'),
-        ('基准', True, 2, 1, 1, 1, None, 0.01, '收入 2027 年见底；减值逐步回落；每股股息不降',
-         '逐年假设原样；折现率＝无风险利率＋风险溢价（7.6%），永续增长 1%。2026—2028 年归母约 357—359 亿元，比卖方一致预期低 3%—8%。'),
-        ('乐观', False, 3, 1.03, 1.02, 1.0472, 0.071, 0.02, '新开工回升、化债推进、利润率回到 2019—2021 年水平',
-         '新签 +3%、收入转化率 +2%（收入较基准 +5.1%），付现成本系数 1.0472 → 核心利润率约 6.8%；折现率 7.1%，永续增长 2%。'),
-    ]
-    ins('scenario', [dict(model_id=Raw(MODEL), name=s[0], is_base=s[1], sort=s[2], volume_factor=s[3], price_factor=s[4], cost_factor=s[5],
-                          discount_rate=s[6], terminal_growth=s[7], nature=s[8], description=s[9]) for s in scen])
-    rows = []
-    for y in YEARS:
-        rev = VOL[y] * PRICE[y]
-        rows.append(dict(model_id=Raw(MODEL), year=y, volume=VOL[y], price=PRICE[y], cash_cost=round(rev * (1 - MARGIN[y]), 2),
-                         depreciation=DA[y], other_contrib=OTHER[y], tax_rate=TAX, minority_share=MINO, payout=PAYOUT[y],
-                         net_borrowing=NB[y], cost_of_debt=COD[y], noncash_gain_deduct=8, investee_cash_div=15, other_cash_adj=0,
-                         wc_increase=WC[y], maint_capex=round(DA[y] * (1 - MINO), 1), growth_capex=GROWTH[y], min_cash_topup=0,
-                         operating_status='建议值待核验', cash_status='建议值待核验',
-                         note=f"营业收入约 {rev:,.0f} 亿元；核心利润率 {MARGIN[y] * 100:.1f}%；维持资本＝折旧×74%（归母口径）。" + YEAR_NOTE.get(y, '')))
-    ins('forecast', rows)
-    links = [('forecast_facts', 'forecast_id', 'fact_id', 'vi_fact_base', 'title',
-              ['2026 年上半年业绩：营收 −12%、归母 −24%', '2026 年 1—9 月新签 32,890 亿元（−0.1%），房建新开工 −18.1%', '减值：2025 年 258.7 亿元，2026 年上半年 100.4 亿元',
-               '经营现金流：连续六年为正但远低于利润']),
-             ('forecast_judgments', 'forecast_id', 'judgment_id', 'vi_judgment_base', 'code',
-              ['J-Q', 'J-P', 'J-M', 'J-IMP', 'J-WC', 'J-CAPEX', 'J-DEBT', 'J-PAYOUT', 'J-TAX'])]
-    for lt, a, b, tbl, key, keys in links:
-        OUT.append(f"""INSERT INTO vi_lnk_{lt} ({a}, {b}, "createdAt", "updatedAt")
-SELECT f.id, x.id, now(), now() FROM vi_forecast_base f JOIN {tbl} x ON x.company_id = {CO} AND x.{key} IN ({', '.join(lit(k) for k in keys)})
-WHERE f.model_id = {MODEL};""")
-    trials = [
-        ('减值多 100 亿元/年', 2026, 2035, None, None, 100, None, None, None, 'J-IMP', '相当于减值长期维持在约 260—335 亿元（2025 年水平以上），即应收、PPP、地产存货的损失比基准多。'),
-        ('核心利润率 −0.5pt', 2027, 2035, None, None, 93, None, None, None, 'J-M', '付现成本每年多约 93 亿元（约收入的 0.5%），相当于回到 2022—2025 年最低水平以下。'),
-        ('核心利润率 +0.3pt', 2027, 2035, None, None, -56, None, None, None, 'J-M', '付现成本每年少约 56 亿元（约收入的 0.3%），对应新接项目毛利率提升与费用压降。'),
-        ('收入 −5%（利润率不变）', 2027, 2035, -0.05, None, -890, None, None, None, 'J-P', '业务量 −5% 同时付现成本每年 −890 亿元（2027—2035 年平均付现成本的 5%），即核心利润率不变、只是规模变小。若只改收入不改成本，利润会被抹平，那不是合理情形。'),
-        ('利率上行：利息 +50 亿元/年', 2026, 2035, None, None, None, None, 50, None, 'J-DEBT', '约等于平均债务成本 +0.5 个百分点。'),
-        ('要求回报上升：折现率 +1%', 2026, 2035, None, None, None, None, None, 0.01, 'J-R', '风险溢价 6%→7%。'),
-    ]
-    ins('trial', [dict(model_id=Raw(MODEL), name=t[0], start_year=t[1], end_year=t[2], volume_delta=t[3], price_delta=t[4], cost_delta=t[5],
-                       da_delta=t[6], interest_delta=t[7], rate_delta=t[8], boundary=t[10]) for t in trials])
-    OUT.append(f"""INSERT INTO vi_lnk_trial_judgments (trial_id, judgment_id, "createdAt", "updatedAt")
-SELECT t.id, j.id, now(), now() FROM (VALUES {', '.join(f'({lit(t[0])}, {lit(t[9])})' for t in trials)}) v(tn, jc)
-JOIN vi_trial_base t ON t.model_id = {MODEL} AND t.name = v.tn JOIN vi_judgment_base j ON j.company_id = {CO} AND j.code = v.jc;""")
 
 
 # ================================================================ 跟踪事项、待办清单、变更日志
@@ -1077,7 +1014,7 @@ if __name__ == '__main__':
     OUT.append(f"UPDATE vi_observation_base SET doc_id = {KLINE_DOC} WHERE doc_id IS NULL AND raw_capture_id IS NULL "
                f"AND metric_id = (SELECT price_metric_id FROM vi_company_base WHERE code = '{CODE}');")
     sources(); facts(); theses(); judgments(); business()
-    period_data(); model(); tracking()
+    period_data(); tracking()
     OUT.extend(data_layer_seed.fin_stmt_statements(CO, HERE / 'data' / 'fin_stmt.json'))   # 三大报表原值（报表计算指标读它）
     OUT.extend(data_layer_seed.statements(CO, HERE / 'data' / 'data_layer.json'))   # 关注与数据底稿补充，放最后
     OUT.extend(data_layer_seed.track_statements(CO, HERE / 'data' / 'track.json'))   # 跟踪脚本的快照（行业高频、同业对比；track.py）

@@ -24,7 +24,7 @@ INSERT INTO cs_fact_metric VALUES
 DO $relink$
 DECLARE t text;
 BEGIN
-  FOREACH t IN ARRAY ARRAY['thesis', 'judgment', 'moat', 'biz_model', 'value_chain', 'forecast', 'sotp_item', 'sotp_segment'] LOOP
+  FOREACH t IN ARRAY ARRAY['thesis', 'judgment', 'moat', 'biz_model', 'value_chain'] LOOP
     EXECUTE format($q$
       INSERT INTO vi_lnk_%1$s_basis_metrics (%1$s_id, metric_id, "createdAt", "updatedAt")
       SELECT DISTINCT l.%1$s_id, m.id, now(), now()
@@ -64,8 +64,7 @@ FROM cs_fact_text x
 WHERE f.company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND f.title = x.title;
 
 -- 2b. 挪走：股本写进估值模型备注
-UPDATE vi_model_base SET notes = notes || '股本 413.2039 亿股（2024 年回购注销限制性股票后，2025 年末与 2026 年中相同）。'
-WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '601668.SH') AND status = '当前' AND notes NOT LIKE '%413.2039 亿股%';
+-- （2026-11-11 估值重构：估值模型已删除，股本说明在公司备注里）
 
 -- 2c. 年度口径备注：并入来源文档
 INSERT INTO vi_source_base (company_id, title, source_type, publisher, reliability, verify_status, summary, limitations)

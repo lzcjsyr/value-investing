@@ -9,6 +9,7 @@
 3. 吨经济：营业收入、营业成本、毛利 ÷ 浆纸销量（纸＋外销浆），元/吨（年度；收入含少量电汽、化工等，按全部收入计）。
 """
 import json, pathlib, statistics, warnings
+from inspect import signature
 import akshare as ak
 import peer_stats
 
@@ -65,7 +66,11 @@ def futures(symbol, name, since='20180101'):
 def spot(name):
     old = [o for o in previous() if o['name'] == name]
     start = (max(o['obs_date'] for o in old) if old else '2024-11-01').replace('-', '')
-    df = ak.futures_spot_price_daily(start_day=start, end_day='20991231', vars_list=['SP'])
+    fetch_spot = ak.futures_spot_price_daily
+    if 'start_day' in signature(fetch_spot).parameters:
+        df = fetch_spot(start_day=start, end_day='20991231', vars_list=['SP'])
+    else:
+        df = fetch_spot(start_date=start, end_date=None, symbols='SP')
     new = {str(r['date'])[:4] + '-' + str(r['date'])[4:6] + '-' + str(r['date'])[6:8]: float(r['spot_price'])
            for _, r in df.iterrows() if r['spot_price'] == r['spot_price']}
     rows = {o['obs_date']: o for o in old}

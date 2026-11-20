@@ -4,31 +4,31 @@
   {
    "name": "毛利率",
    "unit": "%",
-   "formula": "毛利 ÷ 营业额",
+   "formula": "毛利 ÷ 营业收入",
    "basis": "单季"
   },
   {
    "name": "现金、定期存款和短期投资",
    "unit": "亿元",
-   "formula": "现金及等价物 + 短期存款 + 短期投资 + 中长期存款",
+   "formula": "现金及现金等价物 + 短期存款 + 短期投资 + 中长期存款",
    "basis": "时点"
   },
   {
    "name": "带息负债（借款＋票据＋租赁）",
    "unit": "亿元",
-   "formula": "短期贷款 + 长期贷款 + 应付票据 + 应付票据(非流动) + 融资租赁负债(流动) + 融资租赁负债(非流动)",
+   "formula": "短期借款 + 长期借款 + 应付票据（流动） + 应付票据（非流动） + 租赁负债（流动） + 租赁负债（非流动）",
    "basis": "时点"
   },
   {
    "name": "营业收入",
    "unit": "亿元",
-   "formula": "营业额",
+   "formula": "营业收入",
    "basis": "单季"
   },
   {
    "name": "归母净利润",
    "unit": "亿元",
-   "formula": "股东应占溢利",
+   "formula": "归属于母公司股东的净利润",
    "basis": "单季"
   }
  ],
@@ -271,7 +271,7 @@
     "name": "营业收入",
     "unit": "亿元"
    },
-   "formula": "营业额",
+   "formula": "营业收入",
    "balance": false,
    "values": [
     {
@@ -294,7 +294,7 @@
     "name": "营业成本",
     "unit": "亿元"
    },
-   "formula": "营业额 − 毛利",
+   "formula": "营业收入 − 毛利",
    "balance": false,
    "values": [
     {
@@ -317,7 +317,7 @@
     "name": "利润总额",
     "unit": "亿元"
    },
-   "formula": "除税前溢利",
+   "formula": "税前利润",
    "balance": false,
    "values": [
     {
@@ -340,7 +340,7 @@
     "name": "所得税",
     "unit": "亿元"
    },
-   "formula": "税项",
+   "formula": "−所得税费用",
    "balance": false,
    "values": [
     {
@@ -363,7 +363,7 @@
     "name": "归母净利润",
     "unit": "亿元"
    },
-   "formula": "股东应占溢利",
+   "formula": "归属于母公司股东的净利润",
    "balance": false,
    "values": [
     {
@@ -386,7 +386,7 @@
     "name": "少数股东损益",
     "unit": "亿元"
    },
-   "formula": "少数股东损益",
+   "formula": "非控股权益应占净利润",
    "balance": false,
    "values": [
     {
@@ -409,7 +409,7 @@
     "name": "折旧摊销",
     "unit": "亿元"
    },
-   "formula": "加:折旧及摊销",
+   "formula": "折旧及摊销（现金流附注）",
    "balance": false,
    "values": [
     {
@@ -432,7 +432,7 @@
     "name": "财务费用",
     "unit": "亿元"
    },
-   "formula": "融资成本",
+   "formula": "−财务费用",
    "balance": false,
    "values": [
     {
@@ -514,7 +514,7 @@
     "name": "权益法投资收益",
     "unit": "亿元"
    },
-   "formula": "应占联营公司溢利",
+   "formula": "应占权益法投资净损益",
    "balance": false,
    "values": [
     {
@@ -537,7 +537,7 @@
     "name": "经营活动现金流量净额",
     "unit": "亿元"
    },
-   "formula": "经营业务现金净额",
+   "formula": "经营活动现金流量净额",
    "balance": false,
    "values": [
     {
@@ -560,7 +560,7 @@
     "name": "资本开支",
     "unit": "亿元"
    },
-   "formula": "购建固定资产 + 购建无形资产及其他资产",
+   "formula": "−购置物业厂房及设备 − 购置无形资产 − 购置土地使用权",
    "balance": false,
    "values": [
     {
@@ -583,7 +583,7 @@
     "name": "收到投资分红",
     "unit": "亿元"
    },
-   "formula": "已收股息(投资)",
+   "formula": "投资收到的股息",
    "balance": false,
    "values": []
   },
@@ -658,7 +658,7 @@
     "name": "带息负债（借款＋票据＋租赁）",
     "unit": "亿元"
    },
-   "formula": "短期贷款 + 长期贷款 + 应付票据 + 应付票据(非流动) + 融资租赁负债(流动) + 融资租赁负债(非流动)",
+   "formula": "短期借款 + 长期借款 + 应付票据（流动） + 应付票据（非流动） + 租赁负债（流动） + 租赁负债（非流动）",
    "balance": true,
    "values": [
     {
@@ -681,7 +681,7 @@
     "name": "货币资金",
     "unit": "亿元"
    },
-   "formula": "现金及等价物 + 短期存款 + 中长期存款",
+   "formula": "现金及现金等价物 + 短期存款 + 中长期存款",
    "balance": true,
    "values": [
     {
@@ -704,7 +704,7 @@
     "name": "归母净资产",
     "unit": "亿元"
    },
-   "formula": "股东权益",
+   "formula": "归属于母公司股东权益合计",
    "balance": true,
    "values": [
     {
@@ -882,12 +882,12 @@
   {
    "name": "对外上市股权（公允价值）",
    "unit": "亿元",
-   "formula": "指定以公允价值记账之金融资产"
+   "formula": "以公允价值计量且其变动计入其他综合收益的金融资产"
   },
   {
    "name": "少数股东权益",
    "unit": "亿元",
-   "formula": "少数股东权益"
+   "formula": "非控股权益"
   }
  ],
  "year_notes": [

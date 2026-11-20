@@ -35,9 +35,10 @@ def fin_stmt_statements(co, path):
     """三大报表原值（tools/fin_stmt.py 的快照）：先删后写，一条语句写完（报表缓存只刷新一次）。"""
     rows = json.loads(path.read_text())['rows']
     vals = ',\n'.join(f"({co}, {lit(r['period'])}, {lit(r['period_end'])}, {lit(r['stmt'])}, {lit(r['item'])}, "
-                      f"{r['seq'] if r.get('seq') is not None else 'NULL'}, {repr(r['amount']) if r.get('amount') is not None else 'NULL'})" for r in rows)
+                      f"{r['seq'] if r.get('seq') is not None else 'NULL'}, {repr(r['amount']) if r.get('amount') is not None else 'NULL'}, "
+                      f"{lit(r.get('currency'))}, {lit(r.get('unit'))})" for r in rows)
     return [f'DELETE FROM vi_fin_stmt_base WHERE company_id = {co};',
-            f'INSERT INTO vi_fin_stmt_base (company_id, period, period_end, stmt, item, seq, amount) VALUES\n{vals};']
+            f'INSERT INTO vi_fin_stmt_base (company_id, period, period_end, stmt, item, seq, amount, currency, unit) VALUES\n{vals};']
 
 
 
@@ -148,10 +149,6 @@ FROM vi_company_base c WHERE c.id = {co} AND NOT EXISTS (SELECT 1 FROM vi_metric
             out.append(f"DELETE FROM vi_observation_base WHERE metric_id = {metric(co, m)} AND basis = {lit(basis)} AND period = {lit(period)};")
             out.append(f"INSERT INTO vi_observation_base (metric_id, obs_date, period, basis, value, summary, collected_at) VALUES "
                        f"({metric(co, m)}, '{v['year']}-12-31', {lit(period)}, {lit(basis)}, {repr(v['value']) if v['value'] is not None else 'NULL'}, {lit(v['summary'])}, now());")
-    for a in d.get('assets', []):
-        scen = f"scenario_id IN (SELECT id FROM vi_scenario_base WHERE name = {lit(a['scenario'])})" if a['scenario'] else 'scenario_id IS NULL'
-        out.append(f"UPDATE vi_sotp_item_base SET metric_id = {metric(co, a['metric'])}, amount = NULL "
-                   f"WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {co}) AND code = {lit(a['code'])} AND {scen};")
     meas = d.get('measure')
     if meas:
         out.append(f"UPDATE vi_metric_base SET measure = '时点' WHERE company_id = {co} AND name IN ({', '.join(lit(n) for n in meas['时点'])});")

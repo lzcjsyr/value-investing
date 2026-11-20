@@ -21,6 +21,12 @@ CREATE TABLE vi_company_base (
   pe_ttm double precision,
   pb double precision,
   pe_pb_date date,
+  shares double precision,
+  as_of date,
+  value_layer text,
+  layer_reason text,
+  av_basis text DEFAULT '调整后净资产',
+  repro_cost double precision,
   profile text,
   notes text,
   price_metric_id bigint,
@@ -29,7 +35,7 @@ CREATE TABLE vi_company_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_company_base IS '公司：研究的公司，以及它的业务量和单价怎么定义；引用【指标】；各表都按公司归属。研究对象。业务量/单价的名称和单位在这里定义，估值模型统一用“业务量×单价＝收入”。';
+COMMENT ON TABLE vi_company_base IS '公司：研究的公司：股价取数、业务量口径与估值设置（截至日、股本、主估值层）；引用【指标】；各表都按公司归属。研究对象。业务量/单价的名称和单位用于历史年度与图表；资产价值口径和重建成本在「① 资产价值」维护，其余估值设置在「⑤ 股权价值」维护。';
 
 COMMENT ON COLUMN vi_company_base.code IS '证券代码：如 600900.SH';
 
@@ -58,6 +64,18 @@ COMMENT ON COLUMN vi_company_base.pe_ttm IS '市盈率TTM：市场口径（A 股
 COMMENT ON COLUMN vi_company_base.pb IS '市净率：同上，市场口径的最新市净率';
 
 COMMENT ON COLUMN vi_company_base.pe_pb_date IS '市盈率/市净率日期：上面两个数对应的交易日';
+
+COMMENT ON COLUMN vi_company_base.shares IS '股本（亿股）：估值用的普通股股数';
+
+COMMENT ON COLUMN vi_company_base.as_of IS '估值截至日：资产负债重估取这一天的资产负债表；价值算到这一天，再按门槛滚到今天';
+
+COMMENT ON COLUMN vi_company_base.value_layer IS '主估值层：以哪一层作结论（每股价值、隐含回报）；另两层做交叉检验（可选：资产价值、盈利能力价值、含增长价值）';
+
+COMMENT ON COLUMN vi_company_base.layer_reason IS '主估值层依据：为什么选这一层';
+
+COMMENT ON COLUMN vi_company_base.av_basis IS '资产价值口径：第一层怎么估（全公司）：调整后净资产＝资产负债重估里经营资产与经营负债的重估合计；重建成本＝下面填的重建成本；不适用＝资产说明不了价值（可选：调整后净资产、重建成本、不适用）';
+
+COMMENT ON COLUMN vi_company_base.repro_cost IS '重建成本（亿元）：资产价值口径为“重建成本”时用：今天重建同等竞争地位（全公司经营）要花多少';
 
 COMMENT ON COLUMN vi_company_base.profile IS '公司简介';
 
@@ -156,7 +174,7 @@ CREATE TABLE vi_fact_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_fact_base IS '定性事实：数字以外、会改变判断的事实：制度监管、合作授权、并购与资本运作、人事、诉讼、管理层表态、竞争对手动作，以及外部观点与估值参照；引用【来源文档】【事项】；被【商业模式拆解】【产业链与五力】【竞争对手】【竞争壁垒】【核心论点】【风险分析】【假设依据】【资产估值与调整】【经营分部估值】【逐年假设】引用。一条可核验的定性事实，通常是某个事项的一个侧面。按期重复的数字不放这里：它们在「指标／数据」里，上层判断用“依据指标”引用；一次性的数字（并购对价、回购额度）可以写进事实。';
+COMMENT ON TABLE vi_fact_base IS '定性事实：数字以外、会改变判断的事实：制度监管、合作授权、并购与资本运作、人事、诉讼、管理层表态、竞争对手动作，以及外部观点与估值参照；引用【来源文档】【事项】；被【商业模式拆解】【产业链与五力】【竞争对手】【竞争壁垒】【核心论点】【风险分析】【假设依据】引用。一条可核验的定性事实，通常是某个事项的一个侧面。按期重复的数字不放这里：它们在「指标／数据」里，上层判断用“依据指标”引用；一次性的数字（并购对价、回购额度）可以写进事实。';
 
 COMMENT ON COLUMN vi_fact_base.title IS '侧面：短名称，说明是事项的哪个侧面，如“交易对价与商誉”';
 
@@ -184,114 +202,32 @@ CREATE TABLE vi_business_base (
   id bigserial PRIMARY KEY,
   code text,
   name text,
-  kind text DEFAULT '经营',
-  capital_basis text DEFAULT '企业',
-  driver1_label text,
-  driver1_unit text,
-  driver2_label text,
-  driver2_unit text,
-  driver3_label text,
-  driver3_unit text,
-  driver_scale double precision,
   boundary text,
-  cost_allocation text,
   asset_boundary text,
   sort integer,
+  capital_basis text DEFAULT '企业',
   company_id bigint,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_business_base IS '业务分部：商业模式和业务估值共用的业务身份；不随模型或情景重复；被【收入与成本项目】【商业模式拆解】【资产估值与调整】【经营分部估值】【估值假设】【分部逐情景计算】【估值逐年计算】【收入与成本逐年】引用。一块能单独定价的业务一行，以公司披露的经营分部为准：有自己的客户、资本和费用。共用用户、内容或费用的收入来源不拆成业务，写成同一业务下的收入线（收入与成本项目）。现金、投资和可单独处置的资产在资产估值与调整中处理。';
+COMMENT ON TABLE vi_business_base IS '业务分部：商业模式和估值共用的业务身份：一块能单独定价的业务一行；被【商业模式拆解】【调整后利润表】【增长】引用。以公司披露的经营分部为准（有自己的客户、资本和费用）；共用用户、内容或费用的收入来源不拆成业务。估值上它是第二、三层的估值单元（一块业务一张调整后利润表）；口径开关在这里定。第一层资产价值按全公司估，不分业务。';
 
 COMMENT ON COLUMN vi_business_base.code IS '业务编号';
 
 COMMENT ON COLUMN vi_business_base.name IS '业务名称';
 
-COMMENT ON COLUMN vi_business_base.kind IS '类型：总部＝不属于任何一块业务的公司层面费用；每家公司最多一行（可选：经营、总部）';
-
-COMMENT ON COLUMN vi_business_base.capital_basis IS '资本口径：企业＝投入资本与经营利润（利息前），负债在资产负债桥里扣；股权＝净资产与净利润（银行、保险），公式不变（可选：企业、股权）';
-
-COMMENT ON COLUMN vi_business_base.driver1_label IS '驱动1：收入＝驱动1×驱动2×驱动3×换算系数；如 发电量、产能、新签合同、月活';
-
-COMMENT ON COLUMN vi_business_base.driver1_unit IS '驱动1单位';
-
-COMMENT ON COLUMN vi_business_base.driver2_label IS '驱动2：如 电价、开工率、收入转化率、付费率；不用留空';
-
-COMMENT ON COLUMN vi_business_base.driver2_unit IS '驱动2单位';
-
-COMMENT ON COLUMN vi_business_base.driver3_label IS '驱动3：如 吨价、每付费用户月收入；不用留空';
-
-COMMENT ON COLUMN vi_business_base.driver3_unit IS '驱动3单位';
-
-COMMENT ON COLUMN vi_business_base.driver_scale IS '收入换算系数：驱动乘积换算成亿元的系数；单位已对齐时为 1（如 亿千瓦时×元/千瓦时）';
-
 COMMENT ON COLUMN vi_business_base.boundary IS '业务边界';
-
-COMMENT ON COLUMN vi_business_base.cost_allocation IS '费用分摊依据';
 
 COMMENT ON COLUMN vi_business_base.asset_boundary IS '经营资产与投入边界';
 
 COMMENT ON COLUMN vi_business_base.sort IS '排序';
 
+COMMENT ON COLUMN vi_business_base.capital_basis IS '口径：企业＝利息前利润，有息负债在资产负债桥里扣；股权＝利息后利润，有息负债在资产负债重估里归为经营负债（银行、保险、地产开发等借钱就是生意本身）（可选：企业、股权）';
+
 COMMENT ON COLUMN vi_business_base.company_id IS '公司（关联 公司）';
 
 CREATE TRIGGER vi_business_base_touch BEFORE UPDATE ON vi_business_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
-
-CREATE TABLE vi_line_base (
-  id bigserial PRIMARY KEY,
-  code text,
-  name text,
-  kind text,
-  basis text,
-  driver1_label text,
-  driver1_unit text,
-  driver2_label text,
-  driver2_unit text,
-  driver3_label text,
-  driver3_unit text,
-  driver_scale double precision,
-  note text,
-  sort integer,
-  business_id bigint,
-  base_line_id bigint,
-  created_at timestamptz NOT NULL DEFAULT now(),
-  updated_at timestamptz NOT NULL DEFAULT now()
-);
-
-COMMENT ON TABLE vi_line_base IS '收入与成本项目：一块业务里的收入线和成本线：收入按各自的驱动算，成本按科目算，不往收入线上分摊费用；引用【业务分部】；被【估值假设】【收入与成本逐年】引用。收入线：驱动（驱动1×驱动2×驱动3×换算系数）、金额，或另一条收入线的比例。成本线：金额、驱动、收入比例（某条收入线或本业务全部收入）、单位成本（×某条收入线的驱动1）。业务有成本线时，经营利润＝收入合计−成本合计；没有时用业务的经营利润率。';
-
-COMMENT ON COLUMN vi_line_base.code IS '编号：收入线 R1、R2…，成本线 C1、C2…；在业务内唯一';
-
-COMMENT ON COLUMN vi_line_base.name IS '项目';
-
-COMMENT ON COLUMN vi_line_base.kind IS '类型（可选：收入、成本）';
-
-COMMENT ON COLUMN vi_line_base.basis IS '计算方式：驱动＝驱动1×驱动2×驱动3×换算系数；金额＝逐年填亿元；收入比例＝比例×基准收入线（留空＝本业务全部收入，只用于成本线）；单位成本＝单位成本×基准收入线的驱动1×换算系数（可选：驱动、金额、收入比例、单位成本）';
-
-COMMENT ON COLUMN vi_line_base.driver1_label IS '驱动1';
-
-COMMENT ON COLUMN vi_line_base.driver1_unit IS '驱动1单位';
-
-COMMENT ON COLUMN vi_line_base.driver2_label IS '驱动2';
-
-COMMENT ON COLUMN vi_line_base.driver2_unit IS '驱动2单位';
-
-COMMENT ON COLUMN vi_line_base.driver3_label IS '驱动3';
-
-COMMENT ON COLUMN vi_line_base.driver3_unit IS '驱动3单位';
-
-COMMENT ON COLUMN vi_line_base.driver_scale IS '换算系数：换算成亿元的系数；留空＝1';
-
-COMMENT ON COLUMN vi_line_base.note IS '口径说明';
-
-COMMENT ON COLUMN vi_line_base.sort IS '排序';
-
-COMMENT ON COLUMN vi_line_base.business_id IS '业务（关联 业务分部）';
-
-COMMENT ON COLUMN vi_line_base.base_line_id IS '基准收入线（关联 收入与成本项目）';
-
-CREATE TRIGGER vi_line_base_touch BEFORE UPDATE ON vi_line_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
 
 CREATE TABLE vi_biz_model_base (
   id bigserial PRIMARY KEY,
@@ -460,7 +396,7 @@ CREATE TABLE vi_moat_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_moat_base IS '竞争壁垒：公司有哪些护城河，各靠什么机制成立；引用【定性事实】【核心论点】【指标】【历史年度】；被【估值引擎检查】【质量自检】引用。每一项候选壁垒：机制、财务体现、证据、反证、复制难度；看起来像壁垒其实不是的（伪壁垒）也要列出。壁垒能不能持续，在核心论点里正反论证并关联到这里。可设自动检查，读取历史年度。';
+COMMENT ON TABLE vi_moat_base IS '竞争壁垒：公司有哪些护城河，各靠什么机制成立；引用【定性事实】【核心论点】【指标】【历史年度】；被【质量自检】引用。每一项候选壁垒：机制、财务体现、证据、反证、复制难度；看起来像壁垒其实不是的（伪壁垒）也要列出。壁垒能不能持续，在核心论点里正反论证并关联到这里。可设自动检查，读取历史年度。';
 
 COMMENT ON COLUMN vi_moat_base.code IS '编号：如 M1';
 
@@ -524,7 +460,7 @@ CREATE TABLE vi_thesis_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_thesis_base IS '核心论点：决定公司价值的关键判断（问题与结论），每条正反辩论后下结论；引用【定性事实】【指标】【历史年度】；被【竞争壁垒】【风险分析】【价投适配度】【假设依据】【估值引擎检查】【质量自检】引用。决定价值的几个关键判断，每条都正反论证：正方立论、反方立论、互相反驳，再给裁决、把握、改判条件和对模型的影响。判断只写这里：没有答案的判断性问题也写成论点，缺的证据写进“决定胜负的证据”，不进“待办清单”。壁垒能否持续的论点关联到竞争壁垒（伪壁垒以外每项壁垒至少一条辩论过的论点）；能量化的改判条件设自动检查，读取历史年度。';
+COMMENT ON TABLE vi_thesis_base IS '核心论点：决定公司价值的关键判断（问题与结论），每条正反辩论后下结论；引用【定性事实】【指标】【历史年度】；被【竞争壁垒】【风险分析】【价投适配度】【假设依据】【质量自检】引用。决定价值的几个关键判断，每条都正反论证：正方立论、反方立论、互相反驳，再给裁决、把握、改判条件和对模型的影响。判断只写这里：没答案的问题也写成论点，缺的证据写进“决定胜负的证据”。壁垒能否持续的论点关联到竞争壁垒（伪壁垒以外每项壁垒至少一条辩论过的论点）；能量化的改判条件设自动检查，读取历史年度。';
 
 COMMENT ON COLUMN vi_thesis_base.code IS '编号：如 T1';
 
@@ -607,11 +543,11 @@ COMMENT ON COLUMN vi_risk_base.horizon IS '时间窗口（可选：1 年内、1�
 
 COMMENT ON COLUMN vi_risk_base.trend IS '趋势（可选：上升、稳定、下降）';
 
-COMMENT ON COLUMN vi_risk_base.impact_estimate IS '影响测算：能量化的写数：对利润、现金或每股价值的影响（可引用单参数试验、情景）';
+COMMENT ON COLUMN vi_risk_base.impact_estimate IS '影响测算：能量化的写数：对利润、现金或每股价值的影响';
 
 COMMENT ON COLUMN vi_risk_base.mitigants IS '缓冲因素：什么能限制损失';
 
-COMMENT ON COLUMN vi_risk_base.treatment IS '估值处理：这项风险在估值里怎么体现；未计入的要在影响测算里说明为什么（可选：已计入基准情景、已计入悲观情景、体现在折现率或门槛、未计入估值）';
+COMMENT ON COLUMN vi_risk_base.treatment IS '估值处理：这项风险在估值里怎么体现；未计入的要在影响测算里说明为什么（可选：已计入估值输入、体现在主估值层或门槛、未计入估值）';
 
 COMMENT ON COLUMN vi_risk_base.early_warning IS '预警信号：看什么、到什么程度算预警；能用数据看的，把指标关联到“预警指标”；没有指标的定性事项写成“持续跟踪：…”';
 
@@ -659,7 +595,6 @@ CREATE TABLE vi_judgment_base (
   judgment text,
   transmission text,
   parameter text,
-  affected_years text,
   change_threshold text,
   no_change_condition text,
   counter_evidence text,
@@ -669,7 +604,7 @@ CREATE TABLE vi_judgment_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_judgment_base IS '假设依据：每个估值参数为什么这样设；引用【定性事实】【核心论点】【指标】；被【风险分析】【逐年假设】【单参数试验】【估值假设】【估值引擎检查】引用。事实 → 判断 → 参数：解释事实和论点如何影响哪个估值参数、改参数的门槛、什么情况下不改。论证本身写在核心论点里，这里只写到参数的传导。';
+COMMENT ON TABLE vi_judgment_base IS '假设依据：每个估值参数为什么这样设；引用【定性事实】【核心论点】【指标】；被【风险分析】【资产负债重估】【调整后利润表】【增长】引用。事实 → 判断 → 参数：解释事实和论点如何影响哪个估值参数、改参数的门槛、什么情况下不改。论证本身写在核心论点里，这里只写到参数的传导。';
 
 COMMENT ON COLUMN vi_judgment_base.code IS '编号：如 J-Q';
 
@@ -682,8 +617,6 @@ COMMENT ON COLUMN vi_judgment_base.judgment IS '判断';
 COMMENT ON COLUMN vi_judgment_base.transmission IS '数学传导：参数变化如何传到利润、现金和估值';
 
 COMMENT ON COLUMN vi_judgment_base.parameter IS '影响参数';
-
-COMMENT ON COLUMN vi_judgment_base.affected_years IS '影响年份/情景';
 
 COMMENT ON COLUMN vi_judgment_base.change_threshold IS '修改门槛';
 
@@ -705,12 +638,14 @@ CREATE TABLE vi_fin_stmt_base (
   item text,
   seq integer,
   amount double precision,
+  currency text,
+  unit text,
   company_id bigint,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_fin_stmt_base IS '财务报表：公司的季度三大报表原值；被【历史年度】【指标数值】【估值引擎检查】引用。季度完整三大报表（资产负债表、利润表、现金流量表），一行＝公司×报表×报告期×科目，金额为报表原值折亿元。合并报表科目以这里为准，由 tools/fin_stmt.py 取数检验后入库，不手录（A 股来自新浪财报、港股来自东方财富港股报表，都经 akshare）。空白科目＝该期未披露。资产负债表是时点余额；利润表/现金流量表是年初至报告期末的累计数。';
+COMMENT ON TABLE vi_fin_stmt_base IS '财务报表：公司的季度三大报表原值；被【资产负债重估】【调整后利润表】【历史年度】【指标数值】【质量自检】引用。季度完整三大报表（资产负债表、利润表、现金流量表），一行＝公司×报表×报告期×科目，金额为报表原值折亿元。合并报表科目以这里为准，由 tools/fin_stmt.py 取数检验后入库，不手录（A 股来自新浪财报、港股来自东方财富港股报表，都经 akshare）。空白科目＝该期未披露。资产负债表是时点余额；利润表/现金流量表是年初至报告期末的累计数。';
 
 COMMENT ON COLUMN vi_fin_stmt_base.period IS '报告期：如 2025Q3；Q4 即年报口径';
 
@@ -722,7 +657,11 @@ COMMENT ON COLUMN vi_fin_stmt_base.item IS '科目：报表科目中文原名';
 
 COMMENT ON COLUMN vi_fin_stmt_base.seq IS '行次：科目在报表内的顺序';
 
-COMMENT ON COLUMN vi_fin_stmt_base.amount IS '金额（亿元）：报表原值÷1e8，累计口径';
+COMMENT ON COLUMN vi_fin_stmt_base.amount IS '数值：一般金额按亿元，每股数据按元/股';
+
+COMMENT ON COLUMN vi_fin_stmt_base.currency IS '列报币种：ISO 币种代码，如 CNY、USD、HKD';
+
+COMMENT ON COLUMN vi_fin_stmt_base.unit IS '单位：数值实际使用的单位，如 亿元、元/股；空表示待核对';
 
 COMMENT ON COLUMN vi_fin_stmt_base.company_id IS '公司（关联 公司）';
 
@@ -749,7 +688,7 @@ CREATE TABLE vi_metric_base (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_metric_base IS '指标：一家公司要看的每一个数（经营、财务、行情与环境），一个指标一行：从哪来、最新值、是否到期；被【公司】【商业模式拆解】【产业链与五力】【竞争壁垒】【核心论点】【风险分析】【假设依据】【数据】【估值模型】【资产估值与调整】【经营分部估值】【逐年假设】【采集配置】【历史年度】【指标数值】【质量自检】引用。每期的数在「数据」里，口径记在每期数据上。来源方式：自动采集、公司披露／年报／手工整理（在「数据」里录）、报表计算（按报表公式从三大报表实时算，不另存）。所属公司为空的是宏观数据。';
+COMMENT ON TABLE vi_metric_base IS '指标：一家公司要看的每一个数（经营、财务、行情与环境），一个指标一行：从哪来、最新值、是否到期；被【公司】【商业模式拆解】【产业链与五力】【竞争壁垒】【核心论点】【风险分析】【假设依据】【数据】【采集配置】【历史年度】【指标数值】【质量自检】引用。每期的数在「数据」里，口径记在每期数据上。来源方式：自动采集、公司披露／年报／手工整理（在「数据」里录）、报表计算（按报表公式从三大报表实时算，不另存）。所属公司为空的是宏观数据。';
 
 COMMENT ON COLUMN vi_metric_base.code IS '指标代码：稳定的英文代码，如 600900.SH.PRICE';
 
@@ -823,496 +762,113 @@ COMMENT ON COLUMN vi_observation_base.raw_capture_id IS '原始采集记录（�
 
 CREATE TRIGGER vi_observation_base_touch BEFORE UPDATE ON vi_observation_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
 
-CREATE TABLE vi_model_base (
+CREATE TABLE vi_bs_item_base (
   id bigserial PRIMARY KEY,
+  category text,
+  line_item text,
   name text,
-  status text,
-  method text,
-  base_year integer,
-  terminal_year integer,
-  shares double precision,
-  rf double precision,
-  rf_date date,
-  erp double precision,
-  opening_debt double precision,
-  opening_op_assets double precision,
-  opening_lt_invest double precision,
-  opening_equity double precision,
-  opening_minority double precision,
-  required_return double precision,
-  margin_low double precision,
-  margin_high double precision,
-  notes text,
-  primary_method text,
-  sotp_year integer,
-  sotp_core_adj double precision,
-  sotp_as_of date,
-  company_id bigint,
-  rf_metric_id bigint,
-  created_at timestamptz NOT NULL DEFAULT now(),
-  updated_at timestamptz NOT NULL DEFAULT now()
-);
-
-COMMENT ON TABLE vi_model_base IS '估值模型：一家公司一版估值的基本参数；引用【指标】；被【情景】【资产估值与调整】【经营分部估值】【逐年假设】【财务预测】【单参数试验】【估值假设】【预测计算】【资产与资本】【估值结论】【分部逐情景计算】【分部加总估值】【敏感性：折现率×永续增长】【估值逐年计算】【收入与成本逐年】【估值结果】【质量自检】引用。一家公司的一版估值模型：基准年、终值年、股本、折现率构成、期初负债与安全边际。';
-
-COMMENT ON COLUMN vi_model_base.name IS '模型名称';
-
-COMMENT ON COLUMN vi_model_base.status IS '状态（可选：当前、归档）';
-
-COMMENT ON COLUMN vi_model_base.method IS '方法';
-
-COMMENT ON COLUMN vi_model_base.base_year IS '基准年：估值基准日＝该年 12 月 31 日；预测从下一年开始';
-
-COMMENT ON COLUMN vi_model_base.terminal_year IS '终值年：明确预测期最后一年，之后按永续增长';
-
-COMMENT ON COLUMN vi_model_base.shares IS '股本（亿股）';
-
-COMMENT ON COLUMN vi_model_base.rf IS '无风险利率：长期参数；自动采集的数据不会自动覆盖（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_model_base.rf_date IS '无风险利率日期';
-
-COMMENT ON COLUMN vi_model_base.erp IS '风险溢价（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_model_base.opening_debt IS '期初带息负债（亿元）：基准年末余额，债务滚动的起点';
-
-COMMENT ON COLUMN vi_model_base.opening_op_assets IS '期初经营性长期资产（亿元）：基准年末固定资产＋在建工程＋无形资产＋使用权资产';
-
-COMMENT ON COLUMN vi_model_base.opening_lt_invest IS '期初长期股权投资（亿元）';
-
-COMMENT ON COLUMN vi_model_base.opening_equity IS '期初归母权益（亿元）';
-
-COMMENT ON COLUMN vi_model_base.opening_minority IS '期初少数股东权益（亿元）';
-
-COMMENT ON COLUMN vi_model_base.required_return IS '要求收益率：投资者自己的门槛回报（机会成本）。用于算隐含收益率是否达标、以及按此收益率的最高买入价；与基准折现率是两个视角（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_model_base.margin_low IS '安全边际·低档（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_model_base.margin_high IS '安全边际·高档（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_model_base.notes IS '模型说明';
-
-COMMENT ON COLUMN vi_model_base.primary_method IS '主估值方法：驾驶舱先展示哪一种，另一种作交叉验证；留空＝股息贴现（可选：股息贴现、分部加总）';
-
-COMMENT ON COLUMN vi_model_base.sotp_year IS '分部加总·核心盈利年份：取哪一年的预测核心盈利（通常是下一个完整年度）；留空＝不用预测计算，经营业务全部写在“经营分部估值”';
-
-COMMENT ON COLUMN vi_model_base.sotp_core_adj IS '分部加总·核心盈利调整（亿元）：税后归母口径，如加回收购形成的无形资产摊销；股权激励不加回';
-
-COMMENT ON COLUMN vi_model_base.sotp_as_of IS '分部加总·资产负债日：现金、负债、对外投资与股本的统一截止日';
-
-COMMENT ON COLUMN vi_model_base.company_id IS '公司（关联 公司）';
-
-COMMENT ON COLUMN vi_model_base.rf_metric_id IS '无风险利率参考指标（关联 指标）';
-
-CREATE TRIGGER vi_model_base_touch BEFORE UPDATE ON vi_model_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
-
-CREATE TABLE vi_scenario_base (
-  id bigserial PRIMARY KEY,
-  name text,
-  is_base boolean,
-  sort integer,
-  volume_factor double precision,
-  price_factor double precision,
-  cost_factor double precision,
-  discount_rate double precision,
-  terminal_growth double precision,
-  nature text,
-  description text,
-  ronic double precision,
-  sotp_multiple double precision,
-  probability double precision,
-  model_id bigint,
-  created_at timestamptz NOT NULL DEFAULT now(),
-  updated_at timestamptz NOT NULL DEFAULT now()
-);
-
-COMMENT ON TABLE vi_scenario_base IS '情景：各情景对逐年假设的整体调整；引用【估值模型】；被【资产估值与调整】【经营分部估值】【估值假设】【预测计算】【估值结论】【分部逐情景计算】【分部加总估值】【估值逐年计算】【收入与成本逐年】【估值结果】【估值引擎检查】【质量自检】引用。情景＝对逐年假设的整体调整：业务量、单价、付现成本乘以系数，折现率与永续增长按情景设置。';
-
-COMMENT ON COLUMN vi_scenario_base.name IS '情景';
-
-COMMENT ON COLUMN vi_scenario_base.is_base IS '基准情景：敏感性分析和单参数试验以基准情景为起点';
-
-COMMENT ON COLUMN vi_scenario_base.sort IS '排序';
-
-COMMENT ON COLUMN vi_scenario_base.volume_factor IS '业务量系数：1＝不调整；0.9＝业务量−10%';
-
-COMMENT ON COLUMN vi_scenario_base.price_factor IS '单价系数';
-
-COMMENT ON COLUMN vi_scenario_base.cost_factor IS '付现成本系数';
-
-COMMENT ON COLUMN vi_scenario_base.discount_rate IS '折现率（留空＝基准折现率）（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_scenario_base.terminal_growth IS '永续增长率（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_scenario_base.nature IS '假设性质';
-
-COMMENT ON COLUMN vi_scenario_base.description IS '情景说明';
-
-COMMENT ON COLUMN vi_scenario_base.ronic IS '新增投资回报率：分部加总推导合理倍数用：P/E＝(1−g÷新增投资回报率)÷(r−g)（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_scenario_base.sotp_multiple IS '合理倍数（手填）：填了就用手填值，留空则按公式推导';
-
-COMMENT ON COLUMN vi_scenario_base.probability IS '情景概率：分部加总的概率加权价值用；同一模型各情景合计应为 100%，留空＝不加权（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_scenario_base.model_id IS '估值模型（关联 估值模型）';
-
-CREATE TRIGGER vi_scenario_base_touch BEFORE UPDATE ON vi_scenario_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
-
-CREATE TABLE vi_sotp_item_base (
-  id bigserial PRIMARY KEY,
-  code text,
-  name text,
-  kind text,
-  treatment text DEFAULT '单独计价',
-  valuation_method text,
-  boundary text,
-  amount double precision,
   haircut double precision,
-  as_of date,
+  adjustment double precision,
   basis text,
-  model_id bigint,
-  scenario_id bigint,
-  business_id bigint,
-  metric_id bigint,
+  sort integer,
+  company_id bigint,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_sotp_item_base IS '资产估值与调整：现金、投资、固定资产等独立价值，以及负债和归属调整；标明是否已含在业务价值中；引用【定性事实】【业务分部】【指标】【估值模型】【情景】；被【分部加总估值】【估值结果】【估值引擎检查】引用。总价值＝业务估值＋资产估值与调整净额。单独计价的资产加计、负债扣减；已含业务估值或不计价的项目只作边界说明，计入值为零。固定资产只有在相关盈利、租金或处置收益未计入业务价值时才单独加计。情景留空＝全部，同编号情景专属行优先。';
+COMMENT ON TABLE vi_bs_item_base IS '资产负债重估：资产负债表逐科目归类与重估（全公司口径）：经营资产与经营负债＝经营资本（第一层），其余＝资产负债桥（独立资产与调整）；引用【假设依据】【财务报表】；被【三层价值·业务】【三层价值·结果】引用。一行一个报表科目或一项报表外研究调整，不分业务（负债往往是全公司共用的）。重估＝账面×(1−折价)＋调整额；资产计正，负债与索取权计负。报表科目行的账面合计＝归母股东权益（G01）。';
 
-COMMENT ON COLUMN vi_sotp_item_base.code IS '编号：如 C1；同一编号可按情景各写一行';
+COMMENT ON COLUMN vi_bs_item_base.category IS '类别：经营资产、经营负债进第一层的经营资本；现金与投资、参照估值（不自己建模、按市价交易价账面计的业务或资产）、有息负债、其他索取权进资产负债桥。经营资产、现金与投资、参照估值计正，其余计负；股权口径的公司把有息负债归为经营负债（可选：经营资产、经营负债、现金与投资、参照估值、有息负债、其他索取权）';
 
-COMMENT ON COLUMN vi_sotp_item_base.name IS '项目';
+COMMENT ON COLUMN vi_bs_item_base.line_item IS '报表科目：与「财务报表」资产负债表的科目名完全一致；留空＝报表外的研究项目';
 
-COMMENT ON COLUMN vi_sotp_item_base.kind IS '类别（可选：现金及等价物、带息负债、经营所需现金、资金汇出成本、对外投资、固定资产、其他非经营资产、少数股东权益、其他调整）';
+COMMENT ON COLUMN vi_bs_item_base.name IS '项目：显示名称；留空＝报表科目';
 
-COMMENT ON COLUMN vi_sotp_item_base.treatment IS '计价处理：已含业务估值或不计价不再加总；单独计价金额未知时不输出总价值（可选：单独计价、已含业务估值、不计价）';
+COMMENT ON COLUMN vi_bs_item_base.haircut IS '折价：对账面打的折扣：对外投资的持有折价与处置税费；商誉不计入资产价值填 100%（小数，0.05＝5%）';
 
-COMMENT ON COLUMN vi_sotp_item_base.valuation_method IS '资产计价依据：金额的计量方式；具体推导与截至日期写在依据（可选：账面价值、市场价值、可变现净值、现值、研究估计）';
+COMMENT ON COLUMN vi_bs_item_base.adjustment IS '调整额（亿元）：在“账面×(1−折价)”之上加减，与本行方向一致（负债行填正数＝负债更多）；研究项目的金额填这里';
 
-COMMENT ON COLUMN vi_sotp_item_base.boundary IS '计价边界：说明与业务盈利、净现金、投资及其他资产项目的重叠如何排除';
+COMMENT ON COLUMN vi_bs_item_base.basis IS '依据：为什么这样归类、调整；金额推导写清';
 
-COMMENT ON COLUMN vi_sotp_item_base.amount IS '金额（亿元）：没有取数指标时手填（研究估计、附注明细）。填正数，现金、投资、固定资产和其他非经营资产为加；负债等为减；其他调整按填写正负号。空白＝未知';
+COMMENT ON COLUMN vi_bs_item_base.sort IS '排序';
 
-COMMENT ON COLUMN vi_sotp_item_base.haircut IS '折价：对金额打的折扣，如对外投资的持有折价与处置税费（小数，0.05＝5%）';
+COMMENT ON COLUMN vi_bs_item_base.company_id IS '公司（关联 公司）';
 
-COMMENT ON COLUMN vi_sotp_item_base.as_of IS '截至';
+CREATE TRIGGER vi_bs_item_base_touch BEFORE UPDATE ON vi_bs_item_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
 
-COMMENT ON COLUMN vi_sotp_item_base.basis IS '依据';
-
-COMMENT ON COLUMN vi_sotp_item_base.model_id IS '估值模型（关联 估值模型）';
-
-COMMENT ON COLUMN vi_sotp_item_base.scenario_id IS '适用情景（关联 情景）';
-
-COMMENT ON COLUMN vi_sotp_item_base.business_id IS '相关业务（关联 业务分部）';
-
-COMMENT ON COLUMN vi_sotp_item_base.metric_id IS '取数指标（关联 指标）';
-
-CREATE TRIGGER vi_sotp_item_base_touch BEFORE UPDATE ON vi_sotp_item_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
-
-CREATE TABLE vi_sotp_segment_base (
+CREATE TABLE vi_epv_base (
   id bigserial PRIMARY KEY,
-  code text,
+  sort integer,
   name text,
+  section text,
+  direction text,
+  formula text,
   method text,
-  stage text,
-  earn_year integer,
-  revenue double precision,
-  op_margin double precision,
-  tax_rate double precision,
-  attrib double precision,
-  multiple double precision,
-  ronic double precision,
-  growth double precision,
-  discount_rate double precision,
-  interim_cash double precision,
-  commit_amount double precision,
-  commit_years double precision,
-  ongoing_cost double precision,
-  direct_value double precision,
-  basis text,
-  model_id bigint,
-  scenario_id bigint,
-  business_id bigint,
-  created_at timestamptz NOT NULL DEFAULT now(),
-  updated_at timestamptz NOT NULL DEFAULT now()
-);
-
-COMMENT ON TABLE vi_sotp_segment_base IS '经营分部估值：分部加总里每个经营业务的估值；引用【定性事实】【业务分部】【指标】【估值模型】【情景】；被【分部逐情景计算】【分部加总估值】【质量自检】引用。分部加总里的经营业务，按发展阶段各用一种方法：成熟或周期业务用“盈利×倍数”（正常化盈利）；成长业务用“稳态折现”（稳态年盈利×退出倍数折回今天，加上到稳态前的期间现金流）；投入期业务用“承诺投入”（只计已承诺的成本，回报不计入）。一行一个分部；适用情景留空＝所有情景，同编号可按情景另写一行。';
-
-COMMENT ON COLUMN vi_sotp_segment_base.code IS '编号：如 S1；同一编号可按情景各写一行';
-
-COMMENT ON COLUMN vi_sotp_segment_base.name IS '分部';
-
-COMMENT ON COLUMN vi_sotp_segment_base.method IS '估值方法：盈利×倍数＝成熟或周期业务；稳态折现＝成长业务；承诺投入＝投入期业务（负值）；直接估值＝按可比公司或主观判断给整体价值（可选：盈利×倍数、稳态折现、承诺投入、直接估值）';
-
-COMMENT ON COLUMN vi_sotp_segment_base.stage IS '发展阶段：如 成熟·周期底部、成长·规模爬坡、投入期';
-
-COMMENT ON COLUMN vi_sotp_segment_base.earn_year IS '盈利年份：盈利×倍数＝正常化盈利所在年份；稳态折现＝稳态年份。价值按“该年年初价值＝该年盈利×倍数”折回资产负债日，例如资产负债日 2026-06-30、盈利年份 2027 年时折回 0.5 年';
-
-COMMENT ON COLUMN vi_sotp_segment_base.revenue IS '收入（亿元）：盈利年份的分部收入；承诺投入不填';
-
-COMMENT ON COLUMN vi_sotp_segment_base.op_margin IS '经营利润率：已扣股权激励，不含利息、投资收益与补贴（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_sotp_segment_base.tax_rate IS '所得税率：承诺投入填研发加计扣除后的实际抵税率（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_sotp_segment_base.attrib IS '归母比例：留空＝100%（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_sotp_segment_base.multiple IS '倍数（手填）：填了就用手填值；留空按 (1−g÷新增投资回报率)÷(r−g)';
-
-COMMENT ON COLUMN vi_sotp_segment_base.ronic IS '新增投资回报率：留空＝情景的新增投资回报率（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_sotp_segment_base.growth IS '永续增长率：留空＝情景的永续增长率；承诺投入＝承诺期后年成本的增长率（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_sotp_segment_base.discount_rate IS '折现率：留空＝情景折现率；成长业务可加执行风险溢价（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_sotp_segment_base.interim_cash IS '期间现金流（亿元）：资产负债日到盈利年份年初之间的税后累计现金流（负数＝净投入），按期中折现';
-
-COMMENT ON COLUMN vi_sotp_segment_base.commit_amount IS '承诺投入·剩余金额（亿元）：资产负债日之后尚需投入的税前金额（扣除相关收入）';
-
-COMMENT ON COLUMN vi_sotp_segment_base.commit_years IS '承诺投入·剩余年数';
-
-COMMENT ON COLUMN vi_sotp_segment_base.ongoing_cost IS '承诺期后年成本（亿元）：承诺期结束后每年仍需承担、没有回报覆盖的税前净成本；留空＝0';
-
-COMMENT ON COLUMN vi_sotp_segment_base.direct_value IS '直接估值（亿元）：直接估值：按可比公司、交易价格或主观判断给出的整体价值（已含该业务未来的投入与回报），不折现';
-
-COMMENT ON COLUMN vi_sotp_segment_base.basis IS '依据';
-
-COMMENT ON COLUMN vi_sotp_segment_base.model_id IS '估值模型（关联 估值模型）';
-
-COMMENT ON COLUMN vi_sotp_segment_base.scenario_id IS '适用情景（关联 情景）';
-
-COMMENT ON COLUMN vi_sotp_segment_base.business_id IS '所属业务（关联 业务分部）';
-
-CREATE TRIGGER vi_sotp_segment_base_touch BEFORE UPDATE ON vi_sotp_segment_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
-
-CREATE TABLE vi_forecast_base (
-  id bigserial PRIMARY KEY,
-  year integer,
-  volume double precision,
-  price double precision,
-  cash_cost double precision,
-  depreciation double precision,
-  other_contrib double precision,
-  tax_rate double precision,
-  minority_share double precision,
-  payout double precision,
-  net_borrowing double precision,
-  cost_of_debt double precision,
-  noncash_gain_deduct double precision,
-  investee_cash_div double precision,
-  other_cash_adj double precision,
-  wc_increase double precision,
-  maint_capex double precision,
-  growth_capex double precision,
-  min_cash_topup double precision,
-  operating_status text,
-  cash_status text,
-  note text,
-  model_id bigint,
-  created_at timestamptz NOT NULL DEFAULT now(),
-  updated_at timestamptz NOT NULL DEFAULT now()
-);
-
-COMMENT ON TABLE vi_forecast_base IS '逐年假设：基准情景下每年的经营与现金假设；引用【定性事实】【假设依据】【指标】【估值模型】；被【单参数试验】【预测计算】【资产与资本】【质量自检】引用。基准情景下每年的经营与现金假设。每格都显式填写（没有“留空继承”）；利息由债务滚动自动计算。';
-
-COMMENT ON COLUMN vi_forecast_base.year IS '年度';
-
-COMMENT ON COLUMN vi_forecast_base.volume IS '业务量';
-
-COMMENT ON COLUMN vi_forecast_base.price IS '单价';
-
-COMMENT ON COLUMN vi_forecast_base.cash_cost IS '付现成本（亿元）：营业成本中非折旧部分＋期间费用＋税金及附加';
-
-COMMENT ON COLUMN vi_forecast_base.depreciation IS '折旧摊销（亿元）';
-
-COMMENT ON COLUMN vi_forecast_base.other_contrib IS '其他净贡献（亿元）：投资收益、公允价值变动、减值、营业外等净额';
-
-COMMENT ON COLUMN vi_forecast_base.tax_rate IS '所得税率（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_forecast_base.minority_share IS '少数股东占比：少数股东损益占净利润的比例（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_forecast_base.payout IS '派息率（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_forecast_base.net_borrowing IS '净借款（亿元）：负数＝净还债；决定期末负债与利息';
-
-COMMENT ON COLUMN vi_forecast_base.cost_of_debt IS '平均债务成本：利息＝平均带息负债×平均债务成本（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_forecast_base.noncash_gain_deduct IS '非现金收益扣除（亿元）：权益法收益等记入利润但未收到现金的部分';
-
-COMMENT ON COLUMN vi_forecast_base.investee_cash_div IS '收到投资分红（亿元）';
-
-COMMENT ON COLUMN vi_forecast_base.other_cash_adj IS '其他现金调整（亿元）：必须有明确依据；不能用来凑数';
-
-COMMENT ON COLUMN vi_forecast_base.wc_increase IS '营运资本增加（亿元）：增加＝占用现金';
-
-COMMENT ON COLUMN vi_forecast_base.maint_capex IS '维持资本开支（亿元）：维持现有业务量所需的更新改造';
-
-COMMENT ON COLUMN vi_forecast_base.growth_capex IS '扩张资本开支（亿元）：新项目投资；其收益是否已计入收入要在说明里写清';
-
-COMMENT ON COLUMN vi_forecast_base.min_cash_topup IS '最低现金补充（亿元）：为保持安全现金余额而留存的现金';
-
-COMMENT ON COLUMN vi_forecast_base.operating_status IS '经营假设状态（可选：旧模型迁移、建议值待核验、已核验）';
-
-COMMENT ON COLUMN vi_forecast_base.cash_status IS '现金桥接状态（可选：未填、建议值待核验、已核验）';
-
-COMMENT ON COLUMN vi_forecast_base.note IS '说明';
-
-COMMENT ON COLUMN vi_forecast_base.model_id IS '估值模型（关联 估值模型）';
-
-CREATE TRIGGER vi_forecast_base_touch BEFORE UPDATE ON vi_forecast_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
-
-CREATE TABLE vi_fin_forecast_base (
-  id bigserial PRIMARY KEY,
-  year integer,
-  sub_rev double precision,
-  nonsub_rev double precision,
-  social_rev double precision,
-  gross_margin double precision,
-  selling_ratio double precision,
-  admin_ratio double precision,
-  other_income double precision,
-  equity_income double precision,
-  finance_cost double precision,
-  tax_rate double precision,
-  minority_share double precision,
-  sbc double precision,
-  acq_amort double precision,
-  cfo_ratio double precision,
-  capex double precision,
-  shareholder_return double precision,
-  other_cash double precision,
-  note text,
-  model_id bigint,
-  created_at timestamptz NOT NULL DEFAULT now(),
-  updated_at timestamptz NOT NULL DEFAULT now()
-);
-
-COMMENT ON TABLE vi_fin_forecast_base IS '财务预测：券商研报式的逐年利润表与现金摘要预测（只用分部加总三块的公司，如腾讯音乐）；引用【估值模型】。每个预测年一行：三块收入、毛利率、费用率、其他收入与融资成本、税率、现金转化与资本开支、股东回报；利润表与期末净现金由计算列得出。只作财务预测，不做股息贴现；估值模型的 2027 年三块收入与这里一致。';
-
-COMMENT ON COLUMN vi_fin_forecast_base.year IS '年度';
-
-COMMENT ON COLUMN vi_fin_forecast_base.sub_rev IS '会员订阅收入（亿元）：含长音频会员';
-
-COMMENT ON COLUMN vi_fin_forecast_base.nonsub_rev IS '非订阅音乐收入（亿元）：广告、演出、周边、艺人经纪';
-
-COMMENT ON COLUMN vi_fin_forecast_base.social_rev IS '社交娱乐收入（亿元）：直播打赏';
-
-COMMENT ON COLUMN vi_fin_forecast_base.gross_margin IS '毛利率（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_fin_forecast_base.selling_ratio IS '销售费用率：销售及分销费用÷营业收入（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_fin_forecast_base.admin_ratio IS '管理费用率：行政开支（含研发、股权激励、收购摊销）÷营业收入（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_fin_forecast_base.other_income IS '其他收入及收益（亿元）：利息收入为主，不含一次性收益';
-
-COMMENT ON COLUMN vi_fin_forecast_base.equity_income IS '联营公司收益（亿元）';
-
-COMMENT ON COLUMN vi_fin_forecast_base.finance_cost IS '融资成本（亿元）';
-
-COMMENT ON COLUMN vi_fin_forecast_base.tax_rate IS '所得税率（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_fin_forecast_base.minority_share IS '少数股东占比：少数股东损益占净利润的比例（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_fin_forecast_base.sbc IS '股权激励（亿元）：经调整归母净利加回';
-
-COMMENT ON COLUMN vi_fin_forecast_base.acq_amort IS '收购摊销（亿元）：经调整归母净利加回';
-
-COMMENT ON COLUMN vi_fin_forecast_base.cfo_ratio IS '经营现金流÷归母净利';
-
-COMMENT ON COLUMN vi_fin_forecast_base.capex IS '资本开支（亿元）';
-
-COMMENT ON COLUMN vi_fin_forecast_base.shareholder_return IS '股东回报（亿元）：当年支付的股息＋回购（现金口径）';
-
-COMMENT ON COLUMN vi_fin_forecast_base.other_cash IS '其他现金变动（亿元）：并购等影响净现金的项目；借款同时增加现金与负债，不影响净现金';
-
-COMMENT ON COLUMN vi_fin_forecast_base.note IS '说明';
-
-COMMENT ON COLUMN vi_fin_forecast_base.model_id IS '估值模型（关联 估值模型）';
-
-CREATE TRIGGER vi_fin_forecast_base_touch BEFORE UPDATE ON vi_fin_forecast_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
-
-CREATE TABLE vi_trial_base (
-  id bigserial PRIMARY KEY,
-  name text,
-  start_year integer,
-  end_year integer,
-  volume_delta double precision,
-  price_delta double precision,
-  cost_delta double precision,
-  da_delta double precision,
-  interest_delta double precision,
-  rate_delta double precision,
-  boundary text,
-  model_id bigint,
-  created_at timestamptz NOT NULL DEFAULT now(),
-  updated_at timestamptz NOT NULL DEFAULT now()
-);
-
-COMMENT ON TABLE vi_trial_base IS '单参数试验：只改一个参数，看每股价值变多少；引用【假设依据】【估值模型】【逐年假设】【预测计算】【估值结论】。在基准情景上只改一个参数，看每股价值变化多少。不改正式假设。';
-
-COMMENT ON COLUMN vi_trial_base.name IS '试验';
-
-COMMENT ON COLUMN vi_trial_base.start_year IS '开始年度';
-
-COMMENT ON COLUMN vi_trial_base.end_year IS '结束年度';
-
-COMMENT ON COLUMN vi_trial_base.volume_delta IS '业务量变动：−0.1＝业务量−10%（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_trial_base.price_delta IS '单价变动（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_trial_base.cost_delta IS '付现成本变动（亿元/年）';
-
-COMMENT ON COLUMN vi_trial_base.da_delta IS '折旧变动（亿元/年）';
-
-COMMENT ON COLUMN vi_trial_base.interest_delta IS '利息变动（亿元/年）';
-
-COMMENT ON COLUMN vi_trial_base.rate_delta IS '折现率变动：0.005＝提高 50bp（小数，0.05＝5%）';
-
-COMMENT ON COLUMN vi_trial_base.boundary IS '事实与判断边界';
-
-COMMENT ON COLUMN vi_trial_base.model_id IS '估值模型（关联 估值模型）';
-
-CREATE TRIGGER vi_trial_base_touch BEFORE UPDATE ON vi_trial_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
-
-CREATE TABLE vi_assumption_base (
-  id bigserial PRIMARY KEY,
-  parameter text,
+  value double precision,
   from_year integer,
   to_year integer,
-  value double precision,
   note text,
-  model_id bigint,
+  company_id bigint,
   business_id bigint,
-  line_id bigint,
-  scenario_id bigint,
-  judgment_id bigint,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-COMMENT ON TABLE vi_assumption_base IS '估值假设：统一估值引擎的全部输入：一行一个数，每个数挂一条假设依据；引用【业务分部】【收入与成本项目】【假设依据】【估值模型】【情景】；被【估值逐年计算】【收入与成本逐年】【估值引擎检查】引用。业务×参数×年份区间一行。情景留空＝所有情景，有情景专属行时专属行优先；年份留空＝整个预测期。收入→经营利润→税后经营利润→投入资本→自由现金流；终值的新增投资回报率留空＝门槛。空白＝未知：缺参数的业务不输出价值。';
+COMMENT ON TABLE vi_epv_base IS '调整后利润表：第二层：每块业务一张调整后利润表，一行一个项目，从报表利润一路算到可持续现金收益 E；引用【业务分部】【假设依据】【财务报表】；被【三层价值·业务】引用。收入 − 成本费用 ＝ 报表经营利润；± 税前调整 ＝ 调整后经营利润；− 所得税 ＝ 税后经营利润；± 税后调整（折旧摊销、维持性资本开支）；− 少数股东 ＝ E；盈利能力价值＝E÷门槛。每行的报表公式给出历年数，正常化值按取值方式算。';
 
-COMMENT ON COLUMN vi_assumption_base.parameter IS '参数：逐年：驱动1—3、收入（亿元）、经营利润率、经营利润（亿元）、税率、归母比例、资本占用率（投入资本÷收入）、净投资（亿元，与资本占用率二选一）；不分年：期初投入资本（截至日，亿元）、正常化经营利润率（盈利能力价值用，留空取第一个完整年度）、永续增长率、终值新增投资回报率、重置成本（资产价值用，留空取期初投入资本）、直接估值（亿元，无法建模的业务，填了其他参数不再使用）；收入与成本项目的参数：驱动1—3、金额（亿元）、比例、单位成本（可选：驱动1、驱动2、驱动3、收入、经营利润率、经营利润、税率、归母比例、资本占用率、净投资、期初投入资本、正常化经营利润率、永续增长率、终值新增投资回报率、重置成本、直接估值、金额、比例、单位成本）';
+COMMENT ON COLUMN vi_epv_base.sort IS '排序';
 
-COMMENT ON COLUMN vi_assumption_base.from_year IS '起始年：留空＝预测期第一年';
+COMMENT ON COLUMN vi_epv_base.name IS '项目';
 
-COMMENT ON COLUMN vi_assumption_base.to_year IS '结束年：留空＝终值年';
+COMMENT ON COLUMN vi_epv_base.section IS '段落：收入相加、成本费用相减得报表经营利润；税前调整、税后调整按方向加减；所得税、少数股东按比率；不计入＝只作对照（如利息收入、投资收益，它们在资产负债桥里单独计价）（可选：收入、成本费用、税前调整、所得税、税后调整、少数股东、不计入）';
 
-COMMENT ON COLUMN vi_assumption_base.value IS '数值：比率填小数（0.05＝5%）；金额为亿元';
+COMMENT ON COLUMN vi_epv_base.direction IS '方向：税前调整、税后调整用：加回还是扣除（可选：加、减）';
 
-COMMENT ON COLUMN vi_assumption_base.note IS '说明';
+COMMENT ON COLUMN vi_epv_base.formula IS '报表公式：历年数从「财务报表」按公式算：科目相加减，如“营运支出”“购建固定资产 + 购建无形资产及其他资产”；同名科目在多张报表时写“现金流量表：科目”。留空＝没有历史数（研究调整）';
 
-COMMENT ON COLUMN vi_assumption_base.model_id IS '估值模型（关联 估值模型）';
+COMMENT ON COLUMN vi_epv_base.method IS '取值方式：正常化值怎么取：金额＝填数（亿元）；占收入比例＝比例×正常化收入；最新年度、滚动四季度＝报表公式的最近一年或最近四个季度；历史平均＝起止年份的平均金额；历史平均占收入＝起止年份占收入比例的平均×正常化收入（周期业务的正常化）；比率＝所得税、少数股东的比率（可选：金额、占收入比例、最新年度、滚动四季度、历史平均、历史平均占收入、比率）';
 
-COMMENT ON COLUMN vi_assumption_base.business_id IS '业务（关联 业务分部）';
+COMMENT ON COLUMN vi_epv_base.value IS '数值：金额（亿元）或比例、比率（小数）';
 
-COMMENT ON COLUMN vi_assumption_base.line_id IS '收入与成本项目（关联 收入与成本项目）';
+COMMENT ON COLUMN vi_epv_base.from_year IS '起始年：历史平均用';
 
-COMMENT ON COLUMN vi_assumption_base.scenario_id IS '适用情景（关联 情景）';
+COMMENT ON COLUMN vi_epv_base.to_year IS '结束年：历史平均用';
 
-COMMENT ON COLUMN vi_assumption_base.judgment_id IS '假设依据（关联 假设依据）';
+COMMENT ON COLUMN vi_epv_base.note IS '说明';
 
-CREATE TRIGGER vi_assumption_base_touch BEFORE UPDATE ON vi_assumption_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
+COMMENT ON COLUMN vi_epv_base.company_id IS '公司（关联 公司）';
+
+COMMENT ON COLUMN vi_epv_base.business_id IS '业务（关联 业务分部）';
+
+CREATE TRIGGER vi_epv_base_touch BEFORE UPDATE ON vi_epv_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
+
+CREATE TABLE vi_growth_base (
+  id bigserial PRIMARY KEY,
+  growth double precision,
+  ronic double precision,
+  adv_years integer,
+  note text,
+  company_id bigint,
+  business_id bigint,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+
+COMMENT ON TABLE vi_growth_base IS '增长：第三层输入：每块业务一行，增长与新增投资回报；引用【业务分部】【假设依据】；被【三层价值·业务】引用。优势年限内每年增长 g、再投入 g÷新增投资回报率 的收益，之后增长不再创造价值；新增投资回报率等于门槛时增长一分不值。不填或增长率为 0＝含增长价值等于盈利能力价值。';
+
+COMMENT ON COLUMN vi_growth_base.growth IS '增长率：优势期内每年的增长（小数，0.05＝5%）';
+
+COMMENT ON COLUMN vi_growth_base.ronic IS '新增投资回报率：为增长新投入资本的税后回报；增长率不为 0 时必填（小数，0.05＝5%）';
+
+COMMENT ON COLUMN vi_growth_base.adv_years IS '优势年限：超额回报还能持续几年，之后增长不再创造价值；留空＝永续（要求增长率低于门槛）';
+
+COMMENT ON COLUMN vi_growth_base.note IS '说明';
+
+COMMENT ON COLUMN vi_growth_base.company_id IS '公司（关联 公司）';
+
+COMMENT ON COLUMN vi_growth_base.business_id IS '业务（关联 业务分部）';
+
+CREATE TRIGGER vi_growth_base_touch BEFORE UPDATE ON vi_growth_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
 
 CREATE TABLE vi_issue_base (
   id bigserial PRIMARY KEY,
@@ -1384,6 +940,25 @@ COMMENT ON COLUMN vi_change_log_base.verification IS '验证';
 COMMENT ON COLUMN vi_change_log_base.company_id IS '公司（关联 公司）';
 
 CREATE TRIGGER vi_change_log_base_touch BEFORE UPDATE ON vi_change_log_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
+
+CREATE TABLE vi_setting_base (
+  id bigserial PRIMARY KEY,
+  name text,
+  hurdle double precision,
+  note text,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+
+COMMENT ON TABLE vi_setting_base IS '统一设置：全部公司共用的研究参数（只有一行）；被【三层价值·结果】引用。投资回报率要求（门槛）对五家公司一视同仁：三层估值、统一估值引擎、股息贴现都用它资本化收益、判断隐含回报够不够、算最高买入价。各公司不再单独设门槛。';
+
+COMMENT ON COLUMN vi_setting_base.name IS '设置：固定为“全局”';
+
+COMMENT ON COLUMN vi_setting_base.hurdle IS '投资回报率要求（门槛）：自己的机会成本：低于它的回报不值得买（小数，0.05＝5%）';
+
+COMMENT ON COLUMN vi_setting_base.note IS '说明：为什么定这个数、什么时候改';
+
+CREATE TRIGGER vi_setting_base_touch BEFORE UPDATE ON vi_setting_base FOR EACH ROW EXECUTE FUNCTION vi_touch_updated_at();
 
 CREATE TABLE vi_collector_base (
   id bigserial PRIMARY KEY,
@@ -1510,14 +1085,6 @@ ALTER TABLE vi_business_base ADD FOREIGN KEY (company_id) REFERENCES vi_company_
 
 CREATE INDEX ON vi_business_base (company_id);
 
-ALTER TABLE vi_line_base ADD FOREIGN KEY (business_id) REFERENCES vi_business_base(id) ON DELETE SET NULL;
-
-CREATE INDEX ON vi_line_base (business_id);
-
-ALTER TABLE vi_line_base ADD FOREIGN KEY (base_line_id) REFERENCES vi_line_base(id) ON DELETE SET NULL;
-
-CREATE INDEX ON vi_line_base (base_line_id);
-
 ALTER TABLE vi_biz_model_base ADD FOREIGN KEY (company_id) REFERENCES vi_company_base(id) ON DELETE SET NULL;
 
 CREATE INDEX ON vi_biz_model_base (company_id);
@@ -1578,77 +1145,25 @@ ALTER TABLE vi_observation_base ADD FOREIGN KEY (raw_capture_id) REFERENCES vi_r
 
 CREATE INDEX ON vi_observation_base (raw_capture_id);
 
-ALTER TABLE vi_model_base ADD FOREIGN KEY (company_id) REFERENCES vi_company_base(id) ON DELETE SET NULL;
+ALTER TABLE vi_bs_item_base ADD FOREIGN KEY (company_id) REFERENCES vi_company_base(id) ON DELETE SET NULL;
 
-CREATE INDEX ON vi_model_base (company_id);
+CREATE INDEX ON vi_bs_item_base (company_id);
 
-ALTER TABLE vi_model_base ADD FOREIGN KEY (rf_metric_id) REFERENCES vi_metric_base(id) ON DELETE SET NULL;
+ALTER TABLE vi_epv_base ADD FOREIGN KEY (company_id) REFERENCES vi_company_base(id) ON DELETE SET NULL;
 
-CREATE INDEX ON vi_model_base (rf_metric_id);
+CREATE INDEX ON vi_epv_base (company_id);
 
-ALTER TABLE vi_scenario_base ADD FOREIGN KEY (model_id) REFERENCES vi_model_base(id) ON DELETE SET NULL;
+ALTER TABLE vi_epv_base ADD FOREIGN KEY (business_id) REFERENCES vi_business_base(id) ON DELETE SET NULL;
 
-CREATE INDEX ON vi_scenario_base (model_id);
+CREATE INDEX ON vi_epv_base (business_id);
 
-ALTER TABLE vi_sotp_item_base ADD FOREIGN KEY (model_id) REFERENCES vi_model_base(id) ON DELETE SET NULL;
+ALTER TABLE vi_growth_base ADD FOREIGN KEY (company_id) REFERENCES vi_company_base(id) ON DELETE SET NULL;
 
-CREATE INDEX ON vi_sotp_item_base (model_id);
+CREATE INDEX ON vi_growth_base (company_id);
 
-ALTER TABLE vi_sotp_item_base ADD FOREIGN KEY (scenario_id) REFERENCES vi_scenario_base(id) ON DELETE SET NULL;
+ALTER TABLE vi_growth_base ADD FOREIGN KEY (business_id) REFERENCES vi_business_base(id) ON DELETE SET NULL;
 
-CREATE INDEX ON vi_sotp_item_base (scenario_id);
-
-ALTER TABLE vi_sotp_item_base ADD FOREIGN KEY (business_id) REFERENCES vi_business_base(id) ON DELETE SET NULL;
-
-CREATE INDEX ON vi_sotp_item_base (business_id);
-
-ALTER TABLE vi_sotp_item_base ADD FOREIGN KEY (metric_id) REFERENCES vi_metric_base(id) ON DELETE SET NULL;
-
-CREATE INDEX ON vi_sotp_item_base (metric_id);
-
-ALTER TABLE vi_sotp_segment_base ADD FOREIGN KEY (model_id) REFERENCES vi_model_base(id) ON DELETE SET NULL;
-
-CREATE INDEX ON vi_sotp_segment_base (model_id);
-
-ALTER TABLE vi_sotp_segment_base ADD FOREIGN KEY (scenario_id) REFERENCES vi_scenario_base(id) ON DELETE SET NULL;
-
-CREATE INDEX ON vi_sotp_segment_base (scenario_id);
-
-ALTER TABLE vi_sotp_segment_base ADD FOREIGN KEY (business_id) REFERENCES vi_business_base(id) ON DELETE SET NULL;
-
-CREATE INDEX ON vi_sotp_segment_base (business_id);
-
-ALTER TABLE vi_forecast_base ADD FOREIGN KEY (model_id) REFERENCES vi_model_base(id) ON DELETE SET NULL;
-
-CREATE INDEX ON vi_forecast_base (model_id);
-
-ALTER TABLE vi_fin_forecast_base ADD FOREIGN KEY (model_id) REFERENCES vi_model_base(id) ON DELETE SET NULL;
-
-CREATE INDEX ON vi_fin_forecast_base (model_id);
-
-ALTER TABLE vi_trial_base ADD FOREIGN KEY (model_id) REFERENCES vi_model_base(id) ON DELETE SET NULL;
-
-CREATE INDEX ON vi_trial_base (model_id);
-
-ALTER TABLE vi_assumption_base ADD FOREIGN KEY (model_id) REFERENCES vi_model_base(id) ON DELETE SET NULL;
-
-CREATE INDEX ON vi_assumption_base (model_id);
-
-ALTER TABLE vi_assumption_base ADD FOREIGN KEY (business_id) REFERENCES vi_business_base(id) ON DELETE SET NULL;
-
-CREATE INDEX ON vi_assumption_base (business_id);
-
-ALTER TABLE vi_assumption_base ADD FOREIGN KEY (line_id) REFERENCES vi_line_base(id) ON DELETE SET NULL;
-
-CREATE INDEX ON vi_assumption_base (line_id);
-
-ALTER TABLE vi_assumption_base ADD FOREIGN KEY (scenario_id) REFERENCES vi_scenario_base(id) ON DELETE SET NULL;
-
-CREATE INDEX ON vi_assumption_base (scenario_id);
-
-ALTER TABLE vi_assumption_base ADD FOREIGN KEY (judgment_id) REFERENCES vi_judgment_base(id) ON DELETE SET NULL;
-
-CREATE INDEX ON vi_assumption_base (judgment_id);
+CREATE INDEX ON vi_growth_base (business_id);
 
 ALTER TABLE vi_issue_base ADD FOREIGN KEY (company_id) REFERENCES vi_company_base(id) ON DELETE SET NULL;
 
@@ -1678,13 +1193,9 @@ ALTER TABLE vi_company_base ADD CONSTRAINT vi_company_uniq UNIQUE (code);
 
 ALTER TABLE vi_metric_base ADD CONSTRAINT vi_metric_uniq UNIQUE (code);
 
+ALTER TABLE vi_setting_base ADD CONSTRAINT vi_setting_uniq UNIQUE (name);
+
 ALTER TABLE vi_fin_stmt_base ADD CONSTRAINT vi_fin_stmt_uniq UNIQUE (company_id, stmt, period_end, item);
-
-ALTER TABLE vi_forecast_base ADD CONSTRAINT vi_forecast_uniq UNIQUE (model_id, year);
-
-ALTER TABLE vi_fin_forecast_base ADD CONSTRAINT vi_fin_forecast_uniq UNIQUE (model_id, year);
-
-ALTER TABLE vi_scenario_base ADD CONSTRAINT vi_scenario_uniq UNIQUE (model_id, name);
 
 ALTER TABLE vi_thesis_base ADD CONSTRAINT vi_thesis_uniq UNIQUE (company_id, code);
 
@@ -1694,7 +1205,7 @@ ALTER TABLE vi_judgment_base ADD CONSTRAINT vi_judgment_uniq UNIQUE (company_id,
 
 ALTER TABLE vi_business_base ADD CONSTRAINT vi_business_uniq UNIQUE (company_id, code);
 
-ALTER TABLE vi_line_base ADD CONSTRAINT vi_line_uniq UNIQUE (business_id, code);
+ALTER TABLE vi_growth_base ADD CONSTRAINT vi_growth_uniq UNIQUE (business_id);
 
 ALTER TABLE vi_biz_model_base ADD CONSTRAINT vi_biz_model_uniq UNIQUE NULLS NOT DISTINCT (company_id, business_id, code);
 
@@ -1918,141 +1429,76 @@ CREATE TABLE vi_lnk_judgment_metrics (
 
 COMMENT ON TABLE vi_lnk_judgment_metrics IS '假设依据 ↔ 跟踪指标（多对多）';
 
-CREATE TABLE vi_lnk_sotp_item_facts (
-  sotp_item_id bigint NOT NULL REFERENCES vi_sotp_item_base(id) ON DELETE CASCADE,
-  fact_id bigint NOT NULL REFERENCES vi_fact_base(id) ON DELETE CASCADE,
-  "createdAt" timestamptz NOT NULL DEFAULT now(),
-  "updatedAt" timestamptz NOT NULL DEFAULT now(),
-  PRIMARY KEY (sotp_item_id, fact_id)
-);
-
-COMMENT ON TABLE vi_lnk_sotp_item_facts IS '资产估值与调整 ↔ 依据事实（多对多）';
-
-CREATE TABLE vi_lnk_sotp_item_basis_metrics (
-  sotp_item_id bigint NOT NULL REFERENCES vi_sotp_item_base(id) ON DELETE CASCADE,
-  metric_id bigint NOT NULL REFERENCES vi_metric_base(id) ON DELETE CASCADE,
-  "createdAt" timestamptz NOT NULL DEFAULT now(),
-  "updatedAt" timestamptz NOT NULL DEFAULT now(),
-  PRIMARY KEY (sotp_item_id, metric_id)
-);
-
-COMMENT ON TABLE vi_lnk_sotp_item_basis_metrics IS '资产估值与调整 ↔ 依据指标（多对多）';
-
-CREATE TABLE vi_lnk_sotp_segment_facts (
-  sotp_segment_id bigint NOT NULL REFERENCES vi_sotp_segment_base(id) ON DELETE CASCADE,
-  fact_id bigint NOT NULL REFERENCES vi_fact_base(id) ON DELETE CASCADE,
-  "createdAt" timestamptz NOT NULL DEFAULT now(),
-  "updatedAt" timestamptz NOT NULL DEFAULT now(),
-  PRIMARY KEY (sotp_segment_id, fact_id)
-);
-
-COMMENT ON TABLE vi_lnk_sotp_segment_facts IS '经营分部估值 ↔ 依据事实（多对多）';
-
-CREATE TABLE vi_lnk_sotp_segment_basis_metrics (
-  sotp_segment_id bigint NOT NULL REFERENCES vi_sotp_segment_base(id) ON DELETE CASCADE,
-  metric_id bigint NOT NULL REFERENCES vi_metric_base(id) ON DELETE CASCADE,
-  "createdAt" timestamptz NOT NULL DEFAULT now(),
-  "updatedAt" timestamptz NOT NULL DEFAULT now(),
-  PRIMARY KEY (sotp_segment_id, metric_id)
-);
-
-COMMENT ON TABLE vi_lnk_sotp_segment_basis_metrics IS '经营分部估值 ↔ 依据指标（多对多）';
-
-CREATE TABLE vi_lnk_forecast_facts (
-  forecast_id bigint NOT NULL REFERENCES vi_forecast_base(id) ON DELETE CASCADE,
-  fact_id bigint NOT NULL REFERENCES vi_fact_base(id) ON DELETE CASCADE,
-  "createdAt" timestamptz NOT NULL DEFAULT now(),
-  "updatedAt" timestamptz NOT NULL DEFAULT now(),
-  PRIMARY KEY (forecast_id, fact_id)
-);
-
-COMMENT ON TABLE vi_lnk_forecast_facts IS '逐年假设 ↔ 依据事实（多对多）';
-
-CREATE TABLE vi_lnk_forecast_basis_metrics (
-  forecast_id bigint NOT NULL REFERENCES vi_forecast_base(id) ON DELETE CASCADE,
-  metric_id bigint NOT NULL REFERENCES vi_metric_base(id) ON DELETE CASCADE,
-  "createdAt" timestamptz NOT NULL DEFAULT now(),
-  "updatedAt" timestamptz NOT NULL DEFAULT now(),
-  PRIMARY KEY (forecast_id, metric_id)
-);
-
-COMMENT ON TABLE vi_lnk_forecast_basis_metrics IS '逐年假设 ↔ 依据指标（多对多）';
-
-CREATE TABLE vi_lnk_forecast_judgments (
-  forecast_id bigint NOT NULL REFERENCES vi_forecast_base(id) ON DELETE CASCADE,
+CREATE TABLE vi_lnk_bs_item_judgments (
+  bs_item_id bigint NOT NULL REFERENCES vi_bs_item_base(id) ON DELETE CASCADE,
   judgment_id bigint NOT NULL REFERENCES vi_judgment_base(id) ON DELETE CASCADE,
   "createdAt" timestamptz NOT NULL DEFAULT now(),
   "updatedAt" timestamptz NOT NULL DEFAULT now(),
-  PRIMARY KEY (forecast_id, judgment_id)
+  PRIMARY KEY (bs_item_id, judgment_id)
 );
 
-COMMENT ON TABLE vi_lnk_forecast_judgments IS '逐年假设 ↔ 假设依据（多对多）';
+COMMENT ON TABLE vi_lnk_bs_item_judgments IS '资产负债重估 ↔ 假设依据（多对多）';
 
-CREATE TABLE vi_lnk_trial_judgments (
-  trial_id bigint NOT NULL REFERENCES vi_trial_base(id) ON DELETE CASCADE,
+CREATE TABLE vi_lnk_epv_judgments (
+  epv_id bigint NOT NULL REFERENCES vi_epv_base(id) ON DELETE CASCADE,
   judgment_id bigint NOT NULL REFERENCES vi_judgment_base(id) ON DELETE CASCADE,
   "createdAt" timestamptz NOT NULL DEFAULT now(),
   "updatedAt" timestamptz NOT NULL DEFAULT now(),
-  PRIMARY KEY (trial_id, judgment_id)
+  PRIMARY KEY (epv_id, judgment_id)
 );
 
-COMMENT ON TABLE vi_lnk_trial_judgments IS '单参数试验 ↔ 假设依据（多对多）';
+COMMENT ON TABLE vi_lnk_epv_judgments IS '调整后利润表 ↔ 假设依据（多对多）';
 
--- 业务身份的公司归属、估值情景归属，以及避免重复计价所需的边界约束。
+CREATE TABLE vi_lnk_growth_judgments (
+  growth_id bigint NOT NULL REFERENCES vi_growth_base(id) ON DELETE CASCADE,
+  judgment_id bigint NOT NULL REFERENCES vi_judgment_base(id) ON DELETE CASCADE,
+  "createdAt" timestamptz NOT NULL DEFAULT now(),
+  "updatedAt" timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (growth_id, judgment_id)
+);
+
+COMMENT ON TABLE vi_lnk_growth_judgments IS '增长 ↔ 假设依据（多对多）';
+
+-- 业务身份的公司归属：商业模式拆解、调整后利润表、增长里的业务必须属于同一家公司。
 CREATE OR REPLACE FUNCTION vi_business_scope_guard() RETURNS trigger LANGUAGE plpgsql AS $$
-DECLARE owner_id bigint; business_owner bigint;
 BEGIN
-  IF TG_TABLE_NAME = 'vi_biz_model_base' THEN owner_id := NEW.company_id;
-  ELSE
-    SELECT company_id INTO owner_id FROM vi_model_base WHERE id = NEW.model_id;
-    IF NEW.scenario_id IS NOT NULL AND NOT EXISTS
-       (SELECT 1 FROM vi_scenario_base WHERE id = NEW.scenario_id AND model_id = NEW.model_id) THEN
-      RAISE EXCEPTION '适用情景必须属于当前估值模型';
-    END IF;
+  IF NEW.business_id IS NOT NULL AND NOT EXISTS
+     (SELECT 1 FROM vi_business_base WHERE id = NEW.business_id AND company_id = NEW.company_id) THEN
+    RAISE EXCEPTION '业务必须属于当前公司';
   END IF;
-  IF NEW.business_id IS NOT NULL THEN
-    SELECT company_id INTO business_owner FROM vi_business_base WHERE id = NEW.business_id;
-    IF owner_id IS NULL OR business_owner IS DISTINCT FROM owner_id THEN
-      RAISE EXCEPTION '所属业务必须属于当前公司或估值模型所在公司';
-    END IF;
+  IF TG_TABLE_NAME IN ('vi_epv_base', 'vi_growth_base') AND NEW.business_id IS NULL THEN RAISE EXCEPTION '必须选业务'; END IF;
+  RETURN NEW;
+END $$;
+-- 资产负债重估是全公司口径（不分业务）：只查类别与折价
+CREATE OR REPLACE FUNCTION vi_bs_item_guard() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  IF NEW.category IS NULL OR NEW.category NOT IN ('经营资产', '经营负债', '现金与投资', '参照估值', '有息负债', '其他索取权') THEN
+    RAISE EXCEPTION '请填写有效的类别';
   END IF;
-  IF TG_TABLE_NAME = 'vi_sotp_item_base' THEN
-    IF NEW.treatment IS NULL OR NEW.treatment NOT IN ('单独计价', '已含业务估值', '不计价') THEN
-      RAISE EXCEPTION '请填写有效的计价处理';
-    END IF;
-    IF NEW.treatment = '已含业务估值' AND NEW.business_id IS NULL THEN
-      RAISE EXCEPTION '已含业务估值的资产必须关联具体业务';
-    END IF;
-    IF NEW.kind IN ('固定资产', '其他非经营资产') AND
-       (NEW.boundary IS NULL OR btrim(NEW.boundary) = '') THEN
-      RAISE EXCEPTION '固定资产及其他非经营资产必须说明计价边界';
-    END IF;
-    IF NEW.haircut IS NOT NULL AND (NEW.haircut < 0 OR NEW.haircut > 1) THEN
-      RAISE EXCEPTION '折价必须在 0 到 1 之间';
-    END IF;
-  END IF;
+  IF NEW.haircut IS NOT NULL AND (NEW.haircut < 0 OR NEW.haircut > 1) THEN RAISE EXCEPTION '折价必须在 0 到 1 之间'; END IF;
   RETURN NEW;
 END $$;
 DROP TRIGGER IF EXISTS vi_biz_model_business_scope ON vi_biz_model_base;
 CREATE TRIGGER vi_biz_model_business_scope BEFORE INSERT OR UPDATE ON vi_biz_model_base
   FOR EACH ROW EXECUTE FUNCTION vi_business_scope_guard();
-DROP TRIGGER IF EXISTS vi_sotp_segment_business_scope ON vi_sotp_segment_base;
-CREATE TRIGGER vi_sotp_segment_business_scope BEFORE INSERT OR UPDATE ON vi_sotp_segment_base
+DROP TRIGGER IF EXISTS vi_bs_item_business_scope ON vi_bs_item_base;
+DROP TRIGGER IF EXISTS vi_bs_item_check ON vi_bs_item_base;
+CREATE TRIGGER vi_bs_item_check BEFORE INSERT OR UPDATE ON vi_bs_item_base
+  FOR EACH ROW EXECUTE FUNCTION vi_bs_item_guard();
+DROP TRIGGER IF EXISTS vi_epv_business_scope ON vi_epv_base;
+CREATE TRIGGER vi_epv_business_scope BEFORE INSERT OR UPDATE ON vi_epv_base
   FOR EACH ROW EXECUTE FUNCTION vi_business_scope_guard();
-DROP TRIGGER IF EXISTS vi_sotp_item_business_scope ON vi_sotp_item_base;
-CREATE TRIGGER vi_sotp_item_business_scope BEFORE INSERT OR UPDATE ON vi_sotp_item_base
+DROP TRIGGER IF EXISTS vi_growth_business_scope ON vi_growth_base;
+CREATE TRIGGER vi_growth_business_scope BEFORE INSERT OR UPDATE ON vi_growth_base
   FOR EACH ROW EXECUTE FUNCTION vi_business_scope_guard();
-CREATE UNIQUE INDEX IF NOT EXISTS vi_sotp_segment_business_scenario_uniq
-  ON vi_sotp_segment_base (model_id, business_id, scenario_id) NULLS NOT DISTINCT
-  WHERE business_id IS NOT NULL;
 
--- 业务一旦被引用，不允许改变其所属公司或删除为集团记录。
+-- 业务一旦被引用，不允许改变其所属公司或删除。
 CREATE OR REPLACE FUNCTION vi_business_owner_guard() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_OP = 'DELETE' OR NEW.company_id IS DISTINCT FROM OLD.company_id THEN
     IF EXISTS (SELECT 1 FROM vi_biz_model_base WHERE business_id = OLD.id)
-       OR EXISTS (SELECT 1 FROM vi_sotp_segment_base WHERE business_id = OLD.id)
-       OR EXISTS (SELECT 1 FROM vi_sotp_item_base WHERE business_id = OLD.id) THEN
+       OR EXISTS (SELECT 1 FROM vi_epv_base WHERE business_id = OLD.id)
+       OR EXISTS (SELECT 1 FROM vi_growth_base WHERE business_id = OLD.id) THEN
       RAISE EXCEPTION '业务仍被商业模式或估值引用，请先处理关联记录';
     END IF;
   END IF;
@@ -2063,13 +1509,41 @@ DROP TRIGGER IF EXISTS vi_business_owner ON vi_business_base;
 CREATE TRIGGER vi_business_owner BEFORE UPDATE OR DELETE ON vi_business_base
   FOR EACH ROW EXECUTE FUNCTION vi_business_owner_guard();
 
+-- 统一设置只有一行（“全局”），删不掉；空库建好就有默认门槛 6%
+ALTER TABLE vi_setting_base DROP CONSTRAINT IF EXISTS vi_setting_single;
+ALTER TABLE vi_setting_base ADD CONSTRAINT vi_setting_single CHECK (name = '全局');
+INSERT INTO vi_setting_base (name, hurdle, note) VALUES ('全局', 0.06, '全部公司统一使用的投资回报率要求；在这里改，所有估值同时更新。')
+ON CONFLICT (name) DO NOTHING;
+CREATE OR REPLACE FUNCTION vi_setting_keep() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN RAISE EXCEPTION '统一设置不能删除：全部估值都读这里的门槛，改数值即可'; END $$;
+DROP TRIGGER IF EXISTS vi_setting_keep ON vi_setting_base;
+CREATE TRIGGER vi_setting_keep BEFORE DELETE ON vi_setting_base FOR EACH ROW EXECUTE FUNCTION vi_setting_keep();
+
 
 ALTER TABLE vi_metric_base ADD CONSTRAINT vi_metric_source_required CHECK (nullif(btrim(source_name), '') IS NOT NULL);
-ALTER TABLE vi_sotp_item_base ADD CONSTRAINT vi_sotp_item_one_amount CHECK (metric_id IS NULL OR amount IS NULL);
 CREATE INDEX IF NOT EXISTS vi_fin_stmt_item_idx ON vi_fin_stmt_base (company_id, item);
 CREATE UNIQUE INDEX IF NOT EXISTS vi_metric_model_field_uniq ON vi_metric_base (company_id, model_field) WHERE model_field IS NOT NULL;
 CREATE INDEX IF NOT EXISTS vi_observation_mbp_idx ON vi_observation_base (metric_id, basis, period);
 CREATE INDEX IF NOT EXISTS vi_observation_mbd_idx ON vi_observation_base (metric_id, obs_date, basis);
+
+-- 旧快照未记录币种和单位。普通金额沿用既有亿元口径；
+-- 历史每股收益曾按金额缩放，须由源数值明确写入单位。
+CREATE OR REPLACE FUNCTION vi_fin_stmt_fill_units() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  IF NEW.currency IS NULL THEN
+    SELECT CASE currency WHEN '人民币' THEN 'CNY' WHEN '港元' THEN 'HKD' WHEN '美元' THEN 'USD'
+                         ELSE currency END
+      INTO NEW.currency FROM vi_company_base WHERE id = NEW.company_id;
+  END IF;
+  IF NEW.unit IS NULL AND NEW.item !~ '每股' THEN
+    NEW.unit := '亿元';
+  END IF;
+  RETURN NEW;
+END $$;
+
+DROP TRIGGER IF EXISTS vi_fin_stmt_fill_units ON vi_fin_stmt_base;
+CREATE TRIGGER vi_fin_stmt_fill_units BEFORE INSERT OR UPDATE ON vi_fin_stmt_base
+FOR EACH ROW EXECUTE FUNCTION vi_fin_stmt_fill_units();
 
 
 COMMIT;

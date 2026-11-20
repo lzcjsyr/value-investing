@@ -11,6 +11,7 @@
   ../tools/finstmt_check.sh 600900.SH  # 不开浏览器用真实数据验证脚本（Node 模拟 RunJS）
 """
 import json, sys
+from pathlib import Path
 import spec
 from build_pages import state, companies, destroy_page, ensure_group, company_root, sort_menu, blocks, page_tree, nb_json
 from build_overview import apply_page, record
@@ -24,10 +25,11 @@ JS = r"""
   const { Table, Segmented, Select, Space, Typography, Card, Row, Col, Empty, theme } = ctx.libs.antd;
   const { Text } = Typography;
   const COMPANY = '__COMPANY__';
+  const DISCLOSURES = __DISCLOSURES__;
   const ROLE = __ROLE__;          // 表的一句话定位（spec.role_line）
   const STMTS = ['资产负债表', '利润表', '现金流量表'];
   // 合计、小计与关键利润、现金行：加粗加底色，“关键科目”只列这些
-  const BOLD = /(合计|总计|小计|毛利|净利润|净资产|净增加额|现金净额|溢利|利润总额|营业利润|营业总收入|营业总成本|营业收入|营业额|总资产|总负债|总权益|经营业务现金净额|经营活动产生的现金流量净额|投资活动产生的现金流量净额|筹资活动产生的现金流量净额|期初现金|期末现金|货币资金|现金及现金等价物)$/;
+  const BOLD = /(经营利润|税前利润|现金流量净额|现金及现金等价物净变动|每股收益|合计|总计|小计|毛利|净利润|净资产|净增加额|现金净额|溢利|利润总额|营业利润|营业总收入|营业总成本|营业收入|营业额|总资产|总负债|总权益|经营业务现金净额|经营活动产生的现金流量净额|投资活动产生的现金流量净额|筹资活动产生的现金流量净额|期初现金|期末现金|货币资金|现金及现金等价物)$/;
   const get = async (url, params) => (await ctx.request({ url, params }))?.data?.data;
   const listOf = async (name, params = {}) => (await get(`${name}:list`, { pageSize: 2000, ...params })) || [];
   const fetchAll = async (name, filter, sort) => {
@@ -278,11 +280,13 @@ JS = r"""
     return v.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   };
   const matrix = (rows, single) => {
-    const perDate = {}, seqOf = {}, cum = {};
+    const perDate = {}, seqOf = {}, cum = {}, metadata = {};
     for (const r of rows) {
       perDate[r.period] = r.period_end;
       if (!(r.item in seqOf) || r.seq < seqOf[r.item]) seqOf[r.item] = r.seq;
-      cum[`${r.item}|${r.period}`] = r.amount;
+      const key = `${r.item}|${r.period}`;
+      metadata[key] = r.unit && r.currency ? `${r.currency} ${r.unit}` : r.unit;
+      if (!r.item.includes('每股') || r.unit) cum[key] = r.amount;
     }
     const periods = Object.keys(perDate).sort((a, b) => (perDate[a] < perDate[b] ? 1 : -1));
     const items = Object.keys(seqOf).sort((a, b) => seqOf[a] - seqOf[b]);
@@ -294,12 +298,14 @@ JS = r"""
       const v = cum[`${item}|${p}`];
       if (v === undefined) return null;
       if (!single) return v;
+      if (item.includes('每股') && !p.endsWith('Q1')) return null;
       const pp = prevOf(p);
       if (!pp) return v;
-      const base = cum[`${item}|${pp}`];
-      return base === undefined ? null : round6(v - base);
+      const previousKey = `${item}|${pp}`;
+      const base = cum[previousKey];
+      return base === undefined || metadata[previousKey] !== metadata[`${item}|${p}`] ? null : round6(v - base);
     };
-    return { periods, items, perDate, value, raw: (item, p) => cum[`${item}|${p}`] };
+    return { periods, items, perDate, value, metadata, raw: (item, p) => cum[`${item}|${p}`] };
   };
   const Spark = ({ vals }) => {
     const pts = vals.filter((v) => v !== null && v !== undefined);
@@ -312,11 +318,11 @@ JS = r"""
   // 常用比率：按概念找本公司报表里的科目（A 股、港股两种格式），找不到的比率不显示
   const CONCEPT = {
     rev: ['营业收入', '营业额'], cogs: ['营业成本', '销售成本'], gp: ['毛利'],
-    sell: ['销售费用', '销售及分销费用'], admin: ['管理费用', '行政开支'], rd: ['研发费用'],
-    op: ['营业利润', '经营溢利'], pretax: ['利润总额', '除税前溢利'], tax: ['所得税费用', '税项'],
+    sell: ['销售费用', '销售及分销费用', '销售及营销费用'], admin: ['管理费用', '行政开支', '一般及行政费用'], rd: ['研发费用'],
+    op: ['营业利润', '经营溢利', '经营利润'], pretax: ['利润总额', '除税前溢利', '税前利润'], tax: ['所得税费用', '税项'],
     np: ['净利润', '除税后溢利'], npp: ['归属于母公司所有者的净利润', '归属于母公司股东的净利润', '股东应占溢利'],
     ta: ['资产总计', '总资产'], tl: ['负债合计', '总负债'], ca: ['流动资产合计'], cl: ['流动负债合计'],
-    cfo: ['经营活动产生的现金流量净额', '经营业务现金净额'],
+    cfo: ['经营活动产生的现金流量净额', '经营业务现金净额', '经营活动现金流量净额'],
   };
   const ITEM = {};
   for (const [k, names] of Object.entries(CONCEPT)) {
@@ -328,7 +334,7 @@ JS = r"""
   }
   const cfItems = new Set(cfRows.map((r) => r.item));
   const CAPEX = cfItems.has('购建固定资产、无形资产和其他长期资产所支付的现金') ? ['购建固定资产、无形资产和其他长期资产所支付的现金']
-    : ['购建固定资产', '购建无形资产及其他资产'].filter((n) => cfItems.has(n));
+    : ['购建固定资产', '购建无形资产及其他资产', '购置物业厂房及设备', '购置无形资产', '购置土地使用权'].filter((n) => cfItems.has(n));
   const RATIOS = {
     '利润表': [
       ['毛利率', 'pct', (g) => div(g('gp') ?? minus(g('rev'), g('cogs')), g('rev')), ['gp', 'cogs']],
@@ -385,15 +391,21 @@ JS = r"""
       const x = ITEM[k];
       if (!x) return undefined;
       const v = mats[x[0]].value(x[1], p);
-      return v === null ? undefined : v;
+      if (v === null) return undefined;
+      return COMPANY === '01698.HK' && ['cogs','tax','sell','admin','rd'].includes(k) ? -v : v;
     };
+    const unitsForPeriod = [...new Set(ROWS[stmt].filter((r) => r.unit === '亿元' && shown.includes(r.period)).map((r) => r.currency).filter(Boolean))];
+    const commonUnit = unitsForPeriod.length === 1 ? `${unitsForPeriod[0]} 亿元` : null;
     const latest = shown[0];
+    const disclosure = DISCLOSURES[latest]?.[stmt];
     const yoyBase = latest ? (freq === '年度' ? `${Number(latest.slice(0, 4)) - 1}Q4` : `${Number(latest.slice(0, 4)) - 1}${latest.slice(4)}`) : null;
     const columns = [
       { title: '科目', dataIndex: 'item', fixed: 'left', width: 220,
         render: (v, r) => (r.kind === 'calc'
           ? <span style={{ paddingLeft: 16, color: token.colorTextSecondary }}>{v}</span>
-          : <span style={{ fontWeight: r.kind === 'key' ? 600 : 400 }}>{v}</span>) },
+          : <span style={{ fontWeight: r.kind === 'key' ? 600 : 400 }}>{v}
+              {r.unit && <Text type="secondary" style={{ display: 'block', fontSize: 11 }}>{r.unit}</Text>}
+            </span>) },
       { title: '趋势', dataIndex: 'spark', width: 104, render: (v) => <Spark vals={v} /> },
       { title: latest ? <div style={{ textAlign: 'center', lineHeight: 1.3 }}><div>同比</div><div style={{ fontSize: 11, color: token.colorTextTertiary }}>{label(latest)} 对 {label(yoyBase)}</div></div> : '同比',
         dataIndex: 'yoy', width: 96, align: 'right',
@@ -409,7 +421,10 @@ JS = r"""
           <div style={{ fontSize: 11, color: token.colorTextTertiary }}>{m.perDate[p]}</div>
         </div>),
         dataIndex: p, align: 'right', width: 112,
-        render: (v, r) => <span style={{ color: v < 0 ? '#cf1322' : r.fmt ? token.colorTextSecondary : undefined }}>{r.fmt ? showCalc(v, r.fmt) : fmt(v)}</span>,
+        render: (v, r) => <span style={{ color: v < 0 ? '#cf1322' : r.fmt ? token.colorTextSecondary : undefined }}>
+          {r.fmt ? showCalc(v, r.fmt) : fmt(v)}
+          {v != null && r.units?.[p] && <Text type="secondary" style={{ display: 'block', fontSize: 11 }}>{r.units[p]}</Text>}
+        </span>,
       })),
     ];
     const calcRows = RATIOS[stmt].map(([name, f, fn, anchor]) => {
@@ -425,17 +440,23 @@ JS = r"""
     for (const item of m.items) {
       if (keep.has(item)) {
         const row = { key: item, item, kind: BOLD.test(item) ? 'key' : 'item' };
+        const units = [...new Set(shown.map((p) => m.metadata[`${item}|${p}`]).filter(Boolean))];
+        row.units = units.length > 1 ? Object.fromEntries(shown.map((p) => [p, m.metadata[`${item}|${p}`]])) : null;
+        row.unit = units.length === 1 && units[0] !== commonUnit ? units[0] : '';
         for (const p of shown) row[p] = m.value(item, p);
-        row.spark = [...shown].reverse().map((p) => row[p]);
+        row.spark = row.units ? [] : [...shown].reverse().map((p) => row[p]);
         const a = latest ? m.value(item, latest) : null, b = yoyBase ? m.value(item, yoyBase) : null;
-        row.yoy = a !== null && b !== null && b > 0 ? a / b - 1 : undefined;
+        row.yoy = a !== null && b !== null && b > 0 && m.metadata[`${item}|${latest}`] === m.metadata[`${item}|${yoyBase}`] ? a / b - 1 : undefined;
         dataSource.push(row);
       }
       dataSource.push(...calcRows.filter((r) => r.anchor === item));
     }
     dataSource.push(...calcRows.filter((r) => !r.anchor || !m.items.includes(r.anchor)));
     return (
-      <Card size="small" title="报表明细" extra={<Text type="secondary" style={{ fontSize: 12 }}>金额：{UNIT}</Text>}>
+      <Card size="small" title="报表明细" extra={<Space size={10}>
+        {disclosure && <a href={disclosure} target="_blank" rel="noreferrer">{label(latest)} 原文</a>}
+        <Text type="secondary" style={{ fontSize: 12 }}>金额单位 {commonUnit ?? '见各期单元格'}</Text>
+      </Space>}>
         <Space wrap style={{ marginBottom: 10 }}>
           <Segmented value={stmt} onChange={setStmt} options={STMTS} />
           <Segmented value={freq} onChange={setFreq} options={['年度', '季度']} />
@@ -445,9 +466,10 @@ JS = r"""
             options={[4, 8, 12, 20].map((n) => ({ label: `近${n}期`, value: n })).concat([{ label: '全部', value: 0 }])} />
         </Space>
         <div style={{ fontSize: 12, color: token.colorTextTertiary, marginBottom: 8 }}>
+          {COMPANY === '01698.HK' && '现金流量表以公司披露为准，部分季度仅有简明合计。'}
           {freq === '年度' ? '年度＝四季度报告：利润表、现金流量表为全年，资产负债表为年末。' : '利润表、现金流量表的“累计”是年初至报告期末；“单季”＝本年相邻两期累计之差（一季度即累计）。'}
           灰字缩进的是算出来的比率（毛利率、费用率、利润率、负债率等），放在对应科目下面，比率的同比为百分点变化；
-          <span style={{ background: '#e6f0ff', padding: '0 4px' }}>蓝底行</span>是关键科目（合计、小计与关键利润、现金行）；空白＝该期未披露。
+          <span style={{ background: '#e6f0ff', padding: '0 4px' }}>蓝底行</span>是关键科目（合计、小计与关键利润、现金行）；空白＝该期无可用数值，包括单位尚待核对的历史每股数据。
         </div>
         <style>{`
           .vi-fs .vi-key-row > td { background: #e6f0ff !important; }
@@ -467,7 +489,9 @@ JS = r"""
       <Overview />
       <Statements />
       <Text type="secondary" style={{ fontSize: 12 }}>
-        数据源：akshare（A 股＝新浪财报，港股＝东方财富港股报表）；取数、检验与口径见 framework/tools/fin_stmt.py，表代码 vi_fin_stmt_base。
+        {COMPANY === '01698.HK'
+          ? <>数据源：腾讯音乐正式披露。年度采用 SEC 20-F，季度采用公司业绩公告；如有更详尽的正式中期报表，优先采用。 <a href="https://ir.tencentmusic.com/Financial-results" target="_blank" rel="noreferrer">业绩披露</a></>
+          : '数据源：AKShare，A 股为新浪财报，港股为东方财富。'}
       </Text>
     </div>,
   );
@@ -476,7 +500,14 @@ JS = r"""
 
 def script(co):
     role = spec.role_line(spec.all_tables()['fin_stmt'])
-    return JS.replace('__COMPANY__', co['code']).replace('__ROLE__', json.dumps(role, ensure_ascii=False))
+    disclosures = {}
+    if co['code'] == '01698.HK':
+        snapshot = Path(__file__).resolve().parent.parent / 'companies/01698_腾讯音乐/data/fin_stmt.json'
+        for row in json.loads(snapshot.read_text())['rows']:
+            if row.get('source_url'):
+                disclosures.setdefault(row['period'], {}).setdefault(row['stmt'], row['source_url'])
+    return (JS.replace('__COMPANY__', co['code']).replace('__ROLE__', json.dumps(role, ensure_ascii=False))
+            .replace('__DISCLOSURES__', json.dumps(disclosures, ensure_ascii=False)))
 
 
 def update(co):

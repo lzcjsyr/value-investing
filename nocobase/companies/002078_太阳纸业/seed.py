@@ -17,8 +17,6 @@ import data_layer_seed
 DATA = HERE / 'data'
 CODE = '002078.SZ'
 CO = f"(SELECT id FROM vi_company_base WHERE code = '{CODE}')"
-MODEL_NAME = '太阳纸业 DDM＋现金桥接（2025 年末基准）'
-MODEL = f"(SELECT id FROM vi_model_base WHERE company_id = {CO} AND name = '{MODEL_NAME}')"
 
 
 def lit(v):
@@ -142,11 +140,7 @@ WHERE NOT EXISTS (SELECT 1 FROM vi_observation_base o WHERE o.metric_id = {metri
 
 # ================================================================ 清空本公司的研究、数据、模型与跟踪（可重复执行）
 def reset():
-    OUT.append(f"""DELETE FROM vi_trial_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {CO});
-DELETE FROM vi_forecast_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {CO});
-DELETE FROM vi_scenario_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {CO});
-DELETE FROM vi_model_base WHERE company_id = {CO};
-DELETE FROM vi_fit_score_base WHERE company_id = {CO};
+    OUT.append(f"""DELETE FROM vi_fit_score_base WHERE company_id = {CO};
 DELETE FROM vi_moat_base WHERE company_id = {CO};
 DELETE FROM vi_competitor_base WHERE company_id = {CO};
 DELETE FROM vi_value_chain_base WHERE company_id = {CO};
@@ -411,21 +405,21 @@ def theses():
 
 # ================================================================ 判断（事实 → 判断 → 参数）
 JUDGMENTS = [
-    dict(code='J-Q', title='销量路径', parameter='逐年假设·业务量', affected_years='2026—2035，全部情景',
+    dict(code='J-Q', title='销量路径', parameter='逐年假设·业务量',
          fact_layer='2025 年 929 万吨；2026H1 约 520 万吨；PM47（70 万吨）8 月投产、9—10 月满产；南宁 60 万吨特种纸 2027Q4 试产；浆线产出以自用为主，不增加外销。',
          judgment='2026 年 1065（上半年 520＋下半年 545）；2027 年 1115（PM47 满年）；2028 年 1150（南宁特种纸爬坡）；2029 年 1165；2030—2031 年老挝新项目投产各约 +30 万吨（1195、1225）；之后每年约 +1%（技改补短板，对应每年 10 亿元扩张资本）。',
          transmission='营业收入＝销量×综合吨收入；付现成本按 EBITDA 率随收入变化，所以销量主要影响利润的规模而不是利润率。',
          change_threshold='三季报/年报销量与模型偏差超过 3%；新的大项目公告（如老挝新浆线）。',
          no_change_condition='单季检修、季节性波动。',
          counter_evidence='新增产能可能以价换量；外销浆随内部消耗变化波动较大；老挝新项目规模与时间尚未公告（管理层：2027 年下半年开始考虑，建设期 1.5—2 年）。', facts=['2025 年销量：纸 799 万吨、外销浆 130 万吨', '2026 年上半年分产品销量（管理层口径）', '浆纸产能约 1600 万吨（2026 年 9 月）', '南宁技改：50 万吨本色化学浆＋60 万吨特种纸，投资≤50 亿', '老挝基地：2025 年净利 4.96 亿元，资产占净资产 37%'], theses=['T2']),
-    dict(code='J-P', title='综合吨收入（单价）', parameter='逐年假设·单价', affected_years='2026—2035',
+    dict(code='J-P', title='综合吨收入（单价）', parameter='逐年假设·单价',
          fact_layer='综合吨收入 2023—2025 年 0.487、0.454、0.422 万元/吨；2026H1 约 0.401（208.62÷520）。下降主要来自产品结构（便宜的箱板纸占比上升）和文化纸、溶解浆跌价。',
          judgment='2026—2028 年 0.402 万元/吨（不假设纸价回升）；2029 年起每年 +1%（通胀），吨成本同步 +1%，实际利润率不变。',
          transmission='单价 ±1% → 营业收入约 ±4.3 亿元 → 归母净利约 ±3.6 亿元（成本不变时）。',
          change_threshold='纸价持续上涨/下跌且浆价未同向变化，导致半年度综合吨收入偏离 3% 以上。',
          no_change_condition='结构变化导致的单价下降（毛利率未降）。',
          counter_evidence='卖方假设四季度箱板纸提价、文化纸见底，2027—2028 年利润比本模型高 7%—9%（乐观情景覆盖）。', facts=['2026 年上半年分产品毛利率', '浆价：外盘针叶浆约 670、阔叶浆约 590 美元/吨（2026 年 9 月初）', '卖方一致预期 2026—2028 年归母净利 38.0/41.9/46.1 亿'], theses=['T2', 'T1']),
-    dict(code='J-M', title='吨成本与利润率（付现成本）', parameter='逐年假设·付现成本', affected_years='2026—2035',
+    dict(code='J-M', title='吨成本与利润率（付现成本）', parameter='逐年假设·付现成本',
          fact_layer='EBITDA 率（利润总额＋财务费用＋折旧）÷营收：2019 年 20.3%、2020 年 20.1%、2021 年 17.9%、2022 年 15.1%、2023 年 15.8%、2024 年 16.4%、2025 年 17.4%、2026H1 约 18.1%。颜店 60 万吨化学浆 2026 年 9 月投产、南宁 50 万吨本色浆 2027Q4 投产，自制浆比例继续上升。',
          judgment='付现成本＝营业收入×(1−EBITDA 率)：2026 年 18.3%、2027 年 18.8%、2028 年起 19.0%（七年均值 17.6%，加自制浆约 +1 个百分点）。'
                   '对应吨付现成本 2026 年约 3284 元；悲观情景按 2022—2023 年的利润率。',
@@ -433,19 +427,19 @@ JUDGMENTS = [
          change_threshold='连续两个半年度 EBITDA 率偏离假设 1.5 个百分点以上。',
          no_change_condition='单季汇兑、减值、拆除费用等非经营波动（放在其他净贡献）。',
          counter_evidence='若浆价大涨而纸价跟不上，2022 年那样的 15% 才是常态（悲观情景约 13.8%）。', facts=['2026 年上半年分产品毛利率', '文化纸靠自制浆才赚钱，约 100 万吨已转产包装纸', '老挝林地：年底约 7 万公顷，自有木片比市价低 30—50 美元/吨', '新产能吨利：高端箱板毛利 17%—18%，瓦楞约 10%'], theses=['T1']),
-    dict(code='J-DA', title='折旧摊销', parameter='逐年假设·折旧摊销', affected_years='2026—2035',
+    dict(code='J-DA', title='折旧摊销', parameter='逐年假设·折旧摊销',
          fact_layer='2025 年折旧摊销 24.98 亿元（占年末经营性长期资产 439.55 亿元的 5.7%）；2026H1 14.05 亿元；颜店项目下半年转固。',
          judgment='2026 年 29.0、2027 年 31.0、2028 年 32.0，之后按经营性长期资产约 6.2% 缓升至 2035 年 37.1 亿元。',
          transmission='折旧是非现金费用：减少利润，但所有者收益里加回；真实的长期成本是维持资本开支。',
          change_threshold='半年报折旧与假设偏差超过 5%。', no_change_condition='—',
          counter_evidence='新设备折旧年限较短，折旧率可能更高。', facts=['资本开支：2025 年 79 亿，2026—2028 年仍在 50—60 亿'], theses=['T3']),
-    dict(code='J-TAX', title='有效税率路径', parameter='逐年假设·所得税率', affected_years='2026—2035',
+    dict(code='J-TAX', title='有效税率路径', parameter='逐年假设·所得税率',
          fact_layer='有效税率 2023—2025 年 6.6%、13.2%、15.2%。北海园区 2026 年起 9%→15%；南宁 2029 年起 9%→15%；沙湾 2028 年起 8%；老挝控股 2033 年起 10%。',
          judgment='2026 年 14%、2027 年 15%、2028 年 15.5%、2029—2032 年 17%、2033 年起 18%。',
          transmission='税率每 +1 个百分点，归母净利约 −0.5 亿元。',
          change_threshold='年报有效税率偏离 2 个百分点以上，或税收优惠延期/提前取消。', no_change_condition='上半年税率偏低（历年四季度补提）。',
          counter_evidence='老挝优惠此前已延期过一次（2024 年批准延至 2032 年），可能再延。', facts=['税收优惠到期时间表', '有效税率 2023—2025 年 6.6%、13.2%、15.2%'], theses=['T1']),
-    dict(code='J-CAPEX', title='维持与扩张资本', parameter='逐年假设·维持/扩张资本', affected_years='2026—2035',
+    dict(code='J-CAPEX', title='维持与扩张资本', parameter='逐年假设·维持/扩张资本',
          fact_layer='资本开支 2023—2025 年 47.7、55.8、79.3 亿元；2026H1 39.9 亿元。管理层：今明两年约 50—60 亿元（各场口径不一），未来 2—3 年维持该水平，后续项目聚焦老挝；南宁项目 50 亿（2026 年底前 40%）。公司未披露维持与扩张的拆分。',
          judgment='2026 年 70（维持 20＋扩张 50；上半年已 39.9）、2027 年 60（22＋38）、2028 年 50（24＋26，老挝新项目开工）、2029 年 48（26＋22）、2030 年 43（28＋15）；2031 年起扩张 10 亿/年、维持资本从 30 亿升至 2035 年 37.1 亿（≈折旧）。'
                   '老挝新项目按约 50 亿元、2030—2031 年新增约 60 万吨销量计入；资本开支若不下降，模型价值就高估（可用单参数试验看影响）。',
@@ -453,13 +447,13 @@ JUDGMENTS = [
          change_threshold='新项目公告（老挝新浆线、其他基地）或年度资本开支偏离 15% 以上。',
          no_change_condition='项目付款节奏的季度波动。',
          counter_evidence='老挝新项目的规模、投资额和回报都还没有公告；若规模更大或国内再上项目，资本开支会更久地维持高位。', facts=['资本开支：2025 年 79 亿，2026—2028 年仍在 50—60 亿', '南宁技改：50 万吨本色化学浆＋60 万吨特种纸，投资≤50 亿', '2019—2025 年经营现金流≈资本开支', '老挝基地：2025 年净利 4.96 亿元，资产占净资产 37%'], theses=['T3', 'T5']),
-    dict(code='J-DEBT', title='净借款与债务成本', parameter='逐年假设·净借款、平均债务成本', affected_years='2026—2035',
+    dict(code='J-DEBT', title='净借款与债务成本', parameter='逐年假设·净借款、平均债务成本',
          fact_layer='2025 年末带息负债 199.67 亿元；利息支出 5.07 亿元，平均债务成本约 2.8%；2026H1 净借款约 +12 亿元。',
          judgment='净借款：2026 年 +12.5、2027 年 +0.5（扩张期借钱补缺口），2028 年 −11.5、2029 年 −14、2030 年 −16、2031 年 −17、2032 年 −12、2033 年 −6.3、2034 年 −3.2、2035 年 +0.8。平均债务成本 2.7%。2035 年带息负债约 132 亿元，净负债÷EBITDA 约 1 倍。',
          transmission='利息＝(期初＋期末)÷2×2.7%；还债减少 FCFE 但降低利息。',
          change_threshold='年报带息负债偏离 10% 以上；利率环境明显变化。', no_change_condition='季度短债续借。',
          counter_evidence='公司可能不按模型速度还债，而是把现金投新项目。', facts=['净负债 178 亿元，短债占比高'], theses=['T6']),
-    dict(code='J-PAYOUT', title='派息率路径（本模型最大判断）', parameter='逐年假设·派息率', affected_years='2026—2035，全部情景',
+    dict(code='J-PAYOUT', title='派息率路径（本模型最大判断）', parameter='逐年假设·派息率',
          fact_layer='派息率 2023—2025 年 27.2%、27.0%、25.8%；规划下限 20%。管理层：今明两年比例不变，2027 年下半年或更晚再评估；若无大的投资，盈利主要用于降负债、回购或分红。长江证券：2027—2028 年有望分红提升。',
          judgment='2026—2027 年 27%，2028 年 28%，2029 年 30%（老挝新项目建设期），2030 年 40%，2031 年 50%，2032 年 60%，2033 年 70%，2034 年 75%，2035 年 80%。'
                   '理由：扩张结束、净负债降到约 1 倍 EBITDA 后，每年股东自由现金约等于净利的 80%；终值按永续增长 1.5% 计算，可持续派息率≈1−增长率÷ROE≈85%，80% 偏保守。',
@@ -467,33 +461,33 @@ JUDGMENTS = [
          change_threshold='2027 年新一期分红规划；2030 年后实际派息率偏离假设 10 个百分点以上。',
          no_change_condition='单年特别分红或回购。',
          counter_evidence='如果管理层继续把现金投入新项目而不分红，股东回报取决于新项目回报率：高于约 7.6% 的资本成本则价值不低于本模型，低于则高估。', facts=['分红：规划下限 20%，实际约 26%—27%，短期不变', '分红表态：若无大的投资，盈利用于降负债、回购或分红', '2019—2025 年经营现金流≈资本开支'], theses=['T4', 'T3']),
-    dict(code='J-R', title='折现率与风险溢价', parameter='估值模型·无风险利率、风险溢价；情景·折现率', affected_years='全部',
+    dict(code='J-R', title='折现率与风险溢价', parameter='估值模型·无风险利率、风险溢价；情景·折现率',
          fact_layer='中债 10 年 1.64%（2026-10-21）。长江电力用 3.5% 风险溢价（类债资产）。太阳纸业：周期性大宗品、资产负债率约 48%、民营。',
          judgment='风险溢价 6.0%，基准折现率 7.6%；悲观 8.6%、乐观 7.1%。'
                   '要求收益率（你自己的门槛）仍为 6%，两者分开看；无风险利率取高频数据里的中债 10 年期国债到期收益率（建模时 1.64%，2026-10-21），加风险溢价后按 0.1 个百分点四舍五入（7.64% → 7.6%）。',
          transmission='折现率 +0.5 个百分点，基准价值约 −1.5 元（见敏感性表）。',
          change_threshold='长期利率变化超过 0.5 个百分点。', no_change_condition='单日利率波动。',
          counter_evidence='风险溢价是判断，不是测量值。', facts=[], theses=['T5']),
-    dict(code='J-TV', title='终值与永续增长', parameter='情景·永续增长率', affected_years='2035 年之后',
+    dict(code='J-TV', title='终值与永续增长', parameter='情景·永续增长率',
          fact_layer='纸张需求成熟：包装纸随消费与以纸代塑温和增长，文化纸长期下降；模型 2029 年起吨价、吨成本各 +1%/年。',
          judgment='基准永续增长 1.5%（约等于通胀，销量不增长）；悲观 0.5%、乐观 2.5%。',
          transmission='终值＝终年股息×(1＋g)÷(r−g)，占价值一半以上；g 每 +0.5 个百分点，价值约 +1.5 元。',
          change_threshold='行业长期需求判断改变。', no_change_condition='—',
          counter_evidence='若文化纸萎缩快于包装纸增长，名义增长可能低于通胀。', facts=['行业：碳市场纳入与新产能审批趋严'], theses=['T4']),
-    dict(code='J-OTHER', title='其他净贡献与股权激励费用', parameter='逐年假设·其他净贡献、其他现金调整', affected_years='2026—2029',
+    dict(code='J-OTHER', title='其他净贡献与股权激励费用', parameter='逐年假设·其他净贡献、其他现金调整',
          fact_layer='政府补助、投资收益等约 +1 亿元/年；2026H1 汇兑收益约 +0.8 亿元；激励费用每月约 2000 多万元（2026H2 起）；兖州溶解浆搬迁拆除费（2026H2）。',
          judgment='其他净贡献：2026 年 0（补助与汇兑抵消激励与拆除费）、2027 年 −1.0（激励约 −2.0）、2028 年 +0.1、2029 年 +0.7、2030 年起 +1.0。'
                   '激励费用是非现金费用，在“其他现金调整”加回；2026 年另加限制性股票认购款 3.93 亿元。',
          transmission='直接进入利润总额；现金桥接中加回非现金部分。',
          change_threshold='年报非经常损益与激励费用实际数。', no_change_condition='—',
          counter_evidence='汇兑损益方向随人民币汇率变化。', facts=['股权激励考核：扣非净利 2026/27/28 年不低于 35.1/38.3/41.5 亿'], theses=['T4']),
-    dict(code='J-CB2026', title='现金桥接其余项目', parameter='逐年假设·营运资本、非现金收益、投资分红、最低现金补充', affected_years='2026—2035',
+    dict(code='J-CB2026', title='现金桥接其余项目', parameter='逐年假设·营运资本、非现金收益、投资分红、最低现金补充',
          fact_layer='权益法投资收益约 0.3 亿元/年，收到投资分红约 0.1 亿元；营运资本（应收＋存货−应付）约为收入的 10%；年末货币资金约 22 亿元。',
          judgment='营运资本增加＝收入增量×10%；非现金收益扣除 0.3、收到投资分红 0.1；最低现金补充 0（现金偏少，但短债可续借，不额外留存）。',
          transmission='所有者收益＝归母净利＋归属折旧−非现金收益＋投资分红＋其他调整−营运资本增加−维持资本。',
          change_threshold='营运资本周转明显变化。', no_change_condition='季度波动。',
          counter_evidence='纸价下跌时存货可能减值；新产能铺货会占用营运资本。', facts=['净负债 178 亿元，短债占比高'], theses=['T7']),
-    dict(code='J-REL', title='相对估值对照（不进入模型）', parameter='—（对照用）', affected_years='—',
+    dict(code='J-REL', title='相对估值对照（不进入模型）', parameter='—（对照用）',
          fact_layer='PE(TTM) 约 11 倍、PB 约 1.2 倍，PB 近 10 年约 13% 分位；卖方目标价约 20—21 元（国投 1.8 倍 PB、国金 13 倍 2027 年 PE）；2026-07 本地研究的 DCF＋PE＋PB 中枢 14.66 元。',
          judgment='相对估值只做对照：低 PB 反映周期底部与扩张期低回报，不能单独作为买入理由；绝对估值以股息贴现＋现金支持口径为准。',
          transmission='—', change_threshold='—', no_change_condition='—',
@@ -505,7 +499,7 @@ def judgments():
     rows = []
     for j in JUDGMENTS:
         rows.append(dict(company_id=Raw(CO), code=j['code'], title=j['title'], fact_layer=j['fact_layer'], judgment=j['judgment'],
-                         transmission=j['transmission'], parameter=j['parameter'], affected_years=j['affected_years'],
+                         transmission=j['transmission'], parameter=j['parameter'],
                          change_threshold=j['change_threshold'], no_change_condition=j['no_change_condition'],
                          counter_evidence=j['counter_evidence'], status='已形成建议' if j['code'] != 'J-REL' else '研究规则'))
     ins('judgment', rows)
@@ -849,62 +843,6 @@ YEAR_NOTE = {
 }
 
 
-def model():
-    OUT.append(f"""INSERT INTO vi_model_base (company_id, name, status, method, base_year, terminal_year, shares, rf, rf_date, rf_metric_id, erp,
-  opening_debt, opening_op_assets, opening_lt_invest, opening_equity, opening_minority, required_return, margin_low, margin_high, notes)
-VALUES ({CO}, {lit(MODEL_NAME)}, '当前',
-  '股息贴现（DDM）为主，FCFE 约束股息作交叉验证；关键判断是派息率路径（扩张期约 27%，资本开支回落后逐步提高到 80%）。相对估值（PE/PB）只做对照，见判断 J-REL。股价只进对比层。',
-  2025, 2035, 28.5419, 0.0164, '2026-10-21', (SELECT id FROM vi_metric_base WHERE code = 'CGB10Y.CCDC'), 0.06,
-  199.67, 439.55, 3.24, 305.02, 1.10, 0.06, 0.10, NULL,
-  {lit('经营假设（2026-10-22）：销量 2026 年 1065 万吨→2028 年 1150 万吨→2031 年 1225 万吨，之后约 +1%/年；综合吨收入 2026—2028 年 0.402 万元/吨，之后 +1%/年；'
-       '付现成本按 EBITDA 率 18.3%→19.0% 倒推；折旧 29→37.1 亿元；资本开支 70→60→50→48，2030 年起约 40 亿元（含老挝新项目约 50 亿、2030—2031 年新增约 60 万吨销量）；税率 14%→18%（税收优惠陆续到期）；派息率 27%→80%。'
-       '股本 28.5419 亿股（2026-08 限制性股票登记后）。'
-       '期初资产负债取 2025 年末合并报表（Wind）：经营性长期资产 439.55＝固定资产 397.54＋在建工程 19.09＋无形资产 22.63＋使用权资产 0.29；'
-       '长期股权投资 3.24；归母权益 305.02；少数股东权益 1.10；带息负债 199.67（短期借款 79.78＋一年内到期 30.33＋长期借款 89.34＋租赁 0.22）。'
-       '风险溢价 6.0%（周期性制造业），高于长江电力的 3.5%。安全边际两档并列 10%/30%，与长江电力一致。')})
-;""")
-    scen = [
-        ('悲观', False, 1, 0.97, 0.96, 0.975, 0.086, 0.005, '周期低迷：利润率长期停在 2022—2023 年水平',
-         '销量 −3%、吨收入 −4%、付现成本 −2.5%（成本大部分随销量变化）→ EBITDA 率约 15.2%（2022 年 15.1%、2023 年 15.8%）；折现率 8.6%，永续增长 0.5%。'),
-        ('基准', True, 2, 1, 1, 1, None, 0.015, '无纸价回升；已宣布项目按期投产',
-         '逐年假设原样；折现率＝无风险利率＋风险溢价（7.6%），永续增长 1.5%。利润比卖方一致预期低 2%—9%（不假设提价）。'),
-        ('乐观', False, 3, 1.03, 1.01, 1.015, 0.071, 0.025, '纸价修复、新产能顺利爬坡',
-         '销量 +3%、吨收入 +1%、付现成本 +1.5% → EBITDA 率约 21%（接近 2019—2020 年）；折现率 7.1%，永续增长 2.5%。'),
-    ]
-    ins('scenario', [dict(model_id=Raw(MODEL), name=s[0], is_base=s[1], sort=s[2], volume_factor=s[3], price_factor=s[4], cost_factor=s[5],
-                          discount_rate=s[6], terminal_growth=s[7], nature=s[8], description=s[9]) for s in scen])
-    rows, prev_rev = [], 391.92
-    for y in YEARS:
-        rev = VOL[y] * PRICE[y]
-        rows.append(dict(model_id=Raw(MODEL), year=y, volume=VOL[y], price=PRICE[y], cash_cost=round(rev * (1 - EBITDA_M[y]), 2),
-                         depreciation=DA[y], other_contrib=OTHER[y], tax_rate=TAX[y], minority_share=0.003, payout=PAYOUT[y],
-                         net_borrowing=NB[y], cost_of_debt=0.027, noncash_gain_deduct=0.3, investee_cash_div=0.1, other_cash_adj=OCASH[y],
-                         wc_increase=round(max(0, rev - prev_rev) * 0.10, 1), maint_capex=MAINT[y], growth_capex=GROWTH[y], min_cash_topup=0,
-                         operating_status='建议值待核验', cash_status='建议值待核验',
-                         note=f"EBITDA 率 {EBITDA_M[y] * 100:.1f}%；吨付现成本约 {rev * (1 - EBITDA_M[y]) / VOL[y] * 1e4:.0f} 元。" + YEAR_NOTE.get(y, '')))
-        prev_rev = rev
-    ins('forecast', rows)
-    links = [('forecast_facts', 'forecast_id', 'fact_id', 'vi_fact_base', 'title',
-              ['2026 年上半年业绩', '资本开支：2025 年 79 亿，2026—2028 年仍在 50—60 亿', '税收优惠到期时间表']),
-             ('forecast_judgments', 'forecast_id', 'judgment_id', 'vi_judgment_base', 'code',
-              ['J-Q', 'J-P', 'J-M', 'J-CAPEX', 'J-DEBT', 'J-PAYOUT', 'J-TAX'])]
-    for lt, a, b, tbl, key, keys in links:
-        OUT.append(f"""INSERT INTO vi_lnk_{lt} ({a}, {b}, "createdAt", "updatedAt")
-SELECT f.id, x.id, now(), now() FROM vi_forecast_base f JOIN {tbl} x ON x.company_id = {CO} AND x.{key} IN ({', '.join(lit(k) for k in keys)})
-WHERE f.model_id = {MODEL};""")
-    trials = [
-        ('纸价压力：吨收入 −5%', 2026, 2035, None, -0.05, None, None, None, None, 'J-P', '只改吨收入，成本不变：相当于价差收窄约 200 元/吨。'),
-        ('浆价/成本压力：付现成本 +15 亿元/年', 2027, 2035, None, None, 15, None, None, None, 'J-M', '约等于吨成本 +130 元或木浆涨价约 10% 而纸价不跟。'),
-        ('自制浆降本超预期：付现成本 −8 亿元/年', 2027, 2035, None, None, -8, None, None, None, 'J-M', '颜店 60 万吨＋南宁 50 万吨浆线，按约 700 元/吨成本优势的一部分。'),
-        ('销量不及预期：−5%', 2027, 2035, -0.05, None, None, None, None, None, 'J-Q', '只改销量、成本不变，会高估影响（成本大部分随销量变化），用作压力测试。'),
-        ('利率上行：利息 +2 亿元/年', 2026, 2035, None, None, None, None, 2, None, 'J-DEBT', '约等于平均债务成本 +1 个百分点。'),
-        ('要求回报上升：折现率 +1%', 2026, 2035, None, None, None, None, None, 0.01, 'J-R', '风险溢价 6%→7%。'),
-    ]
-    ins('trial', [dict(model_id=Raw(MODEL), name=t[0], start_year=t[1], end_year=t[2], volume_delta=t[3], price_delta=t[4], cost_delta=t[5],
-                       da_delta=t[6], interest_delta=t[7], rate_delta=t[8], boundary=t[10]) for t in trials])
-    OUT.append(f"""INSERT INTO vi_lnk_trial_judgments (trial_id, judgment_id, "createdAt", "updatedAt")
-SELECT t.id, j.id, now(), now() FROM (VALUES {', '.join(f'({lit(t[0])}, {lit(t[9])})' for t in trials)}) v(tn, jc)
-JOIN vi_trial_base t ON t.model_id = {MODEL} AND t.name = v.tn JOIN vi_judgment_base j ON j.company_id = {CO} AND j.code = v.jc;""")
 
 
 # ================================================================ 跟踪事项、待办清单、变更日志
@@ -962,7 +900,7 @@ if __name__ == '__main__':
     OUT.append(f"UPDATE vi_observation_base SET doc_id = {KLINE_DOC} WHERE doc_id IS NULL AND raw_capture_id IS NULL "
                f"AND metric_id = (SELECT price_metric_id FROM vi_company_base WHERE code = '{CODE}');")
     sources(); facts(); theses(); judgments(); business()
-    period_data(); model(); tracking()
+    period_data(); tracking()
     OUT.extend(data_layer_seed.fin_stmt_statements(CO, HERE / 'data' / 'fin_stmt.json'))   # 三大报表原值（报表计算指标读它）
     OUT.extend(data_layer_seed.statements(CO, HERE / 'data' / 'data_layer.json'))   # 关注与数据底稿补充，放最后
     OUT.extend(data_layer_seed.track_statements(CO, HERE / 'data' / 'track.json'))   # 跟踪脚本的快照（同业毛利率、浆价纸价历史、吨经济；track.py）

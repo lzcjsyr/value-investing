@@ -104,11 +104,10 @@ def lit(value):
 def sql():
     out = []
     for sort, (code, name, boundary, cost, assets) in enumerate(BUSINESSES, 1):
-        out.append(f"INSERT INTO vi_business_base(company_id,code,name,boundary,cost_allocation,asset_boundary,sort) VALUES ({CO},{lit(code)},{lit(name)},{lit(boundary)},{lit(cost)},{lit(assets)},{sort}) ON CONFLICT (company_id,code) DO NOTHING;")
+        out.append(f"INSERT INTO vi_business_base(company_id,code,name,boundary,asset_boundary,sort) VALUES ({CO},{lit(code)},{lit(name)},{lit(boundary)},{lit(assets)},{sort}) ON CONFLICT (company_id,code) DO NOTHING;")
         business = f"(SELECT id FROM vi_business_base WHERE company_id={CO} AND code={lit(code)})"
         for n, (title, content, metric, trend) in enumerate(CANVASES[code], 1):
             out.append(f"INSERT INTO vi_biz_model_base(company_id,business_id,code,element,title,content,metric,trend) VALUES ({CO},{business},'B{n}',{lit(ELEMENTS[n-1])},{lit(title)},{lit(content)},{lit(metric)},{lit(trend)}) ON CONFLICT ON CONSTRAINT vi_biz_model_uniq DO NOTHING;")
-    out.append(f"UPDATE vi_sotp_segment_base g SET business_id=b.id FROM vi_business_base b,vi_model_base m WHERE g.model_id=m.id AND m.company_id={CO} AND b.company_id=m.company_id AND b.code=g.code AND g.business_id IS NULL;")
     pairs = [(code,element,prefix) for code,items in EVIDENCE.items() for element,prefixes in items.items() for prefix in prefixes]
     values = ','.join('('+','.join(map(lit,pair))+')' for pair in pairs)
     out.append(f"""INSERT INTO vi_lnk_biz_model_facts(biz_model_id,fact_id,"createdAt","updatedAt")
@@ -117,41 +116,6 @@ JOIN vi_business_base b ON b.company_id={CO} AND b.code=e.business_code
 JOIN vi_biz_model_base canvas ON canvas.business_id=b.id AND canvas.code=e.canvas_code
 JOIN vi_fact_base f ON f.company_id=b.company_id AND f.title LIKE e.fact_prefix||'%'
 ON CONFLICT DO NOTHING;""")
-    out.append(f"""INSERT INTO vi_lnk_biz_model_facts(biz_model_id,fact_id,"createdAt","updatedAt")
-SELECT DISTINCT b.id,l.fact_id,now(),now() FROM vi_biz_model_base b
-JOIN vi_sotp_segment_base s ON s.business_id=b.business_id
-JOIN vi_lnk_sotp_segment_facts l ON l.sotp_segment_id=s.id
-WHERE b.company_id={CO} AND b.code IN ('B5','B9') ON CONFLICT DO NOTHING;""")
-    # 旧金额与折价不变，只显式补齐计价身份和排重边界。
-    boundaries = {
-      'C1': ('账面价值','公司现金储备口径；理财已包含，C8 不再包含理财。经营所需现金 C5、受限资金 C7 与资金汇出成本 C6 另扣。'),
-      'C2': ('账面价值','经营分部使用税后经营盈利，未扣融资利息；借款在此统一扣减。'),
-      'C3': ('账面价值','沿用租赁负债处理：经营利润已扣使用权资产折旧、未扣租赁利息。'),
-      'C4': ('账面价值','计息递延对价，在资产负债调整中扣减，不再在分部价值里另扣本金。'),
-      'C5': ('研究估计','从 C1 中剔除经营所需资金；本次保持原分部盈利和期间现金流假设。'),
-      'C6': ('研究估计','资金汇出成本单独扣减，未并入 C1、C5 或业务利润率。'),
-      'C7': ('研究估计','从现金储备中剔除不可用资金，按原情景取值；不与 C5 重复。'),
-      'C8': ('账面价值','不含 C1 已计的理财；对外股权收益不在业务盈利中资本化；外部基金份额由 C9 扣减。'),
-      'C9': ('账面价值','C8 包含合并产业基金资产，此处扣除外部出资人权益；不与 C10 重复。'),
-      'C10': ('账面价值','沿用集团少数股东权益扣减；各分部维持原归母比例口径。'),
-      'C11': ('现值','沿用原补助资本化，已从各业务经营利润率中排除；这是其他估值调整，不是固定资产。'),
-    }
-    for code, (method,boundary) in boundaries.items():
-        out.append(f"UPDATE vi_sotp_item_base SET treatment=coalesce(treatment,'单独计价'),valuation_method=coalesce(valuation_method,{lit(method)}),boundary=coalesce(boundary,{lit(boundary)}) WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id={CO}) AND code={lit(code)};")
-    for code, name in [('S1','手机经营固定资产'),('S2','AIoT 经营固定资产'),('S3','互联网经营固定资产'),('S4','汽车工厂与生产设施'),('S5','AI 等创新业务经营资产')]:
-        acode = 'A'+code[1:]
-        boundary = '归属边界登记，未填独立资产估值；经营贡献已包含在该业务估值中，不另加账面价值或重置成本。'
-        if code=='S5': boundary += '未来投入与集团现金的口径风险仍由 T4/J-AI 跟踪。'
-        out.append(f"""INSERT INTO vi_sotp_item_base(model_id,business_id,code,name,kind,treatment,boundary,amount,haircut,as_of,basis)
-SELECT m.id,b.id,{lit(acode)},{lit(name)},'固定资产','已含业务估值',{lit(boundary)},NULL,0,m.sotp_as_of,
-'本项用于防止把经营资产与业务盈利重复计价；金额未知，不代表固定资产账面额为零。'
-FROM vi_model_base m JOIN vi_business_base b ON b.company_id=m.company_id AND b.code={lit(code)}
-WHERE m.company_id={CO} AND NOT EXISTS (SELECT 1 FROM vi_sotp_item_base i WHERE i.model_id=m.id AND i.code={lit(acode)});""")
-    out.append(f"""INSERT INTO vi_lnk_sotp_item_facts(sotp_item_id,fact_id,"createdAt","updatedAt")
-SELECT DISTINCT i.id,l.fact_id,now(),now() FROM vi_sotp_item_base i
-JOIN vi_biz_model_base b ON b.business_id=i.business_id AND b.code IN ('B6','B7')
-JOIN vi_lnk_biz_model_facts l ON l.biz_model_id=b.id
-WHERE i.model_id IN (SELECT id FROM vi_model_base WHERE company_id={CO}) AND i.code IN ('A1','A2','A3','A4','A5') ON CONFLICT DO NOTHING;""")
     out.append(f"""INSERT INTO vi_change_log_base(company_id,change_date,title,target,old_value,new_value,reason,basis,verification)
 SELECT {CO},'2026-10-26','打通多业务商业模式与业务／资产估值','业务分部、商业模式、经营分部估值、资产估值与调整',
 '集团九项画布与分部估值没有业务关联；固定资产只能通过其他调整表达。',

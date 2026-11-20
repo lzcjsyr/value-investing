@@ -50,7 +50,7 @@ BEGIN
     AND title IN ('监管：2021 年解除独家版权，2026 年喜马拉雅收购附条件批准', '反垄断附条件批准');
   SELECT id INTO new_id FROM vi_fact_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND title = '解除独家版权';
   IF old_id IS NULL OR new_id IS NULL THEN RETURN; END IF;
-  FOREACH t IN ARRAY ARRAY['thesis', 'judgment', 'risk', 'moat', 'biz_model', 'value_chain', 'competitor', 'forecast', 'sotp_item', 'sotp_segment'] LOOP
+  FOREACH t IN ARRAY ARRAY['thesis', 'judgment', 'risk', 'moat', 'biz_model', 'value_chain', 'competitor'] LOOP
     EXECUTE format('INSERT INTO vi_lnk_%1$s_facts (%1$s_id, fact_id, "createdAt", "updatedAt")
                     SELECT %1$s_id, $2, now(), now() FROM vi_lnk_%1$s_facts WHERE fact_id = $1 ON CONFLICT DO NOTHING', t)
       USING old_id, new_id;

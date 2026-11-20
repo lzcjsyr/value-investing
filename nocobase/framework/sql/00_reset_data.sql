@@ -8,4 +8,6 @@ DO $$ DECLARE r record; BEGIN
     EXECUTE 'TRUNCATE ' || r.tablename || ' RESTART IDENTITY CASCADE';
   END LOOP;
 END $$;
+-- 统一设置的默认门槛（清空后补回，否则全部估值算不出）
+INSERT INTO vi_setting_base (name, hurdle, note) VALUES ('全局', 0.06, '全部公司统一使用的投资回报率要求；在这里改，所有估值同时更新。');
 COMMIT;

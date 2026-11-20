@@ -24,7 +24,7 @@ LNK = {spec.lnk_table(t, f): (t['code'], f) for t in spec.TABLES for f in spec.m
 CODES = list(T) + [r['code'] for r in spec.REPORTS]
 # 不对应前端表格的内部视图：缓存和长表算作它所属的那张表；其余是纯辅助视图，展开依赖时直接穿过
 HELPER_OWNER = {'fin_history_cache': 'fin_history', 'fin_metric': 'fin_history', 'obs_current': 'observation',
-                'stmt_cache': 'fin_stmt', 'valuation_cf': 'valuation'}
+                'stmt_cache': 'fin_stmt'}
 
 
 def q(sql):
@@ -148,21 +148,15 @@ def obj(name):
 # 自动计算列从哪张表格算来（对照 sql/02_calc.sql 各 _calc 视图逐列核对；只列读了别的表格的列）
 CALC_FROM = {
     'company': [(['最新股价（元）', '最新股价（原币）', '最新股价日期', '折算汇率'], ['metric']),
-                (['用到的宏观数据'], ['metric', 'judgment', 'risk', 'model'])],
+                (['用到的宏观数据'], ['metric', 'judgment', 'risk'])],
     'event': [(['侧面数', '最近日期'], ['fact'])],
     'moat': [(['最近年度', '最近值', '自动检查结果'], ['@history']), (['已辩论的论点数', '论点裁决'], ['thesis'])],
     'thesis': [(['最近年度', '最近值', '自动检查结果'], ['@history']), (['假设依据（状态）'], ['judgment'])],
     'risk': [(['相关论点裁决'], ['thesis'])],
     'metric': [(['最新值', '最新统计时间', '趋势', '数据条数', '状态'], ['@own', '@stmt']),
-               (['重点跟踪'], ['judgment', 'risk']), (['使用公司'], ['company', 'model', 'judgment', 'risk'])],
+               (['重点跟踪'], ['judgment', 'risk']), (['使用公司'], ['company', 'judgment', 'risk'])],
     'observation': [(['单位', '指标性质', '来源方式'], ['metric'])],
-    'model': [(['最新无风险利率观察', '最新观察日期'], ['metric'])],
-    'scenario': [(['实际折现率'], ['model'])],
-    'sotp_item': [(['金额·取用（亿元）'], ['metric'])],
-    'sotp_segment': [(['采用折现率', '分部价值（亿元）'], ['model', 'scenario'])],
-    'forecast': [(['期初带息负债（亿元）', '利息（亿元）'], ['model'])],
-    'fin_forecast': [(['营业收入（亿元）', '净利润（亿元）', '期末净现金（亿元）'], ['model', '@history'])],
-    'trial': [(['基准每股价值（元）', '试验后每股价值（元）'], ['forecast', 'model'])],
+    'bs_item': [(['截至日', '账面金额（亿元）', '重估金额（亿元）', '账面计入值（亿元）', '重估计入值（亿元）', '用途'], ['company', '@stmt'])],
     'collector': [(['最近采集', '最近观察日', '健康状态'], ['raw_capture', 'observation'])],
     'collect_run': [(['数据源数', '新入库', '结果'], ['raw_capture'])],
     'raw_capture': [(['解析数值', '入库判断'], ['collector', 'observation'])],
@@ -330,12 +324,6 @@ class Notes:
             return f"宏观指标的自动采集配置，现有 {listed('macro_collector')}。全部采集配置在“框架与后台 / 采集”。"
         if code == 'collector':
             return '全部自动采集配置（股价、利率、汇率、水位、商品价格）：从哪里取数、写进哪个指标、允许滞后几天、最近一次自检结果。'
-        if code == 'fin_forecast':
-            return '腾讯音乐的逐年财务预测：输入收入、毛利率、费用率、税率、现金转化、资本开支和股东回报，利润、每股收益、期末净现金自动算。收入与业务估值分开存，不自动同步，改一边要核对另一边。'
-        if code == 'model' and top == '腾讯音乐':
-            return '腾讯音乐这版估值的基本参数（股本、分部加总基准日、核心调整等）；估值方法只用分部加总。'
-        if code == 'scenario' and top == '腾讯音乐':
-            return '乐观、基准、悲观三个情景；腾讯音乐的情景通过“适用情景”覆盖业务估值和资产项。'
         return role + '。'
 
 
@@ -361,14 +349,12 @@ def scope_metrics():
 
 
 def company_counts():
-    """每张表各公司有多少条记录：直接按公司字段，或经估值模型、指标归属公司。"""
+    """每张表各公司有多少条记录：直接按公司字段，或经指标归属公司。"""
     parts = []
     for c, t in T.items():
         fields = {f['name'] for f in spec.m2o_fields(t)}
         if 'company' in fields:
             join, cid = '', 'x.company_id'
-        elif 'model' in fields:
-            join, cid = 'JOIN vi_model_base m ON m.id = x.model_id', 'm.company_id'
         elif 'metric' in fields:
             join, cid = 'JOIN vi_metric_base m ON m.id = x.metric_id', 'm.company_id'
         else:

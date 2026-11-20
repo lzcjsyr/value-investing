@@ -37,7 +37,7 @@ INSERT INTO xm_fact_metric VALUES
 DO $relink$
 DECLARE t text;
 BEGIN
-  FOREACH t IN ARRAY ARRAY['thesis', 'judgment', 'moat', 'biz_model', 'value_chain', 'forecast', 'sotp_item', 'sotp_segment'] LOOP
+  FOREACH t IN ARRAY ARRAY['thesis', 'judgment', 'moat', 'biz_model', 'value_chain'] LOOP
     EXECUTE format($q$
       INSERT INTO vi_lnk_%1$s_basis_metrics (%1$s_id, metric_id, "createdAt", "updatedAt")
       SELECT DISTINCT l.%1$s_id, m.id, now(), now()

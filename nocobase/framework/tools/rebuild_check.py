@@ -1,4 +1,4 @@
-"""空库重建核对：只用项目里的文件（01→02→03→宏观数据与各公司 seed.sql）在临时库 vi_rebuild 重建全部数据，再与在线库逐表比较。
+"""空库重建核对：只用项目里的文件（01→02→03→宏观数据与各公司 seed.sql→各公司 greenwald.sql）在临时库 vi_rebuild 重建全部数据，再与在线库逐表比较。
 
   python3 tools/rebuild_check.py
 
@@ -30,6 +30,8 @@ def rebuild():
         psql(TMP, file=ROOT / 'framework/sql' / f)
     for s in SEEDS:
         psql(TMP, file=ROOT / s / 'seed.sql')
+    for s in SEEDS[1:]:                          # 三层估值：在全部种子之后（要引用论点与假设依据）
+        psql(TMP, file=ROOT / s / 'greenwald.sql')
 
 
 def tables(db):
@@ -54,11 +56,12 @@ if __name__ == '__main__':
         a, b = fingerprint('nocobase', t), fingerprint(TMP, t)
         if a != b:
             diff.append((t, a[0], b[0]))
-    val = "SELECT c.code || ' ' || v.scenario_name || ' ' || round(v.value_today::numeric, 2) || ' ' || round(v.cash_value_today::numeric, 2) FROM vi_valuation v JOIN vi_company_base c ON c.id = v.company_id ORDER BY 1"
+    val = ("SELECT c.code || ' ' || round(v.av_ps::numeric, 2) || ' ' || round(v.epv_ps::numeric, 2) || ' ' "
+           "|| round(v.full_ps::numeric, 2) FROM vi_gw_value v JOIN vi_company_base c ON c.id = v.company_id ORDER BY 1")
     chk = "SELECT c.code || ' ' || k.code || ' ' || k.result FROM vi_check k JOIN vi_company_base c ON c.id = k.company_id ORDER BY 1"
     v1, v2 = psql('nocobase', val).split('\n'), psql(TMP, val).split('\n')
     c1, c2 = psql('nocobase', chk).split('\n'), psql(TMP, chk).split('\n')
-    print(f'估值结论：{len(v1) - 1} 行，' + ('完全一致' if v1 == v2 else '不一致：' + str(sorted(set(v1) ^ set(v2)))))
+    print(f'三层估值：{len(v1) - 1} 行，' + ('完全一致' if v1 == v2 else '不一致：' + str(sorted(set(v1) ^ set(v2)))))
     print(f'自动检查：{len(c1) - 1} 行，' + ('完全一致' if c1 == c2 else '不一致：' + str(sorted(set(c1) ^ set(c2)))))
     print('内容不一致的表（在线 / 重建 行数）：' + ('无' if not diff else ''))
     for t, a, b in diff:

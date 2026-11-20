@@ -20,8 +20,6 @@ import data_layer_seed
 DATA = HERE / 'data'
 CODE = '01698.HK'
 CO = f"(SELECT id FROM vi_company_base WHERE code = '{CODE}')"
-MODEL_NAME = '腾讯音乐 分部加总（主营三块＋自由现金＋对外投资）'
-MODEL = f"(SELECT id FROM vi_model_base WHERE company_id = {CO} AND name = '{MODEL_NAME}')"
 SHARES = 31.6              # 亿股：2026 年 6 月末流通普通股，按中期报告附注 18、25 推算（见事实卡“流通股约 31.6 亿股”）
 PRICE_METRIC, FX_METRIC = '01698.HK.PRICE', 'HKDCNY'   # 港元兑人民币归宏观数据项目（macro/），这里只引用
 
@@ -140,14 +138,7 @@ WHERE NOT EXISTS (SELECT 1 FROM vi_observation_base o WHERE o.metric_id = {metri
 
 # ================================================================ 清空本公司的研究、数据、模型与跟踪（可重复执行）
 def reset():
-    OUT.append(f"""DELETE FROM vi_sotp_segment_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {CO});
-DELETE FROM vi_sotp_item_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {CO});
-DELETE FROM vi_fin_forecast_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {CO});
-DELETE FROM vi_trial_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {CO});
-DELETE FROM vi_forecast_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {CO});
-DELETE FROM vi_scenario_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {CO});
-DELETE FROM vi_model_base WHERE company_id = {CO};
-DELETE FROM vi_fit_score_base WHERE company_id = {CO};
+    OUT.append(f"""DELETE FROM vi_fit_score_base WHERE company_id = {CO};
 DELETE FROM vi_moat_base WHERE company_id = {CO};
 DELETE FROM vi_competitor_base WHERE company_id = {CO};
 DELETE FROM vi_value_chain_base WHERE company_id = {CO};
@@ -561,7 +552,7 @@ def theses():
 
 # ================================================================ 判断（事实 → 判断 → 参数）
 JUDGMENTS = [
-    dict(code='J-S1', title='主营①会员订阅（含长音频会员）：2027 年收入与利润率', parameter='经营分部·S1 收入、利润率；财务预测·会员订阅收入', affected_years='2027（三情景）',
+    dict(code='J-S1', title='主营①会员订阅（含长音频会员）：2027 年收入与利润率', parameter='经营分部·S1 收入、利润率；财务预测·会员订阅收入',
          fact_layer='会员收入 2023—2025 年 120.96、152.3、176.6 亿元（+26%、+16%）；2026 年一、二季度 45.68、47.92 亿元，剔除喜马拉雅后约持平（摩根大通）。'
                     '第四季度付费用户 2025 年 1.274 亿，超级会员 2,000 万以上；2026 年两个季度付费用户没有净增。喜马拉雅年化收入约 34 亿元，2026 年 5 月起并表。'
                     '公司只有一个经营分部，不披露分业务的成本与利润（2025 年报附注 2.5）。',
@@ -576,7 +567,7 @@ JUDGMENTS = [
          change_threshold='年报会员服务收入偏离 2027 年路径 5% 以上；剔除喜马拉雅后连续两个季度同比为负。', no_change_condition='单季波动。',
          counter_evidence='超级会员提价与长音频捆绑若成功，收入可能达到乐观的 218 亿元；若汽水的分流蔓延到付费核心，悲观的 195 亿元也不算保守。利润率是分摊值，不能直接验证，只能用公司整体利润率校核。',
          facts=[F_SUB, F_KPI, F_Q2, F_XM, F_MGMT], theses=['T1', 'T3']),
-    dict(code='J-S2', title='主营②非订阅音乐（广告、演出、周边、艺人经纪）：2027 年收入与利润率', parameter='经营分部·S2 收入、利润率；财务预测·非订阅音乐收入', affected_years='2027（三情景）',
+    dict(code='J-S2', title='主营②非订阅音乐（广告、演出、周边、艺人经纪）：2027 年收入与利润率', parameter='经营分部·S2 收入、利润率；财务预测·非订阅音乐收入',
          fact_layer='非订阅音乐收入 2025 年 90.7 亿元（+39%）；2026 年上半年 47.6 亿元（上年同期 40.6 亿元，+17%）。'
                     '构成（摩根大通 2026-08）：广告约 45%（个位数增长）、演出与艺人管理约 30%（+70%—80%）、粉丝经济与数字专辑约 15%—20%（+20%—30%）。'
                     '演出与周边毛利率低，占比上升使管理层预计 2026 年下半年毛利率同比略降。',
@@ -586,7 +577,7 @@ JUDGMENTS = [
          change_threshold='年报非订阅收入偏离 2027 年路径 10% 以上；毛利率单季低于 42%。', no_change_condition='演出档期带来的季度波动。',
          counter_evidence='演出依赖头部艺人档期（如 G-Dragon 巡演），年度波动大；广告预算向抖音、视频号集中，广告只有个位数增长。',
          facts=[F_GM, F_H1, F_GUIDE], theses=['T4']),
-    dict(code='J-S3', title='主营③社交娱乐（直播打赏）：持续收缩', parameter='经营分部·S3 收入、利润率、倍数；财务预测·社交娱乐收入', affected_years='2027（三情景）',
+    dict(code='J-S3', title='主营③社交娱乐（直播打赏）：持续收缩', parameter='经营分部·S3 收入、利润率、倍数；财务预测·社交娱乐收入',
          fact_layer='社交娱乐收入 2024 年 66.6 亿元、2025 年 61.8 亿元（−7%）；2026 年一、二季度 13.81、13.28 亿元（同比 −11%、−16%）。监管收紧与公司主动收缩。',
          judgment='逐年（财务预测）：2026E 53、2027E 48、2028E 44 亿元。估值用 2027 年：基准 48 亿元（2026 年约 53 亿元，再 −10%）；悲观 42、乐观 50。利润率（定义见 J-S1）：基准 16%、悲观 10%、乐观 18%：主播分成后毛利低，规模萎缩时费用难以同步下降。'
                   '倍数不用增长公式，按持续萎缩的永续年金 1÷(r−g)：g 基准 −8%、悲观 −10%、乐观 −5% → 6.0、5.0、7.9 倍。',
@@ -595,7 +586,7 @@ JUDGMENTS = [
          counter_evidence='若监管进一步收紧或公司关停，这块价值归零（每股约 −1 元）；若收缩放缓，倍数偏低。',
          facts=[F_SOC, F_Q2], theses=['T4']),
     dict(code='J-FIN', title='财务预测：毛利率、费用率、利息与现金（2026E—2028E）',
-         parameter='财务预测·毛利率、费用率、其他收入、融资成本、税率、股权激励与收购摊销、现金转化、资本开支、股东回报、其他现金变动', affected_years='2026—2028',
+         parameter='财务预测·毛利率、费用率、其他收入、融资成本、税率、股权激励与收购摊销、现金转化、资本开支、股东回报、其他现金变动',
          fact_layer='毛利率 2023—2025 年 35.3%、42.3%、44.2%，2026 年上半年 44.5%；销售费用率 2025 年 2.9%、上半年 3.0%；管理费用率（行政开支，含研发、股权激励与收购摊销）2025 年 11.9%、上半年 11.9%。'
                     '其他收入及收益 2025 年 36.9 亿元（含 23.7 亿元一次性收益）；融资成本上半年 0.51 亿元，6 月末借款 131.4 亿元，9 月再发 10 亿美元票据。'
                     '经营现金流÷归母净利 2023—2025 年 1.49、1.55、0.93（剔除一次性约 1.18）；资本开支 10—12 亿元；净现金 2025 年末 342 亿元、2026 年 6 月末 273 亿元。',
@@ -606,7 +597,7 @@ JUDGMENTS = [
          change_threshold='季报毛利率或费用率偏离 1 个百分点以上；新回购计划或大额并购。', no_change_condition='单季波动。',
          counter_evidence='卖方经调整归母 2026—2028 年约 98、109、118 亿元，与这里的经调整口径可比但更乐观；若演出占比继续上升，毛利率可能降到 43% 以下。',
          facts=[F_GM, F_OPEX, F_CASH, F_NOTE, F_CFO, F_RET, F_SELL, F_AMORT], theses=['T5', 'T6', 'T7']),
-    dict(code='J-R', title='折现率与倍数', parameter='估值模型·无风险利率、风险溢价；情景·折现率、永续增长率、新增投资回报率', affected_years='全部',
+    dict(code='J-R', title='折现率与倍数', parameter='估值模型·无风险利率、风险溢价；情景·折现率、永续增长率、新增投资回报率',
          fact_layer='中债 10 年 1.64%（2026-10-22）。净现金、轻资产，但面对字节的免费模式与 AI 冲击；开曼注册、协议控制、境外上市，腾讯控股不同投票权。'
                     '价值驱动公式：市盈率＝(1−g÷新增投资回报率)÷(r−g)。有机增长几乎不需要资本（经营性投入资本约等于商誉），新增长主要靠并购：喜马拉雅初始回报约 4%。'
                     '同业约 10 倍，卖方 9—17 倍，市场隐含核心约 6 倍（估值模型口径）。',
@@ -618,7 +609,7 @@ JUDGMENTS = [
          change_threshold='长期利率变化超过 0.5 个百分点；竞争格局或增长判断改变（T1、T3）；新的大额并购。', no_change_condition='市场情绪带来的倍数波动。',
          counter_evidence='外资常用 12%—14% 的美元 WACC（摩根士丹利 14%），换成人民币约 10%—11%；市场只给约 6 倍，隐含约 17% 的回报或利润持续萎缩。',
          facts=[F_PX, F_PE, F_ROIC, F_XM], theses=['T1', 'T3']),
-    dict(code='J-OPCASH', title='经营所需现金：先收钱、后付钱，主营只需约 40 亿元周转', parameter='分部估值项·C3 经营所需现金', affected_years='资产负债日 2026-06-30',
+    dict(code='J-OPCASH', title='经营所需现金：先收钱、后付钱，主营只需约 40 亿元周转', parameter='分部估值项·C3 经营所需现金',
          fact_layer='收付结构（2025 年报附注）：会员费预收，递延收入 38.4 亿元（2026 年 6 月 48.9 亿元，含喜马拉雅）；版权费后付，应付账款 62.8 亿元，约为 125 天的营业成本；'
                     '应收账款 39.0 亿元（约 43 天收入），其中 22.5 亿元是腾讯支付渠道代收、尚未转来的用户付款；存货 0.4 亿元（周边商品）；预付款项主要是预付版权保底金 23.8 亿元。'
                     '浮存金（应付账款＋递延收入＋其他应付及应计费用＋应付税项＋长期应付，减应收、预付及其他应收、存货）2021—2025 年末 42、61、57、72、70 亿元，2026 年 6 月 85 亿元，约为收入的 20%—24%；2021—2023 年收入降 11% 时反而增加。'
@@ -632,7 +623,7 @@ JUDGMENTS = [
          change_threshold='浮存金占收入比例跌破 15%；应收账款天数超过 60 天；版权付款改为以预付为主。', no_change_condition='季度波动。',
          counter_evidence='压力幅度是设定值：按收入下降 20% 计，③约 16 亿元，合计约 47 亿元。公司实际持有的现金及等价物近两年在 85—237 亿元之间，远高于此，那是公司愿意留多少钱，不代表经营需要。',
          facts=[F_CASH, F_BS, F_LIC], theses=['T6', 'T7']),
-    dict(code='J-CASH', title='可分配的自由现金：扣掉有息负债与经营所需', parameter='分部估值项·C1 现金、C2 带息负债、C4 资金汇出成本（C3 经营所需现金见 J-OPCASH）', affected_years='资产负债日 2026-06-30',
+    dict(code='J-CASH', title='可分配的自由现金：扣掉有息负债与经营所需', parameter='分部估值项·C1 现金、C2 带息负债、C4 资金汇出成本（C3 经营所需现金见 J-OPCASH）',
          fact_layer='2026 年 6 月末：现金等 442.22 亿元、带息负债 168.84 亿元。境内未分派利润 172.5 亿元，对应 10% 预提税 17.3 亿元（2025 年末），2026 年上半年境内利润约 45 亿元。'
                     '浮存金（应付账款、递延收入、其他应付、应付税项、长期应付，减应收、预付与存货）：2021—2025 年末 35、54、51、67、67 亿元，2026 年 6 月 81 亿元（含喜马拉雅）；2021—2023 年收入降 11%，浮存金反而增加。'
                     '核心自由现金流 2022—2025 年合计 275 亿元，为税后核心经营利润的 1.33 倍；同期实际现金股息＋回购合计 101.8 亿元（约 37%），净现金从 194 亿元增至 343 亿元。',
@@ -646,7 +637,7 @@ JUDGMENTS = [
          change_threshold='季度现金或借款变化超过 30 亿元；资金汇出安排变化。', no_change_condition='季度内的回购与股息（同时减少现金与股本，按市价回购对每股价值影响小）。',
          counter_evidence='如果现金被拿去做低回报并购（喜马拉雅初始回报约 4%）而不是回报股东，这部分价值要打折。',
          facts=[F_BS, F_WHT, F_CASH, F_NOTE, F_CFO, F_ROIC], theses=['T5', 'T7']),
-    dict(code='J-INV', title='对外投资：按最新报告的账面价值打七折', parameter='分部估值项·C5 上市股权、C6 权益法投资、C7 其他投资', affected_years='资产负债日 2026-06-30',
+    dict(code='J-INV', title='对外投资：按最新报告的账面价值打七折', parameter='分部估值项·C5 上市股权、C6 权益法投资、C7 其他投资',
          fact_layer='2026 年 6 月末：以公允价值计量的上市股权（Spotify、UMG、WMG 等）191.47 亿元，权益法投资 26.91、其他投资 10.06 亿元（流动 0.72 已在现金 C1 里，这里只计非流动 9.34），合计 227.7 亿元。持股 0.8%—9.7%，没有控制权；2025 年投资所得股息 1.73 亿元。摩根士丹利按 236 亿元（2026 年 8 月）再打七折。',
          judgment='全部按最新报告的账面价值打 7 折（扣 30%：控股折价、处置税费与流动性），三情景相同，约 159 亿元。每季报告出来后更新账面价值，不跟踪股价的日常波动。',
          transmission='账面价值每 ±10%，每股约 ±0.5 元。',
@@ -659,7 +650,7 @@ def judgments():
     rows = []
     for j in JUDGMENTS:
         rows.append(dict(company_id=Raw(CO), code=j['code'], title=j['title'], fact_layer=j['fact_layer'], judgment=j['judgment'],
-                         transmission=j['transmission'], parameter=j['parameter'], affected_years=j['affected_years'],
+                         transmission=j['transmission'], parameter=j['parameter'],
                          change_threshold=j['change_threshold'], no_change_condition=j['no_change_condition'],
                          counter_evidence=j['counter_evidence'], status='已形成建议'))
     ins('judgment', rows)
@@ -1019,34 +1010,6 @@ def period_data():
 MINO, TAX = 0.03, 0.175
 
 
-def model():
-    OUT.append(f"""INSERT INTO vi_model_base (company_id, name, status, method, base_year, terminal_year, shares, rf, rf_date, rf_metric_id, erp,
-  opening_debt, opening_op_assets, opening_lt_invest, opening_equity, opening_minority, required_return, margin_low, margin_high, notes,
-  primary_method, sotp_year, sotp_core_adj, sotp_as_of)
-VALUES ({CO}, {lit(MODEL_NAME)}, '当前',
-  '分部加总，三块：①主营业务价值＝会员订阅、非订阅音乐、社交娱乐三块各自的 2027 年税后盈利×倍数，折回 2026-06-30（J-S1、J-S2、J-S3、J-R）；'
-  '②可分配的自由现金＝现金−带息负债−经营所需−汇出预提税（J-CASH）；③对外投资＝最新报告账面价值×70%（J-INV）；再减少数股东权益。不做逐年预测与股息贴现（2026-10-28 起）。'
-  '估值用人民币，港股股价按当天港元兑人民币折算后比较。',
-  2025, 2035, {SHARES}, 0.0164, '2026-10-22', (SELECT id FROM vi_metric_base WHERE code = 'CGB10Y.CCDC'), 0.07,
-  38.13, 271.98, 278.90, 802.87, 27.63, 0.06, 0.10, NULL,
-  {lit('口径（2026-10-28）：主营三块的利润率是分摊估算，三块加总须等于公司整体核心经营利润加回七成收购摊销（不含利息与投资收益，见 J-S1）；税率 17.5%，归母 97%。'
-       '少数股东统一按 3%：主营盈利乘 97%，非经营资产净额扣 3%（C8）。非经营部分统一截至 2026-06-30（与股本同日）。股本 31.6 亿股按中期报告附注 18、25 推算（见事实卡）；'
-       '未来回购按市价进行，对每股价值影响小，不预测股本变化；股权激励已作为费用计入利润率。市场价＝港股收盘价×当天港元兑人民币（自动采集）。安全边际两档并列 10%/30%。')},
-  '分部加总', NULL, NULL, '2026-06-30')
-;""")
-    scen = [
-        ('悲观', False, 1, 0.10, 0.0, 0.15, '免费模式侵蚀付费核心、演出与直播双双走弱',
-         '会员 195、非订阅 105、社交娱乐 42 亿元，核心经营利润率 35%、12%、10%；折现率 10.0%，永续增长 0。'),
-        ('基准', True, 2, None, 0.02, 0.15, '会员内生约持平、多元变现带动收入低个位数增长',
-         '会员 208、非订阅 117、社交娱乐 48 亿元，核心经营利润率 42%、15%、16%（三块合计 373 亿元、税前 112.6 亿元，与财务模型 2027E 一致）；折现率＝无风险利率＋风险溢价（8.6%），永续增长 2%。'),
-        ('乐观', False, 3, 0.076, 0.03, 0.20, '超级会员与喜马拉雅交叉销售成功、订阅重回增长',
-         '会员 218、非订阅 125、社交娱乐 50 亿元，核心经营利润率 45%、17%、18%；折现率 7.6%，永续增长 3%，新增投资回报率 20%。'),
-    ]
-    ins('scenario', [dict(model_id=Raw(MODEL), name=x[0], is_base=x[1], sort=x[2], volume_factor=1, price_factor=1, cost_factor=1,
-                          discount_rate=x[3], terminal_growth=x[4], ronic=x[5], nature=x[6], description=x[7], sotp_multiple=None) for x in scen])
-    sotp_items()
-    segments()
-    fin_forecast()
 
 
 # ================================================================ 主营三块（经营分部）：2027 年收入×利润率×(1−税率)×归母比例×倍数
@@ -1075,21 +1038,10 @@ FIN_FORECAST = [
 ]
 
 
-def fin_forecast():
-    ins('fin_forecast', [dict(model_id=Raw(MODEL), year=x[0], sub_rev=x[1], nonsub_rev=x[2], social_rev=x[3], gross_margin=x[4],
-                              selling_ratio=x[5], admin_ratio=x[6], other_income=x[7], equity_income=x[8], finance_cost=x[9],
-                              tax_rate=TAX, minority_share=MINO, sbc=x[10], acq_amort=x[11], cfo_ratio=x[12], capex=x[13],
-                              shareholder_return=x[14], other_cash=x[15], note=x[16]) for x in FIN_FORECAST])
 
 
-def segments():
-    ins('sotp_segment', [dict(model_id=Raw(MODEL), scenario_id=scen(x[2]), code=x[0], name=x[1], method='盈利×倍数', earn_year=2027,
-                              revenue=x[3], op_margin=x[4], tax_rate=TAX, attrib=1 - MINO, multiple=x[5], basis=x[6]) for x in SEGMENTS])
 
 
-# ================================================================ 分部加总估值项（截至 2026-06-30，与股本同日）
-def scen(name):
-    return Raw(f"(SELECT id FROM vi_scenario_base WHERE model_id = {MODEL} AND name = {lit(name)})")
 
 
 SOTP_ITEMS = [
@@ -1111,15 +1063,6 @@ SOTP_ITEMS = [
      '中期报告附注 23：投资应付款 4.10 亿元，是对外投资尚未付清的价款，现金流出确定，扣除。同附注的创始人保证股份负债 3.24 亿元以股份结算（摊薄很小，已在股本里近似），少数股东卖出期权负债 4.48 亿元对应的少数股东份额已在 C8 和 97% 里扣除，两者不重复扣。', [F_XM]),
 ]
 
-def sotp_items():
-    ins('sotp_item', [dict(model_id=Raw(MODEL), scenario_id=scen(i[1]) if i[1] else None, code=i[0], name=i[2], kind=i[3], amount=i[4],
-                           haircut=i[5], as_of='2026-06-30', basis=i[6]) for i in SOTP_ITEMS])
-    pairs = [(i[0], i[1], f) for i in SOTP_ITEMS for f in i[7]]
-    OUT.append(f"""INSERT INTO vi_lnk_sotp_item_facts (sotp_item_id, fact_id, "createdAt", "updatedAt")
-SELECT x.id, y.id, now(), now() FROM (VALUES {', '.join(f'({lit(a)}, {lit(b or "")}, {lit(c)})' for a, b, c in pairs)}) v(code, sname, ft)
-JOIN vi_sotp_item_base x ON x.model_id = {MODEL} AND x.code = v.code
-  AND coalesce((SELECT name FROM vi_scenario_base WHERE id = x.scenario_id), '') = v.sname
-JOIN vi_fact_base y ON y.company_id = {CO} AND y.title = v.ft;""")
 
 
 # ================================================================ 跟踪事项、待办清单、变更日志
@@ -1257,7 +1200,7 @@ if __name__ == '__main__':
     OUT.append(f"UPDATE vi_observation_base SET doc_id = {KLINE_DOC} WHERE doc_id IS NULL AND raw_capture_id IS NULL "
                f"AND metric_id = (SELECT price_metric_id FROM vi_company_base WHERE code = '{CODE}');")
     sources(); facts(); theses(); judgments(); business()
-    period_data(); model(); tracking()
+    period_data(); tracking()
     OUT.extend(data_layer_seed.fin_stmt_statements(CO, HERE / 'data' / 'fin_stmt.json'))   # 三大报表原值（报表计算指标读它）
     OUT.extend(data_layer_seed.statements(CO, HERE / 'data' / 'data_layer.json'))   # 关注与数据底稿补充，放最后
     shareholder_cash_returns()

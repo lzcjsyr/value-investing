@@ -20,6 +20,12 @@ SELECT b.id,
        b.pe_ttm,
        b.pb,
        b.pe_pb_date,
+       b.shares,
+       b.as_of,
+       b.value_layer,
+       b.layer_reason,
+       b.av_basis,
+       b.repro_cost,
        b.profile,
        b.notes,
        b.price_metric_id,
@@ -37,10 +43,10 @@ COMMENT ON VIEW vi_company IS '公司（界面视图：输入列＋自动计算�
 CREATE OR REPLACE FUNCTION vi_company_dml() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_company_base (code, name, exchange, industry, currency, volume_label, volume_unit, price_label, price_unit, is_default, scope_breaks, pe_ttm, pb, pe_pb_date, profile, notes, price_metric_id, price_fx_metric_id) VALUES (NEW.code, NEW.name, NEW.exchange, NEW.industry, NEW.currency, NEW.volume_label, NEW.volume_unit, NEW.price_label, NEW.price_unit, NEW.is_default, NEW.scope_breaks, NEW.pe_ttm, NEW.pb, NEW.pe_pb_date, NEW.profile, NEW.notes, NEW.price_metric_id, NEW.price_fx_metric_id) RETURNING id INTO NEW.id;
+    INSERT INTO vi_company_base (code, name, exchange, industry, currency, volume_label, volume_unit, price_label, price_unit, is_default, scope_breaks, pe_ttm, pb, pe_pb_date, shares, as_of, value_layer, layer_reason, av_basis, repro_cost, profile, notes, price_metric_id, price_fx_metric_id) VALUES (NEW.code, NEW.name, NEW.exchange, NEW.industry, NEW.currency, NEW.volume_label, NEW.volume_unit, NEW.price_label, NEW.price_unit, NEW.is_default, NEW.scope_breaks, NEW.pe_ttm, NEW.pb, NEW.pe_pb_date, NEW.shares, NEW.as_of, NEW.value_layer, NEW.layer_reason, COALESCE(NEW.av_basis, '调整后净资产'), NEW.repro_cost, NEW.profile, NEW.notes, NEW.price_metric_id, NEW.price_fx_metric_id) RETURNING id INTO NEW.id;
     RETURN NEW;
   ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_company_base SET code = NEW.code, name = NEW.name, exchange = NEW.exchange, industry = NEW.industry, currency = NEW.currency, volume_label = NEW.volume_label, volume_unit = NEW.volume_unit, price_label = NEW.price_label, price_unit = NEW.price_unit, is_default = NEW.is_default, scope_breaks = NEW.scope_breaks, pe_ttm = NEW.pe_ttm, pb = NEW.pb, pe_pb_date = NEW.pe_pb_date, profile = NEW.profile, notes = NEW.notes, price_metric_id = NEW.price_metric_id, price_fx_metric_id = NEW.price_fx_metric_id WHERE id = OLD.id;
+    UPDATE vi_company_base SET code = NEW.code, name = NEW.name, exchange = NEW.exchange, industry = NEW.industry, currency = NEW.currency, volume_label = NEW.volume_label, volume_unit = NEW.volume_unit, price_label = NEW.price_label, price_unit = NEW.price_unit, is_default = NEW.is_default, scope_breaks = NEW.scope_breaks, pe_ttm = NEW.pe_ttm, pb = NEW.pb, pe_pb_date = NEW.pe_pb_date, shares = NEW.shares, as_of = NEW.as_of, value_layer = NEW.value_layer, layer_reason = NEW.layer_reason, av_basis = COALESCE(NEW.av_basis, '调整后净资产'), repro_cost = NEW.repro_cost, profile = NEW.profile, notes = NEW.notes, price_metric_id = NEW.price_metric_id, price_fx_metric_id = NEW.price_fx_metric_id WHERE id = OLD.id;
     RETURN NEW;
   ELSE
     DELETE FROM vi_company_base WHERE id = OLD.id;
@@ -160,19 +166,10 @@ CREATE VIEW vi_business AS
 SELECT b.id,
        b.code,
        b.name,
-       b.kind,
-       b.capital_basis,
-       b.driver1_label,
-       b.driver1_unit,
-       b.driver2_label,
-       b.driver2_unit,
-       b.driver3_label,
-       b.driver3_unit,
-       b.driver_scale,
        b.boundary,
-       b.cost_allocation,
        b.asset_boundary,
        b.sort,
+       b.capital_basis,
        b.company_id,
        b.updated_at
 FROM vi_business_base b;
@@ -182,10 +179,10 @@ COMMENT ON VIEW vi_business IS '业务分部（界面视图：输入列＋自动
 CREATE OR REPLACE FUNCTION vi_business_dml() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_business_base (code, name, kind, capital_basis, driver1_label, driver1_unit, driver2_label, driver2_unit, driver3_label, driver3_unit, driver_scale, boundary, cost_allocation, asset_boundary, sort, company_id) VALUES (NEW.code, NEW.name, COALESCE(NEW.kind, '经营'), COALESCE(NEW.capital_basis, '企业'), NEW.driver1_label, NEW.driver1_unit, NEW.driver2_label, NEW.driver2_unit, NEW.driver3_label, NEW.driver3_unit, NEW.driver_scale, NEW.boundary, NEW.cost_allocation, NEW.asset_boundary, NEW.sort, NEW.company_id) RETURNING id INTO NEW.id;
+    INSERT INTO vi_business_base (code, name, boundary, asset_boundary, sort, capital_basis, company_id) VALUES (NEW.code, NEW.name, NEW.boundary, NEW.asset_boundary, NEW.sort, COALESCE(NEW.capital_basis, '企业'), NEW.company_id) RETURNING id INTO NEW.id;
     RETURN NEW;
   ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_business_base SET code = NEW.code, name = NEW.name, kind = COALESCE(NEW.kind, '经营'), capital_basis = COALESCE(NEW.capital_basis, '企业'), driver1_label = NEW.driver1_label, driver1_unit = NEW.driver1_unit, driver2_label = NEW.driver2_label, driver2_unit = NEW.driver2_unit, driver3_label = NEW.driver3_label, driver3_unit = NEW.driver3_unit, driver_scale = NEW.driver_scale, boundary = NEW.boundary, cost_allocation = NEW.cost_allocation, asset_boundary = NEW.asset_boundary, sort = NEW.sort, company_id = NEW.company_id WHERE id = OLD.id;
+    UPDATE vi_business_base SET code = NEW.code, name = NEW.name, boundary = NEW.boundary, asset_boundary = NEW.asset_boundary, sort = NEW.sort, capital_basis = COALESCE(NEW.capital_basis, '企业'), company_id = NEW.company_id WHERE id = OLD.id;
     RETURN NEW;
   ELSE
     DELETE FROM vi_business_base WHERE id = OLD.id;
@@ -194,46 +191,6 @@ BEGIN
 END $$;
 
 CREATE TRIGGER vi_business_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_business FOR EACH ROW EXECUTE FUNCTION vi_business_dml();
-
-DROP VIEW IF EXISTS vi_line CASCADE;
-
-CREATE VIEW vi_line AS
-SELECT b.id,
-       b.code,
-       b.name,
-       b.kind,
-       b.basis,
-       b.driver1_label,
-       b.driver1_unit,
-       b.driver2_label,
-       b.driver2_unit,
-       b.driver3_label,
-       b.driver3_unit,
-       b.driver_scale,
-       b.note,
-       b.sort,
-       b.business_id,
-       b.base_line_id,
-       b.updated_at
-FROM vi_line_base b;
-
-COMMENT ON VIEW vi_line IS '收入与成本项目（界面视图：输入列＋自动计算列）';
-
-CREATE OR REPLACE FUNCTION vi_line_dml() RETURNS trigger LANGUAGE plpgsql AS $$
-BEGIN
-  IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_line_base (code, name, kind, basis, driver1_label, driver1_unit, driver2_label, driver2_unit, driver3_label, driver3_unit, driver_scale, note, sort, business_id, base_line_id) VALUES (NEW.code, NEW.name, NEW.kind, NEW.basis, NEW.driver1_label, NEW.driver1_unit, NEW.driver2_label, NEW.driver2_unit, NEW.driver3_label, NEW.driver3_unit, NEW.driver_scale, NEW.note, NEW.sort, NEW.business_id, NEW.base_line_id) RETURNING id INTO NEW.id;
-    RETURN NEW;
-  ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_line_base SET code = NEW.code, name = NEW.name, kind = NEW.kind, basis = NEW.basis, driver1_label = NEW.driver1_label, driver1_unit = NEW.driver1_unit, driver2_label = NEW.driver2_label, driver2_unit = NEW.driver2_unit, driver3_label = NEW.driver3_label, driver3_unit = NEW.driver3_unit, driver_scale = NEW.driver_scale, note = NEW.note, sort = NEW.sort, business_id = NEW.business_id, base_line_id = NEW.base_line_id WHERE id = OLD.id;
-    RETURN NEW;
-  ELSE
-    DELETE FROM vi_line_base WHERE id = OLD.id;
-    RETURN OLD;
-  END IF;
-END $$;
-
-CREATE TRIGGER vi_line_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_line FOR EACH ROW EXECUTE FUNCTION vi_line_dml();
 
 DROP VIEW IF EXISTS vi_biz_model CASCADE;
 
@@ -527,7 +484,6 @@ SELECT b.id,
        b.judgment,
        b.transmission,
        b.parameter,
-       b.affected_years,
        b.change_threshold,
        b.no_change_condition,
        b.counter_evidence,
@@ -541,10 +497,10 @@ COMMENT ON VIEW vi_judgment IS '假设依据（界面视图：输入列＋自动
 CREATE OR REPLACE FUNCTION vi_judgment_dml() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_judgment_base (code, title, fact_layer, judgment, transmission, parameter, affected_years, change_threshold, no_change_condition, counter_evidence, status, company_id) VALUES (NEW.code, NEW.title, NEW.fact_layer, NEW.judgment, NEW.transmission, NEW.parameter, NEW.affected_years, NEW.change_threshold, NEW.no_change_condition, NEW.counter_evidence, NEW.status, NEW.company_id) RETURNING id INTO NEW.id;
+    INSERT INTO vi_judgment_base (code, title, fact_layer, judgment, transmission, parameter, change_threshold, no_change_condition, counter_evidence, status, company_id) VALUES (NEW.code, NEW.title, NEW.fact_layer, NEW.judgment, NEW.transmission, NEW.parameter, NEW.change_threshold, NEW.no_change_condition, NEW.counter_evidence, NEW.status, NEW.company_id) RETURNING id INTO NEW.id;
     RETURN NEW;
   ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_judgment_base SET code = NEW.code, title = NEW.title, fact_layer = NEW.fact_layer, judgment = NEW.judgment, transmission = NEW.transmission, parameter = NEW.parameter, affected_years = NEW.affected_years, change_threshold = NEW.change_threshold, no_change_condition = NEW.no_change_condition, counter_evidence = NEW.counter_evidence, status = NEW.status, company_id = NEW.company_id WHERE id = OLD.id;
+    UPDATE vi_judgment_base SET code = NEW.code, title = NEW.title, fact_layer = NEW.fact_layer, judgment = NEW.judgment, transmission = NEW.transmission, parameter = NEW.parameter, change_threshold = NEW.change_threshold, no_change_condition = NEW.no_change_condition, counter_evidence = NEW.counter_evidence, status = NEW.status, company_id = NEW.company_id WHERE id = OLD.id;
     RETURN NEW;
   ELSE
     DELETE FROM vi_judgment_base WHERE id = OLD.id;
@@ -564,6 +520,8 @@ SELECT b.id,
        b.item,
        b.seq,
        b.amount,
+       b.currency,
+       b.unit,
        b.company_id,
        b.updated_at
 FROM vi_fin_stmt_base b;
@@ -573,10 +531,10 @@ COMMENT ON VIEW vi_fin_stmt IS '财务报表（界面视图：输入列＋自动
 CREATE OR REPLACE FUNCTION vi_fin_stmt_dml() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_fin_stmt_base (period, period_end, stmt, item, seq, amount, company_id) VALUES (NEW.period, NEW.period_end, NEW.stmt, NEW.item, NEW.seq, NEW.amount, NEW.company_id) RETURNING id INTO NEW.id;
+    INSERT INTO vi_fin_stmt_base (period, period_end, stmt, item, seq, amount, currency, unit, company_id) VALUES (NEW.period, NEW.period_end, NEW.stmt, NEW.item, NEW.seq, NEW.amount, NEW.currency, NEW.unit, NEW.company_id) RETURNING id INTO NEW.id;
     RETURN NEW;
   ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_fin_stmt_base SET period = NEW.period, period_end = NEW.period_end, stmt = NEW.stmt, item = NEW.item, seq = NEW.seq, amount = NEW.amount, company_id = NEW.company_id WHERE id = OLD.id;
+    UPDATE vi_fin_stmt_base SET period = NEW.period, period_end = NEW.period_end, stmt = NEW.stmt, item = NEW.item, seq = NEW.seq, amount = NEW.amount, currency = NEW.currency, unit = NEW.unit, company_id = NEW.company_id WHERE id = OLD.id;
     RETURN NEW;
   ELSE
     DELETE FROM vi_fin_stmt_base WHERE id = OLD.id;
@@ -679,387 +637,115 @@ END $$;
 
 CREATE TRIGGER vi_observation_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_observation FOR EACH ROW EXECUTE FUNCTION vi_observation_dml();
 
-DROP VIEW IF EXISTS vi_model CASCADE;
+DROP VIEW IF EXISTS vi_bs_item CASCADE;
 
-CREATE VIEW vi_model AS
+CREATE VIEW vi_bs_item AS
 SELECT b.id,
+       b.category,
+       b.line_item,
        b.name,
-       b.status,
-       b.method,
-       b.base_year,
-       b.terminal_year,
-       b.shares,
-       b.rf,
-       b.rf_date,
-       b.erp,
-       b.opening_debt,
-       b.opening_op_assets,
-       b.opening_lt_invest,
-       b.opening_equity,
-       b.opening_minority,
-       b.required_return,
-       b.margin_low,
-       b.margin_high,
-       b.notes,
-       b.primary_method,
-       b.sotp_year,
-       b.sotp_core_adj,
-       b.sotp_as_of,
-       b.company_id,
-       b.rf_metric_id,
-       c.base_discount_rate,
-       c.valuation_date,
-       c.years_elapsed,
-       c.latest_rf,
-       c.latest_rf_date,
-       b.updated_at
-FROM vi_model_base b LEFT JOIN vi_model_calc c ON c.id = b.id;
-
-COMMENT ON VIEW vi_model IS '估值模型（界面视图：输入列＋自动计算列）';
-
-CREATE OR REPLACE FUNCTION vi_model_dml() RETURNS trigger LANGUAGE plpgsql AS $$
-BEGIN
-  IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_model_base (name, status, method, base_year, terminal_year, shares, rf, rf_date, erp, opening_debt, opening_op_assets, opening_lt_invest, opening_equity, opening_minority, required_return, margin_low, margin_high, notes, primary_method, sotp_year, sotp_core_adj, sotp_as_of, company_id, rf_metric_id) VALUES (NEW.name, NEW.status, NEW.method, NEW.base_year, NEW.terminal_year, NEW.shares, NEW.rf, NEW.rf_date, NEW.erp, NEW.opening_debt, NEW.opening_op_assets, NEW.opening_lt_invest, NEW.opening_equity, NEW.opening_minority, NEW.required_return, NEW.margin_low, NEW.margin_high, NEW.notes, NEW.primary_method, NEW.sotp_year, NEW.sotp_core_adj, NEW.sotp_as_of, NEW.company_id, NEW.rf_metric_id) RETURNING id INTO NEW.id;
-    RETURN NEW;
-  ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_model_base SET name = NEW.name, status = NEW.status, method = NEW.method, base_year = NEW.base_year, terminal_year = NEW.terminal_year, shares = NEW.shares, rf = NEW.rf, rf_date = NEW.rf_date, erp = NEW.erp, opening_debt = NEW.opening_debt, opening_op_assets = NEW.opening_op_assets, opening_lt_invest = NEW.opening_lt_invest, opening_equity = NEW.opening_equity, opening_minority = NEW.opening_minority, required_return = NEW.required_return, margin_low = NEW.margin_low, margin_high = NEW.margin_high, notes = NEW.notes, primary_method = NEW.primary_method, sotp_year = NEW.sotp_year, sotp_core_adj = NEW.sotp_core_adj, sotp_as_of = NEW.sotp_as_of, company_id = NEW.company_id, rf_metric_id = NEW.rf_metric_id WHERE id = OLD.id;
-    RETURN NEW;
-  ELSE
-    DELETE FROM vi_model_base WHERE id = OLD.id;
-    RETURN OLD;
-  END IF;
-END $$;
-
-CREATE TRIGGER vi_model_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_model FOR EACH ROW EXECUTE FUNCTION vi_model_dml();
-
-DROP VIEW IF EXISTS vi_scenario CASCADE;
-
-CREATE VIEW vi_scenario AS
-SELECT b.id,
-       b.name,
-       b.is_base,
-       b.sort,
-       b.volume_factor,
-       b.price_factor,
-       b.cost_factor,
-       b.discount_rate,
-       b.terminal_growth,
-       b.nature,
-       b.description,
-       b.ronic,
-       b.sotp_multiple,
-       b.probability,
-       b.model_id,
-       c.eff_discount_rate,
-       b.updated_at
-FROM vi_scenario_base b LEFT JOIN vi_scenario_calc c ON c.id = b.id;
-
-COMMENT ON VIEW vi_scenario IS '情景（界面视图：输入列＋自动计算列）';
-
-CREATE OR REPLACE FUNCTION vi_scenario_dml() RETURNS trigger LANGUAGE plpgsql AS $$
-BEGIN
-  IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_scenario_base (name, is_base, sort, volume_factor, price_factor, cost_factor, discount_rate, terminal_growth, nature, description, ronic, sotp_multiple, probability, model_id) VALUES (NEW.name, NEW.is_base, NEW.sort, NEW.volume_factor, NEW.price_factor, NEW.cost_factor, NEW.discount_rate, NEW.terminal_growth, NEW.nature, NEW.description, NEW.ronic, NEW.sotp_multiple, NEW.probability, NEW.model_id) RETURNING id INTO NEW.id;
-    RETURN NEW;
-  ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_scenario_base SET name = NEW.name, is_base = NEW.is_base, sort = NEW.sort, volume_factor = NEW.volume_factor, price_factor = NEW.price_factor, cost_factor = NEW.cost_factor, discount_rate = NEW.discount_rate, terminal_growth = NEW.terminal_growth, nature = NEW.nature, description = NEW.description, ronic = NEW.ronic, sotp_multiple = NEW.sotp_multiple, probability = NEW.probability, model_id = NEW.model_id WHERE id = OLD.id;
-    RETURN NEW;
-  ELSE
-    DELETE FROM vi_scenario_base WHERE id = OLD.id;
-    RETURN OLD;
-  END IF;
-END $$;
-
-CREATE TRIGGER vi_scenario_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_scenario FOR EACH ROW EXECUTE FUNCTION vi_scenario_dml();
-
-DROP VIEW IF EXISTS vi_sotp_item CASCADE;
-
-CREATE VIEW vi_sotp_item AS
-SELECT b.id,
-       b.code,
-       b.name,
-       b.kind,
-       b.treatment,
-       b.valuation_method,
-       b.boundary,
-       b.amount,
        b.haircut,
-       b.as_of,
+       b.adjustment,
        b.basis,
-       b.model_id,
-       b.scenario_id,
-       b.business_id,
-       b.metric_id,
-       c.amount_used,
-       c.signed_value,
-       c.scope,
+       b.sort,
+       b.company_id,
+       c.as_of,
+       c.book,
+       c.revalued,
+       c.book_signed,
+       c.value_signed,
+       c.role,
        b.updated_at
-FROM vi_sotp_item_base b LEFT JOIN vi_sotp_item_calc c ON c.id = b.id;
+FROM vi_bs_item_base b LEFT JOIN vi_bs_item_calc c ON c.id = b.id;
 
-COMMENT ON VIEW vi_sotp_item IS '资产估值与调整（界面视图：输入列＋自动计算列）';
+COMMENT ON VIEW vi_bs_item IS '资产负债重估（界面视图：输入列＋自动计算列）';
 
-CREATE OR REPLACE FUNCTION vi_sotp_item_dml() RETURNS trigger LANGUAGE plpgsql AS $$
+CREATE OR REPLACE FUNCTION vi_bs_item_dml() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_sotp_item_base (code, name, kind, treatment, valuation_method, boundary, amount, haircut, as_of, basis, model_id, scenario_id, business_id, metric_id) VALUES (NEW.code, NEW.name, NEW.kind, COALESCE(NEW.treatment, '单独计价'), NEW.valuation_method, NEW.boundary, NEW.amount, NEW.haircut, NEW.as_of, NEW.basis, NEW.model_id, NEW.scenario_id, NEW.business_id, NEW.metric_id) RETURNING id INTO NEW.id;
+    INSERT INTO vi_bs_item_base (category, line_item, name, haircut, adjustment, basis, sort, company_id) VALUES (NEW.category, NEW.line_item, NEW.name, NEW.haircut, NEW.adjustment, NEW.basis, NEW.sort, NEW.company_id) RETURNING id INTO NEW.id;
     RETURN NEW;
   ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_sotp_item_base SET code = NEW.code, name = NEW.name, kind = NEW.kind, treatment = COALESCE(NEW.treatment, '单独计价'), valuation_method = NEW.valuation_method, boundary = NEW.boundary, amount = NEW.amount, haircut = NEW.haircut, as_of = NEW.as_of, basis = NEW.basis, model_id = NEW.model_id, scenario_id = NEW.scenario_id, business_id = NEW.business_id, metric_id = NEW.metric_id WHERE id = OLD.id;
+    UPDATE vi_bs_item_base SET category = NEW.category, line_item = NEW.line_item, name = NEW.name, haircut = NEW.haircut, adjustment = NEW.adjustment, basis = NEW.basis, sort = NEW.sort, company_id = NEW.company_id WHERE id = OLD.id;
     RETURN NEW;
   ELSE
-    DELETE FROM vi_sotp_item_base WHERE id = OLD.id;
+    DELETE FROM vi_bs_item_base WHERE id = OLD.id;
     RETURN OLD;
   END IF;
 END $$;
 
-CREATE TRIGGER vi_sotp_item_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_sotp_item FOR EACH ROW EXECUTE FUNCTION vi_sotp_item_dml();
+CREATE TRIGGER vi_bs_item_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_bs_item FOR EACH ROW EXECUTE FUNCTION vi_bs_item_dml();
 
-DROP VIEW IF EXISTS vi_sotp_segment CASCADE;
+DROP VIEW IF EXISTS vi_epv CASCADE;
 
-CREATE VIEW vi_sotp_segment AS
+CREATE VIEW vi_epv AS
 SELECT b.id,
-       b.code,
+       b.sort,
        b.name,
+       b.section,
+       b.direction,
+       b.formula,
        b.method,
-       b.stage,
-       b.earn_year,
-       b.revenue,
-       b.op_margin,
-       b.tax_rate,
-       b.attrib,
-       b.multiple,
-       b.ronic,
-       b.growth,
-       b.discount_rate,
-       b.interim_cash,
-       b.commit_amount,
-       b.commit_years,
-       b.ongoing_cost,
-       b.direct_value,
-       b.basis,
-       b.model_id,
-       b.scenario_id,
-       b.business_id,
-       c.calc_scenario,
-       c.earnings,
-       c.formula_multiple,
-       c.multiple_used,
-       c.eff_rate,
-       c.years_to_value,
-       c.terminal_pv,
-       c.interim_pv,
-       c.value,
-       c.scope,
-       b.updated_at
-FROM vi_sotp_segment_base b LEFT JOIN vi_sotp_segment_calc c ON c.id = b.id;
-
-COMMENT ON VIEW vi_sotp_segment IS '经营分部估值（界面视图：输入列＋自动计算列）';
-
-CREATE OR REPLACE FUNCTION vi_sotp_segment_dml() RETURNS trigger LANGUAGE plpgsql AS $$
-BEGIN
-  IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_sotp_segment_base (code, name, method, stage, earn_year, revenue, op_margin, tax_rate, attrib, multiple, ronic, growth, discount_rate, interim_cash, commit_amount, commit_years, ongoing_cost, direct_value, basis, model_id, scenario_id, business_id) VALUES (NEW.code, NEW.name, NEW.method, NEW.stage, NEW.earn_year, NEW.revenue, NEW.op_margin, NEW.tax_rate, NEW.attrib, NEW.multiple, NEW.ronic, NEW.growth, NEW.discount_rate, NEW.interim_cash, NEW.commit_amount, NEW.commit_years, NEW.ongoing_cost, NEW.direct_value, NEW.basis, NEW.model_id, NEW.scenario_id, NEW.business_id) RETURNING id INTO NEW.id;
-    RETURN NEW;
-  ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_sotp_segment_base SET code = NEW.code, name = NEW.name, method = NEW.method, stage = NEW.stage, earn_year = NEW.earn_year, revenue = NEW.revenue, op_margin = NEW.op_margin, tax_rate = NEW.tax_rate, attrib = NEW.attrib, multiple = NEW.multiple, ronic = NEW.ronic, growth = NEW.growth, discount_rate = NEW.discount_rate, interim_cash = NEW.interim_cash, commit_amount = NEW.commit_amount, commit_years = NEW.commit_years, ongoing_cost = NEW.ongoing_cost, direct_value = NEW.direct_value, basis = NEW.basis, model_id = NEW.model_id, scenario_id = NEW.scenario_id, business_id = NEW.business_id WHERE id = OLD.id;
-    RETURN NEW;
-  ELSE
-    DELETE FROM vi_sotp_segment_base WHERE id = OLD.id;
-    RETURN OLD;
-  END IF;
-END $$;
-
-CREATE TRIGGER vi_sotp_segment_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_sotp_segment FOR EACH ROW EXECUTE FUNCTION vi_sotp_segment_dml();
-
-DROP VIEW IF EXISTS vi_forecast CASCADE;
-
-CREATE VIEW vi_forecast AS
-SELECT b.id,
-       b.year,
-       b.volume,
-       b.price,
-       b.cash_cost,
-       b.depreciation,
-       b.other_contrib,
-       b.tax_rate,
-       b.minority_share,
-       b.payout,
-       b.net_borrowing,
-       b.cost_of_debt,
-       b.noncash_gain_deduct,
-       b.investee_cash_div,
-       b.other_cash_adj,
-       b.wc_increase,
-       b.maint_capex,
-       b.growth_capex,
-       b.min_cash_topup,
-       b.operating_status,
-       b.cash_status,
-       b.note,
-       b.model_id,
-       c.revenue,
-       c.debt_open,
-       c.debt_close,
-       c.interest,
-       c.attrib_da,
-       c.cash_complete,
-       b.updated_at
-FROM vi_forecast_base b LEFT JOIN vi_forecast_calc c ON c.id = b.id;
-
-COMMENT ON VIEW vi_forecast IS '逐年假设（界面视图：输入列＋自动计算列）';
-
-CREATE OR REPLACE FUNCTION vi_forecast_dml() RETURNS trigger LANGUAGE plpgsql AS $$
-BEGIN
-  IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_forecast_base (year, volume, price, cash_cost, depreciation, other_contrib, tax_rate, minority_share, payout, net_borrowing, cost_of_debt, noncash_gain_deduct, investee_cash_div, other_cash_adj, wc_increase, maint_capex, growth_capex, min_cash_topup, operating_status, cash_status, note, model_id) VALUES (NEW.year, NEW.volume, NEW.price, NEW.cash_cost, NEW.depreciation, NEW.other_contrib, NEW.tax_rate, NEW.minority_share, NEW.payout, NEW.net_borrowing, NEW.cost_of_debt, NEW.noncash_gain_deduct, NEW.investee_cash_div, NEW.other_cash_adj, NEW.wc_increase, NEW.maint_capex, NEW.growth_capex, NEW.min_cash_topup, NEW.operating_status, NEW.cash_status, NEW.note, NEW.model_id) RETURNING id INTO NEW.id;
-    RETURN NEW;
-  ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_forecast_base SET year = NEW.year, volume = NEW.volume, price = NEW.price, cash_cost = NEW.cash_cost, depreciation = NEW.depreciation, other_contrib = NEW.other_contrib, tax_rate = NEW.tax_rate, minority_share = NEW.minority_share, payout = NEW.payout, net_borrowing = NEW.net_borrowing, cost_of_debt = NEW.cost_of_debt, noncash_gain_deduct = NEW.noncash_gain_deduct, investee_cash_div = NEW.investee_cash_div, other_cash_adj = NEW.other_cash_adj, wc_increase = NEW.wc_increase, maint_capex = NEW.maint_capex, growth_capex = NEW.growth_capex, min_cash_topup = NEW.min_cash_topup, operating_status = NEW.operating_status, cash_status = NEW.cash_status, note = NEW.note, model_id = NEW.model_id WHERE id = OLD.id;
-    RETURN NEW;
-  ELSE
-    DELETE FROM vi_forecast_base WHERE id = OLD.id;
-    RETURN OLD;
-  END IF;
-END $$;
-
-CREATE TRIGGER vi_forecast_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_forecast FOR EACH ROW EXECUTE FUNCTION vi_forecast_dml();
-
-DROP VIEW IF EXISTS vi_fin_forecast CASCADE;
-
-CREATE VIEW vi_fin_forecast AS
-SELECT b.id,
-       b.year,
-       b.sub_rev,
-       b.nonsub_rev,
-       b.social_rev,
-       b.gross_margin,
-       b.selling_ratio,
-       b.admin_ratio,
-       b.other_income,
-       b.equity_income,
-       b.finance_cost,
-       b.tax_rate,
-       b.minority_share,
-       b.sbc,
-       b.acq_amort,
-       b.cfo_ratio,
-       b.capex,
-       b.shareholder_return,
-       b.other_cash,
-       b.note,
-       b.model_id,
-       c.revenue,
-       c.gross_profit,
-       c.selling,
-       c.admin,
-       c.core_op,
-       c.core_op_margin,
-       c.pretax,
-       c.income_tax,
-       c.net_profit,
-       c.minority,
-       c.np_parent,
-       c.adj_np,
-       c.eps,
-       c.cfo,
-       c.fcf,
-       c.net_cash_end,
-       b.updated_at
-FROM vi_fin_forecast_base b LEFT JOIN vi_fin_forecast_calc c ON c.id = b.id;
-
-COMMENT ON VIEW vi_fin_forecast IS '财务预测（界面视图：输入列＋自动计算列）';
-
-CREATE OR REPLACE FUNCTION vi_fin_forecast_dml() RETURNS trigger LANGUAGE plpgsql AS $$
-BEGIN
-  IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_fin_forecast_base (year, sub_rev, nonsub_rev, social_rev, gross_margin, selling_ratio, admin_ratio, other_income, equity_income, finance_cost, tax_rate, minority_share, sbc, acq_amort, cfo_ratio, capex, shareholder_return, other_cash, note, model_id) VALUES (NEW.year, NEW.sub_rev, NEW.nonsub_rev, NEW.social_rev, NEW.gross_margin, NEW.selling_ratio, NEW.admin_ratio, NEW.other_income, NEW.equity_income, NEW.finance_cost, NEW.tax_rate, NEW.minority_share, NEW.sbc, NEW.acq_amort, NEW.cfo_ratio, NEW.capex, NEW.shareholder_return, NEW.other_cash, NEW.note, NEW.model_id) RETURNING id INTO NEW.id;
-    RETURN NEW;
-  ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_fin_forecast_base SET year = NEW.year, sub_rev = NEW.sub_rev, nonsub_rev = NEW.nonsub_rev, social_rev = NEW.social_rev, gross_margin = NEW.gross_margin, selling_ratio = NEW.selling_ratio, admin_ratio = NEW.admin_ratio, other_income = NEW.other_income, equity_income = NEW.equity_income, finance_cost = NEW.finance_cost, tax_rate = NEW.tax_rate, minority_share = NEW.minority_share, sbc = NEW.sbc, acq_amort = NEW.acq_amort, cfo_ratio = NEW.cfo_ratio, capex = NEW.capex, shareholder_return = NEW.shareholder_return, other_cash = NEW.other_cash, note = NEW.note, model_id = NEW.model_id WHERE id = OLD.id;
-    RETURN NEW;
-  ELSE
-    DELETE FROM vi_fin_forecast_base WHERE id = OLD.id;
-    RETURN OLD;
-  END IF;
-END $$;
-
-CREATE TRIGGER vi_fin_forecast_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_fin_forecast FOR EACH ROW EXECUTE FUNCTION vi_fin_forecast_dml();
-
-DROP VIEW IF EXISTS vi_trial CASCADE;
-
-CREATE VIEW vi_trial AS
-SELECT b.id,
-       b.name,
-       b.start_year,
-       b.end_year,
-       b.volume_delta,
-       b.price_delta,
-       b.cost_delta,
-       b.da_delta,
-       b.interest_delta,
-       b.rate_delta,
-       b.boundary,
-       b.model_id,
-       c.base_value,
-       c.trial_value,
-       c.value_change,
-       c.change_pct,
-       b.updated_at
-FROM vi_trial_base b LEFT JOIN vi_trial_calc c ON c.id = b.id;
-
-COMMENT ON VIEW vi_trial IS '单参数试验（界面视图：输入列＋自动计算列）';
-
-CREATE OR REPLACE FUNCTION vi_trial_dml() RETURNS trigger LANGUAGE plpgsql AS $$
-BEGIN
-  IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_trial_base (name, start_year, end_year, volume_delta, price_delta, cost_delta, da_delta, interest_delta, rate_delta, boundary, model_id) VALUES (NEW.name, NEW.start_year, NEW.end_year, NEW.volume_delta, NEW.price_delta, NEW.cost_delta, NEW.da_delta, NEW.interest_delta, NEW.rate_delta, NEW.boundary, NEW.model_id) RETURNING id INTO NEW.id;
-    RETURN NEW;
-  ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_trial_base SET name = NEW.name, start_year = NEW.start_year, end_year = NEW.end_year, volume_delta = NEW.volume_delta, price_delta = NEW.price_delta, cost_delta = NEW.cost_delta, da_delta = NEW.da_delta, interest_delta = NEW.interest_delta, rate_delta = NEW.rate_delta, boundary = NEW.boundary, model_id = NEW.model_id WHERE id = OLD.id;
-    RETURN NEW;
-  ELSE
-    DELETE FROM vi_trial_base WHERE id = OLD.id;
-    RETURN OLD;
-  END IF;
-END $$;
-
-CREATE TRIGGER vi_trial_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_trial FOR EACH ROW EXECUTE FUNCTION vi_trial_dml();
-
-DROP VIEW IF EXISTS vi_assumption CASCADE;
-
-CREATE VIEW vi_assumption AS
-SELECT b.id,
-       b.parameter,
+       b.value,
        b.from_year,
        b.to_year,
-       b.value,
        b.note,
-       b.model_id,
+       b.company_id,
        b.business_id,
-       b.line_id,
-       b.scenario_id,
-       b.judgment_id,
+       c.history,
+       c.normalized,
+       c.ratio,
        b.updated_at
-FROM vi_assumption_base b;
+FROM vi_epv_base b LEFT JOIN vi_epv_calc c ON c.id = b.id;
 
-COMMENT ON VIEW vi_assumption IS '估值假设（界面视图：输入列＋自动计算列）';
+COMMENT ON VIEW vi_epv IS '调整后利润表（界面视图：输入列＋自动计算列）';
 
-CREATE OR REPLACE FUNCTION vi_assumption_dml() RETURNS trigger LANGUAGE plpgsql AS $$
+CREATE OR REPLACE FUNCTION vi_epv_dml() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_assumption_base (parameter, from_year, to_year, value, note, model_id, business_id, line_id, scenario_id, judgment_id) VALUES (NEW.parameter, NEW.from_year, NEW.to_year, NEW.value, NEW.note, NEW.model_id, NEW.business_id, NEW.line_id, NEW.scenario_id, NEW.judgment_id) RETURNING id INTO NEW.id;
+    INSERT INTO vi_epv_base (sort, name, section, direction, formula, method, value, from_year, to_year, note, company_id, business_id) VALUES (NEW.sort, NEW.name, NEW.section, NEW.direction, NEW.formula, NEW.method, NEW.value, NEW.from_year, NEW.to_year, NEW.note, NEW.company_id, NEW.business_id) RETURNING id INTO NEW.id;
     RETURN NEW;
   ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_assumption_base SET parameter = NEW.parameter, from_year = NEW.from_year, to_year = NEW.to_year, value = NEW.value, note = NEW.note, model_id = NEW.model_id, business_id = NEW.business_id, line_id = NEW.line_id, scenario_id = NEW.scenario_id, judgment_id = NEW.judgment_id WHERE id = OLD.id;
+    UPDATE vi_epv_base SET sort = NEW.sort, name = NEW.name, section = NEW.section, direction = NEW.direction, formula = NEW.formula, method = NEW.method, value = NEW.value, from_year = NEW.from_year, to_year = NEW.to_year, note = NEW.note, company_id = NEW.company_id, business_id = NEW.business_id WHERE id = OLD.id;
     RETURN NEW;
   ELSE
-    DELETE FROM vi_assumption_base WHERE id = OLD.id;
+    DELETE FROM vi_epv_base WHERE id = OLD.id;
     RETURN OLD;
   END IF;
 END $$;
 
-CREATE TRIGGER vi_assumption_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_assumption FOR EACH ROW EXECUTE FUNCTION vi_assumption_dml();
+CREATE TRIGGER vi_epv_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_epv FOR EACH ROW EXECUTE FUNCTION vi_epv_dml();
+
+DROP VIEW IF EXISTS vi_growth CASCADE;
+
+CREATE VIEW vi_growth AS
+SELECT b.id,
+       b.growth,
+       b.ronic,
+       b.adv_years,
+       b.note,
+       b.company_id,
+       b.business_id,
+       b.updated_at
+FROM vi_growth_base b;
+
+COMMENT ON VIEW vi_growth IS '增长（界面视图：输入列＋自动计算列）';
+
+CREATE OR REPLACE FUNCTION vi_growth_dml() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  IF TG_OP = 'INSERT' THEN
+    INSERT INTO vi_growth_base (growth, ronic, adv_years, note, company_id, business_id) VALUES (NEW.growth, NEW.ronic, NEW.adv_years, NEW.note, NEW.company_id, NEW.business_id) RETURNING id INTO NEW.id;
+    RETURN NEW;
+  ELSIF TG_OP = 'UPDATE' THEN
+    UPDATE vi_growth_base SET growth = NEW.growth, ronic = NEW.ronic, adv_years = NEW.adv_years, note = NEW.note, company_id = NEW.company_id, business_id = NEW.business_id WHERE id = OLD.id;
+    RETURN NEW;
+  ELSE
+    DELETE FROM vi_growth_base WHERE id = OLD.id;
+    RETURN OLD;
+  END IF;
+END $$;
+
+CREATE TRIGGER vi_growth_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_growth FOR EACH ROW EXECUTE FUNCTION vi_growth_dml();
 
 DROP VIEW IF EXISTS vi_issue CASCADE;
 
@@ -1127,6 +813,34 @@ BEGIN
 END $$;
 
 CREATE TRIGGER vi_change_log_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_change_log FOR EACH ROW EXECUTE FUNCTION vi_change_log_dml();
+
+DROP VIEW IF EXISTS vi_setting CASCADE;
+
+CREATE VIEW vi_setting AS
+SELECT b.id,
+       b.name,
+       b.hurdle,
+       b.note,
+       b.updated_at
+FROM vi_setting_base b;
+
+COMMENT ON VIEW vi_setting IS '统一设置（界面视图：输入列＋自动计算列）';
+
+CREATE OR REPLACE FUNCTION vi_setting_dml() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  IF TG_OP = 'INSERT' THEN
+    INSERT INTO vi_setting_base (name, hurdle, note) VALUES (NEW.name, NEW.hurdle, NEW.note) RETURNING id INTO NEW.id;
+    RETURN NEW;
+  ELSIF TG_OP = 'UPDATE' THEN
+    UPDATE vi_setting_base SET name = NEW.name, hurdle = NEW.hurdle, note = NEW.note WHERE id = OLD.id;
+    RETURN NEW;
+  ELSE
+    DELETE FROM vi_setting_base WHERE id = OLD.id;
+    RETURN OLD;
+  END IF;
+END $$;
+
+CREATE TRIGGER vi_setting_dml INSTEAD OF INSERT OR UPDATE OR DELETE ON vi_setting FOR EACH ROW EXECUTE FUNCTION vi_setting_dml();
 
 DROP VIEW IF EXISTS vi_collector CASCADE;
 

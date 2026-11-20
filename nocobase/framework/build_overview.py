@@ -11,25 +11,25 @@ from build_pages import state, child_page, companies, company_root, shared_root,
 
 GUIDE = """# 使用说明
 
-> 数据库设计说明已于 2026-10-29 核验更新。请打开 [数据结构与最近变化](/admin/vsha1l0e5il)，先看“最近发生了什么”，再看数据分工、预测与估值路径、表清单及关系图。
+> 2026-11-11 估值部分按 Greenwald 三层重构：旧的财务模型、估值模型、逐年假设、分部加总、统一估值引擎都已删除。表清单见「框架与后台 / 数据结构」，方法见「估值地基：Greenwald 三层价值」。
 
 这是一套**可复用的价值投资研究框架**。每家公司都按同一条链研究：
 
-**来源文档 → 定性事实与指标 → 商业模式、产业链与竞争对手 → 竞争壁垒 → 核心论点 → 风险分析 → 假设依据 → 逐年假设 → 预测计算 → 估值结论 → 跟踪与证伪**
+**来源文档 → 定性事实与指标 → 商业模式、产业链与竞争对手 → 竞争壁垒 → 核心论点 → 风险分析 → 假设依据 → 三层估值（资产价值 → 盈利能力价值（调整后利润表）→ 增长价值 → 独立资产与调整 → 股权价值）→ 跟踪与证伪**
 
 先回答“这门生意凭什么持续赚钱”，再回答“值多少钱”。
 
 ## 菜单怎么看
-- **每家公司一个顶层菜单**（现在有长江电力、太阳纸业、中国建筑、腾讯音乐、小米集团），点进去只看到这家公司的数据：驾驶舱，以及四组页面：**商业模式**（只放分析）、**经营与财务**（财务报表、定量指标、定性事实）、**预测与估值**（财务模型 → 估值模型 → 假设依据）、**研究维护**（来源文档、质量自检、待办清单、变更日志）。各公司的数据在同一个数据库里，但页面互不混。
-- **宏观数据**（独立项目）：利率、汇率、大宗商品等不属于任何公司的数据（指标、高频数据、采集配置）。各公司按需使用：估值参数（无风险利率、股价汇率）和重点跟踪（假设依据、风险关联的指标）直接引用；其他想看的在「框架与后台 / 公司」里勾选“订阅的宏观数据”。公司菜单里「定量指标」的高频经营标签只展示经营、水文和商品指标；股价、利率与汇率在驾驶舱及宏观数据查看。驾驶舱“立即采集一次”仍采这家公司需要的所有指标。
+- **每家公司一个顶层菜单**（现在有长江电力、太阳纸业、中国建筑、腾讯音乐、小米集团），点进去只看到这家公司的数据：驾驶舱，以及四组页面：**商业模式**（只放分析）、**经营与财务**（财务报表、定量指标、定性事实）、**预测与估值**（按「估值地基：Greenwald 三层价值」：① 资产价值 → ② 盈利能力 → ③ 增长价值 → ④ 独立资产 → ⑤ 股权价值 → 假设依据）、**研究维护**（来源文档、质量自检、待办清单、变更日志）。各公司的数据在同一个数据库里，但页面互不混。
+- **宏观数据**（独立项目）：利率、汇率、大宗商品等不属于任何公司的数据（指标、高频数据、采集配置）。各公司按需使用：股价汇率和重点跟踪（假设依据、风险关联的指标）直接引用；其他想看的在「框架与后台 / 公司」里勾选“订阅的宏观数据”。公司菜单里「定量指标」的高频经营标签只展示经营、水文和商品指标；股价、利率与汇率在驾驶舱及宏观数据查看。驾驶舱“立即采集一次”仍采这家公司需要的所有指标。
 - **框架与后台**：这三篇说明、公司列表（含订阅的宏观数据）、全部指标定义，以及自动采集（采集配置、采集运行、原始采集记录、全部数据）。
 
 ## 每天/每周怎么用
 1. **<公司> / 驾驶舱**：看今天每股价值、市场价、按要求收益率的最高买入价和质量自检。
-   想看某一年的利润、现金、资产负债是怎么算出来的，打开 **<公司> / 预测与估值 / 财务模型**：选情景和年份，瀑布图逐步展示营收 → 利润 → 股息 → 现金，另有一页资产与资本。
+   想看估值怎么来的，按 **<公司> / 预测与估值** 的五页从上往下看：资产值多少、不增长时盈利值多少、增长能多值多少、经营之外的资产与索取权、最后汇成每股价值和隐含回报。
 2. **<公司> / 研究维护 / 质量自检**：先看“阻断”和“提示”，它们说明结论能不能用。
-3. **<公司> / 经营与财务**：按“原始报表 → 定量指标 → 定性事实”排列。**财务报表**是季度完整三大报表（只读）；**定量指标**每个指标一行，“趋势”列是主口径最近 12 期的小折线（主口径不足两期时用数据最多的口径，下方写起止统计时间），点“查看”看大图、逐期数据并录入新一期，这家公司的全部指标分四个标签：“定期经营”是发电量、浆纸销量、合同额、开工面积、用户、设备数与单位售价，“高频经营”是水位、流量等自动采集的经营指标，“财务指标”是全部财务数（报表里有的科目与比率按报表公式实时算，报表外的分部收入、股息、净借款等在这里录入），“宏观与市场”是利率、汇率、商品价格和股价。“模型字段”列说明这个数进财务模型的哪一项，“重点跟踪”列出盯着它的假设依据和风险。想更新自动采集指标，可按驾驶舱的 **立即采集一次**；该按钮仍采集这家公司需要的全部数据源。
-4. 有新公告或财报：先在 **研究维护 / 来源文档** 登记原件，按期数字录进对应指标，数字以外的事写 **定性事实**；结论有变化先改 **核心论点**（裁决、改判条件），需要改假设时写 **预测与估值 / 假设依据**，然后改 **逐年假设**，最后在 **变更日志** 记录旧值、新值与理由。
+3. **<公司> / 经营与财务**：按“原始报表 → 定量指标 → 定性事实”排列。**财务报表**是季度完整三大报表（只读）；**定量指标**每个指标一行，“趋势”列是主口径最近 12 期的小折线（主口径不足两期时用数据最多的口径，下方写起止统计时间），点“查看”看大图、逐期数据并录入新一期，这家公司的全部指标分四个标签：“定期经营”是发电量、浆纸销量、合同额、开工面积、用户、设备数与单位售价，“高频经营”是水位、流量等自动采集的经营指标，“财务指标”是全部财务数（报表里有的科目与比率按报表公式实时算，报表外的分部收入、股息、净借款等在这里录入），“宏观与市场”是利率、汇率、商品价格和股价。“模型字段”列说明这个数进历史年度的哪一项，“重点跟踪”列出盯着它的假设依据和风险。想更新自动采集指标，可按驾驶舱的 **立即采集一次**；该按钮仍采集这家公司需要的全部数据源。
+4. 有新公告或财报：先在 **研究维护 / 来源文档** 登记原件，按期数字录进对应指标，数字以外的事写 **定性事实**；结论有变化先改 **核心论点**（裁决、改判条件），需要改假设时写 **预测与估值 / 假设依据**，然后在对应那一层的编辑标签里改数（资产负债重估、盈利能力、增长），最后在 **变更日志** 记录旧值、新值与理由。
    在公司菜单里新增记录时，表单里的“公司”要选这家公司，否则这条记录不会出现在它的页面里。
 
 ## 时期指标与时点指标
@@ -46,128 +46,85 @@ GUIDE = """# 使用说明
 3. **竞争对手**：直接对手、替代品、潜在进入者与海外对标；关键数字写截至日期，第三方估算在来源里注明。
 4. **竞争壁垒**：每项候选壁垒写机制、财务体现（更高 ROIC 或毛利率、更高留存、更低获客成本、更稳定的现金流）、证据、反证、复制难度。**看起来像壁垒、其实不是的（伪壁垒）也要列出来**。能量化的设自动检查（读历史年度）。
 5. **核心论点**：决定价值的几个关键判断——壁垒能否持续、增长与利润率、现金与资本配置、治理、估值。每条写正方立论、反方立论、互相反驳，再给裁决（成立 / 观察 / 存疑 / 证伪）、把握、决定胜负的证据、改判条件和对模型的影响。伪壁垒以外的每项壁垒至少关联一条辩论过的论点（填辩论日期）。岗底斯观点 PK、卖方与外资的正反观点写在“外部观点”里，裁决仍由自己负责。能量化的改判条件设自动检查。
-6. **风险分析**：会让这笔投资亏钱的不利事件。每条写传导路径、可能性与冲击（系统按可能性×冲击自动定级为重大、重要、一般）、影响测算、缓冲因素、在估值里怎么处理（基准情景、悲观情景、折现率或未计入）、预警信号与触发后应对。论证不在这里重复：关联会被削弱的论点（自动显示其当前裁决）、估值对应的假设依据、盯着的预警指标（汇总在「经营与财务 / 重点跟踪」）。
+6. **风险分析**：会让这笔投资亏钱的不利事件。每条写传导路径、可能性与冲击（系统按可能性×冲击自动定级为重大、重要、一般）、影响测算、缓冲因素、在估值里怎么处理（已计入估值输入、体现在主估值层或门槛、未计入）、预警信号与触发后应对。论证不在这里重复：关联会被削弱的论点（自动显示其当前裁决）、估值对应的假设依据、盯着的预警指标（汇总在「经营与财务 / 重点跟踪」）。
 7. **价投适配度**：顶部是结论看板（总分、归类、八个维度的分数条、强项与短板），下方表格录入。长坡、厚雪、慢变、护城河、再投资、财务质量、治理配置、可估值性，各 0—5 分并写反证，关联支撑它的论点。总分 32—40 适合复利框架，22—31 合适（要说明更偏复利、现金流价值还是资产价值），21 以下通常不符合。
-证据在「经营与财务」，上层判断（商业模式、壁垒、论点、假设依据、逐年假设、估值）用两种方式引用：**依据指标**——按期重复的数（经营数字、财务数字、股价、利率、水位）只放在 `vi_metric_base`（序列定义）和 `vi_observation_base`（每期值）里，引用指标就能看到趋势和逐期数据；**依据事实**——定性事实分两层：`vi_event_base`（事项，一件事：短名称＋简介）下挂若干 `vi_fact_base`（侧面，各有日期、来源、核验状态），在「经营与财务 / 定性事实」先看事项、点开看各侧面的时间线；上层引用具体侧面。定性事实写数字以外、会改变判断的事（制度监管、合作授权、并购与资本运作、人事、诉讼、管理层表态、竞争对手动作），以及卖方预测、可比估值、同业对比这类外部参照，不重复抄指标里的数。
-落到估值的在「预测与估值 / **假设依据**」：事实和论点如何决定每个估值参数（逐年假设、情景、估值模型），改参数的门槛，什么情况下不改。
+证据在「经营与财务」，上层判断（商业模式、壁垒、论点、假设依据、估值）用两种方式引用：**依据指标**——按期重复的数（经营数字、财务数字、股价、利率、水位）只放在 `vi_metric_base`（序列定义）和 `vi_observation_base`（每期值）里，引用指标就能看到趋势和逐期数据；**依据事实**——定性事实分两层：`vi_event_base`（事项，一件事：短名称＋简介）下挂若干 `vi_fact_base`（侧面，各有日期、来源、核验状态），在「经营与财务 / 定性事实」先看事项、点开看各侧面的时间线；上层引用具体侧面。定性事实写数字以外、会改变判断的事（制度监管、合作授权、并购与资本运作、人事、诉讼、管理层表态、竞争对手动作），以及卖方预测、可比估值、同业对比这类外部参照，不重复抄指标里的数。
+落到估值的在「预测与估值 / **假设依据**」：事实和论点如何决定每个估值参数（资产负债重估的折价与调整、调整后利润表的每一行、增长），改参数的门槛，什么情况下不改。
 
 **每个观点只写一处**：描述性的内容放商业模式、产业链、竞争对手、竞争壁垒；有争议、决定价值的判断放核心论点（对应哪条假设依据在假设依据里关联，论点上自动显示“假设依据（状态）”）；会让人亏钱的事件放风险分析；参数怎么设、什么时候改放假设依据；还没有答案的判断性问题（如“应收能收回多少”）也写成核心论点，缺的证据写在“决定胜负的证据”。「跟踪 / 待办清单」只放做完即关的待办（数据源、核验、模型缺口、等你拍板的策略选择），不放判断。其他地方按编号引用（如“见 T2”“J-P”），不重复论证。
 
 质量自检 C09、C14、C15、C18、C19 会提示：论点的自动检查有没有触发、还有哪些壁垒没辩论、适配度总分与归类、高分维度是否关联了存疑或证伪的论点、重大风险有没有计入估值和预警信号。
 
-## 主估值方法：按生意选，不套一个公式
-- **股息贴现**（默认）：只承认分给股东的现金；适合派息稳定、留存少的公司（长江电力）。
-- **分部加总**（在估值模型里把“主估值方法”设为分部加总）：核心业务盈利 × 合理倍数 ＋ 可用净现金 ＋ 对外投资（折后）− 少数股东权益。适合“经营业务＋大额现金与持股”的公司（腾讯音乐：主营再拆成三块经营分部，不做逐年预测）。
-- **经营分部估值**（分部加总的一种，估值模型的“核心盈利年份”留空）：一家公司里处在不同发展阶段的业务各用一种方法，写在「估值 / 业务估值（编辑）」，每个情景可以有自己的一行：
-  - **盈利×倍数**：成熟或周期业务，用正常化盈利（不用周期顶部或底部的当年利润）；倍数按价值驱动公式推导，正常化年份晚于下一年时折回今天，并加上过渡期的现金流。
-  - **稳态折现**：成长业务，用稳态年份的盈利 × 退出倍数折回今天（可单独设更高的折现率），加上到稳态前的期间现金流（负数＝还要投钱）。
-  - **承诺投入**：投入期业务，只计已承诺投入的税后现值和承诺期后仍得不到回报的年成本，回报不计入。
-  - **直接估值**：按可比公司估值、交易价格或主观判断直接给一个整体价值（不折现），适合还没有可靠利润、但有可比估值的业务。
-  - 驾驶舱给出“市场隐含成熟业务倍数”和“市场隐含成长业务价值”：其余部分按本模型取值时，现价等于在为哪一部分付多少钱。情景可以填概率，得到概率加权价值。小米集团用这种方法。
-  - 核心盈利取预测计算里某一年的核心经营利润（不含利息收入、投资收益与财务费用），按税率与少数股东占比折成归母，可再加减“核心盈利调整”。
-  - 合理倍数不手拍：P/E＝(1−永续增长率÷新增投资回报率)÷(折现率−永续增长率)，在“情景”里填新增投资回报率即可，也可手填覆盖。
-  - 现金、负债、经营所需现金、资金汇出成本、对外投资、少数股东权益写在「估值 / 资产估值与调整（编辑）」，可以按情景设不同金额与折价。
-  - 驾驶舱可拖动“试算倍数”；“市场隐含核心倍数”告诉你市场为核心业务付了几倍。另一种方法作交叉验证，质量自检 C16 会提示两者差距，C17 检查经营分部是否完整、价值是否主要来自尚未成熟的业务。
-
-## 按要求收益率估值（内部收益率视角）
-- **要求收益率**（默认 6%）是你自己的门槛回报，即机会成本；在“估值模型”里设置，驾驶舱可以临时拖动并保存为默认。
-- **隐含年化收益率**：按今天市场价买入、拿到模型预测的股息并按永续增长率增长，你能得到的年化内部收益率（IRR）。它只取决于价格和现金流，与要求收益率无关。
-- **最高买入价**：按要求收益率把未来股息折现到今天的每股价值，也就是想拿到这个回报最多能付的价格。
-- 两者等价：隐含收益率 ≥ 要求收益率 ⇔ 市场价 ≤ 最高买入价。三个情景各算一遍，能看到收益率的区间。
-- 与“折现率估值”的区别：折现率（无风险利率＋风险溢价）回答“理论上值多少”，要求收益率回答“这个价格买进是否达到我的回报门槛”。
-- “现金支持口径”只算 FCFE 能覆盖的股息，结果更保守。隐含收益率包含终值，对永续增长率敏感。
+## 估值：Greenwald 三层价值（按「框架与后台 / 估值地基」）
+- **资产价值**按全公司逐项重估经营资产与经营负债。**盈利能力**和**增长**按估值单元（业务）计算。独立计价的业务或资产按市价、交易价或账面计入资产负债桥。
+- **口径开关**（业务的“口径”）：企业口径＝利息前利润，有息负债在资产负债桥里扣；股权口径＝利息后利润，有息负债归为经营负债（银行、保险、地产开发等借钱就是生意本身）。
+- 三层价值并列：盈利能力价值远高于资产价值说明可能有壁垒（要有论点与壁垒证据），低于资产价值说明资产没被用好；增长价值可正可负。每家公司在「⑤ 股权价值 / 估值设置」里选一层作**主估值层**并写依据，另两层做交叉检验。
+- **只用一个门槛**：投资回报率要求，全部公司共用，在「框架与后台 / 统一设置」里改。它既用来资本化经营收益，也用来判断隐含回报够不够；**隐含年化回报**＝按今天市价买入、假设成立时的年化回报（分不增长、含增长两种）。
+- **不设情景**：三层本身就是从保守到乐观的三种情形（资产值多少、不增长值多少、算上增长值多少），风险靠主估值层和价格与它的距离来覆盖。
+- 数据都在四张表里：资产负债重估（第一层＋独立资产与调整，全部报表科目账面合计＝归母股东权益）、调整后利润表（第二层，一行一个项目）、增长（第三层）、假设依据；估值设置在公司表。估值检查 G01—G09 在「⑤ 股权价值」和「研究维护 / 质量自检」。
 
 ## 改假设的规则
-- **按模型路径修改输入**：通用模型改“逐年假设”“情景”“估值模型”；腾讯音乐的财务预测在“财务模型”中维护，估值输入在“估值模型”的业务估值、资产项、情景和模型参数中维护。预测结果和估值结果自动计算，不能手改；财务预测与分部估值的共同年度收入需人工核对，不会跨表自动赋值。
-- 逐年假设**每格都显式填写**，没有“留空继承”。批量修改用表格的批量编辑。
-- 利息不直接填：改“净借款”和“平均债务成本”，利息按债务滚动自动算出。
-- 空白表示“未知”，不是 0。现金桥接有空白时，现金支持价值不输出。
-- 市场数据只供对照，不会自动改长期折现率或经营假设。
+- 在对应那一层的编辑标签里改：资产与资产负债桥改「资产负债重估」，第一层的估值口径与重建成本在「① 资产价值」设置，第二层改「调整后利润表」（每行的取值方式与数值），第三层改「增长」，截至日、股本、主估值层在「⑤ 股权价值」。结果自动计算，不能手改。
+- 每个数都要关联假设依据（G05）；折价或调整额不为零的资产负债行也要关联。
+- 空白表示“未知”，不是 0：缺参数的业务不输出价值。
+- 市场数据只供对照，不会自动改估值输入。
 
 ## 研究一家新公司
-1. **框架与后台 / 公司**：新增一行，填业务量/单价的名称与单位，并保证“业务量×单价＝营业收入（亿元）”。
-   例：太阳纸业用“万吨 × 万元/吨”（0.40 万元/吨＝4000 元/吨）；中国建筑用“新签合同总额（亿元）× 收入转化率”；腾讯音乐用“付费用户（亿人）× 每付费用户年收入（元）”。
-2. **指标 + 采集配置**：加股价指标；采集配置选解析器 `tencent_quote`，参数填股票代码（如 `sz000651`，港股 `hk01698`）。港股、美股等外币报价：再加一个汇率指标（解析器 `tencent_fx`，参数如 `whHKDCNY`），在公司表的“股价汇率指标”里选它，估值结论与驾驶舱的市场价会按当天汇率折成记账币种。
-3. **经营与财务 / 财务报表**：季度完整三大报表（资产负债表、利润表、现金流量表），用 `framework/tools/fin_stmt.py` 从 akshare 取数并检验，不用手录。**经营与财务 / 定量指标**：这家公司的全部指标。财务模型历史一侧用到的数（收入、成本、利润、现金、负债、分红、业务量）在“模型字段”列标明；报表里有的科目按报表公式自动算，报表外的（业务量、每股股息等）或追溯调整的年份，点开指标在弹窗里录入。点开任何指标都能看趋势和逐期数据。
-4. **估值模型**：新增一版模型（基准年、终值年、股本、无风险利率、风险溢价、期初带息负债）。
-   想看资产侧，再填基准年末的经营性长期资产、长期股权投资、归母权益、少数股东权益。
-5. **情景**：至少一个“基准情景”（勾选），可加悲观/乐观。
-6. **预测输入**：通用模型从基准年下一年到终值年填写逐年假设；只用分部加总的路径参考腾讯音乐，单独填写财务预测及业务、资产估值输入。
-7. 填**商业模式**九张表（见上一节）：先写清生意、产业链、对手和壁垒，再把决定价值的判断写成论点并正反辩论，最后在预测与估值 / 假设依据里写参数怎么设、定逐年假设。
-8. 生成这家公司的菜单（驾驶舱、四组页面，财务模型在预测与估值组内）：在 framework 目录依次运行
-   `python3 build_pages.py <代码>`、`python3 build_overview.py`、`python3 build_finmodel.py`，最后排序菜单（见 framework/README.md）。
+1. **框架与后台 / 公司**：新增一行（代码、名称、币种，业务量/单价的名称与单位只用于历史年度和图表）。
+2. **指标 + 采集配置**：加股价指标；采集配置选解析器 `tencent_quote`，参数填股票代码（如 `sz000651`，港股 `hk01698`）。港股、美股等外币报价：再加一个汇率指标（解析器 `tencent_fx`，参数如 `whHKDCNY`），在公司表的“股价汇率指标”里选它，估值与驾驶舱的市场价会按当天汇率折成记账币种。
+3. **经营与财务 / 财务报表**：季度完整三大报表，用 `framework/tools/fin_stmt.py` 从 akshare 取数并检验，不用手录。**经营与财务 / 定量指标**：这家公司的全部指标；历史年度用到的数在“模型字段”列标明。
+4. 填**商业模式**九张表（见上一节）：先写清生意、产业链、对手和壁垒，再把决定价值的判断写成论点并正反辩论，然后在预测与估值 / 假设依据里写参数怎么设。
+5. **三层估值**：写 `companies/<公司>/greenwald.py`（估值设置、业务口径、资产负债表逐科目归类与调整、调整后利润表、增长，每个数挂假设依据），`python3 framework/greenwald_seed.py <代码>` 生成并写入；以腾讯音乐为样板。
+6. 生成这家公司的菜单：在 framework 目录依次运行 `python3 build_pages.py <代码>`、`python3 build_greenwald.py <代码>`、`python3 build_overview.py`，最后排序菜单（见 framework/README.md）。
 
 ## 不同生意，同一套表
-- **长江电力**（类债资产）：派息率有承诺（≥70%），股息贴现最直接；关键变量是来水、电价、利率。商业模式分析：梯级电站资源与零燃料成本是真实壁垒，适配度 34/40。
-- **太阳纸业**（周期制造业、正在扩张）：现在只分约 27%，大部分利润投进新产能。股息贴现价值主要取决于**扩张结束后派息率能否提高**（判断 J-PAYOUT），所以同时看“现金支持价值”和“隐含收益率”，并用毛利率、资本开支÷经营现金流、净负债÷EBITDA 做证伪检查。商业模式分析：真实壁垒只有自制浆与林浆纸一体化（周期底部仍赚钱，但不是定价权），适配度 22/40。
-- **中国建筑**（总承包商＋地产，薄利、垫资）：收入＝新签合同总额×收入转化率；利润率只有 6%—7%，减值放在“其他净贡献”里单独看。关键不在订单，而在**利润能不能变成现金**（营运资本占用，判断 J-WC）和**减值会不会收敛**（J-IMP）。驾驶舱另有收入转化率、应收＋合同资产、减值三张图。商业模式分析：没有真实壁垒——央企信用、规模与大项目能力、中海地产带来的是份额，不是高于同业的利润率；新签规模、政府客户关系、PPP 是伪壁垒；适配度 15/40，只能按股息与资产价值看。
-- **腾讯音乐**（港股、人民币记账，净现金的平台型公司）：股价是港元，按港元兑人民币折算后比较。估值只用**分部加总，分三块**（2026-10-28 起不做逐年预测与股息贴现）：①主营三块各自的 2027 年盈利×倍数：会员订阅（208 亿元×42%）、非订阅音乐（117 亿元×15%）按 13.1 倍，社交娱乐（48 亿元×16%）按萎缩年金约 6 倍，合计约 1,093 亿元（利润率＝核心经营利润率，加回七成收购摊销）（判断 J-S1、J-S2、J-S3、J-R）；②可分配的自由现金＝现金−带息负债−经营所需（40 亿元，J-OPCASH）−汇出预提税，约 212 亿元（J-CASH）；③对外投资按最新报告账面价值打七折，约 160 亿元（J-INV）；减少数股东约 28 亿元。基准每股约 45.6 元、约 53.7 港元（悲观 36.5、乐观 78.5 港元）；市场给主营约 6 倍。三块的利润率是分摊估算，加总须等于公司整体利润率。最敏感的是自由现金和利润有多少真正回到股东手里（论点 T5）。驾驶舱另有收入结构、会员与社交娱乐同比、毛利率、付费用户、现金与负债、股东回报率、汇率七张图。商业模式分析：上游议价权是真实壁垒，曲库、转换成本、腾讯生态是局部优势，适配度 31/40。
-- **小米集团**（港股、五块业务处在不同阶段）：手机、AIoT、互联网三块按收入分摊费用后分开估值（正常化盈利×倍数，基准合计约 15.6 倍）；智能汽车是成长业务，按 2030 年稳态盈利折回今天；AI、芯片与机器人没有可预测的盈利，按用户的主观判断直接估 1,000 亿元（经营分部估值里的“直接估值”）。加上可用净现金与对外投资，基准每股约 28.6 元（约 33.6 港元），概率加权约 30.2 元，比现价高约三成；但高出的部分大半来自 AI 的 1,000 亿元，AI 按 0 计约 24.7 元。股东回报折现（“股息”＝回购）只有约 11.4 元，说明大部分价值留在公司里。驾驶舱另有分部收入、分部损益、生态利润率、毛利率、手机出货与 ASP、汽车交付、月活、现金与借款、汇率等图。商业模式分析：适配度 19/40，更像需要安全边际的特殊机会，而不是复利标的。
+- **长江电力**（类债资产）：关键变量是来水、电价、利率；梯级电站资源与零燃料成本是真实壁垒，适配度 34/40。三层估值待填（2026-11-11 先只做腾讯音乐）。
+- **太阳纸业**（周期制造业、正在扩张）：盈利能力要用完整浆价周期的平均利润率；真实壁垒只有自制浆与林浆纸一体化，适配度 22/40。三层估值待填（2026-11-11 先只做腾讯音乐）。
+- **中国建筑**（总承包商＋地产，薄利、垫资）：借钱是生意的一部分，用**股权口径**；关键在利润能不能变成现金、减值会不会收敛；没有真实壁垒，适配度 15/40。三层估值待填（2026-11-11 先只做腾讯音乐）。
+- **腾讯音乐**（港股、人民币记账，净现金的轻资产平台）：三层估值的第一家（样板）。一块业务、企业口径；资产负债表 34 个科目逐项归类，资产负债桥（现金扣经营所需、对外投资七折、有息负债、汇出预提税、少数股东）约 357 亿元；主估值层＝盈利能力价值（资产说明不了价值，增长取决于优势能维持多久）。第二层的调整后利润表：收入 355 亿元 → 报表经营利润 101.4 → 加回七成收购摊销 → 调整后 107.7（30.3%）→ 税后 88.8 → E 86.1 亿元。每股（2026-11-11）：资产价值 13.3、盈利能力价值 57.9、含增长价值 63.6 元，现价 32.53 元，主估值层 盈利能力价值。上游议价权是真实壁垒，适配度 31/40。
+- **小米集团**（港股、几块业务处在不同阶段）：手机×AIoT 生态与智能汽车各算三层，AI、芯片与机器人没有可预测的盈利，适合作**参照估值**放在资产负债桥。三层估值待填（2026-11-11 先只做腾讯音乐）。
 
 > 研究提示，不是交易指令。所有新阈值都是研究预警，不是自动买卖规则。"""
 
 FORMULAS = """# 模型公式
 
-## 预测计算（情景 × 年度）
-- 营业收入 ＝ 业务量 × 业务量系数 × 单价 × 单价系数
-- 利润总额 ＝ 营业收入 − 付现成本 × 付现成本系数 − 折旧摊销 − 利息 ＋ 其他净贡献
-- 归母净利润 ＝ 利润总额 × (1 − 所得税率) × (1 − 少数股东占比)
-- 计划股息 ＝ max(0, 归母净利润 × 派息率)
-- 利息 ＝ (期初带息负债 ＋ 期末带息负债) ÷ 2 × 平均债务成本；期末 ＝ 期初 ＋ 净借款；第一年期初 ＝ 估值模型的期初带息负债
+方法与取舍见「框架与后台 / 估值地基：Greenwald 三层价值」；这里只列公式（`framework/sql/02_calc.sql` 的 Greenwald 段）。h＝门槛（统一设置，全部公司共用）。
 
-## 股东现金桥接
-- 所有者收益 ＝ 归母净利润 ＋ 折旧 × (1 − 少数股东占比) − 非现金收益扣除 ＋ 收到投资分红 ＋ 其他现金调整 − 营运资本增加 − 维持资本开支
-- FCFE ＝ 所有者收益 − 扩张资本开支 ＋ 净借款
-- 现金支持股息 ＝ min(计划股息, max(0, FCFE − 最低现金补充))；资金缺口 ＝ max(0, 计划股息 ＋ 最低现金补充 − FCFE)
+## 第一层：资产价值
+- 资产负债重估每行：重估金额 ＝ 账面 × (1 − 折价) ＋ 调整额；账面取公司估值截至日的资产负债表（报表科目留空的研究项目账面为 0）
+- 计入值：经营资产、现金与投资、参照估值为正；经营负债、有息负债、其他索取权为负
+- 账面经营资本 ＝ 全公司经营资产与经营负债的账面计入值合计；调整后经营资本取同一批科目的重估计入值合计。
+- 公司经营资产价值（归母）＝ 调整后经营资本 × 归母比例。公司口径选“重建成本”时用重建成本替代调整后经营资本，选“不适用”时留空。归母比例 ＝ 1 − 各业务的少数股东收益合计 ÷ 各业务扣少数股东前的现金收益合计。
+- G01：报表科目行的账面计入值合计 ＝ 截至日归母股东权益（相差不超过 0.5 亿元），每个科目只计一次
 
-## 资产与资本（另算，不改变利润和估值）
-- 经营性长期资产 ＝ 期初 ＋ 维持资本开支 ＋ 扩张资本开支 − 折旧摊销（期初＝固定资产＋在建工程＋无形资产＋使用权资产）
-- 长期股权投资 ＝ 期初 ＋ 非现金收益扣除（权益法收益）− 收到投资分红
-- 带息负债 ＝ 期初 ＋ 净借款（与利息用的是同一条债务滚动）
-- 归母权益 ＝ 期初 ＋ 归母净利润 − 计划股息；少数股东权益 ＝ 期初 ＋ 少数股东损益 × (1 − 派息率)
-- 其他净资产（平衡项）＝ 归母权益 ＋ 少数股东权益 ＋ 带息负债 − 经营性长期资产 − 长期股权投资，即现金＋营运资本−应付等无息负债；逐年下降＝分红、投资、还债在消耗现金
-- 其他净资产的年变化 ＝ FCFE − 计划股息 ＋ 少数股东留存 ＋ 少数股东那部分折旧 − 其他现金调整 ＋ 营运资本增加（与现金桥接逐年一致）
-- ROE ＝ 归母净利润 ÷ 平均归母权益；带息负债率 ＝ 带息负债 ÷ (带息负债 ＋ 全部权益)；利息保障倍数 ＝ (利润总额 ＋ 利息) ÷ 利息；带息负债 ÷ EBITDA，EBITDA ＝ 利润总额 ＋ 利息 ＋ 折旧
+## 第二层：盈利能力价值（调整后利润表）
+- 每块业务一张表，一行一个项目；报表公式给出历年数（全年口径，最近 5 年＋最近四个季度），正常化值按取值方式算：
+  金额＝填数；占收入比例＝比例 × 正常化收入；最新年度、滚动四季度＝报表公式的最近一年或最近四个季度；
+  历史平均＝起止年份的平均金额；历史平均占收入＝起止年份“本行 ÷ 收入”的平均 × 正常化收入（周期业务的正常化）；比率＝所得税、少数股东
+- 正常化收入 ＝ 收入行合计；报表经营利润 ＝ 收入 − 成本费用
+- 调整后经营利润 ＝ 报表经营利润 ± 税前调整（如加回收购摊销、为增长花的费用、一次性项目）
+- 所得税 ＝ 调整后经营利润 × 税率；税后经营利润 ＝ 调整后经营利润 − 所得税
+- 可持续现金收益（全部股东）＝ 税后经营利润 ± 税后调整（加回折旧摊销、减维持性资本开支、减必要营运资本增加）；没有税后调整按两者相等处理（G08 提示）
+- 少数股东 ＝ 上一行 × 少数股东比率；E（归母）＝ 上一行 − 少数股东
+- 盈利能力价值 ＝ E ÷ h；“不计入”的行（利息收入、投资收益、融资成本等）只作对照，对应的资产负债在资产负债桥里单独计价
 
-## 估值结论
-- 基准折现率 ＝ 无风险利率 ＋ 风险溢价（四舍五入到 0.1%）；情景可覆盖
-- 折现因子 ＝ 1 ÷ (1 + r)^(年度 − 基准年)
-- 终值现值 ＝ 终年股息 × (1 + g) ÷ (r − g) ÷ (1 + r)^(终值年 − 基准年)，要求 r > g
-- 每股价值·基准日 ＝ (预测期股息现值 ＋ 终值现值) ÷ 股本
-- 每股价值·今天 ＝ 基准日价值 × (1 + r)^(距基准日年数)
-- 关注价 ＝ 今天价值 × (1 − 安全边际)；现金支持价值同理，用现金支持股息计算
+## 第三层：增长价值
+- 优势年限 N 内：第 t 年收益 E·(1+g)^(t−1)，再投入 g ÷ 新增投资回报率 的收益，现金流 E·(1+g)^(t−1)·(1 − g ÷ RONIC)
+- N 年后增长不再创造价值：收益停在 E·(1+g)^N，永续
+- 含增长价值 ＝ Σ 现金流 ÷ (1 + h)^t ＋ E·(1+g)^N ÷ h ÷ (1 + h)^N；N 留空＝永续增长：E·(1 − g ÷ RONIC) ÷ (h − g)，要求 g ＜ h（G03）
+- 新增投资回报率 ＝ h 时含增长价值 ＝ 盈利能力价值；高于 h 必须经“成立”的论点连到“真实壁垒”（G04）
+- 增长价值 ＝ 含增长价值 − 盈利能力价值（可正、可零、可负）
 
-## 内部收益率（要求收益率视角）
-- 现金流从今天起算：距今年数 τ ＝ (年度 − 基准年) − 距基准日年数；已过去的年份不计入
-- 现值 PV(r) ＝ Σ 每股股息ₜ ÷ (1 + r)^τₜ ＋ 终年每股股息 × (1 + g) ÷ (r − g) ÷ (1 + r)^τ_T
-- 隐含年化收益率 ＝ 使 PV(r) ＝ 市场价 的 r（二分法求解）；现金支持口径用现金支持股息
-- 最高买入价 ＝ PV(要求收益率)；用情景折现率算 PV 即得“今天每股价值”
+## 独立资产与调整、股权价值
+- 资产负债桥 ＝ 现金与投资、参照估值、有息负债、其他索取权的重估计入值合计
+- 每层股权价值 ＝ 该层经营价值 ＋ 资产负债桥；每股（今天）＝ 股权价值 ÷ 股本 × (1 + h)^(距截至日年数)
+- 主估值层（资产价值、盈利能力价值或含增长价值）给出每股价值与隐含回报
+- 隐含年化回报 ＝ 使 (Σ 业务现值(r) ＋ 资产负债桥) × (1 + r)^(距截至日年数) ÷ 股本 ＝ 市价 的 r（二分法）；分不增长、含增长两种，资产价值层没有隐含回报
 
-## 分部加总
-- 核心经营利润（税前）＝ 利润总额 − 其他净贡献 ＋ 利息（取“核心盈利年份”那一年的预测计算）
-- 核心盈利 ＝ 核心经营利润 × 归母净利润 ÷ 利润总额 ＋ 核心盈利调整（税后归母口径）
-- 公式倍数 ＝ (1 − g ÷ 新增投资回报率) ÷ (r − g)；合理倍数 ＝ 情景手填倍数，否则公式倍数
-- 资产计入值：单独计价＝±金额×(1−折价)，现金、投资、独立固定资产、其他非经营资产为加；负债等为减，其他调整按填写正负号。已含业务估值或不计价＝0；单独计价缺金额时不输出总值。公共行与情景专属行按编号覆盖。
-- 可用净现金 ＝ 现金 − 带息负债 − 经营所需现金 − 资金汇出成本
-- 每股价值 ＝ (业务估值合计 ＋ 资产估值与调整净额) ÷ 股本；境外上市时再按最新汇率折回股价币种
-- 市场隐含核心倍数 ＝ (市场价 × 股本 − 非经营部分合计 − 经营分部价值) ÷ 核心盈利
-- C16：基准情景分部加总与股息贴现相差超过 25% 时提示
+## 估值检查（G01—G09）
+- G01 资产负债表对账、G02 输入完整、G03 永续增长低于门槛、G04 超额回报有壁垒支撑、G05 每个数都有依据、G06 依据已采纳、G07 口径开关一致（企业口径的有息负债进资产负债桥，股权口径的有息负债归为经营负债）、G08 维持性投入已估、G09 主估值层
 
-## 经营分部估值（价值都折回资产负债日 D）
-- 盈利 ＝ 收入 × 经营利润率 × (1 − 税率) × 归母比例；倍数 ＝ 手填，否则 (1 − g ÷ 新增投资回报率) ÷ (r − g)，g、新增投资回报率、r 留空时取情景的值
-- 盈利×倍数、稳态折现：价值 ＝ 盈利 × 倍数 ÷ (1 + r)^τ ＋ 期间现金流 ÷ (1 + r)^(τ/2)；τ ＝ 盈利年份上一年 12 月 31 日距 D 的年数（不足 0 记 0；例如 D＝2026-06-30、盈利年份 2027 年时 τ＝0.5）
-- 承诺投入：价值 ＝ −(剩余金额 ÷ n) × (1 − 税率) × [1 − (1 + r)^−n] ÷ r − 承诺期后年成本 × (1 − 税率) ÷ (r − g) ÷ (1 + r)^n，n ＝ 剩余年数
-- 直接估值：价值 ＝ 填写的直接估值（已含该业务未来的投入与回报，不折现）
-- 成熟业务倍数 ＝ (成熟业务价值 − 期间现金流现值) ÷ 盈利现值；市场隐含成熟业务倍数 ＝ (市值 − 非经营部分 − 成长业务 − 投入期业务 − 成熟业务期间现金流现值) ÷ 成熟业务盈利现值
-- 市场隐含成长业务价值 ＝ 市值 − 非经营部分 − 核心与成熟业务 − 投入期业务 − 直接估值业务
-- 概率加权每股价值 ＝ Σ 情景概率 × 每股价值 ÷ Σ 情景概率（各情景都填了概率才计算）
-- C17：有经营分部时，基准情景算不出价值为“阻断”；情景概率合计不是 100% 或成长业务超过股权价值 40% 为“提示”
-
-## 敏感性与单参数试验
-- 敏感性：基准情景股息路径不变，折现率与永续增长各 −1%…+1%（步长 0.5%）
-- 单参数试验：在基准情景上，对试验年份的利润增量 ×(1−税率)×(1−少数股东占比)×派息率 加到股息上，其余不变
-
-## 年度派生指标（财务模型历史一侧、自动检查用）
+## 年度派生指标（历史年度、自动检查用）
 - 单价 ＝ 营业收入 ÷ 业务量；派息率 ＝ 现金分红 ÷ 归母净利润；所得税率 ＝ 所得税 ÷ 利润总额
 - 毛利率 ＝ 1 − 营业成本 ÷ 营业收入；ROE ＝ 归母净利润 ÷ (上年末＋本年末归母净资产) ÷ 2
 - 经营现金流 ÷ 归母净利润（利润的现金含量）；资本开支 ÷ 经营现金流（大于 1＝投资花得比经营赚的现金多）
@@ -182,321 +139,6 @@ FORMULAS = """# 模型公式
 ## 论点与壁垒自动证伪
 - 论点和竞争壁垒共用同一个检查函数。从年度汇总（模型字段指标的年度值）取指标（业务量、单价、营业收入、归母净利润、派息率、财务费用、各项同比，以及毛利率、ROE、经营现金流÷归母净利润、资本开支÷经营现金流、净负债、净负债÷EBITDA），最近 N 年都满足条件即“已触发”
 - 同比只在口径相同的相邻年份之间计算：公司表“口径变化年份”里的年份（并表、重组）与上一年不算同比"""
-
-KPI = r"""const COMPANY = '__COMPANY__';   // 由 build_overview.py 写入：这个驾驶舱只看这家公司
-const IRR_ONLY = __IRR_ONLY__;   // 估值只用“隐含回报 vs 门槛”的公司（build_valuation.PROFILES）：不显示折现率价值与关注价
-const { React } = ctx.libs;
-const { useState } = React;
-const { Card, Col, Row, Statistic, Typography, Alert, Slider, InputNumber, Button, Table, Tag, Space, message } = ctx.libs.antd;
-
-async function listRows(collectionName, filter, pageSize = 200) {
-  const resource = ctx.makeResource('MultiRecordResource');
-  resource.setResourceName(collectionName);
-  resource.setPageSize?.(pageSize);
-  if (filter) resource.setFilter?.(filter);
-  await resource.refresh();
-  return resource.getData() || [];
-}
-
-const fmt = (v, d = 2) => (v === null || v === undefined || Number.isNaN(v) ? '—' : Number(v).toFixed(d));
-const pct = (v, d = 2) => (v === null || v === undefined || Number.isNaN(v) ? '—' : (Number(v) * 100).toFixed(d) + '%');
-
-// 这家公司要采的数据源＝它用到的指标（自有、股价、汇率折算、无风险利率、重点跟踪、订阅的宏观数据）。
-// 用途由数据库视图 vi_company_metric 汇总，指标的 used_by_codes 来自它；SQL vi_collect_targets 用的是同一个视图。
-function ownCollectors(collectors, metrics, companies, coId) {
-  const code = companies.find((c) => c.id === coId)?.code;
-  const keep = new Set(metrics.filter((m) => m.company_id === coId
-    || (code && (m.used_by_codes || '').includes(`,${code},`))).map((m) => m.id));
-  return collectors.filter((c) => keep.has(c.metric_id));
-}
-
-// 从今天起算的每股股息现值：Σ d/(1+r)^τ ＋ 终年股息×(1+g)/(r−g)/(1+r)^τ_T
-function presentValue(flows, terminal, g, r) {
-  if (!(r > g) || !terminal) return null;
-  let pv = 0;
-  for (const f of flows) {
-    if (f.tau > 0 && f.dps !== null && f.dps !== undefined) pv += f.dps / Math.pow(1 + r, f.tau);
-  }
-  return pv + terminal.dps * (1 + g) / (r - g) / Math.pow(1 + r, terminal.tau);
-}
-
-try {
-  const companies = await listRows('vi_company', { code: { $eq: COMPANY } });
-  const company = companies[0];
-  if (!company) {
-    ctx.render(<Alert type="info" showIcon message={`公司表里没有代码为 ${COMPANY} 的公司`} />);
-    return;
-  }
-  const models = await listRows('vi_model', { company_id: { $eq: company.id }, status: { $eq: '当前' } });
-  const model = models[0];
-  if (!model) {
-    ctx.render(<Alert type="info" showIcon message="这家公司还没有状态为“当前”的估值模型" />);
-    return;
-  }
-  const [valuations, projections, checks, allCollectors, sotpRows, metrics, allCompanies] = await Promise.all([
-    listRows('vi_valuation', { model_id: { $eq: model.id } }),
-    listRows('vi_projection', { model_id: { $eq: model.id } }, 500),
-    listRows('vi_check', { model_id: { $eq: model.id } }),
-    listRows('vi_collector').catch((error) => {
-      if (error?.response?.status === 403 || error?.status === 403 || /No permissions/i.test(error?.message || '')) return [];
-      throw error;
-    }),
-    listRows('vi_sotp', { model_id: { $eq: model.id } }),
-    listRows('vi_metric', null, 500),
-    listRows('vi_company'),
-  ]);
-  const collectors = ownCollectors(allCollectors, metrics, allCompanies, company.id);
-  // 分部加总：核心业务盈利 × 合理倍数 ＋ 非经营部分（可用净现金、对外投资、少数股东等）
-  const sotp = sotpRows.slice().sort((a, b) => (a.id || 0) - (b.id || 0));
-  const sotpPrimary = model.primary_method === '分部加总' && sotp.length > 0;
-  const sotpBase = sotp.find((r) => r.is_base) || sotp[0];
-  const hasDdm = projections.some((p) => p.year > model.base_year);   // 只用分部加总、没有逐年预测时不显示股息贴现（腾讯音乐，2026-10-28 起）
-  const scenarios = valuations.slice().sort((a, b) => (a.id || 0) - (b.id || 0)).map((v) => {
-    const rows = projections.filter((p) => p.scenario_name === v.scenario_name && p.year > model.base_year && p.year <= model.terminal_year);
-    const flows = rows.map((p) => ({ dps: p.dps, tau: (p.year - model.base_year) - model.years_elapsed }));
-    const last = rows.find((p) => p.year === model.terminal_year);
-    const terminal = last ? { dps: last.dps, tau: (model.terminal_year - model.base_year) - model.years_elapsed } : null;
-    return { ...v, flows, terminal };
-  });
-  const base = scenarios.find((v) => v.is_base) || scenarios[0] || {};
-  const count = (r) => checks.filter((c) => c.result === r).length;
-  const enabled = collectors.filter((c) => c.enabled);
-  const healthy = enabled.filter((c) => c.health === '正常').length;
-  const initial = Math.round((model.required_return ?? 0.06) * 1000) / 10;
-
-  function Panel() {
-    const [reqPct, setReqPct] = useState(initial);
-    const [trialMult, setTrialMult] = useState(null);   // 试算倍数：留空＝用各情景的合理倍数
-    const [saving, setSaving] = useState(false);
-    const req = reqPct / 100;
-    const rows = scenarios.map((v) => {
-      const ceiling = presentValue(v.flows, v.terminal, v.terminal_growth, req);
-      return {
-        key: v.id, name: v.scenario_name, irr: v.implied_irr, cashIrr: v.cash_implied_irr, ceiling,
-        price: v.market_price, ok: v.implied_irr !== null && v.implied_irr !== undefined && v.implied_irr >= req,
-      };
-    });
-    const baseRow = rows.find((r) => r.name === base.scenario_name) || rows[0] || {};
-    const save = async () => {
-      setSaving(true);
-      try {
-        await ctx.request({ url: 'vi_model:update', method: 'post', params: { filterByTk: model.id }, data: { required_return: req } });
-        message.success(`已保存：要求收益率 ${reqPct}%（刷新后结论与图表同步更新）`);
-      } catch (e) {
-        message.error('保存失败：' + String(e?.message || e));
-      } finally {
-        setSaving(false);
-      }
-    };
-    const fx = company.latest_fx;
-    const toHkd = (value) => fx > 0 && value !== null && value !== undefined ? Number(value) / fx : null;
-    // 有“核心盈利”（来自预测计算）就试算核心倍数；只有经营分部时试算成熟业务（盈利×倍数）的倍数
-    const hasCore = sotpBase && sotpBase.core_earnings !== null && sotpBase.core_earnings !== undefined;
-    const hasSeg = sotpBase && sotpBase.segments_value !== null && sotpBase.segments_value !== undefined;
-    const baseMult = (r) => (hasCore ? r.multiple : r.mature_multiple);
-    const sotpCalc = sotp.map((r) => {
-      const m = trialMult ?? baseMult(r);
-      const anchor = hasCore ? r.core_value : (r.mature_value ?? 0);
-      const anchorTrial = hasCore ? r.core_earnings * m : (r.mature_earn_pv ?? 0) * m + (r.mature_interim_pv ?? 0);
-      const equity = r.equity_value === null || r.equity_value === undefined ? null : r.equity_value - anchor + anchorTrial;
-      const vps = equity === null ? null : equity / r.shares;
-      return { key: r.id, name: r.scenario_name, prob: r.probability, core: r.core_earnings, m, coreValue: hasCore ? r.core_earnings * m : null,
-               mature: hasSeg ? anchorTrial : null, growth: r.growth_value, invest: r.invest_value, direct: r.direct_value, cash: r.usable_net_cash,
-               inv: r.investments, other: r.minority_other, fixed: r.fixed_assets, otherAssets: r.other_assets,
-               business: r.business_value === null || r.business_value === undefined ? null : r.business_value - anchor + anchorTrial,
-               assets: r.asset_value, equity, shares: r.shares, vps, quote: fx && vps !== null ? vps / fx : null,
-               vsPrice: r.market_price && vps ? r.market_price / vps - 1 : null };
-    });
-    const sotpBaseCalc = sotpCalc.find((r) => sotpBase && r.key === sotpBase.id) || sotpCalc[0] || {};
-    const hasDirect = sotp.some((r) => r.direct_value !== null && r.direct_value !== undefined);
-    const hasInvest = sotp.some((r) => r.invest_value !== null && r.invest_value !== undefined);
-    const probs = sotpCalc.filter((r) => r.prob !== null && r.prob !== undefined && r.vps !== null);
-    const weighted = probs.length === sotpCalc.length && probs.length > 0
-      ? probs.reduce((a, r) => a + r.prob * r.vps, 0) / probs.reduce((a, r) => a + r.prob, 0) : null;
-    const quoteReference = sotpPrimary ? (weighted !== null ? weighted : sotpCalc.find((r) => r.name === '悲观')?.vps) : baseRow.ceiling;
-    const quoteReferenceTitle = sotpPrimary ? (weighted !== null ? '概率加权价值' : '悲观分部估值') : `回报门槛 ${reqPct}% 的最高买入价`;
-    const sotpTitle = !sotpPrimary ? '分部加总（交叉验证）'
-      : '主估值：业务估值合计＋资产估值与调整净额';
-    const sotpCard = sotp.length === 0 ? null : (
-      <Card size="small" style={{ marginBottom: 12 }} title={sotpTitle}>
-        <Row gutter={[12, 12]}>
-          <Col xs={12} md={6}><Statistic title={`基准每股价值（${trialMult ? '试算倍数' : (hasCore ? '合理倍数' : '成熟业务倍数')} ${fmt(sotpBaseCalc.m, 1)} 倍）`} value={fmt(sotpBaseCalc.vps)} suffix={fx ? `元 ≈ ${fmt(sotpBaseCalc.quote)} 港元` : '元'} /></Col>
-          <Col xs={12} md={6}><Statistic title={`市场价（${base.market_date || '—'}）`} value={fmt(sotpBase.market_price)} suffix="元" /></Col>
-          <Col xs={12} md={6}><Statistic title="市场价相对基准价值" value={sotpBaseCalc.vsPrice === null ? '—' : pct(sotpBaseCalc.vsPrice, 1)} valueStyle={{ color: sotpBaseCalc.vsPrice < 0 ? '#389e0d' : '#cf1322' }} /></Col>
-          {weighted !== null
-            ? <Col xs={12} md={6}><Statistic title="概率加权每股价值" value={fmt(weighted)} suffix={fx ? `元 ≈ ${fmt(weighted / fx)}` : '元'} /></Col>
-            : <Col xs={12} md={6}><Statistic title="市场给核心业务的隐含倍数（基准）" value={fmt(sotpBase.implied_core_multiple, 1)} suffix="倍" /></Col>}
-        </Row>
-        {hasSeg ? (
-          <Row gutter={[12, 12]} style={{ marginTop: 8 }}>
-            <Col xs={12} md={6}><Statistic title="市场隐含成熟业务倍数（本模型）" value={`${fmt(sotpBase.implied_mature_multiple, 1)}（${fmt(sotpBase.mature_multiple, 1)}）`} suffix="倍" /></Col>
-            <Col xs={12} md={6}><Statistic title="市场隐含成长业务价值（本模型）" value={`${fmt(sotpBase.implied_growth_value, 0)}（${fmt(sotpBase.growth_value, 0)}）`} suffix="亿元" /></Col>
-            {hasDirect
-              ? <Col xs={12} md={6}><Statistic title="直接估值业务（可比公司或主观判断）" value={fmt(sotpBase.direct_value, 0)} suffix="亿元" /></Col>
-              : <Col xs={12} md={6}><Statistic title="投入期业务（承诺投入的成本）" value={fmt(sotpBase.invest_value, 0)} suffix="亿元" /></Col>}
-            <Col xs={12} md={6}><Statistic title="关注价（安全边际）" value={sotpBase.watch_high == null ? fmt(sotpBase.watch_low) : `${fmt(sotpBase.watch_low)} / ${fmt(sotpBase.watch_high)}`} suffix="元" /></Col>
-          </Row>
-        ) : null}
-        <Space wrap align="center" style={{ margin: '8px 0' }}>
-          <Typography.Text strong>{hasCore ? '试算倍数' : '试算成熟业务倍数'}</Typography.Text>
-          <Slider style={{ width: 240 }} min={3} max={30} step={0.5} value={trialMult ?? baseMult(sotpBase)} onChange={(v) => setTrialMult(v)} />
-          <InputNumber min={1} max={60} step={0.5} value={trialMult ?? Number(fmt(baseMult(sotpBase), 1))} onChange={(v) => setTrialMult(v)} addonAfter="倍" />
-          <Button onClick={() => setTrialMult(null)}>恢复各情景倍数</Button>
-        </Space>
-        {(() => {
-          // 价值桥：每行一个组成部分，每列一个情景；① 业务估值 ＋ ② 资产估值与调整净额 ＝ ③ 股权价值 → 每股价值
-          const coreOnly = hasCore && !hasSeg;
-          const anyNonZero = (k) => sotpCalc.some((r) => r[k] !== null && r[k] !== undefined && Number(r[k]) !== 0);
-          const signed = (v, d = 0) => (v === null || v === undefined ? '—' : (Number(v) > 0 ? '＋' : Number(v) < 0 ? '−' : '') + fmt(Math.abs(Number(v)), d));
-          const lines = [
-            { key: 'h1', kind: 'head', label: '① 业务估值' },
-            ...(hasCore ? [
-              { key: 'core', label: `核心盈利（${sotpBase.core_year} 年）`, v: (r) => fmt(r.core, 1) },
-              { key: 'm', label: '× 倍数', v: (r) => `${fmt(r.m, 1)} 倍` },
-            ] : []),
-            ...(hasCore && !coreOnly ? [{ key: 'coreValue', label: '核心业务价值', v: (r) => fmt(r.coreValue, 0) }] : []),
-            ...(hasSeg ? [
-              { key: 'mature', label: '成熟业务（盈利×倍数）', v: (r) => fmt(r.mature, 0) },
-              { key: 'growth', label: '成长业务', v: (r) => fmt(r.growth, 0) },
-            ] : []),
-            ...(hasSeg && hasInvest ? [{ key: 'invest', label: '投入期业务（承诺投入的成本）', v: (r) => fmt(r.invest, 0) }] : []),
-            ...(hasSeg && hasDirect ? [{ key: 'direct', label: '直接估值业务', v: (r) => fmt(r.direct, 0) }] : []),
-            { key: 'business', kind: 'total', label: coreOnly ? '＝ 业务估值合计（核心盈利 × 倍数）' : '＝ 业务估值合计', v: (r) => fmt(r.business, 0) },
-            { key: 'h2', kind: 'head', label: '② 资产估值与调整' },
-            { key: 'cash', label: '可用净现金（现金 − 带息负债 − 经营所需现金 − 汇出成本）', v: (r) => signed(r.cash) },
-            { key: 'inv', label: '对外投资（折价后）', v: (r) => signed(r.inv) },
-            ...(anyNonZero('fixed') ? [{ key: 'fixed', label: '独立固定资产', v: (r) => signed(r.fixed) }] : []),
-            ...(anyNonZero('otherAssets') ? [{ key: 'otherAssets', label: '其他非经营资产', v: (r) => signed(r.otherAssets) }] : []),
-            { key: 'other', label: '少数股东权益与其他调整', v: (r) => signed(r.other) },
-            { key: 'assets', kind: 'total', label: '＝ 资产估值与调整净额', v: (r) => signed(r.assets) },
-            { key: 'h3', kind: 'head', label: '③ 每股价值' },
-            { key: 'equity', kind: 'total', label: '股权价值 ＝ ① ＋ ②', v: (r) => fmt(r.equity, 0) },
-            { key: 'shares', label: '÷ 股本（亿股）', v: (r) => fmt(r.shares, 2) },
-            { key: 'vps', kind: 'final', label: '＝ 每股价值', v: (r) => (r.vps === null ? '—' : `${fmt(r.vps)} 元`) },
-            ...(fx ? [{ key: 'quote', label: '折合港元', v: (r) => (r.quote === null ? '—' : `${fmt(r.quote)} 港元`) }] : []),
-            { key: 'vsPrice', label: `市场价 ${fmt(sotpBase.market_price)} 元相对每股价值`, v: (r) => (r.vsPrice === null ? '—' : pct(r.vsPrice, 1)),
-              color: (r) => (r.vsPrice === null ? undefined : r.vsPrice < 0 ? '#389e0d' : '#cf1322') },
-            ...(weighted !== null ? [{ key: 'prob', label: '情景概率', v: (r) => pct(r.prob, 0) }] : []),
-          ];
-          const baseKey = sotpBase ? sotpBase.id : null;
-          const rowStyle = (l) => (l.kind === 'head' ? { background: 'rgba(0,0,0,0.03)', fontWeight: 600 }
-            : l.kind === 'total' ? { fontWeight: 600, borderTop: '1px solid rgba(0,0,0,0.15)' }
-            : l.kind === 'final' ? { fontWeight: 700, fontSize: 15, borderTop: '2px solid rgba(0,0,0,0.45)' } : {});
-          const cellPad = { padding: '6px 12px' };
-          return (
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontVariantNumeric: 'tabular-nums', fontSize: 13 }}>
-                <thead>
-                  <tr style={{ borderBottom: '1px solid rgba(0,0,0,0.15)' }}>
-                    <th style={{ ...cellPad, textAlign: 'left', fontWeight: 600, width: '46%' }}>亿元（另注明的除外）</th>
-                    {sotpCalc.map((r) => (
-                      <th key={r.key} style={{ ...cellPad, textAlign: 'right', fontWeight: 600, background: r.key === baseKey ? 'rgba(22,119,255,0.06)' : undefined }}>
-                        {r.name}{r.key === baseKey && r.name !== '基准' ? '（基准）' : ''}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {lines.map((l) => (
-                    <tr key={l.key} style={rowStyle(l)}>
-                      <td style={{ ...cellPad, paddingLeft: l.kind ? 12 : 28, color: l.kind ? undefined : 'rgba(0,0,0,0.65)' }}>{l.label}</td>
-                      {sotpCalc.map((r) => (
-                        <td key={r.key} style={{ ...cellPad, textAlign: 'right', background: r.key === baseKey ? 'rgba(22,119,255,0.06)' : undefined,
-                                                 color: l.color ? l.color(r) : undefined }}>
-                          {l.kind === 'head' ? '' : l.v(r)}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          );
-        })()}
-        <Typography.Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0 }}>
-          {hasSeg
-            ? <>经营分部按发展阶段估值（明细见「估值 / 业务估值（编辑）」）：成熟业务＝正常化盈利×倍数，倍数＝(1−永续增长率÷新增投资回报率)÷(折现率−永续增长率)；成长业务＝稳态年盈利×退出倍数折回资产负债日，加上到稳态前的期间现金流；投入期业务＝已承诺投入的税后现值加承诺期后年成本（负值）；直接估值业务＝按可比公司或主观判断给出的整体价值。非经营部分统一截至 {sotpBase.as_of}，明细见「估值 / 资产估值与调整（编辑）」。
-                市场隐含值＝其余部分按本模型取值时，市值对应的成熟业务倍数或成长业务价值。试算倍数只改成熟业务的倍数。{hasDdm ? `股东回报折现（交叉验证）基准 ${fmt(sotpBase.ddm_value)} 元。` : ''}</>
-            : <>合理倍数＝(1−永续增长率÷新增投资回报率)÷(折现率−永续增长率)，可在“情景”里手填覆盖；非经营部分统一截至 {sotpBase.as_of}（与股本同日），明细见「估值 / 资产估值与调整（编辑）」。
-                隐含倍数＝(市值−非经营部分)÷核心盈利：市场为核心业务付了几倍。{hasDdm ? `股息贴现口径（交叉验证）基准 ${fmt(sotpBase.ddm_value)} 元。` : ''}</>}
-        </Typography.Paragraph>
-      </Card>
-    );
-    return (
-      <div>
-        <Typography.Title level={4} style={{ marginTop: 0 }}>
-          {company.name}（{company.code}）· {model.name}
-        </Typography.Title>
-        <Row gutter={[16, 8]} style={{ marginBottom: 12 }}>
-          <Col xs={8} md={4}><Statistic title="PE (TTM)" value={fmt(company.pe_ttm)} /></Col>
-          <Col xs={8} md={4}><Statistic title="PB" value={fmt(company.pb)} /></Col>
-          <Col xs={8} md={6}><Statistic title="交易日（akshare 市场口径）" value={company.pe_pb_date || '—'} /></Col>
-        </Row>
-        {COMPANY.endsWith('.HK') && (
-          <Card size="small" title={`港股速览 · ${COMPANY} · 港元 / 普通股`} style={{ marginBottom: 12 }}>
-            <Row gutter={[16, 16]}>
-              <Col xs={12} md={6}><Statistic title={`港股市场价 · ${company.latest_price_date || '—'}`} value={fmt(company.latest_price_raw)} suffix="港元" /></Col>
-              <Col xs={12} md={6}><Statistic title={sotpPrimary ? '基准分部估值' : '基准每股价值'} value={fmt(toHkd(sotpPrimary ? sotpBaseCalc.vps : base.value_today))} suffix="港元" /></Col>
-              <Col xs={12} md={6}><Statistic title={quoteReferenceTitle} value={fmt(toHkd(quoteReference))} suffix="港元" /></Col>
-              <Col xs={12} md={6}><Statistic title="1 港元折人民币" value={fmt(fx, 4)} suffix="元" /></Col>
-            </Row>
-            {!(fx > 0) && <Alert type="warning" showIcon message="缺少有效汇率，港元估值暂不换算" />}
-          </Card>
-        )}
-        {sotpPrimary ? sotpCard : null}
-        {hasDdm ? (<Card size="small" title={sotpPrimary ? '交叉验证：股息贴现，按要求收益率估值' : IRR_ONLY ? '估值：按市价买入的隐含年化回报 vs 门槛' : '按要求收益率估值'} style={{ marginBottom: 12 }}>
-          <Space wrap align="center" style={{ marginBottom: 8 }}>
-            <Typography.Text strong>{IRR_ONLY ? '门槛' : '要求收益率'}</Typography.Text>
-            <Slider style={{ width: 240 }} min={3} max={10} step={0.1} value={reqPct} onChange={(v) => setReqPct(v)} />
-            <InputNumber min={0.1} max={20} step={0.1} value={reqPct} onChange={(v) => setReqPct(v ?? initial)} addonAfter="%" />
-            <Button onClick={() => setReqPct(initial)}>恢复 {initial}%</Button>
-            <Button type="primary" loading={saving} onClick={save}>保存为模型默认</Button>
-          </Space>
-          <Row gutter={[12, 12]}>
-            <Col xs={12} md={6}><Statistic title={`市场价（${base.market_date || '—'}${company.latest_fx ? `；原币 ${fmt(company.latest_price_raw)} × 汇率 ${company.latest_fx}` : ''}）`} value={fmt(base.market_price)} suffix="元" /></Col>
-            <Col xs={12} md={6}><Statistic title="买入后隐含年化收益率（基准）" value={pct(baseRow.irr)} valueStyle={{ color: baseRow.ok ? '#389e0d' : '#cf1322' }} /></Col>
-            <Col xs={12} md={6}><Statistic title={`${IRR_ONLY ? '门槛' : '要求'} ${reqPct}% 的最高买入价（基准）`} value={fmt(baseRow.ceiling)} suffix="元" /></Col>
-            <Col xs={12} md={6}><Statistic title="市场价相对最高买入价" value={baseRow.ceiling ? pct(base.market_price / baseRow.ceiling - 1, 1) : '—'} /></Col>
-          </Row>
-          <Table size="small" pagination={false} style={{ marginTop: 12 }} dataSource={rows} columns={[
-            { title: '情景', dataIndex: 'name' },
-            { title: '隐含年化收益率', dataIndex: 'irr', render: (v) => pct(v) },
-            { title: '现金支持口径', dataIndex: 'cashIrr', render: (v) => pct(v) },
-            { title: `${IRR_ONLY ? '门槛' : '要求'} ${reqPct}% 的最高买入价（元）`, dataIndex: 'ceiling', render: (v) => fmt(v) },
-            { title: '市场价（元）', dataIndex: 'price', render: (v) => fmt(v) },
-            { title: '结论', dataIndex: 'ok', render: (v) => (v ? <Tag color="green">{IRR_ONLY ? '达到门槛' : '达到要求'}</Tag> : <Tag color="red">{IRR_ONLY ? '低于门槛' : '未达到要求'}</Tag>) },
-          ]} />
-          {!IRR_ONLY && <Typography.Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0 }}>
-            隐含年化收益率＝按今天市场价买入、获得模型预测的股息并按永续增长率增长时的内部收益率，与要求收益率无关；
-            最高买入价＝按要求收益率把未来股息折现到今天的每股价值。两者等价：隐含收益率高于要求收益率 ⇔ 市场价低于最高买入价。
-          </Typography.Paragraph>}
-        </Card>) : null}
-        {!sotpPrimary ? sotpCard : null}
-        {IRR_ONLY || !hasDdm ? (
-          <Typography.Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0 }}>
-            质量自检：通过 {count('通过')} · 提示 {count('提示')} · 阻断 {count('阻断')}。自动采集（这家公司和通用指标）：{healthy} / {enabled.length} 个数据源正常。
-            {hasDdm ? '回报拆解、买入价与假设的影响见「预测与估值 / 估值」。' : (sotpBase?.conclusion || '')}
-          </Typography.Paragraph>
-        ) : (<>
-        <Row gutter={[12, 12]}>
-          <Col xs={12} md={6}><Card size="small"><Statistic title={`${sotpPrimary ? '股息贴现·' : ''}今天每股价值（折现率 ${pct(base.discount_rate)}）`} value={fmt(base.value_today)} suffix="元" /></Card></Col>
-          <Col xs={12} md={6}><Card size="small"><Statistic title="现金支持价值·今天" value={fmt(base.cash_value_today)} suffix="元" /></Card></Col>
-          <Col xs={12} md={6}><Card size="small"><Statistic title={`${sotpPrimary ? '股息贴现·' : ''}关注价（安全边际）`} value={base.watch_high == null ? fmt(base.watch_low) : `${fmt(base.watch_low)} / ${fmt(base.watch_high)}`} /></Card></Col>
-          <Col xs={12} md={6}><Card size="small"><Statistic title="质量自检" value={`通过 ${count('通过')} · 提示 ${count('提示')} · 阻断 ${count('阻断')}`} /></Card></Col>
-        </Row>
-        <Typography.Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0 }}>
-          {base.conclusion || ''} 自动采集（这家公司和通用指标）：{healthy} / {enabled.length} 个数据源正常。
-        </Typography.Paragraph>
-        </>)}
-      </div>
-    );
-  }
-
-  ctx.render(<Panel />);
-} catch (error) {
-  ctx.render(<Alert type="error" showIcon message="驾驶舱读取失败" description={String(error?.message || error)} />);
-}
-"""
 
 COLLECT = r"""const COMPANY = '__COMPANY__';   // 按钮只采这家公司和通用指标（利率等）的数据源，表格和最近几次也只看这家公司
 const { React } = ctx.libs;
@@ -702,57 +344,15 @@ def obs(metric_code, label='数值'):
 def charts(co):
     """一家公司的驾驶舱图表：SQL 都按公司代码过滤（不再依赖“驾驶舱默认展示”）。"""
     code = co['code']
-    DEF = (f"JOIN vi_company_base co ON co.id = m.company_id AND co.code = '{code}' "
-           "JOIN vi_model_base m0 ON m0.id = m.id AND m0.status = '当前'")
     CO = "JOIN vi_company_base co ON co.id = {t}.company_id AND co.code = '" + code + "'"
-    M = "FROM vi_valuation v JOIN vi_model_base m ON m.id = v.model_id " + DEF
-    BASECF = ("FROM vi_valuation_cf f JOIN vi_scenario_base s ON s.id = f.scenario_id AND s.is_base "
-              "JOIN vi_model_base m ON m.id = f.model_id JOIN vi_company_calc cc ON cc.id = m.company_id " + DEF)
-    PRICES = " CROSS JOIN generate_series(greatest(1, floor(cc.latest_price * 0.5))::int, ceil(cc.latest_price * 1.6)::int) x(price)"
     out = [
-        ('irr_scen', '三情景：买入后隐含年化收益率 vs 要求收益率（%）', c(
-            f"SELECT v.scenario_name, x.\"口径\", x.\"收益率（%）\" FROM vi_valuation v JOIN vi_model_base m ON m.id = v.model_id {DEF} "
-            "CROSS JOIN LATERAL (VALUES ('隐含收益率', round((v.implied_irr * 100)::numeric, 2)), "
-            "('现金支持口径', round((v.cash_implied_irr * 100)::numeric, 2)), ('要求收益率', round((v.required_return * 100)::numeric, 2))) x(\"口径\", \"收益率（%）\") "
-            "ORDER BY v.sort, 2", 'bar', {'x': 'scenario_name', 'y': '收益率（%）', 'series': '口径'})),
-        ('irr_curve', '买入价 → 隐含年化收益率（基准情景，%）', c(
-            "SELECT x.price AS \"买入价\", '隐含收益率' AS \"系列\", round((vi_irr(f.divs, f.taus, f.td, f.ttau, f.cf_g, x.price) * 100)::numeric, 2) AS \"收益率\" "
-            + BASECF + PRICES +
-            " UNION ALL SELECT x.price, '要求收益率', round((f.required_return * 100)::numeric, 2) " + BASECF + PRICES +
-            " ORDER BY 1, 2", 'line', {'x': '买入价', 'y': '收益率', 'series': '系列'})),
-        ('req_curve', '要求收益率 → 最高买入价（元）', c(
-            "SELECT round((x.r * 100)::numeric, 1)::text || '%' AS \"要求收益率\", s.name AS \"情景\", "
-            "round(vi_pv(f.divs, f.taus, f.td, f.ttau, f.cf_g, x.r)::numeric, 2) AS \"最高买入价\", x.r, s.sort "
-            "FROM vi_valuation_cf f JOIN vi_scenario_base s ON s.id = f.scenario_id JOIN vi_model_base m ON m.id = f.model_id " + DEF +
-            " CROSS JOIN (SELECT generate_series(40, 100, 5) / 1000.0 AS r) x "
-            "UNION ALL SELECT round((x.r * 100)::numeric, 1)::text || '%', '市场价', round(cc.latest_price::numeric, 2), x.r, 99 "
-            "FROM vi_model_base m JOIN vi_company_calc cc ON cc.id = m.company_id " + DEF +
-            " CROSS JOIN (SELECT generate_series(40, 100, 5) / 1000.0 AS r) x ORDER BY 4, 5", 'line',
-            {'x': '要求收益率', 'y': '最高买入价', 'series': '情景'})),
-        ('value', '三情景·今天每股价值（元）', c(f"SELECT v.scenario_name, round(v.value_today::numeric, 2) AS \"今天每股价值\" {M} ORDER BY v.sort",
-                                              'bar', {'x': 'scenario_name', 'y': '今天每股价值'})),
-        ('watch', '今天价值、关注价与市场价（元）', c(
-            f"SELECT v.scenario_name, '今天价值' AS item, round(v.value_today::numeric, 2) AS price, v.sort {M} "
-            f"UNION ALL SELECT v.scenario_name, '关注价', round(v.watch_low::numeric, 2), v.sort {M} "
-            f"UNION ALL SELECT v.scenario_name, '高档关注价', round(v.watch_high::numeric, 2), v.sort {M} "
-            f"UNION ALL SELECT v.scenario_name, '市场价', round(v.market_price::numeric, 2), v.sort {M} ORDER BY sort, item",
-            'bar', {'x': 'scenario_name', 'y': 'price', 'series': 'item'})),
-        ('tv', '终值占比（越高越依赖远期）', c(f"SELECT v.scenario_name, round(v.terminal_share::numeric, 4) AS \"终值占比\" {M} ORDER BY v.sort",
-                                          'bar', {'x': 'scenario_name', 'y': '终值占比'})),
-        ('path', '基准情景：利润、股息与 FCFE（亿元）', c(
-            "SELECT p.year, x.item, round(x.amount::numeric, 1) AS amount FROM vi_projection p "
-            "JOIN vi_model_base m ON m.id = p.model_id " + DEF + " "
-            "CROSS JOIN LATERAL (VALUES ('归母净利润', p.np_parent), ('计划股息', p.dividend), ('FCFE', p.fcfe)) x(item, amount) "
-            "WHERE p.is_base ORDER BY p.year, x.item", 'line', {'x': 'year', 'y': 'amount', 'series': 'item'})),
-        ('sens', '敏感性：今天每股价值（元）', c(
-            "SELECT round((s.r * 100)::numeric, 2)::text || '%' AS r, 'g=' || round((s.g * 100)::numeric, 2)::text || '%' AS g, "
-            "round(s.value_today::numeric, 2) AS value FROM vi_sensitivity s JOIN vi_model_base m ON m.id = s.model_id " + DEF +
-            " ORDER BY s.r, s.g", 'line', {'x': 'r', 'y': 'value', 'series': 'g'})),
-        ('debt', '带息负债：历史与预测（亿元）', c(
-            "SELECT h.year::text AS year, '历史' AS kind, round(h.interest_debt::numeric, 0) AS debt FROM vi_fin_history h "
-            + CO.format(t='h') + " WHERE h.interest_debt IS NOT NULL "
-            "UNION ALL SELECT f.year::text, '预测', round(fc.debt_close::numeric, 0) FROM vi_forecast_base f JOIN vi_forecast_calc fc USING (id) "
-            "JOIN vi_model_base m ON m.id = f.model_id " + DEF + " ORDER BY year", 'bar', {'x': 'year', 'y': 'debt', 'series': 'kind'})),
+        ('gw_layers', '三层价值与现价（元/股，今天）', c(
+            "SELECT x.k AS \"口径\", round(x.v::numeric, 2) AS \"元/股\", x.o FROM vi_gw_value v "
+            + CO.format(t='v') + " CROSS JOIN LATERAL (VALUES ('资产价值', v.av_ps, 1), ('盈利能力价值', v.epv_ps, 2), ('含增长价值', v.full_ps, 3), "
+            "('市场价', v.market_price, 4)) x(k, v, o) WHERE x.v IS NOT NULL ORDER BY x.o", 'bar', {'x': '口径', 'y': '元/股'})),
+        ('debt', '带息负债（亿元，年末）', c(
+            "SELECT h.year::text AS year, round(h.interest_debt::numeric, 0) AS debt FROM vi_fin_history h "
+            + CO.format(t='h') + " WHERE h.interest_debt IS NOT NULL ORDER BY year", 'bar', {'x': 'year', 'y': 'debt'})),
         ('hist_np', '历史：归母净利润与分红总额（亿元）', c(
             "SELECT h.year, x.item, x.amount FROM vi_fin_history h " + CO.format(t='h') +
             " CROSS JOIN LATERAL (VALUES ('归母净利润', h.np_parent), ('分红总额', h.dividend_total)) x(item, amount) "
@@ -768,31 +368,6 @@ def charts(co):
         ('hist_vol', f"历史：{co.get('volume_label') or '业务量'}（{co.get('volume_unit') or ''}）", c(
             "SELECT h.year, round(h.volume::numeric, CASE WHEN h.volume < 100 THEN 3 ELSE 0 END) AS \"业务量\" FROM vi_fin_history h " + CO.format(t='h') +
             " WHERE h.volume IS NOT NULL ORDER BY h.year", 'bar', {'x': 'year', 'y': '业务量'})),
-        ('sotp_parts', '分部加总：每股价值构成（元）', c(
-            "SELECT s.scenario_name AS \"情景\", x.k AS \"部分\", round((x.v / s.shares)::numeric, 2) AS \"元/股\", s.id, x.o FROM vi_sotp s "
-            + CO.format(t='s') + " CROSS JOIN LATERAL (VALUES ('核心业务', s.core_value, 1), ('成熟业务', s.mature_value, 2), ('成长业务', s.growth_value, 3), "
-            "('投入期业务', s.invest_value, 4), ('直接估值业务', s.direct_value, 4), ('可用净现金', s.usable_net_cash, 5), ('对外投资（折后）', s.investments, 6), "
-            "('独立固定资产', s.fixed_assets, 7), ('其他非经营资产', s.other_assets, 8), ('少数股东与其他', s.minority_other, 9), ('合计', s.equity_value, 10)) x(k, v, o) "
-            "WHERE x.v IS NOT NULL ORDER BY s.id, x.o", 'bar', {'x': '情景', 'y': '元/股', 'series': '部分'})),
-        ('sotp_bridge', '分部加总：基准情景价值构成（元/股，逐项）', c(
-            "SELECT g.name AS \"部分\", round((g.value / s.shares)::numeric, 2) AS \"元/股\", 10 + coalesce(nullif(regexp_replace(g.code, '\\D', '', 'g'), '')::int, 0) AS o "
-            "FROM vi_sotp s " + CO.format(t='s') + " JOIN vi_sotp_segment_val g ON g.scenario_id = s.id WHERE s.is_base "
-            "UNION ALL SELECT '核心业务', round((s.core_value / s.shares)::numeric, 2), 1 FROM vi_sotp s " + CO.format(t='s') +
-            " WHERE s.is_base AND s.core_value IS NOT NULL "
-            "UNION ALL SELECT x.k, round((x.v / s.shares)::numeric, 2), x.o FROM vi_sotp s " + CO.format(t='s') +
-            " CROSS JOIN LATERAL (VALUES ('可用净现金', s.usable_net_cash, 30), ('对外投资（折后）', s.investments, 31), ('独立固定资产', s.fixed_assets, 32), ('其他非经营资产', s.other_assets, 33), ('少数股东与其他', s.minority_other, 34), "
-            "('每股价值', s.equity_value, 40), ('市场价', s.market_price * s.shares, 41)) x(k, v, o) WHERE s.is_base AND x.v IS NOT NULL ORDER BY 3",
-            'bar', {'x': '部分', 'y': '元/股'})),
-        ('sotp_grid', '分部加总：倍数 → 每股价值（元；核心业务或成熟业务的倍数）', c(
-            "SELECT x.m AS \"倍数\", s.scenario_name AS \"系列\", round(((coalesce(s.core_earnings, 0) * x.m + coalesce(s.mature_earn_pv, 0) * x.m "
-            "+ coalesce(s.mature_interim_pv, 0) + coalesce(s.growth_value, 0) + coalesce(s.invest_value, 0) + coalesce(s.direct_value, 0) + s.noncore) / s.shares)::numeric, 2) AS \"每股价值\", s.id FROM vi_sotp s "
-            + CO.format(t='s') + " CROSS JOIN generate_series(4, 24, 2) x(m) "
-            "UNION ALL SELECT x.m, '市场价', round(s.market_price::numeric, 2), 999 FROM vi_sotp s " + CO.format(t='s') +
-            " CROSS JOIN generate_series(4, 24, 2) x(m) WHERE s.is_base ORDER BY 1, 4", 'line', {'x': '倍数', 'y': '每股价值', 'series': '系列'})),
-        ('sotp_mult', '合理倍数 vs 市场隐含倍数（核心业务或成熟业务）', c(
-            "SELECT s.scenario_name AS \"情景\", x.k AS \"口径\", round(x.v::numeric, 1) AS \"倍\", s.id FROM vi_sotp s " + CO.format(t='s') +
-            " CROSS JOIN LATERAL (VALUES ('合理倍数', coalesce(s.multiple, s.mature_multiple)), ('市场隐含倍数', coalesce(s.implied_core_multiple, s.implied_mature_multiple))) x(k, v) "
-            "ORDER BY s.id, 2", 'bar', {'x': '情景', 'y': '倍', 'series': '口径'})),
         ('fit', '价投适配度（各维度 0—5 分）', c(
             "SELECT f.dimension AS \"维度\", f.score AS \"评分\" FROM vi_fit_score_base f " + CO.format(t='f') + " ORDER BY f.sort, f.id",
             'barHorizontal', {'x': '维度', 'y': '评分'})),
@@ -820,7 +395,7 @@ def charts(co):
             " WHERE d.period_kind = '单季' AND d.yoy IS NOT NULL AND d.period_end >= vi_today() - interval '3 years' ORDER BY d.period_end, d.line_item", 'bar',
             {'x': 'period', 'y': '同比（%）', 'series': 'line_item'})),
         ('checks', '质量自检结果', c(
-            "SELECT k.result, count(*) AS n FROM vi_check k JOIN vi_model_base m ON m.id = k.model_id " + DEF +
+            "SELECT k.result, count(*) AS n FROM vi_check k " + CO.format(t='k') +
             " GROUP BY k.result ORDER BY k.result", 'pie', {'category': 'result', 'value': 'n'})),
         ('facts', '定性事实核验状态', c(
             "SELECT f.verify_status, count(*) AS n FROM vi_fact_base f " + CO.format(t='f') +
@@ -833,12 +408,8 @@ def charts(co):
         ('rf', '市场：中债国债10年收益率（%）', c(obs('CGB10Y.CCDC'), 'line', {'x': 'obs_date', 'y': '数值'})),
     ]
     have = content(code)
-    needs = {'sotp_parts': 'sotp', 'sotp_bridge': 'sotp', 'sotp_grid': 'sotp', 'sotp_mult': 'sotp', 'fit': 'fit', 'moat': 'moat',
-             'forces': 'chain', 'peers': 'comp', 'theses': 'thesis'}
-    needs.update({k: 'fc' for k in ('irr_scen', 'irr_curve', 'req_curve', 'value', 'watch', 'tv', 'path', 'sens', 'debt')})   # 没有逐年预测（只用分部加总）就不画股息贴现类图
-    out = [x for x in out if have.get(needs.get(x[0]), 1) > 0]      # 没有内容的通用图不放（如还没做分部加总或还没填商业模式分析的公司）
-    if irr_only(code):                                               # 只看隐含回报的公司：不画折现率价值、关注价、终值占比、折现率敏感性
-        out = [x for x in out if x[0] not in ('value', 'watch', 'tv', 'sens')]
+    needs = {'fit': 'fit', 'moat': 'moat', 'forces': 'chain', 'peers': 'comp', 'theses': 'thesis', 'gw_layers': 'gw'}
+    out = [x for x in out if have.get(needs.get(x[0]), 1) > 0]      # 没有内容的通用图不放（如还没做三层估值或还没填商业模式分析的公司）
     result = out + EXTRA.get(code, [])
     if code == '01698.HK':
         from tencent_dashboard import charts as tencent_charts
@@ -849,19 +420,13 @@ def charts(co):
     return result
 
 
-def irr_only(code):
-    import build_valuation                       # 函数内导入：build_valuation 依赖本模块
-    return build_valuation.PROFILES.get(code, {}).get('method') == 'irr'
-
-
 def content(code):
-    """这家公司有哪些可画的内容：分部加总、适配度、壁垒、产业链、竞争对手、论点。"""
+    """这家公司有哪些可画的内容：三层估值、适配度、壁垒、产业链、竞争对手、论点。"""
     co = f"(SELECT id FROM vi_company_base WHERE code = '{code}')"
-    sql = (f"SELECT json_build_object('sotp', (SELECT count(*) FROM vi_sotp WHERE company_id = {co}), "
+    sql = (f"SELECT json_build_object('gw', (SELECT count(*) FROM vi_epv_base WHERE company_id = {co}), "
            f"'fit', (SELECT count(*) FROM vi_fit_score_base WHERE company_id = {co}), 'moat', (SELECT count(*) FROM vi_moat_base WHERE company_id = {co}), "
            f"'chain', (SELECT count(*) FROM vi_value_chain_base WHERE company_id = {co}), 'comp', (SELECT count(*) FROM vi_competitor_base WHERE company_id = {co}), "
-           f"'thesis', (SELECT count(*) FROM vi_thesis_base WHERE company_id = {co}), "
-           f"'fc', (SELECT count(*) FROM vi_forecast_base f JOIN vi_model_base m ON m.id = f.model_id WHERE m.company_id = {co} AND m.status = '当前'))")
+           f"'thesis', (SELECT count(*) FROM vi_thesis_base WHERE company_id = {co}))")
     p = subprocess.run([str(ROOT / 'psql.sh'), '-At', '-c', 'SET jit=off', '-c', sql], capture_output=True, text=True, check=True)
     return json.loads(p.stdout.strip().split('\n')[-1])
 
@@ -942,9 +507,7 @@ EXTRA = {   # 行业专属图表
         ('payout', '股东回报率（股息＋回购÷归母净利，%）：历史', c(
             "SELECT h.year::text AS year, '历史' AS \"口径\", round((h.payout * 100)::numeric, 1) AS \"%\" FROM vi_fin_history h "
             "JOIN vi_company_base co ON co.id = h.company_id AND co.code = '01698.HK' WHERE h.year >= 2020 AND h.payout IS NOT NULL "
-            "UNION ALL SELECT p.year::text, '预测', round((p.payout * 100)::numeric, 1) FROM vi_projection p "
-            "JOIN vi_company_base co ON co.id = p.company_id AND co.code = '01698.HK' JOIN vi_model_base m ON m.id = p.model_id AND m.status = '当前' "
-            "WHERE p.is_base ORDER BY 1", 'bar', {'x': 'year', 'y': '%', 'series': '口径'})),
+            "ORDER BY 1", 'bar', {'x': 'year', 'y': '%', 'series': '口径'})),
         ('fx', '市场：港元兑人民币', c(obs('HKDCNY'), 'line', {'x': 'obs_date', 'y': '数值'})),
     ],    '01810.HK': [
         ('seg_rev', '单季分部收入（亿元）：手机×AIoT vs 智能电动汽车及 AI', c(
@@ -1025,19 +588,14 @@ def company_info(co):
 
 
 def kpi_code(code):
-    if code == '01698.HK':
-        from tencent_dashboard import kpi_code as tencent_kpi_code
-        return tencent_kpi_code()
-    from company_dashboard import PROFILES, kpi_code as company_kpi_code
-    if code in PROFILES:
-        return company_kpi_code(code)
-    js = KPI.replace('__COMPANY__', code).replace('__IRR_ONLY__', 'true' if irr_only(code) else 'false')
-    if code != '600900.SH':
-        from page_style import wrap_js
-        js = wrap_js(js)
-        js = js.replace('预测与估值 / 经营分部估值', '预测与估值 / 估值 / 经营分部（编辑）')
-        js = js.replace('预测与估值 / 分部估值项', '预测与估值 / 估值 / 资产项目（编辑）')
-    return js
+    """驾驶舱顶部的关键读数：现价与三层价值（price_summary.jsx）、主估值层与隐含回报（dashboard_kpi.jsx）。"""
+    st = state()['pages']
+    links = [{'title': t, 'href': '/admin/' + st[f'{k}@{code}']['pageSchemaUid']}
+             for k, t in (('gw_equity', '⑤ 股权价值'), ('gw_epv', '② 盈利能力'), ('thesis', '核心论点')) if f'{k}@{code}' in st]
+    from company_dashboard import PROFILES
+    focus = PROFILES.get(code, {}).get('focus', '')
+    cfg = json.dumps({'code': code, 'links': links, 'focus': focus}, ensure_ascii=False)
+    return (HERE / 'price_summary.jsx').read_text() + '\n' + (HERE / 'dashboard_kpi.jsx').read_text().replace('__CONFIG__', cfg)
 
 
 def dashboard_document(co, replace=False):

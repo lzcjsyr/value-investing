@@ -20,8 +20,6 @@ import data_layer_seed
 DATA = HERE / 'data'
 CODE = '01810.HK'
 CO = f"(SELECT id FROM vi_company_base WHERE code = '{CODE}')"
-MODEL_NAME = '小米集团 经营分部估值＋股东回报折现（2025 年末基准）'
-MODEL = f"(SELECT id FROM vi_model_base WHERE company_id = {CO} AND name = '{MODEL_NAME}')"
 AS_OF = '2026-06-30'          # 分部估值的资产负债日（与现金、负债、投资、股本同日）
 SHARES = 257.0944              # 亿股：6 月末已发行 257.8537 亿股，扣除 6 月回购、7 月才注销的 0.7593 亿股
 PRICE_METRIC, FX_METRIC = '01810.HK.PRICE', 'HKDCNY'   # 港元兑人民币归宏观数据项目（macro/），这里只引用
@@ -140,13 +138,7 @@ WHERE NOT EXISTS (SELECT 1 FROM vi_observation_base o WHERE o.metric_id = {metri
 
 # ================================================================ 清空本公司的研究、数据、模型与跟踪（可重复执行）
 def reset():
-    OUT.append(f"""DELETE FROM vi_sotp_segment_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {CO});
-DELETE FROM vi_sotp_item_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {CO});
-DELETE FROM vi_trial_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {CO});
-DELETE FROM vi_forecast_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {CO});
-DELETE FROM vi_scenario_base WHERE model_id IN (SELECT id FROM vi_model_base WHERE company_id = {CO});
-DELETE FROM vi_model_base WHERE company_id = {CO};
-DELETE FROM vi_fit_score_base WHERE company_id = {CO};
+    OUT.append(f"""DELETE FROM vi_fit_score_base WHERE company_id = {CO};
 DELETE FROM vi_moat_base WHERE company_id = {CO};
 DELETE FROM vi_competitor_base WHERE company_id = {CO};
 DELETE FROM vi_value_chain_base WHERE company_id = {CO};
@@ -631,7 +623,7 @@ def theses():
 
 # ================================================================ 判断（事实 → 判断 → 参数）
 JUDGMENTS = [
-    dict(code='J-METHOD', title='估值方法：按发展阶段分部估值，股息贴现只作交叉验证', parameter='估值模型·主估值方法', affected_years='全部情景',
+    dict(code='J-METHOD', title='估值方法：按发展阶段分部估值，股息贴现只作交叉验证', parameter='估值模型·主估值方法',
          fact_layer='小米没有现金股息，靠回购返还（2025 年回购÷归母约 15%，2026 年约一半）；集团里同时有成熟的手机×AIoT 生态（周期底部）、成长期的汽车（第三年、刚盈利又转亏）、投入期的 AI（三年 600 亿元）。'
                     '归母净利含大额投资公允价值收益（2025 年 133 亿元）。',
          judgment='用“经营分部估值”。手机、AIoT（IoT 与生活消费产品＋其他相关业务）、互联网服务三块分开，各按正常化盈利×倍数（不用周期底部或顶部的当年利润）：毛利率按公司披露的分项口径分别取，'
@@ -641,7 +633,7 @@ JUDGMENTS = [
          change_threshold='公司开始派发稳定股息或公布回购比例政策时，股息贴现可升为主估值之一；公司披露分业务费用时改用实际口径。', no_change_condition='单季利润波动。',
          counter_evidence='卖方常用“主业经调整市盈率＋汽车市销率”：它没有扣除股权激励，也把投资收益当经营利润。分开估值后，费用分摊与倍数的选择会改变价值：三块用同一倍数时基准约 27.0 元（−1.6 元）。',
          facts=[F_REV25, F_SEG25, F_LINE_HIST, F_AI, F_FV, F_BB, F_TAX, F_CONS], theses=['T9']),
-    dict(code='J-PHONE', title='手机：正常化毛利率 11.8%，按收入分摊费用后微亏', parameter='经营分部 S1·收入、经营利润率', affected_years='S1：2028 年（正常化年份）',
+    dict(code='J-PHONE', title='手机：正常化毛利率 11.8%，按收入分摊费用后微亏', parameter='经营分部 S1·收入、经营利润率',
          fact_layer='手机毛利率 2019—2025 年 7.2%、8.7%、11.9%、9.0%、14.6%、12.6%、10.9%，2021—2025 年收入加权 11.8%；2026 年上半年 9.3%（二季度 8.5%，存储涨价）。'
                     '手机收入 2021 年 2,088.7 亿元（高点）、2025 年 1,864.4 亿元，2026 年上半年 863.9 亿元（−10.1%）。按收入分摊费用后，手机 2021—2025 年经营利润率平均约 −1.3%，'
                     '2026 年上半年 −5.2%；专家估计 2026 年手机硬件亏损 80—100 亿元。',
@@ -652,7 +644,7 @@ JUDGMENTS = [
          change_threshold='存储价格回落后，手机毛利率连续四个季度高于 13% 或低于 10%。', no_change_condition='单季新品与促销节奏。',
          counter_evidence='高端化（ASP 1,351 元，中国大陆 3,000 元以上机型占 32%）可能让毛利率高于历史平均；反过来，中国大陆份额降到 12%、第五，低端被存储涨价打掉，规模可能回不到 1.65 亿台。',
          facts=[F_LINE_HIST, F_H1_LINES, F_PHONE, F_PHONE25, F_HWLOSS, F_SHARE_CN], theses=['T1', 'T2']),
-    dict(code='J-AIOT', title='AIoT：正常化毛利率 20%（IoT 结构升级），费用率 14%', parameter='经营分部 S2·收入、经营利润率', affected_years='S2：2028 年（正常化年份）',
+    dict(code='J-AIOT', title='AIoT：正常化毛利率 20%（IoT 结构升级），费用率 14%', parameter='经营分部 S2·收入、经营利润率',
          fact_layer='IoT 与生活消费产品毛利率 2019—2023 年 11.2%—16.3%，2024 年 20.3%、2025 年 23.1%（大家电、高端电视与境外拉动），2026 年上半年 22.3%；'
                     '含毛利为负的“其他相关业务”后 2024 年 18.7%、2025 年 21.3%、2026 年上半年 21.2%。收入 2025 年 1,232.0 亿元（+18.3%，国补拉动），2026 年二季度 −19.2%（国补退坡）。',
          judgment='正常化（2028 年）收入 1,300 亿元（含其他相关业务，约等于 2025 年），毛利率 20.0%（低于 2025 年、高于 2024 年，假设结构升级大体保住），费用率 14.0%，经营利润率 6.0%。'
@@ -661,7 +653,7 @@ JUDGMENTS = [
          change_threshold='IoT 毛利率（含其他相关业务）连续四个季度低于 18% 或高于 23%。', no_change_condition='国补带来的单季收入波动。',
          counter_evidence='2025 年的高毛利率有国补拉动高端家电的成分，国补退坡后可能回到 16%—18%（悲观情景）；境外 IoT 高速增长、空调冰箱自建工厂则支持更高毛利率。',
          facts=[F_LINE_HIST, F_H1_LINES, F_IOT, F_IOT25, F_IOT_DEV], theses=['T1']),
-    dict(code='J-NET', title='互联网服务：2027 年 385 亿元、毛利率 76.5%，倍数约 15.4 倍', parameter='经营分部 S3·收入、经营利润率、永续增长、新增投资回报率', affected_years='S3：2027 年（正常化年份）',
+    dict(code='J-NET', title='互联网服务：2027 年 385 亿元、毛利率 76.5%，倍数约 15.4 倍', parameter='经营分部 S3·收入、经营利润率、永续增长、新增投资回报率',
          fact_layer='互联网收入 2023 年 301.1、2024 年 341.2、2025 年 374.4 亿元，2026 年上半年 185.1 亿元（约持平）；毛利率 2021—2025 年 74.1%、71.8%、74.2%、76.6%、76.5%。'
                     '广告 2025 年 285 亿元（+15.2%），境外占互联网收入 33.8%；月活 7.665 亿（+4.8%）。',
          judgment='不受存储周期影响，2027 年即为正常化年份：收入 385 亿元、毛利率 76.5%、费用率 14.0%，经营利润率 62.5%。'
@@ -670,7 +662,7 @@ JUDGMENTS = [
          change_threshold='月活同比连续两年低于 2%，或互联网收入连续两季同比下降。', no_change_condition='游戏与金融科技的单季波动。',
          counter_evidence='互联网收入依赖手机出货带来的新用户（二季度出货 −26%）；按收入分摊的费用率 14% 可能低估了互联网实际占用的研发与销售资源（费用率改为 25% 时每股约 −0.43 元）。',
          facts=[F_NET, F_AD, F_MAU, F_MAU_HIST, F_LINE_HIST], theses=['T1']),
-    dict(code='J-OPEX', title='营业费用按收入分摊到三块业务（公司不拆分）', parameter='经营分部 S1—S3·经营利润率', affected_years='S1—S3：2026 年下半年至正常化年份',
+    dict(code='J-OPEX', title='营业费用按收入分摊到三块业务（公司不拆分）', parameter='经营分部 S1—S3·经营利润率',
          fact_layer='公司只披露“手机×AIoT”分部的营业费用（集团研发、销售、行政减去汽车及 AI 分部经营开支），不拆到手机、IoT、互联网。费用率 2019—2025 年 10.2%—14.1%，2021—2025 年收入加权 13.1%；'
                     '2026 年上半年 14.5%（收入下降、费用刚性）。按收入分摊时，2026 年上半年手机经营利润 −44.7 亿元，与专家“2026 年手机硬件亏损 80—100 亿元”的估计方向一致。',
          judgment='三块用同一个费用率（按收入分摊）：基准 2026 年下半年 14.5%、2027 年 14.3%、正常化 14.0%（高于 2021—2025 年平均 13.1%，反映研发强度上升）；悲观 15.0%、乐观 13.0%（正常化）。'
@@ -680,7 +672,7 @@ JUDGMENTS = [
          change_threshold='公司披露分业务的费用或经营利润；或生态费用率连续四个季度偏离 14% 超过 1.5pt。', no_change_condition='四季度费用的季节性。',
          counter_evidence='按毛利分摊会把更多费用给互联网（经营利润率约 27%），手机变成小幅盈利；哪种更接近真实，没有公开数据可以验证。',
          facts=[F_OPEX_HIST, F_ECO_OPEX, F_H1_LINES, F_HWLOSS, F_ECO_OP, F_INNOV], theses=['T1']),
-    dict(code='J-MEM', title='存储周期：2026 年下半年至 2027 年手机毛利率低于正常', parameter='经营分部 S1、S2·期间现金流', affected_years='S1、S2：2026 年 7 月—2027 年末',
+    dict(code='J-MEM', title='存储周期：2026 年下半年至 2027 年手机毛利率低于正常', parameter='经营分部 S1、S2·期间现金流',
          fact_layer='存储占低端机物料成本 60% 以上；手机毛利率 2025 年一季度 12.4% → 2026 年二季度 8.5%。管理层：三季度中途涨势放缓、四季度缓涨；TrendForce：明年 DRAM 仍偏紧。Omdia：三季度小米全球份额 12%（−2pt）。',
          judgment='过渡期：手机毛利率 2026 年下半年 8.5%、2027 年 10.5%，AIoT 20.0%、20.0%，费用率 14.5%、14.3%。税后期间现金流：手机约 −101、AIoT 约 85、互联网（只有 2026 年下半年）约 96 亿元。'
                   '悲观手机 8.0%/9.5%，乐观 9.0%/12.0%。',
@@ -688,7 +680,7 @@ JUDGMENTS = [
          change_threshold='三、四季度手机毛利率低于 7% 或高于 10%。', no_change_condition='单季度存储价格波动。',
          counter_evidence='若涨价持续到 2028 年以后，且低端市场永久萎缩，正常化毛利率本身要下调（见 J-PHONE）。',
          facts=[F_MEM, F_MEM_MGMT, F_PHONE, F_PHONE25, F_SHARE_Q3], theses=['T2']),
-    dict(code='J-EV', title='汽车稳态：2030 年 90 万辆、经营利润率 7%', parameter='经营分部 S4', affected_years='S4：2030 年稳态，2026 年 7 月—2029 年期间现金流',
+    dict(code='J-EV', title='汽车稳态：2030 年 90 万辆、经营利润率 7%', parameter='经营分部 S4',
          fact_layer='2025 年交付 41.1 万辆、ASP 25.1 万元；2026 年预计 46—48.5 万辆、ASP 约 23.5 万元；澎程 30 天锁单超 7 万台；海外 2027 年起步（规划 2028 年 10—13 万台、2029 年 25—30 万台）。'
                     '同行 2026 年上半年毛利率 9.5%—23%，零跑二季度净利率约 2%，理想经营亏损。',
          judgment='基准：交付 2027 年 62 万、2028 年 72 万、2029 年 82 万、2030 年 90 万辆（国内约 70 万＋海外约 20 万），ASP 降到 22 万元，其他收入 3%；稳态经营利润率 7%（不含 AI），'
@@ -697,7 +689,7 @@ JUDGMENTS = [
          change_threshold='2027 年交付低于 55 万辆或高于 70 万辆；汽车及 AI 分部（剔除 AI 后）利润率连续两个季度低于 4%。', no_change_condition='月度交付波动。',
          counter_evidence='新势力长期徘徊在 50 万辆附近会让规模效应消失（悲观情景）；反过来，海外打开、智驾领先可能让小米成为 100 万辆以上的盈利车企（乐观情景）。',
          facts=[F_EV25, F_EV_Q2, F_EV_SEP, F_EV_EXP, F_PEER_EV, F_LEAP, F_LI], theses=['T3']),
-    dict(code='J-EV-SPLIT', title='汽车与 AI 的成本拆分（公司不披露）', parameter='经营分部 S4 期间现金流；股东回报折现的 AI 成本', affected_years='2025—2029',
+    dict(code='J-EV-SPLIT', title='汽车与 AI 的成本拆分（公司不披露）', parameter='经营分部 S4 期间现金流；股东回报折现的 AI 成本',
          fact_layer='分部经营损益：2025 年 +9 亿元（收入 1,060.7），2026 年上半年 −57 亿元（收入 447.6）。管理层：2026 年 AI 投入 160 亿元，主要由该分部承担。专家口径：汽车本身 2026 年利润 0.5—2.5 万元/辆，相差 4—5 倍。',
          judgment='假设汽车本身（含智驾研发）经营利润率 2025 年约 10%、2026 年约 7.5%，倒推 AI 等新业务成本：2025 年约 100 亿元、2026 年约 170 亿元（上半年约 88 亿元）。'
                   '汽车价值（S4）不扣 AI；AI 按直接估值单列（S5），股东回报折现里扣 AI 成本。汽车本身与 AI 成本合计与分部披露数一致。',
@@ -705,7 +697,7 @@ JUDGMENTS = [
          change_threshold='公司披露 AI 投入的实际金额或分部拆分。', no_change_condition='专家纪要的单车利润估计。',
          counter_evidence='若 160 亿元里有一部分在手机×AIoT 分部，三块业务的费用率里已含部分 AI 成本，汽车本身利润则更低、S4 价值更低。',
          facts=[F_EV_OPEX, F_AI, F_EV_PROFIT, F_SEG25, F_EV_Q1], theses=['T3', 'T4']),
-    dict(code='J-AI', title='AI：按主观判断直接估值 1,000 亿元（参照国内大模型公司）', parameter='经营分部 S5；股东回报折现·AI 成本', affected_years='资产负债日；股东回报折现 2026—2035',
+    dict(code='J-AI', title='AI：按主观判断直接估值 1,000 亿元（参照国内大模型公司）', parameter='经营分部 S5；股东回报折现·AI 成本',
          fact_layer='三年 AI 投入超 600 亿元（2026 年 160 亿元），2026 年上半年约 88 亿元（按 J-EV-SPLIT 推算）；MiMo-V2.5 调用量第一，但 AI 收入每季度约 10 亿元（含售后）。'
                     '国内大模型公司（2026-10-22 市值或最近一轮融资）：MiniMax 约 482 亿元、阶跃星辰约 120 亿美元、智谱约 1,912 亿元、月之暗面 350 亿美元、DeepSeek 投前约 5,000 亿元；'
                     '它们按收入的几十到上百倍估值，市值波动很大（智谱较 7 月初回落约 76%）。',
@@ -716,34 +708,34 @@ JUDGMENTS = [
          change_threshold='可比公司估值中枢变化超过 50%；AI 收入（MiMo、订阅、机器人）每年超过 50 亿元且毛利为正；或用户调整主观判断。', no_change_condition='模型排名与调用量的短期变化。',
          counter_evidence='小米 AI 主要服务自家设备，不是独立对外收费的模型公司；论点 T4 的裁决是“存疑”（辩论中反方占优：目前更像维持竞争力的成本）。按此前“只计成本”的口径，S5 约 −1,011 亿元，基准约 20.8 元。',
          facts=[F_AI, F_MIMO, F_ZHIPU, F_MINIMAX, F_KIMI, F_STEP, F_DS, F_AI_PS, F_RD], theses=['T4', 'T9']),
-    dict(code='J-CASH', title='可用净现金：现金储备−借款−租赁−无形资产应付款−经营所需现金', parameter='分部估值项 C1—C6', affected_years='资产负债日 2026-06-30',
+    dict(code='J-CASH', title='可用净现金：现金储备−借款−租赁−无形资产应付款−经营所需现金', parameter='分部估值项 C1—C6',
          fact_layer='现金储备 2,193 亿元（公司口径，比明细加总少 81.7 亿元）；借款 392.8 亿元；租赁负债 50.4 亿元；购买无形资产应付款 50.7 亿元。贸易应付款项 1,183 亿元、存货 849 亿元、应收 198 亿元。',
          judgment='采用较低的公司口径 2,193 亿元。经营所需现金：基准 300 亿元（约一个月营业成本），悲观 600 亿元（负营运资本大幅回流），乐观 150 亿元。',
          transmission='经营所需现金每 ±100 亿元，每股约 ∓0.39 元。',
          change_threshold='应付账款周转天数明显缩短，或现金储备口径变化。', no_change_condition='季度末的资金摆布。',
          counter_evidence='硬件公司的现金很大部分是供应商资金；但只要业务不收缩，这部分浮存是长期的（腾讯音乐同理）。',
          facts=[F_CASH, F_BS, F_LEASE], theses=['T5']),
-    dict(code='J-INV', title='对外投资打七折，扣除基金外部出资人份额', parameter='分部估值项 C8、C9', affected_years='资产负债日 2026-06-30',
+    dict(code='J-INV', title='对外投资打七折，扣除基金外部出资人份额', parameter='分部估值项 C8、C9',
          fact_layer='对外投资 720.7 亿元：权益法 66.1、普通股 185.8（上市股权约 72）、优先股 382.4、其他投资 86.3；投资者负债（合并基金的外部出资人）非流动 142.3 亿元，流动部分 2025 年末 11.3 亿元。',
          judgment='投资按 30% 折价（悲观 50%、乐观 15%）：优先股与基金份额是三级公允价值，流动性差、处置有税费。投资者负债 153.7 亿元全额扣除（不打折）。',
          transmission='折价每 ±10pt，每股约 ∓0.28 元。',
          change_threshold='上市股权市值大幅变化（季度公允价值变动超过 50 亿元）；投资退出兑现。', no_change_condition='单季公允价值波动。',
          counter_evidence='2025—2026 年投资收益为正（133 亿元、73 亿元），说明组合有价值；但同一时期也有大额减值的历史（2022 年）。',
          facts=[F_INV, F_LP, F_FV], theses=['T5']),
-    dict(code='J-SHR', title='股本：6 月末在外 257.09 亿股', parameter='估值模型·股本', affected_years='全部',
+    dict(code='J-SHR', title='股本：6 月末在外 257.09 亿股', parameter='估值模型·股本',
          fact_layer='港交所月报表：6 月底已发行 257.85 亿股，其中 0.76 亿股已回购待注销；9 月底在外约 257.53 亿股（股权激励发股）。摊薄调整约 7 亿股。',
          judgment='用 6 月末在外股本 257.09 亿股（与现金同日）。已授出未归属的股权激励不再加到股本里：其费用已在分部利润率里扣除，再加股本会重复。',
          transmission='股本每 ±1%，每股价值约 ∓1%。若按摊薄股本（约 264 亿股），每股价值约 −2.7%。',
          change_threshold='年报或中报披露股本口径变化。', no_change_condition='月度回购与发股。',
          counter_evidence='若股权激励费用低估了真实稀释，应改用摊薄股本。', facts=[F_SHARES, F_SHARES9, F_SBC], theses=['T8']),
-    dict(code='J-R', title='折现率：无风险利率 1.64%＋风险溢价 7.5%＝9.1%', parameter='估值模型·风险溢价；情景折现率', affected_years='全部',
+    dict(code='J-R', title='折现率：无风险利率 1.64%＋风险溢价 7.5%＝9.1%', parameter='估值模型·风险溢价；情景折现率',
          fact_layer='腾讯音乐风险溢价 7%；小米同时有硬件周期、汽车价格战、AI 投入与同股不同权。',
          judgment='基准 9.1%（风险溢价 7.5%），悲观 10.5%、乐观 8.1%。汽车分部另加执行风险：基准 11%、悲观 12.5%、乐观 10%。',
          transmission='折现率 +1pt（9.1%→10.1%）：三块业务的倍数都下降（手机 11.0→9.9 倍、AIoT 13.9→12.0 倍、互联网 15.4→13.2 倍），基准每股约 −2.0 元；−1pt 约 +2.8 元。'
                       '汽车用自己的折现率（11%），AI 直接估值不折现，都不随之变化。',
          change_threshold='无风险利率变化超过 50bp 并持续。', no_change_condition='单日利率波动。',
          counter_evidence='港股流动性折价可能要求更高回报。', facts=[F_PRICE], theses=['T9']),
-    dict(code='J-MULT', title='三块业务的倍数按价值驱动公式：手机 11.0、AIoT 13.9、互联网 15.4 倍', parameter='情景·新增投资回报率、永续增长；经营分部 S1、S3 的专属参数', affected_years='S1—S3',
+    dict(code='J-MULT', title='三块业务的倍数按价值驱动公式：手机 11.0、AIoT 13.9、互联网 15.4 倍', parameter='情景·新增投资回报率、永续增长；经营分部 S1、S3 的专属参数',
          fact_layer='生态业务轻资产、负营运资本。手机已不再扩张（出货在 1.46—1.90 亿台之间徘徊）；IoT 有出海与大家电的增长；互联网几乎不需要资本。卖方给核心业务 16—25 倍（经调整口径）；高盛悲观 6 倍。',
          judgment='倍数＝(1−g÷新增投资回报率)÷(r−g)，r＝9.1%：手机 g＝0 → 11.0 倍；AIoT 用情景值 g＝3%、新增投资回报率 20% → 13.9 倍；互联网 g＝3%、新增投资回报率 50% → 15.4 倍。三块合计约 15.6 倍。'
                   '悲观（r＝10.5%）：手机 9.5、AIoT 9.7、互联网 10.6 倍；乐观（r＝8.1%）：12.3、18.7、22.8 倍。',
@@ -751,43 +743,43 @@ JUDGMENTS = [
          change_threshold='增长或回报率的长期证据变化。', no_change_condition='市场估值情绪。',
          counter_evidence='卖方倍数用的是经调整利润（不扣股权激励、含投资收益），与本模型口径不同。互联网的高倍数依赖月活继续增长；手机的亏损若随规模增长（g＝3%），每股约 −0.34 元。',
          facts=[F_GS, F_SW, F_NET, F_SHIP_HIST], theses=['T1', 'T9']),
-    dict(code='J-SUB', title='政府补助按常态部分资本化', parameter='分部估值项 C11', affected_years='全部',
+    dict(code='J-SUB', title='政府补助按常态部分资本化', parameter='分部估值项 C11',
          fact_layer='其他收入（以补贴为主）2019—2025 年 6—27 亿元，2026 年上半年 32.5 亿元。',
          judgment='常态补贴每年 15 亿元（悲观 5、乐观 25），税后×8 倍（悲观 6、乐观 10）资本化：基准约 100 亿元。不放进三块业务的经营利润率，避免和业务倍数混在一起。',
          transmission='每股约 +0.39 元（基准）。', change_threshold='补贴政策变化。', no_change_condition='单季补贴波动。',
          counter_evidence='补贴与汽车、AI 投资绑定，投资放缓时会减少。', facts=[F_OTHERINC], theses=['T5']),
-    dict(code='J-PROB', title='情景概率 25% / 50% / 25%', parameter='情景·情景概率', affected_years='全部',
+    dict(code='J-PROB', title='情景概率 25% / 50% / 25%', parameter='情景·情景概率',
          fact_layer='三个情景分别对应：存储周期拖长、IoT 结构升级回落、汽车停在 60 万辆（悲观）；周期正常、IoT 保住结构升级、汽车 90 万辆（基准）；手机高端化成功、IoT 出海放量、汽车 130 万辆（乐观）。AI 三个情景都按 1,000 亿元。',
          judgment='对称分布：悲观 25%、基准 50%、乐观 25%。概率加权价值只是参考，关注价仍按基准情景。',
          transmission='把悲观概率从 25% 调到 35%（基准降到 40%），加权价值约 −1.35 元（30.18 → 28.82 元）。',
          change_threshold='季度数据明显偏向某个情景。', no_change_condition='—',
          counter_evidence='分布未必对称：汽车与 AI 的结果更像“要么成、要么不成”；AI 在三个情景里取同一个值，概率加权没有反映 AI 的不确定性。', facts=[F_EV_EXP, F_MEM_MGMT], theses=['T9']),
-    dict(code='J-PAYOUT', title='股东回报率（股息贴现交叉验证用）', parameter='逐年假设·派息率（＝回购÷归母净利）', affected_years='2026—2035',
+    dict(code='J-PAYOUT', title='股东回报率（股息贴现交叉验证用）', parameter='逐年假设·派息率（＝回购÷归母净利）',
          fact_layer='2025 年回购 61.7 亿元（归母 416.4 亿元，约 15%）；2026 年至 10 月 12 日 125 亿港元（约 106 亿元）；不派股息。',
          judgment='2026 年 77%（全年回购约 128 亿元÷预测归母约 166 亿元），2027—2030 年 50%，2031 年起 60%。',
          transmission='只影响股息贴现（交叉验证），不影响分部估值。', change_threshold='公司公布回购比例或股息政策。', no_change_condition='单月回购节奏。',
          counter_evidence='若用回购把现金长期返还，股息贴现会接近分部估值；若停止回购，少数股东拿到的现金会很少。',
          facts=[F_BB, F_BB25], theses=['T8']),
-    dict(code='J-OTHER', title='逐年假设里的利息收入、补贴与投资收益', parameter='逐年假设·其他净贡献', affected_years='2026—2035',
+    dict(code='J-OTHER', title='逐年假设里的利息收入、补贴与投资收益', parameter='逐年假设·其他净贡献',
          fact_layer='利息收入 2025 年 53.8 亿元、2026 年上半年 25.7 亿元；补贴 2026 年上半年 32.5 亿元；投资公允价值收益波动大（2025 年 133 亿元）。',
          judgment='其他净贡献＝利息收入（2026 年 50 → 2029 年起 40 亿元）＋补贴（2026 年 47、之后 15 亿元）。不预测投资公允价值收益（分部估值里投资单列），所以预测的归母净利低于报表口径。',
          transmission='只影响股息贴现与预测计算；分部估值不读预测计算。', change_threshold='利率或现金规模大幅变化。', no_change_condition='—',
          counter_evidence='—', facts=[F_OTHERINC, F_FV], theses=['T5']),
-    dict(code='J-FX', title='港元兑人民币', parameter='公司·股价汇率指标', affected_years='市场价对比',
+    dict(code='J-FX', title='港元兑人民币', parameter='公司·股价汇率指标',
          fact_layer='近一年港元兑人民币从 0.9163 降到 0.8515（人民币升值约 7%）。',
          judgment='估值用人民币；市场价按股价日汇率折算，驾驶舱同时给出港元价值。', transmission='汇率每 ±1%，人民币市场价 ±1%，不改经营假设。',
          change_threshold='—', no_change_condition='—', counter_evidence='—', facts=[F_PRICE], theses=['T9']),
-    dict(code='J-IND', title='印度冻结资金与潜在罚款', parameter='分部估值项 C7', affected_years='资产负债日',
+    dict(code='J-IND', title='印度冻结资金与潜在罚款', parameter='分部估值项 C7',
          fact_layer='约 35.36 亿元资金受限，案件在听证阶段，公司未计提重大拨备。',
          judgment='基准、悲观从现金里扣除 35.36 亿元（视为不可用），乐观不扣。罚款风险不单独计价。',
          transmission='每股约 −0.14 元。', change_threshold='判决或和解。', no_change_condition='程序性进展。',
          counter_evidence='若败诉，损失可能超过冻结金额。', facts=[F_INDIA], theses=['T5']),
-    dict(code='J-REPAT', title='资金汇出成本（估算）', parameter='分部估值项 C6', affected_years='资产负债日',
+    dict(code='J-REPAT', title='资金汇出成本（估算）', parameter='分部估值项 C6',
          fact_layer='公司在境外有配售所得（2025 年约 425 亿港元）、美元债和海外业务利润，回购用港元支付；年报未找到中国附属公司未分派利润的预扣税附注。',
          judgment='基准扣 30 亿元（约 600 亿元境内资金按 5% 协定税率汇出），悲观 70 亿元，乐观 0。待读年报附注后更新。',
          transmission='每 10 亿元约 0.04 元/股。', change_threshold='取得未分派利润与预扣税的披露。', no_change_condition='—',
          counter_evidence='境外现金足够回购时，汇出成本可能接近 0。', facts=[F_CASH, F_BB25], theses=['T5']),
-    dict(code='J-MAU', title='逐年假设：月活×每月活用户年收入', parameter='逐年假设·业务量、单价', affected_years='2026—2035',
+    dict(code='J-MAU', title='逐年假设：月活×每月活用户年收入', parameter='逐年假设·业务量、单价',
          fact_layer='月活 2025 年末 7.541 亿、2026 年 6 月 7.665 亿；集团收入÷年末月活 2024 年 521 元、2025 年 606 元。',
          judgment='业务量＝年末全球月活：2026 年 7.75 亿，之后每年约 +2.5%（2030 年 8.55 亿），再 +2%。单价＝集团收入÷月活（汽车与 AI 收入也摊到每个用户上，反映“人车家”的单用户收入）。'
                   '收入、成本由分部假设汇总：手机＋AIoT＋互联网＋汽车（不含 AI）−AI 成本。',
@@ -800,7 +792,7 @@ def judgments():
     rows = []
     for j in JUDGMENTS:
         rows.append(dict(company_id=Raw(CO), code=j['code'], title=j['title'], fact_layer=j['fact_layer'], judgment=j['judgment'],
-                         transmission=j['transmission'], parameter=j['parameter'], affected_years=j['affected_years'],
+                         transmission=j['transmission'], parameter=j['parameter'],
                          change_threshold=j['change_threshold'], no_change_condition=j['no_change_condition'],
                          counter_evidence=j['counter_evidence'], status='已形成建议'))
     ins('judgment', rows)
@@ -1345,50 +1337,8 @@ def ev_interim(s):
     return round(at + v['netcapex'] + (revs[-1] - rev26) * v['wc'], 2)
 
 
-def scen(name):
-    return Raw(f"(SELECT id FROM vi_scenario_base WHERE model_id = {MODEL} AND name = {lit(name)})")
 
 
-def segments():
-    rows = []
-    for s, *_ in SCEN:
-        for k, (code, name, stage, year) in LINE_META.items():
-            d = LINES[s][k]
-            rev, gm, ox = d['norm']
-            gr = LINE_GR[k][s]
-            parts = '；'.join(f"{lab} {p[0]:,} 亿元×(毛利率 {p[1] * 100:.1f}%−费用率 {p[2] * 100:.1f}%)" for lab, p in
-                             [('2026 年下半年', d['h2'])] + ([('2027 年', d['y27'])] if 'y27' in d else []))
-            mult_txt = ('倍数＝1÷r（规模不再扩张，按永续年金计）' if k == 'phone' else
-                        f'倍数按永续增长 {gr[0] * 100:.1f}%、新增投资回报率 {gr[1] * 100:.0f}% 由公式推导' if gr else '倍数按情景的永续增长与新增投资回报率由公式推导')
-            rows.append(dict(code=code, scenario=s, name=name, method='盈利×倍数', stage=stage, earn_year=year,
-                             revenue=rev, op_margin=line_margin(s, k), tax_rate=TAX, multiple=None,
-                             ronic=gr[1] if gr else None, growth=gr[0] if gr else None, discount_rate=None,
-                             interim_cash=line_interim(s, k), commit_amount=None, commit_years=None, ongoing_cost=None, direct_value=None,
-                             basis=f"{year} 年为正常化年份：收入 {rev:,} 亿元，毛利率 {gm * 100:.1f}%（公司披露口径），减去按收入分摊的营业费用率 {ox * 100:.1f}%，"
-                                   f"经营利润率 {(gm - ox) * 100:.1f}%，×(1−17%)；{mult_txt}。期间现金流（税后）：{parts}，合计 {line_interim(s, k)} 亿元。"))
-        v = EV[s]
-        vol, asp, oth, mg = v['steady']
-        path = '；'.join(f"{y} 年 {p[0]} 万辆×{p[1]} 万元、{p[3] * 100:.1f}%" for y, p in zip(['2026 下半年', '2027', '2028', '2029'], v['path']))
-        rows.append(dict(code='S4', scenario=s, name='智能电动汽车（不含 AI 等新业务）', method='稳态折现', stage='成长·规模爬坡', earn_year=2030,
-                         revenue=round(ev_rev(vol, asp, oth), 2), op_margin=mg, tax_rate=TAX, multiple=v['mult'], ronic=None, growth=None, discount_rate=v['r'],
-                         interim_cash=ev_interim(s), commit_amount=None, commit_years=None, ongoing_cost=None, direct_value=None,
-                         basis=f"2030 年稳态：{vol} 万辆×ASP {asp} 万元×(1＋其他收入 {oth * 100:.0f}%)＝{ev_rev(vol, asp, oth):,.0f} 亿元，经营利润率 {mg * 100:.1f}%（不含 AI），退出倍数 {v['mult']} 倍，"
-                               f"折现率 {v['r'] * 100:.1f}%（含执行风险）。期间现金流＝税后经营利润（{path}）＋净资本开支 {v['netcapex']} 亿元＋营运资本释放（收入增量×{v['wc'] * 100:.0f}%）＝{ev_interim(s)} 亿元。"))
-        rows.append(dict(code='S5', scenario=s, name='AI：大模型、芯片与机器人等新业务', method='直接估值', stage='投入期', earn_year=None,
-                         revenue=None, op_margin=None, tax_rate=None, multiple=None, ronic=None, growth=None, discount_rate=None,
-                         interim_cash=None, commit_amount=None, commit_years=None, ongoing_cost=None, direct_value=AI_VALUE[s],
-                         basis=f"主观判断：AI 业务整体估值 {AI_VALUE[s]:,.0f} 亿元（约 140 亿美元），三个情景相同。参照国内大模型公司 2026 年的估值："
-                               "MiniMax 约 116 亿美元、阶跃星辰约 120 亿美元、月之暗面约 350 亿美元、智谱约 431 亿美元、DeepSeek 约 775 亿美元（第三方报道，待核验）。"
-                               "按可比公司的口径，这个价值已经包含 AI 业务未来的投入与回报，所以不再单独扣除 AI 的投入成本。"
-                               "需要注意：可比公司的市值里有它们自己账上的现金，小米 AI 的投入则由集团现金承担；若严格扣除，约相当于剩余承诺投入的税后现值约 330 亿元。"))
-    ins('sotp_segment', [dict(model_id=Raw(MODEL), scenario_id=scen(r.pop('scenario')), **r) for r in rows])
-    pairs = [('S1', f) for f in [F_LINE_HIST, F_OPEX_HIST, F_H1_LINES, F_MEM, F_PHONE]] + [('S2', f) for f in [F_LINE_HIST, F_OPEX_HIST, F_H1_LINES, F_IOT25]] + \
-            [('S3', f) for f in [F_LINE_HIST, F_NET, F_AD, F_MAU_HIST]] + [('S4', f) for f in [F_EV25, F_EV_EXP, F_EV_PROFIT, F_PEER_EV]] + \
-            [('S5', f) for f in [F_AI, F_MIMO, F_ZHIPU, F_MINIMAX, F_KIMI, F_STEP, F_DS, F_AI_PS]]
-    OUT.append(f"""INSERT INTO vi_lnk_sotp_segment_facts (sotp_segment_id, fact_id, "createdAt", "updatedAt")
-SELECT DISTINCT x.id, y.id, now(), now() FROM (VALUES {', '.join(f'({lit(a)}, {lit(b)})' for a, b in pairs)}) v(code, ft)
-JOIN vi_sotp_segment_base x ON x.model_id = {MODEL} AND x.code = v.code
-JOIN vi_fact_base y ON y.company_id = {CO} AND y.title = v.ft;""")
 
 
 SOTP_ITEMS = [
@@ -1418,15 +1368,6 @@ SOTP_ITEMS = [
 ]
 
 
-def sotp_items():
-    ins('sotp_item', [dict(model_id=Raw(MODEL), scenario_id=scen(i[1]) if i[1] else None, code=i[0], name=i[2], kind=i[3], amount=i[4],
-                           haircut=i[5], as_of=AS_OF, basis=i[6]) for i in SOTP_ITEMS])
-    pairs = [(i[0], i[1], f) for i in SOTP_ITEMS for f in i[7]]
-    OUT.append(f"""INSERT INTO vi_lnk_sotp_item_facts (sotp_item_id, fact_id, "createdAt", "updatedAt")
-SELECT x.id, y.id, now(), now() FROM (VALUES {', '.join(f'({lit(a)}, {lit(b or "")}, {lit(c)})' for a, b, c in pairs)}) v(code, sname, ft)
-JOIN vi_sotp_item_base x ON x.model_id = {MODEL} AND x.code = v.code
-  AND coalesce((SELECT name FROM vi_scenario_base WHERE id = x.scenario_id), '') = v.sname
-JOIN vi_fact_base y ON y.company_id = {CO} AND y.title = v.ft;""")
 
 
 # 逐年假设（基准情景）：由上面的分部假设汇总成集团口径。收入＝生态＋汽车（含 AI 收入）；利润总额＝生态经营利润＋汽车本身经营利润−AI 成本＋其他净贡献−利息
@@ -1434,40 +1375,8 @@ YEARS = list(range(2026, 2036))
 MAU = dict(zip(YEARS, [7.75, 7.95, 8.15, 8.35, 8.55, 8.72, 8.89, 9.07, 9.25, 9.44]))
 
 
-def line_path(s, k):
-    """某情景一块业务 2026—2035 年的收入与经营利润（亿元）：2026 年＝上半年实际＋下半年假设；正常化年份起按该块的永续增长率增长。"""
-    d, year, gr = LINES[s][k], LINE_META[k][3], LINE_GR[k][s]
-    g = gr[0] if gr else dict(SCEN_G)[s]
-    rev, op = {2026: H1_LINES[k][0] + d['h2'][0]}, {2026: H1_LINES[k][1] + d['h2'][0] * (d['h2'][1] - d['h2'][2])}
-    if 'y27' in d:
-        rev[2027], op[2027] = d['y27'][0], d['y27'][0] * (d['y27'][1] - d['y27'][2])
-    nr, ngm, nox = d['norm']
-    for y in YEARS:
-        if y >= year:
-            rev[y] = nr * (1 + g) ** (y - year)
-            op[y] = rev[y] * (ngm - nox)
-    return rev, op
 
 
-def base_paths(s='基准'):
-    """返回某情景 2026—2035 年的生态（三块合计）收入/经营利润、汽车收入/利润、AI 成本（亿元）。"""
-    v, lp = EV[s], [line_path(s, k) for k in LINE_META]
-    eco_rev = {y: sum(r[y] for r, o in lp) for y in YEARS}
-    eco_op = {y: sum(o[y] for r, o in lp) for y in YEARS}
-    ev_r, ev_o = {}, {}
-    revs = [ev_rev(*p[:3]) for p in v['path']]
-    ev_r[2026], ev_o[2026] = EV_H1[0] + revs[0], EV_H1[1] + AI_H1 + revs[0] * v['path'][0][3]
-    for y, r, p in zip([2027, 2028, 2029], revs[1:], v['path'][1:]):
-        ev_r[y], ev_o[y] = r, r * p[3]
-    vol, asp, oth, mg = v['steady']
-    for y in YEARS[4:]:
-        growth = 1.04 ** min(y - 2030, 2) * 1.03 ** max(0, y - 2032)
-        ev_r[y] = ev_rev(vol, asp, oth) * growth
-        ev_o[y] = ev_r[y] * mg
-    ai = {2026: AI_H1 + AI_PLAN[2026], 2027: AI_PLAN[2027], 2028: AI_PLAN[2028]}
-    for y in YEARS[3:]:
-        ai[y] = AI_ONGOING * (1 + AI_G) ** (y - 2029)
-    return eco_rev, eco_op, ev_r, ev_o, ai
 
 
 SCEN_G = [(s[0], s[4]) for s in SCEN]
@@ -1489,79 +1398,6 @@ YEAR_NOTE = {
 }
 
 
-def model():
-    REV_NOTE = {y: sum(base_paths('基准')[i][y] for i in (0, 2)) for y in (2026, 2028, 2030)}
-    OUT.append(f"""INSERT INTO vi_model_base (company_id, name, status, method, base_year, terminal_year, shares, rf, rf_date, rf_metric_id, erp,
-  opening_debt, opening_op_assets, opening_lt_invest, opening_equity, opening_minority, required_return, margin_low, margin_high, notes,
-  primary_method, sotp_year, sotp_core_adj, sotp_as_of)
-VALUES ({CO}, {lit(MODEL_NAME)}, '当前',
-  '主估值：经营分部估值——手机、AIoT、互联网服务分开，各按正常化盈利×倍数（营业费用按收入分摊）；智能汽车按 2030 年稳态盈利×退出倍数折回 2026-06-30；AI 等新业务按主观判断直接估值 1,000 亿元（参照国内大模型公司）；'
-  '再加现金、借款、经营所需现金、对外投资等非经营部分（见“经营分部估值”“分部估值项”）。交叉验证：股东回报折现，“股息”＝回购（小米不派现金股息），FCFE 约束，AI 只计成本。'
-  '收入＝全球月活×每月活用户年收入。估值用人民币，港股股价按港元兑人民币折算。',
-  2025, 2035, {SHARES}, 0.0164, '2026-10-22', (SELECT id FROM vi_metric_base WHERE code = 'CGB10Y.CCDC'), 0.075,
-  361.24, 495.76, 655.87, 2662.19, 1.05, 0.06, 0.10, NULL,
-  {lit('分部估值统一截至 2026-06-30（现金、借款、投资、股本同日）。正常化（手机、AIoT 2028 年，互联网 2027 年）：手机 1,850 亿元×(毛利率 11.8%−费用率 14.0%)、'
-       'AIoT 1,300 亿元×(20.0%−14.0%)、互联网 385 亿元×(76.5%−14.0%)，倍数 11.0、13.9、15.4 倍；汽车 2030 年稳态 90 万辆、7%、10 倍、折现率 11%；AI 直接估值 1,000 亿元；情景概率 25%/50%/25%。'
-       f'逐年假设（股东回报折现用）由同一套分部参数汇总：2026 年收入约 {REV_NOTE[2026]:,.0f} 亿元，2028 年约 {REV_NOTE[2028]:,.0f} 亿元，2030 年约 {REV_NOTE[2030]:,.0f} 亿元；'
-       'AI 成本只在这里扣除（2026 年下半年 83、2027 年 200、2028 年 230 亿元，之后每年 80 亿元）；派息率＝回购率 2026 年 77%、2027—2030 年 50%、之后 60%。'
-       '期初资产负债取 2025 年末：经营性长期资产 495.76＝物业厂房及设备 279.50＋无形资产 83.19＋使用权资产 133.07；长期投资 655.87＝权益法 62.68＋长期公允价值投资（不含理财）593.19；'
-       '归母权益 2,662.19；少数股东权益 1.05；带息负债 361.24（借款，不含租赁）。风险溢价 7.5%。安全边际两档并列 10%/30%。')},
-  '分部加总', NULL, NULL, {lit(AS_OF)})
-;""")
-    paths = {s[0]: base_paths(s[0]) for s in SCEN}
-
-    def year_vals(s, y):
-        er, eo, vr, vo, ai = paths[s]
-        rev = er[y] + vr[y]
-        return rev, rev - (eo[y] + vo[y] - ai[y] + DA[y])
-    b_rev, b_cost = year_vals('基准', 2030)
-    rows = []
-    for name, is_base, sort, r, g, ronic, p, nature, desc in SCEN:
-        rev, cost = year_vals(name, 2030)
-        rows.append(dict(model_id=Raw(MODEL), name=name, is_base=is_base, sort=sort, volume_factor=1.0,
-                         price_factor=round(rev / b_rev, 4), cost_factor=round(cost / b_cost, 4), discount_rate=r, terminal_growth=g,
-                         nature=nature, description=desc + ' 股东回报折现用的情景系数按 2030 年集团收入与付现成本相对基准的比例设定。',
-                         ronic=ronic, sotp_multiple=None, probability=p))
-    ins('scenario', rows)
-    sotp_items()
-    segments()
-    er, eo, vr, vo, ai = paths['基准']
-    out, prev_rev = [], 4572.87
-    for y in YEARS:
-        rev = er[y] + vr[y]
-        cash_cost = rev - (eo[y] + vo[y] - ai[y] + DA[y])
-        out.append(dict(model_id=Raw(MODEL), year=y, volume=MAU[y], price=round(rev / MAU[y], 2), cash_cost=round(cash_cost, 2),
-                        depreciation=DA[y], other_contrib=OTHER[y], tax_rate=TAX, minority_share=0.0, payout=PAYOUT[y],
-                        net_borrowing=NB[y], cost_of_debt=COD, noncash_gain_deduct=0.0, investee_cash_div=3.0, other_cash_adj=0.0,
-                        wc_increase=round(-0.05 * (rev - prev_rev), 2), maint_capex=round(DA[y] * 0.9, 1), growth_capex=GROWTH_CAPEX[y], min_cash_topup=0.0,
-                        operating_status='建议值待核验', cash_status='建议值待核验',
-                        note=(f'集团收入约 {rev:,.0f} 亿元＝生态（手机＋AIoT＋互联网）{er[y]:,.0f}＋汽车及 AI {vr[y]:,.0f}；经营利润：生态 {eo[y]:,.1f}＋汽车本身 {vo[y]:,.1f}−AI {ai[y]:,.1f}＝{eo[y] + vo[y] - ai[y]:,.1f} 亿元。'
-                              + YEAR_NOTE.get(y, ''))))
-        prev_rev = rev
-    ins('forecast', out)
-    links = [('forecast_facts', 'forecast_id', 'fact_id', 'vi_fact_base', 'title', [F_Q226, F_ECO_OP, F_H1_LINES, F_EV_Q2, F_AI, F_BB]),
-             ('forecast_judgments', 'forecast_id', 'judgment_id', 'vi_judgment_base', 'code',
-              ['J-MAU', 'J-PHONE', 'J-AIOT', 'J-NET', 'J-OPEX', 'J-MEM', 'J-EV', 'J-EV-SPLIT', 'J-AI', 'J-OTHER', 'J-PAYOUT'])]
-    for lt, a, b, tbl, key, keys in links:
-        OUT.append(f"""INSERT INTO vi_lnk_{lt} ({a}, {b}, "createdAt", "updatedAt")
-SELECT f.id, x.id, now(), now() FROM vi_forecast_base f JOIN {tbl} x ON x.company_id = {CO} AND x.{key} IN ({', '.join(lit(k) for k in keys)})
-WHERE f.model_id = {MODEL};""")
-    eco_avg = sum(er[y] for y in YEARS[1:]) / len(YEARS[1:])
-    phone28 = line_path('基准', 'phone')[0][2028]
-    trials = [
-        ('生态营业费用率长期 +1pt', 2027, 2035, None, None, round(0.01 * eco_avg), None, None, None, 'J-OPEX',
-         f'付现成本每年 +{0.01 * eco_avg:.0f} 亿元（2027—2035 年平均生态收入的 1%）。'),
-        ('存储涨价多持续一年：2028 年手机毛利率停在 10.5%', 2028, 2028, None, None, round(0.013 * phone28), None, None, None, 'J-MEM',
-         f'2028 年付现成本 +{0.013 * phone28:.0f} 亿元（手机收入 {phone28:,.0f} 亿元×1.3pt）。'),
-        ('AI 净成本每年多 50 亿元（2029—2035，只影响股东回报折现）', 2029, 2035, None, None, 50, None, None, None, 'J-AI',
-         '承诺期后 AI 得不到回报的部分更多；分部估值里 AI 按直接估值，不受影响。'),
-        ('要求回报上升：折现率 +1%', 2026, 2035, None, None, None, None, None, 0.01, 'J-R', '风险溢价 7.5%→8.5%。'),
-    ]
-    ins('trial', [dict(model_id=Raw(MODEL), name=t[0], start_year=t[1], end_year=t[2], volume_delta=t[3], price_delta=t[4], cost_delta=t[5],
-                       da_delta=t[6], interest_delta=t[7], rate_delta=t[8], boundary=t[10]) for t in trials])
-    OUT.append(f"""INSERT INTO vi_lnk_trial_judgments (trial_id, judgment_id, "createdAt", "updatedAt")
-SELECT t.id, j.id, now(), now() FROM (VALUES {', '.join(f'({lit(t[0])}, {lit(t[9])})' for t in trials)}) v(tn, jc)
-JOIN vi_trial_base t ON t.model_id = {MODEL} AND t.name = v.tn JOIN vi_judgment_base j ON j.company_id = {CO} AND j.code = v.jc;""")
 
 
 # ================================================================ 跟踪事项、待办清单、变更日志
@@ -1630,7 +1466,7 @@ if __name__ == '__main__':
     OUT.append(f"UPDATE vi_observation_base SET doc_id = {KLINE_DOC} WHERE doc_id IS NULL AND raw_capture_id IS NULL "
                f"AND metric_id = (SELECT price_metric_id FROM vi_company_base WHERE code = '{CODE}');")
     sources(); facts(); theses(); judgments(); business()
-    period_data(); model(); tracking()
+    period_data(); tracking()
     OUT.extend(data_layer_seed.fin_stmt_statements(CO, HERE / 'data' / 'fin_stmt.json'))   # 三大报表原值（报表计算指标读它）
     OUT.extend(data_layer_seed.statements(CO, HERE / 'data' / 'data_layer.json'))   # 关注与数据底稿补充，放最后
     from business_bridge import sql as business_bridge_sql   # 业务身份与画布（按事实标题前缀关联，须在事实改名之前）

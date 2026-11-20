@@ -5,10 +5,6 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 
 
-def kpi_code():
-    return (HERE / 'price_summary.jsx').read_text() + '\n' + (HERE / 'tencent_dashboard_kpi.jsx').read_text()
-
-
 def layout(keys):
     return [[{'key': 'kpi', 'span': 24}]] + [
         [{'key': key, 'span': 12} for key in keys[i:i + 2]]
@@ -66,40 +62,6 @@ return {
 };
 """
 
-BRIDGE = r"""const rows = ctx.data?.objects || [];
-let accumulated = 0;
-const bases = [];
-const bars = [];
-for (const row of rows) {
-  const value = row.v === null || row.v === undefined ? null : Number(row.v);
-  const total = row.part === '合计';
-  if (value === null) {
-    bases.push(null);
-    bars.push(null);
-    continue;
-  }
-  bases.push(total ? 0 : Math.min(accumulated, accumulated + value));
-  bars.push({ value: total ? value : Math.abs(value),
-    itemStyle: { color: total ? '#5470c6' : value < 0 ? '#c65555' : '#2b9d8f' } });
-  if (!total) accumulated += value;
-}
-return {
-  animation: false,
-  grid: { left: 12, right: 18, top: 30, bottom: 12, containLabel: true },
-  tooltip: { trigger: 'axis', formatter: (items) => {
-    const row = rows[items[0].dataIndex];
-    return `${row.part}<br/>${Number(row.v).toFixed(2)} 元/股`;
-  } },
-  xAxis: { type: 'category', data: rows.map((row) => row.part), axisLabel: { interval: 0, fontSize: 11 } },
-  yAxis: { type: 'value', name: '元/股', splitLine: { lineStyle: { color: '#edf0f4' } } },
-  series: [
-    { type: 'bar', stack: 'bridge', silent: true, itemStyle: { color: 'transparent' }, emphasis: { disabled: true }, data: bases },
-    { type: 'bar', stack: 'bridge', barMaxWidth: 44, data: bars,
-      label: { show: true, position: 'top', formatter: (p) => Number(rows[p.dataIndex].v).toFixed(2), fontSize: 11 } },
-  ],
-};
-"""
-
 FIT = r"""const rows = ctx.data?.objects || [];
 return {
   animation: false,
@@ -145,23 +107,8 @@ def charts(existing):
         config['visual'] = {'mode': 'custom', 'raw': raw} if raw else visual(spec)
         out.append((key, title, config))
 
-    current = ("FROM vi_sotp s JOIN vi_company_base co ON co.id=s.company_id AND co.code='01698.HK' "
-               "JOIN vi_model_base m ON m.id=s.model_id AND m.status='当前' ")
-    bridge = (
-        "SELECT CASE g.code WHEN 'S1' THEN '会员订阅' WHEN 'S2' THEN '非订阅音乐' WHEN 'S3' THEN '社交娱乐' ELSE g.name END AS part, "
-        "g.value/s.shares AS v, 10+coalesce(nullif(regexp_replace(g.code,'\\D','','g'),'')::int,0) AS ord "
-        + current + "JOIN vi_sotp_segment_val g ON g.scenario_id=s.id AND g.model_id=s.model_id WHERE s.is_base "
-        "UNION ALL SELECT x.part,x.v/s.shares,x.ord " + current +
-        "CROSS JOIN LATERAL (VALUES ('自由现金',s.usable_net_cash,30),('投资七折',s.investments,31),"
-        "('其他调整',s.minority_other,32),('合计',s.equity_value,40)) x(part,v,ord) WHERE s.is_base ORDER BY ord"
-    )
-    add('sotp_bridge', '基准每股价值桥接（人民币元）', sql=bridge, raw=BRIDGE)
-    add('sotp_grid', '成熟业务统一倍数试算（人民币元/股）',
-        {'x': '倍数', 'y': '每股价值', 'group': '系列', 'kind': 'line', 'unit': '元/股',
-         'names': ['悲观', '基准', '乐观', '市场价'], 'colors': ['#d99044', '#5470c6', '#2b9d8f', '#66758a'],
-         'note': '横轴为统一试算倍数；三条曲线保留各情景的盈利假设'},
-        sql=configs['sotp_grid']['query']['sql'].replace("AND co.code = '01698.HK' ",
-            "AND co.code = '01698.HK' JOIN vi_model_base m ON m.id=s.model_id AND m.status='当前' "))
+    add('gw_layers', '三层价值与现价（元/股，今天）',
+        {'x': '口径', 'y': '元/股', 'label': '每股', 'kind': 'bar', 'unit': '元/股', 'digits': 2})
     rev_sql = ("SELECT d.period, CASE d.line_item WHEN '会员（订阅）收入' THEN '会员订阅' "
                "WHEN '非订阅音乐收入（广告、演出、周边）' THEN '非订阅音乐' ELSE '社交娱乐' END AS 项目,d.value AS 亿元 "
                "FROM vi_disclosed d JOIN vi_company_base co ON co.id=d.company_id AND co.code='01698.HK' "

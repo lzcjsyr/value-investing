@@ -2,7 +2,7 @@
 
 数据来源（都经 akshare）：
   · A 股（长江电力、太阳纸业、中国建筑）＝新浪财报 stock_financial_report_sina，按报告期的完整三大报表，科目为报表中文原名、列序即报表行次。
-  · 港股（腾讯音乐、小米集团）＝东方财富港股报表 stock_financial_hk_report_em(indicator='报告期')，标准科目（STD_ITEM_NAME）按科目代码排序。
+  · 港股（腾讯音乐、小米集团）＝东方财富港股报表 stock_financial_hk_report_em（按报告期），标准科目（STD_ITEM_NAME）按科目代码排序。
 
 检验（check，取数后自动做，也可单独跑）：
   1. 会计恒等式：资产＝负债＋权益、各表合计与分项、利润总额−所得税＝净利润、净利润＝归母＋少数、
@@ -26,6 +26,8 @@
   python3 tools/fin_stmt.py all   [公司代码 ...]    # fetch + check + load
 """
 import datetime, json, pathlib, subprocess, sys, warnings
+
+from akshare_reports import eastmoney_report, sina_report
 
 HERE = pathlib.Path(__file__).resolve().parent
 FRAMEWORK = HERE.parent
@@ -143,7 +145,13 @@ def is_known(code, d, stmt, label):
 
 
 # ================================================================ 取数
-META_COLS = {'报告日', '公告日期', '类型', '更新日期'}   # 新浪报表的元数据列，不是科目
+META_COLS = {'报告日', '公告日期', '类型', '更新日期', '币种', '数据源', '是否审计'}   # 新浪报表的元数据列，不是科目
+
+
+def report_value(item, value):
+    if '每股' in item:
+        return dict(amount=float(value), unit='元/股')
+    return dict(amount=round(float(value) / 1e8, 6), unit='亿元')
 
 
 def fetch_a(code, cfg):
@@ -151,7 +159,7 @@ def fetch_a(code, cfg):
     import pandas as pd
     rows = []
     for stmt in STMTS:
-        df = ak.stock_financial_report_sina(stock=cfg['sina'], symbol=stmt)
+        df = sina_report(cfg['sina'], stmt)
         items = [c for c in df.columns if c not in META_COLS]
         for _, r in df.iterrows():
             d = d8(r['报告日'])
@@ -160,7 +168,7 @@ def fetch_a(code, cfg):
                 if v != v:
                     continue
                 rows.append(dict(period_end=d, period=period_label(d), stmt=stmt, item=item,
-                                 seq=seq, amount=round(float(v) / 1e8, 6)))
+                                 seq=seq, **report_value(item, v)))
     # 跨源：东方财富关键科目（同一张表按报告期取，留作核对与修复依据）
     fn = {'资产负债表': ak.stock_balance_sheet_by_report_em,
           '利润表': ak.stock_profit_sheet_by_report_em,
@@ -184,11 +192,10 @@ def fetch_a(code, cfg):
 
 
 def fetch_hk(code, cfg):
-    import akshare as ak
     import pandas as pd
     rows = []
     for stmt in STMTS:
-        df = ak.stock_financial_hk_report_em(stock=cfg['em_hk'], symbol=stmt, indicator='报告期')
+        df = eastmoney_report(cfg['em_hk'], stmt, 'HK')
         seq_of = {}
         for _, r in df.iterrows():
             seq_of.setdefault(r['STD_ITEM_CODE'], len(seq_of) + 1)
@@ -196,9 +203,9 @@ def fetch_hk(code, cfg):
             if v != v:
                 continue
             d = d8(r['REPORT_DATE'])
+            item = str(r['STD_ITEM_NAME'])
             rows.append(dict(period_end=d, period=period_label(d), stmt=stmt,
-                             item=str(r['STD_ITEM_NAME']), seq=seq_of[r['STD_ITEM_CODE']],
-                             amount=round(float(v) / 1e8, 6)))
+                             item=item, seq=seq_of[r['STD_ITEM_CODE']], **report_value(item, v)))
     return rows, {}
 
 
@@ -260,6 +267,9 @@ def apply_fixes(code, rows):
 
 def fetch(codes):
     for code in codes:
+        if code == '01698.HK':
+            print('腾讯音乐采用公司正式披露，保留本地官方财报快照。')
+            continue
         cfg = COMPANIES[code]
         print(f'取数 {cfg["name"]}（{code}）…')
         rows, cross = (fetch_a if cfg['market'] == 'A' else fetch_hk)(code, cfg)
@@ -269,8 +279,8 @@ def fetch(codes):
             print('  已修复', f)
         snap = dict(fetched_at=datetime.datetime.now().astimezone().isoformat(timespec='seconds'),
                     source=('akshare stock_financial_report_sina（主）＋ stock_*_sheet_by_report_em（跨源核对与修复）'
-                            if cfg['market'] == 'A' else 'akshare stock_financial_hk_report_em（indicator=报告期）'),
-                    unit='亿元', repaired=fixed, rows=rows, cross=cross)
+                            if cfg['market'] == 'A' else 'akshare stock_financial_hk_report_em（按报告期）'),
+                    unit='亿元（每股数据见行内单位）', repaired=fixed, rows=rows, cross=cross)
         p = company_dir(code) / 'data' / 'fin_stmt.json'
         p.parent.mkdir(exist_ok=True)
         p.write_text(json.dumps(snap, ensure_ascii=False))
@@ -278,8 +288,50 @@ def fetch(codes):
 
 
 # ================================================================ 检验
+def check_tme_official(snapshot):
+    """Verify source metadata, complete period coverage and reported totals."""
+    rows = snapshot['rows']
+    grouped = rows_by(rows)
+    failures = []
+    expected = {'2018Q4'} | {f'{y}Q{q}' for y in range(2019, 2027)
+                             for q in range(1, 4 if y == 2026 else 5)}
+    periods = {r['period'] for r in rows}
+    for period in expected | periods:
+        dates = {r['period_end'] for r in rows if r['period'] == period}
+        if len(dates) != 1 or not all((stmt, next(iter(dates))) in grouped for stmt in STMTS):
+            failures.append(f'{period} 缺三张报表之一，或报告日期不一致')
+    keys = {(r['stmt'], r['period_end'], r['item']) for r in rows}
+    if len(keys) != len(rows):
+        failures.append('存在重复报表行')
+    if any(not r.get('source_url', '').startswith(('https://www.sec.gov/', 'https://ir.tencentmusic.com/'))
+           or not r.get('source_item') or r.get('currency') != 'CNY' or not r.get('unit') for r in rows):
+        failures.append('存在缺官方出处、原科目或单位的行')
+    identities = {
+        '资产负债表': [('总资产', ('总负债', '总权益')), ('总资产', ('非流动资产合计', '流动资产合计'))],
+        '利润表': [('毛利', ('营业收入', '营业成本')), ('净利润', ('税前利润', '所得税费用')),
+                ('净利润', ('归属于母公司股东的净利润', '非控股权益应占净利润'))],
+        '现金流量表': [('现金及现金等价物净变动', ('经营活动现金流量净额', '投资活动现金流量净额', '融资活动现金流量净额')),
+                  ('期末现金及现金等价物', ('期初现金及现金等价物', '现金及现金等价物净变动', '汇率变动对现金及现金等价物的影响'))],
+    }
+    for (stmt, date), amounts in grouped.items():
+        for total, parts in identities[stmt]:
+            if not all(k in amounts for k in (total, *parts)) or abs(amounts[total] - sum(amounts[k] for k in parts)) > 0.0101:
+                failures.append(f'{date} {stmt} {total} 无法对账')
+        if stmt == '现金流量表':
+            cash = amounts.get('期末现金及现金等价物')
+            balance_cash = grouped.get(('资产负债表', date), {}).get('现金及现金等价物')
+            if cash is None or balance_cash is None or abs(cash - balance_cash) > 0.0101:
+                failures.append(f'{date} 期末现金跨表不一致')
+    for failure in failures:
+        print('  [失败]', failure)
+    print(f'腾讯音乐官方报表：{len(periods)} 期，{len(grouped)} 张，{len(rows)} 行')
+    return len(failures)
+
+
 def check_one(code, cfg):
     snap = json.loads((company_dir(code) / 'data' / 'fin_stmt.json').read_text())
+    if code == '01698.HK':
+        return check_tme_official(snap)
     rows, cross, market = snap['rows'], snap.get('cross') or {}, cfg['market']
     by = rows_by(rows)
     periods = sorted({r['period_end'] for r in rows})
@@ -355,7 +407,7 @@ def check_one(code, cfg):
         for (s, d), cell in by.items():
             for item, v in cell.items():
                 ov = old.get((s, d, item))
-                if ov is None:
+                if ov is None or '每股' in item:
                     continue
                 n += 1
                 if abs(v - ov) > CROSS_TOL:
@@ -371,19 +423,24 @@ def check_one(code, cfg):
 
 # ================================================================ 入库
 def load(codes):
+    def nullable_text(value):
+        return 'NULL' if value is None else "'" + str(value).replace("'", "''") + "'"
+
     for code in codes:
         cfg = COMPANIES[code]
         snap = json.loads((company_dir(code) / 'data' / 'fin_stmt.json').read_text())
+        if code == '01698.HK' and check_tme_official(snap):
+            raise ValueError('腾讯音乐官方报表核对未通过，未入库')
         rows = sorted(snap['rows'], key=lambda r: (STMTS.index(r['stmt']), r['period_end'], r['seq']))
         sql = ['BEGIN;',
                f"DELETE FROM vi_fin_stmt_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '{code}');"]
         for i in range(0, len(rows), 2000):
-            vals = ', '.join("('{}','{}','{}','{}',{}, {})".format(
+            vals = ', '.join("('{}','{}','{}','{}',{}, {}, {}, {})".format(
                 r['period'], r['period_end'], r['stmt'].replace("'", "''"),
-                r['item'].replace("'", "''"), r['seq'], r['amount']) for r in rows[i:i + 2000])
-            sql.append(f"""INSERT INTO vi_fin_stmt_base (company_id, period, period_end, stmt, item, seq, amount)
-SELECT co.id, v.period, v.period_end::date, v.stmt, v.item, v.seq, v.amount
-FROM (VALUES {vals}) v(period, period_end, stmt, item, seq, amount),
+                r['item'].replace("'", "''"), r['seq'], r['amount'], nullable_text(r.get('currency')), nullable_text(r.get('unit'))) for r in rows[i:i + 2000])
+            sql.append(f"""INSERT INTO vi_fin_stmt_base (company_id, period, period_end, stmt, item, seq, amount, currency, unit)
+SELECT co.id, v.period, v.period_end::date, v.stmt, v.item, v.seq, v.amount, v.currency, v.unit
+FROM (VALUES {vals}) v(period, period_end, stmt, item, seq, amount, currency, unit),
      vi_company_base co WHERE co.code = '{code}';""")
         sql.append('COMMIT;')
         path = ROOT / 'framework' / 'sql' / f'.fin_stmt_{code.split(".")[0]}.sql'

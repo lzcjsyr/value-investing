@@ -15,7 +15,7 @@ T = spec.all_tables() | {r['code']: r for r in spec.REPORTS}
 REPORT_CODES = {r['code'] for r in spec.REPORTS}
 
 # 菜单按公司分列：每家公司一个顶层菜单（驾驶舱在最上面，下面四个二级分组），只显示这家公司的数据；
-# 财务模型是可视化页，由 build_finmodel.py 生成，放在“预测与估值”组内第一页（sort_menu 负责排序）。
+# 预测与估值：Greenwald 五个页面由 build_greenwald.py 生成（VALUATION_PAGES），表格页只有假设依据。
 # 跨公司共用的内容（使用说明、公司、指标、自动采集）放在“框架与后台”。
 COMPANY_MENU = [  # (二级分组, 图标, [(code, 页面标题)])
     # 商业模式：纯分析（每个观点只写一处）
@@ -23,10 +23,8 @@ COMPANY_MENU = [  # (二级分组, 图标, [(code, 页面标题)])
                                    ('moat', '竞争壁垒'), ('risk', '风险分析'), ('fit_score', '价投适配度'), ('thesis', '核心论点')]),
     # 经营与财务：财务报表（定制页 build_finstmt.py，不在此生成）、定量指标（这家公司的全部指标）、定性事实（文字）、来源文档（出处，垫底）
     ('经营与财务', 'DatabaseOutlined', [('observation', '定量指标'), ('fact', '定性事实')]),
-    # 预测与估值：财务模型（可视化总览）在最前；表格页先看假设依据（每个参数为什么这么设），再看结论与模型
-    ('预测与估值', 'CalculatorOutlined', [('judgment', '假设依据'), ('valuation', '估值结论'), ('sotp', '分部加总估值'), ('sotp_segment', '经营分部估值'), ('sotp_item', '资产估值与调整'), ('model', '估值模型'), ('scenario', '情景'), ('forecast', '逐年假设'),
-                                   ('projection', '预测计算'), ('balance', '资产与资本'), ('sensitivity', '敏感性：折现率×永续增长'),
-                                   ('trial', '单参数试验')]),
+    # 预测与估值：Greenwald 五个页面（build_greenwald.py，按「估值地基」的分层）＋假设依据
+    ('预测与估值', 'CalculatorOutlined', [('judgment', '假设依据')]),
     # 研究维护：维护这套研究本身（模型与数据检查、待办、改动记录），不是对公司的分析
     ('研究维护', 'ToolOutlined', [('source', '来源文档'), ('check', '质量自检'), ('issue', '待办清单'), ('change_log', '变更日志')]),
 ]
@@ -34,20 +32,10 @@ COMPANY_MENU = [  # (二级分组, 图标, [(code, 页面标题)])
 MACRO = ('宏观数据', 'GlobalOutlined', [('metric', '指标'), ('observation', '高频数据'), ('collector', '采集配置')])
 MACRO_SCOPE = {'metric': 'scope', 'observation': 'metric.scope', 'collector': 'metric.scope'}   # 归属＝宏观
 REPLACED_BY_CHAINMAP = ('value_chain', 'competitor')   # 有可视化产业链页面（build_chainmap.py）的公司不再单独生成这两个表格页
-# 有定制估值页（build_valuation.py）的公司，“预测与估值”组＝财务模型、估值模型、假设依据三页（2026-11-05 起五家一致，对标腾讯音乐）：
-#   逐年假设是「财务模型」的编辑标签；估值模型参数与情景是「估值模型」页（页面键仍是 val）的标签（align_companies.finance）；
-#   skip 里的页面不单独生成：用不到的估值方法、已被定制页取代的只读报表与财务模型、已并入上述两页的表格
-DRAFTS = '模型底稿'      # 已取消的子组名（2026-11-05 前录入页收在这里）；仍用于菜单排序时识别旧子组
-REPLACED_BY_CUSTOM = ('finmodel', 'valuation', 'projection', 'balance', 'sensitivity', 'trial')
-MERGED_INTO_PAGES = ('forecast', 'scenario', 'model')
-CUSTOM_VALUATION = {'600900.SH': {'skip': ('sotp', 'sotp_segment', 'sotp_item') + REPLACED_BY_CUSTOM + MERGED_INTO_PAGES}}
-for _code in ('002078.SZ', '601668.SH', '01698.HK', '01810.HK'):
-    CUSTOM_VALUATION[_code] = {'skip': ('sotp', 'sotp_segment', 'sotp_item') + REPLACED_BY_CUSTOM + MERGED_INTO_PAGES}
-# 只用分部加总三块的公司（2026-10-28 起腾讯音乐）：没有逐年预测，财务模型是券商研报式财务预测（vi_fin_forecast），
-# 估值模型总览用分部加总专用脚本（build_valuation.VALMODEL_JS）
-SOTP_ONLY = {'01698.HK'}
+# 「预测与估值」组里由 build_greenwald.py 生成的页面（标题即菜单顺序）
+VALUATION_PAGES = ['① 资产价值', '② 盈利能力', '③ 增长价值', '④ 独立资产', '⑤ 股权价值']
 SHARED = '框架与后台'
-SHARED_MENU = [('company', '公司')]                      # 直接放在“框架与后台”下；指标在各公司「经营与财务」和「宏观数据」里
+SHARED_MENU = [('setting', '统一设置'), ('company', '公司')]   # 统一设置：全部公司共用的门槛（2026-11-11）                      # 直接放在“框架与后台”下；指标在各公司「经营与财务」和「宏观数据」里
 SHARED_SUB = ('采集', 'CloudDownloadOutlined',
               [('collector', '采集配置'), ('collect_run', '采集运行'), ('raw_capture', '原始采集记录'), ('observation', '数据（全部指标）')])
 COMPANY_ICON = {'600900.SH': 'ThunderboltOutlined', '002078.SZ': 'FileTextOutlined', '601668.SH': 'BuildOutlined',
@@ -55,22 +43,20 @@ COMPANY_ICON = {'600900.SH': 'ThunderboltOutlined', '002078.SZ': 'FileTextOutlin
 # 每张表按哪个字段过滤到“这家公司”（关联路径的末端都是整数字段，用 $eq）
 SCOPE = {'thesis': 'company_id', 'event': 'company_id', 'fact': 'company_id', 'source': 'company_id', 'judgment': 'company_id',
          'business': 'company_id', 'biz_model': 'company_id', 'value_chain': 'company_id', 'competitor': 'company_id', 'moat': 'company_id',
-         'fit_score': 'company_id', 'risk': 'company_id', 'sotp_item': 'model.company_id', 'sotp_segment': 'model.company_id', 'sotp': 'company_id',
+         'fit_score': 'company_id', 'risk': 'company_id',
          'observation': 'metric.company_id',
-         'model': 'company_id', 'scenario': 'model.company_id', 'forecast': 'model.company_id', 'assumption': 'model.company_id', 'line': 'business.company_id', 'fin_forecast': 'model.company_id', 'trial': 'model.company_id',
+         'bs_item': 'company_id', 'epv': 'company_id', 'growth': 'company_id',
          'issue': 'company_id', 'change_log': 'company_id',
-         'projection': 'company_id', 'balance': 'company_id', 'valuation': 'company_id', 'sensitivity': 'company_id', 'check': 'company_id'}
+         'check': 'company_id'}
 
 COLUMNS = {
+    'setting': ['name', 'hurdle', 'note'],
     'company': ['code', 'name', 'industry', 'volume_label', 'volume_unit', 'price_label', 'latest_price', 'latest_price_raw', 'latest_fx', 'latest_price_date'],
     'thesis': ['code', 'title', 'category', 'status', 'confidence', 'verdict', 'mind_changer', 'check_result', 'debated_on'],
     'source': ['title', 'source_type', 'publish_date', 'reliability', 'verify_status', 'url'],
     'event': ['name', 'status', 'period', 'fact_count', 'latest_as_of', 'category', 'summary'],
     'fact': ['event', 'title', 'category', 'period', 'as_of', 'verify_status', 'source'],
     'judgment': ['code', 'title', 'parameter', 'status', 'theses', 'facts'],
-    'business': ['code', 'name', 'kind', 'capital_basis', 'driver1_label', 'driver2_label', 'driver3_label', 'driver_scale', 'boundary', 'asset_boundary'],
-    'assumption': ['business', 'line', 'scenario', 'parameter', 'from_year', 'to_year', 'value', 'judgment', 'note'],
-    'line': ['business', 'code', 'name', 'kind', 'basis', 'base_line', 'driver1_label', 'driver2_label', 'driver3_label', 'driver_scale', 'note'],
     'biz_model': ['business', 'code', 'element', 'title', 'metric', 'trend'],
     'value_chain': ['code', 'position', 'participant', 'force', 'power', 'effect', 'trend', 'profit_share'],
     'competitor': ['name', 'relation', 'segment', 'scale_label', 'scale_value', 'scale_unit', 'paying_rate', 'gross_margin', 'growth',
@@ -78,45 +64,28 @@ COLUMNS = {
     'moat': ['code', 'title', 'moat_type', 'verdict', 'strength', 'trend', 'check_result', 'debate_count', 'debate_winner'],
     'fit_score': ['dimension', 'score', 'rationale', 'theses'],
     'risk': ['code', 'title', 'category', 'probability', 'impact', 'level', 'treatment', 'status', 'thesis_verdicts'],
-    'sotp_item': ['code', 'scenario', 'name', 'kind', 'treatment', 'business', 'valuation_method', 'metric', 'amount', 'amount_used', 'haircut', 'signed_value', 'as_of'],
-    'sotp_segment': ['business', 'code', 'scenario', 'name', 'method', 'stage', 'earn_year', 'revenue', 'op_margin', 'multiple_used', 'eff_rate',
-                     'interim_cash', 'commit_amount', 'ongoing_cost', 'direct_value', 'value', 'calc_scenario'],
-    'sotp': ['scenario_name', 'probability', 'core_earnings', 'multiple', 'core_value', 'segments_value', 'usable_net_cash', 'investments', 'minority_other',
-             'value_per_share', 'value_per_share_quote', 'market_price', 'price_vs_value', 'implied_core_multiple', 'implied_mature_multiple',
-             'implied_growth_value', 'weighted_value', 'ddm_value', 'conclusion'],
     'metric': ['name', 'category', 'measure', 'unit', 'basis', 'latest_value', 'latest_period', 'state', 'tracked_by', 'source_kind', 'formula', 'source_name'],
     # 经营与财务 / 定量指标：每个指标一行，“趋势”小折线由 trend_column.py 补在指标名称后面；逐期数据在指标详情里看和录入；
     # “模型字段”“重点跟踪”说明这个数被财务模型、假设依据或风险用到
     'metric_series': ['name', 'measure', 'basis', 'latest_period', 'latest_value', 'unit', 'obs_count', 'state', 'model_field', 'tracked_by',
                       'source_kind', 'source_name'],
     'observation': ['metric', 'obs_date', 'value', 'unit', 'is_current', 'is_valid', 'collected_at', 'doc', 'raw_capture'],
-    'model': ['name', 'status', 'primary_method', 'required_return', 'base_year', 'terminal_year', 'shares', 'rf', 'erp', 'base_discount_rate',
-              'sotp_year', 'valuation_date'],
-    'scenario': ['name', 'is_base', 'probability', 'volume_factor', 'price_factor', 'cost_factor', 'eff_discount_rate', 'terminal_growth', 'ronic',
-                 'sotp_multiple', 'description'],
-    'forecast': ['year', 'volume', 'price', 'revenue', 'cash_cost', 'depreciation', 'interest', 'other_contrib', 'tax_rate', 'payout',
-                 'net_borrowing', 'cost_of_debt', 'maint_capex', 'growth_capex', 'operating_status', 'cash_status'],
-    'fin_forecast': ['year', 'sub_rev', 'nonsub_rev', 'social_rev', 'revenue', 'gross_margin', 'selling_ratio', 'admin_ratio', 'core_op',
-                     'other_income', 'finance_cost', 'np_parent', 'adj_np', 'cfo_ratio', 'capex', 'shareholder_return', 'other_cash', 'note'],
-    'trial': ['name', 'start_year', 'end_year', 'base_value', 'trial_value', 'value_change', 'change_pct'],
     'issue': ['code', 'title', 'severity', 'status', 'impact', 'progress'],
     'change_log': ['change_date', 'title', 'target', 'reason', 'verification'],
     'collector': ['name', 'metric', 'parser', 'parser_param', 'enabled', 'health', 'last_collected', 'last_obs_date', 'last_result'],
     'collect_run': ['label', 'trigger_source', 'status', 'requested_at', 'seconds', 'summary'],
     'raw_capture': ['run_label', 'collector', 'collected_at', 'fetch_note', 'status', 'parsed_date', 'parsed_value', 'decision'],
-    'projection': ['scenario_name', 'year', 'revenue', 'pretax', 'np_parent', 'dividend', 'dps', 'dividend_pv', 'owner_earnings',
-                   'fcfe', 'cash_supported_div', 'funding_gap', 'debt_close'],
-    'valuation': ['scenario_name', 'market_price', 'implied_irr', 'cash_implied_irr', 'required_return', 'value_at_required',
-                  'value_today', 'price_vs_value', 'watch_low', 'watch_high', 'terminal_share', 'conclusion'],
-    'balance': ['scenario_name', 'year', 'op_assets_close', 'lt_invest_close', 'debt_close', 'equity_close', 'minority_close',
-                'other_net_assets', 'other_net_change', 'roe', 'debt_to_capital', 'interest_cover', 'debt_to_ebitda'],
-    'sensitivity': ['label', 'r', 'g', 'value_today', 'value_base_date'],
+    'business': ['code', 'name', 'capital_basis', 'boundary', 'asset_boundary'],
+    'bs_item': ['sort', 'category', 'line_item', 'name', 'book', 'haircut', 'adjustment', 'value_signed', 'judgments'],
+    'epv': ['sort', 'business', 'name', 'section', 'direction', 'formula', 'method', 'value', 'from_year', 'to_year', 'normalized', 'ratio', 'judgments', 'note'],
+    'growth': ['business', 'growth', 'ronic', 'adv_years', 'judgments', 'note'],
     'check': ['code', 'name', 'result', 'detail'],
 }
 SORT = {'observation': [('obs_date', 'desc')], 'raw_capture': [('collected_at', 'desc')], 'collect_run': [('id', 'desc')], 'change_log': [('change_date', 'desc')],
-'event': [('latest_as_of', 'desc')], 'fact': [('event_id', 'asc'), ('as_of', 'asc')], 'metric_series': [('name', 'asc')], 'fit_score': [('sort', 'asc')], 'forecast': [('year', 'asc')], 'assumption': [('business_id', 'asc'), ('line_id', 'asc'), ('parameter', 'asc'), ('scenario_id', 'asc'), ('from_year', 'asc')],
-        'line': [('business_id', 'asc'), ('sort', 'asc')],
-        'projection': [('id', 'asc')], 'sotp': [('id', 'asc')], 'sotp_item': [('code', 'asc'), ('id', 'asc')], 'sotp_segment': [('code', 'asc'), ('id', 'asc')], 'risk': [('code', 'asc')], 'metric': [('category', 'asc'), ('name', 'asc')], 'balance': [('id', 'asc')], 'valuation': [('id', 'asc')], 'sensitivity': [('id', 'asc')], 'check': [('id', 'asc')]}
+'event': [('latest_as_of', 'desc')], 'fact': [('event_id', 'asc'), ('as_of', 'asc')], 'metric_series': [('name', 'asc')], 'fit_score': [('sort', 'asc')],
+        'bs_item': [('sort', 'asc'), ('id', 'asc')], 'epv': [('business_id', 'asc'), ('sort', 'asc')],
+        'growth': [('business_id', 'asc')],
+         'risk': [('code', 'asc')], 'metric': [('category', 'asc'), ('name', 'asc')], 'check': [('id', 'asc')]}
 
 
 def state():
@@ -366,7 +335,7 @@ def page_group(st, co, sub, icon, code=None):
 def skipped(code, co):
     if code in REPLACED_BY_CHAINMAP and f"chainmap@{co['code']}" in state()['pages']:
         return True                               # 已由 build_chainmap.py 的“产业链与五力”页面取代
-    return code in CUSTOM_VALUATION.get(co['code'], {}).get('skip', ())
+    return False
 
 
 def build_company(co):
@@ -471,20 +440,24 @@ def blocks(x):
             yield from blocks(v)
 
 
-def strip_write_actions(key):
-    """只读报表：applyBlueprint 会自动补上新增/编辑/删除按钮，生成后逐个移除。"""
+def strip_write_actions(key, tab_title=None, keep_edit=False):
+    """移除 applyBlueprint 自动补齐的写入按钮，可限定在一个标签。"""
     found = []
+    excluded = WRITE_ACTIONS - {'EditActionModel'} if keep_edit else WRITE_ACTIONS
 
     def walk(x):
         if isinstance(x, dict):
-            if x.get('use') in WRITE_ACTIONS:
+            if x.get('use') in excluded:
                 found.append(x['uid'])
             for v in x.values():
                 walk(v)
         elif isinstance(x, list):
             for v in x:
                 walk(v)
-    walk(page_tree(key)['tree'])
+    tree = page_tree(key)['tree']
+    if tab_title:
+        tree = next(t for t in tree['subModels']['tabs'] if t['props']['route']['title'] == tab_title)
+    walk(tree)
     for uid in dict.fromkeys(found):
         subprocess.run(['nb', 'api', 'flow-surfaces', 'remove-node', '--body', json.dumps({'target': {'uid': uid}}), '-j'],
                        capture_output=True, text=True, cwd=ROOT, check=True)
@@ -566,11 +539,8 @@ def sort_menu(company_codes=None):
     names = [c['name'] for c in companies()]
     sub_order = {g: [t for _, t in pages] for g, _, pages in COMPANY_MENU} | {SHARED_SUB[0]: [t for _, t in SHARED_SUB[2]]}
     # 可视化页不在 COMPANY_MENU 里：财务数据（build_finstmt.py，季度三大报表）在经营与财务里跟在数据后面；
-    # 财务模型（build_finmodel.py）在预测与估值表格页前；定制估值页（build_valuation.py）紧跟其后
     sub_order['经营与财务'] = ['财务报表', '定量指标', '定性事实']   # 原始报表 → 指标 → 定性 → 出处
-    sub_order[DRAFTS] = ['财务模型', '估值'] + sub_order['预测与估值'] + [DRAFTS]
-    # 估值模型紧跟财务模型，假设依据放最后（2026-11-05 起五家公司都没有模型底稿子组）
-    sub_order['预测与估值'] = ['财务模型', '估值', '估值模型'] + [t for t in sub_order[DRAFTS] if t not in ('财务模型', '估值', '估值模型')]
+    sub_order['预测与估值'] = VALUATION_PAGES + ['假设依据']        # 按「估值地基」的分层，最后是每个数的依据
     for g in current_routes:
         top = g['title']
         if company_codes is not None and top not in [c['name'] for c in companies() if c['code'] in company_codes]:

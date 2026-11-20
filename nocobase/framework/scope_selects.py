@@ -35,8 +35,6 @@ def rule(code, f):
     target, c = f['target'], company_var(code)
     if (code, f['name']) in MACRO_ONLY:
         return {'logic': '$and', 'items': [MACRO]}
-    if target == 'scenario' and 'model' in {x['name'] for x in spec.m2o_fields(T[code])}:
-        return {'logic': '$and', 'items': [{'path': 'model_id', 'operator': '$eq', 'value': '{{ctx.formValues.model.id}}'}]}
     if not c or target in ('company', 'raw_capture', 'collector', 'collect_run') or c.startswith(f"{{{{ctx.formValues.{f['name']}."):
         return None
     own = {'path': 'company_id', 'operator': '$eq', 'value': c}

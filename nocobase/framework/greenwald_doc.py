@@ -1,4 +1,4 @@
-"""「框架与后台 / 估值地基：Greenwald 三层价值」——理论基础，以及据此设计的估值看板与底层数据结构（2026-11-09；11-10 重排 UI）。
+"""「框架与后台 / 估值地基：Greenwald 三层价值」——理论基础，以及据此设计的估值看板与底层数据结构（2026-11-09；11-10 重排 UI；11-11 加入框架章节与已实现的数据结构）。
 
   python3 framework/greenwald_doc.py     # 新建或原地更新页面（地址不变）
 
@@ -10,7 +10,7 @@ import build_pages as bp
 KEY, TITLE, ICON = 'doc_greenwald', '估值地基：Greenwald 三层价值', 'BankOutlined'
 
 JS = r"""const { React } = ctx.libs;
-const { Card, Row, Col, Tag, Typography, Table, Space, Collapse, theme } = ctx.libs.antd;
+const { Card, Row, Col, Tag, Typography, Table, Space, theme } = ctx.libs.antd;
 const { Title, Paragraph, Text } = Typography;
 
 function Section({ n, title, sub, children }) {
@@ -97,11 +97,11 @@ const LAYERS = [
     adj: '增长率、新增资本回报、壁垒能持续多久。' },
   { name: '② 经营盈利能力价值', reliab: '较可靠', color: 'colorPrimary', width: 81,
     basis: '今天可持续的盈利（不增长）',
-    how: '正常化可持续税后经营收益 ÷ WACC；先算经营价值，非经营资产与融资债务另行汇总。',
+    how: '正常化可持续现金收益 ÷ 门槛；先算经营价值，非经营资产与融资债务在资产负债桥里汇总。',
     adj: '周期取平均利润率；折旧换成维持性资本开支；为增长而花的营销、研发加回；剔除一次性项目。' },
   { name: '① 经营资产价值', reliab: '通常较可靠，取决于资产', color: 'colorTextSecondary', width: 100,
     basis: '经营资产与经营负债的报表底稿',
-    how: '行业值得做：重置成本——新进入者重建这门生意要花多少；行业不值得做：清算价值。',
+    how: '默认按经营范围逐项重估净经营资产；有行业证据时另估重建成本（新进入者重建要花多少）；不值得继续经营时用清算价值。',
     adj: '逐项调整经营资产，减经营负债；商誉不照搬，分析背后实际资产；未入账无形资产有证据才估。' },
 ];
 
@@ -193,62 +193,27 @@ const BARRIERS = [
   ['政府许可与管制', '牌照、特许经营、独占的资源与准入限制', '牌照与资源'],
 ];
 
-const WIRE = [
-  { span: 24, title: '① 股价对应哪种价值', body: '前三层分别展示同口径股权价值，以同一市值为参照。记录主估值、选择依据及证据不足的项目。' },
-  { span: 8, title: '② 壁垒诊断', body: '以独立证据判断壁垒，不默认用 EPV 减净资产或清算净值计算壁垒价值；可靠经营重建 AV 仅作为可选专项比较。' },
-  { span: 8, title: '③ 回报拆解', body: '从当前买入价出发，估计持有期内每股实际可获得的现金分配和期末每股股权价值，据此计算年化回报，与股权回报门槛比较。' },
-  { span: 8, title: '④ 情景', body: '悲观、基准、乐观情景分别展示经营价值、独立资产净调整、融资与权益调整、股权价值及回报。有依据的情景概率可用于加权展示。' },
-  { span: 8, title: '⑤ 资产价值明细', body: '账面经营资产及经营负债→存货、应收及相关义务核查→调整后净经营资产。清算和重建按需研究。' },
-  { span: 8, title: '⑥ 经营盈利能力明细', body: '融资前经营 EBIT → 扣正常经营税负得 NOPAT → 加回折旧摊销、扣维持性资本开支及必要营运资本增加 → 无增长经营现金流 ÷ WACC。正常化时剔除独立资产收益，逐项展示依据。' },
-  { span: 8, title: '⑦ 增长与壁垒', body: '从经营 EPV 出发，按再投资规模、增量回报和优势持续期估计增长价值，展示正、零或负的增量。超额回报的持续期需有壁垒证据支持。' },
+const MODULES = [
+  { k: 'A 资产', layer: '第一层', what: '全公司的经营资产价值', how: '调整后净资产（默认）／重建成本／不适用；清算价值用到时再加',
+    where: '资产负债重估（全公司经营资产与经营负债）；公司的“资产价值口径”' },
+  { k: 'B 盈利能力', layer: '第二层', what: '不增长时的可持续现金收益 ÷ 门槛', how: '正常化：最新年度／近四个季度／多年平均／占收入比例／直接填数；永续（有限寿命用时再加）',
+    where: '调整后利润表：收入、成本费用、税前调整、所得税、税后调整（折旧、维持性资本开支）、少数股东，每行有历年数与正常化值' },
+  { k: 'C 增长', layer: '第三层', what: '增长带来的增量，可正可负', how: '增长率、新增投资回报率、优势年限（之后增长不再创造价值）',
+    where: '增长：增长率、新增投资回报率、优势年限' },
+  { k: 'D 参照', layer: '资产负债桥', what: '不自己建模的部分', how: '市价／交易价／账面，打折价',
+    where: '资产负债重估（参照估值等桥接科目或研究项目）' },
 ];
-
-function Wireframe() {
-  const { token } = theme.useToken();
-  return (
-    <div style={{ border: `1px dashed ${token.colorBorder}`, borderRadius: 12, padding: 16 }}>
-      <Row gutter={[12, 12]}>
-        {WIRE.map((w) => (
-          <Col xs={24} md={w.span} key={w.title}>
-            <div style={{ background: token.colorFillQuaternary, borderRadius: 8, padding: '12px 14px', height: '100%' }}>
-              <Text strong>{w.title}</Text>
-              {w.title.startsWith('①') && (
-                <div style={{ marginTop: 10 }}>
-                  <Paragraph style={{ marginBottom: 8 }}>示例，单位为亿元。当前市值 95，三行均为同日、同范围的普通股股权价值。</Paragraph>
-                  <Table size="small" pagination={false} rowKey={(r) => r[0]} dataSource={[
-                    ['第一层 · 净经营资产重估', '100', '检查资产质量与实现条件'],
-                    ['第二层 · 无增长经营价值', '80', '主估值。以现有业务的可持续现金流为依据'],
-                    ['第三层 · 含增长经营价值', '120', '相对第二层增加 40，取决于再投资假设'],
-                  ]} columns={[{ title: '估值口径', render: (_, r) => r[0] },
-                                { title: '股权价值', render: (_, r) => r[1] },
-                                { title: '采用依据或用途', render: (_, r) => r[2] }]} />
-                </div>
-              )}
-              <Paragraph type="secondary" style={{ margin: '4px 0 0', fontSize: 13 }}>{w.body}</Paragraph>
-            </div>
-          </Col>
-        ))}
-      </Row>
-    </div>
-  );
-}
-
-const DATA = [
-  { key: 1, layer: '共用范围与底稿', tables: '估值版本、估值单元、经营与独立项目的归属。关联财报、附注、研究依据、估值日及币种。', why: '前三层共享业务范围。资产、负债及对应收益、现金流可逐项核对。' },
-  { key: 2, layer: '① 净经营资产重估', tables: '经营资产、经营负债及调整明细。记录账面净额、调整、证据与区间。', why: '独立资产归入独立计价明细，融资债务归入股权汇总。清算和重建按需开展。' },
-  { key: 3, layer: '② 无增长经营价值', tables: '正常化收入与经营费用、融资前 EBIT、正常税负、折旧摊销、维持性资本开支、必要营运资本变化、WACC。', why: '以历史和经营证据估计可持续水平，使用无增长口径资本化。' },
-  { key: 4, layer: '③ 含增长经营价值', tables: '引用第二层的经营 EPV，关联增长情景、再投资、增量资本回报及优势持续期。', why: '独立记录增长假设和正负价值增量。增长假设仅用于含增长估值。' },
-  { key: 5, layer: '独立资产净调整', tables: '独立投资、多余现金、非经营物业及相关税费、限制和义务。', why: '记录所持权益的净估值及对应收益剥离位置，供股权汇总引用。' },
-  { key: 6, layer: '融资与其他权益调整', tables: '有息债务、租赁、优先权益、少数股东等。记录计价、归属和处理位置。', why: '和独立资产净调整一起将经营价值转换为普通股股权价值，逐项核对计入次数。' },
-  { key: 7, layer: '估值结果与总览', tables: '按估值版本、情景和层次保存结果。记录股权价值、每股价值、同日市值、主估值及依据。', why: 'WACC 用于经营估值，股权回报门槛用于持有回报判断。两者分别设置。' },
-];
-
-const STEPS = [
-  ['先统一经营范围', '核对经营资产与负债、独立资产及对应收益、融资和权益归属。'],
-  ['建立净经营资产与无增长盈利底稿', '逐项核对报表，估计正常经营水平、维持性投入及 WACC。'],
-  ['核对股权价值汇总', '选代表性公司核对经营价值、独立资产净调整、债务与其他权益。'],
-  ['接入增长情景与估值总览', '引用无增长基准，测算增长增量与持有回报，展示主估值及其依据。'],
-  ['核对新旧结果与引用关系', '确认历史数据、驾驶舱和自动检查的引用后，再评估旧表的归档安排。'],
+const COVER = [
+  ['稳定特许经营', '长江电力', 'B（永续）为主，A 用单位千瓦造价算重建成本做对照'],
+  ['周期商品', '太阳纸业', 'B（周期平均）为主，A 用吨产能投资算重建成本做对照'],
+  ['资产重、资产质量存疑', '中国建筑', '股权口径；A（调整后净资产）为主，B 做对照'],
+  ['轻资产平台', '腾讯音乐（已实现）', 'B 为主；C 必须经论点连到真实壁垒；A 只用来确认有壁垒'],
+  ['多业务、含亏损新业务', '小米', '生态业务 B＋C；汽车 C；AI 用 D（参照估值）'],
+  ['有限寿命资源', '矿山、收费公路', 'B（有限寿命用时再加盈利年限）'],
+  ['金融', '银行、保险', '股权口径：A＝拨备调整后净资产，B＝正常化 ROE×净资产÷门槛'],
+  ['控股型', '持有大量上市股权', '持股用 D，主业用 B'],
+  ['烟蒂、清算', '低于净现金的公司', 'A（清算价值）为主'],
+  ['困境反转', '利润暂时塌陷', 'B（调整后利润表取目标中枢）；资产价值兜底'],
 ];
 
 function Page() {
@@ -264,7 +229,7 @@ function Page() {
           <Tag color="green">含增长的经营价值＝EPV＋增长价值</Tag>
           <Tag>三层按信息基础组织，越靠上越不可靠</Tag>
         </Space>
-        <Paragraph type="secondary" style={{ margin: '10px 0 0' }}>不保证第一层对所有企业都最可靠，也不要求每家企业都能得到三个可信数字。各层统一估值日、币种、业务范围及归属口径；适用于普通非金融企业。</Paragraph>
+        <Paragraph type="secondary" style={{ margin: '10px 0 0' }}>不保证第一层对所有企业都最可靠，也不要求每家企业都能得到三个可信数字。各层统一估值日、币种、业务范围及归属口径；银行、保险等借钱就是生意本身的企业用股权口径（第 00 节）。</Paragraph>
       </Card>
 
       <div style={{ marginTop: 24 }}>
@@ -274,7 +239,39 @@ function Page() {
         </Paragraph>
       </div>
 
-      <Section n="01" title="第一层：净经营资产重估" sub="按相同业务范围识别经营资产和经营负债，对重要项目逐项“挤水分”。有行业证据时，可另估经营资产重建成本。">
+      <Section n="00" title="框架：估值单元 × 四个模块 ＋ 口径开关" sub="所有公司都看成“投入的资本 × 回报率和门槛的差 × 这个差能持续多久”。公司拆成若干估值单元（业务），每个单元从四个模块里选用；各公司差别只在每个数怎么取，不在公式。">
+        <Table size="small" pagination={false} rowKey={(r) => r.k} dataSource={MODULES}
+          columns={[{ title: '模块', dataIndex: 'k', width: 110, render: (v) => <Text strong>{v}</Text> },
+                    { title: '对应', dataIndex: 'layer', width: 100 },
+                    { title: '算什么', dataIndex: 'what', width: 220 },
+                    { title: '可选方式', dataIndex: 'how' },
+                    { title: '数据在哪', dataIndex: 'where', width: 260 }]} />
+        <Row gutter={[16, 16]} style={{ marginTop: 16 }}>
+          <Col xs={24} md={12}>
+            <Card size="small" style={{ height: '100%', borderLeft: `4px solid ${token.colorPrimary}` }}>
+              <Text strong style={{ fontSize: 15 }}>口径开关：企业口径／股权口径（每个业务一个）</Text>
+              <Paragraph style={{ margin: '8px 0 4px' }}><Text strong>企业口径（默认）：</Text>利息前的税后经营利润，资本是全部经营资本；有息负债在资产负债桥里扣。债务只是融资方式时用。</Paragraph>
+              <Paragraph style={{ margin: '0 0 4px' }}><Text strong>股权口径：</Text>利息后的利润，资本是股东权益；有息负债归为经营负债。借钱本身就是生意的一部分时用：银行、保险、地产开发、中国建筑。</Paragraph>
+              <Paragraph type="secondary" style={{ margin: 0 }}>按生意的性质定，不挑数字好看的那个：同一个门槛下，负债高的公司用企业口径更保守（例：EBIT 100、债务 500 利率 4%、门槛 6%，企业口径 750，股权口径 1,000）。检查 G08 防止债务算两次。</Paragraph>
+            </Card>
+          </Col>
+          <Col xs={24} md={12}>
+            <Card size="small" style={{ height: '100%' }}>
+              <Text strong style={{ fontSize: 15 }}>只用一个门槛</Text>
+              <Paragraph style={{ margin: '8px 0 4px' }}>门槛＝自己的机会成本，全部公司共用，在「框架与后台 / 统一设置」里改。既用来资本化经营收益，也用来判断隐含回报够不够；不按公司分别估 WACC 和股权成本。</Paragraph>
+              <Paragraph type="secondary" style={{ margin: 0 }}>风险不靠调高折现率，而靠选哪一层作结论（主估值层）和价格与该层的距离。门槛高于有息负债的税后成本，所以对负债高的公司偏保守。</Paragraph>
+            </Card>
+          </Col>
+        </Row>
+        <Title level={5} style={{ marginTop: 24 }}>能覆盖哪些情况</Title>
+        <Table size="small" pagination={false} rowKey={(r) => r[0]} dataSource={COVER}
+          columns={[{ title: '情况', render: (_, r) => <Text strong>{r[0]}</Text>, width: 170 },
+                    { title: '例子', render: (_, r) => r[1], width: 170 },
+                    { title: '怎么用四个模块', render: (_, r) => r[2] }]} />
+        <Paragraph type="secondary" style={{ marginTop: 10 }}>每家公司选一层作主估值（「⑤ 股权价值 / 估值设置」的“主估值层”，写明依据），另两层做交叉检验；默认不做逐年三表预测，只预测今天的可持续水平、增长参数，以及已知事件的时间表。</Paragraph>
+      </Section>
+
+      <Section n="01" title="第一层：净经营资产重估" sub="按全公司口径识别经营资产和经营负债，对重要项目逐项“挤水分”。有行业证据时，可另估经营资产重建成本。">
         <Callout title="定位：报表提供起点，研究判断决定调整">
           <Paragraph style={{ margin: 0 }}>从报表和附注提取属于估值业务的资产与负债。经营必需现金、应收、存货和自用资产等纳入经营范围，多余现金和独立计价投资归入第4节，融资债务和其他权益归入第5节。检查回收、减值和遗漏的经营义务，优先核实影响结论的项目。</Paragraph>
         </Callout>
@@ -332,10 +329,10 @@ function Page() {
         <Paragraph type="secondary">例如中国建筑，可优先研究应收与合同资产计提、地产存货、项目资金限制与履约义务；央企身份等难以复制的条件不强行折算成资产。</Paragraph>
       </Section>
 
-      <Section n="02" title="第二层：经营盈利能力价值 EPV" sub="现有业务不增长，维持经营能力后可持续产生的税后经营收益，按加权平均资本成本 WACC 资本化。最终结果是经营价值金额，不是 EBIT。">
+      <Section n="02" title="第二层：经营盈利能力价值 EPV" sub="现有业务不增长，维持经营能力后可持续产生的税后经营收益，按门槛资本化。最终结果是经营价值金额，不是 EBIT。">
         <Flow steps={['正常化经营 EBIT（未扣息）', '扣正常经营税负 → NOPAT', '折旧换成维持性资本开支', '无增长可持续现金收益', '÷ WACC → 经营 EPV']} />
-        <Stat items={[['100 亿', '正常化 EBIT／年'], ['75 亿', '税负 25% 后的可持续税后收益'], ['8%', '示例 WACC'], ['937.5 亿', '经营 EPV ＝ 75 ÷ 8%']]} />
-        <Text type="secondary">示意：折旧等于维持性资本支出、无其他调整。独立非经营资产和融资债务在后面处理。</Text>
+        <Stat items={[['100 亿', '正常化 EBIT／年'], ['75 亿', '税负 25% 后的可持续税后收益'], ['6%', '门槛'], ['1,250 亿', '经营 EPV ＝ 75 ÷ 6%']]} />
+        <Text type="secondary">示意：折旧等于维持性资本开支、无其他调整。独立非经营资产和融资债务在后面处理。</Text>
 
         <Title level={5} style={{ marginTop: 24 }}>先分清利润口径：税后，不等于扣息后</Title>
         <Table size="small" pagination={false} rowKey={(r) => r[0]} dataSource={[
@@ -368,15 +365,12 @@ function Page() {
         <Title level={5} style={{ marginTop: 20 }}>先正常化盈利，再资本化</Title>
         <Row gutter={[16, 16]}>
           <Col xs={24} md={12}><Principle title="正常化">周期业务取完整周期平均利润率；经常出现的“一次性”费用不能全剔；维持现有客户、产品与竞争地位的支出保留，增长性研发营销有依据才加回。</Principle></Col>
-          <Col xs={24} md={12}><Principle title="口径一致">剔除单独估值资产的投资收益和利息收入，不扣融资利息。经营 EPV 使用 WACC；投资者的股权要求回报用于价格与回报决策，分别设置，不能互相替代。</Principle></Col>
+          <Col xs={24} md={12}><Principle title="口径一致">剔除单独估值资产的投资收益和利息收入，不扣融资利息。经营 EPV 与隐含回报用同一个门槛（见第 00 节）。</Principle></Col>
         </Row>
 
-        <Card size="small" style={{ marginTop: 16 }}>
-          <Text strong style={{ fontSize: 15 }}>WACC：股权与债务的加权平均资本成本</Text>
-          <Formula>WACC ＝ Ke × E/(D＋E) ＋ Kd × (1−T) × D/(D＋E)</Formula>
-          <Flow steps={['股权 60% × Ke 10%', '债务 40% × Kd 4% × (1−25%)', 'WACC ＝ 7.2%']} />
-          <Paragraph type="secondary" style={{ margin: 0 }}>Ke 是股东要求的回报，不是股息率；D 只含银行借款、债券等有息融资；T 为实际可利用的利息抵税税率，税盾不在收益中重复计算。收益与资本成本必须匹配；不同业务必要时分别估计 WACC。</Paragraph>
-        </Card>
+        <Callout title="资本化用门槛，不另估 WACC">
+          可持续现金收益 ÷ 门槛 ＝ 经营 EPV（企业口径），再经资产负债桥扣有息负债。融资方式的影响通过口径开关处理：债务是生意一部分的业务改用股权口径（利息后利润），而不是给每家公司算一个 WACC。
+        </Callout>
 
         <Title level={5} style={{ marginTop: 24 }}>多业务怎么算经营利润：本尊做法 vs 开发实际做法</Title>
         <Row gutter={[16, 16]}>
@@ -400,7 +394,7 @@ function Page() {
         </Callout>
 
         <Title level={5} style={{ marginTop: 24 }}>与第一层交叉判断</Title>
-        <Paragraph type="secondary" style={{ maxWidth: 820 }}>经营 EPV 可直接与同范围的调整后净经营资产交叉判断。以下竞争分析以有依据的净经营资产重建成本为比较基准。</Paragraph>
+        <Paragraph type="secondary" style={{ maxWidth: 820 }}>经营 EPV 可直接与同范围的调整后净经营资产交叉判断。有可靠的重建成本时，可在公司层面切换资产价值口径，再与同范围的经营 EPV 对照。</Paragraph>
         <Compare />
       </Section>
 
@@ -409,7 +403,7 @@ function Page() {
           逐项判断增长空间、再投资需求、新增资本回报以及优势持续期。新增资本回报高于资本成本才创造价值，等于资本成本时增长不增加价值，低于资本成本时增长损害价值。持续超额回报必须有壁垒支持。
         </Callout>
         <GrowthTable />
-        <Text type="secondary" style={{ display: 'block', margin: '10px 0' }}>稳定增长的简化示例，要求 g 小于 R；6% 仅为示例 WACC。有限寿命、阶段性增长和壁垒衰减采用分阶段现金流，不机械套永续公式。</Text>
+        <Text type="secondary" style={{ display: 'block', margin: '10px 0' }}>稳定增长的简化示例，要求 g 小于门槛。本框架用“优势年限 N”：前 N 年每年增长 g、再投入 g÷ROC 的收益，N 年后增长不再创造价值（收益停在第 N 年的水平）；N 留空才是上面的永续公式。有确定时间表的爬坡（如新业务投产）才展开逐年。</Text>
         <Title level={5} style={{ marginTop: 20 }}>壁垒证据</Title>
         <Table size="small" pagination={false} rowKey={(r) => r[0]} dataSource={BARRIERS}
           columns={[{ title: '类型', render: (_, r) => <Text strong>{r[0]}</Text>, width: 200 },
@@ -450,74 +444,21 @@ function Page() {
       </Section>
 
       <div style={{ marginTop: 48 }}>
-        <Title level={4}>附录：页面与数据结构设计草案</Title>
-        <Paragraph type="secondary">以下为后续新框架的设计参考，尚未据此新建独立页面、底稿或检查功能。本次重组只更新方法说明。</Paragraph>
-        <Collapse items={[
-          { key: 'boundary', label: '业务与估值边界：页面架构', children: <div>
-        <Card size="small">
-          <Text strong>这一页要回答什么</Text>
-          <Paragraph style={{ margin: '6px 0 0' }}>公司拆成哪些估值单元？每项资产、负债及对应收益在哪里计算？哪些单独估值，哪些留在经营业务中？哪些范围仍待核实？先定清这些边界，再进入资产、盈利和增长测算。</Paragraph>
-        </Card>
-        <Title level={5} style={{ marginTop: 24 }}>顶部：估值范围摘要与检查</Title>
-        <Paragraph>自动汇总纳入的经营业务、独立资产、融资与权益调整及待判断事项；显示当前估值版本、估值日、币种和归属口径，引用统一设置，不在这里重复录入。</Paragraph>
-        <Paragraph type="secondary">计划检查：重要资产和负债是否遗漏或重复归属；独立计价资产是否已从第一层剥离、对应收益和现金流是否已从第二、三层剥离、独立价值是否只在股权汇总计入一次；集团及分部股权比例是否一致；是否遗漏总部成本和内部交易抵销。未能完成核对时显示“待核实”，不将缺失信息视为检查通过。这些检查是未来功能，目前尚未实现。</Paragraph>
-
-        <Title level={5}>内容区一：估值单元清单（主表）</Title>
-        <Paragraph>估值单元可以是一块经营业务、一项独立投资或一组适合合并处理的资产。以能否识别盈利、资本投入和估值依据为准，不必机械照搬财报分部。</Paragraph>
+        <Title level={4}>附录：页面与数据结构（2026-11-11 重构后）</Title>
+        <Paragraph type="secondary">估值只剩这套结构：旧的估值模型、逐年假设、财务预测、分部加总、统一估值引擎、单参数试验已删除。每家公司「预测与估值」六页：① 资产价值、② 盈利能力、③ 增长价值、④ 独立资产、⑤ 股权价值、假设依据，与本页第 01—05 节一一对应。</Paragraph>
         <Table size="small" pagination={false} rowKey={(r) => r[0]} dataSource={[
-          ['单元名称与类型', '名称；经营业务／独立业务或投资／其他独立资产／总部及共用项目。'],
-          ['包含范围', '包含的产品、地区、公司主体、资产或权益；关联财报分部及科目。'],
-          ['估值归属与方法', '进入经营三层，或单独估值；注明适用方法及不适用层次的原因。'],
-          ['股权归属', '持股、经济权益和估值口径；明确输入为全部业务还是归母权益，避免重复乘比例。'],
-          ['目标页面', '链接到经营资产价值、盈利能力与壁垒、增长与再投资，或独立资产与股权调整。'],
-          ['依据与状态', '选择依据、来源、截至日期；已明确／暂定／待核实。'],
-        ]} columns={[{ title: '字段组', render: (_, r) => <Text strong>{r[0]}</Text>, width: 190 }, { title: '填写内容', render: (_, r) => r[1] }]} />
-        <Paragraph type="secondary" style={{ marginTop: 10 }}>示例：核心制造业务进入经营三层；一项可独立识别盈利的联营股权单独估值；闲置物业按可实现净值单列；总部费用分摊至业务或在集团层统一扣减。示例仅说明分类方式，不代表任何现有公司的实际判断。</Paragraph>
-
-        <Title level={5} style={{ marginTop: 24 }}>内容区二：单元边界明细（展开主表行查看）</Title>
-        <Table size="small" pagination={false} rowKey={(r) => r[0]} dataSource={[
-          ['收入与费用范围', '哪些收入、成本、税费、维持性投入属于本单元；对应哪些报表项目。'],
-          ['经营资产与负债', '哪些应收、存货、厂房、设备、必要现金及经营负债进入本单元；列归属，不在此重估。'],
-          ['需剥离的收益及现金流', '独立投资收益、利息、股息等由哪里剔除，对应哪项单独估值资产。'],
-          ['融资与其他权益', '有息债务、少数股东、优先权益、稀释等在哪一层处理；已计入的项目标明位置。'],
-          ['依赖与共用项目', '关联供货、渠道、担保、共享品牌；出售持股是否损害主业；总部费用及内部交易如何分摊或抵销。'],
-        ]} columns={[{ title: '明细组', render: (_, r) => <Text strong>{r[0]}</Text>, width: 190 }, { title: '需要说明的问题', render: (_, r) => r[1] }]} />
-        <Paragraph strong style={{ marginTop: 12 }}>资产划出去，对应收益和相关义务一起检查。与主业有关不等于必须合并估值；可独立估值也不等于可以立即出售或分配。</Paragraph>
-
-        <Title level={5} style={{ marginTop: 24 }}>内容区三：边界待判断事项</Title>
-        <Paragraph>每行记录：待判断事项、涉及单元、缺失证据、暂时处理、对估值的影响和解除不确定性的条件。证据不足时保留争议，重要金额不强行归零。</Paragraph>
-        <Table size="small" pagination={false} rowKey={(r) => r[0]} dataSource={[
-          ['战略持股是否经营必需', '暂时单列，核实合作协议', '出售可能改变采购成本、渠道或权利，需联动调整主营盈利。'],
-          ['多余现金尚未确定', '引用现金分析结果，暂不手填金额', '独立资产与股权调整页估计必要储备及可分配性，本页只记录归属原则。'],
-          ['总部费用归属不清', '暂在集团层单独处理', '后续确定分摊方式，避免漏算或重复扣减。'],
-        ]} columns={[{ title: '示例事项', render: (_, r) => r[0], width: 190 }, { title: '暂时处理', render: (_, r) => r[1], width: 240 }, { title: '影响与后续判断', render: (_, r) => r[2] }]} />
-        <Card size="small" style={{ marginTop: 16 }}>
-          <Text strong>页面完成的标准</Text>
-          <Paragraph style={{ margin: '6px 0 0' }}>能够明确说出：本次估值包含哪些经营业务、单独计入哪些资产、在哪一层处理债务与其他权益，以及还有哪些未解决的范围问题。它不替代完整商业模式研究，不填写重估金额，不重复维护现金储备或投资价值。</Paragraph>
-        </Card>
-      </div> },
-          { key: 'dashboard', label: '估值总览：展示草图', children: <Wireframe /> },
-          { key: 'data', label: '底层数据结构：草案', children: <div>
-        <Table size="small" pagination={false} dataSource={DATA}
-          columns={[{ title: '层', dataIndex: 'layer', width: 150, render: (v) => <Text strong>{v}</Text> },
-                    { title: '表', dataIndex: 'tables' },
-                    { title: '为什么', dataIndex: 'why', width: 300 }]} />
-      </div> },
-          { key: 'steps', label: '落地顺序：待进一步确认', children: <div>
-        <Row gutter={[12, 12]}>
-          {STEPS.map(([t, d], i) => (
-            <Col xs={24} md={12} lg={8} key={t}>
-              <div style={{ display: 'flex', gap: 12, padding: 12, borderRadius: 8, background: token.colorFillQuaternary, height: '100%' }}>
-                <div style={{ fontSize: 22, fontWeight: 700, color: token.colorPrimary, lineHeight: 1 }}>{i + 1}</div>
-                <div><Text strong>{t}</Text><Paragraph type="secondary" style={{ margin: '4px 0 0', fontSize: 13 }}>{d}</Paragraph></div>
-              </div>
-            </Col>
-          ))}
-        </Row>
-      </div> },
-        ]} />
+          ['资产负债重估', '一行一个资产负债表科目（或一项报表外的研究调整）：类别、折价、调整额、依据', '经营资产与经营负债按全公司汇总为经营资本（①）；现金与投资、参照估值、有息负债和其他索取权进入资产负债桥（④）。报表科目账面合计＝归母股东权益，每个科目只计一次'],
+          ['调整后利润表', '每块业务一张表、一行一个项目：收入、成本费用、税前调整、所得税、税后调整（折旧、维持性资本开支）、少数股东、不计入；每行有报表公式（历年数）和取值方式（正常化值）', '第 02 节，页面 ②'],
+          ['增长', '每块业务一行：增长率、新增投资回报率、优势年限', '第 03 节，页面 ③'],
+          ['业务分部（共用）', '口径（企业／股权）', '决定盈利能力估值的利润口径；商业模式也用这份业务身份'],
+          ['公司（共用）', '估值截至日、股本、主估值层与依据、资产价值口径、重建成本', '资产价值口径在①维护；门槛在「统一设置」，全部公司共用'],
+          ['结果（只读视图）', '三层价值·业务、三层价值·结果、质量自检（G01—G09）', '每层股权价值、每股价值、隐含回报（不增长／含增长）'],
+        ]} columns={[{ title: '表', render: (_, r) => <Text strong>{r[0]}</Text>, width: 170 },
+                      { title: '内容', render: (_, r) => r[1] },
+                      { title: '对应', render: (_, r) => r[2], width: 320 }]} />
+        <Paragraph type="secondary" style={{ marginTop: 10 }}>检查：G01 资产负债表对账、G02 输入完整、G03 永续增长低于门槛、G04 超额回报有壁垒支撑（依据→“成立”的论点→“真实壁垒”）、G05 每个数都有依据、G06 依据已采纳、G07 口径开关一致、G08 维持性投入已估、G09 主估值层（在页面 ⑤ 和「研究维护 / 质量自检」）。不设情景：三层本身就是从保守到乐观的三种情形。</Paragraph>
       </div>
-      <Paragraph type="secondary" style={{ marginTop: 24 }}>方法基础：Greenwald 等《Value Investing: From Graham to Buffett and Beyond》，资产与 WD-40 示例见第一版第四、六章；第二版及《Competition Demystified》补充增长、回报与竞争分析。<Typography.Link href="https://dokumen.pub/value-investing-from-graham-to-buffett-and-beyond.html" target="_blank" rel="noopener noreferrer">所引原文</Typography.Link>。第一层以资产质量检查和实务重估为主、清算和重建按需采用，属于实用导向的改编；五部分展示、费用池简化、可测性标记与页面设计也是本框架的落地约定。</Paragraph>
+      <Paragraph type="secondary" style={{ marginTop: 24 }}>方法基础：Greenwald 等《Value Investing: From Graham to Buffett and Beyond》，资产与 WD-40 示例见第一版第四、六章；第二版及《Competition Demystified》补充增长、回报与竞争分析。<Typography.Link href="https://dokumen.pub/value-investing-from-graham-to-buffett-and-beyond.html" target="_blank" rel="noopener noreferrer">所引原文</Typography.Link>。第一层以资产质量检查和实务重估为主、清算和重建按需采用，属于实用导向的改编；四个模块、口径开关、单一门槛、优势年限与页面设计也是本框架的落地约定。</Paragraph>
     </div>
   );
 }

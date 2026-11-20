@@ -605,7 +605,6 @@
    "judgment": "短期偏枯可能下调年度电量，不必永久化；悲观情景的业务量系数对应连续偏枯。",
    "transmission": "Δ收入=Δ售电量×不含税电价；经税、现金及折现传导",
    "parameter": "逐年假设·业务量",
-   "affected_years": "2026近端；结构变化才及远期",
    "change_threshold": "公司季度电量或经回测的水文—发电关系；同口径累计比较；2026 年发电量在四季度复核。",
    "no_change_condition": "只有单日、单站流量异常，或已包含在假设内",
    "counter_evidence": "水头、库容与调度可抵消流量影响",
@@ -620,7 +619,6 @@
    "judgment": "政策和交易结构改变平均实现价格；基准不假设电价上涨。",
    "transmission": "Δ收入=售电量×Δ实现电价",
    "parameter": "逐年假设·单价",
-   "affected_years": "合同生效期及各情景",
    "change_threshold": "确认含税/不含税、地区、结算量和生效日期；若沿海年度长协继续下降，先在悲观情景下调单价系数，不机械改基准。",
    "no_change_condition": "只有政策标题或行业平均电价",
    "counter_evidence": "含税变动、售电结构、境外汇率及其他业务混合",
@@ -635,7 +633,6 @@
    "judgment": "旧模型折旧下降可能提升利润，但不等额增加现金",
    "transmission": "净利+ΔD×(1-t)，加回折旧-ΔD；现金净效应约-ΔD×t，另计税务差异",
    "parameter": "逐年假设·折旧",
-   "affected_years": "2026—2035",
    "change_threshold": "按资产类别折旧台账、税务及更新预算",
    "no_change_condition": "仅推测大坝寿命或设备账面折旧到期",
    "counter_evidence": "重新购置机组和大修支出上升；税务折旧不同",
@@ -650,7 +647,6 @@
    "judgment": "降息/去杠杆可降利息但偿债消耗现金",
    "transmission": "利息=平均债务×有效利率；FCFE另加净借款",
    "parameter": "逐年假设·净借款、平均债务成本",
-   "affected_years": "逐年；利率冲击独立于经营情景",
    "change_threshold": "财报债务附注与现金融资勾稽",
    "no_change_condition": "只看到国债利率下降",
    "counter_evidence": "新项目加杠杆、浮息重定价延迟",
@@ -665,7 +661,6 @@
    "judgment": "只认可增量回报超过资本成本的增长；扩张资本开支计入现金桥接，新项目收益没有计入收入假设（现金支持价值偏保守）。",
    "transmission": "FCFE扣全部资本开支；所有者收益扣维持资本；终值增长需再投资支持",
    "parameter": "逐年假设·维持/扩张资本",
-   "affected_years": "建设期现金流及投产后收益",
    "change_threshold": "项目公告和支付进度，区分承诺额与当年现金支付",
    "no_change_condition": "只有规划装机，无预算与进度",
    "counter_evidence": "建设延期、超支、容量电价政策和关联交易",
@@ -680,7 +675,6 @@
    "judgment": "需非现金、权益法分红、少数股东等桥接",
    "transmission": "归母利润+归属折旧-非现金收益+投资现金分红-Δ营运资本-资本开支+净借款",
    "parameter": "逐年假设·非现金收益扣除、收到投资分红、少数股东占比",
-   "affected_years": "所有年度",
    "change_threshold": "逐项现金桥接；未知值留空，不能默认0",
    "no_change_condition": "只算CFO减资本开支",
    "counter_evidence": "营运资本释放与一次性回款不可永久化；用合并经营现金流估归母 FCFE 可能高估。",
@@ -695,7 +689,6 @@
    "judgment": "要求回报率由无风险参考、风险补偿与机会成本共同决定：折现率＝10 年国债＋3.5% 风险溢价。当前国债收益率处历史低位，利率上行是这类“类债资产”最大的估值风险；无风险利率取高频数据里的中债 10 年期国债到期收益率（建模时 1.69%，2026-08-31），加风险溢价后按 0.1 个百分点四舍五入（5.19% → 5.2%）。",
    "transmission": "r上升→现金折现下降；不改变经营现金流。r 每升 0.5 个百分点，基准价值约 −2.8 元（27.28 → 24.46 元，见敏感性表）。",
    "parameter": "估值模型·无风险利率、风险溢价；情景·折现率",
-   "affected_years": "估值全期限",
    "change_threshold": "记录名义人民币口径与期限，独立做利率压力",
    "no_change_condition": "单日波动不自动覆盖长期要求回报；利率风险用敏感性表展示，不机械改长期折现率。",
    "counter_evidence": "低利率未必长期持续，风险溢价不能机械固定",
@@ -710,7 +703,6 @@
    "judgment": "永续增长必须有留存与回报支撑；基准永续增长 1%：按稳定现金流建模。",
    "transmission": "终值=规范化下一年分配/(r-g)；r必须大于g",
    "parameter": "情景·永续增长率",
-   "affected_years": "2036及以后",
    "change_threshold": "更新资本、负债与分配可持续；同时报告终值占比",
    "no_change_condition": "仅以国债低利率或大坝寿命支持高终值",
    "counter_evidence": "资产寿命/气候/监管结构变化；终值占比高",
@@ -725,7 +717,6 @@
    "judgment": "维持资本 55 亿起、年增 2%（四站时期 2017—2021 年均资本开支约 31 亿，按装机 7179.5/4549.5 放大约 49 亿，再计通胀与设备老化）；扩张资本 2026—2027 年 130 亿、2028 年 110、2029 年 90、2030 年 60、之后 30（2025 年资本开支 184.88 减维持约 55）；净借款 2026—2030 年 −120 亿/年、之后 −100（2024—2025 年均 −124）；非现金收益扣除 46、收到投资分红 26（2025 年实际）；其他现金调整 0（资产减值 15.05 为一次性）；营运资本增加 0（近两年的释放不外推）；最低现金补充 0（年末货币资金 45.86 亿，不额外留存）。",
    "transmission": "所有者收益＝归母净利＋归属折旧−非现金收益＋投资分红＋其他调整−营运资本增加−维持资本；FCFE＝所有者收益−扩张资本＋净借款；现金支持股息＝min(计划股息, FCFE−最低现金补充)。",
    "parameter": "逐年假设·现金桥接 7 项与净借款",
-   "affected_years": "2026—2035，全部情景",
    "change_threshold": "公司披露维持/扩张资本拆分、项目预算与支付进度、债务计划后替换。",
    "no_change_condition": "只有规划装机、没有预算与进度；或单季现金流波动。",
    "counter_evidence": "扩张项目投产后的新增收益没有进入收入假设，现金支持价值偏保守；若公司放慢还债，股息缺口可由借款弥补。",
@@ -985,412 +976,6 @@
    "selfcheck_result": "正常；未通知",
    "notes": "60106980＝三峡水库站；z＝水位，oq＝出库流量；页面不提供三峡入库流量。",
    "metric_id": 4
-  }
- ],
- "model": [
-  {
-   "id": 1,
-   "name": "长江电力 隐含回报（2025 年末基准）",
-   "status": "当前",
-   "method": "把每股股息当票息，求按市价买入的隐含年化回报，和门槛 6% 比；股东自由现金流只用来检查股息付不付得出。股价只进对比层。",
-   "base_year": 2025,
-   "terminal_year": 2035,
-   "shares": 244.68,
-   "rf": 0.0169,
-   "rf_date": "2026-08-31",
-   "erp": 0.035,
-   "opening_debt": 2907.51,
-   "margin_low": 0.1,
-   "margin_high": null,
-   "notes": "经营假设来自 2026-09-01 旧模型：业务量 2026 年 3100、此后 3050 亿千瓦时（2023—2025 年均 2931，六库联调缓升）；电价持平 2025 年 0.2807；付现成本 203 起年增约 1%；折旧 190 起，三峡机组到期年均降约 5 亿，2031—2032 年溪洛渡/向家坝到期加速，2035 年约 144；其他净贡献 45（2025 年校准）；派息率 72%（承诺下限 70%）。2026-10-21 重构：综合负担率 17.34% 拆为所得税率 16.27% 与少数股东占比 1.28%（2025 年实际）；利息改为债务滚动，平均债务成本按原利息路径反推（3.02%→2.05%，与新发债利率 1.3%—2.1% 方向一致，待核验）。2026-10-25 起估值只看按市价买入的隐含回报 vs 门槛（要求收益率 6%，依据 J-R），不用安全边际；无风险利率、风险溢价与情景折现率不参与结论。期初资产负债取 2025 年末合并资产负债表（岗底斯）：经营性长期资产 4581.84＝固定资产 4165.74＋在建工程 159.06＋无形资产 250.25＋使用权资产 6.79；长期股权投资 749.36；归母权益 2213.38；少数股东权益 120.23；带息负债 2907.51。",
-   "company_id": 1,
-   "rf_metric_id": 2,
-   "required_return": 0.06,
-   "opening_op_assets": 4581.84,
-   "opening_lt_invest": 749.36,
-   "opening_equity": 2213.38,
-   "opening_minority": 120.23,
-   "primary_method": null,
-   "sotp_year": null,
-   "sotp_core_adj": null,
-   "sotp_as_of": null
-  }
- ],
- "scenario": [
-  {
-   "id": 1,
-   "name": "悲观",
-   "is_base": false,
-   "sort": 1,
-   "volume_factor": 0.9,
-   "price_factor": 0.97,
-   "cost_factor": 1.05,
-   "discount_rate": null,
-   "terminal_growth": 0,
-   "nature": "旧模型迁移+研究者压力假设；非预测事实",
-   "description": "连续偏枯加电价下行：发电量 −10%、电价 −3%、付现成本 +5%，永续增长 0%。",
-   "model_id": 1,
-   "ronic": null,
-   "sotp_multiple": null,
-   "probability": null
-  },
-  {
-   "id": 2,
-   "name": "基准",
-   "is_base": true,
-   "sort": 2,
-   "volume_factor": 1,
-   "price_factor": 1,
-   "cost_factor": 1,
-   "discount_rate": null,
-   "terminal_growth": 0.01,
-   "nature": "旧模型迁移+研究者压力假设；非预测事实",
-   "description": "旧模型 10 年路径：发电量 2026 年 3100、此后 3050 亿千瓦时，电价持平 0.2807 元，永续增长 1%。",
-   "model_id": 1,
-   "ronic": null,
-   "sotp_multiple": null,
-   "probability": null
-  },
-  {
-   "id": 3,
-   "name": "乐观",
-   "is_base": false,
-   "sort": 3,
-   "volume_factor": 1.05,
-   "price_factor": 1.01,
-   "cost_factor": 1,
-   "discount_rate": null,
-   "terminal_growth": 0.015,
-   "nature": "旧模型迁移+研究者压力假设；非预测事实",
-   "description": "六库联调多发电、电价小幅上行：发电量 +5%、电价 +1%，永续增长 1.5%。",
-   "model_id": 1,
-   "ronic": null,
-   "sotp_multiple": null,
-   "probability": null
-  }
- ],
- "forecast": [
-  {
-   "id": 1,
-   "year": 2026,
-   "volume": 2970,
-   "price": 0.2807,
-   "cash_cost": 203,
-   "depreciation": 190,
-   "other_contrib": 45,
-   "tax_rate": 0.163,
-   "minority_share": 0.0128,
-   "payout": 0.72,
-   "net_borrowing": -120,
-   "cost_of_debt": 0.0302,
-   "noncash_gain_deduct": 46,
-   "investee_cash_div": 26,
-   "other_cash_adj": 0,
-   "wc_increase": 0,
-   "maint_capex": 55,
-   "growth_capex": 130,
-   "min_cash_topup": 0,
-   "operating_status": "旧模型迁移",
-   "cash_status": "建议值待核验",
-   "note": "前三季度电量 2,250.6 亿千瓦时（三季度 −14.9%），四季度按去年同期 720.7 估全年约 2,970（−3.3%）；2026-11-05 由 3,100 下调（待办 Q12）",
-   "model_id": 1
-  },
-  {
-   "id": 2,
-   "year": 2027,
-   "volume": 3050,
-   "price": 0.2807,
-   "cash_cost": 205,
-   "depreciation": 185,
-   "other_contrib": 45,
-   "tax_rate": 0.17,
-   "minority_share": 0.0128,
-   "payout": 0.72,
-   "net_borrowing": -120,
-   "cost_of_debt": 0.029,
-   "noncash_gain_deduct": 46,
-   "investee_cash_div": 26,
-   "other_cash_adj": 0,
-   "wc_increase": 0,
-   "maint_capex": 56.1,
-   "growth_capex": 130,
-   "min_cash_topup": 0,
-   "operating_status": "旧模型迁移",
-   "cash_status": "建议值待核验",
-   "note": "回归平水基准",
-   "model_id": 1
-  },
-  {
-   "id": 3,
-   "year": 2028,
-   "volume": 3050,
-   "price": 0.2807,
-   "cash_cost": 207,
-   "depreciation": 180,
-   "other_contrib": 45,
-   "tax_rate": 0.175,
-   "minority_share": 0.0128,
-   "payout": 0.72,
-   "net_borrowing": -120,
-   "cost_of_debt": 0.0276,
-   "noncash_gain_deduct": 46,
-   "investee_cash_div": 26,
-   "other_cash_adj": 0,
-   "wc_increase": 0,
-   "maint_capex": 57.22,
-   "growth_capex": 110,
-   "min_cash_topup": 0,
-   "operating_status": "旧模型迁移",
-   "cash_status": "建议值待核验",
-   "note": "抽蓄开始投产（贡献未计入，保守）",
-   "model_id": 1
-  },
-  {
-   "id": 4,
-   "year": 2029,
-   "volume": 3050,
-   "price": 0.2807,
-   "cash_cost": 209,
-   "depreciation": 175,
-   "other_contrib": 45,
-   "tax_rate": 0.175,
-   "minority_share": 0.0128,
-   "payout": 0.72,
-   "net_borrowing": -120,
-   "cost_of_debt": 0.0261,
-   "noncash_gain_deduct": 46,
-   "investee_cash_div": 26,
-   "other_cash_adj": 0,
-   "wc_increase": 0,
-   "maint_capex": 58.37,
-   "growth_capex": 90,
-   "min_cash_topup": 0,
-   "operating_status": "旧模型迁移",
-   "cash_status": "建议值待核验",
-   "note": null,
-   "model_id": 1
-  },
-  {
-   "id": 5,
-   "year": 2030,
-   "volume": 3050,
-   "price": 0.2807,
-   "cash_cost": 211,
-   "depreciation": 170,
-   "other_contrib": 45,
-   "tax_rate": 0.175,
-   "minority_share": 0.0128,
-   "payout": 0.72,
-   "net_borrowing": -120,
-   "cost_of_debt": 0.0245,
-   "noncash_gain_deduct": 46,
-   "investee_cash_div": 26,
-   "other_cash_adj": 0,
-   "wc_increase": 0,
-   "maint_capex": 59.53,
-   "growth_capex": 60,
-   "min_cash_topup": 0,
-   "operating_status": "旧模型迁移",
-   "cash_status": "建议值待核验",
-   "note": "三峡机组折旧退坡过半",
-   "model_id": 1
-  },
-  {
-   "id": 6,
-   "year": 2031,
-   "volume": 3050,
-   "price": 0.2807,
-   "cash_cost": 213,
-   "depreciation": 160,
-   "other_contrib": 45,
-   "tax_rate": 0.175,
-   "minority_share": 0.0128,
-   "payout": 0.72,
-   "net_borrowing": -100,
-   "cost_of_debt": 0.023,
-   "noncash_gain_deduct": 46,
-   "investee_cash_div": 26,
-   "other_cash_adj": 0,
-   "wc_increase": 0,
-   "maint_capex": 60.72,
-   "growth_capex": 30,
-   "min_cash_topup": 0,
-   "operating_status": "旧模型迁移",
-   "cash_status": "建议值待核验",
-   "note": "溪洛渡/向家坝机组折旧开始到期",
-   "model_id": 1
-  },
-  {
-   "id": 7,
-   "year": 2032,
-   "volume": 3050,
-   "price": 0.2807,
-   "cash_cost": 215,
-   "depreciation": 150,
-   "other_contrib": 45,
-   "tax_rate": 0.175,
-   "minority_share": 0.0128,
-   "payout": 0.72,
-   "net_borrowing": -100,
-   "cost_of_debt": 0.0218,
-   "noncash_gain_deduct": 46,
-   "investee_cash_div": 26,
-   "other_cash_adj": 0,
-   "wc_increase": 0,
-   "maint_capex": 61.94,
-   "growth_capex": 30,
-   "min_cash_topup": 0,
-   "operating_status": "旧模型迁移",
-   "cash_status": "建议值待核验",
-   "note": null,
-   "model_id": 1
-  },
-  {
-   "id": 8,
-   "year": 2033,
-   "volume": 3050,
-   "price": 0.2807,
-   "cash_cost": 217,
-   "depreciation": 147,
-   "other_contrib": 45,
-   "tax_rate": 0.175,
-   "minority_share": 0.0128,
-   "payout": 0.72,
-   "net_borrowing": -100,
-   "cost_of_debt": 0.0209,
-   "noncash_gain_deduct": 46,
-   "investee_cash_div": 26,
-   "other_cash_adj": 0,
-   "wc_increase": 0,
-   "maint_capex": 63.18,
-   "growth_capex": 30,
-   "min_cash_topup": 0,
-   "operating_status": "旧模型迁移",
-   "cash_status": "建议值待核验",
-   "note": null,
-   "model_id": 1
-  },
-  {
-   "id": 9,
-   "year": 2034,
-   "volume": 3050,
-   "price": 0.2807,
-   "cash_cost": 219,
-   "depreciation": 145,
-   "other_contrib": 45,
-   "tax_rate": 0.175,
-   "minority_share": 0.0128,
-   "payout": 0.72,
-   "net_borrowing": -100,
-   "cost_of_debt": 0.0204,
-   "noncash_gain_deduct": 46,
-   "investee_cash_div": 26,
-   "other_cash_adj": 0,
-   "wc_increase": 0,
-   "maint_capex": 64.44,
-   "growth_capex": 30,
-   "min_cash_topup": 0,
-   "operating_status": "旧模型迁移",
-   "cash_status": "建议值待核验",
-   "note": null,
-   "model_id": 1
-  },
-  {
-   "id": 10,
-   "year": 2035,
-   "volume": 3050,
-   "price": 0.2807,
-   "cash_cost": 221,
-   "depreciation": 144,
-   "other_contrib": 45,
-   "tax_rate": 0.175,
-   "minority_share": 0.0128,
-   "payout": 0.72,
-   "net_borrowing": -100,
-   "cost_of_debt": 0.0205,
-   "noncash_gain_deduct": 46,
-   "investee_cash_div": 26,
-   "other_cash_adj": 0,
-   "wc_increase": 0,
-   "maint_capex": 65.73,
-   "growth_capex": 30,
-   "min_cash_topup": 0,
-   "operating_status": "旧模型迁移",
-   "cash_status": "建议值待核验",
-   "note": "终值年",
-   "model_id": 1
-  }
- ],
- "trial": [
-  {
-   "id": 1,
-   "name": "来水压力→仅2026电量-10%",
-   "start_year": 2026,
-   "end_year": 2026,
-   "volume_delta": -0.1,
-   "price_delta": 0,
-   "cost_delta": 0,
-   "da_delta": 0,
-   "interest_delta": 0,
-   "rate_delta": 0,
-   "boundary": "压力测试；不是来水事实，也不是流量与电量的线性回归。",
-   "model_id": 1
-  },
-  {
-   "id": 2,
-   "name": "电价压力→全期电价-3%",
-   "start_year": 2026,
-   "end_year": 2035,
-   "volume_delta": 0,
-   "price_delta": -0.03,
-   "cost_delta": 0,
-   "da_delta": 0,
-   "interest_delta": 0,
-   "rate_delta": 0,
-   "boundary": "压力测试；只有合同/结算口径核实后才能转正式假设。",
-   "model_id": 1
-  },
-  {
-   "id": 3,
-   "name": "折旧减少10亿→2026利润与现金不同",
-   "start_year": 2026,
-   "end_year": 2026,
-   "volume_delta": 0,
-   "price_delta": 0,
-   "cost_delta": 0,
-   "da_delta": -10,
-   "interest_delta": 0,
-   "rate_delta": 0,
-   "boundary": "计划股息随利润增加；同税口径现金因税盾减少约1.734亿。综合负担率为代理，现金税需另核验。",
-   "model_id": 1
-  },
-  {
-   "id": 4,
-   "name": "融资降本→每年利息少10亿",
-   "start_year": 2026,
-   "end_year": 2035,
-   "volume_delta": 0,
-   "price_delta": 0,
-   "cost_delta": 0,
-   "da_delta": 0,
-   "interest_delta": -10,
-   "rate_delta": 0,
-   "boundary": "假设减少的是真实利息；若靠偿债实现，需另计净偿债现金，不是免费收益。",
-   "model_id": 1
-  },
-  {
-   "id": 5,
-   "name": "要求回报率提高50bp",
-   "start_year": 2026,
-   "end_year": 2035,
-   "volume_delta": 0,
-   "price_delta": 0,
-   "cost_delta": 0,
-   "da_delta": 0,
-   "interest_delta": 0,
-   "rate_delta": 0.005,
-   "boundary": "机会成本压力测试；不改变经营利润，仅改变折现。",
-   "model_id": 1
   }
  ],
  "issue": [
@@ -1729,272 +1314,6 @@
    {
     "judgment_id": 9,
     "fact_id": 11
-   }
-  ],
-  "vi_lnk_forecast_facts": [
-   {
-    "forecast_id": 1,
-    "fact_id": 8
-   },
-   {
-    "forecast_id": 1,
-    "fact_id": 11
-   },
-   {
-    "forecast_id": 2,
-    "fact_id": 8
-   },
-   {
-    "forecast_id": 2,
-    "fact_id": 11
-   },
-   {
-    "forecast_id": 3,
-    "fact_id": 8
-   },
-   {
-    "forecast_id": 3,
-    "fact_id": 11
-   },
-   {
-    "forecast_id": 4,
-    "fact_id": 8
-   },
-   {
-    "forecast_id": 4,
-    "fact_id": 11
-   },
-   {
-    "forecast_id": 5,
-    "fact_id": 8
-   },
-   {
-    "forecast_id": 5,
-    "fact_id": 11
-   },
-   {
-    "forecast_id": 6,
-    "fact_id": 8
-   },
-   {
-    "forecast_id": 6,
-    "fact_id": 11
-   },
-   {
-    "forecast_id": 7,
-    "fact_id": 8
-   },
-   {
-    "forecast_id": 7,
-    "fact_id": 11
-   },
-   {
-    "forecast_id": 8,
-    "fact_id": 8
-   },
-   {
-    "forecast_id": 8,
-    "fact_id": 11
-   },
-   {
-    "forecast_id": 9,
-    "fact_id": 8
-   },
-   {
-    "forecast_id": 9,
-    "fact_id": 11
-   },
-   {
-    "forecast_id": 10,
-    "fact_id": 8
-   },
-   {
-    "forecast_id": 10,
-    "fact_id": 11
-   }
-  ],
-  "vi_lnk_forecast_judgments": [
-   {
-    "forecast_id": 1,
-    "judgment_id": 4
-   },
-   {
-    "forecast_id": 1,
-    "judgment_id": 5
-   },
-   {
-    "forecast_id": 1,
-    "judgment_id": 6
-   },
-   {
-    "forecast_id": 1,
-    "judgment_id": 9
-   },
-   {
-    "forecast_id": 2,
-    "judgment_id": 4
-   },
-   {
-    "forecast_id": 2,
-    "judgment_id": 5
-   },
-   {
-    "forecast_id": 2,
-    "judgment_id": 6
-   },
-   {
-    "forecast_id": 2,
-    "judgment_id": 9
-   },
-   {
-    "forecast_id": 3,
-    "judgment_id": 4
-   },
-   {
-    "forecast_id": 3,
-    "judgment_id": 5
-   },
-   {
-    "forecast_id": 3,
-    "judgment_id": 6
-   },
-   {
-    "forecast_id": 3,
-    "judgment_id": 9
-   },
-   {
-    "forecast_id": 4,
-    "judgment_id": 4
-   },
-   {
-    "forecast_id": 4,
-    "judgment_id": 5
-   },
-   {
-    "forecast_id": 4,
-    "judgment_id": 6
-   },
-   {
-    "forecast_id": 4,
-    "judgment_id": 9
-   },
-   {
-    "forecast_id": 5,
-    "judgment_id": 4
-   },
-   {
-    "forecast_id": 5,
-    "judgment_id": 5
-   },
-   {
-    "forecast_id": 5,
-    "judgment_id": 6
-   },
-   {
-    "forecast_id": 5,
-    "judgment_id": 9
-   },
-   {
-    "forecast_id": 6,
-    "judgment_id": 4
-   },
-   {
-    "forecast_id": 6,
-    "judgment_id": 5
-   },
-   {
-    "forecast_id": 6,
-    "judgment_id": 6
-   },
-   {
-    "forecast_id": 6,
-    "judgment_id": 9
-   },
-   {
-    "forecast_id": 7,
-    "judgment_id": 4
-   },
-   {
-    "forecast_id": 7,
-    "judgment_id": 5
-   },
-   {
-    "forecast_id": 7,
-    "judgment_id": 6
-   },
-   {
-    "forecast_id": 7,
-    "judgment_id": 9
-   },
-   {
-    "forecast_id": 8,
-    "judgment_id": 4
-   },
-   {
-    "forecast_id": 8,
-    "judgment_id": 5
-   },
-   {
-    "forecast_id": 8,
-    "judgment_id": 6
-   },
-   {
-    "forecast_id": 8,
-    "judgment_id": 9
-   },
-   {
-    "forecast_id": 9,
-    "judgment_id": 4
-   },
-   {
-    "forecast_id": 9,
-    "judgment_id": 5
-   },
-   {
-    "forecast_id": 9,
-    "judgment_id": 6
-   },
-   {
-    "forecast_id": 9,
-    "judgment_id": 9
-   },
-   {
-    "forecast_id": 10,
-    "judgment_id": 4
-   },
-   {
-    "forecast_id": 10,
-    "judgment_id": 5
-   },
-   {
-    "forecast_id": 10,
-    "judgment_id": 6
-   },
-   {
-    "forecast_id": 10,
-    "judgment_id": 9
-   }
-  ],
-  "vi_lnk_trial_judgments": [
-   {
-    "trial_id": 1,
-    "judgment_id": 1
-   },
-   {
-    "trial_id": 2,
-    "judgment_id": 2
-   },
-   {
-    "trial_id": 3,
-    "judgment_id": 3
-   },
-   {
-    "trial_id": 4,
-    "judgment_id": 4
-   },
-   {
-    "trial_id": 5,
-    "judgment_id": 7
    }
   ],
   "vi_lnk_company_macro_metrics": [

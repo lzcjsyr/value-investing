@@ -242,14 +242,6 @@
    "routeId": 393850550943744,
    "pageSchemaUid": "9qrhfm3nwjl"
   },
-  "assume@600900.SH": {
-   "routeId": 394012060352512,
-   "pageSchemaUid": "53v604rosxv"
-  },
-  "val@600900.SH": {
-   "routeId": 394012070838272,
-   "pageSchemaUid": "8zlkrvhqkth"
-  },
   "finstmt@600900.SH": {
    "routeId": 394029525041152,
    "pageSchemaUid": "n0b7h2uthi6"
@@ -306,14 +298,6 @@
    "routeId": 393657225052160,
    "pageSchemaUid": "z6rj69mo2q5"
   },
-  "val@002078.SZ": {
-   "routeId": 394098726338560,
-   "pageSchemaUid": "1s3vkso014u"
-  },
-  "assume@002078.SZ": {
-   "routeId": 394099225460736,
-   "pageSchemaUid": "xsf39lzk91h"
-  },
   "risk@601668.SH": {
    "routeId": 394099735068672,
    "pageSchemaUid": "u8ibjfleg02"
@@ -321,14 +305,6 @@
   "chainmap@601668.SH": {
    "routeId": 393657300549632,
    "pageSchemaUid": "93hyi0fv9rr"
-  },
-  "assume@601668.SH": {
-   "routeId": 393515621810176,
-   "pageSchemaUid": "kceq40648pz"
-  },
-  "val@601668.SH": {
-   "routeId": 394099936395264,
-   "pageSchemaUid": "3ahm4oasj5y"
   },
   "risk@01698.HK": {
    "routeId": 394100250968064,
@@ -345,14 +321,6 @@
   "chainmap@01810.HK": {
    "routeId": 393657455738880,
    "pageSchemaUid": "9bs71o36lbi"
-  },
-  "assume@01810.HK": {
-   "routeId": 393571721019392,
-   "pageSchemaUid": "is3int6s1n6"
-  },
-  "val@01810.HK": {
-   "routeId": 394100953513984,
-   "pageSchemaUid": "hbswju6nw3f"
   },
   "dashboard@600900.SH": {
    "routeId": 394197284093952,
@@ -394,46 +362,6 @@
    "routeId": 394543869984768,
    "pageSchemaUid": "rcxptn5zkmz"
   },
-  "val@01698.HK": {
-   "routeId": 394548764737536,
-   "pageSchemaUid": "euxy5ltu78h"
-  },
-  "assume@01698.HK": {
-   "routeId": 394549793587200,
-   "pageSchemaUid": "wc3nccce8ou"
-  },
-  "doc_guide": {
-   "routeId": 394559843139584,
-   "pageSchemaUid": "6jy1tr62qf3"
-  },
-  "doc_structure": {
-   "routeId": 394559853625344,
-   "pageSchemaUid": "vsha1l0e5il"
-  },
-  "doc_formulas": {
-   "routeId": 394559859916800,
-   "pageSchemaUid": "jqs6oun13d2"
-  },
-  "ve@600900.SH": {
-   "routeId": 396705114947584,
-   "pageSchemaUid": "oluqlm48aqq"
-  },
-  "ve@002078.SZ": {
-   "routeId": 396705777647616,
-   "pageSchemaUid": "hdcbr8mzu0q"
-  },
-  "ve@601668.SH": {
-   "routeId": 396705813299200,
-   "pageSchemaUid": "43iisv0q7de"
-  },
-  "ve@01698.HK": {
-   "routeId": 396705851047936,
-   "pageSchemaUid": "7nrpcwzc05k"
-  },
-  "ve@01810.HK": {
-   "routeId": 396705886699520,
-   "pageSchemaUid": "pyc7nzs6zt9"
-  },
   "doc_greenwald": {
    "routeId": 396731866021888,
    "pageSchemaUid": "76bamg8t0f8"
@@ -441,6 +369,122 @@
   "doc_research_guide": {
    "routeId": 396770099200000,
    "pageSchemaUid": "ozv3yb9sylg"
+  },
+  "setting": {
+   "routeId": 397143403724800,
+   "pageSchemaUid": "rxytc95fn68"
+  },
+  "gw_av@600900.SH": {
+   "routeId": 397159687585792,
+   "pageSchemaUid": "sm1tgn05ey9"
+  },
+  "gw_epv@600900.SH": {
+   "routeId": 397159714848768,
+   "pageSchemaUid": "i80kezzo1ei"
+  },
+  "gw_growth@600900.SH": {
+   "routeId": 397159737917440,
+   "pageSchemaUid": "bp0ra8g9kzk"
+  },
+  "gw_bridge@600900.SH": {
+   "routeId": 397159756791808,
+   "pageSchemaUid": "a3rm065am2i"
+  },
+  "gw_equity@600900.SH": {
+   "routeId": 397159779860480,
+   "pageSchemaUid": "fe64dguc88c"
+  },
+  "gw_av@002078.SZ": {
+   "routeId": 397159798734848,
+   "pageSchemaUid": "c85p8xglgi4"
+  },
+  "gw_epv@002078.SZ": {
+   "routeId": 397159823900672,
+   "pageSchemaUid": "hwfcfw1gxtv"
+  },
+  "gw_growth@002078.SZ": {
+   "routeId": 397159844872192,
+   "pageSchemaUid": "2ws50uig0k7"
+  },
+  "gw_bridge@002078.SZ": {
+   "routeId": 397159863746560,
+   "pageSchemaUid": "41czidt5gd1"
+  },
+  "gw_equity@002078.SZ": {
+   "routeId": 397159884718080,
+   "pageSchemaUid": "0xedu9qs2rz"
+  },
+  "gw_av@601668.SH": {
+   "routeId": 397159905689600,
+   "pageSchemaUid": "8zyo4jvg3s6"
+  },
+  "gw_epv@601668.SH": {
+   "routeId": 397159932952576,
+   "pageSchemaUid": "nencda5p8b3"
+  },
+  "gw_growth@601668.SH": {
+   "routeId": 397159951826944,
+   "pageSchemaUid": "obwqciqfvk4"
+  },
+  "gw_bridge@601668.SH": {
+   "routeId": 397159970701312,
+   "pageSchemaUid": "mpumbtml73m"
+  },
+  "gw_equity@601668.SH": {
+   "routeId": 397159991672832,
+   "pageSchemaUid": "ec5ctlv7zb4"
+  },
+  "gw_av@01698.HK": {
+   "routeId": 397160010547200,
+   "pageSchemaUid": "dhot4tj2ldx"
+  },
+  "gw_epv@01698.HK": {
+   "routeId": 397160035713024,
+   "pageSchemaUid": "9gcec18vy17"
+  },
+  "gw_growth@01698.HK": {
+   "routeId": 397160054587392,
+   "pageSchemaUid": "xg1nrubl7ex"
+  },
+  "gw_bridge@01698.HK": {
+   "routeId": 397160073461760,
+   "pageSchemaUid": "midgc6nurls"
+  },
+  "gw_equity@01698.HK": {
+   "routeId": 397160092336128,
+   "pageSchemaUid": "9rieg1rtcuv"
+  },
+  "gw_av@01810.HK": {
+   "routeId": 397160111210496,
+   "pageSchemaUid": "9qcgzr9kl1f"
+  },
+  "gw_epv@01810.HK": {
+   "routeId": 397160136376320,
+   "pageSchemaUid": "x5ctxkmoiur"
+  },
+  "gw_growth@01810.HK": {
+   "routeId": 397160155250688,
+   "pageSchemaUid": "7gl87ghemmv"
+  },
+  "gw_bridge@01810.HK": {
+   "routeId": 397160174125056,
+   "pageSchemaUid": "qad1rez7xkp"
+  },
+  "gw_equity@01810.HK": {
+   "routeId": 397160195096576,
+   "pageSchemaUid": "ni22x9i8edw"
+  },
+  "doc_guide": {
+   "routeId": 397173211791360,
+   "pageSchemaUid": "tcxgeqg6qhv"
+  },
+  "doc_structure": {
+   "routeId": 397173220179968,
+   "pageSchemaUid": "iek2iqpv5g8"
+  },
+  "doc_formulas": {
+   "routeId": 397173226471424,
+   "pageSchemaUid": "tatdmozal2q"
   }
  }
 }

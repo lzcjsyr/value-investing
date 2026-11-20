@@ -42,7 +42,7 @@ INSERT INTO tme_fact_metric VALUES
 DO $relink$
 DECLARE t text;
 BEGIN
-  FOREACH t IN ARRAY ARRAY['thesis', 'judgment', 'moat', 'biz_model', 'value_chain', 'forecast', 'sotp_item', 'sotp_segment'] LOOP
+  FOREACH t IN ARRAY ARRAY['thesis', 'judgment', 'moat', 'biz_model', 'value_chain'] LOOP
     EXECUTE format($q$
       INSERT INTO vi_lnk_%1$s_basis_metrics (%1$s_id, metric_id, "createdAt", "updatedAt")
       SELECT DISTINCT l.%1$s_id, m.id, now(), now()
@@ -89,9 +89,7 @@ FROM tme_fact_text x
 WHERE f.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND f.title = x.title;
 
 -- 3b. 挪走：股本桥接写进估值模型备注（原来写“见事实卡”），收购摊销与股权激励的数写进对应假设依据
-UPDATE vi_model_base m SET notes = replace(m.notes, '股本 31.6 亿股按中期报告附注 18、25 推算（见事实卡）',
-  '股本 31.6 亿股按中期报告附注 18、25 推算：6 月末已发行 33.016 亿股，减股份奖励信托 0.421、2026 年回购 0.870、2025 年末库存股约 0.1—0.2，加待发行 0.022，约 31.5—31.6 亿股；用二季度加权平均基本股数 31.28 亿股倒推期末约 31.6 亿股（1 股 ADS＝2 股，未计期权与未归属受限股的摊薄，库存股精确股数待 20-F 核对）')
-WHERE m.company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND m.notes LIKE '%（见事实卡）%';
+-- （2026-11-11 估值重构：估值模型已删除，股本说明在公司备注里）
 
 UPDATE vi_judgment_base SET fact_layer = fact_layer || '收购摊销（非国际财务报告准则调整项，含版权公允价值调整，合同到期后需按市价重新采购）：2024 年 4.40、2025 年 3.86 亿元，2026 年一、二季度 0.89、1.57 亿元；喜马拉雅满季度后约 2.3 亿元/季，2027 年约 9 亿元。'
 WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND code = 'J-S1' AND fact_layer NOT LIKE '%合同到期后需按市价重新采购%';

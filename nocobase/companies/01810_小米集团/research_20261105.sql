@@ -35,5 +35,4 @@ UPDATE vi_issue_base SET status = '已解决', progress = '2026-11-05：你确�
 WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND code = 'Q01';
 UPDATE vi_issue_base SET status = '已解决', progress = progress || '　2026-11-05 你确认：保留摊薄股本（约 264 亿股）作为保守口径，不另调利润率；重复计算的上限约每股 2.7%。'
 WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND code = 'Q10' AND progress NOT LIKE '%2026-11-05 你确认%';
-UPDATE vi_model_base SET notes = notes || '股本按摊薄口径（约 264 亿股，含已授出未归属的股权激励），与利润率里已扣的股权激励费用有少量重复，偏保守，上限约每股 2.7%（待办 Q10，2026-11-05）。'
-WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01810.HK') AND status = '当前' AND notes NOT LIKE '%待办 Q10%';
+-- （2026-11-11 估值重构：估值模型已删除，股本说明在公司备注里）
