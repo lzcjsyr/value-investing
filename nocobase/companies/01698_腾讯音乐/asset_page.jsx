@@ -406,22 +406,21 @@ const style = `
   border: 1px solid transparent;
 }
 .tme-av .av-pill.p-adjust {
-  background: var(--warn-bg);
   color: var(--warn);
-  border-color: var(--warn-bd);
+  border: 1px dashed var(--warn-bd);
   font-weight: 600;
 }
-.tme-av .av-pill.p-split, .tme-av .av-pill.p-pool {
+.tme-av .av-pill .av-pill-layer {
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1;
+}
+.tme-av .av-pill.p-split, .tme-av .av-pill.p-transfer {
   background: var(--purple-bg);
   color: var(--purple);
   border-color: var(--purple-bd);
 }
 .tme-av .av-pill.p-keep {
-  background: transparent;
-  color: var(--muted);
-  border-color: var(--line);
-}
-.tme-av .av-pill.p-transfer {
   background: transparent;
   color: var(--muted);
   border-color: var(--line);
@@ -460,8 +459,6 @@ const style = `
 }
 .tme-av .av-table th.num, .tme-av .av-table td.num { text-align: right; white-space: nowrap; }
 .tme-av .av-table th.center, .tme-av .av-table td.center { text-align: center; }
-.tme-av .av-table th.col-op { color: var(--primary); background: var(--primary-head); }
-.tme-av .av-table td.col-op { background: var(--primary-col); }
 
 /* 分区标题行 */
 .tme-av .av-table tr.sec-row td {
@@ -480,9 +477,6 @@ const style = `
 .tme-av .av-table tr.item-row:hover td { background: var(--hover); }
 .tme-av .av-table tr.item-row.is-Expandable { cursor: pointer; }
 .tme-av .av-table tr.item-row td.item-cell { padding-left: 18px; }
-.tme-av .av-table tr.item-row.spot-warn td:first-child { box-shadow: inset 3px 0 0 var(--warn); }
-.tme-av .av-table tr.item-row.spot-warn td { background: var(--warn-row); }
-.tme-av .av-table tr.item-row.spot-warn:hover td { background: var(--warn-bg); }
 .tme-av .av-table tr.item-row.spot-split td:first-child { box-shadow: inset 3px 0 0 var(--purple); }
 .tme-av .av-table tr.item-row.spot-split td { background: var(--purple-row); }
 .tme-av .av-table tr.item-row.spot-split:hover td { background: var(--purple-bg); }
@@ -490,17 +484,24 @@ const style = `
 .tme-av .av-table tr.item-row.spot-pending td { background: var(--err-bg); }
 
 .tme-av .av-table tr.sub-row td {
-  background: var(--tint-soft);
-  font-weight: 600;
-  border-top: 1px solid var(--line);
+  background: var(--primary-bg);
+  color: var(--ink);
+  font-weight: 700;
+  padding-block: 11px;
+  border-top: 2px solid var(--primary-bd);
   border-bottom: 1px solid var(--line);
 }
 .tme-av .av-table tr.major-row td {
-  background: var(--tint);
-  font-weight: 700;
-  border-top: 1.5px solid var(--line-strong);
-  border-bottom: 1.5px solid var(--line-strong);
+  background: var(--total-bg);
+  color: var(--ink);
+  font-size: 14.5px;
+  font-weight: 800;
+  padding-block: 13px;
+  border-top: 2px solid var(--primary);
+  border-bottom: 2px solid var(--primary);
 }
+.tme-av .av-table tr.sub-row td:first-child { box-shadow: inset 3px 0 0 var(--primary-bd); }
+.tme-av .av-table tr.major-row td:first-child { box-shadow: inset 5px 0 0 var(--primary); }
 .tme-av .av-table tr.ident-row td {
   color: var(--muted);
   font-size: 12.5px;
@@ -554,6 +555,7 @@ const style = `
   margin-top: 1px;
 }
 .tme-av .val-neg { color: var(--warn); }
+.tme-av .av-table .val-neg { color: var(--ink); }
 .tme-av .val-pos { color: var(--ok); }
 .tme-av .val-split { color: var(--purple); }
 
@@ -626,9 +628,8 @@ const style = `
 `;
 
 const PILL_META = {
-  adjust: { cls: 'p-adjust', label: '折价 / 调额' },
-  split: { cls: 'p-split', label: '跨层拆分' },
-  pool: { cls: 'p-pool', label: '现金池拆分' },
+  adjust: { cls: 'p-adjust', label: '重估或调整' },
+  split: { cls: 'p-split', label: '单独计价' },
   keep: { cls: 'p-keep', label: '原值入 ①' },
   transfer: { cls: 'p-transfer', label: '原值入 ④' },
   pending: { cls: 'p-pending', label: '待归类' },
@@ -637,7 +638,14 @@ const PILL_META = {
 function Pill({ kind, customLabel }) {
   const meta = PILL_META[kind];
   if (!meta) return null;
-  return <span className={`av-pill ${meta.cls}`}>{customLabel || meta.label}</span>;
+  const parts = (customLabel || meta.label).split(/([①④])/);
+  return (
+    <span className={`av-pill ${meta.cls}`}>
+      {parts.map((part, index) =>
+        index % 2 ? <strong key={index} className="av-pill-layer">{part}</strong> : part,
+      )}
+    </span>
+  );
 }
 
 const Mute = () => <span className="av-mute-dot">·</span>;
@@ -686,6 +694,13 @@ function Page({ d }) {
   const independentCash =
     cashOut && cashRows.length === requiredCashRows ? sumKnown([...cashRows, cashOut], 'value_signed') : null;
   const cashSplit = known(reserve?.value_signed) && Number(reserve.value_signed) > 0 && known(cashOut?.value_signed);
+  const cashEquivalent = '现金及现金等价物';
+  const cashEquivalentValue = mapped.get(cashEquivalent)?.value_signed;
+  const operatingCash = Number(reserve?.value_signed);
+  const showCashInAssets = cashSplit && known(cashEquivalentValue)
+    && raw.some((r) => r.item === cashEquivalent)
+    && Math.abs(operatingCash + Number(cashOut.value_signed)) < 1e-6
+    && Number(cashEquivalentValue) >= operatingCash;
   const splitPayable = items.some((i) => i.name === '投资应付款（从其他应付款划出）' && Number(i.value_signed) !== 0);
 
   // 报表可先列权益，再列负债。用小计与权益科目识别分区。
@@ -711,7 +726,9 @@ function Page({ d }) {
     const valS = known(m?.value_signed) ? Number(m.value_signed) : null;
     const delta = known(bookS) && known(valS) ? valS - bookS : null;
     const hasDelta = known(delta) && Math.abs(delta) > 1e-6;
-    return { bookS, valS, delta, hasDelta, ...extraFlags };
+    const opVal = m?.role === '经营资本' ? valS : null;
+    const brVal = m?.role === '资产负债桥' ? valS : null;
+    return { bookS, valS, delta, hasDelta, opVal, brVal, ...extraFlags };
   };
 
   const stmtRows = raw.map((r) => {
@@ -723,13 +740,15 @@ function Page({ d }) {
     const pool = cashSplit && CASH_ITEMS.has(r.item);
     const split = splitPayable && r.item === '其他应付款项及其他负债（流动）';
     const category = m?.category ?? (isControl ? '报表合计' : '待归类');
-    const info = enrichItem(m);
+    const cashAllocation = showCashInAssets && r.item === cashEquivalent;
+    const info = enrichItem(m, cashAllocation
+      ? { opVal: operatingCash, brVal: Number(cashEquivalentValue) - operatingCash }
+      : {});
     let kind = null;
     if (!isControl) {
       if (!m) kind = 'pending';
-      else if (split) kind = 'split';
+      else if (split || cashAllocation) kind = 'split';
       else if (info.hasDelta) kind = 'adjust';
-      else if (pool) kind = 'pool';
       else kind = m.role === '资产负债桥' ? 'transfer' : 'keep';
     }
     return {
@@ -743,6 +762,7 @@ function Page({ d }) {
       isIdent,
       isControl,
       pool,
+      cashAllocation,
       split,
       kind,
       ...info,
@@ -751,6 +771,7 @@ function Page({ d }) {
 
   const extraRows = items
     .filter((i) => !i.line_item || !raw.some((r) => r.item === i.line_item))
+    .filter((i) => !showCashInAssets || (i.id !== reserve.id && i.id !== cashOut.id))
     .sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0) || a.id - b.id)
     .map((i) => {
       const info = enrichItem(i);
@@ -760,7 +781,7 @@ function Page({ d }) {
         id: `extra-${i.id}`,
         rowId: `extra-${i.id}`,
         item: i.name || i.line_item,
-        section: '六、跨层划转与表外估值调整',
+        section: '六、单独计价与表外估值调整',
         category: i.category,
         model: i,
         isExtra: true,
@@ -774,18 +795,8 @@ function Page({ d }) {
     stmtRows.filter((r) => !r.isControl && r.model && sections.includes(r.section));
   const sumPack = (listRows) => {
     const d = sumAny(listRows, (r) => r.delta);
-    const op = listRows.some((r) => r.model?.role === '经营资本')
-      ? sumAny(
-          listRows.filter((r) => r.model?.role === '经营资本'),
-          (r) => r.valS,
-        )
-      : null;
-    const br = listRows.some((r) => r.model?.role === '资产负债桥')
-      ? sumAny(
-          listRows.filter((r) => r.model?.role === '资产负债桥'),
-          (r) => r.valS,
-        )
-      : null;
+    const op = listRows.some((r) => known(r.opVal)) ? sumAny(listRows, (r) => r.opVal) : null;
+    const br = listRows.some((r) => known(r.brVal)) ? sumAny(listRows, (r) => r.brVal) : null;
     return { subDelta: Math.abs(d) > 1e-6 ? d : null, subOp: op, subBr: br };
   };
   const subtotalMap = {
@@ -807,7 +818,10 @@ function Page({ d }) {
     if (r.split) return '剥离 4.10 亿对外投资未付尾款至 ④，其余留作经营负债';
     if (m.id === reserve?.id) return m.basis ? m.basis.split('。')[0] : '';
     if (m.id === cashOut?.id) return '与 ① 经营所需现金成对划转，留存周转金不计入可分配现金';
-    if (r.item === '现金及现金等价物' && r.pool) return '与定期存款、短期投资合并后留出 40 亿经营周转金';
+    if (r.cashAllocation)
+      return `留作经营周转 ${fmt(r.opVal)} 亿元，余额 ${fmt(r.brVal)} 亿元单独计价`;
+    if (r.item === '现金及现金等价物' && r.pool)
+      return `经营周转金 ${fmt(reserve.value_signed)} 亿元在表末单列扣除`;
     if (r.item === '非控股权益') return '经营部分已按 97% 归母折算，此处仅扣非经营净资产的 3%';
     if (r.item === '投资应付款（从其他应付款划出）') return '并购及对外投资待付价款，确定性现金流出，在 ④ 扣除';
     if (r.item === '境内资金汇出预提税（10%）') return '境内利润汇出境外预计承担的 10% 预提税，在 ④ 扣除';
@@ -904,18 +918,18 @@ function Page({ d }) {
   const posBookSum = Math.max(posBookOp + posBookBr, 1);
 
   // 过滤表格行
-  const adjustedAll = [...stmtRows.filter((r) => !r.isControl && (r.hasDelta || r.split)), ...extraRows];
+  const adjustedAll = [...stmtRows.filter((r) => !r.isControl && (r.hasDelta || r.split || r.cashAllocation)), ...extraRows];
   const operatingAll = [
-    ...stmtRows.filter((r) => r.model?.role === '经营资本'),
+    ...stmtRows.filter((r) => r.model?.role === '经营资本' || r.cashAllocation),
     ...extraRows.filter((r) => r.model?.role === '经营资本'),
   ].map((r) => ({
     ...r,
-    section: r.isExtra ? '三、跨层经营调整' : r.category === '经营资产' ? '一、经营资产' : '二、经营负债',
+    section: r.isExtra ? '三、经营调整' : r.category === '经营资产' || r.cashAllocation ? '一、经营资产' : '二、经营负债',
   }));
 
   let displayRows = [];
   if (viewMode === 'adjusted') {
-    displayRows = adjustedAll.map((r) => ({ ...r, section: r.isExtra ? '二、跨层划转与表外估值调整' : '一、报表科目重估与拆分' }));
+    displayRows = adjustedAll.map((r) => ({ ...r, section: r.isExtra ? '二、单独计价与表外估值调整' : '一、报表科目重估与拆分' }));
   } else if (viewMode === 'ops') {
     displayRows = operatingAll;
   } else {
@@ -959,15 +973,13 @@ function Page({ d }) {
     '--line-strong': token.colorBorder,
     '--primary': token.colorPrimary,
     '--primary-bg': token.colorPrimaryBg,
+    '--total-bg': token.colorPrimaryBgHover || token.colorPrimaryBg,
     '--primary-bd': token.colorPrimaryBorder,
-    '--primary-head': token.colorPrimaryBg,
-    '--primary-col': token.colorFillAlter || token.colorFillQuaternary,
     '--info-bg': token.colorInfoBg,
     '--info-bd': token.colorInfoBorder,
     '--warn': token.colorWarningText || token.colorError,
     '--warn-bg': token.colorWarningBg,
     '--warn-bd': token.colorWarningBorder,
-    '--warn-row': token.colorWarningBg,
     '--ok': token.colorSuccessText || token.colorSuccess,
     '--purple': token.colorPrimaryText || token.colorPrimary,
     '--purple-bg': token.colorPrimaryBg,
@@ -1085,7 +1097,7 @@ function Page({ d }) {
             </span>
           </div>
           <div className="av-step is-adjust">
-            <span className="av-step-label">＋ 跨层边界调整</span>
+            <span className="av-step-label">＋ 估值边界调整</span>
             <strong className="av-step-val">{signedFmt(crossOpAdj)}</strong>
             <span className="av-step-desc">经营周转金 {signedFmt(reserve?.value_signed)}</span>
           </div>
@@ -1192,7 +1204,7 @@ function Page({ d }) {
                 <summary>无形资产 {fmt(intangibleItem.book_signed)} 亿 → 计入 {fmt(intangibleItem.value_signed)} 亿</summary>
                 <div className="av-fold-body">
                   <p>仅改变无形资产折价时，第一层归母资产价值分别为：</p>
-                  <p>不折价 {fmt(intangibleSensitivity(0))} 亿 · 折价 25% {fmt(intangibleSensitivity(0.25))} 亿 · 折价 50% {fmt(intangibleSensitivity(0.5))} 亿</p>
+                  <p>不折价 {fmt(intangibleSensitivity(0))} 亿 · 基准折价 {fmt(Number(intangibleItem.haircut) * 100, 0)}% {fmt(intangibleSensitivity(Number(intangibleItem.haircut)))} 亿 · 折价 50% {fmt(intangibleSensitivity(0.5))} 亿</p>
                   <p>Q3 余额与历史分类参照见底稿「无形资产」行。</p>
                 </div>
               </details>
@@ -1278,13 +1290,15 @@ function Page({ d }) {
 
         <div className="av-legend-bar">
           <span>
-            原值沿用报表正数；<b>重估与调整</b>按对净资产影响方向列示（＋调增／−调减）；计入值按资产为正、负债为负。点击带依据行可展开测算过程。
+            <b>处理</b>列说明按什么口径计入①或④。{showCashInAssets
+              ? '经营周转金直接列在现金及现金等价物行，剩余现金在④单独计价。'
+              : '现金与存款逐项列示，经营周转金在表末单列。'}点击带依据行可展开测算过程。
           </span>
           <div className="av-legend-items">
+            <Pill kind="keep" />
             <Pill kind="adjust" />
             <Pill kind="split" />
-            <Pill kind="keep" />
-            <Pill kind="transfer" />
+            <Pill kind="pending" />
           </div>
         </div>
 
@@ -1297,7 +1311,7 @@ function Page({ d }) {
                 <th className="center" style={{ width: '11%' }}>处理</th>
                 <th className="num" style={{ width: '11%' }}>报表原值</th>
                 <th className="num" style={{ width: '12%' }}>重估与调整</th>
-                <th className="num col-op" style={{ width: '11%' }}>① 经营计入</th>
+                <th className="num" style={{ width: '11%' }}>① 经营计入</th>
                 <th className="num" style={{ width: '11%' }}>④ 独立计入</th>
               </tr>
             </thead>
@@ -1349,7 +1363,7 @@ function Page({ d }) {
                       </td>
                       <td className="center">
                         <Text type="secondary" style={{ fontSize: 12 }}>
-                          {r.isIdent ? '恒等核对' : '报表合计'}
+                          {r.isIdent ? '恒等核对' : r.isSub ? '分组小计' : '报表总计'}
                         </Text>
                       </td>
                       <td className="center">
@@ -1363,34 +1377,43 @@ function Page({ d }) {
                           <Mute />
                         )}
                       </td>
-                      <td className="num col-op">{sub && known(sub.subOp) ? fmt(sub.subOp) : <Mute />}</td>
+                      <td className="num">{sub && known(sub.subOp) ? fmt(sub.subOp) : <Mute />}</td>
                       <td className="num">{sub && known(sub.subBr) ? fmt(sub.subBr) : <Mute />}</td>
                     </tr>
                   );
                 }
 
                 // 有效业务/桥接科目与跨层调整行
-                const isSpotWarn = r.kind === 'adjust' && known(r.delta) && r.delta < 0;
-                const isSpotSplit = r.kind === 'split' || (r.kind === 'adjust' && known(r.delta) && r.delta > 0);
                 const spotCls =
                   r.kind === 'pending'
                     ? 'spot-pending'
-                    : isSpotWarn
-                    ? 'spot-warn'
-                    : isSpotSplit
+                    : r.kind === 'split' && !r.cashAllocation
                     ? 'spot-split'
                     : '';
                 const dCap = deltaCaption(r);
-                const opVal = m?.role === '经营资本' ? r.valS : null;
-                const brVal = m?.role === '资产负债桥' ? r.valS : null;
-                const pillLabel =
-                  r.kind === 'adjust' && known(m?.haircut) && Number(m.haircut) === 1
-                    ? '全额置零'
-                    : r.kind === 'adjust' && known(m?.haircut)
-                    ? `按 ${Number(((1 - m.haircut) * 100).toFixed(0))}% 计入`
-                    : r.isExtra && r.kind === 'adjust'
-                    ? '表外计提'
-                    : undefined;
+                const { opVal, brVal } = r;
+                const entersBridge = m?.role === '资产负债桥';
+                let pillLabel;
+                if (r.cashAllocation) {
+                  pillLabel = '① 留周转金，余额入 ④';
+                } else if (r.split) {
+                  pillLabel = '部分在 ④ 单独计价';
+                } else if (cashOut && m?.id === cashOut.id) {
+                  pillLabel = '在 ④ 扣除经营周转金';
+                } else if (reserve && m?.id === reserve.id) {
+                  pillLabel = '在 ① 留作经营周转';
+                } else if (r.kind === 'adjust' && known(m?.haircut) && Number(m.haircut) === 1) {
+                  pillLabel = '全额置零';
+                } else if (r.kind === 'adjust' && known(m?.haircut)) {
+                  const retained = Number(((1 - m.haircut) * 100).toFixed(0));
+                  pillLabel = `按 ${retained}% 计入 ${entersBridge ? '④' : '①'}`;
+                } else if (entersBridge && known(brVal) && brVal < 0) {
+                  pillLabel = r.kind === 'transfer' ? '原值在 ④ 扣除' : '在 ④ 扣除';
+                } else if (entersBridge && r.kind === 'adjust') {
+                  pillLabel = '调整后计入 ④';
+                } else if (r.isExtra && r.kind === 'adjust') {
+                  pillLabel = '表外计提';
+                }
 
                 return (
                   <React.Fragment key={r.rowId}>
@@ -1441,7 +1464,7 @@ function Page({ d }) {
                           <Mute />
                         )}
                       </td>
-                      <td className="num col-op">
+                      <td className="num">
                         {known(opVal) ? (
                           <span style={{ fontWeight: spotCls ? 700 : 500 }}>{fmt(opVal)}</span>
                         ) : (
@@ -1486,14 +1509,14 @@ function Page({ d }) {
               {viewMode === 'ops' ? (
                 <>
                   <tr className="sum-row">
-                    <td colSpan={3}>第一层经营资本合计（资产 − 负债 ＋ 跨层划转）</td>
+                    <td colSpan={3}>第一层经营资本合计（资产 − 负债 ＋ 经营调整）</td>
                     <td className="num">{fmt(signedBook)}</td>
                     <td className="num">
                       <span className={Number(deltaTotalOps) < 0 ? 'val-neg' : 'val-pos'}>
                         {signedFmt(deltaTotalOps)}
                       </span>
                     </td>
-                    <td className="num col-op">{fmt(v.adj_capital)}</td>
+                    <td className="num">{fmt(v.adj_capital)}</td>
                     <td className="num">
                       <Mute />
                     </td>
@@ -1503,7 +1526,7 @@ function Page({ d }) {
                       按「{v.av_basis}」及归母比例 {known(v.av_attrib) ? (v.av_attrib * 100).toFixed(1) + '%' : '—'} 折算 →{' '}
                       <b>第一层归母经营资产价值</b>
                     </td>
-                    <td className="num col-op" style={{ fontSize: 15, color: token.colorPrimary }}>
+                    <td className="num" style={{ fontSize: 15 }}>
                       <b>{fmt(v.av_total)}</b>
                     </td>
                     <td className="num">
@@ -1513,13 +1536,13 @@ function Page({ d }) {
                 </>
               ) : viewMode === 'adjusted' ? (
                 <tr className="sum-row">
-                  <td colSpan={4}>以上 {adjustedAll.length} 项重估与跨层调整对净资产的合计影响</td>
+                  <td colSpan={4}>以上 {adjustedAll.length} 项重估与边界调整对净资产的合计影响</td>
                   <td className="num">
                     <span className={Number(deltaTotalAll) < 0 ? 'val-neg' : 'val-pos'}>
                       {signedFmt(deltaTotalAll)}
                     </span>
                   </td>
-                  <td className="num col-op">
+                  <td className="num">
                     <span className={Number(deltaTotalOps) < 0 ? 'val-neg' : 'val-pos'}>
                       {signedFmt(deltaTotalOps)}
                     </span>
@@ -1540,7 +1563,7 @@ function Page({ d }) {
                         {signedFmt(deltaTotalAll)}
                       </span>
                     </td>
-                    <td className="num col-op">{fmt(v.adj_capital)}</td>
+                    <td className="num">{fmt(v.adj_capital)}</td>
                     <td className="num">{fmt(v.bridge)}</td>
                   </tr>
                   <tr className="attr-row">
@@ -1552,7 +1575,7 @@ function Page({ d }) {
                         （连同 ④ 净额 {fmt(v.bridge)} 亿元滚算至今，折合每股 {fmt(v.av_ps)} 元）
                       </Text>
                     </td>
-                    <td className="num col-op" style={{ fontSize: 15, color: token.colorPrimary }}>
+                    <td className="num" style={{ fontSize: 15 }}>
                       <b>{fmt(v.av_total)}</b>
                     </td>
                     <td className="num">

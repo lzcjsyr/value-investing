@@ -28,7 +28,7 @@ ROOT = HERE.parent
 COMPANIES = {'600900.SH': '600900_长江电力', '002078.SZ': '002078_太阳纸业', '601668.SH': '601668_中国建筑',
              '01698.HK': '01698_腾讯音乐', '01810.HK': '01810_小米集团'}
 EPV_COLS = ['sort', 'name', 'section', 'direction', 'formula', 'method', 'value', 'from_year', 'to_year', 'note']
-GROWTH_COLS = ['growth', 'ronic', 'adv_years', 'note']
+GROWTH_COLS = ['growth', 'ronic', 'adv_years', 'note', 'revenue_plan']
 BIZ_COLS = ['name', 'boundary', 'asset_boundary', 'sort', 'capital_basis']
 
 

@@ -319,6 +319,10 @@ def check_tme_official(snapshot):
         for total, parts in identities[stmt]:
             if not all(k in amounts for k in (total, *parts)) or abs(amounts[total] - sum(amounts[k] for k in parts)) > 0.0101:
                 failures.append(f'{date} {stmt} {total} 无法对账')
+        if stmt == '利润表' and '会员及订阅收入（附注）' in amounts:
+            parts = ('会员及订阅收入（附注）', '营销及消费服务收入', '社交娱乐服务及其他收入')
+            if not all(k in amounts for k in parts) or abs(amounts['营业收入'] - sum(amounts[k] for k in parts)) > 0.0101:
+                failures.append(f'{date} {stmt} 三项收入无法对到营业收入')
         if stmt == '现金流量表':
             cash = amounts.get('期末现金及现金等价物')
             balance_cash = grouped.get(('资产负债表', date), {}).get('现金及现金等价物')

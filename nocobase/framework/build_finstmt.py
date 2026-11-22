@@ -273,7 +273,19 @@ JS = r"""
 
   // ---------- 报表明细：年度（四季度＝全年或年末）／季度（累计或单季），关键科目／全部科目 ----------
   const [bsRows, isRows, cfRows] = await Promise.all(STMTS.map((s) => fetchAll('vi_fin_stmt', { company_id: { $eq: co.id }, stmt: { $eq: s } }, 'period_end')));
-  const ROWS = { '资产负债表': bsRows, '利润表': isRows, '现金流量表': cfRows };
+  const TME_REVENUE = new Map([
+    ['会员及订阅收入（附注）', ['会员服务', 0]],
+    ['营销及消费服务收入', ['营销及消费服务', 1]],
+    ['社交娱乐服务及其他收入', ['社交娱乐及其他', 2]],
+  ]);
+  const TME_REVENUE_LABELS = new Set([...TME_REVENUE.values()].map(([label]) => label));
+  const tmeIncomeRows = (rows) => rows.flatMap((row) => {
+    const item = TME_REVENUE.get(row.item);
+    if (item) return [{ ...row, item: item[0], seq: item[1] }];
+    if (['在线音乐服务收入', '音乐相关服务收入', '广告服务收入（附注）'].includes(row.item)) return [];
+    return [row];
+  });
+  const ROWS = { '资产负债表': bsRows, '利润表': COMPANY === '01698.HK' ? tmeIncomeRows(isRows) : isRows, '现金流量表': cfRows };
   const round6 = (v) => Math.round(v * 1e6) / 1e6;
   const fmt = (v) => {
     if (v === null || v === undefined) return '';
@@ -380,7 +392,7 @@ JS = r"""
     const shown = periods.slice(0, win > 0 ? win : undefined);
     const label = (p) => (freq === '年度' ? p.slice(0, 4) : p);
     const NOT_KEY = /(被合并方|终止经营)/;      // 名字像合计行、但不是关键数的科目
-    const items = (scope === '关键科目' ? m.items.filter((i) => BOLD.test(i) && !NOT_KEY.test(i)) : m.items)
+    const items = (scope === '关键科目' ? m.items.filter((i) => (BOLD.test(i) && !NOT_KEY.test(i)) || (COMPANY === '01698.HK' && stmt === '利润表' && TME_REVENUE_LABELS.has(i))) : m.items)
       .filter((i) => shown.some((p) => m.value(i, p) !== null));   // 所示各期都空的科目不列
     const mats = Object.fromEntries(STMTS.map((st) => [st, st === stmt ? m : matrix(ROWS[st], freq === '季度' && single && st !== '资产负债表')]));
     const getter = (p) => (k) => {
@@ -466,7 +478,8 @@ JS = r"""
             options={[4, 8, 12, 20].map((n) => ({ label: `近${n}期`, value: n })).concat([{ label: '全部', value: 0 }])} />
         </Space>
         <div style={{ fontSize: 12, color: token.colorTextTertiary, marginBottom: 8 }}>
-          {COMPANY === '01698.HK' && '现金流量表以公司披露为准，部分季度仅有简明合计。'}
+          {COMPANY === '01698.HK' && stmt === '现金流量表' && '部分季度仅披露简明现金流合计。'}
+          {COMPANY === '01698.HK' && stmt === '利润表' && '收入合并呈现正表及补充披露。2025 年采用公司公布的可比口径；2024 年及以前，会员为音乐订阅，营销及消费为在线音乐减订阅的余额。'}
           {freq === '年度' ? '年度＝四季度报告：利润表、现金流量表为全年，资产负债表为年末。' : '利润表、现金流量表的“累计”是年初至报告期末；“单季”＝本年相邻两期累计之差（一季度即累计）。'}
           灰字缩进的是算出来的比率（毛利率、费用率、利润率、负债率等），放在对应科目下面，比率的同比为百分点变化；
           <span style={{ background: '#e6f0ff', padding: '0 4px' }}>蓝底行</span>是关键科目（合计、小计与关键利润、现金行）；空白＝该期无可用数值，包括单位尚待核对的历史每股数据。

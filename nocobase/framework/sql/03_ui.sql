@@ -724,6 +724,7 @@ SELECT b.id,
        b.ronic,
        b.adv_years,
        b.note,
+       b.revenue_plan,
        b.company_id,
        b.business_id,
        b.updated_at
@@ -734,10 +735,10 @@ COMMENT ON VIEW vi_growth IS '增长（界面视图：输入列＋自动计算�
 CREATE OR REPLACE FUNCTION vi_growth_dml() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF TG_OP = 'INSERT' THEN
-    INSERT INTO vi_growth_base (growth, ronic, adv_years, note, company_id, business_id) VALUES (NEW.growth, NEW.ronic, NEW.adv_years, NEW.note, NEW.company_id, NEW.business_id) RETURNING id INTO NEW.id;
+    INSERT INTO vi_growth_base (growth, ronic, adv_years, note, revenue_plan, company_id, business_id) VALUES (NEW.growth, NEW.ronic, NEW.adv_years, NEW.note, NEW.revenue_plan, NEW.company_id, NEW.business_id) RETURNING id INTO NEW.id;
     RETURN NEW;
   ELSIF TG_OP = 'UPDATE' THEN
-    UPDATE vi_growth_base SET growth = NEW.growth, ronic = NEW.ronic, adv_years = NEW.adv_years, note = NEW.note, company_id = NEW.company_id, business_id = NEW.business_id WHERE id = OLD.id;
+    UPDATE vi_growth_base SET growth = NEW.growth, ronic = NEW.ronic, adv_years = NEW.adv_years, note = NEW.note, revenue_plan = NEW.revenue_plan, company_id = NEW.company_id, business_id = NEW.business_id WHERE id = OLD.id;
     RETURN NEW;
   ELSE
     DELETE FROM vi_growth_base WHERE id = OLD.id;

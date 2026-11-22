@@ -848,6 +848,7 @@ CREATE TABLE vi_growth_base (
   ronic double precision,
   adv_years integer,
   note text,
+  revenue_plan text,
   company_id bigint,
   business_id bigint,
   created_at timestamptz NOT NULL DEFAULT now(),
@@ -863,6 +864,8 @@ COMMENT ON COLUMN vi_growth_base.ronic IS '新增投资回报率：为增长新�
 COMMENT ON COLUMN vi_growth_base.adv_years IS '优势年限：超额回报还能持续几年，之后增长不再创造价值；留空＝永续（要求增长率低于门槛）';
 
 COMMENT ON COLUMN vi_growth_base.note IS '说明';
+
+COMMENT ON COLUMN vi_growth_base.revenue_plan IS '分项收入预测：各收入行的两段增速及经营利润率分摊（JSON）';
 
 COMMENT ON COLUMN vi_growth_base.company_id IS '公司（关联 公司）';
 

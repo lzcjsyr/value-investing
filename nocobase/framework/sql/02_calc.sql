@@ -782,30 +782,85 @@ BEGIN
               * CASE WHEN life IS NULL THEN 1 / r ELSE (1 - power(1 + r, -(life - k))) / r END;
 END $$;
 
+-- 每个元素是一期可分配现金，最后一个元素是优势期结束后的稳态年收益。
+CREATE OR REPLACE FUNCTION vi_gw_cash_path(plan text, bases jsonb, e double precision,
+    core double precision, tax_rate double precision, attrib double precision, ro double precision, n integer)
+RETURNS jsonb LANGUAGE plpgsql IMMUTABLE STRICT AS $$
+DECLARE
+  items jsonb;
+  revenue double precision; spread double precision; current_e double precision := e;
+  delta_e double precision; investment double precision; flows double precision[] := '{}';
+  yr integer;
+BEGIN
+  items := plan::jsonb;
+  IF jsonb_typeof(items) <> 'array' OR n NOT BETWEEN 0 AND 100 OR ro <= 0 THEN RETURN NULL; END IF;
+  -- 每个收入行必须唯一匹配。少行、多行或改名时停止输出该预测。
+  IF EXISTS (SELECT 1 FROM jsonb_to_recordset(items) p(name text, early float8, late float8, margin float8)
+      WHERE NOT (bases ? name) OR name IS NULL OR early IS NULL OR late IS NULL OR margin IS NULL
+         OR early < -1 OR late < -1 OR (bases->>name)::float8 IS NULL)
+    OR jsonb_array_length(items) <> (SELECT count(DISTINCT p->>'name') FROM jsonb_array_elements(items) p)
+    OR jsonb_array_length(items) <> (SELECT count(*) FROM jsonb_object_keys(bases)) THEN RETURN NULL; END IF;
+  SELECT sum((bases->>name)::float8), sum((bases->>name)::float8 * margin)
+    INTO revenue, spread FROM jsonb_to_recordset(items) p(name text, margin float8);
+  IF revenue IS NULL OR revenue <= 0 THEN RETURN NULL; END IF;
+  spread := (spread - core) / revenue;
+  FOR yr IN 1..n LOOP
+    WITH changes AS (
+      SELECT (bases->>name)::float8 * power(1+early, least(yr-1,3)) * power(1+late, greatest(yr-4,0))
+             * CASE WHEN yr<=3 THEN early ELSE late END * (margin-spread) * (1-tax_rate) * attrib AS de
+      FROM jsonb_to_recordset(items) p(name text, early float8, late float8, margin float8)
+    )
+    SELECT sum(de), sum(greatest(de,0))/ro INTO delta_e, investment FROM changes;
+    flows := array_append(flows, current_e-investment);
+    current_e := current_e + delta_e;
+  END LOOP;
+  RETURN to_jsonb(array_append(flows,current_e));
+EXCEPTION WHEN data_exception THEN RETURN NULL;
+END $$;
+
+CREATE OR REPLACE FUNCTION vi_gw_cash_pv(path jsonb, r double precision)
+RETURNS double precision LANGUAGE sql IMMUTABLE STRICT AS $$
+  SELECT CASE WHEN r > 0 THEN sum(CASE WHEN t=jsonb_array_length(path)
+    THEN cf::float8 / r / power(1+r,t-1) ELSE cf::float8 / power(1+r,t) END) END
+  FROM jsonb_array_elements_text(path) WITH ORDINALITY a(cf,t)
+$$;
+
 -- 隐含回报：使 (Σ单元现值(r)＋资产负债桥)×(1+r)^距截至日年数÷股本＝市价 的 r（二分法；超出 (0, 100%] 或解不出返回空）
-CREATE OR REPLACE FUNCTION vi_gw_irr(e double precision[], g double precision[], ro double precision[], n integer[], life integer[],
+CREATE OR REPLACE FUNCTION vi_gw_irr_paths(e double precision[], g double precision[], ro double precision[], n integer[], life integer[],
                                      with_growth boolean, konst double precision, shares double precision,
-                                     elapsed double precision, price double precision)
+                                     elapsed double precision, price double precision, paths jsonb)
 RETURNS double precision LANGUAGE plpgsql IMMUTABLE AS $$
 DECLARE lo double precision; hi double precision := 1.0; mid double precision; i int;
 BEGIN
   IF price IS NULL OR price <= 0 OR shares IS NULL OR shares <= 0 OR konst IS NULL OR e IS NULL THEN RETURN NULL; END IF;
   lo := 1e-4 + CASE WHEN with_growth THEN greatest(0, coalesce((SELECT max(gg) FROM unnest(g, n, life) AS x(gg, nn, ll)
                                                                  WHERE nn IS NULL AND ll IS NULL), 0)) ELSE 0 END;
-  IF vi_gw_equity(e, g, ro, n, life, with_growth, konst, lo) * power(1 + lo, elapsed) / shares < price THEN RETURN NULL; END IF;
-  IF vi_gw_equity(e, g, ro, n, life, with_growth, konst, hi) * power(1 + hi, elapsed) / shares > price THEN RETURN NULL; END IF;
+  IF vi_gw_equity_paths(e, g, ro, n, life, with_growth, konst, lo, paths) * power(1 + lo, elapsed) / shares < price THEN RETURN NULL; END IF;
+  IF vi_gw_equity_paths(e, g, ro, n, life, with_growth, konst, hi, paths) * power(1 + hi, elapsed) / shares > price THEN RETURN NULL; END IF;
   FOR i IN 1..60 LOOP
     mid := (lo + hi) / 2;
-    IF vi_gw_equity(e, g, ro, n, life, with_growth, konst, mid) * power(1 + mid, elapsed) / shares > price THEN lo := mid; ELSE hi := mid; END IF;
+    IF vi_gw_equity_paths(e, g, ro, n, life, with_growth, konst, mid, paths) * power(1 + mid, elapsed) / shares > price THEN lo := mid; ELSE hi := mid; END IF;
   END LOOP;
   RETURN (lo + hi) / 2;
 END $$;
 
+CREATE OR REPLACE FUNCTION vi_gw_equity_paths(e double precision[], g double precision[], ro double precision[], n integer[], life integer[],
+                                        with_growth boolean, konst double precision, r double precision, paths jsonb)
+RETURNS double precision LANGUAGE sql IMMUTABLE AS $$
+  SELECT sum(CASE WHEN with_growth AND jsonb_typeof(paths->(idx::int-1)) = 'array' THEN vi_gw_cash_pv(paths->(idx::int-1),r) ELSE vi_gw_pv(ee, CASE WHEN with_growth THEN gg ELSE 0 END, rr, nn, ll, r) END) + konst
+  FROM unnest(e, g, ro, n, life) WITH ORDINALITY AS x(ee, gg, rr, nn, ll, idx)
+$$;
+
+CREATE OR REPLACE FUNCTION vi_gw_irr(e double precision[], g double precision[], ro double precision[], n integer[], life integer[],
+                                     with_growth boolean, konst double precision, shares double precision, elapsed double precision, price double precision)
+RETURNS double precision LANGUAGE sql IMMUTABLE AS $$
+  SELECT vi_gw_irr_paths(e,g,ro,n,life,with_growth,konst,shares,elapsed,price,NULL)
+$$;
+
 CREATE OR REPLACE FUNCTION vi_gw_equity(e double precision[], g double precision[], ro double precision[], n integer[], life integer[],
                                         with_growth boolean, konst double precision, r double precision)
 RETURNS double precision LANGUAGE sql IMMUTABLE AS $$
-  SELECT sum(vi_gw_pv(ee, CASE WHEN with_growth THEN gg ELSE 0 END, rr, nn, ll, r)) + konst
-  FROM unnest(e, g, ro, n, life) AS x(ee, gg, rr, nn, ll)
+  SELECT vi_gw_equity_paths(e,g,ro,n,life,with_growth,konst,r,NULL)
 $$;
 
 -- 资产负债重估（全公司口径，不分业务）：账面取公司估值截至日的资产负债表；经营资产与经营负债＝经营资本，其余＝资产负债桥
@@ -889,11 +944,12 @@ FROM amt a LEFT JOIN sub s ON s.business_id = a.business_id LEFT JOIN hist ON hi
 -- 业务：一行一块业务（有调整后利润表的业务）：第二、三层
 CREATE VIEW vi_gw_unit AS
 WITH lines AS (
-  SELECT e.company_id, e.business_id, e.section, e.direction, e.value, e.method, c.normalized,
+  SELECT e.company_id, e.business_id, e.name, e.section, e.direction, e.value, e.method, c.normalized,
          CASE WHEN e.section IN ('税前调整', '税后调整') AND e.direction = '减' THEN -1 ELSE 1 END AS sgn
   FROM vi_epv_base e JOIN vi_epv_calc c ON c.id = e.id
 ), agg AS (
   SELECT company_id, business_id,
+         jsonb_object_agg(name, normalized) FILTER (WHERE section = '收入' AND name IS NOT NULL) AS bases,
          sum(normalized) FILTER (WHERE section = '收入') AS revenue,
          coalesce(sum(normalized) FILTER (WHERE section = '成本费用'), 0) AS cost,
          coalesce(sum(sgn * normalized) FILTER (WHERE section = '税前调整'), 0) AS pre_adj,
@@ -908,7 +964,7 @@ WITH lines AS (
 ), i AS (
   SELECT a.*, bz.code AS business_code, bz.name AS business_name, bz.sort AS business_sort,
          coalesce(bz.capital_basis, '企业') AS capital_basis,
-         vi_hurdle() AS h, co.as_of, coalesce(g.growth, 0) AS g, g.ronic, g.adv_years
+         vi_hurdle() AS h, co.as_of, coalesce(g.growth, 0) AS g, g.ronic, g.adv_years, g.revenue_plan
   FROM agg a JOIN vi_business_base bz ON bz.id = a.business_id
   LEFT JOIN vi_company_base co ON co.id = a.company_id
   LEFT JOIN vi_growth_base g ON g.business_id = a.business_id
@@ -923,18 +979,27 @@ WITH lines AS (
          (ebit * (1 - tax_rate) + post_adj) * minority_rate AS minority,
          CASE WHEN missing = '' THEN (ebit * (1 - tax_rate) + post_adj) * (1 - minority_rate) END AS earnings
   FROM e
-), v AS (
-  SELECT f.*, vi_gw_pv(earnings, 0, NULL, NULL, NULL, h) AS epv, vi_gw_pv(earnings, g, ronic, adv_years, NULL, h) AS full_value
+), paths AS (
+  SELECT f.*, CASE WHEN n_rev = (SELECT count(*) FROM jsonb_object_keys(bases)) THEN
+     vi_gw_cash_path(revenue_plan,bases,earnings,ebit_reported,tax_rate,1-minority_rate,ronic,adv_years) END AS cash_path
   FROM f
+), v AS (
+  SELECT paths.*, vi_gw_pv(earnings, 0, NULL, NULL, NULL, h) AS epv,
+    CASE WHEN revenue_plan IS NOT NULL THEN vi_gw_cash_pv(cash_path,h) ELSE vi_gw_pv(earnings, g, ronic, adv_years, NULL, h) END AS full_value
+  FROM paths
 )
 SELECT business_id AS id, company_id, business_id, business_code, business_name, business_sort, capital_basis, h, as_of,
        revenue, cost, ebit_reported, pre_adj, ebit, ebit / NULLIF(revenue, 0) AS margin, tax, nopat, post_adj, minority,
        1 - minority_rate AS attrib, earnings, ebit * (1 - tax_rate) + post_adj AS pre_minority,
        epv, full_value, full_value - epv AS growth_value,
-       g, ronic, adv_years, n_post,
+       CASE WHEN revenue_plan IS NULL THEN g WHEN adv_years = 0 THEN 0
+            WHEN adv_years > 0 AND earnings > 0 AND (cash_path->>-1)::float8 > 0
+            THEN power((cash_path->>-1)::float8/earnings,1.0/adv_years)-1 END AS g,
+       ronic, adv_years, n_post,
        missing = '' AND full_value IS NOT NULL AS complete,
        CASE WHEN missing <> '' THEN '缺 ' || missing
-            WHEN full_value IS NULL THEN '永续增长率不低于门槛，不输出价值' END AS note
+            WHEN revenue_plan IS NOT NULL AND cash_path IS NULL THEN '分项预测输入与收入底稿不匹配或缺少有效回报率、优势期'
+            WHEN full_value IS NULL THEN '永续增长率不低于门槛，不输出价值' END AS note, cash_path
 FROM v;
 
 -- 公司：一行
@@ -955,14 +1020,14 @@ WITH s AS (
          1 - coalesce(sum(minority) / NULLIF(sum(pre_minority), 0), 0) AS av_attrib,
          bool_and(complete) AS complete,
          string_agg(business_name || '：' || note, '；' ORDER BY business_sort) FILTER (WHERE NOT complete) AS missing,
-         array_agg(earnings) AS e, array_agg(g) AS g, array_agg(ronic) AS ro, array_agg(adv_years) AS n,
-         array_agg(NULL::integer) AS l
+         array_agg(earnings ORDER BY business_id) AS e, array_agg(g ORDER BY business_id) AS g, array_agg(ronic ORDER BY business_id) AS ro, array_agg(adv_years ORDER BY business_id) AS n,
+         jsonb_agg(cash_path ORDER BY business_id) AS paths, array_agg(NULL::integer) AS l
   FROM vi_gw_unit GROUP BY company_id
 ), x AS (
   SELECT s.*, u.epv_total, u.full_total, u.av_attrib, op.book_capital, op.adj_capital,
          CASE s.av_basis WHEN '不适用' THEN NULL WHEN '重建成本' THEN s.repro_cost * u.av_attrib
               ELSE CASE WHEN coalesce(op.n_missing, 0) = 0 THEN op.adj_capital * u.av_attrib END END AS av_total,
-         u.missing, u.e, u.g, u.ro, u.n, u.l,
+         u.missing, u.e, u.g, u.ro, u.n, u.l, u.paths,
          coalesce(br.bridge, 0) AS bridge, coalesce(br.n_missing, 0) AS bridge_missing,
          coalesce(u.complete, false) AND coalesce(br.n_missing, 0) = 0 AND s.shares > 0 AND s.as_of IS NOT NULL AS complete,
          greatest(0, (vi_today() - s.as_of) / 365.25) AS elapsed
@@ -970,7 +1035,7 @@ WITH s AS (
 ), z AS (
   SELECT x.*, power(1 + h, elapsed) / shares AS k,
          CASE WHEN complete THEN vi_gw_irr(e, g, ro, n, l, false, bridge, shares, elapsed, latest_price) END AS irr_epv,
-         CASE WHEN complete THEN vi_gw_irr(e, g, ro, n, l, true, bridge, shares, elapsed, latest_price) END AS irr_full
+         CASE WHEN complete THEN vi_gw_irr_paths(e, g, ro, n, l, true, bridge, shares, elapsed, latest_price, paths) END AS irr_full
   FROM x
 ), y AS (
   SELECT z.*,
@@ -1060,10 +1125,10 @@ WITH m AS (
       WHERE g.company_id = m.company_id AND NOT EXISTS (SELECT 1 FROM vi_epv_base e WHERE e.business_id = g.business_id)) AS rows_missing,
     (SELECT string_agg(DISTINCT u.business_name || ' ' || vi_pct(u.g, 1), '、') FROM vi_gw_unit u
       WHERE u.company_id = m.company_id AND u.adv_years IS NULL AND u.g >= u.h) AS bad_g,
-    (SELECT count(*) FROM vi_growth_base g WHERE g.company_id = m.company_id AND coalesce(g.growth, 0) > 0 AND g.ronic > m.h) AS n_ronic_high,
+    (SELECT count(*) FROM vi_growth_base g WHERE g.company_id = m.company_id AND (g.revenue_plan IS NOT NULL OR coalesce(g.growth, 0) > 0) AND g.ronic > m.h) AS n_ronic_high,
     (SELECT string_agg(DISTINCT bz.name || ' ' || vi_pct(g.ronic, 0), '、')
        FROM vi_growth_base g JOIN vi_business_base bz ON bz.id = g.business_id
-      WHERE g.company_id = m.company_id AND coalesce(g.growth, 0) > 0 AND g.ronic > m.h
+      WHERE g.company_id = m.company_id AND (g.revenue_plan IS NOT NULL OR coalesce(g.growth, 0) > 0) AND g.ronic > m.h
         AND NOT EXISTS (SELECT 1 FROM vi_lnk_growth_judgments gj JOIN vi_lnk_judgment_theses jt ON jt.judgment_id = gj.judgment_id
                           JOIN vi_thesis_base t ON t.id = jt.thesis_id AND t.status = '成立'
                           JOIN vi_lnk_moat_theses mt ON mt.thesis_id = t.id JOIN vi_moat_base mo ON mo.id = mt.moat_id AND mo.verdict = '真实壁垒'

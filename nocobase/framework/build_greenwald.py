@@ -161,10 +161,18 @@ function AssetPage({ d }) {
 const SIGN = { 收入: '', 成本费用: '−', 所得税: '−', 少数股东: '−' };
 function Statement({ d, u }) {
   const { token } = theme.useToken();
+  const [expandedKeys, setExpandedKeys] = useState([]);
+  const panelId = React.useId();
   const ls = d.lines.filter((l) => l.business_id === u.business_id);
-  const labels = [...new Set(ls.flatMap((l) => l.hist.map((h) => h[0])))].sort((a, b) => (a.startsWith('近') - b.startsWith('近')) || a.localeCompare(b));
-  const hv = (l) => Object.fromEntries(l.hist.map(([k, v]) => [k, Number(v)]));
-  const sumH = (sec) => { const o = {}; labels.forEach((k) => { const xs = ls.filter((l) => l.section === sec).map((l) => hv(l)[k]); o[k] = xs.length && xs.every(isNum) ? xs.reduce((a, b) => a + b, 0) : null; }); return o; };
+  const periodKey = (label) => {
+    const [, year, quarter] = label.match(/(\d{4})(?:Q([1-4]))?/) || [];
+    return Number(year || 0) * 4 + Number(quarter || 4);
+  };
+  const periods = new Set(ls.flatMap((l) => l.hist.map(([period]) => period)));
+  const labels = [...periods].sort((a, b) => periodKey(b) - periodKey(a) || b.localeCompare(a));
+  const latest = labels[0];
+  const hv = (l) => Object.fromEntries(l.hist);
+  const sumH = (sec) => { const o = {}; labels.forEach((k) => { const xs = ls.filter((l) => l.section === sec).map((l) => hv(l)[k]); o[k] = xs.length && xs.every(isNum) ? xs.reduce((a, b) => a + Number(b), 0) : null; }); return o; };
   const revH = sumH('收入'), costH = sumH('成本费用');
   const ebitH = Object.fromEntries(labels.map((k) => [k, isNum(revH[k]) && isNum(costH[k]) ? revH[k] - costH[k] : null]));
   const rows = [];
@@ -175,7 +183,7 @@ function Statement({ d, u }) {
     rows.push({ key: `l${l.id}`, label: <span>{s && <Text type="secondary">{s} </Text>}{l.name}</span>, h: hv(l), n: l.normalized,
                 r: l.ratio, how, note: l.note, judg: (l.judgments || []).map((j) => j.code).join('、') });
   };
-  const total = (label, n, h, r, strong = true) => rows.push({ key: label, label: <b>{label}</b>, h: h || {}, n, r, total: true, strong });
+  const total = (label, n, h, r, major = false) => rows.push({ key: label, label: <b>{label}</b>, h: h || {}, n, r, total: true, major });
   const sec = (name) => ls.filter((l) => l.section === name).forEach(line);
   sec('收入');
   if (ls.filter((l) => l.section === '收入').length > 1) total('收入合计', u.revenue, revH, 1);
@@ -188,33 +196,106 @@ function Statement({ d, u }) {
   total('＝ 税后经营利润', u.nopat, null, u.nopat / u.revenue);
   sec('税后调整');
   sec('少数股东');
-  total('＝ 可持续现金收益 E（归母）', u.earnings, null, u.earnings / u.revenue);
+  total('＝ 可持续现金收益 E（归母）', u.earnings, null, u.earnings / u.revenue, true);
   rows.push({ key: 'h', label: <span><Text type="secondary">÷ </Text>门槛</span>, n: null, how: pct(d.hurdle, 1), plain: true });
-  total('＝ 盈利能力价值（亿元）', u.epv, null, null);
+  total('＝ 盈利能力价值（亿元）', u.epv, null, null, true);
   const cell = (row, v) => (row.pctRow ? pct(v, 1) : fmt(v, 1));
+  const historyColumns = (read) => labels.map((period) => ({
+    title: period, key: period, align: 'right', width: period.startsWith('近') ? 130 : 76,
+    className: period === latest ? 'epv-latest' : 'epv-history',
+    render: (_, row) => read(row, period),
+  }));
+  const hasDetails = (row) => Boolean(row.note || row.judg);
+  const detailsId = (row) => `${panelId}-${row.key}`;
+  const projectCell = (row) => {
+    const open = expandedKeys.includes(row.key);
+    return (
+      <>
+        <span className="epv-label">{row.label}</span>
+        {hasDetails(row) && <div>
+          <button type="button" className="epv-details-toggle" aria-expanded={open} aria-controls={open ? detailsId(row) : undefined}
+            onClick={() => setExpandedKeys((keys) => keys.includes(row.key) ? keys.filter((key) => key !== row.key) : [...keys, row.key])}>
+            <span aria-hidden="true">{open ? '▾' : '▸'}</span> 测算依据
+          </button>
+        </div>}
+      </>
+    );
+  };
+  const expandable = {
+    showExpandColumn: false,
+    rowExpandable: hasDetails,
+    expandedRowKeys: expandedKeys,
+    expandedRowRender: (row) => (
+      <div className="epv-details-panel" id={detailsId(row)}>
+        {row.note && <div className="epv-details-text">{row.note}</div>}
+        {row.judg && <div className="epv-details-basis">
+          <span>依据编号</span>
+          <strong>{row.judg}</strong>
+        </div>}
+      </div>
+    ),
+  };
   const cols = [
-    { title: '项目', dataIndex: 'label', key: 'label', fixed: 'left', width: 270 },
-    ...labels.map((k) => ({ title: k, key: k, align: 'right', width: 86, render: (_, r) => <Text type="secondary">{r.h ? cell(r, r.h[k]) : ''}</Text> })),
-    { title: <b>正常化</b>, key: 'n', align: 'right', width: 96, onCell: () => ({ style: { background: token.colorPrimaryBg } }),
-      render: (_, r) => (r.pctRow || r.plain ? '' : r.strong ? <b>{fmt(r.n, 1)}</b> : fmt(r.n, 1)) },
-    { title: '占收入', key: 'r', align: 'right', width: 76, render: (_, r) => (isNum(r.r) ? pct(r.r, 1) : '') },
-    { title: '取值方式', dataIndex: 'how', key: 'how', width: 160 },
-    { title: '依据', dataIndex: 'judg', key: 'j', width: 110 },
-    { title: '说明', dataIndex: 'note', key: 'note', width: 320, render: (v) => <Text type="secondary" style={{ fontSize: 12 }}>{v || ''}</Text> },
+    { title: '项目', key: 'label', fixed: 'left', width: 276, render: (_, r) => projectCell(r) },
+    { title: '取值方式', dataIndex: 'how', key: 'how', width: 140, className: 'epv-method' },
+    { title: '正常化', key: 'n', align: 'right', width: 100, className: 'epv-normalized',
+      render: (_, r) => (r.pctRow || r.plain ? '' : fmt(r.n, 1)) },
+    { title: '占收入', key: 'r', align: 'right', width: 86, render: (_, r) => (isNum(r.r) ? pct(r.r, 1) : '') },
+    ...historyColumns((row, period) => isNum(row.h?.[period]) ? cell(row, row.h[period]) : ''),
   ];
-  const memo = ls.filter((l) => l.section === '不计入');
+  const memo = ls.filter((l) => l.section === '不计入').map((l) => ({
+    key: `l${l.id}`, label: l.name, h: hv(l), note: l.note, judg: (l.judgments || []).map((j) => j.code).join('、'),
+  }));
+  const tableProps = { rowKey: 'key', size: 'small', pagination: false, scroll: { x: 'max-content' }, expandable };
   return (
-    <Space direction="vertical" style={{ width: '100%' }}>
-      <Table rowKey="key" size="small" pagination={false} scroll={{ x: 'max-content' }} columns={cols} dataSource={rows}
-        rowClassName={(r) => (r.total ? 'gw-total' : '')}
-        onRow={(r) => ({ style: r.total ? { background: token.colorFillQuaternary } : {} })} />
-      {memo.length > 0 && <Card size="small" type="inner" title="不计入经营利润（对照）：这些收益与成本对应的资产或负债在「④ 独立资产」里单独计价">
-        <Table rowKey="id" size="small" pagination={false} scroll={{ x: 'max-content' }} dataSource={memo}
-          columns={[{ title: '项目', dataIndex: 'name', key: 'n', fixed: 'left', width: 270 },
-                    ...labels.map((k) => ({ title: k, key: k, align: 'right', width: 86, render: (_, l) => <Text type="secondary">{fmt(hv(l)[k], 1)}</Text> })),
-                    { title: '说明', dataIndex: 'note', key: 'note', render: (v) => <Text type="secondary" style={{ fontSize: 12 }}>{v || ''}</Text> }]} />
-      </Card>}
-    </Space>
+    <div className="gw-epv-statement">
+      <style>{`
+        .gw-epv-statement .ant-table-wrapper { border: 1px solid ${token.colorBorderSecondary}; border-radius: 10px; }
+        .gw-epv-statement .ant-table-thead > tr > th { padding: 10px 12px; white-space: nowrap; color: ${token.colorTextSecondary}; }
+        .gw-epv-statement .ant-table-tbody > tr > td { padding: 9px 12px; vertical-align: top; }
+        .gw-epv-statement .ant-table-cell { font-variant-numeric: tabular-nums; }
+        .gw-epv-statement .epv-label { font-weight: 600; }
+        .gw-epv-statement .epv-method, .gw-epv-statement .epv-history { color: ${token.colorTextSecondary}; }
+        .gw-epv-statement .epv-normalized { color: ${token.colorPrimaryText}; font-weight: 700; }
+        .gw-epv-statement .ant-table-thead .epv-normalized { color: ${token.colorPrimaryText}; }
+        .gw-epv-statement .ant-table-thead .epv-latest { color: ${token.colorText}; }
+        .gw-epv-statement .epv-latest { font-weight: 600; }
+        .gw-epv-statement .epv-details-toggle {
+          margin-top: 4px; padding: 0 2px; border: 0; background: transparent; color: ${token.colorPrimaryText};
+          font: inherit; font-size: 12px; cursor: pointer; text-align: left;
+        }
+        .gw-epv-statement .epv-details-toggle:focus-visible { outline: 2px solid ${token.colorPrimary}; outline-offset: 2px; }
+        .gw-epv-statement .ant-table-tbody > .ant-table-expanded-row > td {
+          padding: 0; background: ${token.colorFillQuaternary};
+        }
+        .gw-epv-statement .epv-details-panel {
+          display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: flex-start;
+          padding: 12px 16px; border-inline-start: 3px solid ${token.colorPrimaryBorder};
+          color: ${token.colorTextSecondary}; font-size: 13px; line-height: 1.65;
+        }
+        .gw-epv-statement .epv-details-text { flex: 1 1 34em; min-width: 0; overflow-wrap: anywhere; }
+        .gw-epv-statement .epv-details-basis {
+          display: grid; gap: 2px; max-width: 100%; overflow-wrap: anywhere; font-size: 12px;
+        }
+        .gw-epv-statement .epv-details-basis strong { color: ${token.colorText}; font-weight: 600; }
+        .gw-epv-statement .ant-table-tbody > .epv-subtotal > td {
+          background: ${token.colorFillQuaternary}; border-top: 2px solid ${token.colorBorder}; font-weight: 700;
+        }
+        .gw-epv-statement .ant-table-tbody > .epv-subtotal > td:first-child { box-shadow: inset 3px 0 ${token.colorBorder}; }
+        .gw-epv-statement .ant-table-tbody > .epv-major > td {
+          background: ${token.colorPrimaryBg}; border-top: 2px solid ${token.colorPrimaryBorder}; font-size: 14px; font-weight: 800; padding-block: 12px;
+        }
+        .gw-epv-statement .ant-table-tbody > .epv-major > td:first-child { box-shadow: inset 4px 0 ${token.colorPrimary}; }
+        .gw-epv-statement .epv-memo { margin-top: 16px; }
+      `}</style>
+      <Table {...tableProps} columns={cols} dataSource={rows}
+        rowClassName={(r) => r.major ? 'epv-major' : r.total ? 'epv-subtotal' : ''} />
+      {memo.length > 0 && <details className="epv-memo">
+        <summary>不计入经营利润（{memo.length} 项）</summary>
+        <Table {...tableProps} dataSource={memo}
+          columns={[cols[0], ...historyColumns((row, period) => fmt(row.h[period], 1))]} />
+      </details>}
+    </div>
   );
 }
 
@@ -222,9 +303,8 @@ function EpvPage({ d }) {
   const v = d.v;
   return (
     <Space direction="vertical" style={{ width: '100%' }} size="large">
-      <Intro title="第二层：盈利能力价值——现有业务不增长，可持续的盈利值多少">
-        一张调整后的利润表：从报表数出发（灰色是历年实际数），每行按“取值方式”取正常化值（蓝底），一路算到可持续现金收益 E，再除以门槛 {pct(d.hurdle, 1)}。
-        Greenwald 的调整：周期业务取多年平均利润率；为增长花的费用有依据才加回；折旧换成维持性资本开支；不含独立计价资产的收益（列在“不计入”）。
+      <Intro title="第二层：盈利能力价值">
+        将现有业务不增长时的可持续现金收益，按 {pct(d.hurdle, 1)} 的门槛资本化。
       </Intro>
       {d.units.length ? d.units.map((u) => (
         <Card key={u.id} size="small" title={`${u.business_name}：调整后利润表（亿元）`} extra={u.note ? <Text type="danger">{u.note}</Text> : null}>
@@ -370,16 +450,29 @@ def scope(kind, co):
     return None
 
 
-def page_script(co, mode):
-    if co['code'] == '01698.HK' and mode == 'growth':
-        case_page = (bp.ROOT / 'companies/01698_腾讯音乐/growth_page.jsx').read_text()
-        basis_uid = bp.state()['pages'][bp.page_key('judgment', co)]['pageSchemaUid']
-        return case_page.replace('__BASIS_UID__', basis_uid)
-    script = JS.replace('__COMPANY__', co['code']).replace('__MODE__', mode)
-    if co['code'] == '01698.HK' and mode == 'av':
-        uid = bp.state()['pages'][bp.page_key('gw_bridge', co)]['pageSchemaUid']
-        return (bp.ROOT / 'companies/01698_腾讯音乐/asset_page.jsx').read_text().replace('__BRIDGE_UID__', uid)
-    return script
+def page_script(co, mode, growth_editor=False):
+    pages = bp.state()['pages']
+    uid = lambda key: pages[bp.page_key(key, co)]['pageSchemaUid']
+    custom = {
+        'av': 'asset_page.jsx',
+        'epv': 'epv_page.jsx',
+        'growth': 'growth_page.jsx',
+        'bridge': 'bridge_page.jsx',
+        'equity': 'equity_page.jsx',
+    }
+    if co['code'] == '01698.HK' and mode in custom:
+        code = (bp.ROOT / 'companies/01698_腾讯音乐' / custom[mode]).read_text()
+        for placeholder, key in (
+            ('__AV_UID__', 'gw_av'),
+            ('__EPV_UID__', 'gw_epv'),
+            ('__GROWTH_UID__', 'gw_growth'),
+            ('__BRIDGE_UID__', 'gw_bridge'),
+            ('__EQUITY_UID__', 'gw_equity'),
+            ('__BASIS_UID__', 'judgment'),
+        ):
+            code = code.replace(placeholder, uid(key))
+        return code.replace('__GROWTH_EDIT_MODE__', 'true' if growth_editor else 'false')
+    return JS.replace('__COMPANY__', co['code']).replace('__MODE__', mode)
 
 
 def page(co, key, title, icon, mode, tabs):
@@ -392,6 +485,11 @@ def page(co, key, title, icon, mode, tabs):
     company_columns = bp.COLUMNS['company']
     try:
         for table, label, kind in tabs:
+            if co['code'] == '01698.HK' and mode == 'growth' and table == 'growth':
+                editor = page_script(co, mode, growth_editor=True)
+                b['assets']['scripts']['growth_editor'] = {'version': 'v1', 'code': editor}
+                b['tabs'].append({'title': label, 'blocks': [{'type': 'jsBlock', 'script': 'growth_editor'}]})
+                continue
             if table == 'company':
                 bp.COLUMNS['company'] = ['name', *ASSET_SETTINGS] if kind == 'asset_settings' else EQUITY_SETTINGS
             body = al.aligned_blueprint(table, label, gid, co, scope=scope(kind, co))
