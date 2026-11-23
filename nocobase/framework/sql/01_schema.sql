@@ -865,7 +865,7 @@ COMMENT ON COLUMN vi_growth_base.adv_years IS '优势年限：超额回报还能
 
 COMMENT ON COLUMN vi_growth_base.note IS '说明';
 
-COMMENT ON COLUMN vi_growth_base.revenue_plan IS '分项收入预测：各收入行的两段增速及经营利润率分摊（JSON）';
+COMMENT ON COLUMN vi_growth_base.revenue_plan IS '分项收入预测：各收入行的两段增速与集团预测参数（JSON）';
 
 COMMENT ON COLUMN vi_growth_base.company_id IS '公司（关联 公司）';
 

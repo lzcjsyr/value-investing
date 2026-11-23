@@ -143,11 +143,15 @@ INSERT INTO vi_epv_base (company_id, business_id, sort, name, section, formula, 
 INSERT INTO vi_epv_base (company_id, business_id, sort, name, section, formula, note) VALUES ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), (SELECT id FROM vi_business_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND code = 'B1'), 13, '其他收益（投资收益、公允价值变动、一次性项目）', '不计入', '其他利得及损失净额', '不计入：对外股权投资已在「④ 独立资产」按折后账面值单独计价；且 2025 年 26.32 亿元中含 23.7 亿元一次性分派收益，不具备可持续性。');
 INSERT INTO vi_epv_base (company_id, business_id, sort, name, section, formula, note) VALUES ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), (SELECT id FROM vi_business_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND code = 'B1'), 14, '应占联营公司溢利', '不计入', '应占权益法投资净损益', '不计入：权益法投资已在「④ 独立资产」单独计价，对应损益须从经营利润中彻底剥离。');
 INSERT INTO vi_epv_base (company_id, business_id, sort, name, section, formula, note) VALUES ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), (SELECT id FROM vi_business_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND code = 'B1'), 15, '融资成本', '不计入', '−财务费用', '不计入：本业务采用企业口径，全部有息借款、应付票据与租赁负债已在「④ 独立资产」全额扣除，融资利息不再进入经营利润。');
-INSERT INTO vi_growth_base (company_id, business_id, ronic, adv_years, note, revenue_plan) VALUES ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), (SELECT id FROM vi_business_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND code = 'B1'), 0.15, 10, '逐年汇总分项收入与利润，扣除增长投入；优势期末按届时盈利资本化', '[
-  {"name":"会员服务","early":0.02,"late":0.02,"margin":0.42},
-  {"name":"营销及消费服务","early":0.10,"late":0.06,"margin":0.15},
-  {"name":"社交娱乐及其他","early":-0.08,"late":-0.08,"margin":0.16}
-]');
+INSERT INTO vi_growth_base (company_id, business_id, ronic, adv_years, note, revenue_plan) VALUES ((SELECT id FROM vi_company_base WHERE code = '01698.HK'), (SELECT id FROM vi_business_base WHERE company_id = (SELECT id FROM vi_company_base WHERE code = '01698.HK') AND code = 'B1'), 0.15, 10, '逐年汇总分项收入，按集团毛利率和费用率计利润，扣除增长投入并折现。', '{
+  "model":"group_income",
+  "rateChanges":{"gross":0,"selling":0,"admin":0},
+  "lines":[
+    {"name":"会员服务","early":0.02,"late":0.02},
+    {"name":"营销及消费服务","early":0.10,"late":0.06},
+    {"name":"社交娱乐及其他","early":-0.08,"late":-0.08}
+  ]
+}');
 -- 腾讯音乐第三层的研究记录。可单独执行；完整估值种子也在同一事务内执行此段。
 DO $review$
 DECLARE
@@ -173,8 +177,8 @@ BEGIN
   FOR item IN SELECT * FROM (VALUES
     ('J-GROW','可持续盈利能增长多快','可持续盈利增速 g',
      '2026Q3 会员收入 49.85 亿元，同比增 9.2%，含喜马拉雅。营销及消费收入 26.97 亿元，社交娱乐等 12.59 亿元。2025Q4 付费用户和月均付费额分别增长 5.3%、7.2%，两项均已停按季披露。',
-     '沿用第二层正常化收入基线 349.06 亿元（会员 199.40、营销及消费 TTM 99.30、社交娱乐 50.36 亿元），先按三条收入线估经营利润。会员年增 2%，反映付费升级同时受免费产品分流。营销及消费服务前三年增 10%、后七年增 6%，反映演出与周边从较小基数扩张后放缓。社交娱乐每年收缩 8%，接近 2025 全年降幅 7.3%。这些均为十年推演假设。',
-     '按第二层三条正常化收入（会员 199.40、营销及消费 99.30、社交娱乐 50.36 亿元），以 42%、15%、16% 的研究分摊利润率估基期经营利润 106.71 亿元。十年后分别为 102.09、29.82、3.50 亿元，合计 135.41 亿元。十年复合约 2.41%，按半个百分点取整为 2.5%。利润率沿用研究分摊，税率、归母比例及维持性投入相对稳定，才可把利润增速用于第二层现金收益 E。三块利润仅用来估增长速度。',
+     '沿用第二层正常化收入基线 349.06 亿元（会员 199.40、营销及消费 TTM 99.30、社交娱乐 50.36 亿元），先分别预测三条收入线。会员年增 2%，反映付费升级同时受免费产品分流。营销及消费服务前三年增 10%、后七年增 6%，反映演出与周边从较小基数扩张后放缓。社交娱乐每年收缩 8%，接近 2025 全年降幅 7.3%。这些均为十年推演假设。',
+     '各年先汇总三条收入，按第二层正常化的集团综合毛利率、销售费用率和管理费用率计算经营利润，再处理税、维持性投入及少数股东。业务结构变化通过集团毛利率情景测试。新增资本按收入净扩张对应的税后归母盈利和 RONIC 估算。',
      '若并表周年后会员收入在可比口径下连续两年增速低于 1% 或高于 5%，重做会员行。若低毛利业务占比上升且集团毛利率连续两季同比降至少 2 个百分点，先复核利润率，再算 g。',
      '单季热门演出、并表首年收入跳升，单独看都不足以调高长期 g。缺少有机拆分时保留未知。',
      '2026Q3 合并会员增长，但营销及消费增长伴随毛利率下降。固定利润率会高估经营杠杆，尤其在演出和周边替代高毛利会员时。',

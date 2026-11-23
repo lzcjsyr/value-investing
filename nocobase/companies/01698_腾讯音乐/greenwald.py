@@ -100,12 +100,16 @@ EPV = [  # (项目, 段落, 方向, 报表公式, 取值方式, 数值, 起始�
     ('融资成本', '不计入', None, '−财务费用', None, None, None, None, [],
      '不计入：本业务采用企业口径，全部有息借款、应付票据与租赁负债已在「④ 独立资产」全额扣除，融资利息不再进入经营利润。'),
 ]
-# 前三年、第四年起的收入增速和研究分摊经营利润率。后者在估值时与第二层校准。
-GROWTH = dict(ronic=0.15, adv_years=10, revenue_plan='''[
-  {"name":"会员服务","early":0.02,"late":0.02,"margin":0.42},
-  {"name":"营销及消费服务","early":0.10,"late":0.06,"margin":0.15},
-  {"name":"社交娱乐及其他","early":-0.08,"late":-0.08,"margin":0.16}
-]''')
+# 比率偏移基于第二层的集团综合毛利率、销售费用率和管理费用率。
+GROWTH = dict(ronic=0.15, adv_years=10, revenue_plan='''{
+  "model":"group_income",
+  "rateChanges":{"gross":0,"selling":0,"admin":0},
+  "lines":[
+    {"name":"会员服务","early":0.02,"late":0.02},
+    {"name":"营销及消费服务","early":0.10,"late":0.06},
+    {"name":"社交娱乐及其他","early":-0.08,"late":-0.08}
+  ]
+}''')
 # 估值时点及未单独披露的输入
 NOTES = ('2026Q3 官方业绩公告为资产负债及经营数据基准。每股价值用 Q3 基本加权平均普通股数 31.38 亿股作分母代理。'
          'Q3 公告未拆出投资应付款、当期汇出税估算或维持性资本开支，相关估值假设见各行。每股均为普通股口径，1 ADS 对应 2 股。')
@@ -169,7 +173,7 @@ def build(db):
 
     epv = [dict(business='B1', sort=i, name=n, section=sec, direction=d, formula=f, method=m, value=v, from_year=a, to_year=b, judgments=j, note=note)
            for i, (n, sec, d, f, m, v, a, b, j, note) in enumerate(EPV, 1)]
-    growth = [dict(business='B1', **GROWTH, judgments=[], note='逐年汇总分项收入与利润，扣除增长投入；优势期末按届时盈利资本化')]
+    growth = [dict(business='B1', **GROWTH, judgments=[], note='逐年汇总分项收入，按集团毛利率和费用率计利润，扣除增长投入并折现。')]
 
     judgments = [
         dict(code='J-LAYER', title='主估值层：盈利能力价值（Greenwald 三层）', status='已形成建议',

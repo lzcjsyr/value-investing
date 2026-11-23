@@ -818,6 +818,59 @@ BEGIN
 EXCEPTION WHEN data_exception THEN RETURN NULL;
 END $$;
 
+-- 集团口径。收入分项增长，利润率按第二层合并利润表计算；偏移量采用小数。
+CREATE OR REPLACE FUNCTION vi_gw_group_cash_path(plan text, bases jsonb, e float8,
+    direct_cost float8, selling float8, admin float8, tax_rate float8, attrib float8, ro float8, n integer)
+RETURNS jsonb LANGUAGE plpgsql IMMUTABLE STRICT AS $$
+DECLARE
+  config jsonb;
+  items jsonb;
+  base_revenue float8;
+  gross_rate float8;
+  selling_rate float8;
+  admin_rate float8;
+  base_core float8;
+  forecast_margin float8;
+  previous_revenue float8;
+  next_revenue float8;
+  current_e float8 := e;
+  investment float8;
+  flows float8[] := '{}';
+  yr integer;
+BEGIN
+  config := plan::jsonb;
+  items := config->'lines';
+  IF config->>'model' IS DISTINCT FROM 'group_income'
+     OR jsonb_typeof(items) IS DISTINCT FROM 'array' OR n NOT BETWEEN 0 AND 100 OR ro <= 0
+     OR jsonb_typeof(config#>'{rateChanges,gross}') IS DISTINCT FROM 'number'
+     OR jsonb_typeof(config#>'{rateChanges,selling}') IS DISTINCT FROM 'number'
+     OR jsonb_typeof(config#>'{rateChanges,admin}') IS DISTINCT FROM 'number' THEN RETURN NULL; END IF;
+  IF EXISTS (SELECT FROM jsonb_to_recordset(items) p(name text, early float8, late float8)
+             WHERE name IS NULL OR (bases->>name)::float8 IS NULL OR early IS NULL OR late IS NULL OR least(early,late) < -1)
+     OR jsonb_array_length(items) <> (SELECT count(DISTINCT p->>'name') FROM jsonb_array_elements(items) p)
+     OR jsonb_array_length(items) <> (SELECT count(*) FROM jsonb_object_keys(bases)) THEN RETURN NULL; END IF;
+  SELECT sum(value::float8) INTO base_revenue FROM jsonb_each_text(bases);
+  IF base_revenue IS NULL OR base_revenue <= 0 THEN RETURN NULL; END IF;
+  gross_rate := 1 - direct_cost/base_revenue + (config#>>'{rateChanges,gross}')::float8;
+  selling_rate := selling/base_revenue + (config#>>'{rateChanges,selling}')::float8;
+  admin_rate := admin/base_revenue + (config#>>'{rateChanges,admin}')::float8;
+  IF gross_rate > 1 OR selling_rate < 0 OR admin_rate < 0 THEN RETURN NULL; END IF;
+  base_core := base_revenue - direct_cost - selling - admin;
+  forecast_margin := gross_rate - selling_rate - admin_rate;
+  previous_revenue := base_revenue;
+  FOR yr IN 1..n LOOP
+    SELECT sum((bases->>name)::float8 * power(1+early, least(yr,3)) * power(1+late, greatest(yr-3,0)))
+      INTO next_revenue FROM jsonb_to_recordset(items) p(name text, early float8, late float8);
+    -- 只有合计收入净扩张带来的正向归母收益需要增长投入。调利润率本身不产生投入。
+    investment := greatest(next_revenue-previous_revenue,0) * greatest(forecast_margin*(1-tax_rate)*attrib,0) / ro;
+    flows := array_append(flows, current_e-investment);
+    current_e := e + (next_revenue*forecast_margin - base_core)*(1-tax_rate)*attrib;
+    previous_revenue := next_revenue;
+  END LOOP;
+  RETURN to_jsonb(array_append(flows,current_e));
+EXCEPTION WHEN data_exception THEN RETURN NULL;
+END $$;
+
 CREATE OR REPLACE FUNCTION vi_gw_cash_pv(path jsonb, r double precision)
 RETURNS double precision LANGUAGE sql IMMUTABLE STRICT AS $$
   SELECT CASE WHEN r > 0 THEN sum(CASE WHEN t=jsonb_array_length(path)
@@ -944,7 +997,7 @@ FROM amt a LEFT JOIN sub s ON s.business_id = a.business_id LEFT JOIN hist ON hi
 -- 业务：一行一块业务（有调整后利润表的业务）：第二、三层
 CREATE VIEW vi_gw_unit AS
 WITH lines AS (
-  SELECT e.company_id, e.business_id, e.name, e.section, e.direction, e.value, e.method, c.normalized,
+  SELECT e.company_id, e.business_id, e.name, e.formula, e.section, e.direction, e.value, e.method, c.normalized,
          CASE WHEN e.section IN ('税前调整', '税后调整') AND e.direction = '减' THEN -1 ELSE 1 END AS sgn
   FROM vi_epv_base e JOIN vi_epv_calc c ON c.id = e.id
 ), agg AS (
@@ -952,6 +1005,11 @@ WITH lines AS (
          jsonb_object_agg(name, normalized) FILTER (WHERE section = '收入' AND name IS NOT NULL) AS bases,
          sum(normalized) FILTER (WHERE section = '收入') AS revenue,
          coalesce(sum(normalized) FILTER (WHERE section = '成本费用'), 0) AS cost,
+         sum(normalized) FILTER (WHERE section = '成本费用' AND formula = '−营业成本') AS direct_cost,
+         sum(normalized) FILTER (WHERE section = '成本费用' AND formula = '−销售及营销费用') AS selling,
+         sum(normalized) FILTER (WHERE section = '成本费用' AND formula = '−一般及行政费用') AS admin,
+         count(*) FILTER (WHERE section = '成本费用' AND coalesce(formula,'') NOT IN
+           ('−营业成本','−销售及营销费用','−一般及行政费用')) AS unmapped_costs,
          coalesce(sum(sgn * normalized) FILTER (WHERE section = '税前调整'), 0) AS pre_adj,
          max(value) FILTER (WHERE section = '所得税') AS tax_rate,
          coalesce(sum(sgn * normalized) FILTER (WHERE section = '税后调整'), 0) AS post_adj,
@@ -981,7 +1039,11 @@ WITH lines AS (
   FROM e
 ), paths AS (
   SELECT f.*, CASE WHEN n_rev = (SELECT count(*) FROM jsonb_object_keys(bases)) THEN
-     vi_gw_cash_path(revenue_plan,bases,earnings,ebit_reported,tax_rate,1-minority_rate,ronic,adv_years) END AS cash_path
+     CASE WHEN left(ltrim(revenue_plan),1) = '{' THEN
+       CASE WHEN unmapped_costs = 0 THEN vi_gw_group_cash_path(revenue_plan,bases,earnings,
+         direct_cost,selling,admin,tax_rate,1-minority_rate,ronic,adv_years) END
+     ELSE vi_gw_cash_path(revenue_plan,bases,earnings,ebit_reported,tax_rate,1-minority_rate,ronic,adv_years) END
+  END AS cash_path
   FROM f
 ), v AS (
   SELECT paths.*, vi_gw_pv(earnings, 0, NULL, NULL, NULL, h) AS epv,
